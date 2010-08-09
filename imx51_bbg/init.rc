@@ -1,0 +1,15 @@
+on boot
+
+    # Set permission for IIM node
+    chmod 0777 /dev/mxc_iim
+    symlink /dev/mxc_iim /dev/mxc_mem
+
+    chmod 0777 /sys/class/graphics/fb0/fsl_disp_property
+    chmod 0777 /sys/class/graphics/fb1/fsl_disp_property
+
+    # 3D acceleration property
+    setprop debug.sf.showfps    0
+    setprop debug.sf.enable_hgl 1
+
+    # fsl omx graphic manager media framework property
+    setprop media.omxgm.enable-player 1
