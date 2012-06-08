@@ -52,5 +52,3 @@ BOARD_USE_AR3K_BLUETOOTH := true
 BOARD_KERNEL_BASE := 0x10800000
 
 USE_ION_ALLOCATOR := true
-
-include device/fsl/proprietary/gpu-viv/fsl-gpu.mk

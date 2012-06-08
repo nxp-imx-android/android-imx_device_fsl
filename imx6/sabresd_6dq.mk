@@ -4,7 +4,8 @@
 $(call inherit-product, device/fsl/imx6/imx6.mk)
 
 # Overrides
-PRODUCT_NAME := sabresd_6q
-PRODUCT_DEVICE := sabresd_6q
+PRODUCT_NAME := sabresd_6dq
+PRODUCT_DEVICE := sabresd_6dq
 
 include device/fsl/imx6/sabresd/SabreSDProductCommon.mk
+include device/fsl-proprietary/gpu-viv/fsl-gpu.mk

@@ -42,5 +42,3 @@ TARGET_USERIMAGES_USE_EXT4 := true
 
 # atheros 3k BT
 BOARD_USE_AR3K_BLUETOOTH := true
-
-include device/fsl/proprietary/gpu-viv/fsl-gpu.mk

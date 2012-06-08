@@ -20,7 +20,7 @@ PRODUCT_PACKAGES += \
 	VisualizationWallpapers			\
 	CubeLiveWallpapers			\
 	PinyinIME				\
-    libjni_pinyinime        \
+	libjni_pinyinime        \
 	libRS					\
 	librs_jni				\
 	pppd					\
@@ -34,7 +34,7 @@ PRODUCT_PACKAGES += \
 	dispd					\
 	ts_calibrator				\
 	libion                                  \
-       display_mode.conf
+	display_mode.conf
 
 # Debug utils
 PRODUCT_PACKAGES += \
@@ -235,16 +235,20 @@ PRODUCT_PACKAGES += \
 PRODUCT_LOCALES += hdpi mdpi
 
 PRODUCT_COPY_FILES +=	\
-	device/fsl/imx6/Dell_Dell_USB_Keyboard.kl:system/usr/keylayout/Dell_Dell_USB_Keyboard.kl \
-	device/fsl/imx6/Dell_Dell_USB_Keyboard.idc:system/usr/idc/Dell_Dell_USB_Keyboard.idc \
-	device/fsl/imx6/init.rc:root/init.rc \
-    device/fsl/imx6/apns-conf.xml:system/etc/apns-conf.xml
+	device/fsl/imx6/input/Dell_Dell_USB_Keyboard.kl:system/usr/keylayout/Dell_Dell_USB_Keyboard.kl \
+	device/fsl/imx6/input/Dell_Dell_USB_Keyboard.idc:system/usr/idc/Dell_Dell_USB_Keyboard.idc \
+	device/fsl/imx6/input/eGalax_Touch_Screen.idc:system/usr/idc/eGalax_Touch_Screen.idc \
+	device/fsl/imx6/input/eGalax_Touch_Screen.idc:system/usr/idc/HannStar_P1003_Touchscreen.idc \
+	device/fsl/imx6/etc/init.rc:root/init.rc \
+	device/fsl/imx6/etc/apns-conf.xml:system/etc/apns-conf.xml \
+	device/fsl/imx6/etc/init.usb.rc:root/init.freescale.usb.rc \
+	device/fsl/imx6/etc/ueventd.freescale.rc:root/ueventd.freescale.rc \
+	device/fsl/imx6/etc/init.gprs-pppd:system/etc/init.gprs-pppd \
+	device/fsl/imx6/etc/ota.conf:system/etc/ota.conf
 
-# for all other directory
 PRODUCT_COPY_FILES +=	\
-	device/fsl/imx6/ueventd.freescale.rc:root/ueventd.freescale.rc \
-	device/fsl/imx6/init.gprs-pppd:system/etc/init.gprs-pppd \
-	device/fsl/imx6/ota.conf:system/etc/ota.conf
+	external/linux-firmware-imx/firmware/vpu/vpu_fw_imx6d.bin:system/lib/firmware/vpu/vpu_fw_imx6d.bin 	\
+	external/linux-firmware-imx/firmware/vpu/vpu_fw_imx6q.bin:system/lib/firmware/vpu/vpu_fw_imx6q.bin
 
 # for property
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES := \

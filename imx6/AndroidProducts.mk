@@ -27,8 +27,7 @@
 # Copied from build/target/product/AndroidProducts.mk
 
 PRODUCT_MAKEFILES := \
-  $(LOCAL_DIR)/imx6q_arm2.mk \
-  $(LOCAL_DIR)/imx6sl_arm2.mk \
-  $(LOCAL_DIR)/imx6q_sabreauto.mk \
-  $(LOCAL_DIR)/sabresd_6q.mk \
-  $(LOCAL_DIR)/sabresd_6dl.mk
+  $(LOCAL_DIR)/arm2_6dq.mk \
+  $(LOCAL_DIR)/arm2_6sl.mk \
+  $(LOCAL_DIR)/sabreauto_6q.mk \
+  $(LOCAL_DIR)/sabresd_6dq.mk

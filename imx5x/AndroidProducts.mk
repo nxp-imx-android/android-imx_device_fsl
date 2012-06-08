@@ -27,5 +27,4 @@
 # Copied from build/target/product/AndroidProducts.mk
 
 PRODUCT_MAKEFILES := \
-  $(LOCAL_DIR)/imx53_smd.mk     \
-  $(LOCAL_DIR)/imx50_rdp.mk
+  $(LOCAL_DIR)/imx53_smd.mk

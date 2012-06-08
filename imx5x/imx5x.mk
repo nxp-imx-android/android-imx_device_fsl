@@ -235,7 +235,8 @@ PRODUCT_COPY_FILES +=	\
 	device/fsl/imx5x/Dell_Dell_USB_Keyboard.kl:system/usr/keylayout/Dell_Dell_USB_Keyboard.kl \
 	device/fsl/imx5x/Dell_Dell_USB_Keyboard.idc:system/usr/idc/Dell_Dell_USB_Keyboard.idc \
 	device/fsl/imx5x/init.rc:root/init.rc \
-	device/fsl/imx5x/initlogo.rle:root/initlogo.rle
+	device/fsl/imx5x/initlogo.rle:root/initlogo.rle \
+	external/linux-firmware-imx/firmware/vpu/vpu_fw_imx53.bin:system/lib/firmware/vpu/vpu_fw_imx53.bin
 
 # for all other directory
 PRODUCT_COPY_FILES +=	\

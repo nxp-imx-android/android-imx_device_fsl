@@ -4,7 +4,10 @@
 $(call inherit-product, device/fsl/imx6/imx6.mk)
 
 # Overrides
-PRODUCT_NAME := sabresd_6dl
-PRODUCT_DEVICE := sabresd_6dl
+PRODUCT_NAME := arm2_6sl
+PRODUCT_DEVICE := arm2_6sl
 
-include device/fsl/imx6/sabresd/SabreSDProductCommon.mk
+include device/fsl/imx6/arm2/ProductCommonArm2.mk
+
+PRODUCT_COPY_FILES +=	\
+	device/fsl/arm2_6sl/init.rc:root/init.freescale.rc
