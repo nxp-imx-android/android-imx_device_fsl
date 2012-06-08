@@ -1,0 +1,70 @@
+import init.freescale.usb.rc
+on boot
+
+    # Set permission for IIM node
+    symlink /dev/mxs_viim /dev/mxc_mem
+
+    symlink /dev/ttymxc1 /dev/gpsdevice
+
+    # Enable Tethering in the Settings
+    setprop ro.tether.denied false
+
+    # 3D acceleration property
+    setprop debug.sf.showfps    0
+    setprop debug.sf.enable_hgl 1
+    setprop debug.egl.hw	1
+
+    # fsl omx graphic manager media framework property
+
+    #Define the config for dual camera
+    #For landscape mode, orient is 0
+    #For portrait mode, orient is 90
+    #the android before honycomb are all in portrait mode
+    setprop back_camera_name ov
+    setprop back_camera_orient 0
+
+    # Set OpenGLES version
+    setprop ro.opengles.version 131072
+
+    # Disable UI output for second display during video playback
+    setprop ro.secfb.disable-overlay  0
+
+    # Enable auto configuration with 1, disable with 0
+    setprop ro.AUTO_CONFIG_DISPLAY  1
+
+    # Set rotation to 270 to cofigure as portrait mode
+    setprop ro.sf.hwrotation 0
+
+    # hdmi audio output
+    setprop ro.HDMI_AUDIO_OUTPUT 1
+
+    # Set video overlay display mode
+    setprop sys.VIDEO_OVERLAY_DISPLAY 1
+
+    # Default backlight device
+    setprop hw.backlight.dev "pwm-backlight.0"
+    # Chmod/chown FSL specific sys entry
+    chown system system /sys/class/backlight/pwm-backlight.0/brightness
+    chmod 0660 /sys/class/backlight/pwm-backlight.0/brightness
+
+    # Add support wakeup system from debug UART
+    write /sys/devices/platform/imx-uart.0/tty/ttymxc0/power/wakeup enabled
+
+service wpa_supplicant /system/bin/wpa_supplicant \
+    -Dnl80211 -e/data/misc/wifi/entropy.bin
+    class late_start
+    disabled
+    oneshot
+
+service iprenew_wlan0 /system/bin/dhcpcd -n
+    class late_start
+    disabled
+    oneshot
+
+on fs
+# mount ext4 partitions
+    mount ext4 /dev/block/mmcblk0p5 /system
+    mount ext4 /dev/block/mmcblk0p5 /system ro remount
+    mount ext4 /dev/block/mmcblk0p7 /data nosuid nodev nodiratime noatime noauto_da_alloc
+    mount ext4 /dev/block/mmcblk0p6 /cache nosuid nodev
+    mount ext4 /dev/block/mmcblk0p8 /vendor nosuid nodev

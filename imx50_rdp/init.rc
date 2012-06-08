@@ -1,0 +1,32 @@
+on boot
+
+    # Set permission for VIIM node
+    symlink /dev/mxs_viim /dev/mxc_mem
+
+    # Define 3D acceleration property
+    setprop debug.sf.showfps    0
+    setprop debug.sf.enable_hgl 0
+    setprop debug.egl.hw        0
+    
+    # Set OpenGLES version 
+    setprop ro.opengles.version 65536
+
+    # Set eink power enable
+    setprop ro.FSL_EINK_POWER 1
+    setprop ro.FSL_REMOVE_KEYGUARD 1
+
+    # fsl omx graphic manager media framework property
+    setprop media.omxgm.enable-player 1
+    setprop media.omxgm.enable-scan 1
+
+service wpa_supplicant /system/bin/wlan_tool wpa_supplicant
+    socket wpa_wlan0 dgram 660 root wifi
+    disabled
+    oneshot
+
+on fs
+# mount ubi partitions
+    mount ubifs ubi0:system /system
+    mount ubifs ubi0:system /system ro remount
+    mount ubifs ubi0:data /data nosuid nodev
+    mount ubifs ubi0:cache /cache nosuid nodev

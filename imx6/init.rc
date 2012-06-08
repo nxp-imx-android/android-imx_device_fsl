@@ -15,7 +15,7 @@ loglevel 3
 
 # setup the global environment
     export PATH /sbin:/vendor/bin:/system/sbin:/system/bin:/system/xbin
-    export LD_LIBRARY_PATH /vendor/lib:/system/lib:/system/lib/egl
+    export LD_LIBRARY_PATH /vendor/lib:/system/lib
     export ANDROID_BOOTLOGO 1
     export ANDROID_ROOT /system
     export ANDROID_ASSETS /system/app
@@ -42,7 +42,7 @@ loglevel 3
 
 # Right now vendor lives on the same filesystem as system,
 # but someday that may change.
-    mkdir /vendor 0771 system system
+#    symlink /system/vendor /vendor
 
 # Create cgroup mount point for cpu accounting
     mkdir /acct
@@ -59,6 +59,8 @@ loglevel 3
     mkdir /data 0771 system system
     mkdir /cache 0770 system cache
     mkdir /config 0500 root root
+
+    mkdir /vendor 0771 system system
 
     # Directory for putting things only root should see.
     mkdir /mnt/secure 0700 root root
@@ -79,7 +81,7 @@ loglevel 3
     mount tmpfs tmpfs /mnt/obb mode=0755,gid=1000
 
     # shared memory used by middleware
-    mkdir /mnt/shm 0775 system graphics
+    mkdir /mnt/shm  0775 system graphics
     mount tmpfs tmpfs /mnt/shm mode=0775,uid=1000,gid=1003,size=1m
 
     write /proc/sys/kernel/panic_on_oops 1
@@ -219,6 +221,7 @@ on boot
 # Memory management.  Basic kernel parameters, and allow the high
 # level system server to be able to adjust the kernel OOM driver
 # paramters to match how it is managing things.
+
     write /proc/sys/vm/overcommit_memory 1
     write /proc/sys/vm/min_free_order_shift 4
     chown root system /sys/module/lowmemorykiller/parameters/adj
@@ -335,7 +338,7 @@ on boot
     write /sys/class/rfkill/rfkill0/state 0
 
 # Enable USB host1'remote wakeup event wakeup android system
-    write /sys/bus/platform/drivers/fsl-ehci/fsl-ehci.1/power/wakeup enabled
+    write /sys/bus/platform/drivers/fsl-ehci/fsl-ehci.1/power/wakeup disabled
 
 # mount the debugfs
     mount debugfs none /sys/kernel/debug/
@@ -349,6 +352,11 @@ on boot
 
     class_start core
     class_start main
+
+on property:sys.boot_completed=1
+# Set default CPU frequency governor
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor interactive
+    write /sys/devices/system/cpu/cpufreq/interactive/go_maxspeed_load 80
 
 on nonencrypted
     class_start late_start
@@ -431,9 +439,6 @@ service console /system/bin/sh
     user root
     group root
 
-on property:ro.debuggable=1
-    start console
-
 # adbd is controlled via property triggers in init.<platform>.usb.rc
 service adbd /sbin/adbd
     class core
@@ -441,6 +446,14 @@ service adbd /sbin/adbd
 
 # adbd on at boot in emulator
 on property:ro.kernel.qemu=1
+    start adbd
+
+# Always start adbd on userdebug and eng builds
+on property:ro.debuggable=1
+    start console
+    write /sys/class/android_usb/android0/iManufacturer $ro.product.manufacturer
+    write /sys/class/android_usb/android0/iProduct $ro.product.model
+    write /sys/class/android_usb/android0/iSerial $ro.serialno
     start adbd
 
 # This property trigger has added to imitiate the previous behavior of "adb root".
@@ -589,7 +602,7 @@ service ril-daemon /system/bin/rild -l /system/lib/libreference-ril.so
     socket rild-debug stream 660 radio system
     socket rild-ppp stream 660 radio system
     user root
-    group radio cache inet misc audio sdcard_rw log
+    group radio cache inet misc audio
 
 service pppd_gprs /etc/init.gprs-pppd
     class main
@@ -598,7 +611,12 @@ service pppd_gprs /etc/init.gprs-pppd
     disabled
     oneshot
 
+service gpu_init /system/bin/gpu_init.sh
+    class core
+    user root
+    group root
+    oneshot
+
 service wifi_mac /system/bin/sh /system/etc/check_wifi_mac.sh
     class late_start
     oneshot
-

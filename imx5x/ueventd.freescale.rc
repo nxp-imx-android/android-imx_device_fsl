@@ -1,0 +1,46 @@
+/dev/ttymxc1              0600   bluetooth  bluetooth
+/dev/ttymxc2              0600   bluetooth  bluetooth
+/dev/pmem_gpu             0660   system     graphics
+/dev/pmem_adsp            0666   system     audio
+/dev/snd/*                0664   system     audio
+/dev/ttyUSB*              0640   radio      radio
+/dev/ttyACM*              0640   radio      radio
+/dev/video0               0660   system     camera
+/dev/video1               0660   system     camera
+/dev/video16              0660   system     graphics
+/dev/mxc_ipu              0666   system     graphics
+/dev/mxc_iim              0664   system     media
+/dev/mxs_viim             0664   system     media
+/dev/fsl_cache            0666   system     graphics
+/dev/gsl_kmod             0666   system     graphics
+/dev/mxc_vpu              0666   system     media
+/dev/uinput               0666   system     input
+/dev/ttymxc1              0775   system     gps
+/dev/ttya0                0775   system     gps
+/dev/ptya0                0775   system     gps
+/dev/ttya1                0775   system     gps
+/dev/ptya1                0775   system     gps
+
+# sysfs properties
+/sys/devices/virtual/input/input*   name        0660  root   input
+/sys/devices/virtual/input/input*   max         0660  root   input
+/sys/devices/virtual/input/input*   min         0660  root   input
+/sys/devices/virtual/input/input*   poll        0660  root   input
+/sys/devices/virtual/input/input*   enable      0660  root   input
+/sys/devices/virtual/input/input*   position    0660  root   input
+
+/sys/devices/platform/sdhci-esdhc-imx.2/mmc_host/mmc2/mmc2:0001* boot_bus_config 0660 root root
+/sys/devices/platform/sdhci-esdhc-imx.2/mmc_host/mmc2/mmc2:0001* boot_config 0660 root root
+/sys/devices/platform/sdhci-esdhc-imx.2/mmc_host/mmc0/mmc0:0001* boot_bus_config 0660 root root
+/sys/devices/platform/sdhci-esdhc-imx.2/mmc_host/mmc0/mmc0:0001* boot_config 0660 root root
+/sys/devices/platform/fsl-usb2-udc/gadget remote_wakeup 0660 root root
+/sys/devices/platform/imx-i2c.2/i2c-2/2-0044 mode 0660 system system
+/sys/devices/platform/imx-i2c.2/i2c-2/2-0044 lux 0660 system system
+/sys/devices/platform/imx-i2c.2/i2c-2/2-0044 int_lt_lux 0660 system system
+/sys/devices/platform/imx-i2c.2/i2c-2/2-0044 int_ht_lux 0660 system system
+/sys/devices/platform/mxc_sdc_fb.0/graphics/fb*	fsl_disp_property 0660 system graphics
+/sys/devices/platform/mxc_sdc_fb.1/graphics/fb*	fsl_disp_property 0660 system graphics
+/sys/devices/platform/mxc_sdc_fb.0/graphics/fb*	mode 0660 system graphics
+/sys/devices/platform/mxc_sdc_fb.1/graphics/fb*	mode 0660 system graphics
+/sys/devices/platform/imx_dvfscore.0 enable 0660 system system
+/sys/devices/platform/imx_busfreq.0 enable 0660 system system

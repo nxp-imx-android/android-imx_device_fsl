@@ -1,9 +1,0 @@
-on boot
-
-    # Set permission for VIIM node
-    chmod 0777 /dev/mxs_viim
-    symlink /dev/mxs_viim /dev/mxc_mem
-
-    # Define 3D acceleration property
-    setprop debug.sf.showfps    0
-    setprop debug.sf.enable_hgl 0

@@ -1,0 +1,99 @@
+import init.freescale.usb.rc
+on boot
+
+    # Set permission for IIM node
+    symlink /dev/mxc_iim /dev/mxc_mem
+
+    # Enable Tethering in the Settings
+    setprop ro.tether.denied false
+
+    symlink /dev/ttymxc1 /dev/gpsdevice
+    setprop ro.kernel.android.gps ttya
+    #export uart2 and set the default value
+    write /sys/class/gpio/export 44
+    write /sys/class/gpio/gpio44/direction "out"
+    write /sys/class/gpio/gpio44/value 1
+
+    # 3D acceleration property
+    setprop debug.sf.showfps    0
+    setprop debug.sf.hw         1
+    setprop debug.egl.hw	1
+    setprop ro.sf.lcd_density   160
+
+    # fsl omx graphic manager media framework property
+    setprop media.omxgm.enable-player 1
+    setprop media.omxgm.enable-record 1
+    setprop media.omxgm.enable-scan 1
+    setprop rw.VIDEO_RENDER_NAME video_render.surface
+
+    #Define the config for dual camera
+    #For landscape mode, orient is 0
+    #For portrait mode, orient is 90
+    #the android before honycomb are all in portrait mode
+    setprop front_camera_name ov
+    setprop front_camera_orient 0
+
+    # Set OpenGLES version
+    setprop ro.opengles.version 131072
+
+    # Enable auto configuration with 1, disable with 0
+    setprop ro.AUTO_CONFIG_DISPLAY  1
+
+    # Set rotation to 270 to cofigure as portrait mode
+    setprop ro.sf.hwrotation 0
+
+    # hdmi audio output
+    setprop ro.HDMI_AUDIO_OUTPUT 1
+
+    # Set light sensor sysfs path and light sensor threshold lux value
+    setprop ro.hardware.lightsensor "/sys/class/i2c-dev/i2c-2/device/2-0044/"
+    setprop ro.lightsensor.threshold  20
+
+    # Set mag3110 sensor sysfs path
+    setprop ro.hardware.magsensor "/sys/class/i2c-dev/i2c-1/device/1-000e/"
+
+    # Default backlight device
+    setprop hw.backlight.dev "pwm-backlight.0"
+    # Chmod/chown FSL specific sys entry
+    chown system system /sys/class/backlight/pwm-backlight.0/brightness
+    chmod 0660 /sys/class/backlight/pwm-backlight.0/brightness
+
+# Daemon processes to be run by init.
+service hciattach /system/bin/logwrapper /system/bin/hciattach -n -s 115200 /dev/ttymxc2 ath3k 3000000 flow sleep
+    user root
+    group bluetooth net_bt_admin
+    disabled
+    oneshot
+
+# magd daemon
+service magd /system/bin/magd
+    class main
+    user system
+    group input
+    oneshot
+
+# Orion InG
+service ing /system/etc/gps/ingsvcd -c /system/etc/gps/Orion.ini
+    class late_start
+    user root
+    group gps
+    disabled
+    oneshot
+
+service wpa_supplicant /system/bin/wpa_supplicant \
+    -Dnl80211 -puse_p2p_group_interface=0 -e/data/misc/wifi/entropy.bin
+    class late_start
+    disabled
+    oneshot
+
+service iprenew_wlan0 /system/bin/dhcpcd -n
+    class late_start
+    disabled
+    oneshot
+
+on fs
+# mount ext4 partitions
+    mount ext4 /dev/block/mmcblk0p2 /system
+    mount ext4 /dev/block/mmcblk0p2 /system ro remount
+    mount ext4 /dev/block/mmcblk0p5 /data nosuid nodev nodiratime noatime noauto_da_alloc
+    mount ext4 /dev/block/mmcblk0p6 /cache nosuid nodev

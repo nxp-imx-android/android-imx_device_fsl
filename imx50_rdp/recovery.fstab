@@ -1,0 +1,4 @@
+# UBI support is under below:
+/system ubifs /dev/ubi1_0
+/data ubifs /dev/ubi1_2
+/cache ubifs /dev/ubi1_1
