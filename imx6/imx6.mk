@@ -235,16 +235,18 @@ PRODUCT_PACKAGES += \
 PRODUCT_LOCALES += hdpi mdpi
 
 PRODUCT_COPY_FILES +=	\
-	device/fsl/imx6/input/Dell_Dell_USB_Keyboard.kl:system/usr/keylayout/Dell_Dell_USB_Keyboard.kl \
-	device/fsl/imx6/input/Dell_Dell_USB_Keyboard.idc:system/usr/idc/Dell_Dell_USB_Keyboard.idc \
-	device/fsl/imx6/input/eGalax_Touch_Screen.idc:system/usr/idc/eGalax_Touch_Screen.idc \
-	device/fsl/imx6/input/eGalax_Touch_Screen.idc:system/usr/idc/HannStar_P1003_Touchscreen.idc \
+	device/fsl/common/input/Dell_Dell_USB_Keyboard.kl:system/usr/keylayout/Dell_Dell_USB_Keyboard.kl \
+	device/fsl/common/input/Dell_Dell_USB_Keyboard.idc:system/usr/idc/Dell_Dell_USB_Keyboard.idc \
+	device/fsl/common/input/eGalax_Touch_Screen.idc:system/usr/idc/eGalax_Touch_Screen.idc \
+	device/fsl/common/input/eGalax_Touch_Screen.idc:system/usr/idc/HannStar_P1003_Touchscreen.idc \
 	device/fsl/imx6/etc/init.rc:root/init.rc \
 	device/fsl/imx6/etc/apns-conf.xml:system/etc/apns-conf.xml \
 	device/fsl/imx6/etc/init.usb.rc:root/init.freescale.usb.rc \
 	device/fsl/imx6/etc/ueventd.freescale.rc:root/ueventd.freescale.rc \
 	device/fsl/imx6/etc/init.gprs-pppd:system/etc/init.gprs-pppd \
-	device/fsl/imx6/etc/ota.conf:system/etc/ota.conf
+	device/fsl/imx6/etc/ota.conf:system/etc/ota.conf \
+	device/fsl/common/display/display.conf:system/etc/display.conf \
+	device/fsl/common/display/display_mode.conf:system/etc/display_mode.conf
 
 PRODUCT_COPY_FILES +=	\
 	external/linux-firmware-imx/firmware/vpu/vpu_fw_imx6d.bin:system/lib/firmware/vpu/vpu_fw_imx6d.bin 	\
