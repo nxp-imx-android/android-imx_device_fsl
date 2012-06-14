@@ -8,7 +8,6 @@ PRODUCT_NAME := arm2_6dq
 PRODUCT_DEVICE := arm2_6dq
 
 include device/fsl/imx6/arm2/ProductCommonArm2.mk
-include device/fsl-proprietary/gpu-viv/fsl-gpu.mk
 
 PRODUCT_COPY_FILES +=	\
 	device/fsl/arm2_6dq/init.rc:root/init.freescale.rc

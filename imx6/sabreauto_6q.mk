@@ -18,5 +18,3 @@ PRODUCT_COPY_FILES += \
 # GPU files
 
 DEVICE_PACKAGE_OVERLAYS := device/fsl/sabreauto_6q/overlay
-
-include device/fsl-proprietary/gpu-viv/fsl-gpu.mk
