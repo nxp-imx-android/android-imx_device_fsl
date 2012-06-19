@@ -18,8 +18,8 @@ WPA_SUPPLICANT_VERSION := VER_0_9_ATHEROS
 HOSTAPD_VERSION := VER_0_9_ATHEROS
 WIFI_DRIVER_MODULE_PATH         := "/system/lib/modules/ath6kl_sdio.ko"
 WIFI_DRIVER_MODULE_NAME         := "ath6kl_sdio"
-WIFI_DRIVER_MODULE_ARG          := "suspend_mode=2 ar6k_clock=26000000"
-WIFI_DRIVER_P2P_MODULE_ARG      := "suspend_mode=2 ar6k_clock=26000000 ath6kl_p2p=1 debug_mask=0x2413"
+WIFI_DRIVER_MODULE_ARG          := "suspend_mode=3"
+WIFI_DRIVER_P2P_MODULE_ARG      := "suspend_mode=3 ath6kl_p2p=1 debug_mask=0x2413"
 WIFI_SDIO_IF_DRIVER_MODULE_PATH := "/system/lib/modules/cfg80211.ko"
 WIFI_SDIO_IF_DRIVER_MODULE_NAME := "cfg80211"
 WIFI_SDIO_IF_DRIVER_MODULE_ARG  := ""
