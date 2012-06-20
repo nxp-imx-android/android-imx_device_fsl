@@ -61,8 +61,7 @@ PRODUCT_PACKAGES +=				\
 
 #audio related lib
 PRODUCT_PACKAGES +=		    \
-	audio.sabresd_reva.freescale \
-	audio.sabresd_revb.freescale \
+	audio.tinyalsa.freescale \
 	audio.legacy.freescale \
 	alsa_aplay             \
 	alsa_arecord	\
