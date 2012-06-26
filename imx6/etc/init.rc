@@ -287,9 +287,9 @@ on boot
     setprop rw.SECOND_DISPLAY_CONNECTED 0
 
 # Comment the usage of stageflight media framework
-    setprop  media.stagefright.enable-scan 0
-    setprop  media.stagefright.enable-player 0
-    setprop  media.stagefright.enable-record 0 
+    setprop  media.stagefright.enable-scan 1
+    setprop  media.stagefright.enable-player 1
+    setprop  media.stagefright.enable-record 1
     setprop  media.stagefright.enable-http 0
     setprop  media.stagefright.enable-meta 0
     setprop  media.stagefright.enable-vpuenc 0 
