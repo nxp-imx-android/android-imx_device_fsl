@@ -100,7 +100,6 @@ PRODUCT_PACKAGES +=				\
 PRODUCT_PACKAGES += \
 	fw-3					\
 	bdata					\
-	softmac					\
 	athtcmd_ram				\
 	nullTestFlow				\
 	cfg80211.ko				\
@@ -108,6 +107,14 @@ PRODUCT_PACKAGES += \
 	ath6kl_sdio.ko				\
 	check_wifi_mac.sh
 
+# Atheros wifi tool
+PRODUCT_PACKAGES += \
+	abtfilt					\
+	artagent				\
+	ath6kl-fwlog-record			\
+	athtestcmd				\
+	athtestcmd				\
+	wmiconfig
 # gpu related libs. align to device/fsl/proprietary/gpu/fsl-gpu.mk
 PRODUCT_PACKAGES += \
 	libEGL_imx51.so				\

@@ -20,7 +20,7 @@ PRODUCT_PACKAGES += \
 	VisualizationWallpapers			\
 	CubeLiveWallpapers			\
 	PinyinIME				\
-	libjni_pinyinime        \
+	libjni_pinyinime        		\
 	libRS					\
 	librs_jni				\
 	pppd					\
@@ -46,87 +46,89 @@ PRODUCT_PACKAGES += \
 
 # Wifi AP mode
 PRODUCT_PACKAGES += \
-	hostapd 		\
-	hostapd_cli		\
-	hostapd_client          \
-	hostapd.conf		\
-	hostapd_wps		\
-	libhostapd_client	\
-	wmiconfig		\
+	hostapd 				\
+	hostapd_cli
 
 # keyboard mapping files.
-PRODUCT_PACKAGES +=				\
-	Dell_Dell_USB_Keyboard.kcm			\
-	mxckpd.kcm					\
+PRODUCT_PACKAGES += \
+	Dell_Dell_USB_Keyboard.kcm		\
+	mxckpd.kcm				\
 
 #audio related lib
-PRODUCT_PACKAGES +=		    \
-	audio.tinyalsa.freescale \
-	audio.legacy.freescale \
-	alsa_aplay             \
-	alsa_arecord	\
-	alsa_amixer     \
-	alsa_ctl        \
-	libtinyalsa \
+PRODUCT_PACKAGES += \
+	audio.tinyalsa.freescale 		\
+	audio.legacy.freescale 			\
+	alsa_aplay             			\
+	alsa_arecord				\
+	alsa_amixer     			\
+	alsa_ctl        			\
+	libtinyalsa 				\
 	libaudioutils
 
 # imx6 Hardware HAL libs.
-PRODUCT_PACKAGES +=				\
-	sensors.freescale					\
-	overlay.imx6					\
-	lights.freescale				\
-	gralloc.imx6					\
-	copybit.imx6					\
-	alsa.freescale					\
+PRODUCT_PACKAGES += \
+	sensors.freescale			\
+	overlay.imx6				\
+	lights.freescale			\
+	gralloc.imx6				\
+	copybit.imx6				\
+	alsa.freescale				\
 	audio.primary.freescale			\
-	hwcomposer.imx6             \
-	camera.imx6                 \
+	hwcomposer.imx6             		\
+	camera.imx6                 		\
 	magd
 
 # Bluetooth firmware files.
-PRODUCT_PACKAGES +=				\
-	ar3kbdaddr.pst					\
-	PS_ASIC.pst					\
-	RamPatch.txt					\
+PRODUCT_PACKAGES += \
+	ar3kdbaddr.pst				\
+	PS_ASIC.pst				\
+	RamPatch.txt
 
 # Freescale VPU firmware files.
-PRODUCT_PACKAGES +=				\
+PRODUCT_PACKAGES += \
 	libvpu					\
 	vpu_fw_imx6q.bin			\
 	vpu_fw_imx6d.bin			\
 
 # Atheros wifi firmwre files.
-PRODUCT_PACKAGES +=				\
-	fw-3                    \
-	bdata                   \
-	softmac                     \
-	athtcmd_ram             \
-	nullTestFlow            \
-	cfg80211.ko             \
-	compat.ko               \
-	ath6kl_sdio.ko          \
+PRODUCT_PACKAGES += \
+	fw-3                    		\
+	bdata                   		\
+	athtcmd_ram             		\
+	nullTestFlow            		\
+	cfg80211.ko             		\
+	compat.ko               		\
+	ath6kl_sdio.ko          		\
 	check_wifi_mac.sh
 
+# Atheros wifi tool
+PRODUCT_PACKAGES += \
+	abtfilt					\
+	artagent				\
+	ath6kl-fwlog-record			\
+	athtestcmd				\
+	psatUtil				\
+	wmiconfig
 
 # gps related lib
 PRODUCT_PACKAGES += \
-	gps.default	\
-	Orion.ini \
-	AR1520A-Auto.img \
-	ingsvcd \
-	libOrionCtl.so \
+	gps.default				\
+	Orion.ini 				\
+	AR1520A-Auto.img 			\
+	ingsvcd 				\
+	libOrionCtl.so 				\
 	OrionSys.so
 
 # drm related lib
 PRODUCT_PACKAGES += \
-	drmserver                   \
-	libdrmframework_jni         \
-	libdrmframework             \
-	libdrmpassthruplugin        \
-	libfwdlockengine            \
+	drmserver                   		\
+	libdrmframework_jni         		\
+	libdrmframework             		\
+	libdrmpassthruplugin        		\
+	libfwdlockengine            		\
 
 # Omx related libs, please align to device/fsl/proprietary/omx/fsl-omx.mk
-omx_libs :=						\
+omx_libs := \
 	core_register					\
 	component_register				\
 	contentpipe_register				\
