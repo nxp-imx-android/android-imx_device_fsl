@@ -110,6 +110,12 @@ PRODUCT_PACKAGES += \
 	psatUtil				\
 	wmiconfig
 
+# Intel PCIE wifi firmware
+PRODUCT_PACKAGES += \
+	iwlwifi-6000-4.ucode			\
+	iwlwifi-5000-5.ucode			\
+	iwlagn.ko
+
 # gps related lib
 PRODUCT_PACKAGES += \
 	gps.default				\

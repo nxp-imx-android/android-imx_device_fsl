@@ -69,6 +69,7 @@ on boot
 
     # No bluetooth hardware present
     setprop hw.bluetooth 0
+    setprop wlan.interface wlan0
 
 service wpa_supplicant /system/bin/wpa_supplicant \
     -Dnl80211 -puse_p2p_group_interface=0  -e/data/misc/wifi/entropy.bin
