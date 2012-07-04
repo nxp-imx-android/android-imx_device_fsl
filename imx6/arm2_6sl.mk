@@ -10,4 +10,5 @@ PRODUCT_DEVICE := arm2_6sl
 include device/fsl/imx6/arm2/ProductCommonArm2.mk
 
 PRODUCT_COPY_FILES +=	\
-	device/fsl/arm2_6sl/init.rc:root/init.freescale.rc
+	device/fsl/arm2_6sl/init.rc:root/init.freescale.rc \
+	device/fsl/arm2_6sl/mxckpd.kl:system/usr/keylayout/mxckpd.kl
