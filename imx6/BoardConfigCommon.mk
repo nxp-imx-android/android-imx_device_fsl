@@ -36,9 +36,6 @@ BUILD_WITHOUT_FSL_XEC := true
 
 TARGET_USERIMAGES_BLOCKS := 204800
 
-EXCLUDED_CODEC_BUILD := false
-EXCLUDED_CODEC_V2_BUILD := true
-
 BUILD_WITH_GST := false
 
 # for ums config, only export one partion instead of the whole disk
