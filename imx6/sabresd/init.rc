@@ -18,8 +18,10 @@ on boot
     setprop debug.sf.showfps    0
     setprop debug.sf.enable_hgl 1
     setprop debug.egl.hw	1
+
     setprop hwc.filter_stretch  1
     setprop persist.sys.ui.hw   1
+    setporp hwc.enable_dither   0
 
     # deine board type
     setprop sys.devicy.type  "tablet"
