@@ -13,6 +13,7 @@ PRODUCT_PACKAGES += \
 	LiveWallpapersPicker			\
 	MagicSmokeWallpapers			\
 	Gallery2				\
+	Gallery		    			\
 	SoundRecorder				\
         Camera                                  \
 	FSLOta					\

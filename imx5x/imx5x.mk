@@ -16,6 +16,7 @@ PRODUCT_PACKAGES += \
 	CubeLiveWallpapers			\
 	HoloSpiralWallpaper			\
 	Gallery2				\
+	Gallery					\
 	SoundRecorder				\
         Camera                                  \
 	FSLOta					\
