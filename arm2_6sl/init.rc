@@ -20,7 +20,7 @@ on boot
     #For landscape mode, orient is 0
     #For portrait mode, orient is 90
     #the android before honycomb are all in portrait mode
-    setprop back_camera_name ov
+    setprop back_camera_name ov5640_mipi
     setprop back_camera_orient 0
 
     # Set OpenGLES version
