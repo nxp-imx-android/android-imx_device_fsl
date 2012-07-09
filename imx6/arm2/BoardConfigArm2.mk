@@ -9,6 +9,9 @@ TARGET_BOOTLOADER_BOARD_NAME := ARM2
 BOARD_SOC_CLASS := IMX6
 
 # Wifi
+BOARD_WLAN_VENDOR 			 := ATHEROS
+# for atheros vendor
+ifeq ($(BOARD_WLAN_VENDOR),ATHEROS)
 BOARD_WLAN_DEVICE := ar6003
 BOARD_HAS_ATH_WLAN := true
 BOARD_WLAN_ATHEROS_SDK := system/wlan/atheros/compat-wireless
@@ -27,7 +30,7 @@ WIFI_COMPAT_MODULE_PATH  := "/system/lib/modules/compat.ko"
 WIFI_COMPAT_MODULE_NAME  := "compat"
 WIFI_COMPAT_MODULE_ARG   := ""
 WIFI_TEST_INTERFACE      := "sta"
-
+endif
 
 BOARD_HAVE_VPU := true
 BOARD_MODEM_VENDOR := AMAZON
