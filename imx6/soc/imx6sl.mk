@@ -3,7 +3,7 @@
 #
 
 BOARD_SOC_TYPE := IMX6SL
-BOARD_HAVE_VPU := true
+BOARD_HAVE_VPU := false
 HAVE_FSL_IMX_GPU2D := true
 HAVE_FSL_IMX_GPU3D := false
 HAVE_FSL_IMX_IPU := false
