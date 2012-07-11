@@ -43,6 +43,7 @@ PRODUCT_PACKAGES += \
 	bash					\
 	taskset					\
 	sqlite3					\
+	libefence				\
 	powerdebug
 
 # Wifi AP mode
