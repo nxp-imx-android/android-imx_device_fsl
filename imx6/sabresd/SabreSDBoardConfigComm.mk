@@ -53,7 +53,17 @@ SENSOR_MMA8451 := true
 
 # for recovery service
 TARGET_SELECT_KEY := 28
+
 TARGET_USERIMAGES_USE_EXT4 := true
+
+# uncomment below lins if use NAND
+#TARGET_USERIMAGES_USE_UBIFS = true
+
+ifeq ($(TARGET_USERIMAGES_USE_UBIFS),true)
+UBI_ROOT_INI := device/fsl/imx6/sabresd/ubi/ubinize.ini
+TARGET_MKUBIFS_ARGS := -m 4096 -e 516096 -c 4096 -x none
+TARGET_UBIRAW_ARGS := -m 4096 -p 512KiB $(UBI_ROOT_INI)
+endif
 
 # atheros 3k BT
 BOARD_USE_AR3K_BLUETOOTH := true
