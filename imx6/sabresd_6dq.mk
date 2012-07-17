@@ -2,6 +2,7 @@
 # It will inherit from FSL core product which in turn inherit from Google generic
 
 $(call inherit-product, device/fsl/imx6/imx6.mk)
+$(call inherit-product-if-exists,vendor/google/products/gms.mk)
 
 # Overrides
 PRODUCT_NAME := sabresd_6dq
