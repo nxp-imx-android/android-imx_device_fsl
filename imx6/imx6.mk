@@ -270,4 +270,4 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES := \
 	persist.sys.usb.config=mtp
 
 # include a google recommand heap config file.
-include frameworks/base/build/tablet-dalvik-heap.mk
+include frameworks/native/build/tablet-dalvik-heap.mk
