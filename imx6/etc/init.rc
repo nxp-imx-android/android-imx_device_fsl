@@ -282,17 +282,14 @@ on boot
     setprop net.tcp.buffersize.edge    4093,26280,35040,4096,16384,35040
     setprop net.tcp.buffersize.gprs    4092,8760,11680,4096,8760,11680
 
-# Set property for FSL specific feature 
-# Init second display connection state
-    setprop rw.SECOND_DISPLAY_CONNECTED 0
-
+# Set property for FSL specific feature
 # Comment the usage of stageflight media framework
     setprop  media.stagefright.enable-scan 1
     setprop  media.stagefright.enable-player 1
     setprop  media.stagefright.enable-record 1
     setprop  media.stagefright.enable-http 0
     setprop  media.stagefright.enable-meta 0
-    setprop  media.stagefright.enable-vpuenc 0 
+    setprop  media.stagefright.enable-vpuenc 0
 
 # Define fsl avi/aac/asf/mkv/flv/flac format support
     setprop ro.FSL_AVI_PARSER 1
@@ -310,7 +307,6 @@ on boot
     setprop xec.aa.rate 100
 
 # Define UI to TVOUT,change this setting to 1 and uncomment below write commands
-    setprop ro.UI_TVOUT_DISPLAY 0
     #write /sys/class/graphics/fb0/blank 1
     #write /sys/class/graphics/fb1/blank 1
     #write /sys/class/graphics/fb2/blank 1

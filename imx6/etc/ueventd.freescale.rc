@@ -4,6 +4,7 @@
 /dev/ttyACM*              0640   radio      radio
 /dev/video0               0660   system     camera
 /dev/video1               0660   system     camera
+/dev/video2               0660   system     camera
 /dev/video16              0660   system     graphics
 /dev/mxc_ipu              0666   system     graphics
 /dev/mxc_iim              0664   system     media
