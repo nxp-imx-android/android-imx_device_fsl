@@ -4,9 +4,10 @@ on boot
     # Set permission for IIM node
     symlink /dev/mxs_viim /dev/mxc_mem
 
-    #Set GPS serial and reset GPIO pin
+    # Set GPS serial and reset GPIO pin
+    setprop ro.kernel.android.gps /dev/athrnmea
+    setprop persist.gps.oacmode @f
     symlink /dev/ttymxc2 /dev/gpsdevice
-    setprop ro.kernel.android.gps ttya
     write /sys/class/gpio/export 60
     write /sys/class/gpio/gpio60/direction "out"
     write /sys/class/gpio/gpio60/value 1
@@ -82,10 +83,12 @@ service magd /system/bin/magd
 
 # Orion InG
 service ing /system/etc/gps/ingsvcd -c /system/etc/gps/Orion.ini
+    socket athrkv9988    stream 666 system system
+    socket athrshmsocket stream 666 system system
+    socket athrsupl59991 stream 666 system system
     class late_start
     user root
     group gps
-    disabled
     oneshot
 
 service iprenew_wlan0 /system/bin/dhcpcd -n

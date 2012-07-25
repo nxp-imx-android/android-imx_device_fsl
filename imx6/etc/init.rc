@@ -180,6 +180,7 @@ on post-fs-data
     mkdir /data/data 0771 system system
     mkdir /data/app-private 0771 system system
     mkdir /data/app 0771 system system
+    mkdir /data/app/ing 0771 root root
     mkdir /data/property 0700 root root
     mkdir /data/system 0775 system system
     mkdir /data/system/wpa_supplicant 0771 wifi wifi

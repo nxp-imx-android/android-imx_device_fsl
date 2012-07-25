@@ -7,9 +7,10 @@ on boot
     # Enable Tethering in the Settings
     setprop ro.tether.denied false
 
+    # Set GPS serial and reset GPIO pin
+    setprop ro.kernel.android.gps /dev/athrnmea
+    setprop persist.gps.oacmode @f
     symlink /dev/ttymxc1 /dev/gpsdevice
-    setprop ro.kernel.android.gps ttya
-    #export uart2 and set the default value
     write /sys/class/gpio/export 44
     write /sys/class/gpio/gpio44/direction "out"
     write /sys/class/gpio/gpio44/value 1
@@ -74,10 +75,12 @@ service magd /system/bin/magd
 
 # Orion InG
 service ing /system/etc/gps/ingsvcd -c /system/etc/gps/Orion.ini
+    socket athrkv9988    stream 666 system system
+    socket athrshmsocket stream 666 system system
+    socket athrsupl59991 stream 666 system system
     class late_start
     user root
     group gps
-    disabled
     oneshot
 
 service wpa_supplicant /system/bin/wpa_supplicant \
