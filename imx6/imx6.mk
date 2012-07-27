@@ -35,7 +35,9 @@ PRODUCT_PACKAGES += \
 	dispd					\
 	ts_calibrator				\
 	libion                                  \
-	display_mode.conf
+	display_mode_fb0.conf                   \
+	display_mode_fb2.conf                   \
+	display_mode_fb4.conf
 
 # Debug utils
 PRODUCT_PACKAGES += \
@@ -254,8 +256,9 @@ PRODUCT_COPY_FILES +=	\
 	device/fsl/imx6/etc/ueventd.freescale.rc:root/ueventd.freescale.rc \
 	device/fsl/imx6/etc/init.gprs-pppd:system/etc/init.gprs-pppd \
 	device/fsl/imx6/etc/ota.conf:system/etc/ota.conf \
-	device/fsl/common/display/display.conf:system/etc/display.conf \
-	device/fsl/common/display/display_mode.conf:system/etc/display_mode.conf
+	device/fsl/common/display/display_mode_fb0.conf:system/etc/display_mode_fb0.conf \
+	device/fsl/common/display/display_mode_fb2.conf:system/etc/display_mode_fb2.conf \
+	device/fsl/common/display/display_mode_fb4.conf:system/etc/display_mode_fb4.conf
 
 PRODUCT_COPY_FILES +=	\
 	external/linux-firmware-imx/firmware/vpu/vpu_fw_imx6d.bin:system/lib/firmware/vpu/vpu_fw_imx6d.bin 	\
