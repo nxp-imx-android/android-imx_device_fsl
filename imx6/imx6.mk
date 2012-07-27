@@ -120,7 +120,7 @@ PRODUCT_PACKAGES += \
 
 # gps related lib
 PRODUCT_PACKAGES += \
-	gps.default				\
+	gps.freescale				\
 	Orion.ini 				\
 	AR1520A-Auto.img 			\
 	ingsvcd 				\
