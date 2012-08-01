@@ -21,7 +21,6 @@ on boot
     setprop debug.egl.hw	1
 
     setprop hwc.filter_stretch  1
-    setprop persist.sys.ui.hw   1
     setporp hwc.enable_dither   0
 
     # deine board type
