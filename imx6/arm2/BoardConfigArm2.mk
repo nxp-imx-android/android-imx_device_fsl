@@ -47,6 +47,8 @@ USE_QEMU_GPS_HARDWARE := false
 # for recovery service
 TARGET_SELECT_KEY := 28
 TARGET_USERIMAGES_USE_EXT4 := true
+# we don't support sparse image.
+TARGET_USERIMAGES_SPARSE_EXT_DISABLED := true
 
 # atheros 3k BT
 BOARD_USE_AR3K_BLUETOOTH := false
