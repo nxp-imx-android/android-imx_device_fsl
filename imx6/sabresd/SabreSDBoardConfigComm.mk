@@ -68,4 +68,5 @@ endif
 # atheros 3k BT
 BOARD_USE_AR3K_BLUETOOTH := true
 
-USE_ION_ALLOCATOR := true
+USE_ION_ALLOCATOR := false
+USE_GPU_ALLOCATOR := true
