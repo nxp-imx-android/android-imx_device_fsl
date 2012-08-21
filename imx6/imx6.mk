@@ -18,6 +18,8 @@ PRODUCT_PACKAGES += \
         Camera                                  \
 	FSLOta					\
 	VideoEditor				\
+	FSLProfileApp				\
+	FSLProfileService			\
 	VisualizationWallpapers			\
 	CubeLiveWallpapers			\
 	PinyinIME				\
