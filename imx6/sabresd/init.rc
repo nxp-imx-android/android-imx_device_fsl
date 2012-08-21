@@ -52,6 +52,37 @@ on boot
 
     # Set video overlay display mode
     setprop sys.VIDEO_OVERLAY_DISPLAY 1
+# change for FSL specific service
+    chown system system /sys/devices/system/cpu/cpu0
+    chown system system /sys/devices/system/cpu/cpu1
+    chown system system /sys/devices/system/cpu/cpu2
+    chown system system /sys/devices/system/cpu/cpu3
+    chown system system /sys/class/thermal/thermal_zone0
+    chmod 0550 /sys/class/thermal/thermal_zone0
+    chmod 0550 /sys/devices/system/cpu/cpu0
+    chmod 0550 /sys/devices/system/cpu/cpu1
+    chmod 0550 /sys/devices/system/cpu/cpu2
+    chmod 0550 /sys/devices/system/cpu/cpu3
+    chmod 0550 /sys/class/thermal/thermal_zone0
+    chown system system /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
+    chmod 0660 /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
+    chown system system /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
+    chmod 0660 /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
+    chown system system /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+    chown system system /sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_cur_freq
+    chmod 0440 /sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_cur_freq
+    chown system system /sys/devices/system/cpu/online
+    chmod 0440 /sys/devices/system/cpu/online
+    chown system system /sys/devices/system/cpu/offline
+    chmod 0440 /sys/devices/system/cpu/offline
+    chown system system /sys/devices/system/cpu/cpu0/online
+    chmod 0660 /sys/devices/system/cpu/cpu0/online
+    chown system system /sys/devices/system/cpu/cpu1/online
+    chmod 0660 /sys/devices/system/cpu/cpu1/online
+    chown system system /sys/devices/system/cpu/cpu2/online
+    chmod 0660 /sys/devices/system/cpu/cpu2/online
+    chown system system /sys/devices/system/cpu/cpu3/online
+    chmod 0660 /sys/devices/system/cpu/cpu3/online
 
     # Default backlight device
     setprop hw.backlight.dev "pwm-backlight.0"
