@@ -231,7 +231,8 @@ on boot
     chmod 0664 /sys/module/lowmemorykiller/parameters/minfree
 
     # Tweak background writeout
-    write /proc/sys/vm/dirty_expire_centisecs 200
+    write /proc/sys/vm/dirty_expire_centisecs 50
+    write /proc/sys/vm/dirty_writeback_centisecs 100
     write /proc/sys/vm/dirty_background_ratio  5
 
     # Permissions for System Server and daemons.
