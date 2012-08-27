@@ -130,7 +130,6 @@ on fs
 # mount ext4 partitions
     mount ext4 /dev/block/mmcblk0p5 /system
     mount ext4 /dev/block/mmcblk0p5 /system ro remount
-    mount ext4 /dev/block/mmcblk0p7 /data nosuid nodev nodiratime noatime noauto_da_alloc 
-errors=panic
+    mount ext4 /dev/block/mmcblk0p7 /data nosuid nodev nodiratime noatime noauto_da_alloc errors=panic
     mount ext4 /dev/block/mmcblk0p6 /cache nosuid nodev
     mount ext4 /dev/block/mmcblk0p8 /vendor nosuid nodev
