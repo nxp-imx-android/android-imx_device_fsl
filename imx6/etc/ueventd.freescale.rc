@@ -6,19 +6,19 @@
 /dev/video1               0660   system     camera
 /dev/video2               0660   system     camera
 /dev/video16              0660   system     graphics
-/dev/mxc_ipu              0666   system     graphics
+/dev/mxc_ipu              0660   graphics   system
 /dev/mxc_iim              0664   system     media
 /dev/mxs_viim             0664   system     media
 /dev/fsl_cache            0666   system     graphics
 /dev/gsl_kmod             0666   system     graphics
-/dev/mxc_vpu              0666   system     media
+/dev/mxc_vpu              0660   media      system
 /dev/uinput               0666   system     input
 /dev/ttymxc2              0660   system     gps
 /dev/ttya0                0660   system     gps
 /dev/ptya0                0660   system     gps
 /dev/ttya1                0660   system     gps
 /dev/ptya1                0660   system     gps
-/dev/ion                  0666   system     media
+/dev/ion                  0660   media      system
 
 # sysfs properties
 /sys/devices/virtual/input/input*   name        0660  root   input
