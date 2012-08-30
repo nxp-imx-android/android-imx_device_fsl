@@ -5,7 +5,7 @@
 
 include device/fsl/imx6/BoardConfigCommon.mk
 
-TARGET_BOOTLOADER_BOARD_NAME := SABRELITE
+TARGET_BOOTLOADER_BOARD_NAME := SABRESD
 
 # Wifi
 BOARD_WLAN_VENDOR 			 := ATHEROS
