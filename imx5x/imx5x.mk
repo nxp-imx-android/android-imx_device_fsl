@@ -5,7 +5,6 @@ $(call inherit-product, frameworks/base/data/sounds/AllAudio.mk)
 # overrides
 PRODUCT_BRAND := freescale
 PRODUCT_MANUFACTURER := freescale
-PRODUCT_MODEL := ICS AOSP on imx5x
 
 # Android infrastructures
 PRODUCT_PACKAGES += \

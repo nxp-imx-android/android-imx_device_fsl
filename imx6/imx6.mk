@@ -3,9 +3,8 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/generic.mk)
 $(call inherit-product, $(TOPDIR)frameworks/base/data/sounds/AllAudio.mk)
 
 # overrides
-PRODUCT_BRAND := freescale
-PRODUCT_MANUFACTUER := freescale
-PRODUCT_MODEL := ICS AOSP on imx6q
+PRODUCT_BRAND := Freescale
+PRODUCT_MANUFACTURER := Freescale
 
 # Android infrastructures
 PRODUCT_PACKAGES += \

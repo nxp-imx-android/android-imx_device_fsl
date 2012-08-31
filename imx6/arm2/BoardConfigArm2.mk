@@ -7,6 +7,7 @@ include device/fsl/imx6/BoardConfigCommon.mk
 TARGET_BOOTLOADER_BOARD_NAME := ARM2
 
 BOARD_SOC_CLASS := IMX6
+PRODUCT_MODEL := ARM2-MX6DQ
 
 # Wifi
 BOARD_WLAN_VENDOR 			 := ATHEROS
