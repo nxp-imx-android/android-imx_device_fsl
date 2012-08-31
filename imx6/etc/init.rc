@@ -42,7 +42,7 @@ loglevel 3
 
 # Right now vendor lives on the same filesystem as system,
 # but someday that may change.
-#    symlink /system/vendor /vendor
+    symlink /system/vendor /vendor
 
 # Create cgroup mount point for cpu accounting
     mkdir /acct
@@ -60,7 +60,7 @@ loglevel 3
     mkdir /cache 0770 system cache
     mkdir /config 0500 root root
 
-    mkdir /vendor 0771 system system
+    mkdir /device 0771 system system
 
     # Directory for putting things only root should see.
     mkdir /mnt/secure 0700 root root
