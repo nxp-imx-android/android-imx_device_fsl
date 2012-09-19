@@ -57,7 +57,7 @@ TARGET_USERIMAGES_SPARSE_EXT_DISABLED := true
 BOARD_USE_AR3K_BLUETOOTH := true
 USE_OPENGL_RENDERER := true
 
-BOARD_KERNEL_CMDLINE := console=ttymxc0,115200 init=/init androidboot.console=ttymxc0 video=mxcdi1fb:RGB666,LDB-XGA ldb=di1 di1_primary pmem=128M,64M fbmem=10M gpu_memory=128M vmalloc=576M fs_sdcard=1 
+BOARD_KERNEL_CMDLINE := console=ttymxc0,115200 init=/init androidboot.console=ttymxc0 video=mxcdi1fb:RGB666,LDB-XGA ldb=di1 di1_primary pmem=128M,64M fbmem=10M gpu_memory=128M vmalloc=576M fs_sdcard=1 androidboot.hardware=freescale 
 
 BOARD_KERNEL_BASE := 0x70800000
 

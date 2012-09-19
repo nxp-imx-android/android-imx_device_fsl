@@ -19,7 +19,7 @@
 /dev/ttya1                0660   system     gps
 /dev/ptya1                0660   system     gps
 /dev/ion                  0660   media      system
-/dev/graphics/galcore	  0660 	 system     graphics
+/dev/graphics/galcore	  0666 	 system     graphics
 /dev/graphics/fb0         0660   system     graphics
 
 # sysfs properties
