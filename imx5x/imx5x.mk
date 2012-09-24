@@ -248,7 +248,7 @@ PRODUCT_COPY_FILES +=	\
 # for all other directory
 PRODUCT_COPY_FILES +=	\
 	device/fsl/imx5x/ueventd.freescale.rc:root/ueventd.freescale.rc \
-	device/fsl/imx5x/init.gprs-pppd:system/etc/init.gprs-pppd
+	device/fsl/imx5x/init.gprs-pppd:system/etc/ppp/init.gprs-pppd
 
 # for property
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES := \

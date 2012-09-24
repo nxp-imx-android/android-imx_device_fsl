@@ -586,7 +586,7 @@ service ril-daemon /system/bin/rild -l /system/lib/libreference-ril.so
     user root
     group radio cache inet misc audio
 
-service pppd_gprs /etc/init.gprs-pppd
+service pppd_gprs /etc/ppp/init.gprs-pppd
     class main
     user root
     group radio cache inet misc
