@@ -146,6 +146,7 @@ omx_libs := \
 	contentpipe_register				\
 	fslomx.cfg					\
 	media_profiles.xml				\
+	media_codecs.xml				\
 	ComponentRegistry.txt				\
 	lib_omx_player_arm11_elinux			 \
 	lib_omx_client_arm11_elinux			\
