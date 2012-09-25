@@ -62,12 +62,12 @@ PRODUCT_PACKAGES += \
 
 #audio related lib
 PRODUCT_PACKAGES += \
-	audio.tinyalsa.freescale 		\
-	audio.legacy.freescale 			\
-	alsa_aplay             			\
-	alsa_arecord				\
-	alsa_amixer     			\
-	alsa_ctl        			\
+	audio.primary.imx6			\
+	audio_policy.conf			\
+	tinyplay				\
+	tinycap					\
+	tinymix					\
+	libsrec_jni				\
 	libtinyalsa 				\
 	libaudioutils
 
@@ -78,8 +78,6 @@ PRODUCT_PACKAGES += \
 	lights.freescale			\
 	gralloc.imx6				\
 	copybit.imx6				\
-	alsa.freescale				\
-	audio.primary.freescale			\
 	hwcomposer.imx6             		\
 	camera.imx6                 		\
 	magd
