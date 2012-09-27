@@ -46,6 +46,9 @@ PREBUILT_FSL_IMX_CODEC := true
 PREBUILT_FSL_IMX_OMX := false
 PREBUILT_FSL_IMX_GPU := true
 
+# use non-neon memory copy on mx6x to get better performance
+ARCH_ARM_USE_NON_NEON_MEMCPY := true
+
 # for kernel/user space split
 # comment out for 1g/3g space split
 # TARGET_KERNEL_2G := true
