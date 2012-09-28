@@ -9,18 +9,16 @@ TARGET_BOOTLOADER_BOARD_NAME := SABRESD
 PRODUCT_MODEL := SABRESD-MX6DQ
 
 # Wifi
-#BOARD_WLAN_VENDOR 			 := ATHEROS
+BOARD_WLAN_VENDOR 			 := ATHEROS
 # for atheros vendor
 ifeq ($(BOARD_WLAN_VENDOR),ATHEROS)
 BOARD_WLAN_DEVICE			 := ar6003
 BOARD_HAS_ATH_WLAN 			 := true
-BOARD_WLAN_ATHEROS_SDK			 := system/wlan/atheros/compat-wireless
-WPA_SUPPLICANT_VERSION			 := VER_0_8_X
-HOSTAPD_VERSION				 := VER_0_8_ATHEROS
+WPA_SUPPLICANT_VERSION			 := VER_0_8_ATHEROS
 WIFI_DRIVER_MODULE_PATH          	 := "/system/lib/modules/ath6kl_sdio.ko"
 WIFI_DRIVER_MODULE_NAME          	 := "ath6kl_sdio"
-WIFI_DRIVER_MODULE_ARG           	 := "suspend_mode=3 ath6kl_p2p=1"
-WIFI_DRIVER_P2P_MODULE_ARG       	 := "suspend_mode=3 ath6kl_p2p=1 debug_mask=0x2413"
+WIFI_DRIVER_MODULE_ARG           	 := "suspend_mode=3 wow_mode=2 ar6k_clock=26000000 ath6kl_p2p=1"
+WIFI_DRIVER_P2P_MODULE_ARG       	 := "suspend_mode=3 wow_mode=2 ar6k_clock=26000000 ath6kl_p2p=1 debug_mask=0x2413"
 WIFI_SDIO_IF_DRIVER_MODULE_PATH  	 := "/system/lib/modules/cfg80211.ko"
 WIFI_SDIO_IF_DRIVER_MODULE_NAME  	 := "cfg80211"
 WIFI_SDIO_IF_DRIVER_MODULE_ARG   	 := ""
@@ -38,9 +36,9 @@ WIFI_DRIVER_MODULE_PATH          	 := "/system/lib/modules/iwlagn.ko"
 WIFI_DRIVER_MODULE_NAME          	 := "iwlagn"
 WIFI_DRIVER_MODULE_PATH			 ?= auto
 endif
-#BOARD_WPA_SUPPLICANT_DRIVER      	 := NL80211
-#BOARD_HOSTAPD_DRIVER             	 := NL80211
-#WIFI_TEST_INTERFACE			 := "sta"
+BOARD_WPA_SUPPLICANT_DRIVER      	 := NL80211
+BOARD_HOSTAPD_DRIVER             	 := NL80211
+WIFI_TEST_INTERFACE			 := "sta"
 
 BOARD_MODEM_VENDOR := AMAZON
 
