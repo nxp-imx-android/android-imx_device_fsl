@@ -1,4 +1,5 @@
-import init.freescale.usb.rc
+import init.${ro.hardware}.usb.rc
+
 on boot
 
     # Set permission for IIM node
