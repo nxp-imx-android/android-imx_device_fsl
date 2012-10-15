@@ -244,6 +244,10 @@ PRODUCT_PACKAGES += \
 	libext2_uuid	\
 	libext2fs
 
+# for CtsVerifier
+PRODUCT_PACKAGES += \
+    com.android.future.usb.accessory
+
 PRODUCT_LOCALES += hdpi mdpi
 
 PRODUCT_COPY_FILES +=	\
@@ -264,6 +268,9 @@ PRODUCT_COPY_FILES +=	\
 PRODUCT_COPY_FILES +=	\
 	external/linux-firmware-imx/firmware/vpu/vpu_fw_imx6d.bin:system/lib/firmware/vpu/vpu_fw_imx6d.bin 	\
 	external/linux-firmware-imx/firmware/vpu/vpu_fw_imx6q.bin:system/lib/firmware/vpu/vpu_fw_imx6q.bin
+
+PRODUCT_COPY_FILES += \
+    frameworks/native/data/etc/android.hardware.usb.accessory.xml:system/etc/permissions/android.hardware.usb.accessory.xml
 
 # for property
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES := \
