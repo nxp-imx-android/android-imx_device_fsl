@@ -51,9 +51,6 @@ on boot
     # Add support wakeup system from debug UART
     write /sys/devices/platform/imx-uart.0/tty/ttymxc0/power/wakeup enabled
 
-    # Indicate device type is tablet or SystemUI has problem without HW acceleration
-    setprop sys.devicy.type tablet
-
 service wpa_supplicant /system/bin/wpa_supplicant \
     -Dnl80211 -e/data/misc/wifi/entropy.bin
     class late_start
