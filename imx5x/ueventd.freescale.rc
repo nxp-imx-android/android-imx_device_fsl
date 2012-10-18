@@ -1,25 +1,25 @@
 /dev/ttymxc1              0600   bluetooth  bluetooth
 /dev/ttymxc2              0600   bluetooth  bluetooth
-/dev/pmem_gpu             0660   system     graphics
-/dev/pmem_adsp            0666   system     audio
+/dev/ion                  0666   media      system
 /dev/snd/*                0664   system     audio
 /dev/ttyUSB*              0640   radio      radio
 /dev/ttyACM*              0640   radio      radio
 /dev/video0               0660   system     camera
 /dev/video1               0660   system     camera
 /dev/video16              0660   system     graphics
-/dev/mxc_ipu              0666   system     graphics
+/dev/mxc_ipu              0660   graphics   system
 /dev/mxc_iim              0664   system     media
 /dev/mxs_viim             0664   system     media
 /dev/fsl_cache            0666   system     graphics
 /dev/gsl_kmod             0666   system     graphics
-/dev/mxc_vpu              0666   system     media
+/dev/mxc_vpu              0660   media      system
 /dev/uinput               0666   system     input
-/dev/ttymxc1              0775   system     gps
-/dev/ttya0                0775   system     gps
-/dev/ptya0                0775   system     gps
-/dev/ttya1                0775   system     gps
-/dev/ptya1                0775   system     gps
+/dev/ttymxc1              0660   system     gps
+/dev/ttya0                0660   system     gps
+/dev/ptya0                0660   system     gps
+/dev/ttya1                0660   system     gps
+/dev/ptya1                0660   system     gps
+/dev/graphics/fb0         0660   system     graphics
 
 # sysfs properties
 /sys/devices/virtual/input/input*   name        0660  root   input

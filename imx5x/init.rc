@@ -32,10 +32,11 @@ loglevel 3
     export ANDROID_DATA /data
     export ASEC_MOUNTPOINT /mnt/asec
     export LOOP_MOUNTPOINT /mnt/obb
-    export BOOTCLASSPATH /system/framework/core.jar:/system/framework/core-junit.jar:/system/framework/bouncycastle.jar:/system/framework/ext.jar:/system/framework/framework.jar:/system/framework/android.policy.jar:/system/framework/services.jar:/system/framework/apache-xml.jar
     export SHM_MOUNTPOINT /mnt/shm
     export EXTERNAL_STORAGE /mnt/sdcard
     export SECONDARY_STORAGE /mnt/extsd:/mnt/udisk
+    export BOOTCLASSPATH /system/framework/core.jar:/system/framework/core-junit.jar:/system/framework/bouncycastle.jar:/system/framework/ext.jar:/system/framework/framework.jar:/system/framework/android.policy.jar:/system/framework/services.jar:/system/framework/apache-xml.jar
+
     export LIGHTSENSOR_PATH /sys/class/i2c-adapter/i2c-1/1-0044
     export VPU_FW_PATH /system/lib/firmware/vpu
     export CODEC_SHM_PATH /mnt/shm
@@ -50,7 +51,7 @@ loglevel 3
 
 # Right now vendor lives on the same filesystem as system,
 # but someday that may change.
-    mkdir /device 0771 system system
+    symlink /system/vendor /vendor
 
 # Create cgroup mount point for cpu accounting
     mkdir /acct
@@ -67,6 +68,7 @@ loglevel 3
     mkdir /data 0771 system system
     mkdir /cache 0770 system cache
     mkdir /config 0500 root root
+    mkdir /device 0771 system system
 
     # Directory for putting things only root should see.
     mkdir /mnt/secure 0700 root root
@@ -89,6 +91,7 @@ loglevel 3
     # shared memory used by middleware
     mkdir /mnt/shm 0775 system graphics
     mount tmpfs tmpfs /mnt/shm mode=0775,uid=1000,gid=1003,size=1m
+
     write /proc/sys/kernel/panic_on_oops 1
     write /proc/sys/kernel/hung_task_timeout_secs 0
     write /proc/cpu/alignment 4
@@ -135,6 +138,7 @@ loglevel 3
 on post-fs
     # once everything is setup, no need to modify /
     mount rootfs rootfs / ro remount
+
     # We chown/chmod /cache again so because mount is run as root + defaults
     chown system cache /cache
     chmod 0770 /cache
@@ -200,7 +204,6 @@ on post-fs-data
     mkdir /data/app-private 0771 system system
     mkdir /data/app-asec 0700 root root
     mkdir /data/app 0771 system system
-    mkdir /data/app/ing 0771 root root
     mkdir /data/property 0700 root root
     mkdir /data/ssh 0750 root shell
     mkdir /data/ssh/empty 0700 root root
@@ -229,11 +232,6 @@ on post-fs-data
     # Set indication (checked by vold) that we have finished this action
     #setprop vold.post_fs_data_done 1
 
-    chown system system /sys/class/android_usb/android0/f_mass_storage/lun/file
-    chmod 0660 /sys/class/android_usb/android0/f_mass_storage/lun/file
-    chown system system /sys/class/android_usb/android0/f_rndis/ethaddr
-    chmod 0660 /sys/class/android_usb/android0/f_rndis/ethaddr
-
 on boot
 # basic network init
     ifup lo
@@ -245,8 +243,7 @@ on boot
 
 # Memory management.  Basic kernel parameters, and allow the high
 # level system server to be able to adjust the kernel OOM driver
-# paramters to match how it is managing things.
-
+# parameters to match how it is managing things.
     write /proc/sys/vm/overcommit_memory 1
     write /proc/sys/vm/min_free_order_shift 4
     chown root system /sys/module/lowmemorykiller/parameters/adj
@@ -271,27 +268,6 @@ on boot
     chmod 0660 /sys/power/state
     chmod 0660 /sys/power/wake_lock
     chmod 0660 /sys/power/wake_unlock
-
-    chown system system /sys/devices/system/cpu/cpufreq/interactive/timer_rate
-    chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/timer_rate
-    chown system system /sys/devices/system/cpu/cpufreq/interactive/min_sample_time
-    chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/min_sample_time
-    chown system system /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq
-    chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq
-    chown system system /sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load
-    chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load
-    chown system system /sys/devices/system/cpu/cpufreq/interactive/above_hispeed_delay
-    chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/above_hispeed_delay
-    chown system system /sys/devices/system/cpu/cpufreq/interactive/boost
-    chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/boost
-    chown system system /sys/devices/system/cpu/cpufreq/interactive/boostpulse
-    chown system system /sys/devices/system/cpu/cpufreq/interactive/input_boost
-    chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/input_boost
-
-    # Assume SMP uses shared cpufreq policy for all CPUs
-    chown system system /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
-    chmod 0660 /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
-
     chown system system /sys/class/timed_output/vibrator/enable
     chown system system /sys/class/leds/keyboard-backlight/brightness
     chown system system /sys/class/leds/lcd-backlight/brightness
@@ -382,6 +358,10 @@ on boot
 # mount the debugfs
     mount debugfs none /sys/kernel/debug/
 
+# Prepare for RIL
+    setprop gsm.ril.delay 15
+    setprop ro.ril.wake_lock_timeout 300
+
 # Set this property so surfaceflinger is not started by system_init
     setprop system_init.startsurfaceflinger 0
 
@@ -462,12 +442,13 @@ service netd /system/bin/netd
 service debuggerd /system/bin/debuggerd
     class main
 
-service ril-daemon /system/bin/rild
+service ril-daemon /system/bin/rild -l /system/lib/libreference-ril.so
     class main
     socket rild stream 660 root radio
     socket rild-debug stream 660 radio system
+    socket rild-ppp stream 660 radio system
     user root
-    group radio cache inet misc audio sdcard_rw log
+    group radio cache inet misc audio sdcard_r sdcard_rw log
 
 service surfaceflinger /system/bin/surfaceflinger
     class main
@@ -552,24 +533,12 @@ service dumpstate /system/bin/dumpstate -s
     disabled
     oneshot
 
-service sshd /system/bin/start-ssh
-    class main
-    disabled
-
-service mdnsd /system/bin/mdnsd
-    class main
-    user mdnsr
-    group inet net_raw
-    socket mdnsd stream 0660 mdnsr inet
-    disabled
-    oneshot
-
 service dhcpcd_wlan0 /system/bin/dhcpcd -ABKL
     class late_start
     disabled
     oneshot
 
-service dhcpcd_eth0 /system/bin/dhcpcd -ABKL
+service dhcpcd_eth0 /system/bin/dhcpcd -AL
     class late_start
     disabled
     oneshot
@@ -581,27 +550,25 @@ service hostapd /system/bin/hostapd /data/misc/wifi/hostapd.conf
     oneshot
     disabled
 
-service ril-daemon /system/bin/rild -l /system/lib/libreference-ril.so
-    class main
-    socket rild stream 660 root radio
-    socket rild-debug stream 660 radio system
-    socket rild-ppp stream 660 radio system
-    user root
-    group radio cache inet misc audio
-
-service pppd_gprs /etc/ppp/init.gprs-pppd
+service pppd_gprs /etc/init.gprs-pppd
     class main
     user root
     group radio cache inet misc
     disabled
     oneshot
 
-service gpu_init /system/bin/gpu_init.sh
-    class core
-    user root
-    group root
-    oneshot
-
 service wifi_mac /system/bin/sh /system/etc/check_wifi_mac.sh
     class late_start
+    oneshot
+
+service sshd /system/bin/start-ssh
+    class main
+    disabled
+
+service mdnsd /system/bin/mdnsd
+    class main
+    user mdnsr
+    group inet net_raw
+    socket mdnsd stream 0660 mdnsr inet
+    disabled
     oneshot

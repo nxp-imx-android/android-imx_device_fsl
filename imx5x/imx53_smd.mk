@@ -9,8 +9,8 @@ PRODUCT_DEVICE := imx53_smd
 
 PRODUCT_COPY_FILES += \
 	device/common/gps/gps.conf_US:system/etc/gps.conf \
-	device/fsl/imx53_smd/init.rc:root/init.freescale.rc \
-	device/fsl/imx53_smd/init.usb.rc:root/init.freescale.usb.rc \
+	device/fsl/imx53_smd/fstab.freescale:root/fstab.freescale \
+	device/fsl/imx53_smd/init.freescale.rc:root/init.freescale.rc \
         device/fsl/imx53_smd/vold.fstab:system/etc/vold.fstab \
 	device/fsl/imx53_smd/gpsreset.sh:system/etc/gpsreset.sh \
 	device/fsl/common/input/eGalax_Touch_Screen.idc:system/usr/idc/eGalax_Touch_Screen.idc \
@@ -28,14 +28,18 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.usb.host.xml:system/etc/permissions/android.hardware.usb.host.xml \
     frameworks/native/data/etc/android.hardware.usb.accessory.xml:system/etc/permissions/android.hardware.usb.accessory.xml \
     frameworks/native/data/etc/android.hardware.telephony.gsm.xml:system/etc/permissions/android.hardware.telephony.gsm.xml \
-    packages/wallpapers/LivePicker/android.software.live_wallpaper.xml:system/etc/permissions/android.software.live_wallpaper.xml \
     frameworks/native/data/etc/android.software.sip.voip.xml:system/etc/permissions/android.software.sip.voip.xml
 
-PRODUCT_AAPT_CONFIG += sw600dp
-PRODUCT_PREF_AAPT_CONFIG := sw600dp
+# for PDK build, include only when the dir exists
+# too early to use $(TARGET_BUILD_PDK)
+ifneq ($(wildcard packages/wallpapers/LivePicker),)
+PRODUCT_COPY_FILES += \
+    packages/wallpapers/LivePicker/android.software.live_wallpaper.xml:system/etc/permissions/android.software.live_wallpaper.xml
+endif
+
+PRODUCT_PREF_AAPT_CONFIG := mdpi
 
 DEVICE_PACKAGE_OVERLAYS := device/fsl/imx53_smd/overlay
 
-PRODUCT_TAGS += dalvik.gc.type-precise
-
 PRODUCT_CHARACTERISTICS := tablet
+

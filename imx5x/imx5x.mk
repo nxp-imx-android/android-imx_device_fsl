@@ -1,10 +1,12 @@
 $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/generic.mk)
-$(call inherit-product, frameworks/base/data/sounds/AllAudio.mk)
+$(call inherit-product, frameworks/base/data/sounds/OriginalAudio.mk)
+$(call inherit-product, frameworks/base/data/fonts/fonts.mk)
+$(call inherit-product, frameworks/base/data/keyboards/keyboards.mk)
 
 # overrides
-PRODUCT_BRAND := freescale
-PRODUCT_MANUFACTURER := freescale
+PRODUCT_BRAND := Freescale
+PRODUCT_MANUFACTURER := Freescale
 
 # Android infrastructures
 PRODUCT_PACKAGES += \
@@ -15,9 +17,9 @@ PRODUCT_PACKAGES += \
 	CubeLiveWallpapers			\
 	HoloSpiralWallpaper			\
 	Gallery2				\
-	Gallery					\
 	SoundRecorder				\
         Camera                                  \
+        LegacyCamera                            \
 	FSLOta					\
 	VideoEditor				\
 	PinyinIME				\
@@ -25,6 +27,7 @@ PRODUCT_PACKAGES += \
 	librs_jni				\
 	pppd					\
 	chat					\
+        setup_fs                                \
 	ip-up-vpn				\
 	ip-up-ppp0				\
 	ip-down-ppp0				\
@@ -33,7 +36,7 @@ PRODUCT_PACKAGES += \
 	wpa_supplicant_p2p.conf			\
 	dispd					\
 	ts_calibrator				\
-	com.android.future.usb.accessory
+	libion
 
 # Debug utils
 PRODUCT_PACKAGES += \
@@ -46,52 +49,44 @@ PRODUCT_PACKAGES += \
 # Wifi AP mode
 PRODUCT_PACKAGES += \
 	hostapd					\
-	hostapd_cli				\
-	hostapd_client          		\
-	hostapd.conf				\
-	hostapd_wps				\
-	libhostapd_client			\
-	wmiconfig				\
+	hostapd_cli
 
 # keyboard mapping files.
-PRODUCT_PACKAGES +=				\
+PRODUCT_PACKAGES += \
 	Dell_Dell_USB_Keyboard.kcm		\
 	mxckpd.kcm				\
 
 #audio related lib
-PRODUCT_PACKAGES +=		    \
-	audio.sabresd_reva.freescale 		\
-	audio.sabresd_revb.freescale 		\
-	audio.legacy.freescale 			\
-	alsa_aplay             			\
-	alsa_arecord				\
-	alsa_amixer     			\
-	alsa_ctl        			\
+PRODUCT_PACKAGES += \
+	audio.primary.imx5			\
+	audio_policy.conf			\
+	tinyplay				\
+	tinycap					\
+	tinymix					\
+	libsrec_jni				\
 	libtinyalsa 				\
 	libaudioutils
 
 # imx5x Hardware HAL libs.
-PRODUCT_PACKAGES +=				\
+PRODUCT_PACKAGES += \
 	sensors.freescale			\
 	overlay.imx5x				\
 	lights.freescale			\
 	gralloc.imx5x				\
 	copybit.imx5x				\
-	alsa.freescale				\
-	audio.primary.freescale        		\
 	hwcomposer.imx5x            		\
 	camera.imx5x            		\
 	magd
 
 # Bluetooth firmware files.
-PRODUCT_PACKAGES +=				\
+PRODUCT_PACKAGES += \
 	ar3kbdaddr.pst				\
 	PS_ASIC.pst				\
 	RamPatch.txt				\
 	audio.a2dp.default			\
 
 # Freescale VPU firmware files.
-PRODUCT_PACKAGES +=				\
+PRODUCT_PACKAGES += \
 	libvpu					\
 	vpu_fw_imx51.bin			\
 	vpu_fw_imx53.bin			\
@@ -113,9 +108,16 @@ PRODUCT_PACKAGES += \
 	artagent				\
 	ath6kl-fwlog-record			\
 	athtestcmd				\
-	athtestcmd				\
+	psatUtil				\
 	wmiconfig
-# gpu related libs. align to device/fsl/proprietary/gpu/fsl-gpu.mk
+
+# Intel PCIE wifi firmware
+PRODUCT_PACKAGES += \
+	iwlwifi-6000-4.ucode			\
+	iwlwifi-5000-5.ucode			\
+	iwlagn.ko
+
+# gpu related libs. align to device/fsl-proprietary/gpu/fsl-gpu.mk
 PRODUCT_PACKAGES += \
 	libEGL_imx51.so				\
 	libGLESv1_CM_imx51.so			\
@@ -140,10 +142,10 @@ PRODUCT_PACKAGES += \
 	libdrmframework_jni			\
 	libdrmframework				\
 	libdrmpassthruplugin			\
-	libfwdlockengine			\
+	libfwdlockengine
 
 # Omx related libs, please align to device/fsl/proprietary/omx/fsl-omx.mk
-omx_libs :=						\
+omx_libs := \
 	core_register					\
 	component_register				\
 	contentpipe_register				\
@@ -179,9 +181,6 @@ omx_libs :=						\
 	lib_omx_android_audio_render_arm11_elinux	\
 	lib_omx_audio_fake_render_arm11_elinux		\
 	lib_omx_ipulib_render_arm11_elinux		\
-	lib_omx_surface_render_arm11_elinux		\
-	lib_omx_https_pipe_v2_arm11_elinux		\
-	lib_omx_streaming_parser_arm11_elinux		\
 	lib_avi_parser_arm11_elinux.3.0			\
 	lib_divx_drm_arm11_elinux			\
 	lib_mp4_parser_arm11_elinux.3.0			\
@@ -196,7 +195,6 @@ omx_libs :=						\
 	lib_aac_dec_v2_arm12_elinux			\
 	lib_flac_dec_v2_arm11_elinux			\
 	lib_nb_amr_dec_v2_arm9_elinux			\
-	lib_wb_amr_dec_arm9_elinux			\
 	lib_oggvorbis_dec_v2_arm11_elinux		\
 	lib_peq_v2_arm11_elinux				\
 	lib_mpg2_parser_arm11_elinux.3.0		\
@@ -210,21 +208,26 @@ omx_libs :=						\
 	lib_omx_overlay_render_arm11_elinux		\
 	lib_omx_fsl_muxer_v2_arm11_elinux		\
 	lib_omx_mp3_enc_v2_arm11_elinux			\
-	lib_omx_aac_enc_v2_arm11_elinux			\
 	lib_omx_amr_enc_v2_arm11_elinux			\
 	lib_omx_android_audio_source_arm11_elinux	\
 	lib_omx_camera_source_arm11_elinux		\
 	lib_mp4_muxer_arm11_elinux			\
 	lib_mp3_enc_v2_arm12_elinux			\
 	lib_nb_amr_enc_v2_arm11_elinux			\
-	lib_wb_amr_enc_arm11_elinux			\
 	lib_omx_vpu_enc_v2_arm11_elinux			\
 	lib_ffmpeg_arm11_elinux				\
+	lib_omx_https_pipe_v2_arm11_elinux		\
+	lib_omx_streaming_parser_arm11_elinux		\
+	lib_omx_surface_render_arm11_elinux		\
+	libfsl_jpeg_enc_arm11_elinux			\
+	lib_wb_amr_enc_arm11_elinux			\
+	lib_wb_amr_dec_arm9_elinux			\
+	lib_omx_aac_enc_v2_arm11_elinux
 
 # Omx excluded libs
 omx_excluded_libs :=					\
 	lib_asf_parser_arm11_elinux.3.0			\
-	lib_wma10_dec_v2_arm12_elinux		\
+	lib_wma10_dec_v2_arm12_elinux			\
 	lib_WMV789_dec_v2_arm11_elinux.so		\
 	lib_aacplus_dec_v2_arm11_elinux			\
 	lib_ac3_dec_v2_arm11_elinux			\
@@ -237,19 +240,28 @@ PRODUCT_PACKAGES += $(omx_libs) $(omx_excluded_libs)
 
 PRODUCT_PACKAGES += libubi ubinize ubiformat ubiattach ubidetach ubiupdatevol ubimkvol ubinfo mkfs.ubifs
 
+# for CtsVerifier
+PRODUCT_PACKAGES += \
+    com.android.future.usb.accessory
+
 PRODUCT_AAPT_CONFIG := normal mdpi
 
 PRODUCT_COPY_FILES +=	\
 	device/fsl/common/input/Dell_Dell_USB_Keyboard.kl:system/usr/keylayout/Dell_Dell_USB_Keyboard.kl \
 	device/fsl/common/input/Dell_Dell_USB_Keyboard.idc:system/usr/idc/Dell_Dell_USB_Keyboard.idc \
 	device/fsl/imx5x/init.rc:root/init.rc \
-	device/fsl/imx5x/initlogo.rle:root/initlogo.rle \
+	device/fsl/imx5x/apns-conf.xml:system/etc/apns-conf.xml \
+	device/fsl/imx5x/init.freescale.usb.rc:root/init.freescale.usb.rc \
+	device/fsl/imx5x/ueventd.freescale.rc:root/ueventd.freescale.rc \
+	device/fsl/imx5x/init.gprs-pppd:system/etc/ppp/init.gprs-pppd \
+	device/fsl/imx5x/initlogo.rle:root/initlogo.rle
+
+# VPU firmware
+PRODUCT_COPY_FILES +=	\
 	external/linux-firmware-imx/firmware/vpu/vpu_fw_imx53.bin:system/lib/firmware/vpu/vpu_fw_imx53.bin
 
-# for all other directory
-PRODUCT_COPY_FILES +=	\
-	device/fsl/imx5x/ueventd.freescale.rc:root/ueventd.freescale.rc \
-	device/fsl/imx5x/init.gprs-pppd:system/etc/ppp/init.gprs-pppd
+PRODUCT_TAGS += dalvik.gc.type-precise
+
 
 # for property
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES := \
@@ -258,4 +270,3 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES := \
 # include a google recommand heap config file.
 include frameworks/native/build/tablet-dalvik-heap.mk
 
-BOARD_SYSTEMIMAGE_PARTITION_SIZE := 155189248
