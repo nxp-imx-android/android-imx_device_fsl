@@ -37,6 +37,11 @@ PRODUCT_COPY_FILES += \
     packages/wallpapers/LivePicker/android.software.live_wallpaper.xml:system/etc/permissions/android.software.live_wallpaper.xml
 endif
 
+# audio related files
+PRODUCT_COPY_FILES += \
+	device/fsl/imx53_smd/audio_policy.conf:system/etc/audio_policy.conf \
+	device/fsl/imx53_smd/mixer_paths.xml:system/etc/mixer_paths.xml
+
 PRODUCT_PREF_AAPT_CONFIG := mdpi
 
 DEVICE_PACKAGE_OVERLAYS := device/fsl/imx53_smd/overlay

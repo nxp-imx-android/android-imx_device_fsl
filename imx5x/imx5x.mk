@@ -59,7 +59,6 @@ PRODUCT_PACKAGES += \
 #audio related lib
 PRODUCT_PACKAGES += \
 	audio.primary.imx5			\
-	audio_policy.conf			\
 	tinyplay				\
 	tinycap					\
 	tinymix					\
