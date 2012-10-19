@@ -72,13 +72,15 @@ PRODUCT_PACKAGES += \
 
 # imx6 Hardware HAL libs.
 PRODUCT_PACKAGES += \
-	sensors.freescale			\
+	sensors.SABRESD				\
+	sensors.ARM2				\
 	overlay.imx6				\
-	lights.freescale			\
+	lights.imx6				\
 	gralloc.imx6				\
 	copybit.imx6				\
 	hwcomposer.imx6             		\
 	camera.imx6                 		\
+	power.imx6				\
 	magd
 
 # Bluetooth firmware files.
