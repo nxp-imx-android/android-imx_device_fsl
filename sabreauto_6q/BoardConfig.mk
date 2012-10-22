@@ -2,6 +2,7 @@
 # Product-specific compile-time definitions.
 #
 
+include device/fsl/sabreauto_6q/build_id.mk
 include device/fsl/imx6/BoardConfigCommon.mk
 
 TARGET_BOOTLOADER_BOARD_NAME := SABREAUTO

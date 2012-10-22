@@ -3,6 +3,7 @@
 #
 
 include device/fsl/imx6/soc/imx6dq.mk
+include device/fsl/arm2_6dq/build_id.mk
 include device/fsl/imx6/arm2/BoardConfigArm2.mk
 include device/fsl-proprietary/gpu-viv/fsl-gpu.mk
 
