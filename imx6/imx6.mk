@@ -74,6 +74,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
 	sensors.SABRESD				\
 	sensors.ARM2				\
+	sensors.SABREAUTO			\
 	overlay.imx6				\
 	lights.imx6				\
 	gralloc.imx6				\
@@ -123,7 +124,9 @@ PRODUCT_PACKAGES += \
 
 # gps related lib
 PRODUCT_PACKAGES += \
-	gps.freescale				\
+	gps.SABRESD				\
+	gps.ARM2				\
+	gps.SABREAUTO				\
 	Orion.ini 				\
 	AR1520A-Auto.img 			\
 	ingsvcd 				\

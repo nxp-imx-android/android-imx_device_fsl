@@ -68,9 +68,9 @@ PRODUCT_PACKAGES += \
 
 # imx5x Hardware HAL libs.
 PRODUCT_PACKAGES += \
-	sensors.freescale			\
+	sensors.SMD				\
 	overlay.imx5x				\
-	lights.freescale			\
+	lights.imx5x				\
 	gralloc.imx5x				\
 	copybit.imx5x				\
 	hwcomposer.imx5x            		\
@@ -128,7 +128,7 @@ PRODUCT_PACKAGES += \
 
 # gps related lib
 PRODUCT_PACKAGES += \
-	gps.freescale 				\
+	gps.SMD 				\
 	Orion.ini 				\
 	AR1520A-Auto.img 			\
 	ingsvcd					\
