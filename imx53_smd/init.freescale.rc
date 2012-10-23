@@ -84,7 +84,7 @@ service magd /system/bin/magd
     oneshot
 
 # Orion InG
-service ing /system/etc/gps/ingsvcd -c /system/etc/gps/Orion.ini
+service ing /system/bin/ingsvcd -c /system/etc/gps/Orion.ini
     socket athrkv9988    stream 666 system system
     socket athrshmsocket stream 666 system system
     socket athrsupl59991 stream 666 system system
