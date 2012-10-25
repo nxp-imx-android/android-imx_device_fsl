@@ -14,16 +14,15 @@ PRODUCT_PACKAGES += \
 	LiveWallpapersPicker			\
 	MagicSmokeWallpapers			\
 	VisualizationWallpapers			\
-	CubeLiveWallpapers			\
+	Galaxy4					\
+	NoiseField				\
+	PhaseBeam				\
 	HoloSpiralWallpaper			\
 	Gallery2				\
 	SoundRecorder				\
-        Camera                                  \
-        LegacyCamera                            \
 	FSLOta					\
 	VideoEditor				\
 	PinyinIME				\
-	libRS					\
 	librs_jni				\
 	pppd					\
 	chat					\
@@ -243,7 +242,7 @@ PRODUCT_PACKAGES += libubi ubinize ubiformat ubiattach ubidetach ubiupdatevol ub
 PRODUCT_PACKAGES += \
     com.android.future.usb.accessory
 
-PRODUCT_AAPT_CONFIG := normal mdpi
+PRODUCT_AAPT_CONFIG := normal xlarge mdpi
 
 PRODUCT_COPY_FILES +=	\
 	device/fsl/common/input/Dell_Dell_USB_Keyboard.kl:system/usr/keylayout/Dell_Dell_USB_Keyboard.kl \
@@ -260,7 +259,6 @@ PRODUCT_COPY_FILES +=	\
 	external/linux-firmware-imx/firmware/vpu/vpu_fw_imx53.bin:system/lib/firmware/vpu/vpu_fw_imx53.bin
 
 PRODUCT_TAGS += dalvik.gc.type-precise
-
 
 # for property
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES := \
