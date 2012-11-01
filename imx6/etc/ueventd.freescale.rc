@@ -21,6 +21,7 @@
 /dev/ion                  0660   media      system
 /dev/graphics/galcore	  0666 	 system     graphics
 /dev/graphics/fb0         0660   system     graphics
+/dev/watchdog             0660   system     root
 
 # sysfs properties
 /sys/devices/virtual/input/input*   name        0660  root   input
