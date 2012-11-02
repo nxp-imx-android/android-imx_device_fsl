@@ -559,6 +559,11 @@ service dhcpcd_wlan0 /system/bin/dhcpcd -ABKL
     disabled
     oneshot
 
+service dhcpcd_p2p /system/bin/dhcpcd -ABKL
+    class late_start
+    disabled
+    oneshot
+
 service dhcpcd_eth0 /system/bin/dhcpcd -ABKL
     class late_start
     disabled
