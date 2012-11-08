@@ -259,6 +259,11 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_AAPT_CONFIG := normal mdpi
 
+# ril related libs
+PRODUCT_PACKAGES += \
+	libreference-ril-zte.so \
+	libruntime-ril-port
+
 PRODUCT_COPY_FILES +=	\
 	device/fsl/common/input/Dell_Dell_USB_Keyboard.kl:system/usr/keylayout/Dell_Dell_USB_Keyboard.kl \
 	device/fsl/common/input/Dell_Dell_USB_Keyboard.idc:system/usr/idc/Dell_Dell_USB_Keyboard.idc \

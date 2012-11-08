@@ -10,17 +10,65 @@
 PPPD_PID=
 
 /system/bin/setprop "net.gprs.ppp-exit" ""
+ril_impl=`/system/bin/getprop gsm.version.ril-impl`
 
-/system/bin/log -t pppd "Starting pppd"
+case "$ril_impl" in
+"ZTE_RIL_W_GENERAL_V02B01")
+		private_username=`/system/bin/getprop ril.private.username`
 
-#/system/xbin/pppd $*
-# pppd was put into /system/bin instead of /system/xbin after SDK1.6
-if ls /dev/ttyUSB0 > /dev/null 2>&1; then
-    /system/bin/pppd  /dev/ttyUSB0 115200 mru 1280 mtu 1280 nodetach debug dump defaultroute usepeerdns novj novjccomp noipdefault ipcp-accept-local ipcp-accept-remote connect-delay 5000 linkname ppp0
-else
-   /system/bin/pppd ttyACM0 921600 nodetach noauth noipdefault defaultroute usepeerdns linkname ppp0 connect "chat -v '' AT OK ATD*99***1# CONNECT" debug
-fi
+		private_password=`/system/bin/getprop ril.private.password`
 
+		private_auth_type=`/system/bin/getprop ril.private.authtype`
+
+		dev_path=`/system/bin/getprop ril.data.device.path`
+
+		cmdline=$dev_path" /dev/ttyUSB2 115200 mru 1280 mtu 1280 nodetach debug dump defaultroute usepeerdns novj novjccomp noipdefault ipcp-accept-local ipcp-accept-remote ipcp-max-configure 30 ipcp-max-failure 30 connect-delay 5000 lcp-restart 1 lcp-max-terminate 1 linkname ppp0 "
+
+		case "$private_username" in
+		"")
+
+		;;
+		*)
+		cmdline=$cmdline" name "$private_username
+		;;
+		esac
+
+		case "$private_password" in
+		"")
+
+		;;
+		*)
+
+		cmdline=$cmdline" password "$private_password
+		;;
+		esac
+
+		echo "here starts pppd..."
+		echo $cmdline
+		/system/bin/log -t pppd $cmdline
+		#/system/xbin/pppd $*
+		# pppd was put into /system/bin instead of /system/xbin after SDK1.6
+
+
+		#below is config for ZTE CDMA modem
+		#/system/bin/pppd  /dev/ttyUSB0 115200 mru 1280 mtu 1280 nodetach debug dump defaultroute usepeerdns novj novjccomp noipdefault ipcp-accept-local ipcp-accept-remote connect-delay 5000 linkname ppp0 name "card" password "card"
+
+		#below is config for general network
+		/system/bin/pppd $cmdline
+		;;
+
+"AMAZON reference-ril 1.0")
+		/system/bin/pppd ttyACM0 921600 nodetach noauth noipdefault defaultroute usepeerdns linkname ppp0 connect "chat -v '' AT OK ATD*99***1# CONNECT" debug
+		;;
+
+"HUAWEI reference-ril 1.0")
+		/system/bin/pppd  /dev/ttyUSB0 115200 mru 1280 mtu 1280 nodetach debug dump defaultroute usepeerdns novj novjccomp noipdefault ipcp-accept-local ipcp-accept-remote connect-delay 5000 linkname ppp0
+		;;
+
+		*)
+		echo ""net.gprs.ppp-exit" not set yet"
+		;;
+esac
 
 PPPD_EXIT=$?
 PPPD_PID=$!
@@ -28,4 +76,3 @@ PPPD_PID=$!
 /system/bin/log -t pppd "pppd exited with $PPPD_EXIT"
 
 /system/bin/setprop "net.gprs.ppp-exit" "$PPPD_EXIT"
-
