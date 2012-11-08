@@ -248,6 +248,11 @@ PRODUCT_PACKAGES += \
 	libext2_uuid	\
 	libext2fs
 
+# ntfs-3g binary
+PRODUCT_PACKAGES += \
+	ntfs-3g		\
+	ntfsfix
+
 # for CtsVerifier
 PRODUCT_PACKAGES += \
     com.android.future.usb.accessory
