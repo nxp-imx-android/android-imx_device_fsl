@@ -352,9 +352,6 @@ on boot
     write /sys/class/android_usb/android0/iProduct $ro.product.model
     write /sys/class/android_usb/android0/iSerial $ro.serialno
 
-# mount the debugfs
-    mount debugfs none /sys/kernel/debug/
-
 # Set this property so surfaceflinger is not started by system_init
     setprop system_init.startsurfaceflinger 0
 

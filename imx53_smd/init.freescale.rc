@@ -62,6 +62,9 @@ on boot
     chown system system /sys/class/backlight/pwm-backlight.0/brightness
     chmod 0660 /sys/class/backlight/pwm-backlight.0/brightness
 
+# mount the debugfs
+    mount debugfs none /sys/kernel/debug/
+
 # Daemon processes to be run by init.
 service hciattach /system/bin/logwrapper /system/bin/hciattach -n -s 115200 /dev/ttymxc2 ath3k 3000000 flow sleep
     user root
