@@ -140,6 +140,9 @@ PRODUCT_PACKAGES += \
 	libdrmframework             		\
 	libdrmpassthruplugin        		\
 	libfwdlockengine            		\
+# power tool
+PRODUCT_PACKAGES += \
+	powerdebug
 
 # Omx related libs, please align to device/fsl/proprietary/omx/fsl-omx.mk
 omx_libs := \
