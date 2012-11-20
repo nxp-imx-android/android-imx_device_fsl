@@ -58,6 +58,7 @@ PRODUCT_PACKAGES += \
 #audio related lib
 PRODUCT_PACKAGES += \
 	audio.primary.imx5x			\
+	audio.usb.default			\
 	tinyplay				\
 	tinycap					\
 	tinymix					\

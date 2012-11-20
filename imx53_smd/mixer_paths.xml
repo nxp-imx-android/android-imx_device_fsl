@@ -1,18 +1,15 @@
 <mixer>
   <!-- These are the initial mixer settings -->
-    <ctl name="Speaker Function" value="on" />
-    <ctl name="Jack Function" value="on" />
   <ctl name="PCM Playback Volume" value="160" />
   <path name="speaker">
-      <ctl name="Speaker Function" value="on" />
+      <!-- <ctl name="Speaker Function" value="on" /> -->
       <ctl name="PCM Playback Volume" value="160" />
   </path> 
   <path name="main-mic">
-      <ctl name="Speaker Function" value="on" />
-      <ctl name="PCM Playback Volume" value="160" />
+      <ctl name="Mic Volume" value="2" />
   </path> 
   <path name="headphone">
-      <ctl name="Speaker Function" value="on" />
-      <ctl name="PCM Playback Volume" value="160" />
+      <!-- <ctl name="Speaker Function" value="off" /> -->
+      <ctl name="Headphone Playback Volume" value="103" />
   </path> 
 </mixer>
