@@ -264,6 +264,9 @@ PRODUCT_TAGS += dalvik.gc.type-precise
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES := \
 	persist.sys.usb.config=mtp
 
+PRODUCT_DEFAULT_DEV_CERTIFICATE := \
+        device/fsl/common/security/testkey
+
 # include a google recommand heap config file.
 include frameworks/native/build/tablet-dalvik-heap.mk
 
