@@ -7,7 +7,7 @@ include device/fsl/sabresd_6dq/build_id.mk
 include device/fsl/imx6/sabresd/SabreSDBoardConfigComm.mk
 include device/fsl-proprietary/gpu-viv/fsl-gpu.mk
 
-BOARD_KERNEL_CMDLINE := console=ttymxc0,115200 init=/init video=mxcfb0 video=mxcfb1:off video=mxcfb2:off fbmem=10M fb0base=0x27b00000 vmalloc=400M androidboot.console=ttymxc0 androidboot.hardware=freescale
+BOARD_KERNEL_CMDLINE := console=ttymxc0,115200 init=/init video=mxcfb0:dev=ldb,bpp=32 video=mxcfb1:off video=mxcfb2:off fbmem=10M fb0base=0x27b00000 vmalloc=400M androidboot.console=ttymxc0 androidboot.hardware=freescale
 
 
 ifeq ($(TARGET_USERIMAGES_USE_UBIFS),true)
