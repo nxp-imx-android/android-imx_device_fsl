@@ -2,33 +2,52 @@
 # Product-specific compile-time definitions.
 #
 
+include device/fsl/imx6/soc/imx6dq.mk
 include device/fsl/sabreauto_6q/build_id.mk
 include device/fsl/imx6/BoardConfigCommon.mk
+include device/fsl-proprietary/gpu-viv/fsl-gpu.mk
 
 TARGET_BOOTLOADER_BOARD_NAME := SABREAUTO
 
 BOARD_SOC_CLASS := IMX6
-BOARD_SOC_TYPE := IMX6Q
+BOARD_SOC_TYPE := IMX6DQ
 PRODUCT_MODEL := SABREAUTO-MX6Q
 
 USE_OPENGL_RENDERER := true
 TARGET_CPU_SMP := true
 
-WIFI_DRIVER_MODULE_NAME     := "ar6000"
-HOSTAPD_VERSION             := VER_0_8_ATHEROS
-WPA_SUPPLICANT_VERSION      := VER_0_8_ATHEROS
-BOARD_WLAN_ATHEROS_SDK      := system/wlan/atheros/AR6kSDK.build_3.1_RC.563
-BOARD_WPA_SUPPLICANT_DRIVER := AR6000
-BOARD_WLAN_CHIP_AR6102	    := true
-BOARD_WLAN_CHIP_AR6003	    := true
-BOARD_WPA_SUPPLICANT_DRIVER := WEXT
-# Select Wake on wireless mode for AR6003 suspend/resume policy
-BOARD_WLAN_PM_SUSPEND       := 2
+# Wifi
+BOARD_WLAN_VENDOR 			 := ATHEROS
+# for atheros vendor
+ifeq ($(BOARD_WLAN_VENDOR),ATHEROS)
+BOARD_WLAN_DEVICE			 := ar6003
+BOARD_HAS_ATH_WLAN 			 := true
+WPA_SUPPLICANT_VERSION			 := VER_0_8_ATHEROS
+WIFI_DRIVER_MODULE_PATH          	 := "/system/lib/modules/ath6kl_sdio.ko"
+WIFI_DRIVER_MODULE_NAME          	 := "ath6kl_sdio"
+WIFI_DRIVER_MODULE_ARG           	 := "suspend_mode=3 wow_mode=2 ar6k_clock=26000000 ath6kl_p2p=1"
+WIFI_DRIVER_P2P_MODULE_ARG       	 := "suspend_mode=3 wow_mode=2 ar6k_clock=26000000 ath6kl_p2p=1 debug_mask=0x2413"
+WIFI_SDIO_IF_DRIVER_MODULE_PATH  	 := "/system/lib/modules/cfg80211.ko"
+WIFI_SDIO_IF_DRIVER_MODULE_NAME  	 := "cfg80211"
+WIFI_SDIO_IF_DRIVER_MODULE_ARG   	 := ""
+WIFI_COMPAT_MODULE_PATH			 := "/system/lib/modules/compat.ko"
+WIFI_COMPAT_MODULE_NAME			 := "compat"
+WIFI_COMPAT_MODULE_ARG			 := ""
+endif
+#for intel vendor
+ifeq ($(BOARD_WLAN_VENDOR),INTEL)
+BOARD_HOSTAPD_PRIVATE_LIB		 ?= private_lib_driver_cmd
+BOARD_WPA_SUPPLICANT_PRIVATE_LIB 	 ?= private_lib_driver_cmd
+WPA_SUPPLICANT_VERSION			 := VER_0_7_X_INTEL
+HOSTAPD_VERSION				 := VER_0_7_X_INTEL
+WIFI_DRIVER_MODULE_PATH          	 := "/system/lib/modules/iwlagn.ko"
+WIFI_DRIVER_MODULE_NAME          	 := "iwlagn"
+WIFI_DRIVER_MODULE_PATH			 ?= auto
+endif
+BOARD_WPA_SUPPLICANT_DRIVER      	 := NL80211
+BOARD_HOSTAPD_DRIVER             	 := NL80211
+WIFI_TEST_INTERFACE			 := "sta"
 
-BOARD_HAVE_VPU := true
-HAVE_FSL_IMX_GPU2D := true
-HAVE_FSL_IMX_GPU3D := true
-HAVE_FSL_IMX_IPU := true
 BOARD_MODEM_VENDOR := AMAZON
 
 BOARD_HAVE_HARDWARE_GPS := true
@@ -42,9 +61,25 @@ USE_QEMU_GPS_HARDWARE := false
 # for recovery service
 TARGET_SELECT_KEY := 28
 TARGET_USERIMAGES_USE_EXT4 := true
+# we don't support sparse image.
+TARGET_USERIMAGES_SPARSE_EXT_DISABLED := true
 
 # atheros 3k BT
 BOARD_USE_AR3K_BLUETOOTH := true
 
 # define frame buffer count
 NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
+
+USE_ION_ALLOCATOR := false
+USE_GPU_ALLOCATOR := true
+
+BOARD_KERNEL_CMDLINE := console=ttymxc3,115200 init=/init video=mxcfb0:dev=ldb,bpp=32 video=mxcfb1:off video=mxcfb2:off fbmem=10M vmalloc=400M androidboot.console=ttymxc3 androidboot.hardware=freescale
+
+
+ifeq ($(TARGET_USERIMAGES_USE_UBIFS),true)
+#UBI boot command line.
+BOARD_KERNEL_CMDLINE := console=ttymxc3,115200 init=/init video=mxcfb0 video=mxcfb1:off video=mxcfb2:off fbmem=10M vmalloc=400M androidboot.console=ttymxc3  mtdparts=gpmi-nand:20m(bootloader),20m(bootimg),20m(recovery),-(root) gpmi_debug_init ubi.mtd=3 androidboot.hardware=freescale
+endif
+
+
+TARGET_BOOTLOADER_CONFIG := mx6q:mx6q_sabreauto_android_config

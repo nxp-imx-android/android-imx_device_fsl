@@ -1,11 +1,34 @@
 import init.${ro.hardware}.usb.rc
 
+on init
+    start watchdogd
+
+    # See storage config details at http://source.android.com/tech/storage/
+    mkdir /mnt/shell/emulated 0700 shell shell
+    mkdir /storage/emulated 0555 root root
+
+    export EXTERNAL_STORAGE /storage/emulated/legacy
+    export EMULATED_STORAGE_SOURCE /mnt/shell/emulated
+    export EMULATED_STORAGE_TARGET /storage/emulated
+
+    # Support legacy paths
+    symlink /storage/emulated/legacy /sdcard
+    symlink /storage/emulated/legacy /mnt/sdcard
+    symlink /storage/emulated/legacy /storage/sdcard0
+    symlink /mnt/shell/emulated/0 /storage/emulated/legacy
+
 on boot
 
     # Set permission for IIM node
     symlink /dev/mxs_viim /dev/mxc_mem
 
-    symlink /dev/ttymxc1 /dev/gpsdevice
+    # Set GPS serial and reset GPIO pin
+    setprop ro.kernel.android.gps /dev/athrnmea
+    setprop persist.gps.oacmode @f
+    symlink /dev/ttymxc2 /dev/gpsdevice
+    write /sys/class/gpio/export 60
+    write /sys/class/gpio/gpio60/direction "out"
+    write /sys/class/gpio/gpio60/value 1
 
     # Enable Tethering in the Settings
     setprop ro.tether.denied false
@@ -14,6 +37,9 @@ on boot
     setprop debug.sf.showfps    0
     setprop debug.sf.enable_hgl 1
     setprop debug.egl.hw	1
+
+    setprop hwc.filter_stretch  1
+    setprop hwc.enable_dither   1
 
     # fsl omx graphic manager media framework property
     setprop media.omxgm.enable-player 1
@@ -27,24 +53,49 @@ on boot
     #the android before honycomb are all in portrait mode
     setprop back_camera_name ov5640_mipi
     setprop back_camera_orient 0
+    setprop front_camera_name ov5642
+    setprop front_camera_orient 0
 
     # Set OpenGLES version
     setprop ro.opengles.version 131072
 
-    # Disable UI output for second display during video playback
-    setprop ro.secfb.disable-overlay  0
-
-    # Enable auto configuration with 1, disable with 0
-    setprop ro.AUTO_CONFIG_DISPLAY  1
-
     # Set rotation to 270 to cofigure as portrait mode
     setprop ro.sf.hwrotation 0
 
-    # hdmi audio output
-    setprop ro.HDMI_AUDIO_OUTPUT 1
+    # Set the density to 140dpi, default 128dpi is not good
+    setprop ro.sf.lcd_density 140
 
-    # Set video overlay display mode
-    setprop sys.VIDEO_OVERLAY_DISPLAY 1
+# change for FSL specific service
+    chown system system /sys/devices/system/cpu/cpu0
+    chown system system /sys/devices/system/cpu/cpu1
+    chown system system /sys/devices/system/cpu/cpu2
+    chown system system /sys/devices/system/cpu/cpu3
+    chown system system /sys/class/thermal/thermal_zone0
+    chmod 0550 /sys/class/thermal/thermal_zone0
+    chmod 0550 /sys/devices/system/cpu/cpu0
+    chmod 0550 /sys/devices/system/cpu/cpu1
+    chmod 0550 /sys/devices/system/cpu/cpu2
+    chmod 0550 /sys/devices/system/cpu/cpu3
+    chmod 0550 /sys/class/thermal/thermal_zone0
+    chown system system /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
+    chmod 0660 /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
+    chown system system /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
+    chmod 0660 /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
+    chown system system /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+    chown system system /sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_cur_freq
+    chmod 0440 /sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_cur_freq
+    chown system system /sys/devices/system/cpu/online
+    chmod 0440 /sys/devices/system/cpu/online
+    chown system system /sys/devices/system/cpu/offline
+    chmod 0440 /sys/devices/system/cpu/offline
+    chown system system /sys/devices/system/cpu/cpu0/online
+    chmod 0660 /sys/devices/system/cpu/cpu0/online
+    chown system system /sys/devices/system/cpu/cpu1/online
+    chmod 0660 /sys/devices/system/cpu/cpu1/online
+    chown system system /sys/devices/system/cpu/cpu2/online
+    chmod 0660 /sys/devices/system/cpu/cpu2/online
+    chown system system /sys/devices/system/cpu/cpu3/online
+    chmod 0660 /sys/devices/system/cpu/cpu3/online
 
     # Default backlight device
     setprop hw.backlight.dev "pwm-backlight.2"
@@ -52,20 +103,46 @@ on boot
     chown system system /sys/class/backlight/pwm-backlight.2/brightness
     chmod 0660 /sys/class/backlight/pwm-backlight.2/brightness
 
-    # Add support wakeup system from debug UART
-    write /sys/devices/platform/imx-uart.0/tty/ttymxc3/power/wakeup enabled
+    # Set light sensor sysfs path and light sensor threshold lux value
+    setprop ro.hardware.lightsensor "/sys/class/i2c-dev/i2c-2/device/2-0044/"
+    setprop ro.lightsensor.threshold  20
 
-service wpa_supplicant /system/bin/wlan_tool wpa_supplicant
+    # No bluetooth hardware present
+    setprop hw.bluetooth 0
+    setprop wlan.interface wlan0
+
+# mount the debugfs
+    mount debugfs none /sys/kernel/debug/
+
+service p2p_supplicant /system/bin/wpa_supplicant \
+    -ip2p0 -Dnl80211 -c/data/misc/wifi/p2p_supplicant.conf -N \
+    -iwlan0 -Dnl80211 -c/data/misc/wifi/wpa_supplicant.conf
+    class late_start
     disabled
     oneshot
 
-service wlan_tool /system/bin/wlan_tool
+# magd daemon
+service magd /system/bin/magd
+    class main
+    user system
+    group input
+    oneshot
+
+# Orion InG
+service ing /system/bin/ingsvcd -c /system/etc/gps/Orion.ini
+    socket athrkv9988    stream 666 system system
+    socket athrshmsocket stream 666 system system
+    socket athrsupl59991 stream 666 system system
+    class late_start
+    user root
+    group gps
+    oneshot
+
+service iprenew_wlan0 /system/bin/dhcpcd -n
+    class late_start
+    disabled
     oneshot
 
 on fs
 # mount ext4 partitions
-    mount ext4 /dev/block/mmcblk0p5 /system
-    mount ext4 /dev/block/mmcblk0p5 /system ro remount
-    mount ext4 /dev/block/mmcblk0p7 /data nosuid nodev nodiratime noatime noauto_da_alloc
-    mount ext4 /dev/block/mmcblk0p6 /cache nosuid nodev
-    mount ext4 /dev/block/mmcblk0p8 /device ro nosuid nodev
+    mount_all /fstab.freescale
