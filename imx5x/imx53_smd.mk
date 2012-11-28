@@ -12,7 +12,7 @@ PRODUCT_COPY_FILES += \
 	device/fsl/imx53_smd/fstab.freescale:root/fstab.freescale \
 	device/fsl/imx53_smd/init.freescale.rc:root/init.freescale.rc \
         device/fsl/imx53_smd/vold.fstab:system/etc/vold.fstab \
-	device/fsl/imx53_smd/gpsreset.sh:system/etc/gpsreset.sh \
+	device/fsl/imx53_smd/gpsreset.sh:system/bin/gpsreset.sh \
 	device/fsl/common/input/eGalax_Touch_Screen.idc:system/usr/idc/eGalax_Touch_Screen.idc \
 	device/fsl/common/input/eGalax_Touch_Screen.idc:system/usr/idc/HannStar_P1003_Touchscreen.idc 
 
