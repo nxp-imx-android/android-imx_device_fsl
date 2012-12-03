@@ -34,7 +34,7 @@ loglevel 3
     export LOOP_MOUNTPOINT /mnt/obb
     export BOOTCLASSPATH /system/framework/core.jar:/system/framework/core-junit.jar:/system/framework/bouncycastle.jar:/system/framework/ext.jar:/system/framework/framework.jar:/system/framework/android.policy.jar:/system/framework/services.jar:/system/framework/apache-xml.jar
     export SHM_MOUNTPOINT /mnt/shm
-    export EXTERNAL_STORAGE /mnt/sdcard
+    export EXTERNAL_STORAGE /storage/sdcard0
     export SECONDARY_STORAGE /mnt/extsd:/mnt/udisk
     export LIGHTSENSOR_PATH /sys/class/i2c-adapter/i2c-1/1-0044
     export VPU_FW_PATH /system/lib/firmware/vpu
@@ -57,8 +57,6 @@ loglevel 3
     mount cgroup none /acct cpuacct
     mkdir /acct/uid
 
-    mkdir /mnt/sdcard 0000 system system
-    symlink /mnt/sdcard /sdcard
     mkdir /mnt/extsd 0000 system system
     symlink /mnt/extsd /extsd
     mkdir /mnt/udisk 0000 system system
@@ -69,6 +67,14 @@ loglevel 3
     mkdir /config 0500 root root
 
     mkdir /device 0771 system system
+
+    # See storage config details at http://source.android.com/tech/storage/
+    mkdir /storage 0050 root sdcard_r
+    mkdir /storage/sdcard0 0700 shell shell
+    # Support legacy paths
+    symlink /storage/sdcard0 /sdcard
+    symlink /storage/sdcard0 /mnt/sdcard
+
 
     # Directory for putting things only root should see.
     mkdir /mnt/secure 0700 root root
@@ -162,6 +168,8 @@ on post-fs-data
     # We chown/chmod /data again so because mount is run as root + defaults
     chown system system /data
     chmod 0771 /data
+
+    mkdir /data/media 0770 media_rw media_rw
 
     # Create dump dir and collect dumps.
     # Do this before we mount cache so eventually we can use cache for
@@ -595,6 +603,11 @@ service pppd_gprs /etc/ppp/init.gprs-pppd
     group radio cache inet misc
     disabled
     oneshot
+
 service wifi_mac /system/bin/sh /system/etc/check_wifi_mac.sh
     class late_start
     oneshot
+
+# virtual sdcard daemon running as media_rw (1023)
+service sdcard /system/bin/sdcard /data/media 1023 1023
+    class late_start

@@ -4,7 +4,6 @@
 BOOTLOAD_RESERVE=8
 BOOT_ROM_SIZE=8
 SYSTEM_ROM_SIZE=512
-DATA_SIZE=1024
 CACHE_SIZE=256
 RECOVERY_ROM_SIZE=8
 VENDER_SIZE=8
@@ -64,19 +63,9 @@ fi
 seprate=40
 total_size=`sfdisk -s ${node}`
 total_size=`expr ${total_size} / 1024`
-rom_size=`expr ${BOOT_ROM_SIZE} + ${SYSTEM_ROM_SIZE} + ${DATA_SIZE}`
-rom_size=`expr ${rom_size} + ${CACHE_SIZE} + ${RECOVERY_ROM_SIZE} + ${MISC_SIZE} + ${VENDER_SIZE} + ${seprate}`
-boot_start=`expr ${BOOTLOAD_RESERVE}`
 boot_rom_sizeb=`expr ${BOOT_ROM_SIZE} + ${BOOTLOAD_RESERVE}`
-recovery_start=`expr ${boot_start} + ${BOOT_ROM_SIZE} + 1`
-extend_start=`expr ${recovery_start} + 1`
-extend_size=`expr ${SYSTEM_ROM_SIZE} + ${DATA_SIZE} + ${CACHE_SIZE} + ${VENDER_SIZE} + ${MISC_SIZE} + ${seprate}`
-system_start=`expr ${extend_start} + 1`
-cache_start=`expr ${extend_start} + ${SYSTEM_ROM_SIZE} + 1`
-data_start=`expr ${cache_start} + ${CACHE_SIZE} + 1`
-misc_start=`expr ${data_start} + ${DATA_SIZE}`
-vfat_start=`expr ${extend_start} + ${extend_size}`
-vfat_size=`expr ${total_size} - ${rom_size}`
+extend_size=`expr ${SYSTEM_ROM_SIZE} + ${CACHE_SIZE} + ${VENDER_SIZE} + ${MISC_SIZE} + ${seprate}`
+data_size=`expr ${total_size} - ${boot_rom_sizeb} - ${RECOVERY_ROM_SIZE} - ${extend_size} + ${seprate}`
 
 # create partitions
 if [ "${cal_only}" -eq "1" ]; then
@@ -85,9 +74,8 @@ BOOT   : ${boot_rom_sizeb}MB
 RECOVERY: ${RECOVERY_ROM_SIZE}MB
 SYSTEM : ${SYSTEM_ROM_SIZE}MB
 CACHE  : ${CACHE_SIZE}MB
-DATA   : ${DATA_SIZE}MB
+DATA   : ${data_size}MB
 MISC   : ${MISC_SIZE}MB
-VFAT   : ${vfat_size}MB
 EOF
 exit
 fi
@@ -95,11 +83,10 @@ fi
 function format_android
 {
     echo "formating android images"
-    mkfs.vfat ${node}4
+    mkfs.ext4 ${node}4 -Ldata
     mkfs.ext4 ${node}5 -Lsystem
     mkfs.ext4 ${node}6 -Lcache
-    mkfs.ext4 ${node}7 -Ldata
-    mkfs.ext4 ${node}8 -Lvender
+    mkfs.ext4 ${node}7 -Lvender
 }
 
 function flash_android
@@ -127,10 +114,9 @@ sfdisk --force -uM ${node} << EOF
 ,${boot_rom_sizeb},83
 ,${RECOVERY_ROM_SIZE},83
 ,${extend_size},5
-,${vfat_size},b
+,${data_size},83
 ,${SYSTEM_ROM_SIZE},83
 ,${CACHE_SIZE},83
-,${DATA_SIZE},83
 ,${VENDER_SIZE},83
 ,${MISC_SIZE},83
 EOF
