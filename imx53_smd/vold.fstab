@@ -19,9 +19,11 @@ dev_mount sdcard /mnt/sdcard 1 /devices/platform/sdhci-esdhc-imx.0/mmc_host/mmc0
 #for external sdcard as primary storage
 dev_mount extsd /mnt/extsd auto /devices/platform/sdhci-esdhc-imx.2/mmc_host/mmc2 /devices/platform/sdhci-esdhc-imx.0/mmc_host/mmc2
 #used for usb host
-dev_mount udisk /mnt/udisk auto /devices/platform/fsl-ehci.1/usb /devices/platform/fsl-ehci.0/usb
+#dev_mount udisk /mnt/udisk auto /devices/platform/fsl-ehci.1/usb /devices/platform/fsl-ehci.0/usb
 #used for usb otg host
-#dev_mount udisk /mnt/sdcard/udisk auto /devices/platform/fsl-ehci.0/usb
+#dev_mount udisk /mnt/udisk auto /devices/platform/fsl-ehci.0/usb
+#used for all usb host
+dev_mount udisk /mnt/udisk auto /devices/platform/fsl-ehci
 
 
 ## Example of a dual card setup
