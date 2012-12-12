@@ -18,4 +18,5 @@
     <!-- Help menu label [CHAR LIMIT=20] -->
     <!-- Help URL, WiFi [DO NOT TRANSLATE] -->
     <string name="help_url_wifi" translatable="false">http://support.google.com/wifi</string>
+    <string name="help_url_accounts" translatable="false">http://support.google.com/accounts</string>
 </resources>
