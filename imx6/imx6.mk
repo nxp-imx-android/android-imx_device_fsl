@@ -217,6 +217,9 @@ omx_libs := \
 	lib_omx_vpu_enc_v2_arm11_elinux \
 	lib_ffmpeg_arm11_elinux	\
 	lib_omx_https_pipe_v2_arm11_elinux \
+	lib_omx_https_pipe_v3_arm11_elinux \
+	lib_omx_udps_pipe_arm11_elinux \
+	lib_omx_rtps_pipe_arm11_elinux \
 	lib_omx_streaming_parser_arm11_elinux \
 	lib_omx_surface_render_arm11_elinux \
 	libfsl_jpeg_enc_arm11_elinux \

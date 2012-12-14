@@ -180,6 +180,9 @@ omx_libs := \
 	lib_omx_android_audio_render_arm11_elinux	\
 	lib_omx_audio_fake_render_arm11_elinux		\
 	lib_omx_ipulib_render_arm11_elinux		\
+	lib_omx_https_pipe_v3_arm11_elinux		\
+	lib_omx_udps_pipe_arm11_elinux			\
+	lib_omx_rtps_pipe_arm11_elinux			\
 	lib_avi_parser_arm11_elinux.3.0			\
 	lib_divx_drm_arm11_elinux			\
 	lib_mp4_parser_arm11_elinux.3.0			\
