@@ -11,4 +11,5 @@ include device/fsl/imx6/evk/ProductCommonEvk.mk
 
 PRODUCT_COPY_FILES +=	\
 	device/fsl/evk_6sl/init.rc:root/init.freescale.rc \
-	device/fsl/evk_6sl/mxckpd.kl:system/usr/keylayout/mxckpd.kl
+	device/fsl/evk_6sl/mxckpd.kl:system/usr/keylayout/mxckpd.kl \
+	device/fsl/evk_6sl/audio_policy.conf:system/etc/audio_policy.conf

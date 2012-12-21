@@ -13,7 +13,8 @@ PRODUCT_COPY_FILES += \
 	device/fsl/sabreauto_6q/init.usb.rc:root/init.freescale.usb.rc \
         device/fsl/sabreauto_6q/vold.fstab:system/etc/vold.fstab \
 	device/fsl/common/input/eGalax_Touch_Screen.idc:system/usr/idc/eGalax_Touch_Screen.idc \
-	device/fsl/common/input/eGalax_Touch_Screen.idc:system/usr/idc/HannStar_P1003_Touchscreen.idc
+	device/fsl/common/input/eGalax_Touch_Screen.idc:system/usr/idc/HannStar_P1003_Touchscreen.idc \
+	device/fsl/sabreauto_6q/audio_policy.conf:system/etc/audio_policy.conf
 
 # GPU files
 
