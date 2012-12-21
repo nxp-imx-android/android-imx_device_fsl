@@ -1,6 +1,7 @@
 $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/generic.mk)
-$(call inherit-product, frameworks/base/data/sounds/OriginalAudio.mk)
+$(call inherit-product, frameworks/base/data/sounds/AudioPackage4.mk)
+$(call inherit-product, frameworks/base/data/sounds/AudioPackage5.mk)
 $(call inherit-product, frameworks/base/data/fonts/fonts.mk)
 $(call inherit-product, frameworks/base/data/keyboards/keyboards.mk)
 
@@ -75,6 +76,7 @@ PRODUCT_PACKAGES += \
 	copybit.imx5x				\
 	hwcomposer.imx5x            		\
 	camera.imx5x            		\
+	power.imx5x				\
 	magd
 
 # Bluetooth firmware files.
@@ -251,6 +253,14 @@ PRODUCT_PACKAGES += $(omx_libs) $(omx_excluded_libs)
 
 PRODUCT_PACKAGES += libubi ubinize ubiformat ubiattach ubidetach ubiupdatevol ubimkvol ubinfo mkfs.ubifs
 
+# FUSE based emulated sdcard daemon
+PRODUCT_PACKAGES += sdcard
+
+# ntfs-3g binary
+PRODUCT_PACKAGES += \
+	ntfs-3g		\
+	ntfsfix
+
 # for CtsVerifier
 PRODUCT_PACKAGES += \
     com.android.future.usb.accessory
@@ -267,6 +277,12 @@ PRODUCT_COPY_FILES +=	\
 	device/fsl/imx5x/init.gprs-pppd:system/etc/ppp/init.gprs-pppd \
 	device/fsl/imx5x/initlogo.rle:root/initlogo.rle
 
+# for bugmailer
+PRODUCT_PACKAGES += send_bug
+PRODUCT_COPY_FILES += \
+    system/extras/bugmailer/bugmailer.sh:system/bin/bugmailer.sh \
+    system/extras/bugmailer/send_bug:system/bin/send_bug
+
 # VPU firmware
 PRODUCT_COPY_FILES +=	\
 	external/linux-firmware-imx/firmware/vpu/vpu_fw_imx53.bin:system/lib/firmware/vpu/vpu_fw_imx53.bin
@@ -281,5 +297,5 @@ PRODUCT_DEFAULT_DEV_CERTIFICATE := \
         device/fsl/common/security/testkey
 
 # include a google recommand heap config file.
-include frameworks/native/build/tablet-dalvik-heap.mk
+include frameworks/native/build/tablet-7in-hdpi-1024-dalvik-heap.mk
 
