@@ -75,3 +75,6 @@ BOARD_KERNEL_BASE := 0x70800000
 TARGET_BOOTLOADER_CONFIG := mx53_smd_android_config
 
 TARGET_RECOVERY_UI_LIB := librecovery_ui_imx53_smd
+
+# define frame buffer count
+NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3

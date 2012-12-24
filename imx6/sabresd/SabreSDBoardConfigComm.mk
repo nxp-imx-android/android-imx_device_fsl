@@ -71,3 +71,6 @@ BOARD_USE_AR3K_BLUETOOTH := true
 
 USE_ION_ALLOCATOR := false
 USE_GPU_ALLOCATOR := true
+
+# define frame buffer count
+NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3

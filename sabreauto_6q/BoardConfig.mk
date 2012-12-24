@@ -45,3 +45,6 @@ TARGET_USERIMAGES_USE_EXT4 := true
 
 # atheros 3k BT
 BOARD_USE_AR3K_BLUETOOTH := true
+
+# define frame buffer count
+NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
