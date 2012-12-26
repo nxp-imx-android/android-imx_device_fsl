@@ -15,6 +15,7 @@ PRODUCT_PACKAGES += \
 	Gallery		    			\
 	SoundRecorder				\
         Camera                                  \
+	Email					\
 	FSLOta					\
 	VideoEditor				\
 	FSLProfileApp				\
