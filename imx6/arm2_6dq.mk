@@ -7,11 +7,12 @@ $(call inherit-product, device/fsl/imx6/imx6.mk)
 PRODUCT_NAME := arm2_6dq
 PRODUCT_DEVICE := arm2_6dq
 
-include device/fsl/imx6/arm2/ProductCommonArm2.mk
-
-PRODUCT_COPY_FILES +=	\
+PRODUCT_COPY_FILES += \
+	device/fsl/arm2_6dq/required_hardware.xml:system/etc/permissions/required_hardware.xml \
+	device/fsl/arm2_6dq/vold.fstab:system/etc/vold.fstab \
 	device/fsl/arm2_6dq/init.rc:root/init.freescale.rc
 
+DEVICE_PACKAGE_OVERLAYS := device/fsl/arm2_6dq/overlay
 
 PRODUCT_CHARACTERISTICS := tablet
 
