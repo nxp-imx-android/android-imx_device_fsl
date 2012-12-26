@@ -188,4 +188,10 @@
     -->
     <bool name="config_enableWifiDisplay">true</bool>
 
+    <!-- Disables fading edges when marquee is enabled in TextView.
+         The fading edge effect will bring performance drop when
+	 the hardware rendering is used.
+    -->
+    <bool name="config_ui_enableFadingMarquee">false</bool>
+
 </resources>
