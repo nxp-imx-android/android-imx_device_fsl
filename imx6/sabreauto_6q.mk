@@ -41,3 +41,5 @@ ifneq ($(wildcard packages/wallpapers/LivePicker),)
 PRODUCT_COPY_FILES += \
 	packages/wallpapers/LivePicker/android.software.live_wallpaper.xml:system/etc/permissions/android.software.live_wallpaper.xml
 endif
+
+PRODUCT_PACKAGES += AudioRoute
