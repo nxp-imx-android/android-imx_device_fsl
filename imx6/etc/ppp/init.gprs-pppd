@@ -13,6 +13,7 @@ PPPD_PID=
 ril_impl=`/system/bin/getprop gsm.version.ril-impl`
 
 case "$ril_impl" in
+"WD_ZTE_RILV1.0.0B02_V6_20121226" | \
 "ZTE_RIL_W_GENERAL_V02B01")
 		private_username=`/system/bin/getprop ril.private.username`
 
