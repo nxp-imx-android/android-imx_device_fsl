@@ -88,14 +88,18 @@
 
          Must be overridden in platform specific overlays -->
     <integer-array name="config_autoBrightnessLevels">
-        <item>10</item>
-        <item>40</item>
+        <item>5</item>
+        <item>15</item>
+        <item>50</item>
         <item>100</item>
-        <item>225</item>
-        <item>800</item>
-        <item>1600</item>
-        <item>3200</item>
-        <item>16000</item>
+        <item>200</item>
+        <item>400</item>
+        <item>1000</item>
+        <item>2000</item>
+        <item>3000</item>
+        <item>5000</item>
+        <item>10000</item>
+        <item>30000</item>
     </integer-array>
 
     <!-- Array of output values for LCD backlight corresponding to the LUX values
@@ -103,15 +107,19 @@
          than the size of the config_autoBrightnessLevels array.
          This must be overridden in platform specific overlays -->
     <integer-array name="config_autoBrightnessLcdBacklightValues">
-        <item>25</item>
-        <item>80</item>
-        <item>130</item>
-        <item>180</item>
-        <item>230</item>
-        <item>240</item>
-        <item>250</item>
-        <item>255</item>
-        <item>255</item>
+        <item>5</item>    <!-- 0-5 -->
+        <item>20</item>   <!-- 5-15 -->
+        <item>30</item>   <!-- 15-50 -->
+        <item>40</item>   <!-- 50-100 -->
+        <item>50</item>   <!-- 100-200 -->
+        <item>60</item>   <!-- 200-400 -->
+        <item>70</item>   <!-- 400-1000 -->
+        <item>80</item>   <!-- 1000-2000 -->
+        <item>130</item>  <!-- 2000-3000 -->
+        <item>180</item>  <!-- 3000-5000 -->
+        <item>255</item>  <!-- 5000-10000 -->
+        <item>255</item>  <!-- 10000-30000 -->
+        <item>255</item>  <!-- 30000+ -->
     </integer-array>
 
     <!-- Array of output values for button backlight corresponding to the LUX values
@@ -119,6 +127,14 @@
          than the size of the config_autoBrightnessLevels array.
          This must be overridden in platform specific overlays -->
     <integer-array name="config_autoBrightnessButtonBacklightValues">
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
         <item>0</item>
         <item>0</item>
         <item>0</item>
@@ -144,7 +160,17 @@
         <item>0</item>
         <item>0</item>
         <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
     </integer-array>
+
+    <integer name="config_screenBrightnessDim">5</integer>
 
     <!-- Base "touch slop" value used by ViewConfiguration as a
          movement threshold where scrolling should begin. -->
