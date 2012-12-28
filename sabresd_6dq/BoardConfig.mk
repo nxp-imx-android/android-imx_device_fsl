@@ -4,8 +4,8 @@
 
 include device/fsl/imx6/soc/imx6dq.mk
 include device/fsl/sabresd_6dq/build_id.mk
-include device/fsl-proprietary/gpu-viv/fsl-gpu.mk
 include device/fsl/imx6/BoardConfigCommon.mk
+include device/fsl-proprietary/gpu-viv/fsl-gpu.mk
 
 TARGET_BOOTLOADER_BOARD_NAME := SABRESD
 PRODUCT_MODEL := SABRESD-MX6DQ
