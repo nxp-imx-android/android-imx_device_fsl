@@ -1,9 +1,4 @@
-$(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
-$(call inherit-product, $(SRC_TARGET_DIR)/product/generic.mk)
-$(call inherit-product, frameworks/base/data/sounds/AudioPackage4.mk)
-$(call inherit-product, frameworks/base/data/sounds/AudioPackage5.mk)
-$(call inherit-product, frameworks/base/data/fonts/fonts.mk)
-$(call inherit-product, frameworks/base/data/keyboards/keyboards.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 
 # overrides
 PRODUCT_BRAND := Freescale
@@ -23,6 +18,7 @@ PRODUCT_PACKAGES += \
 	SoundRecorder				\
 	FSLOta					\
 	VideoEditor				\
+	Email					\
 	PinyinIME				\
 	librs_jni				\
 	pppd					\

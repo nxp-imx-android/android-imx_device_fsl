@@ -29,13 +29,6 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.usb.accessory.xml:system/etc/permissions/android.hardware.usb.accessory.xml \
     frameworks/native/data/etc/android.software.sip.voip.xml:system/etc/permissions/android.software.sip.voip.xml
 
-# for PDK build, include only when the dir exists
-# too early to use $(TARGET_BUILD_PDK)
-ifneq ($(wildcard packages/wallpapers/LivePicker),)
-PRODUCT_COPY_FILES += \
-    packages/wallpapers/LivePicker/android.software.live_wallpaper.xml:system/etc/permissions/android.software.live_wallpaper.xml
-endif
-
 # audio related files
 PRODUCT_COPY_FILES += \
 	device/fsl/imx53_smd/audio_policy.conf:system/etc/audio_policy.conf \
