@@ -1,6 +1,4 @@
-/dev/ttymxc1              0600   bluetooth  bluetooth
 /dev/ttymxc2              0600   bluetooth  bluetooth
-/dev/ion                  0666   media      system
 /dev/snd/*                0664   system     audio
 /dev/ttyUSB*              0640   radio      radio
 /dev/ttyACM*              0640   radio      radio
@@ -19,7 +17,9 @@
 /dev/ptya0                0660   system     gps
 /dev/ttya1                0660   system     gps
 /dev/ptya1                0660   system     gps
+/dev/ion                  0666   media      system
 /dev/graphics/fb0         0660   system     graphics
+/dev/watchdog             0660   system     root
 
 # sysfs properties
 /sys/devices/virtual/input/input*   name        0660  root   input

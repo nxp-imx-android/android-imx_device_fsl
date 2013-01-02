@@ -38,7 +38,7 @@ loglevel 3
     export LOOP_MOUNTPOINT /mnt/obb
     export SHM_MOUNTPOINT /mnt/shm
     export EXTERNAL_STORAGE /mnt/sdcard
-    export BOOTCLASSPATH /system/framework/core.jar:/system/framework/core-junit.jar:/system/framework/bouncycastle.jar:/system/framework/ext.jar:/system/framework/framework.jar:/system/framework/android.policy.jar:/system/framework/services.jar:/system/framework/apache-xml.jar
+    export BOOTCLASSPATH /system/framework/core.jar:/system/framework/core-junit.jar:/system/framework/bouncycastle.jar:/system/framework/ext.jar:/system/framework/framework.jar:/system/framework/telephony-common.jar:/system/framework/mms-common.jar:/system/framework/android.policy.jar:/system/framework/services.jar:/system/framework/apache-xml.jar
 
     export LIGHTSENSOR_PATH /sys/class/i2c-adapter/i2c-1/1-0044
     export VPU_FW_PATH /system/lib/firmware/vpu
@@ -203,6 +203,8 @@ on post-fs-data
     chmod 0640 /data/dontpanic/apanic_threads
 
     write /proc/apanic_console 1
+
+    mkdir /data/media 0770 media_rw media_rw
 
     # create basic filesystem structure
     mkdir /data/misc 01771 system misc
@@ -623,3 +625,6 @@ service bugreport /system/bin/bugmailer.sh -b /system/media/audio/ui/Dock.ogg -e
     oneshot
     keycodes 115 102
 
+# Set watchdog timer to 30 seconds and pet it every 10 seconds to get a 20 second margin
+service watchdogd /sbin/watchdogd 10 20
+    class core

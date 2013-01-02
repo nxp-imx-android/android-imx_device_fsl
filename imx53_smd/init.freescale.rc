@@ -1,5 +1,8 @@
 import init.${ro.hardware}.usb.rc
 
+on init
+    start watchdogd
+
 on boot
 
     # Set permission for IIM node
