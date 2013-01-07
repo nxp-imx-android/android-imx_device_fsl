@@ -1,0 +1,116 @@
+import init.${ro.hardware}.usb.rc
+
+on init
+    start watchdogd
+
+    # See storage config details at http://source.android.com/tech/storage/
+    mkdir /mnt/shell/emulated 0700 shell shell
+    mkdir /storage/emulated 0555 root root
+
+    export EXTERNAL_STORAGE /storage/emulated/legacy
+    export EMULATED_STORAGE_SOURCE /mnt/shell/emulated
+    export EMULATED_STORAGE_TARGET /storage/emulated
+
+    # Support legacy paths
+    symlink /storage/emulated/legacy /sdcard
+    symlink /storage/emulated/legacy /mnt/sdcard
+    symlink /storage/emulated/legacy /storage/sdcard0
+    symlink /mnt/shell/emulated/0 /storage/emulated/legacy
+
+on boot
+
+    # Set permission for IIM node
+    symlink /dev/mxs_viim /dev/mxc_mem
+
+    # Enable Tethering in the Settings
+    setprop ro.tether.denied false
+
+    # 3D acceleration property
+    setprop debug.sf.showfps    0
+    setprop debug.sf.enable_hgl 1
+    setprop debug.egl.hw	1
+
+    setprop hwc.filter_stretch  1
+    setprop hwc.enable_dither   1
+
+    # fsl omx graphic manager media framework property
+    setprop media.omxgm.enable-player 1
+    setprop media.omxgm.enable-record 1
+    setprop media.omxgm.enable-scan 1
+    setprop rw.VIDEO_RENDER_NAME video_render.surface
+
+    #Define the config for dual camera
+    #For landscape mode, orient is 0
+    #For portrait mode, orient is 90
+    #the android before honycomb are all in portrait mode
+    setprop back_camera_name uvc
+    setprop back_camera_orient 0
+
+    # Set OpenGLES version
+    setprop ro.opengles.version 131072
+
+    # Set rotation to 270 to cofigure as portrait mode
+    setprop ro.sf.hwrotation 0
+
+    # Set the density to 140dpi, default 128dpi is not good
+    setprop ro.sf.lcd_density 140
+
+# change for FSL specific service
+    chown system system /sys/devices/system/cpu/cpu0
+    chown system system /sys/devices/system/cpu/cpu1
+    chown system system /sys/devices/system/cpu/cpu2
+    chown system system /sys/devices/system/cpu/cpu3
+    chown system system /sys/class/thermal/thermal_zone0
+    chmod 0550 /sys/class/thermal/thermal_zone0
+    chmod 0550 /sys/devices/system/cpu/cpu0
+    chmod 0550 /sys/devices/system/cpu/cpu1
+    chmod 0550 /sys/devices/system/cpu/cpu2
+    chmod 0550 /sys/devices/system/cpu/cpu3
+    chmod 0550 /sys/class/thermal/thermal_zone0
+    chown system system /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
+    chmod 0660 /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
+    chown system system /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
+    chmod 0660 /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
+    chown system system /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+    chown system system /sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_cur_freq
+    chmod 0440 /sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_cur_freq
+    chown system system /sys/devices/system/cpu/online
+    chmod 0440 /sys/devices/system/cpu/online
+    chown system system /sys/devices/system/cpu/offline
+    chmod 0440 /sys/devices/system/cpu/offline
+    chown system system /sys/devices/system/cpu/cpu0/online
+    chmod 0660 /sys/devices/system/cpu/cpu0/online
+    chown system system /sys/devices/system/cpu/cpu1/online
+    chmod 0660 /sys/devices/system/cpu/cpu1/online
+    chown system system /sys/devices/system/cpu/cpu2/online
+    chmod 0660 /sys/devices/system/cpu/cpu2/online
+    chown system system /sys/devices/system/cpu/cpu3/online
+    chmod 0660 /sys/devices/system/cpu/cpu3/online
+
+# Enable USB host1'remote wakeup event wakeup android system
+    write /sys/bus/platform/drivers/fsl-ehci/fsl-ehci.1/power/wakeup enabled
+
+    # No bluetooth hardware present
+    setprop hw.bluetooth 1
+    setprop wlan.interface wlan0
+# for realtek  8192ce
+service wpa_supplicant /system/bin/wpa_supplicant -Dnl80211 -iwlan0 -c/data/misc/wifi/wpa_supplicant.conf
+    socket wpa_wlan0 dgram 660 wifi wifi
+    group wifi inet
+    disabled
+    oneshot
+
+service iprenew_wlan0 /system/bin/dhcpcd -n
+    class late_start
+    disabled
+    oneshot
+
+on fs
+# mount ext4 partitions
+    mount ubifs ubi0:system /system
+    mount ubifs ubi0:system /system ro remount
+    mount ubifs ubi0:data /data
+    mount ubifs ubi0:cache /cache
+
+# for compat with compat-wireless
+    insmod  /system/lib/modules/extra/cfg80211.ko
