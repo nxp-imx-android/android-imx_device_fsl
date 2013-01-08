@@ -288,6 +288,7 @@ PRODUCT_COPY_FILES +=	\
 	device/fsl/common/input/Dell_Dell_USB_Keyboard.idc:system/usr/idc/Dell_Dell_USB_Keyboard.idc \
 	device/fsl/common/input/eGalax_Touch_Screen.idc:system/usr/idc/eGalax_Touch_Screen.idc \
 	device/fsl/common/input/eGalax_Touch_Screen.idc:system/usr/idc/HannStar_P1003_Touchscreen.idc \
+	device/fsl/common/input/eGalax_Touch_Screen.idc:system/usr/idc/Novatek_NT11003_Touch_Screen.idc \
 	device/fsl/imx6/etc/init.rc:root/init.rc \
 	device/fsl/imx6/etc/fstab.freescale:root/fstab.freescale \
 	device/fsl/imx6/etc/apns-conf.xml:system/etc/apns-conf.xml \
