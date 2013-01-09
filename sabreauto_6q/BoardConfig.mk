@@ -75,11 +75,25 @@ USE_GPU_ALLOCATOR := true
 
 BOARD_KERNEL_CMDLINE := console=ttymxc3,115200 init=/init video=mxcfb0:dev=ldb,bpp=32 video=mxcfb1:off video=mxcfb2:off fbmem=10M vmalloc=400M androidboot.console=ttymxc3 androidboot.hardware=freescale
 
+# uncomment below lins if use NAND
+#TARGET_USERIMAGES_USE_UBIFS = true
 
 ifeq ($(TARGET_USERIMAGES_USE_UBIFS),true)
 #UBI boot command line.
-BOARD_KERNEL_CMDLINE := console=ttymxc3,115200 init=/init video=mxcfb0 video=mxcfb1:off video=mxcfb2:off fbmem=10M vmalloc=400M androidboot.console=ttymxc3  mtdparts=gpmi-nand:20m(bootloader),20m(bootimg),20m(recovery),-(root) gpmi_debug_init ubi.mtd=3 androidboot.hardware=freescale
+UBI_ROOT_INI := device/fsl/sabreauto_6q/ubi/ubinize.ini
+TARGET_MKUBIFS_ARGS := -m 4096 -e 516096 -c 4096 -x none
+TARGET_UBIRAW_ARGS := -m 4096 -p 512KiB $(UBI_ROOT_INI)
+
+# Note: this NAND partition table must align with MFGTool's config.
+BOARD_KERNEL_CMDLINE +=  mtdparts=gpmi-nand:16m(bootloader),16m(bootimg),128m(recovery),-(root) ubi.mtd=3
 endif
+
+ifeq ($(TARGET_USERIMAGES_USE_UBIFS),true)
+ifeq ($(TARGET_USERIMAGES_USE_EXT4),true)
+$(error "TARGET_USERIMAGES_USE_UBIFS and TARGET_USERIMAGES_USE_EXT4 config open in same time, please only choose one target file system image")
+endif
+endif
+
 
 
 TARGET_BOOTLOADER_CONFIG := mx6q:mx6q_sabreauto_android_config

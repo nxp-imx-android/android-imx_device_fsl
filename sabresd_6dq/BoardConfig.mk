@@ -55,17 +55,32 @@ SENSOR_MMA8451 := true
 # for recovery service
 TARGET_SELECT_KEY := 28
 
-TARGET_USERIMAGES_USE_EXT4 := true
+#TARGET_USERIMAGES_USE_EXT4 := true
 # we don't support sparse image.
 TARGET_USERIMAGES_SPARSE_EXT_DISABLED := true
 
 # uncomment below lins if use NAND
-#TARGET_USERIMAGES_USE_UBIFS = true
+TARGET_USERIMAGES_USE_UBIFS = true
+
 
 ifeq ($(TARGET_USERIMAGES_USE_UBIFS),true)
 UBI_ROOT_INI := device/fsl/sabresd_6dq/ubi/ubinize.ini
 TARGET_MKUBIFS_ARGS := -m 4096 -e 516096 -c 4096 -x none
 TARGET_UBIRAW_ARGS := -m 4096 -p 512KiB $(UBI_ROOT_INI)
+endif
+
+ifeq ($(TARGET_USERIMAGES_USE_UBIFS),true)
+ifeq ($(TARGET_USERIMAGES_USE_EXT4),true)
+$(error "TARGET_USERIMAGES_USE_UBIFS and TARGET_USERIMAGES_USE_EXT4 config open in same time, please only choose one target file system image")
+endif
+endif
+
+BOARD_KERNEL_CMDLINE := console=ttymxc0,115200 init=/init video=mxcfb0:dev=ldb,bpp=32 video=mxcfb1:off video=mxcfb2:off fbmem=10M fb0base=0x27b00000 vmalloc=400M androidboot.console=ttymxc0 androidboot.hardware=freescale
+
+ifeq ($(TARGET_USERIMAGES_USE_UBIFS),true)
+#UBI boot command line.
+# Note: this NAND partition table must align with MFGTool's config.
+BOARD_KERNEL_CMDLINE +=  mtdparts=gpmi-nand:16m(bootloader),16m(bootimg),128m(recovery),-(root) gpmi_debug_init ubi.mtd=3
 endif
 
 # atheros 3k BT
@@ -76,13 +91,6 @@ USE_GPU_ALLOCATOR := true
 
 # define frame buffer count
 NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
-BOARD_KERNEL_CMDLINE := console=ttymxc0,115200 init=/init video=mxcfb0:dev=ldb,bpp=32 video=mxcfb1:off video=mxcfb2:off fbmem=10M fb0base=0x27b00000 vmalloc=400M androidboot.console=ttymxc0 androidboot.hardware=freescale
-
-
-ifeq ($(TARGET_USERIMAGES_USE_UBIFS),true)
-#UBI boot command line.
-BOARD_KERNEL_CMDLINE := console=ttymxc0,115200 init=/init video=mxcfb0 video=mxcfb1:off video=mxcfb2:off fbmem=10M fb0base=0x27b00000 vmalloc=400M androidboot.console=ttymxc0  mtdparts=gpmi-nand:20m(bootloader),20m(bootimg),20m(recovery),-(root) gpmi_debug_init ubi.mtd=3 androidboot.hardware=freescale
-endif
 
 
 TARGET_BOOTLOADER_CONFIG := 6q:mx6q_sabresd_android_config 6dl:mx6dl_sabresd_android_config

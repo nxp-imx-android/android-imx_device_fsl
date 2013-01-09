@@ -6,6 +6,8 @@
 /misc  emmc /dev/block/mmcblk0p8
 
 # UBI support is under below:
+#/boot mtd bootimg
+#/recovery mtd /dev/mtd/mtd2
 #/system ubifs /dev/ubi1_0
 #/data ubifs /dev/ubi1_2
 #/cache ubifs /dev/ubi1_1
