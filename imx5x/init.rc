@@ -34,12 +34,11 @@ loglevel 3
     export ANDROID_ROOT /system
     export ANDROID_ASSETS /system/app
     export ANDROID_DATA /data
+    export ANDROID_STORAGE /storage
     export ASEC_MOUNTPOINT /mnt/asec
     export LOOP_MOUNTPOINT /mnt/obb
-    export SHM_MOUNTPOINT /mnt/shm
-    export EXTERNAL_STORAGE /mnt/sdcard
     export BOOTCLASSPATH /system/framework/core.jar:/system/framework/core-junit.jar:/system/framework/bouncycastle.jar:/system/framework/ext.jar:/system/framework/framework.jar:/system/framework/telephony-common.jar:/system/framework/mms-common.jar:/system/framework/android.policy.jar:/system/framework/services.jar:/system/framework/apache-xml.jar
-
+    export SHM_MOUNTPOINT /mnt/shm
     export LIGHTSENSOR_PATH /sys/class/i2c-adapter/i2c-1/1-0044
     export VPU_FW_PATH /system/lib/firmware/vpu
     export CODEC_SHM_PATH /mnt/shm
@@ -62,8 +61,6 @@ loglevel 3
     mount cgroup none /acct cpuacct
     mkdir /acct/uid
 
-    mkdir /mnt/sdcard 0000 system system
-    symlink /mnt/sdcard /sdcard
     mkdir /mnt/extsd 0000 system system
     symlink /mnt/extsd /extsd
     mkdir /mnt/udisk 0000 system system
@@ -205,6 +202,7 @@ on post-fs-data
     write /proc/apanic_console 1
 
     mkdir /data/media 0770 media_rw media_rw
+    mount vfat /dev/block/mmcblk0p1 /data/media fmask=0007,dmask=0007,allow_utime=0020,uid=1023,gid=1023
 
     # create basic filesystem structure
     mkdir /data/misc 01771 system misc
@@ -282,7 +280,8 @@ on boot
     chmod 0664 /sys/module/lowmemorykiller/parameters/minfree
 
     # Tweak background writeout
-    write /proc/sys/vm/dirty_expire_centisecs 200
+    write /proc/sys/vm/dirty_expire_centisecs 50
+    write /proc/sys/vm/dirty_writeback_centisecs 100
     write /proc/sys/vm/dirty_background_ratio  5
 
     # Permissions for System Server and daemons.
@@ -624,6 +623,10 @@ service bugreport /system/bin/bugmailer.sh -b /system/media/audio/ui/Dock.ogg -e
     disabled
     oneshot
     keycodes 115 102
+
+# virtual sdcard daemon running as media_rw (1023)
+service sdcard /system/bin/sdcard /data/media /mnt/shell/emulated 1023 1023
+    class late_start
 
 # Set watchdog timer to 30 seconds and pet it every 10 seconds to get a 20 second margin
 service watchdogd /sbin/watchdogd 10 20
