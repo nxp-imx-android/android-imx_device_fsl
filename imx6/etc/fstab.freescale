@@ -13,4 +13,4 @@
 #ubi0:system	/system		ubifs 	ro					wait
 #ubi0:data       /data           ubifs   nosuid,nodev,nodiratime,noatime         wait
 #ubi0:cache      /cache          ubifs   nosuid,nodev                            wait
-#ubi0:device     /device         ubifs   ro,nosuid,nodev                         wait
+#ubi0:device     /device         ubifs   nosuid,nodev                         wait
