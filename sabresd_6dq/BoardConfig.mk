@@ -89,6 +89,9 @@ BOARD_USE_AR3K_BLUETOOTH := true
 USE_ION_ALLOCATOR := false
 USE_GPU_ALLOCATOR := true
 
+# camera hal v2
+IMX_CAMERA_HAL_V2 := true
+
 # define frame buffer count
 NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
 

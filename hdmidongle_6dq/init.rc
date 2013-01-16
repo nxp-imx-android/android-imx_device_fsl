@@ -40,6 +40,7 @@ on boot
     setprop rw.VIDEO_RENDER_NAME video_render.surface
 
     #Define the config for dual camera
+    setprop camera.disable_zsl_mode 1
     #For landscape mode, orient is 0
     #For portrait mode, orient is 90
     #the android before honycomb are all in portrait mode

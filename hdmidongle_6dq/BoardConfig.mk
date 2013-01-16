@@ -72,6 +72,12 @@ BOARD_USE_AR3K_BLUETOOTH := false
 USE_ION_ALLOCATOR := false
 USE_GPU_ALLOCATOR := true
 
+# camera hal v2
+IMX_CAMERA_HAL_V2 := true
+
+# define frame buffer count
+NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
+
 #UBI boot command line.
 BOARD_KERNEL_CMDLINE := console=ttymxc3,115200 init=/init video=mxcfb0 video=mxcfb1:off video=mxcfb2:off fbmem=28M fb0base=0x27b00000 vmalloc=400M androidboot.console=ttymxc3  mtdparts=gpmi-nand:20m(bootloader),20m(bootimg),20m(recovery),-(root) gpmi_debug_init ubi.mtd=3 enable_wait_mode=off androidboot.hardware=freescale
 
