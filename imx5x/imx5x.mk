@@ -224,11 +224,13 @@ omx_libs := \
 	lib_wb_amr_dec_arm9_elinux			\
 	lib_omx_aac_enc_v2_arm11_elinux \
 	lib_amr_parser_arm11_elinux.3.0 \
-	lib_aac_parser_arm11_elinux.3.0.so \
-	lib_aacd_wrap_arm12_elinux_android.so \
-	lib_mp3d_wrap_arm12_elinux_android.so \
-	lib_vorbisd_wrap_arm11_elinux_android.so \
-
+	lib_aac_parser_arm11_elinux.3.0 \
+	lib_aacd_wrap_arm12_elinux_android \
+	lib_mp3d_wrap_arm12_elinux_android \
+	lib_vorbisd_wrap_arm11_elinux_android \
+	lib_mp3_parser_arm11_elinux.3.0 \
+	lib_flac_parser_arm11_elinux.3.0 \
+	lib_wav_parser_arm11_elinux.3.0 \
 
 
 # Omx excluded libs
