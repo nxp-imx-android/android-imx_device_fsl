@@ -32,8 +32,9 @@ endif
 ifeq ($(BOARD_WLAN_VENDOR),INTEL)
 BOARD_HOSTAPD_PRIVATE_LIB		 ?= private_lib_driver_cmd
 BOARD_WPA_SUPPLICANT_PRIVATE_LIB 	 ?= private_lib_driver_cmd
-WPA_SUPPLICANT_VERSION			 := VER_0_7_X_INTEL
-HOSTAPD_VERSION				 := VER_0_7_X_INTEL
+WPA_SUPPLICANT_VERSION			 := VER_0_8_X
+HOSTAPD_VERSION				 := VER_0_8_X
+BOARD_WPA_SUPPLICANT_PRIVATE_LIB         := private_lib_driver_cmd_intel
 WIFI_DRIVER_MODULE_PATH          	 := "/system/lib/modules/iwlagn.ko"
 WIFI_DRIVER_MODULE_NAME          	 := "iwlagn"
 WIFI_DRIVER_MODULE_PATH			 ?= auto
