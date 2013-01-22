@@ -647,7 +647,8 @@ service wifi_mac /system/bin/sh /system/etc/check_wifi_mac.sh
     oneshot
 
 # virtual sdcard daemon running as media_rw (1023)
-service sdcard /system/bin/sdcard /data/media /mnt/shell/emulated 1023 1023
+# default 4 threads have better performance to 2 threads.
+service sdcard /system/bin/sdcard -t4 /data/media /mnt/shell/emulated 1023 1023
     class late_start
 
 # Set watchdog timer to 30 seconds and pet it every 10 seconds to get a 20 second margin
