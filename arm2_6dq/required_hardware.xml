@@ -25,8 +25,6 @@
  -->
     <feature name="android.hardware.location" />
     <feature name="android.hardware.location.network" />
-    <feature name="android.hardware.telephony" />
-    <feature name="android.hardware.telephony.gsm" />
     <feature name="android.hardware.wifi" />
     <feature name="android.hardware.touchscreen" />
     <feature name="android.hardware.touchscreen.multitouch" />
