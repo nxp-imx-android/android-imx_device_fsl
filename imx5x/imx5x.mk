@@ -269,6 +269,7 @@ PRODUCT_COPY_FILES +=	\
 	device/fsl/common/input/Dell_Dell_USB_Keyboard.kl:system/usr/keylayout/Dell_Dell_USB_Keyboard.kl \
 	device/fsl/common/input/Dell_Dell_USB_Keyboard.idc:system/usr/idc/Dell_Dell_USB_Keyboard.idc \
 	device/fsl/imx5x/init.rc:root/init.rc \
+	device/fsl/imx5x/layout_version:root/layout_version \
 	device/fsl/imx5x/apns-conf.xml:system/etc/apns-conf.xml \
 	device/fsl/imx5x/init.freescale.usb.rc:root/init.freescale.usb.rc \
 	device/fsl/imx5x/ueventd.freescale.rc:root/ueventd.freescale.rc \

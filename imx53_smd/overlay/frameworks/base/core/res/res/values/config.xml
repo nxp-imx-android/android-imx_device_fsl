@@ -167,10 +167,6 @@
     <!-- This device is not "voice capable"; it's data-only. -->
     <bool name="config_voice_capable">false</bool>
 
-    <!-- Number of database connections opened and managed by framework layer
-         to handle queries on each database. -->
-    <integer name="db_connection_pool_size">3</integer>
-
     <!-- Max space (in MB) allocated to DownloadManager to store the downloaded files
          if they are to be stored in DownloadManager's data dir,
          which typically is /data/data/com.android.providers.downloads/files. -->
@@ -196,5 +192,25 @@
     <!-- Whether a software navigation bar should be shown. NOTE: in the future this may be
          autodetected from the Configuration. -->
     <bool name="config_showNavigationBar">true</bool>
+
+    <!-- Boolean indicating whether the wifi chipset has dual frequency band support -->
+    <bool translatable="false" name="config_wifi_dual_band_support">true</bool>
+
+    <!-- Disables fading edges when marquee is enabled in TextView.
+         The fading edge effect will bring performance drop when
+	 the hardware rendering is used.
+    -->
+    <bool name="config_ui_enableFadingMarquee">false</bool>
+
+    <!--
+       Sets the package names whose certificates should be used to
+       verify location providers are allowed to be loaded.
+    -->
+    <string-array name="config_locationProviderPackageNames" translatable="false">
+        <!-- The standard AOSP fused location provider -->
+        <item>com.android.location.fused</item>
+        <!-- The Google Network Location Services location provider -->
+        <item>com.google.android.location</item>
+    </string-array>
 
 </resources>

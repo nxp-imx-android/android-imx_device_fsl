@@ -140,6 +140,8 @@ loglevel 3
 # Allow everybody to read the xt_qtaguid resource tracking misc dev.
 # This is needed by any process that uses socket tagging.
     chmod 0644 /dev/xt_qtaguid
+    chown root net_bw_acct /proc/net/xt_qtaguid/ctrl
+    chown root net_bw_stats /proc/net/xt_qtaguid/stats
 
 on post-fs
     # once everything is setup, no need to modify /
@@ -182,6 +184,8 @@ on post-fs-data
     # We chown/chmod /data again so because mount is run as root + defaults
     chown system system /data
     chmod 0771 /data
+    # this is to avoid 4.2 upgrade from 4.1 bug
+    symlink /layout_version /data/.layout_version
     # We restorecon /data in case the userdata partition has been reset.
     restorecon /data
 
