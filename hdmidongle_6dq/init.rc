@@ -54,8 +54,11 @@ on boot
     setprop ro.sf.hwrotation 0
 
     # Set the density to 140dpi, default 128dpi is not good
-    setprop ro.sf.lcd_density 140
+    setprop ro.sf.lcd_density 320
 
+    # Set device type, tablet means use tablet layout no matter DPI and density
+    setprop sys.device.type tablet
+ 
 # change for FSL specific service
     chown system system /sys/devices/system/cpu/cpu0
     chown system system /sys/devices/system/cpu/cpu1
