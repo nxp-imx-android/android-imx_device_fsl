@@ -15,6 +15,7 @@ PRODUCT_PACKAGES += \
 	PhaseBeam				\
 	HoloSpiralWallpaper			\
 	Gallery2				\
+	LegacyCamera				\
 	SoundRecorder				\
 	FSLOta					\
 	VideoEditor				\
@@ -73,6 +74,8 @@ PRODUCT_PACKAGES += \
 	hwcomposer.imx5x            		\
 	camera.imx5x            		\
 	power.imx5x				\
+	libbt-vendor				\
+	bt_vendor.conf				\
 	magd
 
 # Bluetooth firmware files.
