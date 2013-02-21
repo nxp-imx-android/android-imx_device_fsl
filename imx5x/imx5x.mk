@@ -76,6 +76,7 @@ PRODUCT_PACKAGES += \
 	power.imx5x				\
 	libbt-vendor				\
 	bt_vendor.conf				\
+        audio.r_submix.default                  \
 	magd
 
 # Bluetooth firmware files.

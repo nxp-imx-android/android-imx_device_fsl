@@ -83,6 +83,7 @@ PRODUCT_PACKAGES += \
 	hwcomposer.imx6             		\
 	camera.imx6                 		\
 	power.imx6				\
+        audio.r_submix.default                  \
 	magd
 
 # Bluetooth firmware files.
