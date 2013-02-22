@@ -111,10 +111,7 @@ service iprenew_wlan0 /system/bin/dhcpcd -n
 
 on fs
 # mount ext4 partitions
-    mount ubifs ubi0:system /system
-    mount ubifs ubi0:system /system ro remount
-    mount ubifs ubi0:data /data
-    mount ubifs ubi0:cache /cache
+    mount_all /fstab.freescale
 
 # for compat with compat-wireless
     insmod  /system/lib/modules/extra/cfg80211.ko

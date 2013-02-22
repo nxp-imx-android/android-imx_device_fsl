@@ -64,6 +64,15 @@ TARGET_UBIRAW_ARGS := -m 4096 -p 1024KiB $(UBI_ROOT_INI)
 # for Micron MT29F32G08MAA
 #TARGET_MKUBIFS_ARGS := -m 4096 -e 516096 -c 4096 -x none
 #TARGET_UBIRAW_ARGS := -m 4096 -p 512KiB $(UBI_ROOT_INI)
+
+# Note: this NAND partition table must align with MFGTool's config.
+BOARD_KERNEL_CMDLINE +=  mtdparts=gpmi-nand:16m(bootloader),16m(bootimg),128m(recovery),-(root) ubi.mtd=3
+endif
+
+ifeq ($(TARGET_USERIMAGES_USE_UBIFS),true)
+ifeq ($(TARGET_USERIMAGES_USE_EXT4),true)
+$(error "TARGET_USERIMAGES_USE_UBIFS and TARGET_USERIMAGES_USE_EXT4 config open in same time, please only choose one target file system image")
+endif
 endif
 
 # atheros 3k BT
