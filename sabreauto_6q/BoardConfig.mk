@@ -67,6 +67,11 @@ TARGET_USERIMAGES_SPARSE_EXT_DISABLED := true
 # atheros 3k BT
 BOARD_USE_AR3K_BLUETOOTH := true
 
+# camera hal v2
+IMX_CAMERA_HAL_V2 := true
+
+BOARD_HAVE_USB_CAMERA := true
+
 # define frame buffer count
 NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
 
