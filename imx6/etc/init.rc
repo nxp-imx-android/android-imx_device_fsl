@@ -424,6 +424,8 @@ on property:sys.interactive="active"
     chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/boostpulse
     chown system root /sys/devices/system/cpu/cpufreq/interactive/input_boost
     chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/input_boost
+	chown system system /sys/devices/system/cpu/cpufreq/interactive/boostpulse_duration
+	chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/boostpulse_duration
 
 
 on nonencrypted
