@@ -391,6 +391,9 @@ on boot
 # Set this property so surfaceflinger is not started by system_init
     setprop system_init.startsurfaceflinger 0
 
+#  Enable adb security for JB4.2.2
+    setprop ro.adb.secure 1
+
 # set this to not let jni check crash, just warnning message.
     setprop dalvik.vm.jniopts warnonly
 
