@@ -12,7 +12,8 @@ PRODUCT_COPY_FILES += \
 	device/fsl/hdmidongle_6dq/required_hardware.xml:system/etc/permissions/required_hardware.xml \
 	device/fsl/hdmidongle_6dq/init.rc:root/init.freescale.rc \
 	device/fsl/hdmidongle_6dq/vold.fstab:system/etc/vold.fstab \
-	device/fsl/hdmidongle_6dq/audio_policy.conf:system/etc/audio_policy.conf
+	device/fsl/hdmidongle_6dq/audio_policy.conf:system/etc/audio_policy.conf \
+	device/fsl/hdmidongle_6dq/audio_effects.conf:system/vendor/etc/audio_effects.conf
 
 # GPU files
 
