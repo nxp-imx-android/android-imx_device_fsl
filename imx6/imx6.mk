@@ -1,7 +1,8 @@
 $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/generic.mk)
 $(call inherit-product, $(TOPDIR)frameworks/base/data/sounds/AllAudio.mk)
-
+$(shell touch device/fsl/imx6/etc/fstab_nand.freescale)
+$(shell touch device/fsl/imx6/etc/fstab.freescale)
 # overrides
 PRODUCT_BRAND := Freescale
 PRODUCT_MANUFACTURER := Freescale
@@ -295,7 +296,6 @@ PRODUCT_COPY_FILES +=	\
 	device/fsl/common/input/eGalax_Touch_Screen.idc:system/usr/idc/HannStar_P1003_Touchscreen.idc \
 	device/fsl/common/input/eGalax_Touch_Screen.idc:system/usr/idc/Novatek_NT11003_Touch_Screen.idc \
 	device/fsl/imx6/etc/init.rc:root/init.rc \
-	device/fsl/imx6/etc/fstab.freescale:root/fstab.freescale \
 	device/fsl/imx6/etc/apns-conf.xml:system/etc/apns-conf.xml \
 	device/fsl/imx6/etc/init.usb.rc:root/init.freescale.usb.rc \
 	device/fsl/imx6/etc/ueventd.freescale.rc:root/ueventd.freescale.rc \

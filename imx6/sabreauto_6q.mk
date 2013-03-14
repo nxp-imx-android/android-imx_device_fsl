@@ -7,10 +7,11 @@ $(call inherit-product, device/fsl/imx6/imx6.mk)
 PRODUCT_NAME := sabreauto_6q
 PRODUCT_DEVICE := sabreauto_6q
 
+
 PRODUCT_COPY_FILES += \
 	device/fsl/sabreauto_6q/required_hardware.xml:system/etc/permissions/required_hardware.xml \
 	device/fsl/sabreauto_6q/init.rc:root/init.freescale.rc \
-        device/fsl/sabreauto_6q/vold.fstab:system/etc/vold.fstab \
+    device/fsl/sabreauto_6q/vold.fstab:system/etc/vold.fstab \
 	device/fsl/sabreauto_6q/audio_policy.conf:system/etc/audio_policy.conf \
 	device/fsl/sabreauto_6q/audio_effects.conf:system/vendor/etc/audio_effects.conf
 

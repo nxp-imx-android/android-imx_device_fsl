@@ -6,6 +6,10 @@ include device/fsl/imx6/soc/imx6dq.mk
 include device/fsl/sabresd_6dq/build_id.mk
 include device/fsl/imx6/BoardConfigCommon.mk
 include device/fsl-proprietary/gpu-viv/fsl-gpu.mk
+# sabresd_6dq default target for EXT4
+BUILD_TARGET_FS ?= ext4
+include device/fsl/imx6/imx6_target_fs.mk
+
 
 TARGET_BOOTLOADER_BOARD_NAME := SABRESD
 PRODUCT_MODEL := SABRESD-MX6DQ
@@ -56,7 +60,6 @@ SENSOR_MMA8451 := true
 # for recovery service
 TARGET_SELECT_KEY := 28
 
-TARGET_USERIMAGES_USE_EXT4 := true
 # we don't support sparse image.
 TARGET_USERIMAGES_SPARSE_EXT_DISABLED := true
 

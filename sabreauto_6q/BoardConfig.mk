@@ -6,6 +6,9 @@ include device/fsl/imx6/soc/imx6dq.mk
 include device/fsl/sabreauto_6q/build_id.mk
 include device/fsl/imx6/BoardConfigCommon.mk
 include device/fsl-proprietary/gpu-viv/fsl-gpu.mk
+# sabreauto_6dq default target for EXT4
+BUILD_TARGET_FS ?= ext4
+include device/fsl/imx6/imx6_target_fs.mk
 
 TARGET_BOOTLOADER_BOARD_NAME := SABREAUTO
 
@@ -60,7 +63,6 @@ SENSOR_MMA8451 := true
 
 # for recovery service
 TARGET_SELECT_KEY := 28
-TARGET_USERIMAGES_USE_EXT4 := true
 # we don't support sparse image.
 TARGET_USERIMAGES_SPARSE_EXT_DISABLED := true
 
@@ -79,9 +81,6 @@ USE_ION_ALLOCATOR := false
 USE_GPU_ALLOCATOR := true
 
 BOARD_KERNEL_CMDLINE := console=ttymxc3,115200 init=/init video=mxcfb0:dev=ldb,bpp=32 video=mxcfb1:off video=mxcfb2:off fbmem=10M vmalloc=400M androidboot.console=ttymxc3 androidboot.hardware=freescale
-
-# uncomment below lins if use NAND
-#TARGET_USERIMAGES_USE_UBIFS = true
 
 ifeq ($(TARGET_USERIMAGES_USE_UBIFS),true)
 #UBI boot command line.

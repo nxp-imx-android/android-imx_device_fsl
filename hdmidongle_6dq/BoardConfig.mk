@@ -6,12 +6,13 @@ include device/fsl/imx6/soc/imx6dq.mk
 include device/fsl/hdmidongle_6dq/build_id.mk
 include device/fsl/imx6/BoardConfigCommon.mk
 include device/fsl-proprietary/gpu-viv/fsl-gpu.mk
+# hdmidongle_6dq default built for NAND device
+BUILD_TARGET_FS ?= ubifs
+include device/fsl/imx6/imx6_target_fs.mk
 
 TARGET_BOOTLOADER_BOARD_NAME := HDMIDONGLE
 PRODUCT_MODEL := HDMIDONGLE-MX6DQ
 
-TARGET_USERIMAGES_USE_EXT4 := false
-TARGET_USERIMAGES_USE_UBIFS = true
 BOARD_WLAN_VENDOR 			 := NULL
 
 # Wifi
@@ -56,6 +57,9 @@ BOARD_HAS_SENSOR := false
 # for recovery service
 TARGET_SELECT_KEY := 28
 
+# BOARD_KERNEL_CMDLINE
+BOARD_KERNEL_CMDLINE := console=ttymxc3,115200 init=/init video=mxcfb0 video=mxcfb1:off video=mxcfb2:off fbmem=28M fb0base=0x27b00000 vmalloc=400M androidboot.console=ttymxc3 enable_wait_mode=off androidboot.hardware=freescale
+
 ifeq ($(TARGET_USERIMAGES_USE_UBIFS),true)
 UBI_ROOT_INI := device/fsl/hdmidongle_6dq/ubi/ubinize.ini
 # for Micron MT29F32G08CBACAWP
@@ -66,7 +70,8 @@ TARGET_UBIRAW_ARGS := -m 4096 -p 1024KiB $(UBI_ROOT_INI)
 #TARGET_UBIRAW_ARGS := -m 4096 -p 512KiB $(UBI_ROOT_INI)
 
 # Note: this NAND partition table must align with MFGTool's config.
-BOARD_KERNEL_CMDLINE +=  mtdparts=gpmi-nand:16m(bootloader),16m(bootimg),128m(recovery),-(root) ubi.mtd=3
+#BOARD_KERNEL_CMDLINE +=  mtdparts=gpmi-nand:16m(bootloader),16m(bootimg),128m(recovery),-(root) ubi.mtd=3
+BOARD_KERNEL_CMDLINE +=  mtdparts=gpmi-nand:20m(bootloader),20m(bootimg),20m(recovery),-(root) gpmi_debug_init ubi.mtd=3
 endif
 
 ifeq ($(TARGET_USERIMAGES_USE_UBIFS),true)
@@ -87,7 +92,5 @@ IMX_CAMERA_HAL_V2 := true
 # define frame buffer count
 NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
 
-#UBI boot command line.
-BOARD_KERNEL_CMDLINE := console=ttymxc3,115200 init=/init video=mxcfb0 video=mxcfb1:off video=mxcfb2:off fbmem=28M fb0base=0x27b00000 vmalloc=400M androidboot.console=ttymxc3  mtdparts=gpmi-nand:20m(bootloader),20m(bootimg),20m(recovery),-(root) gpmi_debug_init ubi.mtd=3 enable_wait_mode=off androidboot.hardware=freescale
 
 TARGET_BOOTLOADER_CONFIG := 6q:mx6q_hdmidongle_nand_android_config 6dl:mx6dl_hdmidongle_nand_android_config
