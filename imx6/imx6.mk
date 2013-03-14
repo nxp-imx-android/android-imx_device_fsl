@@ -236,6 +236,7 @@ omx_libs := \
 	lib_mp3_parser_arm11_elinux.3.0 \
 	lib_flac_parser_arm11_elinux.3.0 \
 	lib_wav_parser_arm11_elinux.3.0 \
+	lib_omx_ac3toiec937_arm11_elinux \
 
 
 
