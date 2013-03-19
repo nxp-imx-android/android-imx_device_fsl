@@ -13,7 +13,7 @@ include device/fsl/imx6/imx6_target_fs.mk
 TARGET_BOOTLOADER_BOARD_NAME := HDMIDONGLE
 PRODUCT_MODEL := HDMIDONGLE-MX6DQ
 
-BOARD_WLAN_VENDOR 			 := NULL
+BOARD_WLAN_VENDOR 			 := REALTEK
 
 # Wifi
 #for realtek vendor
@@ -32,7 +32,7 @@ BOARD_WLAN_DEVICE := rtl8192cu
 #BOARD_WLAN_DEVICE := rtl8188es
 WIFI_DRIVER_MODULE_NAME := 8192ce
 WIFI_DRIVER_MODULE_PATH := "/system/lib/modules/8192ce.ko"
-WIFI_DRIVER_MODULE_ARG := ""
+WIFI_DRIVER_MODULE_ARG := "ifname=wlan0 if2name=p2p0"
 WIFI_FIRMWARE_LOADER := ""
 WIFI_DRIVER_FW_PATH_STA := ""
 WIFI_DRIVER_FW_PATH_AP := ""
@@ -94,3 +94,4 @@ NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
 
 
 TARGET_BOOTLOADER_CONFIG := 6q:mx6q_hdmidongle_nand_android_config 6dl:mx6dl_hdmidongle_nand_android_config
+TARGET_KERNEL_DEFCONF := imx6_hdmidongle_android_defconfig
