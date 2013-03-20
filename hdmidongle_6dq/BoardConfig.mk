@@ -40,8 +40,7 @@ WIFI_DRIVER_FW_PATH_P2P := ""
 WIFI_DRIVER_FW_PATH_PARAM := ""
 
 TARGET_KERNEL_MODULES := \
-    kernel_imx/drivers/net/wireless/rtl8192ce/8192ce.ko:system/lib/modules/8192ce.ko  \
-    kernel_imx/net/wireless/cfg80211.ko:system/lib/modules/extra/cfg80211.ko
+    kernel_imx/drivers/net/wireless/rtl8192ce/8192ce.ko:system/lib/modules/8192ce.ko
 
 BOARD_WPA_SUPPLICANT_DRIVER      	 := NL80211
 endif
