@@ -24,7 +24,7 @@ PRODUCT_PACKAGES += \
 	librs_jni				\
 	pppd					\
 	chat					\
-        setup_fs                                \
+	setup_fs				\
 	ip-up-vpn				\
 	ip-up-ppp0				\
 	ip-down-ppp0				\
@@ -57,6 +57,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
 	audio.primary.imx5x			\
 	audio.usb.default			\
+	audio.a2dp.default			\
 	tinyplay				\
 	tinycap					\
 	tinymix					\
@@ -71,20 +72,22 @@ PRODUCT_PACKAGES += \
 	lights.imx5x				\
 	gralloc.imx5x				\
 	copybit.imx5x				\
-	hwcomposer.imx5x            		\
-	camera.imx5x            		\
+	hwcomposer.imx5x				\
+	camera.imx5x					\
 	power.imx5x				\
 	libbt-vendor				\
 	bt_vendor.conf				\
-        audio.r_submix.default                  \
+	audio.r_submix.default			\
 	magd
 
 # Bluetooth firmware files.
 PRODUCT_PACKAGES += \
-	ar3kbdaddr.pst				\
-	PS_ASIC.pst				\
-	RamPatch.txt				\
-	audio.a2dp.default			\
+	ar3kbdaddr_ar3001			\
+	PS_ASIC_ar3001				\
+	RamPatch_ar3001				\
+	ar3kbdaddr_ar3002			\
+	PS_ASIC_ar3002				\
+	RamPatch_ar3002
 
 # Freescale VPU firmware files.
 PRODUCT_PACKAGES += \

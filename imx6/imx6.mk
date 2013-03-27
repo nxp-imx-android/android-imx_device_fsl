@@ -15,7 +15,7 @@ PRODUCT_PACKAGES += \
 	Gallery2				\
 	Gallery		    			\
 	SoundRecorder				\
-        Camera                                  \
+	Camera					\
 	Email					\
 	FSLOta					\
 	VideoEditor				\
@@ -66,6 +66,7 @@ PRODUCT_PACKAGES += \
 	audio.primary.imx6			\
 	audio_policy.conf			\
 	tinyplay				\
+	audio.a2dp.default			\
 	tinycap					\
 	tinymix					\
 	libsrec_jni				\
@@ -81,17 +82,21 @@ PRODUCT_PACKAGES += \
 	lights.imx6				\
 	gralloc.imx6				\
 	copybit.imx6				\
-	hwcomposer.imx6             		\
-	camera.imx6                 		\
+	hwcomposer.imx6				\
+	camera.imx6				\
 	power.imx6				\
-        audio.r_submix.default                  \
+	audio.r_submix.default			\
+	libbt-vendor				\
 	magd
 
 # Bluetooth firmware files.
 PRODUCT_PACKAGES += \
-	ar3kdbaddr.pst				\
-	PS_ASIC.pst				\
-	RamPatch.txt
+	ar3kbdaddr_ar3001			\
+	PS_ASIC_ar3001				\
+	RamPatch_ar3001				\
+	ar3kbdaddr_ar3002			\
+	PS_ASIC_ar3002				\
+	RamPatch_ar3002				\
 
 # Freescale VPU firmware files.
 PRODUCT_PACKAGES += \
@@ -101,13 +106,13 @@ PRODUCT_PACKAGES += \
 
 # Atheros wifi firmwre files.
 PRODUCT_PACKAGES += \
-	fw-3                    		\
-	bdata                   		\
-	athtcmd_ram             		\
-	nullTestFlow            		\
-	cfg80211.ko             		\
-	compat.ko               		\
-	ath6kl_sdio.ko          		\
+	fw-3					\
+	bdata					\
+	athtcmd_ram				\
+	nullTestFlow				\
+	cfg80211.ko				\
+	compat.ko				\
+	ath6kl_sdio.ko				\
 	check_wifi_mac.sh
 
 # Atheros wifi tool
