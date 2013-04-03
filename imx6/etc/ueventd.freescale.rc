@@ -3,6 +3,7 @@
 /dev/snd/*                0664   system     audio
 /dev/ttyUSB*              0640   radio      radio
 /dev/ttyACM*              0640   radio      radio
+/dev/video*               0660   system     camera
 /dev/video0               0660   system     camera
 /dev/video1               0660   system     camera
 /dev/video2               0660   system     camera
