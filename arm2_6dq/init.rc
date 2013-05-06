@@ -2,6 +2,9 @@ import init.${ro.hardware}.usb.rc
 
 on boot
 
+	# emmulate battery property
+	setprop sys.emulated.battery 1
+
     # Set permission for IIM node
     symlink /dev/mxs_viim /dev/mxc_mem
 
