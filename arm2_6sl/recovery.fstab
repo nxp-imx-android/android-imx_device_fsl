@@ -2,7 +2,7 @@
 /recovery emmc /dev/block/mmcblk0p2
 /system ext4 /dev/block/mmcblk0p5
 /cache ext4 /dev/block/mmcblk0p6
-/data ext4 /dev/block/mmcblk0p4
+/data ext4 /dev/block/mmcblk0p4 reserved=32768
 /misc  emmc  /dev/block/mmcblk0p8
 
 # UBI support is under below:
