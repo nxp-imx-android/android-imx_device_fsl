@@ -67,6 +67,7 @@ PRODUCT_PACKAGES += \
 	audio_policy.conf			\
 	tinyplay				\
 	audio.a2dp.default			\
+	audio.usb.default			\
 	tinycap					\
 	tinymix					\
 	libsrec_jni				\
