@@ -87,6 +87,18 @@ function format_android
     mkfs.ext4 ${node}5 -Lsystem
     mkfs.ext4 ${node}6 -Lcache
     mkfs.ext4 ${node}7 -Lvender
+    mkdir /media/tmp
+    mount ${node}4 /media/tmp
+    amount=$(df -k | grep ${node}4 | awk '{print $2}')
+    stag=$amount
+    stag=$((stag-32))
+    kilo=K
+    amountkilo=$stag$kilo
+    sleep 1s
+    umount /media/tmp
+    rm -rf /media/tmp
+    e2fsck -f ${node}4
+    resize2fs ${node}4 $amountkilo
 }
 
 function flash_android
