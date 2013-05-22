@@ -251,7 +251,7 @@ omx_libs := \
 omx_excluded_libs :=					\
 	lib_asf_parser_arm11_elinux.3.0			\
 	lib_wma10_dec_v2_arm12_elinux		\
-	lib_WMV789_dec_v2_arm11_elinux.so		\
+	lib_WMV789_dec_v2_arm11_elinux		\
 	lib_aacplus_dec_v2_arm11_elinux			\
 	lib_ac3_dec_v2_arm11_elinux			\
 	\
