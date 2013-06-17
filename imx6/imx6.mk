@@ -18,6 +18,7 @@ PRODUCT_PACKAGES += \
 	Camera					\
 	Email					\
 	FSLOta					\
+	CactusPlayer                            \
 	VideoEditor				\
 	FSLProfileApp				\
 	FSLProfileService			\
