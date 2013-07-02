@@ -615,17 +615,17 @@ service mdnsd /system/bin/mdnsd
     oneshot
 
 service dhcpcd_wlan0 /system/bin/dhcpcd -ABKL
-    class late_start
+    class main
     disabled
     oneshot
 
 service dhcpcd_p2p /system/bin/dhcpcd -ABKL
-    class late_start
+    class main
     disabled
     oneshot
 
 service dhcpcd_eth0 /system/bin/dhcpcd -ABKL
-    class late_start
+    class main
     disabled
     oneshot
 

@@ -125,7 +125,7 @@ service ing /system/bin/ingsvcd -c /system/etc/gps/Orion.ini
     oneshot
 
 service iprenew_wlan0 /system/bin/dhcpcd -n
-    class late_start
+    class main
     disabled
     oneshot
 
