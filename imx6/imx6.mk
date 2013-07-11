@@ -19,6 +19,9 @@ PRODUCT_PACKAGES += \
 	Email					\
 	FSLOta					\
 	CactusPlayer                            \
+	WfdSink                                 \
+	libfsl_wfd.so                           \
+	fsl.imx.jar                             \
 	VideoEditor				\
 	FSLProfileApp				\
 	FSLProfileService			\
