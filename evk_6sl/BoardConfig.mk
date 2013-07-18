@@ -3,15 +3,14 @@
 #
 
 include device/fsl/imx6/soc/imx6sl.mk
-include device/fsl-proprietary/gpu-viv/fsl-gpu.mk
+include device/fsl/evk_6sl/build_id.mk
 include device/fsl/imx6/BoardConfigCommon.mk
+include device/fsl-proprietary/gpu-viv/fsl-gpu.mk
 # evk_mx6sl default target for EXT4
 BUILD_TARGET_FS ?= ext4
 include device/fsl/imx6/imx6_target_fs.mk
 
 TARGET_BOOTLOADER_BOARD_NAME := EVK
-
-BOARD_SOC_CLASS := IMX6
 PRODUCT_MODEL := EVK_MX6SL
 
 # Wifi
@@ -57,9 +56,11 @@ BOARD_USE_AR3K_BLUETOOTH := false
 USE_ION_ALLOCATOR := false
 USE_GPU_ALLOCATOR := true
 
-USE_CAMERA_STUB := true
-BOARD_HAVE_IMX_CAMERA := false
-PRODUCT_MODEL := EVK-MX6SL
+# camera hal v2
+IMX_CAMERA_HAL_V2 := true
 
-BOARD_KERNEL_CMDLINE := console=ttymxc0,115200 init=/init androidboot.console=ttymxc0 androidboot.hardware=freescale
+# define frame buffer count
+NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
+
+BOARD_KERNEL_CMDLINE := console=ttymxc0,115200 init=/init androidboot.console=ttymxc0 video=mxc_elcdif_fb:bpp=32 androidboot.hardware=freescale
 TARGET_BOOTLOADER_CONFIG := mx6sl:mx6sl_evk_android_config

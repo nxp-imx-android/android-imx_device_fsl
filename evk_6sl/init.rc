@@ -1,4 +1,22 @@
-import init.freescale.usb.rc
+import init.${ro.hardware}.usb.rc
+
+on init
+    start watchdogd
+
+    # See storage config details at http://source.android.com/tech/storage/
+    mkdir /mnt/shell/emulated 0700 shell shell
+    mkdir /storage/emulated 0555 root root
+
+    export EXTERNAL_STORAGE /storage/emulated/legacy
+    export EMULATED_STORAGE_SOURCE /mnt/shell/emulated
+    export EMULATED_STORAGE_TARGET /storage/emulated
+
+    # Support legacy paths
+    symlink /storage/emulated/legacy /sdcard
+    symlink /storage/emulated/legacy /mnt/sdcard
+    symlink /storage/emulated/legacy /storage/sdcard0
+    symlink /mnt/shell/emulated/0 /storage/emulated/legacy
+
 on boot
 
     # Set permission for IIM node
@@ -14,9 +32,13 @@ on boot
     setprop debug.sf.enable_hgl 1
     setprop debug.egl.hw	0
 
+    setprop hwc.stretch.filter  1
+    setprop hwc.enable_dither   1
+
     # fsl omx graphic manager media framework property
 
     #Define the config for dual camera
+    setprop camera.disable_zsl_mode 1
     #For landscape mode, orient is 0
     #For portrait mode, orient is 90
     #the android before honycomb are all in portrait mode
@@ -26,20 +48,33 @@ on boot
     # Set OpenGLES version
     # setprop ro.opengles.version 131072
 
-    # Disable UI output for second display during video playback
-    setprop ro.secfb.disable-overlay  0
-
-    # Enable auto configuration with 1, disable with 0
-    setprop ro.AUTO_CONFIG_DISPLAY  1
-
     # Set rotation to 270 to cofigure as portrait mode
     setprop ro.sf.hwrotation 0
 
-    # hdmi audio output
-    setprop ro.HDMI_AUDIO_OUTPUT 1
+    # Set the density to 160dpi, default 128dpi is not good
+    setprop ro.sf.lcd_density 160
+# change for FSL specific service
+    chown root system /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
+    chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
+    chown root system /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
+    chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
+    chown root system /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+    chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+    chown root system /sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_cur_freq
+    chmod 0440 /sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_cur_freq
+    chown root system /sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies
+    chown root system /sys/devices/system/cpu/cpu0/online
+    chmod 0664 /sys/devices/system/cpu/cpu0/online
+    chown root system /sys/devices/system/cpu/cpu1/online
+    chmod 0664 /sys/devices/system/cpu/cpu1/online
+    chown root system /sys/devices/system/cpu/cpu2/online
+    chmod 0664 /sys/devices/system/cpu/cpu2/online
+    chown root system /sys/devices/system/cpu/cpu3/online
+    chmod 0664 /sys/devices/system/cpu/cpu3/online
 
-    # Set video overlay display mode
-    setprop sys.VIDEO_OVERLAY_DISPLAY 1
+    # prepare for ril
+    setprop gsm.ril.delay 15
+    setprop ro.ril.wake_lock_timeout 300
 
     # Default backlight device
     setprop hw.backlight.dev "pwm-backlight.0"
@@ -47,31 +82,27 @@ on boot
     chown system system /sys/class/backlight/pwm-backlight.0/brightness
     chmod 0660 /sys/class/backlight/pwm-backlight.0/brightness
 
-    # Add support wakeup system from debug UART
-    write /sys/devices/platform/imx-uart.0/tty/ttymxc0/power/wakeup disabled
 
-    # Indicate device type is tablet or SystemUI has problem without HW acceleration
-    setprop sys.devicy.type tablet
+    # No bluetooth hardware present
+    setprop wlan.interface wlan0
 
-    # prepare for ril
-    setprop gsm.ril.delay 15
-    setprop ro.ril.wake_lock_timeout 300
+# mount the debugfs
+    mount debugfs none /sys/kernel/debug/
 
-service wpa_supplicant /system/bin/wpa_supplicant \
-    -Dnl80211 -e/data/misc/wifi/entropy.bin
+service p2p_supplicant /system/bin/wpa_supplicant \
+    -ip2p0 -Dnl80211 -c/data/misc/wifi/p2p_supplicant.conf -N \
+    -iwlan0 -Dnl80211 -c/data/misc/wifi/wpa_supplicant.conf
     class late_start
     disabled
     oneshot
 
+    oneshot
+
 service iprenew_wlan0 /system/bin/dhcpcd -n
-    class late_start
+    class main
     disabled
     oneshot
 
 on fs
 # mount ext4 partitions
-    mount ext4 /dev/block/mmcblk0p5 /system
-    mount ext4 /dev/block/mmcblk0p5 /system ro remount
-    mount ext4 /dev/block/mmcblk0p7 /data nosuid nodev nodiratime noatime noauto_da_alloc
-    mount ext4 /dev/block/mmcblk0p6 /cache nosuid nodev
-    mount ext4 /dev/block/mmcblk0p8 /device ro nosuid nodev
+    mount_all /fstab.freescale
