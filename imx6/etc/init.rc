@@ -214,8 +214,12 @@ on post-fs-data
     mkdir /data/misc/vpn 0770 system vpn
     mkdir /data/misc/systemkeys 0700 system system
     # give system access to wpa_supplicant.conf for backup and restore
-    mkdir /data/misc/wifi 0770 wifi system
+    mkdir /data/misc/wifi 0770 wifi wifi
     chmod 0770 /data/misc/wifi
+    mkdir /data/misc/wifi/sockets 0770 wifi wifi
+    mkdir /data/misc/wifi/wpa_supplicant 0770 wifi wifi
+    mkdir /data/misc/dhcp 0770 dhcp dhcp
+    chown dhcp dhcp /data/misc/dhcp
     chmod 0660 /data/misc/wifi/wpa_supplicant.conf
     chmod 0775 /data/misc/wifi/ipconfig.txt
     chmod 0775 /system/etc/dhcpcd/dhcpcd-run-hooks
@@ -236,6 +240,7 @@ on post-fs-data
     mkdir /data/system 0775 system system
     mkdir /data/system/wpa_supplicant 0771 wifi wifi
     chmod 0771 /data/system/wpa_supplicant
+    symlink /data/misc/wifi/wpa_supplicant /data/system/wpa_supplicant
 
     # create dalvik-cache, so as to enforce our permissions
     mkdir /data/dalvik-cache 0771 system system
@@ -367,9 +372,6 @@ on boot
 # Prepare for wifi
     setprop wifi.interface wlan0
     setprop wifi.ap.interface wlan0
-    mkdir /data/misc/wifi/sockets 0770 wifi system
-    mkdir /data/misc/dhcp 0770 dhcp dhcp
-    chown dhcp dhcp /data/misc/dhcp
 
 # Prepare for bluetooth
     chmod 665 /sys/class/rfkill/rfkill0/state

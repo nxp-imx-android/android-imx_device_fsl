@@ -37,6 +37,7 @@ PRODUCT_PACKAGES += \
 	ip-up-ppp0				\
 	ip-down-ppp0				\
 	wpa_supplicant				\
+	rtl_wpa_supplicant			\
 	wpa_supplicant.conf			\
 	wpa_supplicant_p2p.conf			\
 	dispd					\
