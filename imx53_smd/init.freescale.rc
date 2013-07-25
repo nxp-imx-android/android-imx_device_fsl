@@ -113,10 +113,5 @@ service ing /system/bin/ingsvcd -c /system/etc/gps/Orion.ini
     group gps
     oneshot
 
-service iprenew_wlan0 /system/bin/dhcpcd -n
-    class late_start
-    disabled
-    oneshot
-
 on fs
     mount_all /fstab.freescale

@@ -64,11 +64,6 @@ service wpa_supplicant /system/bin/wpa_supplicant \
     disabled
     oneshot
 
-service iprenew_wlan0 /system/bin/dhcpcd -n
-    class late_start
-    disabled
-    oneshot
-
 on fs
 # mount ext4 partitions
     mount ext4 /dev/block/mmcblk0p5 /system

@@ -657,6 +657,16 @@ service wifi_mac /system/bin/sh /system/etc/check_wifi_mac.sh
     class late_start
     oneshot
 
+service iprenew_wlan0 /system/bin/dhcpcd -n
+    class main
+    disabled
+    oneshot
+
+service iprenew_p2p /system/bin/dhcpcd -n
+    class main
+    disabled
+    oneshot
+
 # virtual sdcard daemon running as media_rw (1023)
 # default 4 threads have better performance to 2 threads.
 service sdcard /system/bin/sdcard -t4 /data/media /mnt/shell/emulated 1023 1023
