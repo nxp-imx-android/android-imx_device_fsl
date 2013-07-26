@@ -316,12 +316,6 @@ PRODUCT_COPY_FILES +=	\
 	device/fsl/common/display/display_mode_fb2.conf:system/etc/display_mode_fb2.conf \
 	device/fsl/common/display/display_mode_fb4.conf:system/etc/display_mode_fb4.conf
 
-# for bugmailer
-PRODUCT_PACKAGES += send_bug
-PRODUCT_COPY_FILES += \
-    system/extras/bugmailer/bugmailer.sh:system/bin/bugmailer.sh \
-    system/extras/bugmailer/send_bug:system/bin/send_bug
-
 
 PRODUCT_COPY_FILES +=	\
 	external/linux-firmware-imx/firmware/vpu/vpu_fw_imx6d.bin:system/lib/firmware/vpu/vpu_fw_imx6d.bin 	\

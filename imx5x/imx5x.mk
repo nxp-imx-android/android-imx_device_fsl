@@ -284,12 +284,6 @@ PRODUCT_COPY_FILES +=	\
 	device/fsl/imx5x/init.gprs-pppd:system/etc/ppp/init.gprs-pppd \
 	device/fsl/imx5x/initlogo.rle:root/initlogo.rle
 
-# for bugmailer
-PRODUCT_PACKAGES += send_bug
-PRODUCT_COPY_FILES += \
-    system/extras/bugmailer/bugmailer.sh:system/bin/bugmailer.sh \
-    system/extras/bugmailer/send_bug:system/bin/send_bug
-
 # VPU firmware
 PRODUCT_COPY_FILES +=	\
 	external/linux-firmware-imx/firmware/vpu/vpu_fw_imx53.bin:system/lib/firmware/vpu/vpu_fw_imx53.bin
