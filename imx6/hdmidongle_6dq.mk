@@ -4,6 +4,9 @@
 $(call inherit-product, device/fsl/imx6/imx6.mk)
 $(call inherit-product-if-exists,vendor/google/products/gms.mk)
 
+$(shell touch device/fsl/hdmidongle_6dq/fstab_nand.freescale)
+$(shell touch device/fsl/hdmidongle_6dq/fstab.freescale)
+
 # Overrides
 PRODUCT_NAME := hdmidongle_6dq
 PRODUCT_DEVICE := hdmidongle_6dq
@@ -11,7 +14,6 @@ PRODUCT_DEVICE := hdmidongle_6dq
 PRODUCT_COPY_FILES += \
 	device/fsl/hdmidongle_6dq/required_hardware.xml:system/etc/permissions/required_hardware.xml \
 	device/fsl/hdmidongle_6dq/init.rc:root/init.freescale.rc \
-	device/fsl/hdmidongle_6dq/vold.fstab:system/etc/vold.fstab \
 	device/fsl/hdmidongle_6dq/audio_policy.conf:system/etc/audio_policy.conf \
 	device/fsl/hdmidongle_6dq/audio_effects.conf:system/vendor/etc/audio_effects.conf
 

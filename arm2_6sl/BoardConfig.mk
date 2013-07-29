@@ -11,6 +11,16 @@ include device/fsl/imx6/BoardConfigCommon.mk
 BUILD_TARGET_FS ?= ext4
 include device/fsl/imx6/imx6_target_fs.mk
 
+ifeq ($(BUILD_TARGET_FS),ubifs)
+# build ubifs for nand devices
+PRODUCT_COPY_FILES +=	\
+	device/fsl/arm2_6sl/fstab_nand.freescale:root/fstab.freescale
+else
+# build for ext4
+PRODUCT_COPY_FILES +=	\
+	device/fsl/arm2_6sl/fstab.freescale:root/fstab.freescale
+endif # BUILD_TARGET_FS
+
 TARGET_BOOTLOADER_BOARD_NAME := ARM2
 
 BOARD_SOC_CLASS := IMX6

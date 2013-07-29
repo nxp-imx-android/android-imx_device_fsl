@@ -4,13 +4,15 @@
 $(call inherit-product, device/fsl/imx6/imx6.mk)
 $(call inherit-product-if-exists,vendor/google/products/gms.mk)
 
+$(shell touch device/fsl/evk_6sl/fstab_nand.freescale)
+$(shell touch device/fsl/evk_6sl/fstab.freescale)
+
 # Overrides
 PRODUCT_NAME := evk_6sl
 PRODUCT_DEVICE := evk_6sl
 
 PRODUCT_COPY_FILES += \
 	device/fsl/evk_6sl/required_hardware.xml:system/etc/permissions/required_hardware.xml \
-	device/fsl/evk_6sl/vold.fstab:system/etc/vold.fstab \
 	device/fsl/evk_6sl/init.rc:root/init.freescale.rc \
 	device/fsl/common/input/imx-keypad.idc:system/usr/idc/imx-keypad.idc \
 	device/fsl/common/input/imx-keypad.kl:system/usr/keylayout/imx-keypad.kl \

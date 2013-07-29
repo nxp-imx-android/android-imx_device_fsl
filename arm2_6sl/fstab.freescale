@@ -1,8 +1,8 @@
-
 # Android fstab file.
 #<src>                                                  <mnt_point>         <type>    <mnt_flags and options>                       <fs_mgr_flags>
 # The filesystem that contains the filesystem checker binary (typically /system) cannot
 # specify MF_CHECK, and must come before any filesystems that do specify MF_CHECK
+
 /devices/platform/sdhci-esdhc-imx.2/mmc_host/mmc1 /mnt/extsd vfat defaults voldmanaged=sdcard:auto
 /devices/platform/fsl-ehci /mnt/udisk vfat defaults voldmanaged=sdcard:auto
 /dev/block/mmcblk0p5    /system  ext4    ro                                                                               wait

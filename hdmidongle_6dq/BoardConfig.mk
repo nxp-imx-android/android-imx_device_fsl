@@ -10,6 +10,16 @@ include device/fsl-proprietary/gpu-viv/fsl-gpu.mk
 BUILD_TARGET_FS ?= ubifs
 include device/fsl/imx6/imx6_target_fs.mk
 
+ifeq ($(BUILD_TARGET_FS),ubifs)
+# build ubifs for nand devices
+PRODUCT_COPY_FILES +=	\
+	device/fsl/hdmidongle_6dq/fstab_nand.freescale:root/fstab.freescale
+else
+# build for ext4
+PRODUCT_COPY_FILES +=	\
+	device/fsl/hdmidongle_6dq/fstab.freescale:root/fstab.freescale
+endif # BUILD_TARGET_FS
+
 TARGET_BOOTLOADER_BOARD_NAME := HDMIDONGLE
 PRODUCT_MODEL := HDMIDONGLE-MX6DQ
 

@@ -3,13 +3,15 @@
 
 $(call inherit-product, device/fsl/imx6/imx6.mk)
 
+$(shell touch device/fsl/arm2_6dq/fstab_nand.freescale)
+$(shell touch device/fsl/arm2_6dq/fstab.freescale)
+
 # Overrides
 PRODUCT_NAME := arm2_6dq
 PRODUCT_DEVICE := arm2_6dq
 
 PRODUCT_COPY_FILES += \
 	device/fsl/arm2_6dq/required_hardware.xml:system/etc/permissions/required_hardware.xml \
-	device/fsl/arm2_6dq/vold.fstab:system/etc/vold.fstab \
 	device/fsl/arm2_6dq/init.rc:root/init.freescale.rc
 
 DEVICE_PACKAGE_OVERLAYS := device/fsl/arm2_6dq/overlay

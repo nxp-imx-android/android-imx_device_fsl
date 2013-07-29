@@ -1,8 +1,6 @@
 $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/generic.mk)
 $(call inherit-product, $(TOPDIR)frameworks/base/data/sounds/AllAudio.mk)
-$(shell touch device/fsl/imx6/etc/fstab_nand.freescale)
-$(shell touch device/fsl/imx6/etc/fstab.freescale)
 # overrides
 PRODUCT_BRAND := Freescale
 PRODUCT_MANUFACTURER := Freescale

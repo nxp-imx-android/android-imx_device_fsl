@@ -1,0 +1,13 @@
+# Android fstab file.
+#<src>                                                  <mnt_point>         <type>    <mnt_flags>                                                                         <fs_mgr_flags>
+# The filesystem that contains the filesystem checker binary (typically /system) cannot
+# specify MF_CHECK, and must come before any filesystems that do specify MF_CHECK
+
+# below is for ubi support, uncomment to support ubifs(NAND)
+
+/devices/platform/sdhci-esdhc-imx.0/mmc_host/mmc1 /mnt/extsd vfat defaults voldmanaged=sdcard:auto
+/devices/platform/fsl-ehci /mnt/udisk vfat defaults voldmanaged=sdcard:auto
+ubi0:system	/system		ubifs 	ro					wait
+ubi0:data       /data           ubifs   nosuid,nodev,nodiratime,noatime         wait
+ubi0:cache      /cache          ubifs   nosuid,nodev                            wait
+ubi0:device     /device         ubifs   nosuid,nodev                         wait
