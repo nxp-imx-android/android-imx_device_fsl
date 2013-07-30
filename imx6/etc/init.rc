@@ -660,6 +660,13 @@ service hostapd /system/bin/hostapd /data/misc/wifi/hostapd.conf
     oneshot
     disabled
 
+service rtl_hostapd /system/bin/hostapd /data/misc/wifi/hostapd.conf
+    socket hostapd_wlan0 dgram 660 root wifi
+    user root
+    group wifi
+    oneshot
+    disabled
+
 service ril-daemon /system/bin/rild
     class main
     socket rild stream 660 root radio

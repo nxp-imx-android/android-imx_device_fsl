@@ -57,6 +57,7 @@ PRODUCT_PACKAGES += \
 # Wifi AP mode
 PRODUCT_PACKAGES += \
 	hostapd 				\
+	rtl_hostapd 				\
 	hostapd_cli
 
 # keyboard mapping files.

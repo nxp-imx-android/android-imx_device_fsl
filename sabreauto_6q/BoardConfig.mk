@@ -38,10 +38,14 @@ TARGET_KERNEL_MODULES        := \
 BOARD_WPA_SUPPLICANT_DRIVER  := NL80211
 BOARD_HOSTAPD_DRIVER         := NL80211
 
+BOARD_HOSTAPD_PRIVATE_LIB_QCOM              := lib_driver_cmd_qcwcn
+BOARD_WPA_SUPPLICANT_PRIVATE_LIB_QCOM       := lib_driver_cmd_qcwcn
+BOARD_HOSTAPD_PRIVATE_LIB_RTL               := lib_driver_cmd_rtl
+BOARD_WPA_SUPPLICANT_PRIVATE_LIB_RTL        := lib_driver_cmd_rtl
 #for intel vendor
 ifeq ($(BOARD_WLAN_VENDOR),INTEL)
-BOARD_HOSTAPD_PRIVATE_LIB                ?= private_lib_driver_cmd
-BOARD_WPA_SUPPLICANT_PRIVATE_LIB         ?= private_lib_driver_cmd
+BOARD_HOSTAPD_PRIVATE_LIB                := private_lib_driver_cmd
+BOARD_WPA_SUPPLICANT_PRIVATE_LIB         := private_lib_driver_cmd
 WPA_SUPPLICANT_VERSION                   := VER_0_8_X
 HOSTAPD_VERSION                          := VER_0_8_X
 BOARD_WPA_SUPPLICANT_PRIVATE_LIB         := private_lib_driver_cmd_intel
