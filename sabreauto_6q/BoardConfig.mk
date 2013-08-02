@@ -11,10 +11,12 @@ BUILD_TARGET_FS ?= ext4
 include device/fsl/imx6/imx6_target_fs.mk
 
 ifeq ($(BUILD_TARGET_FS),ubifs)
+TARGET_RECOVERY_FSTAB = device/fsl/sabreauto_6q/fstab_nand.freescale
 # build ubifs for nand devices
 PRODUCT_COPY_FILES +=	\
 	device/fsl/sabreauto_6q/fstab_nand.freescale:root/fstab.freescale
 else
+TARGET_RECOVERY_FSTAB = device/fsl/sabreauto_6q/fstab.freescale
 # build for ext4
 PRODUCT_COPY_FILES +=	\
 	device/fsl/sabreauto_6q/fstab.freescale:root/fstab.freescale

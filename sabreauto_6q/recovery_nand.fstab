@@ -1,6 +1,0 @@
-# UBI support is under below:
-/boot mtd /dev/mtd/mtd1
-/recovery mtd /dev/mtd/mtd2
-/system ubifs /dev/ubi0_0
-/data ubifs /dev/ubi0_3
-/cache ubifs /dev/ubi0_1

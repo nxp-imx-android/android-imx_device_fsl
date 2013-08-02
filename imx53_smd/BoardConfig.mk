@@ -10,6 +10,8 @@ BOARD_SOC_CLASS := IMX5X
 BOARD_SOC_TYPE := IMX53
 PRODUCT_MODEL := IMX53-SMD
 
+TARGET_RECOVERY_FSTAB = device/fsl/imx53_smd/fstab.freescale
+
 # UNITE is a virtual device support both atheros and realtek wifi(ar6103 and rtl8723as)
 BOARD_WLAN_DEVICE            := UNITE
 WPA_SUPPLICANT_VERSION       := VER_0_8_UNITE

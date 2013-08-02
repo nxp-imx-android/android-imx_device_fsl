@@ -1,7 +1,0 @@
-# Use below lines if you use NAND:
-/boot mtd /dev/mtd/mtd1
-/recovery mtd /dev/mtd/mtd2
-/system ubifs /dev/ubi0_0
-/data ubifs /dev/ubi0_2
-/cache ubifs /dev/ubi0_1
-/sdcard vfat /dev/block/mmcblk0p1
