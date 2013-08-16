@@ -32,6 +32,9 @@
     <feature name="android.hardware.microphone" />
     <feature name="android.hardware.screen.portrait" />
     <feature name="android.hardware.screen.landscape" />
+    <feature name="android.software.app_widgets" />
+    <feature name="android.software.home_screen" />
+    <feature name="android.software.input_methods" />
 
     <!-- This is added by FSL. -->
     <feature name="android.software.live_wallpaper" />
