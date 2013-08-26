@@ -4,8 +4,13 @@
 $(call inherit-product, device/fsl/imx6/imx6.mk)
 $(call inherit-product-if-exists,vendor/google/products/gms.mk)
 
+ifneq ($(wildcard device/fsl/sabresd_6dq/fstab_nand.freescale),)
 $(shell touch device/fsl/sabresd_6dq/fstab_nand.freescale)
+endif
+
+ifneq ($(wildcard device/fsl/sabresd_6dq/fstab.freescale),)
 $(shell touch device/fsl/sabresd_6dq/fstab.freescale)
+endif
 
 # Overrides
 PRODUCT_NAME := sabresd_6dq

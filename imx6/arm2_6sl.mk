@@ -3,8 +3,13 @@
 
 $(call inherit-product, device/fsl/imx6/imx6.mk)
 
+ifneq ($(wildcard device/fsl/arm2_6sl/fstab_nand.freescale),)
 $(shell touch device/fsl/arm2_6sl/fstab_nand.freescale)
+endif
+
+ifneq ($(wildcard device/fsl/arm2_6sl/fstab.freescale),)
 $(shell touch device/fsl/arm2_6sl/fstab.freescale)
+endif
 
 # Overrides
 PRODUCT_NAME := arm2_6sl
