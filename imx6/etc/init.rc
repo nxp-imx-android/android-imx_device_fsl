@@ -653,6 +653,14 @@ service dhcpcd_eth0 /system/bin/dhcpcd -ABKL
     disabled
     oneshot
 
+service dhcpcd_bt-pan /system/bin/dhcpcd -BKLG
+    disabled
+    oneshot
+
+service iprenew_bt-pan /system/bin/dhcpcd -n
+    disabled
+    oneshot
+
 service hostapd /system/bin/hostapd /data/misc/wifi/hostapd.conf
     socket hostapd_wlan0 dgram 660 root wifi
     user root
