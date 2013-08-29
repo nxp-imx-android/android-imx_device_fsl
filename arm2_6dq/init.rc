@@ -17,7 +17,6 @@ on boot
     setprop debug.sf.showfps    0
     setprop debug.sf.enable_hgl 1
     setprop debug.egl.hw	1
-    setprop ro.bq.gpu_to_cpu_unsupported 1
 
     # fsl omx graphic manager media framework property
     setprop media.omxgm.enable-player 1
