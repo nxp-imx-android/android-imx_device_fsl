@@ -98,5 +98,7 @@
     <add-resource type="string" name="config_gpsVendor" />
     <string name="config_gpsVendor">atheros</string>
 
+    <!--  Maximum number of supported users -->
+    <integer name="config_multiuserMaximumUsers">1</integer>
 
 </resources>
