@@ -53,8 +53,7 @@ endif
 
 BOARD_MODEM_VENDOR := AMAZON
 
-BOARD_HAVE_HARDWARE_GPS := true
-USE_ATHR_GPS_HARDWARE := true
+USE_ATHR_GPS_HARDWARE := false
 USE_QEMU_GPS_HARDWARE := false
 
 #for accelerator sensor, need to define sensor type here
