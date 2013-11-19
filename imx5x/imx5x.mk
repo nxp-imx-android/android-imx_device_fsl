@@ -239,6 +239,8 @@ omx_libs := \
 	lib_flac_parser_arm11_elinux.3.0 \
 	lib_wav_parser_arm11_elinux.3.0 \
 	lib_omx_ac3toiec937_arm11_elinux \
+        lib_omx_ec3_dec_v2_arm11_elinux \
+
 
 
 # Omx excluded libs
@@ -254,6 +256,9 @@ omx_excluded_libs :=					\
 	lib_wma10d_wrap_arm12_elinux_android \
 	lib_aacplusd_wrap_arm12_elinux_android \
 	lib_ac3d_wrap_arm11_elinux_android \
+        lib_ddpd_wrap_arm12_elinux_android \
+        lib_ddplus_dec_v2_arm12_elinux \
+
 
 PRODUCT_PACKAGES += $(omx_libs) $(omx_excluded_libs)
 
