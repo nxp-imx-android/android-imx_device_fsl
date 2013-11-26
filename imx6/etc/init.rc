@@ -50,11 +50,6 @@ loglevel 3
     mount cgroup none /acct cpuacct
     mkdir /acct/uid
 
-    mkdir /mnt/extsd 0000 system system
-    symlink /mnt/extsd /extsd
-    mkdir /mnt/udisk 0000 system system
-    symlink /mnt/udisk /udisk
-
 # Create cgroup mount point for memory
     mount tmpfs none /sys/fs/cgroup mode=0750,uid=0,gid=1000
     mkdir /sys/fs/cgroup/memory 0750 root system
@@ -76,8 +71,13 @@ loglevel 3
     mkdir /device 0771 system system
     # See storage config details at http://source.android.com/tech/storage/
     mkdir /mnt/shell 0700 shell shell
-    mkdir /mnt/media_rw 0700 media_rw media_rw
+    mkdir /mnt/media_rw 0751 media_rw media_rw
     mkdir /storage 0751 root sdcard_r
+
+    mkdir /mnt/media_rw/extsd 0755 system system
+    symlink /mnt/media_rw/extsd /storage/extsd
+    mkdir /mnt/media_rw/udisk 0755 system system
+    symlink /mnt/media_rw/udisk /storage/udisk
 
     # Directory for putting things only root should see.
     mkdir /mnt/secure 0700 root root

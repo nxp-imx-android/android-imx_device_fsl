@@ -59,6 +59,9 @@ on boot
     # Set the density to 120dpi for 640x480 lcd panel
     setprop ro.sf.lcd_density 120
 
+    # Set extsd access permission
+    setprop persist.sampling_profiler 1
+
 # change for FSL specific service
     chown root system /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
     chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq

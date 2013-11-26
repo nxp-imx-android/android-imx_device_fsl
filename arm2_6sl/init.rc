@@ -55,6 +55,9 @@ on boot
     # Add support wakeup system from debug UART
     write /sys/devices/platform/imx-uart.0/tty/ttymxc0/power/wakeup enabled
 
+    # Set extsd access permission
+    setprop persist.sampling_profiler 1
+
 # mount the debugfs
     mount debugfs none /sys/kernel/debug/
 

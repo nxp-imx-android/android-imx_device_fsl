@@ -61,6 +61,9 @@ on boot
     # Set the density to 160 dpi, default 128dpi is not good
     setprop ro.sf.lcd_density 160
 
+    # Set extsd access permission
+    setprop persist.sampling_profiler 1
+
     # prepare for ril
     setprop gsm.ril.delay 15
     setprop ro.ril.wake_lock_timeout 300
