@@ -108,6 +108,18 @@ on boot
 # mount the debugfs
     mount debugfs none /sys/kernel/debug/
 
+on charger
+    # Enable Power modes and set the CPU Freq Sampling rates
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor "powersave"
+    write /sys/devices/system/cpu/cpufreq/ondemand/up_threshold 90
+    write /sys/devices/system/cpu/cpufreq/ondemand/sampling_rate 50000
+    write /sys/devices/system/cpu/cpufreq/ondemand/io_is_busy 1
+    write /sys/devices/system/cpu/cpufreq/ondemand/sampling_down_factor 4
+    write /sys/devices/system/cpu/cpu1/online 0
+    write /sys/devices/system/cpu/cpu2/online 0
+    write /sys/devices/system/cpu/cpu3/online 0
+
+
 service p2p_supplicant /system/bin/wpa_supplicant \
     -ip2p0 -Dnl80211 -c/data/misc/wifi/p2p_supplicant.conf -N \
     -iwlan0 -Dnl80211 -c/data/misc/wifi/wpa_supplicant.conf
@@ -146,6 +158,9 @@ service ing /system/bin/ingsvcd -c /system/etc/gps/Orion.ini
     user root
     group gps
     oneshot
+
+service charger /charger
+    class charger
 
 on fs
 # mount ext4 partitions
