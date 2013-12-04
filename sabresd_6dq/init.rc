@@ -132,7 +132,7 @@ service p2p_supplicant /system/bin/wpa_supplicant \
     disabled
     oneshot
 
-service rtw_suppl_con /system/bin/rtl_wpa_supplicant -dddd \
+service rtw_suppl_con /system/bin/rtl_wpa_supplicant \
     -ip2p0 -Dnl80211 -c/data/misc/wifi/p2p_supplicant.conf \
     -I/system/etc/wifi/p2p_supplicant_overlay.conf -N \
     -iwlan0 -Dnl80211 -c/data/misc/wifi/wpa_supplicant.conf \
