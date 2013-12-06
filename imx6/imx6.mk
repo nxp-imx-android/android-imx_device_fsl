@@ -329,11 +329,6 @@ PRODUCT_COPY_FILES +=	\
 	device/fsl/common/display/display_mode_fb2.conf:system/etc/display_mode_fb2.conf \
 	device/fsl/common/display/display_mode_fb4.conf:system/etc/display_mode_fb4.conf
 
-
-PRODUCT_COPY_FILES +=	\
-	external/linux-firmware-imx/firmware/vpu/vpu_fw_imx6d.bin:system/lib/firmware/vpu/vpu_fw_imx6d.bin 	\
-	external/linux-firmware-imx/firmware/vpu/vpu_fw_imx6q.bin:system/lib/firmware/vpu/vpu_fw_imx6q.bin
-
 # we have enough storage space to hold precise GC data
 PRODUCT_TAGS += dalvik.gc.type-precise
 

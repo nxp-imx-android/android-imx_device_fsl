@@ -19,6 +19,10 @@ PRODUCT_COPY_FILES += \
 	device/fsl/arm2_6dq/required_hardware.xml:system/etc/permissions/required_hardware.xml \
 	device/fsl/arm2_6dq/init.rc:root/init.freescale.rc
 
+PRODUCT_COPY_FILES +=	\
+	external/linux-firmware-imx/firmware/vpu/vpu_fw_imx6d.bin:system/lib/firmware/vpu/vpu_fw_imx6d.bin 	\
+	external/linux-firmware-imx/firmware/vpu/vpu_fw_imx6q.bin:system/lib/firmware/vpu/vpu_fw_imx6q.bin
+
 DEVICE_PACKAGE_OVERLAYS := device/fsl/arm2_6dq/overlay
 
 PRODUCT_CHARACTERISTICS := tablet

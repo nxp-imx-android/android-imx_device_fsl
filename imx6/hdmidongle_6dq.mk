@@ -22,6 +22,10 @@ PRODUCT_COPY_FILES += \
 	device/fsl/hdmidongle_6dq/audio_policy.conf:system/etc/audio_policy.conf \
 	device/fsl/hdmidongle_6dq/audio_effects.conf:system/vendor/etc/audio_effects.conf
 
+PRODUCT_COPY_FILES +=	\
+	external/linux-firmware-imx/firmware/vpu/vpu_fw_imx6d.bin:system/lib/firmware/vpu/vpu_fw_imx6d.bin 	\
+	external/linux-firmware-imx/firmware/vpu/vpu_fw_imx6q.bin:system/lib/firmware/vpu/vpu_fw_imx6q.bin
+
 # GPU files
 
 DEVICE_PACKAGE_OVERLAYS := device/fsl/hdmidongle_6dq/overlay
