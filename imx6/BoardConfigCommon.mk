@@ -48,6 +48,7 @@ UMS_ONEPARTITION_PER_DISK := true
 PREBUILT_FSL_IMX_CODEC := true
 PREBUILT_FSL_IMX_OMX := false
 PREBUILT_FSL_IMX_GPU := true
+PREBUILT_FSL_WFDSINK := true
 
 # use non-neon memory copy on mx6x to get better performance
 ARCH_ARM_USE_NON_NEON_MEMCPY := true
