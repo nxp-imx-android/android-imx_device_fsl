@@ -94,7 +94,8 @@ PRODUCT_PACKAGES += \
 	power.imx6				\
 	audio.r_submix.default			\
 	libbt-vendor				\
-	magd
+	magd                                    \
+	consumerir.imx6
 
 # Bluetooth firmware files.
 PRODUCT_PACKAGES += \
