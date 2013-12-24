@@ -19,6 +19,7 @@ PRODUCT_PACKAGES += \
 	FSLOta					\
 	CactusPlayer                            \
 	WfdSink                                 \
+	ethernet                                \
 	libfsl_wfd.so                           \
 	fsl.imx.jar                             \
 	VideoEditor				\
@@ -31,6 +32,7 @@ PRODUCT_PACKAGES += \
 	libRS					\
 	librs_jni				\
 	pppd					\
+	tcpdump					\
 	chat					\
 	ip-up-vpn				\
 	ip-up-ppp0				\
