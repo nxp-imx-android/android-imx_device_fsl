@@ -19,6 +19,7 @@ PRODUCT_PACKAGES += \
 	FSLOta					\
 	CactusPlayer                            \
 	WfdSink                                 \
+	wfd                                     \
 	ethernet                                \
 	libfsl_wfd.so                           \
 	fsl.imx.jar                             \
