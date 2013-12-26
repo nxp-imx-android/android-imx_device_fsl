@@ -102,4 +102,5 @@ $(error "TARGET_USERIMAGES_USE_UBIFS and TARGET_USERIMAGES_USE_EXT4 config open 
 endif
 endif
 
-TARGET_BOOTLOADER_CONFIG := mx6q:mx6q_sabreauto_android_config mx6dl:mx6dl_sabreauto_android_config mx6solo:mx6solo_sabreauto_android_config mx6q-nand:mx6q_sabreauto_nand_android_config mx6dl-nand:mx6dl_sabreauto_nand_android_config mx6solo-nand:mx6solo_sabreauto_nand_android_config
+TARGET_BOOTLOADER_CONFIG := mx6q:mx6qsabreautoandroid mx6dl:mx6dlsabreautoandroid mx6solo:mx6solosabresdandroid mx6q-nand:mx6qsabreautoandroid_nand mx6dl-nand:mx6dlsabreautoandroid_nand mx6solo-nand:mx6solosabreauto_nand
+TARGET_BOARD_DTS_CONFIG := mx6q:imx6q-sabreauto.dtb mx6dl:imx6dl-sabreauto.dtb
