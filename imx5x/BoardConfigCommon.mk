@@ -41,6 +41,8 @@ TARGET_HAVE_IMX_HWCOMPOSER := true
 USE_ION_ALLOCATOR := true
 
 HAVE_FSL_IMX_CODEC := true
+-include external/fsl_vpu_omx/codec_env.mk
+-include external/fsl_imx_omx/codec_env.mk
 BUILD_WITHOUT_FSL_DIRECTRENDER := false
 BUILD_WITHOUT_FSL_XEC := true
 
