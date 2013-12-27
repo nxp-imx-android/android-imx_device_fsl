@@ -9,7 +9,7 @@ HAVE_FSL_IMX_GPU3D := false
 HAVE_FSL_IMX_IPU := false
 BOARD_KERNEL_BASE := 0x80800000
 TARGET_KERNEL_DEFCONF := imx6s_android_defconfig
-HAVE_FSL_IMX_CODEC := false
+-include external/fsl_vpu_omx/codec_env.mk
 TARGET_HAVE_IMX_GRALLOC := true
 TARGET_HAVE_IMX_HWCOMPOSER = true
 USE_OPENGL_RENDERER := false
