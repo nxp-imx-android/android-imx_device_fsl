@@ -32,6 +32,8 @@
     <feature name="android.software.app_widgets" />
     <feature name="android.software.home_screen" />
     <feature name="android.software.input_methods" />
+    <!-- Feature to specify if the device supports adding device admins. -->
+    <feature name="android.software.device_admin" />
 
     <!-- This is added by FSL. -->
     <feature name="android.software.live_wallpaper" />
