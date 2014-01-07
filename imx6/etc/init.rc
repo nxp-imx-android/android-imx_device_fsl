@@ -652,12 +652,12 @@ service mdnsd /system/bin/mdnsd
     disabled
     oneshot
 
-service dhcpcd_wlan0 /system/bin/dhcpcd -ABKL
+service dhcpcd_wlan0 /system/bin/dhcpcd -aABDKL
     class main
     disabled
     oneshot
 
-service dhcpcd_p2p /system/bin/dhcpcd -ABKL
+service dhcpcd_p2p /system/bin/dhcpcd -aABKL
     class main
     disabled
     oneshot
@@ -667,11 +667,28 @@ service dhcpcd_eth0 /system/bin/dhcpcd -ABKL
     disabled
     oneshot
 
-service dhcpcd_bt-pan /system/bin/dhcpcd -BKLG
+service dhcpcd_bt-pan /system/bin/dhcpcd -ABKL
+    class main
+    disabled
+    oneshot
+
+service iprenew_wlan0 /system/bin/dhcpcd -n
+    class main
+    disabled
+    oneshot
+
+service iprenew_p2p /system/bin/dhcpcd -n
+    class main
+    disabled
+    oneshot
+
+service iprenew_eth0 /system/bin/dhcpcd -n
+    class main
     disabled
     oneshot
 
 service iprenew_bt-pan /system/bin/dhcpcd -n
+    class main
     disabled
     oneshot
 
@@ -706,16 +723,6 @@ service pppd_gprs /etc/ppp/init.gprs-pppd
 
 service wifi_mac /system/bin/sh /system/etc/check_wifi_mac.sh
     class late_start
-    oneshot
-
-service iprenew_wlan0 /system/bin/dhcpcd -n
-    class main
-    disabled
-    oneshot
-
-service iprenew_p2p /system/bin/dhcpcd -n
-    class main
-    disabled
     oneshot
 
 # virtual sdcard daemon running as media_rw (1023)
