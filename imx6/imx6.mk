@@ -33,7 +33,6 @@ PRODUCT_PACKAGES += \
 	libRS					\
 	librs_jni				\
 	pppd					\
-	tcpdump					\
 	chat					\
 	ip-up-vpn				\
 	ip-up-ppp0				\
