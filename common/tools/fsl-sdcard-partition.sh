@@ -83,13 +83,13 @@ fi
 function format_android
 {
     echo "formating android images"
-    mkfs.ext4 ${node}4 -Ldata
-    mkfs.ext4 ${node}5 -Lsystem
-    mkfs.ext4 ${node}6 -Lcache
-    mkfs.ext4 ${node}7 -Lvender
+    mkfs.ext4 ${node}${part}4 -Ldata
+    mkfs.ext4 ${node}${part}5 -Lsystem
+    mkfs.ext4 ${node}${part}6 -Lcache
+    mkfs.ext4 ${node}${part}7 -Lvender
     mkdir /media/tmp
-    mount ${node}4 /media/tmp
-    amount=$(df -k | grep ${node}4 | awk '{print $2}')
+    mount ${node}${part}4 /media/tmp
+    amount=$(df -k | grep ${node}${part}4 | awk '{print $2}')
     stag=$amount
     stag=$((stag-32))
     kilo=K
@@ -97,8 +97,8 @@ function format_android
     sleep 1s
     umount /media/tmp
     rm -rf /media/tmp
-    e2fsck -f ${node}4
-    resize2fs ${node}4 $amountkilo
+    e2fsck -f ${node}${part}4
+    resize2fs ${node}${part}4 $amountkilo
 }
 
 function flash_android
@@ -107,9 +107,9 @@ if [ "${flash_images}" -eq "1" ]; then
     echo "flashing android images..."    
     dd if=u-boot.bin of=${node} bs=1k seek=1 skip=1
     dd if=/dev/zero of=${node} bs=512 seek=1536 count=16
-    dd if=boot.img of=${node}1
-    dd if=recovery.img of=${node}2
-    dd if=system.img of=${node}5
+    dd if=boot.img of=${node}${part}1
+    dd if=recovery.img of=${node}${part}2
+    dd if=system.img of=${node}${part}5
 fi
 }
 
@@ -117,7 +117,6 @@ if [[ "${not_partition}" -eq "1" && "${flash_images}" -eq "1" ]] ; then
     flash_android
     exit
 fi
-
 
 # destroy the partition table
 dd if=/dev/zero of=${node} bs=1024 count=1
