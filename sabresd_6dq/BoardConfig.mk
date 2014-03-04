@@ -106,7 +106,7 @@ NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
 #define consumer IR HAL support
 IMX6_CONSUMER_IR_HAL := true
 
-TARGET_BOOTLOADER_CONFIG := 6q:mx6qsabresdandroid 6dl:mx6dlsabresdandroid
-TARGET_BOARD_DTS_CONFIG := 6q:imx6q-sabresd.dtb 6dl:imx6dl-sabresd.dtb
+TARGET_BOOTLOADER_CONFIG := imx6q:mx6qsabresdandroid imx6dl:mx6dlsabresdandroid
+TARGET_BOARD_DTS_CONFIG := imx6q:imx6q-sabresd.dtb imx6dl:imx6dl-sabresd.dtb
 
 

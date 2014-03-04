@@ -102,5 +102,5 @@ $(error "TARGET_USERIMAGES_USE_UBIFS and TARGET_USERIMAGES_USE_EXT4 config open 
 endif
 endif
 
-TARGET_BOOTLOADER_CONFIG := mx6q:mx6qsabreautoandroid mx6dl:mx6dlsabreautoandroid mx6solo:mx6solosabresdandroid mx6q-nand:mx6qsabreautoandroid_nand mx6dl-nand:mx6dlsabreautoandroid_nand mx6solo-nand:mx6solosabreauto_nand
-TARGET_BOARD_DTS_CONFIG := mx6q:imx6q-sabreauto.dtb mx6dl:imx6dl-sabreauto.dtb mx6q-nand:imx6q-sabreauto-gpmi-weim.dtb mx6dl-nand:imx6dl-sabreauto-gpmi-weim.dtb
+TARGET_BOOTLOADER_CONFIG := imx6q:mx6qsabreautoandroid imx6dl:mx6dlsabreautoandroid imx6solo:mx6solosabresdandroid imx6q-nand:mx6qsabreautoandroid_nand imx6dl-nand:mx6dlsabreautoandroid_nand imx6solo-nand:mx6solosabreauto_nand
+TARGET_BOARD_DTS_CONFIG := imx6q:imx6q-sabreauto.dtb imx6dl:imx6dl-sabreauto.dtb imx6q-nand:imx6q-sabreauto-gpmi-weim.dtb imx6dl-nand:imx6dl-sabreauto-gpmi-weim.dtb

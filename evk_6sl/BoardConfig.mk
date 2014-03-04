@@ -78,5 +78,5 @@ IMX_CAMERA_HAL_V2 := false
 NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
 
 BOARD_KERNEL_CMDLINE := console=ttymxc0,115200 init=/init androidboot.console=ttymxc0 video=mxc_elcdif_fb:bpp=32 androidboot.hardware=freescale csi
-TARGET_BOOTLOADER_CONFIG := mx6sl:mx6slevkandroid
-TARGET_BOARD_DTS_CONFIG := mx6sl:imx6sl-evk.dtb
+TARGET_BOOTLOADER_CONFIG := imx6sl:mx6slevkandroid
+TARGET_BOARD_DTS_CONFIG := imx6sl:imx6sl-evk.dtb
