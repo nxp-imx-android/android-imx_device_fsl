@@ -23,6 +23,7 @@ PRODUCT_PACKAGES += \
 	ethernet                                \
 	libfsl_wfd.so                           \
 	fsl.imx.jar                             \
+	hwcomposer_fsl.imx6.so                  \
 	VideoEditor				\
 	FSLProfileApp				\
 	FSLProfileService			\
