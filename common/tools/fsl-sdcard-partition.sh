@@ -19,7 +19,7 @@ options:
   -h				displays this help message
   -s				only get partition size
   -np 				not partition.
-  -f 				flash android image.
+  -f soc_name			flash android image.
 EOF
 
 }
@@ -35,15 +35,20 @@ fi
 # parse command line
 moreoptions=1
 node="na"
+soc_name=""
 cal_only=0
 flash_images=0
 not_partition=0
 not_format_fs=0
+bootloader_file="u-boot.imx"
+bootimage_file="boot.img"
+systemimage_file="system.img"
+recoveryimage_file="recovery.img"
 while [ "$moreoptions" = 1 -a $# -gt 0 ]; do
 	case $1 in
 	    -h) help; exit ;;
 	    -s) cal_only=1 ;;
-	    -f) flash_images=1 ;;
+	    -f) flash_images=1 ; soc_name=$2; shift;;
 	    -np) not_partition=1 ;;
 	    -nf) not_format_fs=1 ;;
 	    *)  moreoptions=0; node=$1 ;;
@@ -103,13 +108,20 @@ function format_android
 
 function flash_android
 {
+    bootloader_file="u-boot-${soc_name}.imx"
+    bootimage_file="boot-${soc_name}.img"
+    recoveryimage_file="recovery-${soc_name}.img"
 if [ "${flash_images}" -eq "1" ]; then
     echo "flashing android images..."    
-    dd if=u-boot.bin of=${node} bs=1k seek=1 skip=1
-    dd if=/dev/zero of=${node} bs=512 seek=1536 count=16
-    dd if=boot.img of=${node}${part}1
-    dd if=recovery.img of=${node}${part}2
-    dd if=system.img of=${node}${part}5
+    echo "bootloader: ${bootloader_file}"
+    echo "boot image: ${bootimage_file}"
+    echo "recovery image: ${recoveryimage_file}"
+    echo "system image: ${systemimage_file}"
+    dd if=/dev/zero of=${node} bs=1k seek=384 count=129
+    dd if=${bootloader_file} of=${node} bs=1k seek=1
+    dd if=${bootimage_file} of=${node}${part}1
+    dd if=${recoveryimage_file} of=${node}${part}2
+    dd if=${systemimage_file} of=${node}${part}5
 fi
 }
 
