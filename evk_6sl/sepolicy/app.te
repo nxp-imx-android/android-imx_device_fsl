@@ -1,0 +1,5 @@
+# Grant GPU access to all processes started by Zygote.
+# They need that to render the standard UI.
+allow domain    graphics_device:chr_file rw_file_perms;
+allow domain    graphics_device:dir { write create add_name setattr mounton search };
+allow system    system_data_file:dir *;

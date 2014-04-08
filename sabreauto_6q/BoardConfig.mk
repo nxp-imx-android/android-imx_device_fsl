@@ -104,3 +104,13 @@ endif
 
 TARGET_BOOTLOADER_CONFIG := imx6q:mx6qsabreautoandroid imx6dl:mx6dlsabreautoandroid imx6solo:mx6solosabresdandroid imx6q-nand:mx6qsabreautoandroid_nand imx6dl-nand:mx6dlsabreautoandroid_nand imx6solo-nand:mx6solosabreauto_nand
 TARGET_BOARD_DTS_CONFIG := imx6q:imx6q-sabreauto.dtb imx6dl:imx6dl-sabreauto.dtb imx6q-nand:imx6q-sabreauto-gpmi-weim.dtb imx6dl-nand:imx6dl-sabreauto-gpmi-weim.dtb
+
+BOARD_SEPOLICY_DIRS := \
+       device/fsl/sabreauto_6q/sepolicy
+
+BOARD_SEPOLICY_UNION := \
+       app.te \
+       file_contexts \
+       fs_use \
+       untrusted_app.te \
+       genfs_contexts

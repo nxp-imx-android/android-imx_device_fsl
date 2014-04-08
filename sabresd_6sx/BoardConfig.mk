@@ -109,4 +109,13 @@ IMX6_CONSUMER_IR_HAL := true
 TARGET_BOOTLOADER_CONFIG := imx6sx:mx6sxsabresdandroid
 TARGET_BOARD_DTS_CONFIG := imx6sx:imx6sx-sdb.dtb
 
+BOARD_SEPOLICY_DIRS := \
+       device/fsl/sabresd_6sx/sepolicy
+
+BOARD_SEPOLICY_UNION := \
+       app.te \
+       file_contexts \
+       fs_use \
+       untrusted_app.te \
+       genfs_contexts
 
