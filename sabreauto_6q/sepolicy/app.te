@@ -3,3 +3,5 @@
 allow domain    graphics_device:chr_file rw_file_perms;
 allow domain    graphics_device:dir { write create add_name setattr mounton search };
 allow system    system_data_file:dir *;
+allow vold      self:capability { setgid setuid };
+allow vold      fuse_device:chr_file rw_file_perms;
