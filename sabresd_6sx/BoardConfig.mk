@@ -98,7 +98,7 @@ USE_ION_ALLOCATOR := false
 USE_GPU_ALLOCATOR := true
 
 # camera hal v2
-IMX_CAMERA_HAL_V2 := true
+IMX_CAMERA_HAL_V2 := false
 
 # define frame buffer count
 NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
