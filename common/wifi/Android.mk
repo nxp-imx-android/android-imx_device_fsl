@@ -23,7 +23,7 @@
 # *not* include it on all devices, so it is safe even with hardware-specific
 # components.
 
-ifneq ($(filter sabresd_6dq sabreauto_6q evk_6sl arm2_6sl arm2_6dq,$(TARGET_DEVICE)),)
+ifneq ($(filter sabresd_6dq sabreauto_6q evk_6sl arm2_6sl arm2_6dq sabresd_6sx,$(TARGET_DEVICE)),)
 
 LOCAL_PATH := $(call my-dir)
 
