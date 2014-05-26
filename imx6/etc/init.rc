@@ -725,6 +725,3 @@ service wifi_mac /system/bin/sh /system/etc/check_wifi_mac.sh
     service sdcard /system/bin/sdcard -l -t4 /data/media /mnt/shell/emulated 1023 1023
     class late_start
 
-# Set watchdog timer to 30 seconds and pet it every 10 seconds to get a 20 second margin
-service watchdogd /sbin/watchdogd 10 20
-    class core

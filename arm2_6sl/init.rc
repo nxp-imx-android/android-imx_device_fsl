@@ -67,6 +67,10 @@ service wpa_supplicant /system/bin/wpa_supplicant \
     disabled
     oneshot
 
+# Set watchdog timer to 30 seconds and pet it every 10 seconds to get a 20 second margin
+    service watchdogd /sbin/watchdogd 10 20
+    class core
+
 on fs
 # mount ext4 partitions
     mount ext4 /dev/block/mmcblk0p5 /system
