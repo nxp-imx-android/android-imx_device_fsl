@@ -259,6 +259,9 @@ omx_libs := \
 	lib_wav_parser_arm11_elinux.3.0 \
 	lib_omx_ac3toiec937_arm11_elinux \
         lib_omx_ec3_dec_v2_arm11_elinux \
+		lib_omx_libav_video_dec_arm11_elinux.so \
+        libavcodec-55.so \
+        libavutil-53.so \
 
 
 
