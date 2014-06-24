@@ -10,7 +10,7 @@ HAVE_FSL_IMX_IPU := false
 BOARD_KERNEL_BASE := 0x80800000
 LOAD_KERNEL_ENTRY := 0x80008000
 TARGET_KERNEL_DEFCONF := imx_v7_android_defconfig
--include external/fsl_vpu_omx/codec_env.mk
+-include external/fsl_imx_omx/codec_env.mk
 TARGET_HAVE_IMX_GRALLOC := true
 TARGET_HAVE_IMX_HWCOMPOSER = true
 USE_OPENGL_RENDERER := true
