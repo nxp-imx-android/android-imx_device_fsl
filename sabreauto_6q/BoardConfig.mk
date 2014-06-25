@@ -89,8 +89,8 @@ BOARD_KERNEL_CMDLINE := console=ttymxc3,115200 init=/init video=mxcfb0:dev=ldb,b
 ifeq ($(TARGET_USERIMAGES_USE_UBIFS),true)
 #UBI boot command line.
 UBI_ROOT_INI := device/fsl/sabreauto_6q/ubi/ubinize.ini
-TARGET_MKUBIFS_ARGS := -m 4096 -e 516096 -c 4096 -x none
-TARGET_UBIRAW_ARGS := -m 4096 -p 512KiB $(UBI_ROOT_INI)
+TARGET_MKUBIFS_ARGS := -m 4096 -e 253952 -c 4096 -x none
+TARGET_UBIRAW_ARGS := -m 4096 -p 256KiB $(UBI_ROOT_INI)
 
 # Note: this NAND partition table must align with MFGTool's config.
 BOARD_KERNEL_CMDLINE +=  mtdparts=gpmi-nand:16m(bootloader),16m(bootimg),16m(recovery),-(root) ubi.mtd=4
