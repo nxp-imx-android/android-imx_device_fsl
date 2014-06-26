@@ -39,6 +39,10 @@ on boot
     setprop hwc.enable_dither   1
 
     # fsl omx graphic manager media framework property
+    setprop media.omxgm.enable-player 1
+    setprop media.omxgm.enable-record 0
+    setprop media.omxgm.enable-scan 1
+    setprop rw.VIDEO_RENDER_NAME video_render.surface
 
     #Define the config for dual camera
     setprop camera.disable_zsl_mode 1
