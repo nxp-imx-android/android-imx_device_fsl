@@ -100,8 +100,8 @@ loglevel 3
     mount tmpfs tmpfs /mnt/obb mode=0755,gid=1000
 
     # shared memory used by middleware
-    mkdir /mnt/shm  0775 system graphics
-    mount tmpfs tmpfs /mnt/shm mode=0775,uid=1000,gid=1003,size=1m
+    mkdir /mnt/shm  0775 media system
+    mount tmpfs tmpfs /mnt/shm mode=0775,uid=1013,gid=1000,size=1m
     write /proc/sys/kernel/panic_on_oops 1
     write /proc/sys/kernel/hung_task_timeout_secs 0
     write /proc/cpu/alignment 4
