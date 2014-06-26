@@ -107,7 +107,7 @@ NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
 IMX6_CONSUMER_IR_HAL := true
 
 TARGET_BOOTLOADER_CONFIG := imx6q:mx6qsabresdandroid_config imx6dl:mx6dlsabresdandroid_config
-TARGET_BOARD_DTS_CONFIG := imx6q:imx6q-sabresd.dtb imx6dl:imx6dl-sabresd.dtb
+TARGET_BOARD_DTS_CONFIG := imx6q:imx6q-sabresd.dtb imx6dl:imx6dl-sabresd.dtb imx6q-ldo:imx6q-sabresd-ldo.dtb
 
 BOARD_SEPOLICY_DIRS := \
        device/fsl/sabresd_6dq/sepolicy
