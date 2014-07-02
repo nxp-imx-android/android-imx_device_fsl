@@ -22,8 +22,6 @@
 /dev/watchdog             0660   system     root
 /dev/ir                   0660   system     system
 /dev/mma8x5x              0640   compass     system
-/dev/input/event2         0666   root        input
-/dev/input/event0         0666   root        input
 
 # sysfs properties
 /sys/devices/virtual/input/input*   name        0660  root   input
