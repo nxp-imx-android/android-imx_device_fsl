@@ -175,7 +175,7 @@
     <dimen name="config_viewConfigurationTouchSlop">24dp</dimen>
 
     <!--  Maximum number of supported users -->
-    <integer name="config_multiuserMaximumUsers">8</integer>
+    <integer name="config_multiuserMaximumUsers">1</integer>
 
     <!-- Whether a software navigation bar should be shown. NOTE: in the future this may be
          autodetected from the Configuration. -->
