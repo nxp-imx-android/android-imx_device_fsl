@@ -187,6 +187,7 @@ omx_libs := \
 	lib_omx_clock_v2_arm11_elinux			\
 	lib_omx_local_file_pipe_v2_arm11_elinux		\
 	lib_omx_shared_fd_pipe_arm11_elinux		\
+	lib_omx_async_write_pipe_arm11_elinux		\
 	lib_omx_https_pipe_arm11_elinux			\
 	lib_omx_fsl_parser_v2_arm11_elinux		\
 	lib_omx_wav_parser_v2_arm11_elinux		\
