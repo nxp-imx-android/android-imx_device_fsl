@@ -159,6 +159,9 @@ loglevel 3
 # disable cursor blink for fbcon, if no splash screen support
     write /sys/class/graphics/fbcon/cursor_blink 0
 
+# deattch the fbcon as hdmi hotplug conflict with fbcon
+    write /sys/class/vtconsole/vtcon1/bind 0
+
 on post-fs
     # once everything is setup, no need to modify /
     mount rootfs rootfs / ro remount
