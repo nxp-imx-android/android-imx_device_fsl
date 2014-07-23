@@ -162,7 +162,7 @@ service wpa_supplicant /system/bin/wpa_supplicant \
 
 # magd daemon
 service magd /system/bin/magd
-    class main
+    class late_start
     user system
     group input
     oneshot
