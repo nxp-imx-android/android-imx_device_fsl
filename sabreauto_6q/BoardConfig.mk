@@ -110,8 +110,6 @@ BOARD_SEPOLICY_DIRS := \
        device/fsl/sabreauto_6q/sepolicy
 
 BOARD_SEPOLICY_UNION := \
-       app.te \
        file_contexts \
        fs_use \
-       untrusted_app.te \
        genfs_contexts
