@@ -45,6 +45,9 @@ loglevel 3
 # but someday that may change.
     symlink /system/vendor /vendor
 
+# create dir for installd
+    mkdir /data/misc/user
+
 # Create cgroup mount point for cpu accounting
     mkdir /acct
     mount cgroup none /acct cpuacct
