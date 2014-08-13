@@ -7,16 +7,21 @@
 import /init.environ.rc
 import /init.usb.rc
 import /init.${ro.hardware}.rc
+import /init.zygote32.rc
 import /init.trace.rc
 
 on early-init
     # Set init and its forked children's oom_adj.
     write /proc/1/oom_adj -16
 
+    # Apply strict SELinux checking of PROT_EXEC on mmap/mprotect calls.
+    write /sys/fs/selinux/checkreqprot 0
     # Set the security context for the init process.
     # This should occur before anything else (e.g. ueventd) is started.
     setcon u:r:init:s0
 
+    # Set the security context of /adb_keys if present.
+    restorecon /adb_keys
     start ueventd
 
 # create mountpoints
@@ -44,9 +49,6 @@ loglevel 3
 # Right now vendor lives on the same filesystem as system,
 # but someday that may change.
     symlink /system/vendor /vendor
-
-# create dir for installd
-    mkdir /data/misc/user
 
 # Create cgroup mount point for cpu accounting
     mkdir /acct
@@ -117,8 +119,14 @@ loglevel 3
     write /proc/sys/kernel/dmesg_restrict 1
     write /proc/sys/vm/mmap_min_addr 32768
     write /proc/sys/net/ipv4/ping_group_range "0 2147483647"
+    write /proc/sys/net/unix/max_dgram_qlen 300
     write /proc/sys/kernel/sched_rt_runtime_us 950000
     write /proc/sys/kernel/sched_rt_period_us 1000000
+    # reflect fwmark from incoming packets onto generated replies
+    write /proc/sys/net/ipv4/fwmark_reflect 1
+    write /proc/sys/net/ipv6/fwmark_reflect 1
+    # set fwmark on accepted sockets
+    write /proc/sys/net/ipv4/tcp_fwmark_accept 1
 
 # Create cgroup mount points for process groups
     mkdir /dev/cpuctl
@@ -202,6 +210,8 @@ on post-fs
     chmod 0220 /proc/sysrq-trigger
     chown system log /proc/last_kmsg
     chmod 0440 /proc/last_kmsg
+    # make the selinux kernel policy world-readable
+    chmod 0444 /sys/fs/selinux/policy
 
     # create the lost+found directories, so as to enforce our permissions
     mkdir /cache/lost+found 0770 root root
@@ -245,13 +255,15 @@ on post-fs-data
     mkdir /data/misc/sms 0770 system radio
     mkdir /data/misc/zoneinfo 0775 system system
     mkdir /data/misc/vpn 0770 system vpn
+    mkdir /data/misc/shared_relro 0771 shared_relro shared_relro
     mkdir /data/misc/systemkeys 0700 system system
-    # give system access to wpa_supplicant.conf for backup and restore
     mkdir /data/misc/wifi 0770 wifi wifi
     mkdir /data/misc/wifi/sockets 0770 wifi wifi
     mkdir /data/misc/wifi/wpa_supplicant 0770 wifi wifi
     mkdir /data/misc/dhcp 0770 dhcp dhcp
     chown dhcp system /data/misc/dhcp
+    mkdir /data/misc/user 0771 root root
+    # give system access to wpa_supplicant.conf for backup and restore
     chmod 0660 /data/misc/wifi/wpa_supplicant.conf
     chmod 0775 /data/misc/wifi/ipconfig.txt
     chmod 0775 /system/etc/dhcpcd/dhcpcd-run-hooks
@@ -273,6 +285,7 @@ on post-fs-data
 
     # create dalvik-cache, so as to enforce our permissions
     mkdir /data/dalvik-cache 0771 system system
+    mkdir /data/dalvik-cache/profiles 0711 system system
 
     # create resource-cache and double-check the perms
     mkdir /data/resource-cache 0771 system system
@@ -296,6 +309,10 @@ on post-fs-data
     # Separate location for storing security policy files on data
     mkdir /data/security 0711 system system
 
+    # Reload policy from /data/security if present.
+    setprop selinux.reload_policy 1
+    # Set SELinux security contexts on upgrade or policy update.
+    restorecon_recursive /data
     # If there is no fs-post-data action in the init.<device>.rc file, you
     # must uncomment this line, otherwise encrypted filesystems
     # won't work.
@@ -375,9 +392,6 @@ on boot
     chown system system /sys/kernel/ipv4/tcp_rmem_max
     chown root radio /proc/cmdline
 
-# Set these so we can remotely update SELinux policy
-    chown system system /sys/fs/selinux/load
-    chown system system /sys/fs/selinux/enforce
 
 # Define TCP buffer sizes for various networks
 #   ReadMin, ReadInitial, ReadMax, WriteMin, WriteInitial, WriteMax,
@@ -385,13 +399,13 @@ on boot
     setprop net.tcp.buffersize.wifi     524288,1048576,2097152,262144,524288,1048576
     setprop net.tcp.buffersize.ethernet 524288,2097152,4194304,524288,2097152,4194304
     setprop net.tcp.buffersize.lte      524288,1048576,2097152,262144,524288,1048576
-    setprop net.tcp.buffersize.umts     4094,87380,110208,4096,16384,110208
-    setprop net.tcp.buffersize.hspa     4094,87380,262144,4096,16384,262144
-    setprop net.tcp.buffersize.hsupa    4094,87380,262144,4096,16384,262144
-    setprop net.tcp.buffersize.hsdpa    4094,87380,262144,4096,16384,262144
-    setprop net.tcp.buffersize.hspap    4094,87380,1220608,4096,16384,1220608
-    setprop net.tcp.buffersize.edge     4093,26280,35040,4096,16384,35040
-    setprop net.tcp.buffersize.gprs     4092,8760,11680,4096,8760,11680
+    setprop net.tcp.buffersize.umts     58254,349525,1048576,58254,349525,1048576
+    setprop net.tcp.buffersize.hspa     40778,244668,734003,16777,100663,301990
+    setprop net.tcp.buffersize.hsupa    40778,244668,734003,16777,100663,301990
+    setprop net.tcp.buffersize.hsdpa    61167,367002,1101005,8738,52429,262114
+    setprop net.tcp.buffersize.hspap    122334,734003,2202010,32040,192239,576717
+    setprop net.tcp.buffersize.edge     4093,26280,70800,4096,16384,70800
+    setprop net.tcp.buffersize.gprs     4092,8760,48000,4096,8760,48000
     setprop net.tcp.buffersize.evdo    4094,87380,262144,4096,16384,262144
 
 # Define fsl avi/aac/asf/mkv/flv/flac format support
@@ -533,9 +547,6 @@ service healthd-charger /sbin/healthd -n
     critical
     seclabel u:r:healthd:s0
 
-on property:selinux.reload_policy=1
-    restart ueventd
-    restart installd
 
 service console /system/bin/sh
     class core
@@ -578,23 +589,18 @@ service netd /system/bin/netd
     socket netd stream 0660 root system
     socket dnsproxyd stream 0660 root inet
     socket mdns stream 0660 root system
+    socket fwmarkd stream 0660 root inet
 
 service debuggerd /system/bin/debuggerd
     class main
 
+service debuggerd64 /system/bin/debuggerd64
+    class main
 service surfaceflinger /system/bin/surfaceflinger
     class main
     user system
     group graphics drmrpc
     onrestart restart zygote
-
-service zygote /system/bin/app_process -Xzygote /system/bin --zygote --start-system-server
-    class main
-    socket zygote stream 660 root system
-    onrestart write /sys/android_power/request_state wake
-    onrestart write /sys/power/state on
-    onrestart restart media
-    onrestart restart netd
 
 service drm /system/bin/drmserver
     class main
