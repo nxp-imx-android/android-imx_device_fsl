@@ -105,6 +105,7 @@ on boot
 # Set watchdog timer to 30 seconds and pet it every 10 seconds to get a 20 second margin
     service watchdogd /sbin/watchdogd 10 20
     class core
+    seclabel u:r:watchdogd:s0
 
 on charger
     # Enable Power modes and set the CPU Freq Sampling rates
@@ -167,6 +168,7 @@ service wpa_supplicant /system/bin/wpa_supplicant \
 # magd daemon
 service magd /system/bin/magd
     class late_start
+    seclabel u:r:sensors:s0
     user system
     group input
     oneshot
@@ -177,6 +179,7 @@ service ing /system/bin/ingsvcd -c /system/etc/gps/Orion.ini
     socket athrshmsocket stream 666 system system
     socket athrsupl59991 stream 666 system system
     class late_start
+    seclabel u:r:gpsd:s0
     user root
     group gps
     oneshot

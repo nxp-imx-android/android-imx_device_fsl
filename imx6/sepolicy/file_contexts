@@ -1,0 +1,11 @@
+/system/bin/magd                u:object_r:sensors_exec:s0
+/system/bin/ingsvcd             u:object_r:gpsd_exec:s0
+/system/bin/rtl_wpa_supplicant  u:object_r:wpa_exec:s0
+/system/bin/rtl_hostapd         u:object_r:hostapd_exec:s0
+/dev/ttyGS[0-9]*                u:object_r:tty_device:s0
+/dev/ttymxc[0-9]*               u:object_r:tty_device:s0
+/dev/mma8x5x                    u:object_r:sensors_device:s0
+/dev/ubi0_0                     u:object_r:block_device:s0
+/dev/ubi0_1                     u:object_r:block_device:s0
+/dev/ubi0_2                     u:object_r:block_device:s0
+/dev/ubi0_3                     u:object_r:block_device:s0

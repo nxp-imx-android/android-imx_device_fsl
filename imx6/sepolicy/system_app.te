@@ -1,0 +1,2 @@
+allow system_app system_app_data_file:notdevfile_class_set rw_file_perms;
+

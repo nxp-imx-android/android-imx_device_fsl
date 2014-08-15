@@ -111,11 +111,21 @@ TARGET_BOOTLOADER_CONFIG := imx6q:mx6qsabresdandroid_config imx6dl:mx6dlsabresda
 TARGET_BOARD_DTS_CONFIG := imx6q:imx6q-sabresd.dtb imx6dl:imx6dl-sabresd.dtb imx6q-ldo:imx6q-sabresd-ldo.dtb
 
 BOARD_SEPOLICY_DIRS := \
+       device/fsl/imx6/sepolicy \
        device/fsl/sabresd_6dq/sepolicy
 
 BOARD_SEPOLICY_UNION := \
+       domain.te \
+       system_app.te \
+       system_server.te \
+       untrusted_app.te \
+       sensors.te \
+       init_shell.te \
+       bluetooth.te \
+       kernel.te \
        file_contexts \
-       fs_use \
-       genfs_contexts
+       genfs_contexts \
+       fs_use 
+
 
 

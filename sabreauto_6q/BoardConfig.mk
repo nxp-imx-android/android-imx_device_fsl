@@ -107,9 +107,17 @@ TARGET_BOOTLOADER_CONFIG := imx6q:mx6qsabreautoandroid_config imx6dl:mx6dlsabrea
 TARGET_BOARD_DTS_CONFIG := imx6q:imx6q-sabreauto.dtb imx6dl:imx6dl-sabreauto.dtb imx6q-nand:imx6q-sabreauto-gpmi-weim.dtb imx6dl-nand:imx6dl-sabreauto-gpmi-weim.dtb
 
 BOARD_SEPOLICY_DIRS := \
+       device/fsl/imx6/sepolicy \
        device/fsl/sabreauto_6q/sepolicy
 
 BOARD_SEPOLICY_UNION := \
+       domain.te \
+       system_app.te \
+       system_server.te \
+       untrusted_app.te \
+       sensors.te \
+       init_shell.te \
+       kernel.te \
        file_contexts \
-       fs_use \
-       genfs_contexts
+       genfs_contexts \
+       fs_use 
