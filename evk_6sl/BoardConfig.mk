@@ -77,7 +77,7 @@ IMX_CAMERA_HAL_V2 := false
 # define frame buffer count
 NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
 
-BOARD_KERNEL_CMDLINE := console=ttymxc0,115200 init=/init androidboot.console=ttymxc0 consoleblank=0 video=mxc_elcdif_fb:bpp=32 androidboot.hardware=freescale
+BOARD_KERNEL_CMDLINE := console=ttymxc0,115200 init=/init androidboot.console=ttymxc0 consoleblank=0 androidboot.hardware=freescale
 TARGET_BOOTLOADER_CONFIG := imx6sl:mx6slevkandroid_config
 TARGET_BOARD_DTS_CONFIG := imx6sl:imx6sl-evk-csi.dtb
 
