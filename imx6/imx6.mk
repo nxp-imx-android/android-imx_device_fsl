@@ -263,6 +263,7 @@ omx_libs := \
 	lib_omx_libav_video_dec_arm11_elinux \
 	libavcodec-55 \
 	libavutil-53 \
+	lib_omx_libav_audio_dec_arm11_elinux \
 
 
 
