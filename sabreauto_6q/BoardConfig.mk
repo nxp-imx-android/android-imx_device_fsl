@@ -118,6 +118,7 @@ BOARD_SEPOLICY_UNION := \
        sensors.te \
        init_shell.te \
        kernel.te \
+       mediaserver.te \
        file_contexts \
        genfs_contexts \
        fs_use 

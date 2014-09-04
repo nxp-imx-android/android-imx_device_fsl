@@ -123,6 +123,7 @@ BOARD_SEPOLICY_UNION := \
        init_shell.te \
        bluetooth.te \
        kernel.te \
+       mediaserver.te \
        file_contexts \
        genfs_contexts \
        fs_use 
