@@ -83,6 +83,7 @@ TARGET_BOOTLOADER_CONFIG := imx6sl:mx6slevkandroid_config
 TARGET_BOARD_DTS_CONFIG := imx6sl:imx6sl-evk-csi.dtb
 
 BOARD_SEPOLICY_DIRS := \
+       device/fsl/imx6/sepolicy \
        device/fsl/evk_6sl/sepolicy
 BOARD_SEPOLICY_UNION := \
        domain.te \
