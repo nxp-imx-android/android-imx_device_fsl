@@ -1,0 +1,9 @@
+allow untrusted_app domain:dir r_dir_perms;
+allow untrusted_app domain:file rw_file_perms;
+allow untrusted_app domain:unix_stream_socket {read write};
+allow untrusted_app appdomain:dir r_dir_perms;
+allow untrusted_app appdomain:file rw_file_perms;
+allow untrusted_app fs_type:dir r_dir_perms;
+allow untrusted_app fs_type:file rw_file_perms;
+allow untrusted_app untrusted_app:process *;
+allow untrusted_app init_tmpfs:file rw_file_perms;

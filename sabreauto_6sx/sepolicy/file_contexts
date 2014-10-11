@@ -1,0 +1,6 @@
+/system/bin/rtl_wpa_supplicant  u:object_r:wpa_exec:s0
+/system/bin/rtl_hostapd     u:object_r:hostapd_exec:s0
+/dev/ubi0_0                   u:object_r:block_device:s0
+/dev/ubi0_1                   u:object_r:block_device:s0
+/dev/ubi0_2                   u:object_r:block_device:s0
+/dev/ubi0_3                   u:object_r:block_device:s0
