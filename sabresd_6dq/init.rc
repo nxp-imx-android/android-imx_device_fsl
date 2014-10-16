@@ -22,12 +22,18 @@ on boot
     # Set permission for IIM node
     symlink /dev/mxs_viim /dev/mxc_mem
 
-    # Set GPS serial and reset GPIO pin
+    # Set GPS serial GPS power-on GPIO64 pin and reset GPIO60 pin
     setprop ro.kernel.android.gps /dev/athrnmea
     setprop persist.gps.oacmode @f
     symlink /dev/ttymxc2 /dev/gpsdevice
+    write /sys/class/gpio/export 64
+    write /sys/class/gpio/gpio64/direction "out"
+    chown system /sys/class/gpio/gpio64/value
+    write /sys/class/gpio/gpio60/value 0
+
     write /sys/class/gpio/export 60
     write /sys/class/gpio/gpio60/direction "out"
+    chown system /sys/class/gpio/gpio60/value
     write /sys/class/gpio/gpio60/value 1
 
     # Enable Tethering in the Settings
