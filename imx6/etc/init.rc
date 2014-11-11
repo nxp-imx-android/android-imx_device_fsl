@@ -12,28 +12,29 @@ import /init.trace.rc
 
 on early-init
     # Set init and its forked children's oom_adj.
-    write /proc/1/oom_adj -16
+    write /proc/1/oom_score_adj -1000
 
     # Apply strict SELinux checking of PROT_EXEC on mmap/mprotect calls.
     write /sys/fs/selinux/checkreqprot 0
+
     # Set the security context for the init process.
     # This should occur before anything else (e.g. ueventd) is started.
     setcon u:r:init:s0
 
     # Set the security context of /adb_keys if present.
     restorecon /adb_keys
+
     start ueventd
 
-# create mountpoints
+    # create mountpoints
     mkdir /mnt 0775 root system
 
 on init
+    sysclktz 0
 
-sysclktz 0
+    loglevel 3
 
-loglevel 3
-
-# setup the global environment
+    # setup the global environment
     export SHM_MOUNTPOINT /mnt/shm
     export LIGHTSENSOR_PATH /sys/class/i2c-adapter/i2c-1/1-0044
     export VPU_FW_PATH /system/lib/firmware/vpu
@@ -42,20 +43,20 @@ loglevel 3
     export COMPONENT_REGISTER_FILE /system/etc/component_register
     export CONTENTPIPE_REGISTER_FILE /system/etc/contentpipe_register
 
-# Backward compatibility
+    # Backward compatibility
     symlink /system/etc /etc
     symlink /sys/kernel/debug /d
 
-# Right now vendor lives on the same filesystem as system,
-# but someday that may change.
+    # Right now vendor lives on the same filesystem as system,
+    # but someday that may change.
     symlink /system/vendor /vendor
 
-# Create cgroup mount point for cpu accounting
+    # Create cgroup mount point for cpu accounting
     mkdir /acct
     mount cgroup none /acct cpuacct
     mkdir /acct/uid
 
-# Create cgroup mount point for memory
+    # Create cgroup mount point for memory
     mount tmpfs none /sys/fs/cgroup mode=0750,uid=0,gid=1000
     mkdir /sys/fs/cgroup/memory 0750 root system
     mount cgroup none /sys/fs/cgroup/memory memory
@@ -86,8 +87,6 @@ loglevel 3
 
     # Directory for putting things only root should see.
     mkdir /mnt/secure 0700 root root
-    # Create private mountpoint so we can MS_MOVE from staging
-    mount tmpfs tmpfs /mnt/secure mode=0700,uid=0,gid=0
 
     # Directory for staging bindmounts
     mkdir /mnt/secure/staging 0700 root root
@@ -107,6 +106,11 @@ loglevel 3
     # shared memory used by middleware
     mkdir /mnt/shm  0775 media system
     mount tmpfs tmpfs /mnt/shm mode=0775,uid=1013,gid=1000,size=1m
+
+    # memory control cgroup
+    mkdir /dev/memcg 0700 root system
+    mount cgroup none /dev/memcg memory
+
     write /proc/sys/kernel/panic_on_oops 1
     write /proc/sys/kernel/hung_task_timeout_secs 0
     write /proc/cpu/alignment 4
@@ -116,19 +120,20 @@ loglevel 3
     write /proc/sys/kernel/sched_child_runs_first 0
     write /proc/sys/kernel/randomize_va_space 2
     write /proc/sys/kernel/kptr_restrict 2
-    write /proc/sys/kernel/dmesg_restrict 1
     write /proc/sys/vm/mmap_min_addr 32768
     write /proc/sys/net/ipv4/ping_group_range "0 2147483647"
     write /proc/sys/net/unix/max_dgram_qlen 300
     write /proc/sys/kernel/sched_rt_runtime_us 950000
     write /proc/sys/kernel/sched_rt_period_us 1000000
+
     # reflect fwmark from incoming packets onto generated replies
     write /proc/sys/net/ipv4/fwmark_reflect 1
     write /proc/sys/net/ipv6/fwmark_reflect 1
+
     # set fwmark on accepted sockets
     write /proc/sys/net/ipv4/tcp_fwmark_accept 1
 
-# Create cgroup mount points for process groups
+    # Create cgroup mount points for process groups
     mkdir /dev/cpuctl
     mount cgroup none /dev/cpuctl cpu
     chown system system /dev/cpuctl
@@ -153,42 +158,77 @@ loglevel 3
     write /dev/cpuctl/apps/bg_non_interactive/cpu.rt_runtime_us 700000
     write /dev/cpuctl/apps/bg_non_interactive/cpu.rt_period_us 1000000
 
-# qtaguid will limit access to specific data based on group memberships.
-#   net_bw_acct grants impersonation of socket owners.
-#   net_bw_stats grants access to other apps' detailed tagged-socket stats.
+    # qtaguid will limit access to specific data based on group memberships.
+    #   net_bw_acct grants impersonation of socket owners.
+    #   net_bw_stats grants access to other apps' detailed tagged-socket stats.
     chown root net_bw_acct /proc/net/xt_qtaguid/ctrl
     chown root net_bw_stats /proc/net/xt_qtaguid/stats
 
-# Allow everybody to read the xt_qtaguid resource tracking misc dev.
-# This is needed by any process that uses socket tagging.
+    # Allow everybody to read the xt_qtaguid resource tracking misc dev.
+    # This is needed by any process that uses socket tagging.
     chmod 0644 /dev/xt_qtaguid
 
-# Create location for fs_mgr to store abbreviated output from filesystem
-# checker programs.
+    # Create location for fs_mgr to store abbreviated output from filesystem
+    # checker programs.
     mkdir /dev/fscklogs 0770 root system
 
     # pstore/ramoops previous console log
     mount pstore pstore /sys/fs/pstore
     chown system log /sys/fs/pstore/console-ramoops
     chmod 0440 /sys/fs/pstore/console-ramoops
-# disable cursor blink for fbcon, if no splash screen support
+    
+    # disable cursor blink for fbcon, if no splash screen support
     write /sys/class/graphics/fbcon/cursor_blink 0
 
-# deattch the fbcon as hdmi hotplug conflict with fbcon
+    # deattch the fbcon as hdmi hotplug conflict with fbcon
     write /sys/class/vtconsole/vtcon1/bind 0
+
+# Healthd can trigger a full boot from charger mode by signaling this
+# property when the power button is held.
+on property:sys.boot_from_charger_mode=1
+    class_stop charger
+    trigger late-init
+
+# Load properties from /system/ + /factory after fs mount.
+on load_all_props_action
+    load_all_props
+
+# Indicate to fw loaders that the relevant mounts are up.
+on firmware_mounts_complete
+    rm /dev/.booting
+
+# Mount filesystems and start core system services.
+on late-init
+    trigger early-fs
+    trigger fs
+    trigger post-fs
+    trigger post-fs-data
+
+    # Load properties from /system/ + /factory after fs mount. Place
+    # this in another action so that the load will be scheduled after the prior
+    # issued fs triggers have completed.
+    trigger load_all_props_action
+
+    # Remove a file to wake up anything waiting for firmware.
+    trigger firmware_mounts_complete
+
+    trigger early-boot
+    trigger boot
+
+
+
 
 on post-fs
     # once everything is setup, no need to modify /
     mount rootfs rootfs / ro remount
     # mount shared so changes propagate into child namespaces
     mount rootfs rootfs / shared rec
-    mount tmpfs tmpfs /mnt/secure private rec
 
     # We chown/chmod /cache again so because mount is run as root + defaults
     chown system cache /cache
     chmod 0770 /cache
     # We restorecon /cache in case the cache partition has been reset.
-    restorecon /cache
+    restorecon_recursive /cache
 
     # This may have been created by the recovery system with odd permissions
     chown system cache /cache/recovery
@@ -210,6 +250,7 @@ on post-fs
     chmod 0220 /proc/sysrq-trigger
     chown system log /proc/last_kmsg
     chmod 0440 /proc/last_kmsg
+
     # make the selinux kernel policy world-readable
     chmod 0444 /sys/fs/selinux/policy
 
@@ -251,6 +292,7 @@ on post-fs-data
     mkdir /data/misc/bluetooth 0770 system system
     mkdir /data/misc/keystore 0700 keystore keystore
     mkdir /data/misc/keychain 0771 system system
+    mkdir /data/misc/net 0750 root shell
     mkdir /data/misc/radio 0770 system radio
     mkdir /data/misc/sms 0770 system radio
     mkdir /data/misc/zoneinfo 0775 system system
@@ -260,13 +302,11 @@ on post-fs-data
     mkdir /data/misc/wifi 0770 wifi wifi
     mkdir /data/misc/wifi/sockets 0770 wifi wifi
     mkdir /data/misc/wifi/wpa_supplicant 0770 wifi wifi
+    mkdir /data/misc/ethernet 0770 system system
     mkdir /data/misc/dhcp 0770 dhcp dhcp
-    chown dhcp system /data/misc/dhcp
     mkdir /data/misc/user 0771 root root
     # give system access to wpa_supplicant.conf for backup and restore
     chmod 0660 /data/misc/wifi/wpa_supplicant.conf
-    chmod 0775 /data/misc/wifi/ipconfig.txt
-    chmod 0775 /system/etc/dhcpcd/dhcpcd-run-hooks
     mkdir /data/local 0751 root root
     mkdir /data/misc/media 0700 media media
 
@@ -280,11 +320,9 @@ on post-fs-data
     mkdir /data/app 0771 system system
     mkdir /data/app/ing 0771 root root
     mkdir /data/property 0700 root root
-    mkdir /data/ssh 0750 root shell
-    mkdir /data/ssh/empty 0700 root root
 
     # create dalvik-cache, so as to enforce our permissions
-    mkdir /data/dalvik-cache 0771 system system
+    mkdir /data/dalvik-cache 0771 root root
     mkdir /data/dalvik-cache/profiles 0711 system system
 
     # create resource-cache and double-check the perms
@@ -311,37 +349,34 @@ on post-fs-data
 
     # Reload policy from /data/security if present.
     setprop selinux.reload_policy 1
+
     # Set SELinux security contexts on upgrade or policy update.
     restorecon_recursive /data
+
     # If there is no fs-post-data action in the init.<device>.rc file, you
     # must uncomment this line, otherwise encrypted filesystems
     # won't work.
     # Set indication (checked by vold) that we have finished this action
     setprop vold.post_fs_data_done 1
 
-on early-boot
-    # set RLIMIT_MEMLOCK to 64MB
-    setrlimit 8 67108864 67108864
-
 on boot
-# basic network init
+    # basic network init
     ifup lo
     hostname localhost
     domainname localdomain
 
-# set RLIMIT_NICE to allow priorities from 19 to -20
+    # set RLIMIT_NICE to allow priorities from 19 to -20
     setrlimit 13 40 40
 
-# Memory management.  Basic kernel parameters, and allow the high
-# level system server to be able to adjust the kernel OOM driver
-# parameters to match how it is managing things.
-
+    # Memory management.  Basic kernel parameters, and allow the high
+    # level system server to be able to adjust the kernel OOM driver
+    # parameters to match how it is managing things.
     write /proc/sys/vm/overcommit_memory 1
     write /proc/sys/vm/min_free_order_shift 4
     chown root system /sys/module/lowmemorykiller/parameters/adj
-    chmod 0664 /sys/module/lowmemorykiller/parameters/adj
+    chmod 0220 /sys/module/lowmemorykiller/parameters/adj
     chown root system /sys/module/lowmemorykiller/parameters/minfree
-    chmod 0664 /sys/module/lowmemorykiller/parameters/minfree
+    chmod 0220 /sys/module/lowmemorykiller/parameters/minfree
 
     # Tweak background writeout
     write /proc/sys/vm/dirty_expire_centisecs 50
@@ -366,6 +401,30 @@ on boot
     chmod 0660 /sys/power/state
     chmod 0660 /sys/power/wake_lock
     chmod 0660 /sys/power/wake_unlock
+
+    chown system system /sys/devices/system/cpu/cpufreq/interactive/timer_rate
+    chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/timer_rate
+    chown system system /sys/devices/system/cpu/cpufreq/interactive/timer_slack
+    chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/timer_slack
+    chown system system /sys/devices/system/cpu/cpufreq/interactive/min_sample_time
+    chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/min_sample_time
+    chown system system /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq
+    chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq
+    chown system system /sys/devices/system/cpu/cpufreq/interactive/target_loads
+    chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/target_loads
+    chown system system /sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load
+    chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load
+    chown system system /sys/devices/system/cpu/cpufreq/interactive/above_hispeed_delay
+    chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/above_hispeed_delay
+    chown system system /sys/devices/system/cpu/cpufreq/interactive/boost
+    chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/boost
+    chown system system /sys/devices/system/cpu/cpufreq/interactive/boostpulse
+    chown system system /sys/devices/system/cpu/cpufreq/interactive/input_boost
+    chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/input_boost
+    chown system system /sys/devices/system/cpu/cpufreq/interactive/boostpulse_duration
+    chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/boostpulse_duration
+    chown system system /sys/devices/system/cpu/cpufreq/interactive/io_is_busy
+    chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/io_is_busy
 
     # Assume SMP uses shared cpufreq policy for all CPUs
     chown system system /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
@@ -392,23 +451,10 @@ on boot
     chown system system /sys/kernel/ipv4/tcp_rmem_max
     chown root radio /proc/cmdline
 
+    # Define default initial receive window size in segments.
+    setprop net.tcp.default_init_rwnd 60
 
-# Define TCP buffer sizes for various networks
-#   ReadMin, ReadInitial, ReadMax, WriteMin, WriteInitial, WriteMax,
-    setprop net.tcp.buffersize.default  4096,87380,110208,4096,16384,110208
-    setprop net.tcp.buffersize.wifi     524288,1048576,2097152,262144,524288,1048576
-    setprop net.tcp.buffersize.ethernet 524288,2097152,4194304,524288,2097152,4194304
-    setprop net.tcp.buffersize.lte      524288,1048576,2097152,262144,524288,1048576
-    setprop net.tcp.buffersize.umts     58254,349525,1048576,58254,349525,1048576
-    setprop net.tcp.buffersize.hspa     40778,244668,734003,16777,100663,301990
-    setprop net.tcp.buffersize.hsupa    40778,244668,734003,16777,100663,301990
-    setprop net.tcp.buffersize.hsdpa    61167,367002,1101005,8738,52429,262114
-    setprop net.tcp.buffersize.hspap    122334,734003,2202010,32040,192239,576717
-    setprop net.tcp.buffersize.edge     4093,26280,70800,4096,16384,70800
-    setprop net.tcp.buffersize.gprs     4092,8760,48000,4096,8760,48000
-    setprop net.tcp.buffersize.evdo    4094,87380,262144,4096,16384,262144
-
-# Define fsl avi/aac/asf/mkv/flv/flac format support
+    # Define fsl avi/aac/asf/mkv/flv/flac format support
     setprop ro.FSL_AVI_PARSER 1
     setprop ro.FSL_AAC_PARSER 1
     setprop ro.FSL_ASF_PARSER 0
@@ -417,33 +463,29 @@ on boot
     setprop ro.FSL_FLAC_PARSER 1
     setprop ro.FSL_MPG2_PARSER 1
 
-# don't preload OpenGL in Zygote, the Vivante drivers do not like it
+    # don't preload OpenGL in Zygote, the Vivante drivers do not like it
     setprop ro.zygote.disable_gl_preload true
 
-# ALSA mixer naming define
+    # ALSA mixer naming define
     setprop alsa.mixer.playback.master Playback
     setprop alsa.mixer.capture.master Capture
     setprop alsa.mixer.playback.speaker Playback
     setprop alsa.mixer.playback.headset Headphone
     setprop alsa.mixer.capture.headset Capture
 
-# Prepare for wifi
+    # Prepare for wifi
     setprop wifi.interface wlan0
     setprop wifi.ap.interface wlan0
-# Prepare for bluetooth
+
+    # Prepare for bluetooth
     chmod 665 /sys/class/rfkill/rfkill0/state
     chown bluetooth bluetooth /sys/class/rfkill/rfkill0/state
     write /sys/class/rfkill/rfkill0/state 0
 
-# Enable USB host1'remote wakeup event wakeup android system
-    write /sys/bus/platform/drivers/fsl-ehci/fsl-ehci.1/power/wakeup disabled
-
-# Prepare for RIL
+    # Prepare for RIL
     setprop gsm.ril.delay 15
     setprop ro.ril.wake_lock_timeout 300
 
-# Set this property so surfaceflinger is not started by system_init
-    setprop system_init.startsurfaceflinger 0
 
 #  Enable adb security for JB4.2.2
     setprop ro.adb.secure 1
@@ -451,11 +493,11 @@ on boot
 #  Set GPU 3D minimum clock to 3/64
    write /sys/bus/platform/drivers/galcore/gpu3DMinClock 3
 
-# set this to not let jni check crash, just warnning message.
-    setprop dalvik.vm.jniopts warnonly
-
     class_start core
+
+on nonencrypted
     class_start main
+    class_start late_start
 
 on property:sys.boot_completed=1
 # Set default CPU frequency governor
@@ -489,9 +531,13 @@ on property:sys.interactive="active"
     chown system system /sys/devices/system/cpu/cpufreq/interactive/io_is_busy
     chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/io_is_busy
 
+on property:vold.decrypt=trigger_encryption
+    start surfaceflinger
+    start encrypt
 
-on nonencrypted
-    class_start late_start
+on property:sys.init_log_level=*
+    loglevel ${sys.init_log_level}
+
 
 on charger
     class_start charger
@@ -519,9 +565,16 @@ on property:vold.decrypt=trigger_shutdown_framework
 on property:sys.powerctl=*
     powerctl ${sys.powerctl}
 
-# system server cannot write to /proc/sys files, so proxy it through init
+# system server cannot write to /proc/sys files,
+# and chown/chmod does not work for /proc/sys/ entries.
+# So proxy writes through init.
 on property:sys.sysctl.extra_free_kbytes=*
     write /proc/sys/vm/extra_free_kbytes ${sys.sysctl.extra_free_kbytes}
+
+# "tcp_default_init_rwnd" Is too long!
+on property:sys.sysctl.tcp_def_init_rwnd=*
+    write /proc/sys/net/ipv4/tcp_default_init_rwnd ${sys.sysctl.tcp_def_init_rwnd}
+
 
 ## Daemon processes to be run by init.
 ##
@@ -542,12 +595,6 @@ service healthd /sbin/healthd
     critical
     seclabel u:r:healthd:s0
 
-service healthd-charger /sbin/healthd -n
-    class charger
-    critical
-    seclabel u:r:healthd:s0
-
-
 service console /system/bin/sh
     class core
     console
@@ -567,6 +614,11 @@ service adbd /sbin/adbd --root_seclabel=u:r:su:s0
 # adbd on at boot in emulator
 on property:ro.kernel.qemu=1
     start adbd
+
+service lmkd /system/bin/lmkd
+    class core
+    critical
+    socket lmkd seqpacket 0660 system system
 
 service servicemanager /system/bin/servicemanager
     class core
@@ -596,8 +648,9 @@ service debuggerd /system/bin/debuggerd
 
 service debuggerd64 /system/bin/debuggerd64
     class main
+
 service surfaceflinger /system/bin/surfaceflinger
-    class main
+    class core
     user system
     group graphics drmrpc
     onrestart restart zygote
@@ -613,10 +666,25 @@ service media /system/bin/mediaserver
     group audio camera inet net_bt net_bt_admin net_bw_acct drmrpc mediadrm
     ioprio rt 4
 
+# One shot invocation to deal with encrypted volume.
+service defaultcrypto /system/bin/vdc --wait cryptfs mountdefaultencrypted
+    disabled
+    oneshot
+    # vold will set vold.decrypt to trigger_restart_framework (default
+    # encryption) or trigger_restart_min_framework (other encryption)
+
+# One shot invocation to encrypt unencrypted volumes
+service encrypt /system/bin/vdc --wait cryptfs enablecrypto inplace default
+    disabled
+    oneshot
+    # vold will set vold.decrypt to trigger_restart_framework (default
+    # encryption)
+
+
 service bootanim /system/bin/bootanimation
-    class main
+    class core
     user graphics
-    group graphics
+    group graphics audio
     disabled
     oneshot
 
@@ -624,8 +692,9 @@ service installd /system/bin/installd
     class main
     socket installd stream 600 system system
 
-service flash_recovery /system/etc/install-recovery.sh
+service flash_recovery /system/bin/install-recovery.sh
     class main
+    seclabel u:r:install_recovery:s0
     oneshot
 
 service racoon /system/bin/racoon
@@ -655,24 +724,16 @@ service dumpstate /system/bin/dumpstate -s
     disabled
     oneshot
 
-# bugreport is triggered by the VOLUME-DOWN and VOLUME-UP keys
-service bugreport /system/bin/dumpstate -d -p -B \
-        -o /data/data/com.android.shell/files/bugreports/bugreport \
-        -b /system/media/audio/ui/Dock.ogg -e /system/media/audio/ui/Undock.ogg
-    class main
-    disabled
-    oneshot
-    keycodes 115 114
-
-service sshd /system/bin/start-ssh
-    class main
-    disabled
-
 service mdnsd /system/bin/mdnsd
     class main
     user mdnsr
     group inet net_raw
     socket mdnsd stream 0660 mdnsr inet
+    disabled
+    oneshot
+
+service pre-recovery /system/bin/uncrypt
+    class main
     disabled
     oneshot
 
