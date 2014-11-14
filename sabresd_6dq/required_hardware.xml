@@ -20,5 +20,4 @@
 <permissions>
     <feature name="android.hardware.camera.any" />
     <feature name="android.hardware.camera.flash" />
-    <feature name="android.software.live_wallpaper" />
 </permissions>
