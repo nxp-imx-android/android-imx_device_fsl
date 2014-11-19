@@ -245,6 +245,10 @@ omx_libs := \
 	libavcodec-55 \
 	libavutil-53 \
 	lib_omx_libav_audio_dec_arm11_elinux \
+    lib_realad_wrap_arm11_elinux_android \
+    lib_realaudio_dec_v2_arm11_elinux \
+    lib_rm_parser_arm11_elinux.3.0 \
+    lib_omx_ra_dec_v2_arm11_elinux \
 
 
 

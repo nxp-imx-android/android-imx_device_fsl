@@ -287,6 +287,11 @@ omx_excluded_libs :=					\
 	lib_ac3d_wrap_arm11_elinux_android \
         lib_ddpd_wrap_arm12_elinux_android \
         lib_ddplus_dec_v2_arm12_elinux \
+    lib_realad_wrap_arm11_elinux_android \
+    lib_realaudio_dec_v2_arm11_elinux \
+    lib_rm_parser_arm11_elinux.3.0 \
+    lib_omx_ra_dec_v2_arm11_elinux \
+
 
 
 PRODUCT_PACKAGES += $(omx_libs) $(omx_excluded_libs)
