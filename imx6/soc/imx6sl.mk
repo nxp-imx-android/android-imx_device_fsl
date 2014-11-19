@@ -13,6 +13,6 @@ TARGET_KERNEL_DEFCONF := imx_v7_android_defconfig
 -include external/fsl_imx_omx/codec_env.mk
 TARGET_HAVE_IMX_GRALLOC := true
 TARGET_HAVE_IMX_HWCOMPOSER = true
-USE_OPENGL_RENDERER := false
+USE_OPENGL_RENDERER := true
 TARGET_CPU_SMP := false
 

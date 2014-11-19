@@ -38,6 +38,9 @@ on boot
     setprop hwc.stretch.filter  1
     setprop hwc.enable_dither   1
 
+    # Disable OpenGL Renderer on 6sl_evk
+    setprop sys.viewroot.hw false
+
     # fsl omx graphic manager media framework property
     setprop media.omxgm.enable-player 1
     setprop media.omxgm.enable-record 0
