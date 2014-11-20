@@ -100,9 +100,6 @@ USE_GPU_ALLOCATOR := true
 # camera hal v2
 IMX_CAMERA_HAL_V2 := true
 
-# define frame buffer count
-NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
-
 
 TARGET_BOOTLOADER_CONFIG := 6q:mx6q_hdmidongle_nand_android_config 6dl:mx6dl_hdmidongle_nand_android_config
 TARGET_KERNEL_DEFCONF := imx6_hdmidongle_android_defconfig

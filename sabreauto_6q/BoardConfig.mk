@@ -79,9 +79,6 @@ IMX_CAMERA_HAL_V2 := true
 
 BOARD_HAVE_USB_CAMERA := true
 
-# define frame buffer count
-NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
-
 USE_ION_ALLOCATOR := false
 USE_GPU_ALLOCATOR := true
 

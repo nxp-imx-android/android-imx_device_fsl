@@ -101,9 +101,6 @@ USE_GPU_ALLOCATOR := true
 # camera hal v2
 IMX_CAMERA_HAL_V2 := true
 
-# define frame buffer count
-NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
-
 #define consumer IR HAL support
 IMX6_CONSUMER_IR_HAL := true
 

@@ -73,8 +73,5 @@ BOARD_USE_AR3K_BLUETOOTH := false
 USE_ION_ALLOCATOR := false
 USE_GPU_ALLOCATOR := true
 
-# define frame buffer count
-NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
-
 BOARD_KERNEL_CMDLINE := console=ttymxc0,115200 init=/init androidboot.console=ttymxc0 consoleblank=0 androidboot.hardware=freescale
 TARGET_BOOTLOADER_CONFIG := 6q:mx6q_arm2_android_config 6dl:mx6dl_arm2_config

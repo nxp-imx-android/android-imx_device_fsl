@@ -67,6 +67,3 @@ BOARD_KERNEL_BASE := 0x70800000
 
 TARGET_BOOTLOADER_CONFIG := mx53_smd_android_config
 
-
-# define frame buffer count
-NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
