@@ -462,6 +462,8 @@ on boot
     setprop ro.FSL_MKV_PARSER 1
     setprop ro.FSL_FLAC_PARSER 1
     setprop ro.FSL_MPG2_PARSER 1
+#real parser and decoder support
+    setprop ro.FSL_REAL_PARSER 0
 
     # don't preload OpenGL in Zygote, the Vivante drivers do not like it
     setprop ro.zygote.disable_gl_preload true

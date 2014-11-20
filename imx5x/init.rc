@@ -386,6 +386,8 @@ on boot
     setprop ro.FSL_MPG2_PARSER 1
 
     setprop ro.UI_TVOUT_DISPLAY 0
+# property to support real parser and decoder
+    setprop ro.FSL_REAL_PARSER 0
 
 # ALSA mixer naming define
     setprop alsa.mixer.playback.master Playback
