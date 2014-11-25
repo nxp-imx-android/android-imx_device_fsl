@@ -166,6 +166,16 @@ service ing /system/bin/ingsvcd -c /system/etc/gps/Orion.ini
     group gps
     oneshot
 
+service dhcpcd_eth1 /system/bin/dhcpcd -ABKL
+    class main
+    disabled
+    oneshot
+
+service iprenew_eth1 /system/bin/dhcpcd -n
+    class main
+    disabled
+    oneshot
+
 on fs
 # mount ext4 partitions
     mount_all /fstab.freescale
