@@ -30,7 +30,7 @@ on boot
     write /sys/class/gpio/gpio64/direction "out"
     chown gps gps /sys/class/gpio/gpio64/value
     chmod 0660 /sys/class/gpio/gpio64/value
-    write /sys/class/gpio/gpio64/value 0
+    write /sys/class/gpio/gpio64/value 1
 
     write /sys/class/gpio/export 60
     write /sys/class/gpio/gpio60/direction "out"
