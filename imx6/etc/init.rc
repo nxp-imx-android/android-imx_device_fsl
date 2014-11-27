@@ -806,9 +806,6 @@ service pppd_gprs /etc/ppp/init.gprs-pppd
     disabled
     oneshot
 
-service wifi_mac /system/bin/sh /system/etc/check_wifi_mac.sh
-    class late_start
-    oneshot
 
 # virtual sdcard daemon running as media_rw (1023)
 # default 4 threads have better performance to 2 threads.

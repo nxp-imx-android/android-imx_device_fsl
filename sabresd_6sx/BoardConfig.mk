@@ -83,7 +83,7 @@ $(error "TARGET_USERIMAGES_USE_UBIFS and TARGET_USERIMAGES_USE_EXT4 config open 
 endif
 endif
 
-BOARD_KERNEL_CMDLINE := console=ttymxc0,115200 init=/init androidboot.console=ttymxc0 consoleblank=0 androidboot.hardware=freescale vmalloc=400M cma=384M androidboot.selinux=disabled
+BOARD_KERNEL_CMDLINE := console=ttymxc0,115200 init=/init androidboot.console=ttymxc0 consoleblank=0 androidboot.hardware=freescale vmalloc=400M cma=384M 
 
 ifeq ($(TARGET_USERIMAGES_USE_UBIFS),true)
 #UBI boot command line.
@@ -121,5 +121,9 @@ BOARD_SEPOLICY_UNION := \
        mediaserver.te \
        file_contexts \
        genfs_contexts \
-       fs_use 
+       fs_use  \
+       rild.te \
+       init.te \
+       netd.te \
+       bootanim.te
 

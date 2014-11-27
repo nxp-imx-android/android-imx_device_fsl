@@ -75,7 +75,7 @@ USE_GPU_ALLOCATOR := true
 # camera hal v2
 IMX_CAMERA_HAL_V2 := false
 
-BOARD_KERNEL_CMDLINE := console=ttymxc0,115200 init=/init androidboot.console=ttymxc0 consoleblank=0 androidboot.hardware=freescale androidboot.selinux=disabled
+BOARD_KERNEL_CMDLINE := console=ttymxc0,115200 init=/init androidboot.console=ttymxc0 consoleblank=0 androidboot.hardware=freescale 
 TARGET_BOOTLOADER_CONFIG := imx6sl:mx6slevkandroid_config
 TARGET_BOARD_DTS_CONFIG := imx6sl:imx6sl-evk-csi.dtb
 
@@ -93,4 +93,8 @@ BOARD_SEPOLICY_UNION := \
        mediaserver.te \
        file_contexts \
        genfs_contexts \
-       fs_use 
+       fs_use \
+       rild.te \
+       init.te \
+       netd.te \
+       bootanim.te  
