@@ -47,7 +47,7 @@ on boot
     #For portrait mode, orient is 90
     #the android before honycomb are all in portrait mode
     setprop camera.disable_zsl_mode 1
-    setprop back_camera_name adv7180_decoder
+    setprop back_camera_name csi_v4l2
     setprop back_camera_orient 0
     setprop front_camera_name uvc
     setprop front_camera_orient 0
