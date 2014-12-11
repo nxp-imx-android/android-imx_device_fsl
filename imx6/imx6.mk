@@ -340,7 +340,10 @@ PRODUCT_COPY_FILES +=	\
 	device/fsl/imx6/etc/ota.conf:system/etc/ota.conf \
 	device/fsl/common/display/display_mode_fb0.conf:system/etc/display_mode_fb0.conf \
 	device/fsl/common/display/display_mode_fb2.conf:system/etc/display_mode_fb2.conf \
-	device/fsl/common/display/display_mode_fb4.conf:system/etc/display_mode_fb4.conf
+	device/fsl/common/display/display_mode_fb4.conf:system/etc/display_mode_fb4.conf \
+    device/fsl-proprietary/media-profile/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
+    device/fsl-proprietary/media-profile/media_codecs_google_video.xml:system/etc/media_codecs_google_video.xml \
+
 
 # we have enough storage space to hold precise GC data
 PRODUCT_TAGS += dalvik.gc.type-precise

@@ -292,7 +292,10 @@ PRODUCT_COPY_FILES +=	\
 	device/fsl/imx5x/init.freescale.usb.rc:root/init.freescale.usb.rc \
 	device/fsl/imx5x/ueventd.freescale.rc:root/ueventd.freescale.rc \
 	device/fsl/imx5x/init.gprs-pppd:system/etc/ppp/init.gprs-pppd \
-	device/fsl/imx5x/initlogo.rle:root/initlogo.rle
+	device/fsl/imx5x/initlogo.rle:root/initlogo.rle \
+    device/fsl/fsl-proprietary/media-profile/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
+    device/fsl/fsl-proprietary/media-profile/media_codecs_google_video.xml:system/etc/media_codecs_google_video.xml \
+
 
 # VPU firmware
 PRODUCT_COPY_FILES +=	\
