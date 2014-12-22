@@ -98,11 +98,23 @@ TARGET_BOOTLOADER_CONFIG := imx6sx:mx6sxsabreautoandroid_config imx6sx-nand:mx6s
 TARGET_BOARD_DTS_CONFIG := imx6sx:imx6sx-sabreauto.dtb
 
 BOARD_SEPOLICY_DIRS := \
+       device/fsl/imx6/sepolicy \
        device/fsl/sabreauto_6sx/sepolicy
 
 BOARD_SEPOLICY_UNION := \
-       app.te \
-       file_contexts \
-       fs_use \
+       domain.te \
+       system_app.te \
+       system_server.te \
        untrusted_app.te \
-       genfs_contexts
+       sensors.te \
+       init_shell.te \
+       kernel.te \
+       mediaserver.te \
+       file_contexts \
+       genfs_contexts \
+       fs_use \
+       rild.te \
+       init.te \
+       netd.te \
+       bootanim.te
+
