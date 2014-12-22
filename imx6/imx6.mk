@@ -265,6 +265,7 @@ omx_libs := \
 	libavcodec \
 	libavutil \
 	lib_omx_libav_audio_dec_arm11_elinux \
+    lib_omx_soft_hevc_dec_arm11_elinux \
 
 
 
