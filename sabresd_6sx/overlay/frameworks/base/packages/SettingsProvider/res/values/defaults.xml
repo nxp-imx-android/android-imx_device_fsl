@@ -19,4 +19,6 @@
 <resources>
     <!-- Default for Settings.Secure.USER_SETUP_COMPLETE -->
     <bool name="def_user_setup_complete">true</bool>
+    <!-- Disable GPS Provider-->
+    <string name="def_location_providers_allowed" translatable="false"></string>
 </resources>
