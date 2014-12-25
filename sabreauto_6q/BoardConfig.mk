@@ -122,5 +122,6 @@ BOARD_SEPOLICY_UNION := \
        rild.te \
        init.te \
        netd.te \
-       bootanim.te
+       bootanim.te \
+       dnsmasq.te
 
