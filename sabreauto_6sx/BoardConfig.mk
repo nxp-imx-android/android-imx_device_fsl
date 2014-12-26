@@ -71,7 +71,7 @@ BOARD_KERNEL_CMDLINE := console=ttymxc0,115200 init=/init androidboot.console=tt
 ifeq ($(TARGET_USERIMAGES_USE_UBIFS),true)
 #UBI boot command line.
 UBI_ROOT_INI := device/fsl/sabreauto_6sx/ubi/ubinize.ini
-TARGET_MKUBIFS_ARGS := -m 4096 -e 253952 -c 4096 -x none
+TARGET_MKUBIFS_ARGS := -m 4096 -e 253952 -c 4096 -x none -F
 TARGET_UBIRAW_ARGS := -m 4096 -p 256KiB $(UBI_ROOT_INI)
 
 # Note: this NAND partition table must align with MFGTool's config.
