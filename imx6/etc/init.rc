@@ -531,6 +531,9 @@ on property:sys.interactive="active"
     chown system system /sys/devices/system/cpu/cpufreq/interactive/io_is_busy
     chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/io_is_busy
 
+on property:vold.decrypt=trigger_default_encryption
+    start defaultcrypto
+
 on property:vold.decrypt=trigger_encryption
     start surfaceflinger
     start encrypt
