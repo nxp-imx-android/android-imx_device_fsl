@@ -92,8 +92,7 @@ endif
 endif
 
 # atheros 3k BT
-BOARD_USE_AR3K_BLUETOOTH := true
-BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/fsl/sabresd_6sx/bluetooth
+BOARD_USE_AR3K_BLUETOOTH := false
 
 USE_ION_ALLOCATOR := false
 USE_GPU_ALLOCATOR := true

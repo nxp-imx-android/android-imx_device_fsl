@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-/* Copyright (C) 2013 Freescale Semiconductor, Inc. */
+/* Copyright (C) 2015 Freescale Semiconductor, Inc. */
 
 #ifndef _BDROID_BUILDCFG_H
 #define _BDROID_BUILDCFG_H
@@ -28,5 +28,11 @@
 
 #define BTIF_HF_SERVICES (BTA_HSP_SERVICE_MASK)
 #define BTIF_HF_SERVICE_NAMES  { BTIF_HSAG_SERVICE_NAME }
+#define BTM_WBS_INCLUDED TRUE
+#define BTIF_HF_WBS_PREFERRED TRUE
+
+/*Enable A2dp Sink */
+#define BTA_AV_SINK_INCLUDED TRUE
+
 
 #endif

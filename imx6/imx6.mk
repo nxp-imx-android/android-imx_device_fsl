@@ -20,6 +20,7 @@ PRODUCT_PACKAGES += \
 	CactusPlayer                            \
 	WfdSink                                 \
 	wfd                                     \
+    A2dpSinkApp                             \
 	ethernet                                \
 	libfsl_wfd.so                           \
 	fsl.imx.jar                             \
