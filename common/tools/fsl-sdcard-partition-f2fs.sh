@@ -83,7 +83,7 @@ fi
 function format_android
 {
     echo "formating android images"
-    mkfs.ext4 ${node}${part}4 -L data
+    mkfs.f2fs ${node}${part}4 -l data
     mkfs.ext4 ${node}${part}5 -Lsystem
     mkfs.ext4 ${node}${part}6 -Lcache
     mkfs.ext4 ${node}${part}7 -Ldevice
@@ -101,10 +101,10 @@ if [ "${flash_images}" -eq "1" ]; then
     echo "recovery image: ${recoveryimage_file}"
     echo "system image: ${systemimage_file}"
     dd if=/dev/zero of=${node} bs=1k seek=384 count=129
-    dd if=${bootloader_file} of=${node} bs=1k seek=1
     dd if=${bootimage_file} of=${node}${part}1
     dd if=${recoveryimage_file} of=${node}${part}2
     dd if=${systemimage_file} of=${node}${part}5
+    dd if=${bootloader_file} of=${node} bs=1k seek=1
     sync
 fi
 }
