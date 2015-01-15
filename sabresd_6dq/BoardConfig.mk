@@ -11,15 +11,29 @@ BUILD_TARGET_FS ?= ext4
 include device/fsl/imx6/imx6_target_fs.mk
 
 ifeq ($(BUILD_TARGET_DEVICE),sd)
+ifneq ($(BUILD_TARGET_FS),f2fs)
 TARGET_RECOVERY_FSTAB = device/fsl/sabresd_6dq/fstab_sd.freescale
-# build ubifs for nand devices
+# build for ext4
 PRODUCT_COPY_FILES +=	\
 	device/fsl/sabresd_6dq/fstab_sd.freescale:root/fstab.freescale
 else
+TARGET_RECOVERY_FSTAB = device/fsl/sabresd_6dq/fstab_sd-f2fs.freescale
+# build for f2fs
+PRODUCT_COPY_FILES +=	\
+	device/fsl/sabresd_6dq/fstab_sd-f2fs.freescale:root/fstab.freescale
+endif # BUILD_TARGET_FS
+else
+ifneq ($(BUILD_TARGET_FS),f2fs)
 TARGET_RECOVERY_FSTAB = device/fsl/sabresd_6dq/fstab.freescale
 # build for ext4
 PRODUCT_COPY_FILES +=	\
 	device/fsl/sabresd_6dq/fstab.freescale:root/fstab.freescale
+else
+TARGET_RECOVERY_FSTAB = device/fsl/sabresd_6dq/fstab-f2fs.freescale
+# build for f2fs
+PRODUCT_COPY_FILES +=	\
+	device/fsl/sabresd_6dq/fstab-f2fs.freescale:root/fstab.freescale
+endif # BUILD_TARGET_FS
 endif # BUILD_TARGET_DEVICE
 
 

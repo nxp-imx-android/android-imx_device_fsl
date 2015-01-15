@@ -10,6 +10,9 @@ TARGET_USERIMAGES_USE_EXT4 := false
 else
 # build for ext4
 TARGET_USERIMAGES_USE_EXT4 := true
+ifeq ($(BUILD_TARGET_FS),f2fs)
+TARGET_USERIMAGES_USE_F2FS := true
+endif
 TARGET_USERIMAGES_USE_UBIFS := false
 endif # BUILD_TARGET_FS
 

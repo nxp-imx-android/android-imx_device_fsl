@@ -16,10 +16,17 @@ TARGET_RECOVERY_FSTAB = device/fsl/sabresd_6sx/fstab_nand.freescale
 PRODUCT_COPY_FILES +=	\
 	device/fsl/sabresd_6sx/fstab_nand.freescale:root/fstab.freescale
 else
+ifneq ($(BUILD_TARGET_FS),f2fs)
 TARGET_RECOVERY_FSTAB = device/fsl/sabresd_6sx/fstab.freescale
 # build for ext4
 PRODUCT_COPY_FILES +=	\
 	device/fsl/sabresd_6sx/fstab.freescale:root/fstab.freescale
+else
+TARGET_RECOVERY_FSTAB = device/fsl/sabresd_6sx/fstab-f2fs.freescale
+# build for f2fs
+PRODUCT_COPY_FILES +=	\
+	device/fsl/sabresd_6sx/fstab-f2fs.freescale:root/fstab.freescale
+endif # BUILD_TARGET_FS
 endif # BUILD_TARGET_FS
 
 
