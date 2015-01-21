@@ -11,5 +11,5 @@
 /dev/ubi0_3     /data           ubifs   nosuid,nodev,nodiratime,noatime         wait
 /dev/ubi0_1     /cache          ubifs   nosuid,nodev                            wait
 /dev/ubi0_2     /device         ubifs   nosuid,nodev                            wait
-/dev/mtd/mtd1   /boot           mtd     defaults                                defaults
-/dev/mtd/mtd2   /recovery       mtd     defaults                                defaults
+bootimg         /boot           mtd     defaults                                defaults
+recovery        /recovery       mtd     defaults                                defaults

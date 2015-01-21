@@ -72,7 +72,7 @@ SENSOR_MMA8451 := true
 TARGET_SELECT_KEY := 28
 
 # we don't support sparse image.
-TARGET_USERIMAGES_SPARSE_EXT_DISABLED := true
+TARGET_USERIMAGES_SPARSE_EXT_DISABLED := false
 
 # uncomment below lins if use NAND
 #TARGET_USERIMAGES_USE_UBIFS = true
