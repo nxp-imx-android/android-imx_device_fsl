@@ -1,5 +1,7 @@
 recovery_only(`
   allow recovery block_device:chr_file {getattr read write open ioctl};
   allow recovery self:capability {sys_resource};
+  allow recovery mtd_device:dir { search }; 
+  allow recovery mtd_device:chr_file { getattr read write open ioctl}; 
 ')
 

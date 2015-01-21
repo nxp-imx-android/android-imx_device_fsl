@@ -108,7 +108,7 @@ endif
 endif
 
 TARGET_BOOTLOADER_CONFIG := imx6q:mx6qsabreautoandroid_config imx6dl:mx6dlsabreautoandroid_config imx6solo:mx6solosabresdandroid_config imx6q-nand:mx6qsabreautoandroid_nand_config imx6dl-nand:mx6dlsabreautoandroid_nand_config imx6solo-nand:mx6solosabreauto_nand_config
-TARGET_BOARD_DTS_CONFIG := imx6q:imx6q-sabreauto.dtb imx6dl:imx6dl-sabreauto.dtb imx6q-nand:imx6q-sabreauto-gpmi-weim.dtb imx6dl-nand:imx6dl-sabreauto-gpmi-weim.dtb
+TARGET_BOARD_DTS_CONFIG := imx6q:imx6q-sabreauto.dtb imx6q-nand:imx6q-sabreauto-gpmi-weim.dtb imx6dl:imx6dl-sabreauto.dtb  imx6dl-nand:imx6dl-sabreauto-gpmi-weim.dtb
 
 BOARD_SEPOLICY_DIRS := \
        device/fsl/imx6/sepolicy \
@@ -131,5 +131,6 @@ BOARD_SEPOLICY_UNION := \
        netd.te \
        bootanim.te \
        dnsmasq.te \
-       recovery.te
+       recovery.te \
+       install_recovery.te
 

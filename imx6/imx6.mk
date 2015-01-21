@@ -309,7 +309,7 @@ PRODUCT_PACKAGES += \
 # ntfs-3g binary
 PRODUCT_PACKAGES += \
 	ntfs-3g		\
-	ntfsfix
+	ntfsfix 	
 
 # for CtsVerifier
 PRODUCT_PACKAGES += \
