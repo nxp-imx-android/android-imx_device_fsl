@@ -105,4 +105,5 @@ BOARD_SEPOLICY_UNION := \
        init.te \
        netd.te \
        bootanim.te \
-       dnsmasq.te
+       dnsmasq.te \
+       recovery.te
