@@ -20,7 +20,11 @@ PRODUCT_COPY_FILES += \
 	device/fsl/sabreauto_6sx/init.rc:root/init.freescale.rc \
 	device/fsl/sabreauto_6sx/audio_policy.conf:system/etc/audio_policy.conf \
 	device/fsl/sabreauto_6sx/audio_effects.conf:system/vendor/etc/audio_effects.conf
-
+# setup dm-verity configs.
+ifneq ($(BUILD_TARGET_FS),ubifs)
+ PRODUCT_SYSTEM_VERITY_PARTITION := /dev/block/mmcblk2p5
+ $(call inherit-product, build/target/product/verity.mk)
+endif
 # GPU files
 
 DEVICE_PACKAGE_OVERLAYS := device/fsl/sabreauto_6sx/overlay

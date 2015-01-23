@@ -72,7 +72,7 @@ SENSOR_MMA8451 := true
 TARGET_SELECT_KEY := 28
 # we don't support sparse image.
 TARGET_USERIMAGES_SPARSE_EXT_DISABLED := false
-
+DM_VERITY_RUNTIME_CONFIG := true
 BOARD_KERNEL_CMDLINE := console=ttymxc0,115200 init=/init androidboot.console=ttymxc0 consoleblank=0 androidboot.hardware=freescale vmalloc=400M cma=512M 
 
 ifeq ($(TARGET_USERIMAGES_USE_UBIFS),true)

@@ -12,6 +12,10 @@ ifneq ($(wildcard device/fsl/evk_6dq/fstab.freescale),)
 $(shell touch device/fsl/evk_6sl/fstab.freescale)
 endif
 
+# setup dm-verity configs.
+ PRODUCT_SYSTEM_VERITY_PARTITION := /dev/block/mmcblk1p5
+ $(call inherit-product, build/target/product/verity.mk)
+
 # Overrides
 PRODUCT_NAME := evk_6sl
 PRODUCT_DEVICE := evk_6sl
@@ -24,6 +28,7 @@ PRODUCT_COPY_FILES += \
 	device/fsl/common/input/20b8000_kpp.kl:system/usr/keylayout/20b8000_kpp.kl \
 	device/fsl/evk_6sl/audio_policy.conf:system/etc/audio_policy.conf \
 	device/fsl/evk_6sl/audio_effects.conf:system/vendor/etc/audio_effects.conf
+
 
 DEVICE_PACKAGE_OVERLAYS := device/fsl/evk_6sl/overlay
 

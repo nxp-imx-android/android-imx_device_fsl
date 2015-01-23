@@ -21,6 +21,9 @@ PRODUCT_COPY_FILES += \
 	device/fsl/sabresd_6sx/gpsreset.sh:system/etc/gpsreset.sh \
 	device/fsl/sabresd_6sx/audio_policy.conf:system/etc/audio_policy.conf \
 	device/fsl/sabresd_6sx/audio_effects.conf:system/vendor/etc/audio_effects.conf
+# setup dm-verity configs.
+ PRODUCT_SYSTEM_VERITY_PARTITION := /dev/block/mmcblk3p5
+ $(call inherit-product, build/target/product/verity.mk)
 
 # GPU files
 

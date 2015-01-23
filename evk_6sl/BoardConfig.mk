@@ -72,7 +72,7 @@ USE_QEMU_GPS_HARDWARE := false
 TARGET_SELECT_KEY := 28
 # we don't support sparse image.
 TARGET_USERIMAGES_SPARSE_EXT_DISABLED := false
-
+DM_VERITY_RUNTIME_CONFIG := true
 # atheros 3k BT
 BOARD_USE_AR3K_BLUETOOTH := false
 
