@@ -107,7 +107,7 @@ USE_GPU_ALLOCATOR := true
 
 # camera hal v2
 IMX_CAMERA_HAL_V2 := false
-
+TARGET_VSYNC_DIRECT_REFRESH := true
 
 TARGET_BOOTLOADER_CONFIG := imx6sx:mx6sxsabresdandroid_config
 TARGET_BOARD_DTS_CONFIG := imx6sx:imx6sx-sdb.dtb

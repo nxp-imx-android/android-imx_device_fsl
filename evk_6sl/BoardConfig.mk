@@ -81,6 +81,7 @@ USE_GPU_ALLOCATOR := true
 
 # camera hal v2
 IMX_CAMERA_HAL_V2 := false
+TARGET_VSYNC_DIRECT_REFRESH := true
 
 BOARD_KERNEL_CMDLINE := console=ttymxc0,115200 init=/init androidboot.console=ttymxc0 consoleblank=0 androidboot.hardware=freescale 
 TARGET_BOOTLOADER_CONFIG := imx6sl:mx6slevkandroid_config
