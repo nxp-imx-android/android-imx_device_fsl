@@ -100,7 +100,7 @@ on boot
     setprop hw.bluetooth 0
     setprop wlan.interface wlan0
     # Set WiFi Display Source VideoBitRate Adaptive
-    setprop media.wfd.video-bitrate adaptive
+    setprop media.wfd.video-bitrate 3000000
 
 # mount the debugfs
     mount debugfs none /sys/kernel/debug/
