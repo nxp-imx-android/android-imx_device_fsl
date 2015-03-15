@@ -9,6 +9,16 @@ key 8     7
 key 9     8
 key 10    9
 key 11    0
+key 79    1
+key 80    2
+key 81    3
+key 75    4
+key 76    5
+key 77    6
+key 71    7
+key 72    8
+key 73    9
+key 82    0
 key 58    CAPS_LOCK
 key 1     BACK              WAKE     
 key 230   SOFT_RIGHT        WAKE
@@ -70,6 +80,7 @@ key 49    N
 key 50    M
 key 51    COMMA
 key 52    PERIOD
+key 83    PERIOD
 key 53    SLASH
 key 28    ENTER
         
@@ -85,3 +96,7 @@ key 13    EQUALS
 key 215   AT
 
 
+key 74    NUMPAD_SUBTRACT
+key 78    NUMPAD_ADD
+key 55    NUMPAD_MULTIPLY
+key 98    NUMPAD_DIVIDE
