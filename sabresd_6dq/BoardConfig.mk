@@ -147,6 +147,7 @@ BOARD_SEPOLICY_UNION := \
        netd.te \
        bootanim.te \
        dnsmasq.te \
-       recovery.te
+       recovery.te \
+       device.te
 
 
