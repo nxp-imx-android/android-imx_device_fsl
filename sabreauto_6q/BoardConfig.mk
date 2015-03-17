@@ -140,5 +140,6 @@ BOARD_SEPOLICY_UNION := \
        bootanim.te \
        dnsmasq.te \
        recovery.te \
-       install_recovery.te
+       install_recovery.te \
+       device.te
 
