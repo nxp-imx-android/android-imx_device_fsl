@@ -143,17 +143,6 @@ PRODUCT_PACKAGES += \
 	iwlwifi-5000-5.ucode			\
 	iwlagn.ko
 
-# gps related lib
-PRODUCT_PACKAGES += \
-	gps.SABRESD				\
-	gps.ARM2				\
-	gps.SABREAUTO				\
-	Orion.ini 				\
-	AR1520A-Auto.img 			\
-	ingsvcd 				\
-	libOrionCtl.so 				\
-	OrionSys.so
-
 # drm related lib
 PRODUCT_PACKAGES += \
 	drmserver                   		\

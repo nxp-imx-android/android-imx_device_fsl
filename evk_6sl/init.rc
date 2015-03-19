@@ -25,8 +25,6 @@ on boot
     # Set permission for IIM node
     symlink /dev/mxs_viim /dev/mxc_mem
 
-    symlink /dev/ttymxc1 /dev/gpsdevice
-
     # Enable Tethering in the Settings
     setprop ro.tether.denied false
 

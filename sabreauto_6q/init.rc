@@ -159,16 +159,6 @@ service magd /system/bin/magd
     group input
     oneshot
 
-# Orion InG
-service ing /system/bin/ingsvcd -c /system/etc/gps/Orion.ini
-    socket athrkv9988    stream 666 system system
-    socket athrshmsocket stream 666 system system
-    socket athrsupl59991 stream 666 system system
-    class late_start
-    seclabel u:r:gpsd:s0
-    user root
-    group gps
-    oneshot
 
 # Set watchdog timer to 30 seconds and pet it every 10 seconds to get a 20 second margin
 service watchdogd /sbin/watchdogd 10 20

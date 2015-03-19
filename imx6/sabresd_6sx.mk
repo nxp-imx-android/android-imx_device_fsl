@@ -18,7 +18,6 @@ PRODUCT_DEVICE := sabresd_6sx
 
 PRODUCT_COPY_FILES += \
 	device/fsl/sabresd_6sx/init.rc:root/init.freescale.rc \
-	device/fsl/sabresd_6sx/gpsreset.sh:system/etc/gpsreset.sh \
 	device/fsl/sabresd_6sx/audio_policy.conf:system/etc/audio_policy.conf \
 	device/fsl/sabresd_6sx/audio_effects.conf:system/vendor/etc/audio_effects.conf
 # setup dm-verity configs.

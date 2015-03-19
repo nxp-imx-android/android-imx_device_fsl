@@ -22,22 +22,6 @@ on boot
     # Set permission for IIM node
     symlink /dev/mxs_viim /dev/mxc_mem
 
-    # Set GPS serial GPS power-on GPIO64 pin and reset GPIO60 pin
-    setprop ro.kernel.android.gps /dev/athrnmea
-    setprop persist.gps.oacmode @f
-    symlink /dev/ttymxc2 /dev/gpsdevice
-    write /sys/class/gpio/export 64
-    write /sys/class/gpio/gpio64/direction "out"
-    chown gps gps /sys/class/gpio/gpio64/value
-    chmod 0660 /sys/class/gpio/gpio64/value
-    write /sys/class/gpio/gpio64/value 1
-
-    write /sys/class/gpio/export 60
-    write /sys/class/gpio/gpio60/direction "out"
-    chown gps gps /sys/class/gpio/gpio60/value
-    chmod 0660 /sys/class/gpio/gpio60/value
-    write /sys/class/gpio/gpio60/value 1
-
     # Enable Tethering in the Settings
     setprop ro.tether.denied false
 
@@ -188,17 +172,6 @@ service magd /system/bin/magd
     seclabel u:r:sensors:s0
     user system
     group input
-    oneshot
-
-# Orion InG
-service ing /system/bin/ingsvcd -c /system/etc/gps/Orion.ini
-    socket athrkv9988    stream 666 system system
-    socket athrshmsocket stream 666 system system
-    socket athrsupl59991 stream 666 system system
-    class late_start
-    seclabel u:r:gpsd:s0
-    user root
-    group gps
     oneshot
 
 service charger /charger
