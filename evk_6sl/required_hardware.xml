@@ -23,4 +23,6 @@
     <feature name="android.hardware.microphone" />
     <feature name="android.software.home_screen" />
     <feature name="android.software.input_methods" />
+    <feature name="android.hardware.location" />
+    <feature name="android.hardware.location.network" />
 </permissions>
