@@ -338,6 +338,7 @@ PRODUCT_COPY_FILES +=	\
 	device/fsl/imx6/etc/ueventd.freescale.rc:root/ueventd.freescale.rc \
 	device/fsl/imx6/etc/ppp/init.gprs-pppd:system/etc/ppp/init.gprs-pppd \
 	device/fsl/imx6/etc/ota.conf:system/etc/ota.conf \
+        device/fsl/imx6/init.recovery.imx6.rc:root/init.recovery.imx6.rc \
 	device/fsl/common/display/display_mode_fb0.conf:system/etc/display_mode_fb0.conf \
 	device/fsl/common/display/display_mode_fb2.conf:system/etc/display_mode_fb2.conf \
 	device/fsl/common/display/display_mode_fb4.conf:system/etc/display_mode_fb4.conf \
