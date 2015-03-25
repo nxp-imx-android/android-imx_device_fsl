@@ -64,6 +64,9 @@ on boot
     # Set the density to 120dpi for 640x480 lcd panel
     setprop ro.sf.lcd_density 120
 
+    # Set sys.device.type to tablet to enable NavigationBar
+    setprop sys.device.type tablet
+
     # Set extsd access permission
     setprop persist.sampling_profiler 1
 
