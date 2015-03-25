@@ -67,6 +67,9 @@ on boot
     # Set sys.device.type to tablet to enable NavigationBar
     setprop sys.device.type tablet
 
+    # Set ro.kernel.qemu on i.mx7d
+    setprop ro.kernel.qemu 1 
+
     # Set extsd access permission
     setprop persist.sampling_profiler 1
 
