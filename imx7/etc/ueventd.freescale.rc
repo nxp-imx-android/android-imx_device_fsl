@@ -22,6 +22,7 @@
 /dev/watchdog             0660   system     root
 /dev/ir                   0660   system     system
 /dev/mma8x5x              0640   compass     system
+/dev/caam_kb              0660   system     system
 
 # sysfs properties
 /sys/devices/virtual/input/input*   name        0660  root   input
@@ -39,10 +40,10 @@
 /sys/devices/platform/mxsdhci.2/mmc_host/mmc0/mmc0:000* boot_bus_config 0660 root root
 /sys/devices/platform/mxsdhci.2/mmc_host/mmc0/mmc0:000* boot_config 0660 root root
 # for sabresd
-/sys/devices/soc0/soc.1/2100000.aips-bus/21a8000.i2c/i2c-2/2-0044 mode 0660 system system
-/sys/devices/soc0/soc.1/2100000.aips-bus/21a8000.i2c/i2c-2/2-0044 lux 0660 system system
-/sys/devices/soc0/soc.1/2100000.aips-bus/21a8000.i2c/i2c-2/2-0044 int_lt_lux 0660 system system
-/sys/devices/soc0/soc.1/2100000.aips-bus/21a8000.i2c/i2c-2/2-0044 int_ht_lux 0660 system system
+/sys/devices/soc0/soc.0/2100000.aips-bus/21a8000.i2c/i2c-2/2-0044 mode 0660 system system
+/sys/devices/soc0/soc.0/2100000.aips-bus/21a8000.i2c/i2c-2/2-0044 lux 0660 system system
+/sys/devices/soc0/soc.0/2100000.aips-bus/21a8000.i2c/i2c-2/2-0044 int_lt_lux 0660 system system
+/sys/devices/soc0/soc.0/2100000.aips-bus/21a8000.i2c/i2c-2/2-0044 int_ht_lux 0660 system system
 # for sabreauto
 /sys/devices/soc0/soc.1/2100000.aips-bus/21a8000.i2c/i2c-1/1-0044 mode 0660 system system
 /sys/devices/soc0/soc.1/2100000.aips-bus/21a8000.i2c/i2c-1/1-0044 lux 0660 system system
