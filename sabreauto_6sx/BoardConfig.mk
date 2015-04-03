@@ -130,4 +130,5 @@ BOARD_SEPOLICY_UNION := \
        dnsmasq.te \
        recovery.te \
        install_recovery.te \
-       device.te
+       device.te \
+       zygote.te
