@@ -18,7 +18,6 @@
 -->
 <permissions>
    <feature name="android.hardware.camera.any" />
-    <feature name="android.hardware.camera.flash" />
     <feature name="android.hardware.microphone" />
     <feature name="android.software.home_screen" />
     <feature name="android.software.input_methods" />
