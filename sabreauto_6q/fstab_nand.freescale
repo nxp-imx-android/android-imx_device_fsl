@@ -5,8 +5,8 @@
 
 # below is for ubi support, uncomment to support ubifs(NAND)
 
-/devices/soc0/soc.1/2100000.aips-bus/2190000.usdhc/mmc_host /mnt/media_rw/extsd vfat defaults voldmanaged=extsd:auto
-/devices/soc0/soc.1/2100000.aips-bus/2184200.usb/ci_hdrc.1 /mnt/media_rw/udisk vfat defaults voldmanaged=udisk:auto
+/devices/soc0/soc.0/2100000.aips-bus/2190000.usdhc/mmc_host /mnt/media_rw/extsd vfat defaults voldmanaged=extsd:auto
+/devices/soc0/soc.0/2100000.aips-bus/2184200.usb/ci_hdrc.1 /mnt/media_rw/udisk vfat defaults voldmanaged=udisk:auto
 /dev/ubi0_0     /system		    ubifs 	ro                                      wait
 /dev/ubi0_3     /data           ubifs   nosuid,nodev,nodiratime,noatime         wait
 /dev/ubi0_1     /cache          ubifs   nosuid,nodev                            wait
