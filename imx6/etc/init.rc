@@ -460,9 +460,6 @@ on boot
 #real parser and decoder support
     setprop ro.FSL_REAL_PARSER 0
 
-    # don't preload OpenGL in Zygote, the Vivante drivers do not like it
-    setprop ro.zygote.disable_gl_preload true
-
     # ALSA mixer naming define
     setprop alsa.mixer.playback.master Playback
     setprop alsa.mixer.capture.master Capture
