@@ -13,7 +13,7 @@ $(shell touch device/fsl/sabresd_7d/fstab.freescale)
 endif
 
 # setup dm-verity configs.
- PRODUCT_SYSTEM_VERITY_PARTITION := /dev/block/mmcblk1p5
+ PRODUCT_SYSTEM_VERITY_PARTITION := /dev/block/mmcblk0p5
  $(call inherit-product, build/target/product/verity.mk)
 
 # Overrides
