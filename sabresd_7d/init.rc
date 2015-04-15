@@ -68,7 +68,7 @@ on boot
     setprop sys.device.type tablet
 
     # Set ro.kernel.qemu on i.mx7d
-    setprop ro.kernel.qemu 1 
+    setprop sys.composer.no-yuv-support 1
 
     # Set extsd access permission
     setprop persist.sampling_profiler 1
