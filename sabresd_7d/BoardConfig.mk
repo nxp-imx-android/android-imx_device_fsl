@@ -73,7 +73,8 @@ TARGET_SELECT_KEY := 28
 TARGET_USERIMAGES_SPARSE_EXT_DISABLED := false
 DM_VERITY_RUNTIME_CONFIG := true
 # atheros 3k BT
-BOARD_USE_AR3K_BLUETOOTH := false
+BOARD_HAVE_BLUETOOTH_BCM := true
+BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/fsl/sabresd_7d/bluetooth
 
 USE_ION_ALLOCATOR := false
 USE_GPU_ALLOCATOR := true
@@ -107,4 +108,5 @@ BOARD_SEPOLICY_UNION := \
        bootanim.te \
        dnsmasq.te \
        recovery.te \
+	   bluetooth.te \
        device.te
