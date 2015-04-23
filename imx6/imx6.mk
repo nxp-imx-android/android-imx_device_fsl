@@ -24,6 +24,8 @@ PRODUCT_PACKAGES += \
 	ethernet                                \
 	libfsl_wfd.so                           \
 	fsl.imx.jar                             \
+	libfsl_hdcp_blob.so                     \
+	libstagefright_hdcp.so                  \
 	hwcomposer_fsl.imx6.so                  \
 	VideoEditor				\
 	FSLProfileApp				\
