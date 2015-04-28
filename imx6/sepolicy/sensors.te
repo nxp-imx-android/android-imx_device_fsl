@@ -25,4 +25,4 @@ wakelock_use(sensors)
 allow sensors cgroup:dir { create add_name };
 allow sensors input_device:chr_file rw_file_perms;
 allow sensors input_device:dir r_dir_perms;
-allow sensors system_data_file:dir { write };
+allow sensors system_data_file:dir { write add_name };
