@@ -89,6 +89,7 @@ PRODUCT_PACKAGES += \
 	sensors.SABRESD				\
 	sensors.ARM2				\
 	sensors.SABREAUTO			\
+	gralloc.imx7				\
 	overlay.imx7				\
 	lights.imx7				\
 	camera.imx7				\
