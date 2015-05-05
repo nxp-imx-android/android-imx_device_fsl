@@ -155,6 +155,13 @@ service wpa_supplicant /system/bin/wpa_supplicant \
     disabled
     oneshot
 
+service sensor_fusion /system/bin/fsl_sensor_fusion
+    class main
+    seclabel u:r:sensors:s0
+    user system
+    group input
+    oneshot
+
 on fs
 # mount ext4 partitions
     mount_all /fstab.freescale

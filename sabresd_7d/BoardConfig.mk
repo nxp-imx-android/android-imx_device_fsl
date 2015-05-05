@@ -64,7 +64,7 @@ USE_ATHR_GPS_HARDWARE := false
 USE_QEMU_GPS_HARDWARE := false
 
 #for accelerator sensor, need to define sensor type here
-#BOARD_HAS_SENSOR := true
+BOARD_USE_SENSOR_FUSION := true
 #SENSOR_MMA8451 := true
 
 # for recovery service

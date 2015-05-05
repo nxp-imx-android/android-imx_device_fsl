@@ -24,6 +24,20 @@
 /dev/mma8x5x              0640   compass     system
 /dev/caam_kb              0660   system     system
 
+#sensors sysfs
+/sys/class/misc/Freescale*          name        0660  root   input
+/sys/class/misc/Freescale*          max         0660  root   input
+/sys/class/misc/Freescale*          min         0660  root   input
+/sys/class/misc/Freescale*          poll        0660  root   input
+/sys/class/misc/Freescale*          enable      0660  root   input
+/sys/class/misc/Freescale*          position    0660  root   input
+/sys/class/misc/Freescale*          poll_delay  0660  root   input
+/sys/class/misc/Freescale*          fifo        0660  root   input
+/dev/FreescaleAccelerometer                     0660  system input
+/dev/FreescaleMagnetometer                      0660  system input
+/dev/FreescaleGyroscope                         0660  system input
+
+
 # sysfs properties
 /sys/devices/virtual/input/input*   name        0660  root   input
 /sys/devices/virtual/input/input*   max         0660  root   input

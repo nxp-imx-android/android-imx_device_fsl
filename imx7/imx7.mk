@@ -97,6 +97,7 @@ PRODUCT_PACKAGES += \
 	audio.r_submix.default			\
 	libbt-vendor				\
 	magd                                    \
+	fsl_sensor_fusion
 
 # Bluetooth firmware files.
 PRODUCT_PACKAGES += \
