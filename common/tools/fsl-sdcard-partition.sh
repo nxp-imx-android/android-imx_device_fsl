@@ -114,8 +114,6 @@ if [[ "${not_partition}" -eq "1" && "${flash_images}" -eq "1" ]] ; then
     exit
 fi
 
-# destroy the partition table
-dd if=/dev/zero of=${node} bs=1024 count=1
 
 sfdisk --force -uM ${node} << EOF
 ,${boot_rom_sizeb},83
