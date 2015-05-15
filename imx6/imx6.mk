@@ -43,6 +43,7 @@ PRODUCT_PACKAGES += \
 	ip-down-ppp0				\
 	wpa_supplicant				\
 	rtl_wpa_supplicant			\
+	bcm_supplicant				\
 	wpa_supplicant.conf			\
 	p2p_supplicant_overlay.conf			\
 	wpa_supplicant_overlay.conf			\
@@ -58,6 +59,12 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += freescale-extended 		\
 		    freescale-extended.xml
 
+# Broadcom firmwares
+PRODUCT_PACKAGES += \
+	bcmdhd.cal		\
+	fw_bcmdhd.bin	\
+	fw_bcmdhd_apsta.bin
+
 # Debug utils
 PRODUCT_PACKAGES += \
 	busybox					\
@@ -71,6 +78,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
 	hostapd 				\
 	rtl_hostapd 				\
+	bcm_hostapd					\
 	hostapd_cli
 
 # keyboard mapping files.
