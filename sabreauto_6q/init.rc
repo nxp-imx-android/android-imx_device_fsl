@@ -1,4 +1,5 @@
 import init.${ro.hardware}.usb.rc
+import init.${ro.hardware}.${ro.soc}.rc
 
 on init
     start watchdogd
@@ -51,9 +52,6 @@ on boot
     setprop back_camera_orient 0
     setprop front_camera_name uvc
     setprop front_camera_orient 0
-
-    # Set OpenGLES version
-    setprop ro.opengles.version 131072
 
     # Set rotation to 270 to cofigure as portrait mode
     setprop ro.sf.hwrotation 0

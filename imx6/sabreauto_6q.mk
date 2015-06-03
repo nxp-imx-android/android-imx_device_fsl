@@ -18,6 +18,9 @@ PRODUCT_DEVICE := sabreauto_6q
 
 PRODUCT_COPY_FILES += \
 	device/fsl/sabreauto_6q/init.rc:root/init.freescale.rc \
+	device/fsl/sabreauto_6q/init.i.MX6Q.rc:root/init.freescale.i.MX6Q.rc \
+	device/fsl/sabreauto_6q/init.i.MX6DL.rc:root/init.freescale.i.MX6DL.rc \
+	device/fsl/sabreauto_6q/init.i.MX6QP.rc:root/init.freescale.i.MX6QP.rc \
 	device/fsl/sabreauto_6q/audio_policy.conf:system/etc/audio_policy.conf \
 	device/fsl/sabreauto_6q/audio_effects.conf:system/vendor/etc/audio_effects.conf
 

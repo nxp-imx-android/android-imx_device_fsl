@@ -484,9 +484,6 @@ on boot
 #  Enable adb security for JB4.2.2
     setprop ro.adb.secure 1
 
-#  Set GPU 3D minimum clock to 3/64
-   write /sys/bus/platform/drivers/galcore/gpu3DMinClock 3
-
     class_start core
 
 on nonencrypted
