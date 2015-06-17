@@ -107,6 +107,10 @@ PRODUCT_PACKAGES += \
 	ar3kbdaddr_ar3002			\
 	PS_ASIC_ar3002				\
 	RamPatch_ar3002				\
+	Type_ZP.hcd					\
+	bcmdhd.cal					\
+	fw_bcmdhd.bin
+
 
 # Atheros wifi firmwre files.
 PRODUCT_PACKAGES += \

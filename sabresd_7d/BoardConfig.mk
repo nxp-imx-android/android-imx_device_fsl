@@ -38,7 +38,9 @@ BOARD_WLAN_DEVICE            := UNITE
 WPA_SUPPLICANT_VERSION       := VER_0_8_UNITE
 TARGET_KERNEL_MODULES        := \
                                 kernel_imx/net/wireless/cfg80211.ko:system/lib/modules/cfg80211_realtek.ko \
-                                kernel_imx/drivers/net/wireless/rtlwifi/rtl8821as/8821as.ko:system/lib/modules/8821as.ko
+                                kernel_imx/drivers/net/wireless/rtlwifi/rtl8821as/8821as.ko:system/lib/modules/8821as.ko \
+                                kernel_imx/drivers/net/wireless/bcmdhd/bcmdhd.ko:system/lib/modules/bcmdhd.ko
+
 BOARD_WPA_SUPPLICANT_DRIVER  := NL80211
 BOARD_HOSTAPD_DRIVER         := NL80211
 
@@ -46,6 +48,8 @@ BOARD_HOSTAPD_PRIVATE_LIB_QCOM              := lib_driver_cmd_qcwcn
 BOARD_WPA_SUPPLICANT_PRIVATE_LIB_QCOM       := lib_driver_cmd_qcwcn
 BOARD_HOSTAPD_PRIVATE_LIB_RTL               := lib_driver_cmd_rtl
 BOARD_WPA_SUPPLICANT_PRIVATE_LIB_RTL        := lib_driver_cmd_rtl
+BOARD_HOSTAPD_PRIVATE_LIB_BCM               := lib_driver_cmd_bcmdhd
+BOARD_WPA_SUPPLICANT_PRIVATE_LIB_BCM        := lib_driver_cmd_bcmdhd
 #for intel vendor
 ifeq ($(BOARD_WLAN_VENDOR),INTEL)
 BOARD_HOSTAPD_PRIVATE_LIB                := private_lib_driver_cmd

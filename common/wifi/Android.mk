@@ -23,7 +23,7 @@
 # *not* include it on all devices, so it is safe even with hardware-specific
 # components.
 
-ifeq ($(TARGET_BOARD_PLATFORM),imx6)
+ifeq ($(TARGET_BOARD_PLATFORM),$(filter $(TARGET_BOARD_PLATFORM),imx6 imx7))
 
 LOCAL_PATH := $(call my-dir)
 
