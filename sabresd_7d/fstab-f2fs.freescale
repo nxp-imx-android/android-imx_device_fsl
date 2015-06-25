@@ -11,4 +11,5 @@
 /dev/block/mmcblk0p1    /boot        emmc    defaults                                                                         defaults
 /dev/block/mmcblk0p2    /recovery    emmc    defaults                                                                         defaults
 /dev/block/mmcblk0p8    /misc        emmc    defaults                                                                         defaults
+/dev/block/mmcblk0      /bootloader  emmc    defaults                                                                         defaults
 

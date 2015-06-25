@@ -13,3 +13,4 @@
 /dev/ubi0_2     /device         ubifs   nosuid,nodev                            wait
 bootimg         /boot           mtd     defaults                                defaults
 recovery        /recovery       mtd     defaults                                defaults
+bootloader      /bootloader     mtd     defaults                                defaults

@@ -42,6 +42,7 @@ PRODUCT_MODEL := SABREAUTO-MX6Q
 USE_OPENGL_RENDERER := true
 TARGET_CPU_SMP := true
 
+TARGET_RELEASETOOLS_EXTENSIONS := device/fsl/imx6
 # UNITE is a virtual device support both atheros and realtek wifi(ar6103 and rtl8723as)
 BOARD_WLAN_DEVICE            := UNITE
 WPA_SUPPLICANT_VERSION       := VER_0_8_UNITE
