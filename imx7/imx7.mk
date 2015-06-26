@@ -109,6 +109,7 @@ PRODUCT_PACKAGES += \
 	RamPatch_ar3002				\
 	Type_ZP.hcd					\
 	bcmdhd.cal					\
+	bt_vendor.conf				\
 	fw_bcmdhd.bin
 
 
