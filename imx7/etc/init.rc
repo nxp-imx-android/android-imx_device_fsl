@@ -449,17 +449,6 @@ on boot
     # Define default initial receive window size in segments.
     setprop net.tcp.default_init_rwnd 60
 
-    # Define fsl avi/aac/asf/mkv/flv/flac format support
-    setprop ro.FSL_AVI_PARSER 1
-    setprop ro.FSL_AAC_PARSER 1
-    setprop ro.FSL_ASF_PARSER 0
-    setprop ro.FSL_FLV_PARSER 1
-    setprop ro.FSL_MKV_PARSER 1
-    setprop ro.FSL_FLAC_PARSER 1
-    setprop ro.FSL_MPG2_PARSER 1
-#real parser and decoder support
-    setprop ro.FSL_REAL_PARSER 0
-
     # ALSA mixer naming define
     setprop alsa.mixer.playback.master Playback
     setprop alsa.mixer.capture.master Capture
