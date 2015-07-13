@@ -169,7 +169,7 @@ service bcm_supplicant /system/bin/bcm_supplicant \
 
 
 service sensor_fusion /system/bin/fsl_sensor_fusion
-    class main
+    class late_start
     seclabel u:r:sensors:s0
     user system
     group input
