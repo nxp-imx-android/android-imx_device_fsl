@@ -105,9 +105,13 @@ USE_GPU_ALLOCATOR := true
 IMX_CAMERA_HAL_V2 := false
 TARGET_VSYNC_DIRECT_REFRESH := true
 
-TARGET_BOOTLOADER_CONFIG := imx6sx:mx6sxsabreautoandroid_config imx6sx-nand:mx6sxsabreautoandroid_nand_config
+ifeq ($(TARGET_USERIMAGES_USE_UBIFS),true)
+TARGET_BOARD_DTS_CONFIG := imx6sx-nand:imx6sx-sabreauto.dtb
+TARGET_BOOTLOADER_CONFIG := imx6sx-nand:mx6sxsabreautoandroid_nand_config 
+else
 TARGET_BOARD_DTS_CONFIG := imx6sx:imx6sx-sabreauto.dtb
-
+TARGET_BOOTLOADER_CONFIG := imx6sx:mx6sxsabreautoandroid_config
+endif
 BOARD_SEPOLICY_DIRS := \
        device/fsl/imx6/sepolicy \
        device/fsl/sabreauto_6sx/sepolicy
