@@ -93,6 +93,7 @@ PRODUCT_PACKAGES += \
 	sensors.SABREAUTO			\
 	gralloc.imx7				\
 	overlay.imx7				\
+	hwcomposer.imx7				\
 	lights.imx7				\
 	camera.imx7				\
 	power.imx7				\
