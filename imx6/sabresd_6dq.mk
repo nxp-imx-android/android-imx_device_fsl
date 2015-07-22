@@ -59,3 +59,4 @@ PRODUCT_COPY_FILES += \
 	frameworks/native/data/etc/android.hardware.consumerir.xml:system/etc/permissions/android.hardware.consumerir.xml \
 	frameworks/native/data/etc/android.hardware.ethernet.xml:system/etc/permissions/android.hardware.ethernet.xml \
 	device/fsl/sabresd_6dq/required_hardware.xml:system/etc/permissions/required_hardware.xml
+PRODUCT_PACKAGES += AudioRoute
