@@ -88,7 +88,7 @@ IMX_CAMERA_HAL_V2 := false
 TARGET_VSYNC_DIRECT_REFRESH := true
 
 BOARD_KERNEL_CMDLINE := console=ttymxc0,115200 init=/init androidboot.console=ttymxc0 consoleblank=0 androidboot.hardware=freescale 
-TARGET_BOOTLOADER_CONFIG := imx7d:mx7dsabresdandroid_config
+TARGET_BOOTLOADER_CONFIG := imx7d:mx7dsabresdandroid_config imx7d-touch:mx7dsabresdandroid_config imx7d-epdc:mx7dsabresdandroid_config
 TARGET_BOARD_DTS_CONFIG := imx7d:imx7d-sdb.dtb imx7d-touch:imx7d-sdb-touch.dtb imx7d-epdc:imx7d-sdb-epdc.dtb
 
 BOARD_SEPOLICY_DIRS := \
