@@ -113,7 +113,8 @@ PRODUCT_PACKAGES += \
 	Type_ZP.hcd					\
 	bcmdhd.cal					\
 	bt_vendor.conf				\
-	fw_bcmdhd.bin
+	fw_bcmdhd.bin				\
+	fw_bcmdhd_apsta.bin
 
 
 # Atheros wifi firmwre files.
