@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2011 The Android Open Source Project
- * Copyright (C) 2013 Freescale Semiconductor, Inc.
+ * Copyright (C) 2013-2015 Freescale Semiconductor, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -49,10 +49,8 @@ class ImxUI : public ScreenRecoveryUI {
 class ImxDevice : public Device {
   public:
     ImxDevice() :
-        ui(new ImxUI) {
+        Device(new ImxUI) {
     }
-
-    RecoveryUI* GetUI() { return ui; }
 
     int HandleMenuKey(int key_code, int visible) {
         if (visible) {
@@ -86,8 +84,6 @@ class ImxDevice : public Device {
     const char* const* GetMenuHeaders() { return HEADERS; }
     const char* const* GetMenuItems() { return ITEMS; }
 
-  private:
-    RecoveryUI* ui;
 };
 
 Device* make_device() {
