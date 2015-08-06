@@ -129,7 +129,6 @@ BOARD_SEPOLICY_UNION := \
        system_server.te \
        untrusted_app.te \
        sensors.te \
-       init_shell.te \
        kernel.te \
        mediaserver.te \
        file_contexts \
