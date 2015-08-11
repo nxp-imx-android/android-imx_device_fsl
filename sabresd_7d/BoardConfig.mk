@@ -5,6 +5,7 @@
 include device/fsl/imx7/soc/imx7d.mk
 include device/fsl/sabresd_7d/build_id.mk
 include device/fsl/imx7/BoardConfigCommon.mk
+include external/linux-firmware-imx/firmware/epdc/fsl-epdc.mk
 -include device/fsl-proprietary/gpu-viv/fsl-gpu.mk
 # sabresd_mx7d default target for EXT4
 BUILD_TARGET_FS ?= ext4
