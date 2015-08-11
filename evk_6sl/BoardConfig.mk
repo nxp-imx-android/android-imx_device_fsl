@@ -89,22 +89,4 @@ TARGET_BOARD_DTS_CONFIG := imx6sl:imx6sl-evk-csi.dtb
 BOARD_SEPOLICY_DIRS := \
        device/fsl/imx6/sepolicy \
        device/fsl/evk_6sl/sepolicy
-BOARD_SEPOLICY_UNION := \
-       domain.te \
-       system_app.te \
-       system_server.te \
-       untrusted_app.te \
-       sensors.te \
-       kernel.te \
-       mediaserver.te \
-       file_contexts \
-       genfs_contexts \
-       fs_use \
-       rild.te \
-       init.te \
-       netd.te \
-       bootanim.te \
-       dnsmasq.te \
-       recovery.te \
-       device.te \
-       zygote.te
+

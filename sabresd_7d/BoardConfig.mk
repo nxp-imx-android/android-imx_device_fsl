@@ -99,22 +99,4 @@ TARGET_BOARD_DTS_CONFIG := imx7d:imx7d-sdb.dtb imx7d-touch:imx7d-sdb-touch.dtb i
 BOARD_SEPOLICY_DIRS := \
        device/fsl/imx7/sepolicy \
        device/fsl/sabresd_7d/sepolicy
-BOARD_SEPOLICY_UNION := \
-       domain.te \
-       system_app.te \
-       system_server.te \
-       untrusted_app.te \
-       sensors.te \
-       kernel.te \
-       mediaserver.te \
-       file_contexts \
-       genfs_contexts \
-       fs_use \
-       rild.te \
-       init.te \
-       netd.te \
-       bootanim.te \
-       dnsmasq.te \
-       recovery.te \
-	   bluetooth.te \
-       device.te
+
