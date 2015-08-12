@@ -330,7 +330,7 @@ PRODUCT_COPY_FILES +=	\
 	device/fsl/common/input/eGalax_Touch_Screen.idc:system/usr/idc/HannStar_P1003_Touchscreen.idc \
 	device/fsl/common/input/eGalax_Touch_Screen.idc:system/usr/idc/Novatek_NT11003_Touch_Screen.idc \
 	device/fsl/common/input/eGalax_Touch_Screen.idc:system/usr/idc/ADS7846_Touchscreen.idc \
-	device/fsl/imx7/etc/init.rc:root/init.rc \
+	system/core/rootdir/init.rc:root/init.rc \
 	device/fsl/imx7/etc/apns-conf.xml:system/etc/apns-conf.xml \
 	device/fsl/imx7/etc/init.usb.rc:root/init.freescale.usb.rc \
 	device/fsl/imx7/etc/ueventd.freescale.rc:root/ueventd.freescale.rc \
