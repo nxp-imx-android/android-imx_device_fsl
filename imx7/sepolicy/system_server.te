@@ -3,3 +3,4 @@ allow system_server unlabeled:sock_file {link unlink rw_file_perms};
 allow system_server system_data_file:file {relabelto rw_file_perms};
 allow system_server system_data_file:dir {relabelto rw_dir_perms};
 allow system_server default_prop:property_service { set };
+allow system_server system_file:file {execmod};

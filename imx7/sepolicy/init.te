@@ -1,0 +1,7 @@
+allow init cache_file:dir  { mounton };
+allow init kernel:system  { module_request };
+allow init asec_apk_file:dir  { mounton };
+allow init perfprofd_exec:file  { read open getattr execute };
+allow init shell_data_file:dir  { write };
+allow init socket_device:sock_file  { setattr create };
+
