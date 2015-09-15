@@ -13,3 +13,4 @@
 /dev/block/mmcblk3p2    /recovery    emmc    defaults                                                                         defaults
 /dev/block/mmcblk3p8    /misc        emmc    defaults                                                                         defaults
 /dev/block/mmcblk3boot0 /bootloader  emmc    defaults                                                                         defaults
+/dev/block/zram0 none swap defaults zramsize=314572800

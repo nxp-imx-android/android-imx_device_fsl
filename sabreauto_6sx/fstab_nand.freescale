@@ -14,3 +14,4 @@
 bootimg         /boot           mtd     defaults                                defaults
 recovery        /recovery       mtd     defaults                                defaults
 bootloader      /bootloader     mtd     defaults                                defaults
+/dev/block/zram0 none swap defaults zramsize=314572800
