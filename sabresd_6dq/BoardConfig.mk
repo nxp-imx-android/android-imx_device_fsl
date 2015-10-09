@@ -122,8 +122,8 @@ IMX_CAMERA_HAL_V2 := true
 #define consumer IR HAL support
 IMX6_CONSUMER_IR_HAL := false
 
-TARGET_BOOTLOADER_CONFIG := imx6q:mx6qsabresdandroid_config imx6dl:mx6dlsabresdandroid_config
-TARGET_BOARD_DTS_CONFIG := imx6q:imx6q-sabresd.dtb imx6dl:imx6dl-sabresd.dtb imx6q-ldo:imx6q-sabresd-ldo.dtb
+TARGET_BOOTLOADER_CONFIG := imx6q:mx6qsabresdandroid_config imx6dl:mx6dlsabresdandroid_config imx6qp:mx6qpsabresdandroid_config
+TARGET_BOARD_DTS_CONFIG := imx6q:imx6q-sabresd.dtb imx6dl:imx6dl-sabresd.dtb imx6q-ldo:imx6q-sabresd-ldo.dtb imx6qp:imx6qp-sabresd.dtb
 
 BOARD_SEPOLICY_DIRS := \
        device/fsl/imx6/sepolicy \
