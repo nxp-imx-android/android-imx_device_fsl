@@ -19,4 +19,46 @@
 -->
 <permissions>
     <feature name="android.hardware.camera.any" />
+    <feature name="android.hardware.audio.output" />
+    <feature name="android.hardware.location" />
+    <feature name="android.hardware.location.network" />
+    <feature name="android.hardware.sensor.compass" />
+    <feature name="android.hardware.sensor.accelerometer" />
+    <feature name="android.hardware.bluetooth" />
+    <feature name="android.hardware.touchscreen" />
+    <feature name="android.hardware.touchscreen.multitouch" />
+    <feature name="android.hardware.touchscreen.multitouch.distinct" />
+    <feature name="android.hardware.microphone" />
+    <feature name="android.hardware.screen.portrait" />
+    <feature name="android.hardware.screen.landscape" />
+
+    <!-- basic system services -->
+    <feature name="android.software.app_widgets" />
+    <feature name="android.software.voice_recognizers" />
+    <feature name="android.software.backup" />
+    <feature name="android.software.home_screen" />
+    <feature name="android.software.input_methods" />
+    <feature name="android.software.print" />
+
+    <!-- Feature to specify if the device supports adding device admins. -->
+    <feature name="android.software.device_admin" />
+
+    <!-- devices with GPS must include android.hardware.location.gps.xml -->
+    <!-- devices with a rear-facing camera must include one of these as appropriate:
+         android.hardware.camera.xml or
+         android.hardware.camera.autofocus.xml or
+         android.hardware.camera.autofocus-flash.xml -->
+    <!-- devices with a front facing camera must include
+         android.hardware.camera.front.xml -->
+    <!-- devices with WiFi must also include android.hardware.wifi.xml -->
+    <!-- devices with an ambient light sensor must also include
+         android.hardware.sensor.light.xml -->
+    <!-- devices with a proximity sensor must also include
+         android.hardware.sensor.proximity.xml -->
+    <!-- devices with a barometer must also include
+         android.hardware.sensor.barometer.xml -->
+    <!-- devices with a gyroscope must also include
+         android.hardware.sensor.gyroscope.xml -->
+    <!-- GSM phones must also include android.hardware.telephony.gsm.xml -->
+    <!-- CDMA phones must also include android.hardware.telephony.cdma.xml -->
 </permissions>
