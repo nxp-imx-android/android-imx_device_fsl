@@ -54,6 +54,9 @@ PRODUCT_PACKAGES += \
 	display_mode_fb2.conf                   \
 	display_mode_fb4.conf
 
+#FREESCALE_EXTENDED
+PRODUCT_PACKAGES += freescale-extended
+
 # Debug utils
 PRODUCT_PACKAGES += \
 	busybox					\
