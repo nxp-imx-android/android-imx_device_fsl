@@ -3,19 +3,10 @@ import init.${ro.hardware}.usb.rc
 on init
     start watchdogd
 
-    # See storage config details at http://source.android.com/tech/storage/
-    mkdir /mnt/shell/emulated 0700 shell shell
-    mkdir /storage/emulated 0555 root root
-
-    export EXTERNAL_STORAGE /storage/emulated/legacy
-    export EMULATED_STORAGE_SOURCE /mnt/shell/emulated
-    export EMULATED_STORAGE_TARGET /storage/emulated
-
     # Support legacy paths
-    symlink /storage/emulated/legacy /sdcard
-    symlink /storage/emulated/legacy /mnt/sdcard
-    symlink /storage/emulated/legacy /storage/sdcard0
-    symlink /mnt/shell/emulated/0 /storage/emulated/legacy
+    symlink /sdcard /mnt/sdcard
+    symlink /sdcard /storage/sdcard0
+
     # setup the global environment
     export SHM_MOUNTPOINT /mnt/shm
     export LIGHTSENSOR_PATH /sys/class/i2c-adapter/i2c-1/1-0044
@@ -301,11 +292,6 @@ service wifi_mac /system/bin/sh /system/etc/check_wifi_mac.sh
     class late_start
     oneshot
 
-
-# virtual sdcard daemon running as media_rw (1023)
-# default 4 threads have better performance to 2 threads.
-    service sdcard /system/bin/sdcard -l -t4 /data/media /mnt/shell/emulated 1023 1023
-    class late_start
 
 on fs
 # mount ext4 partitions
