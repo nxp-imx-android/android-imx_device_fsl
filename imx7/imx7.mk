@@ -49,7 +49,8 @@ PRODUCT_PACKAGES += \
 	display_mode_fb4.conf
 
 #FREESCALE_EXTENDED
-PRODUCT_PACKAGES += freescale-extended
+PRODUCT_PACKAGES += freescale-extended         \
+		    freescale-extended.xml
 
 # Debug utils
 PRODUCT_PACKAGES += \
