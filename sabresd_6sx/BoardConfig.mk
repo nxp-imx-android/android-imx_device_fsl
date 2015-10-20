@@ -41,12 +41,16 @@ BOARD_WPA_SUPPLICANT_DRIVER  := NL80211
 BOARD_HOSTAPD_DRIVER         := NL80211
 TARGET_KERNEL_MODULES        := \
                                 kernel_imx/net/wireless/cfg80211.ko:system/lib/modules/cfg80211_realtek.ko \
-                                kernel_imx/drivers/net/wireless/rtlwifi/rtl8821as/8821as.ko:system/lib/modules/8821as.ko
+                                kernel_imx/drivers/net/wireless/rtlwifi/rtl8821as/8821as.ko:system/lib/modules/8821as.ko \
+                                kernel_imx/drivers/net/wireless/bcmdhd/bcmdhd.ko:system/lib/modules/bcmdhd.ko
 
 BOARD_HOSTAPD_PRIVATE_LIB_QCOM              := lib_driver_cmd_qcwcn
 BOARD_WPA_SUPPLICANT_PRIVATE_LIB_QCOM       := lib_driver_cmd_qcwcn
 BOARD_HOSTAPD_PRIVATE_LIB_RTL               := lib_driver_cmd_rtl
 BOARD_WPA_SUPPLICANT_PRIVATE_LIB_RTL        := lib_driver_cmd_rtl
+BOARD_HOSTAPD_PRIVATE_LIB_BCM               := lib_driver_cmd_bcmdhd
+BOARD_WPA_SUPPLICANT_PRIVATE_LIB_BCM        := lib_driver_cmd_bcmdhd
+
 #for intel vendor
 ifeq ($(BOARD_WLAN_VENDOR),INTEL)
 BOARD_HOSTAPD_PRIVATE_LIB                := private_lib_driver_cmd
@@ -58,6 +62,11 @@ WIFI_DRIVER_MODULE_PATH                  := "/system/lib/modules/iwlagn.ko"
 WIFI_DRIVER_MODULE_NAME                  := "iwlagn"
 WIFI_DRIVER_MODULE_PATH                  ?= auto
 endif
+
+WIFI_DRIVER_FW_PATH_STA        := "/system/etc/firmware/bcm/fw_bcmdhd.bin"
+WIFI_DRIVER_FW_PATH_P2P        := "/system/etc/firmware/bcm/fw_bcmdhd.bin"
+WIFI_DRIVER_FW_PATH_AP         := "/system/etc/firmware/bcm/fw_bcmdhd_apsta.bin"
+WIFI_DRIVER_FW_PATH_PARAM      := "/sys/module/bcmdhd/parameters/firmware_path"
 
 BOARD_MODEM_VENDOR := AMAZON
 
@@ -100,6 +109,8 @@ endif
 
 # atheros 3k BT
 BOARD_USE_AR3K_BLUETOOTH := true
+
+BOARD_HAVE_BLUETOOTH_BCM := true
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/fsl/sabresd_6sx/bluetooth
 
 USE_ION_ALLOCATOR := false
