@@ -1,0 +1,4 @@
+How to use this extended shared library:
+1.Add LOCAL_JAVA_LIBRARIES := freescale-extended in Android.mk
+2.Add <uses-library android:name="freescale-extended"/> in AndroidManifest.xml
+
