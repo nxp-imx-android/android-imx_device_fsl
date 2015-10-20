@@ -120,6 +120,9 @@ endif
 
 # atheros 3k BT
 BOARD_USE_AR3K_BLUETOOTH := true
+
+# Broadcom BCM4339 BT
+BOARD_HAVE_BLUETOOTH_BCM := true
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/fsl/sabresd_6dq/bluetooth
 
 USE_ION_ALLOCATOR := false

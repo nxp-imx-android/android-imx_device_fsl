@@ -61,6 +61,8 @@ PRODUCT_PACKAGES += freescale-extended 		\
 
 # Broadcom firmwares
 PRODUCT_PACKAGES += \
+	Type_ZP.hcd   	\
+	bt_vendor.conf	\
 	bcmdhd.cal		\
 	fw_bcmdhd.bin	\
 	fw_bcmdhd_apsta.bin
@@ -113,6 +115,8 @@ PRODUCT_PACKAGES += \
 	power.imx6				\
 	audio.r_submix.default			\
 	libbt-vendor				\
+	libbt-vendor-ar3k			\
+	libbt-vendor-broadcom		\
 	magd                                    \
 	consumerir.imx6
 
