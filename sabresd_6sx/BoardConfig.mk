@@ -51,6 +51,8 @@ BOARD_WPA_SUPPLICANT_PRIVATE_LIB_RTL        := lib_driver_cmd_rtl
 BOARD_HOSTAPD_PRIVATE_LIB_BCM               := lib_driver_cmd_bcmdhd
 BOARD_WPA_SUPPLICANT_PRIVATE_LIB_BCM        := lib_driver_cmd_bcmdhd
 
+BOARD_SUPPORT_BCM_WIFI  := true
+
 #for intel vendor
 ifeq ($(BOARD_WLAN_VENDOR),INTEL)
 BOARD_HOSTAPD_PRIVATE_LIB                := private_lib_driver_cmd
