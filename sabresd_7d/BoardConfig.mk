@@ -63,6 +63,8 @@ WIFI_DRIVER_MODULE_NAME                  := "iwlagn"
 WIFI_DRIVER_MODULE_PATH                  ?= auto
 endif
 
+BOARD_SUPPORT_BCM_WIFI := true
+
 WIFI_DRIVER_FW_PATH_STA 	:= "/system/etc/firmware/bcm/fw_bcmdhd.bin"
 WIFI_DRIVER_FW_PATH_P2P 	:= "/system/etc/firmware/bcm/fw_bcmdhd.bin"
 WIFI_DRIVER_FW_PATH_AP  	:= "/system/etc/firmware/bcm/fw_bcmdhd_apsta.bin"
