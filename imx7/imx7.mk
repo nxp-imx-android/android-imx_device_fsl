@@ -99,6 +99,7 @@ PRODUCT_PACKAGES += \
 	power.imx7				\
 	audio.r_submix.default			\
 	libbt-vendor				\
+	libbt-vendor-broadcom			\
 	magd                                    \
 	fsl_sensor_fusion
 
