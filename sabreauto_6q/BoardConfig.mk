@@ -52,8 +52,6 @@ TARGET_KERNEL_MODULES        := \
 BOARD_WPA_SUPPLICANT_DRIVER  := NL80211
 BOARD_HOSTAPD_DRIVER         := NL80211
 
-BOARD_HOSTAPD_PRIVATE_LIB_QCOM              := lib_driver_cmd_qcwcn
-BOARD_WPA_SUPPLICANT_PRIVATE_LIB_QCOM       := lib_driver_cmd_qcwcn
 BOARD_HOSTAPD_PRIVATE_LIB_RTL               := lib_driver_cmd_rtl
 BOARD_WPA_SUPPLICANT_PRIVATE_LIB_RTL        := lib_driver_cmd_rtl
 #for intel vendor
@@ -82,8 +80,6 @@ TARGET_SELECT_KEY := 28
 # we don't support sparse image.
 TARGET_USERIMAGES_SPARSE_EXT_DISABLED := false
 DM_VERITY_RUNTIME_CONFIG := true
-# atheros 3k BT
-BOARD_USE_AR3K_BLUETOOTH := false
 
 # camera hal v2
 IMX_CAMERA_HAL_V2 := true

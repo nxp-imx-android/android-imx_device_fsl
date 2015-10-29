@@ -41,7 +41,6 @@ PRODUCT_PACKAGES += \
 	ip-up-vpn				\
 	ip-up-ppp0				\
 	ip-down-ppp0				\
-	wpa_supplicant				\
 	rtl_wpa_supplicant			\
 	bcm_supplicant				\
 	wpa_supplicant.conf			\
@@ -78,7 +77,6 @@ PRODUCT_PACKAGES += \
 
 # Wifi AP mode
 PRODUCT_PACKAGES += \
-	hostapd 				\
 	rtl_hostapd 				\
 	bcm_hostapd					\
 	hostapd_cli
@@ -115,19 +113,10 @@ PRODUCT_PACKAGES += \
 	power.imx6				\
 	audio.r_submix.default			\
 	libbt-vendor				\
-	libbt-vendor-ar3k			\
 	libbt-vendor-broadcom		\
 	magd                                    \
 	consumerir.imx6
 
-# Bluetooth firmware files.
-PRODUCT_PACKAGES += \
-	ar3kbdaddr_ar3001			\
-	PS_ASIC_ar3001				\
-	RamPatch_ar3001				\
-	ar3kbdaddr_ar3002			\
-	PS_ASIC_ar3002				\
-	RamPatch_ar3002				\
 
 # Freescale VPU firmware files.
 PRODUCT_PACKAGES += \
