@@ -4,12 +4,12 @@
 $(call inherit-product, device/fsl/imx6/imx6.mk)
 $(call inherit-product-if-exists,vendor/google/products/gms.mk)
 
-ifneq ($(wildcard device/fsl/evk_6sl/fstab_nand.freescale),)
-$(shell touch device/fsl/evk_6sl/fstab_nand.freescale)
+ifneq ($(wildcard device/fsl/evk_6ul/fstab_nand.freescale),)
+$(shell touch device/fsl/evk_6ul/fstab_nand.freescale)
 endif
 
-ifneq ($(wildcard device/fsl/evk_6sl/fstab.freescale),)
-$(shell touch device/fsl/evk_6sl/fstab.freescale)
+ifneq ($(wildcard device/fsl/evk_6ul/fstab.freescale),)
+$(shell touch device/fsl/evk_6ul/fstab.freescale)
 endif
 
 # setup dm-verity configs.
@@ -17,20 +17,20 @@ endif
  $(call inherit-product, build/target/product/verity.mk)
 
 # Overrides
-PRODUCT_NAME := evk_6sl
-PRODUCT_DEVICE := evk_6sl
+PRODUCT_NAME := evk_6ul
+PRODUCT_DEVICE := evk_6ul
 
 PRODUCT_COPY_FILES += \
-	device/fsl/evk_6sl/init.rc:root/init.freescale.rc \
+	device/fsl/evk_6ul/init.rc:root/init.freescale.rc \
 	device/fsl/common/input/imx-keypad.idc:system/usr/idc/imx-keypad.idc \
 	device/fsl/common/input/imx-keypad.kl:system/usr/keylayout/imx-keypad.kl \
 	device/fsl/common/input/20b8000_kpp.idc:system/usr/idc/20b8000_kpp.idc \
 	device/fsl/common/input/20b8000_kpp.kl:system/usr/keylayout/20b8000_kpp.kl \
-	device/fsl/evk_6sl/audio_policy.conf:system/etc/audio_policy.conf \
-	device/fsl/evk_6sl/audio_effects.conf:system/vendor/etc/audio_effects.conf
+	device/fsl/evk_6ul/audio_policy.conf:system/etc/audio_policy.conf \
+	device/fsl/evk_6ul/audio_effects.conf:system/vendor/etc/audio_effects.conf
 
 
-DEVICE_PACKAGE_OVERLAYS := device/fsl/evk_6sl/overlay
+DEVICE_PACKAGE_OVERLAYS := device/fsl/evk_6ul/overlay
 
 PRODUCT_CHARACTERISTICS := tablet
 
@@ -56,4 +56,4 @@ PRODUCT_COPY_FILES += \
 	frameworks/native/data/etc/android.hardware.camera.xml:system/etc/permissions/android.hardware.camera.xml \
 	frameworks/native/data/etc/android.hardware.camera.front.xml:system/etc/permissions/android.hardware.camera.front.xml \
 	frameworks/native/data/etc/android.hardware.ethernet.xml:system/etc/permissions/android.hardware.ethernet.xml \
-	device/fsl/evk_6sl/required_hardware.xml:system/etc/permissions/required_hardware.xml
+	device/fsl/evk_6ul/required_hardware.xml:system/etc/permissions/required_hardware.xml
