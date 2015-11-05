@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# android-tools-fsutils should be installed as
+# "sudo apt-get install android-tools-fsutils"
+
 # partition size in MB
 BOOTLOAD_RESERVE=8
 BOOT_ROM_SIZE=16
@@ -36,6 +39,7 @@ not_format_fs=0
 bootloader_file="u-boot.imx"
 bootimage_file="boot.img"
 systemimage_file="system.img"
+systemimage_raw_file="system_raw.img"
 recoveryimage_file="recovery.img"
 while [ "$moreoptions" = 1 -a $# -gt 0 ]; do
 	case $1 in
@@ -103,7 +107,9 @@ if [ "${flash_images}" -eq "1" ]; then
     dd if=/dev/zero of=${node} bs=1k seek=384 count=129
     dd if=${bootimage_file} of=${node}${part}1
     dd if=${recoveryimage_file} of=${node}${part}2
-    dd if=${systemimage_file} of=${node}${part}5
+    simg2img ${systemimage_file} ${systemimage_raw_file}
+    dd if=${systemimage_raw_file} of=${node}${part}5
+    rm ${systemimage_raw_file}
     dd if=${bootloader_file} of=${node} bs=1k seek=1
     sync
 fi
