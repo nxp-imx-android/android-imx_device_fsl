@@ -23,3 +23,4 @@ allow zygote kernel:system  { module_request };
 allow tzdatacheck kernel:system  { module_request };
 allow shell kernel:system  { module_request };
 allow dex2oat kernel:system  { module_request };
+allow gatekeeperd kernel:system  { module_request };
