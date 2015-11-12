@@ -42,7 +42,7 @@ PRODUCT_PACKAGES += \
 	ip-up-ppp0				\
 	ip-down-ppp0				\
 	rtl_wpa_supplicant			\
-	bcm_supplicant				\
+	wpa_supplicant				\
 	wpa_supplicant.conf			\
 	p2p_supplicant_overlay.conf			\
 	wpa_supplicant_overlay.conf			\
@@ -78,7 +78,7 @@ PRODUCT_PACKAGES += \
 # Wifi AP mode
 PRODUCT_PACKAGES += \
 	rtl_hostapd 				\
-	bcm_hostapd					\
+	hostapd					\
 	hostapd_cli
 
 # keyboard mapping files.

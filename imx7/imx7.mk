@@ -36,7 +36,7 @@ PRODUCT_PACKAGES += \
 	ip-down-ppp0				\
 	wpa_supplicant				\
 	rtl_wpa_supplicant			\
-	bcm_supplicant				\
+	wpa_supplicant				\
 	wpa_supplicant.conf			\
 	p2p_supplicant_overlay.conf			\
 	wpa_supplicant_overlay.conf			\
@@ -65,7 +65,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
 	hostapd 				\
 	rtl_hostapd 				\
-	bcm_hostapd				\
 	hostapd_cli
 
 # keyboard mapping files.
