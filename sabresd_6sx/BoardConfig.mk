@@ -110,8 +110,8 @@ BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/fsl/sabresd_6sx/bluetooth
 USE_ION_ALLOCATOR := false
 USE_GPU_ALLOCATOR := true
 
-# camera hal v2
-IMX_CAMERA_HAL_V2 := false
+# camera hal v1
+IMX_CAMERA_HAL_V1 := true
 TARGET_VSYNC_DIRECT_REFRESH := true
 
 TARGET_BOOTLOADER_CONFIG := imx6sx:mx6sxsabresdandroid_config

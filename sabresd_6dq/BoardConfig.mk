@@ -122,8 +122,8 @@ BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/fsl/sabresd_6dq/bluetooth
 USE_ION_ALLOCATOR := false
 USE_GPU_ALLOCATOR := true
 
-# camera hal v2
-IMX_CAMERA_HAL_V2 := true
+# camera hal v3
+IMX_CAMERA_HAL_V3 := true
 
 #define consumer IR HAL support
 IMX6_CONSUMER_IR_HAL := false
