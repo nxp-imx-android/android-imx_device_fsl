@@ -5,8 +5,8 @@
 
 # below is for ubi support, uncomment to support ubifs(NAND)
 
-/devices/soc0/soc.0/2100000.aips-bus/219c000.usdhc/mmc_host* auto auto defaults voldmanaged=extsd:auto,encryptable=userdata
-/devices/soc0/soc.0/2100000.aips-bus/2184000.usb/ci_hdrc.0*  auto auto defaults voldmanaged=udisk:auto
+/devices/soc0/soc.0/2100000.aips-bus/219c000.usdhc/mmc_host* auto auto defaults voldmanaged=sdcard:auto,encryptable=userdata
+/devices/soc0/soc.0/2100000.aips-bus/2184000.usb/ci_hdrc.0*  auto auto defaults voldmanaged=usb:auto
 /dev/ubi0_0     /system		    ubifs 	ro                                      wait
 /dev/ubi0_3     /data           ubifs   nosuid,nodev,nodiratime,noatime         wait
 /dev/ubi0_1     /cache          ubifs   nosuid,nodev                            wait
