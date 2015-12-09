@@ -1,6 +1,10 @@
 import init.${ro.hardware}.usb.rc
 import init.${ro.hardware}.${ro.soc}.rc
 
+on early-init
+    # mount the debugfs
+    mount debugfs none /sys/kernel/debug/ mode=0755
+
 on init
     start watchdogd
 
@@ -133,9 +137,6 @@ on boot
     setprop wlan.interface wlan0
     # Set WiFi Display Source VideoBitRate Adaptive
     setprop media.wfd.video-bitrate 3000000
-
-# mount the debugfs
-    mount debugfs none /sys/kernel/debug/
 
 
 on property:sys.boot_completed=1

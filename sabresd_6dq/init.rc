@@ -1,6 +1,10 @@
 import init.${ro.hardware}.usb.rc
 import init.${ro.hardware}.${ro.soc}.rc
 
+on early-init
+    # mount the debugfs
+    mount debugfs none /sys/kernel/debug/ mode=0755
+
 on init
     start watchdogd
 
@@ -132,9 +136,6 @@ on boot
 
     # Set WiFi Display Source VideoBitRate Adaptive
     setprop media.wfd.video-bitrate 3000000
-
-# mount the debugfs
-    mount debugfs none /sys/kernel/debug/
 
 # Set watchdog timer to 30 seconds and pet it every 10 seconds to get a 20 second margin
     service watchdogd /sbin/watchdogd 10 20
