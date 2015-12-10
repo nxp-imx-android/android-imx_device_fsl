@@ -358,7 +358,7 @@ PRODUCT_COPY_FILES +=	\
 PRODUCT_TAGS += dalvik.gc.type-precise
 
 # for property
-PRODUCT_DEFAULT_PROPERTY_OVERRIDES := \
+PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
 	persist.sys.usb.config=mtp
 
 PRODUCT_DEFAULT_DEV_CERTIFICATE := \
