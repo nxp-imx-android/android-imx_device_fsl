@@ -38,7 +38,7 @@ DEVICE_PACKAGE_OVERLAYS := device/fsl/sabreauto_6q/overlay
 
 PRODUCT_CHARACTERISTICS := tablet
 
-PRODUCT_AAPT_CONFIG += xlarge large tvdpi hdpi
+PRODUCT_AAPT_CONFIG += xlarge large tvdpi hdpi xhdpi
 
 PRODUCT_COPY_FILES += \
 	frameworks/native/data/etc/android.hardware.audio.output.xml:system/etc/permissions/android.hardware.audio.output.xml \

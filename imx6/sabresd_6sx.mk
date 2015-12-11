@@ -30,7 +30,7 @@ DEVICE_PACKAGE_OVERLAYS := device/fsl/sabresd_6sx/overlay
 
 PRODUCT_CHARACTERISTICS := tablet
 
-PRODUCT_AAPT_CONFIG += xlarge large tvdpi hdpi
+PRODUCT_AAPT_CONFIG += xlarge large tvdpi hdpi xhdpi
 
 PRODUCT_COPY_FILES += \
 	frameworks/native/data/etc/android.hardware.camera.xml:system/etc/permissions/android.hardware.camera.xml \
