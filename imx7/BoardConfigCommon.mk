@@ -42,6 +42,14 @@ TARGET_USERIMAGES_BLOCKS := 204800
 
 BUILD_WITH_GST := false
 
+# Enable dex-preoptimization to speed up first boot sequence
+ifeq ($(HOST_OS),linux)
+   ifeq ($(TARGET_BUILD_VARIANT),user)
+	ifeq ($(WITH_DEXPREOPT),)
+	   WITH_DEXPREOPT := true
+        endif
+   endif
+endif
 # for ums config, only export one partion instead of the whole disk
 UMS_ONEPARTITION_PER_DISK := true
 
@@ -60,7 +68,7 @@ ARCH_ARM_USE_NON_NEON_MEMCPY := true
 BOARD_BOOTIMAGE_PARTITION_SIZE :=  16777216 
 BOARD_RECOVERYIMAGE_PARTITION_SIZE := 16777216
 
-BOARD_SYSTEMIMAGE_PARTITION_SIZE := 444596224
+BOARD_SYSTEMIMAGE_PARTITION_SIZE := 629145600
 BOARD_CACHEIMAGE_PARTITION_SIZE := 444596224
 BOARD_FLASH_BLOCK_SIZE := 4096
 TARGET_RECOVERY_UI_LIB := librecovery_ui_imx
