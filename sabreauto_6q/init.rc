@@ -123,10 +123,10 @@ on boot
     chmod 0664 /sys/devices/system/cpu/cpu3/online
 
     # Default backlight device
-    setprop hw.backlight.dev "pwm-backlight.0"
+    setprop hw.backlight.dev "pwm-backlight"
     # Chmod/chown FSL specific sys entry
-    chown system system /sys/class/backlight/pwm-backlight.0/brightness
-    chmod 0660 /sys/class/backlight/pwm-backlight.0/brightness
+    chown system system /sys/class/backlight/pwm-backlight/brightness
+    chmod 0660 /sys/class/backlight/pwm-backlight/brightness
 
     # Set light sensor sysfs path and light sensor threshold lux value
     setprop ro.hardware.lightsensor "/sys/class/i2c-dev/i2c-2/device/2-0044/"

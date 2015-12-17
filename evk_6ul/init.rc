@@ -132,10 +132,10 @@ on boot
     setprop ro.ril.wake_lock_timeout 300
 
     # Default backlight device
-    setprop hw.backlight.dev "pwm-backlight.0"
+    setprop hw.backlight.dev "pwm-backlight"
     # Chmod/chown FSL specific sys entry
-    chown system system /sys/class/backlight/pwm-backlight.0/brightness
-    chmod 0660 /sys/class/backlight/pwm-backlight.0/brightness
+    chown system system /sys/class/backlight/pwm-backlight/brightness
+    chmod 0660 /sys/class/backlight/pwm-backlight/brightness
 
 
     # No bluetooth hardware present
