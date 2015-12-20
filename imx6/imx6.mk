@@ -23,10 +23,14 @@ PRODUCT_PACKAGES += \
     A2dpSinkApp                             \
 	ethernet                                \
 	libfsl_wfd.so                           \
+	libfsl_wfd                           \
 	fsl.imx.jar                             \
 	libfsl_hdcp_blob.so                     \
+	libfsl_hdcp_blob                     \
 	libstagefright_hdcp.so                  \
+	libstagefright_hdcp                  \
 	hwcomposer_fsl.imx6.so                  \
+	hwcomposer_fsl.imx6                  \
 	VideoEditor				\
 	FSLProfileApp				\
 	FSLProfileService			\
