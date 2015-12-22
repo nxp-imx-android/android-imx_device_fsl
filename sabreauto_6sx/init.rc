@@ -305,11 +305,6 @@ service pppd_gprs /etc/ppp/init.gprs-pppd
     disabled
     oneshot
 
-service wifi_mac /system/bin/sh /system/etc/check_wifi_mac.sh
-    class late_start
-    oneshot
-
-
 on fs
 # mount ext4 partitions
     mount_all /fstab.freescale
