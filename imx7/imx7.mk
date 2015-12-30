@@ -237,6 +237,7 @@ omx_libs := \
 	lib_omx_rtps_pipe_arm11_elinux \
 	lib_omx_streaming_parser_arm11_elinux \
 	lib_omx_surface_render_arm11_elinux \
+	lib_omx_surface_source_arm11_elinux \
 	libfsl_jpeg_enc_arm11_elinux \
 	lib_wb_amr_enc_arm11_elinux \
 	lib_wb_amr_dec_arm9_elinux \
