@@ -89,7 +89,7 @@ function format_android
     echo "formating android images"
     mkfs.f2fs ${node}${part}4 -l data
     mkfs.ext4 ${node}${part}5 -Lsystem
-    mkfs.ext4 ${node}${part}6 -Lcache
+    mkfs.f2fs ${node}${part}6 -l cache
     mkfs.ext4 ${node}${part}7 -Ldevice
 }
 
