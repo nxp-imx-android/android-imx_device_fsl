@@ -28,3 +28,6 @@ allow gatekeeperd kernel:system  { module_request };
 allow dhcp kernel:system  { module_request };
 allow adbd kernel:system  { module_request };
 allow dnsmasq kernel:system  { module_request };
+allow sgdisk kernel:system  { module_request };
+allow blkid_untrusted kernel:system  { module_request };
+allow fsck_untrusted kernel:system  { module_request };
