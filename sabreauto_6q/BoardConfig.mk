@@ -106,10 +106,10 @@ endif
 
 ifeq ($(TARGET_USERIMAGES_USE_UBIFS),true)
 TARGET_BOARD_DTS_CONFIG := imx6q-nand:imx6q-sabreauto-gpmi-weim.dtb  imx6dl-nand:imx6dl-sabreauto-gpmi-weim.dtb imx6qp-nand:imx6qp-sabreauto-gpmi-weim.dtb
-TARGET_BOOTLOADER_CONFIG := imx6q-nand:mx6qsabreautoandroid_nand_config imx6dl-nand:mx6dlsabreautoandroid_nand_config imx6solo-nand:mx6solosabreauto_nand_config imx6qp-nand:mx6qpsabreautoandroid_nand_config
+TARGET_BOOTLOADER_CONFIG := imx6q-nand:mx6qsabreautoandroid_nand_config imx6dl-nand:mx6dlsabreautoandroid_nand_config  imx6qp-nand:mx6qpsabreautoandroid_nand_config
 else 
 TARGET_BOARD_DTS_CONFIG := imx6q:imx6q-sabreauto.dtb imx6dl:imx6dl-sabreauto.dtb imx6qp:imx6qp-sabreauto.dtb
-TARGET_BOOTLOADER_CONFIG := imx6q:mx6qsabreautoandroid_config imx6dl:mx6dlsabreautoandroid_config imx6solo:mx6solosabresdandroid_config imx6qp:mx6qpsabreautoandroid_config
+TARGET_BOOTLOADER_CONFIG := imx6q:mx6qsabreautoandroid_config imx6dl:mx6dlsabreautoandroid_config imx6qp:mx6qpsabreautoandroid_config
 endif
 
 BOARD_SEPOLICY_DIRS := \
