@@ -177,6 +177,7 @@ omx_libs := \
 	fslomx.cfg					\
 	media_profiles.xml				\
 	media_codecs.xml				\
+    media_codecs_performance.xml    \
 	ComponentRegistry.txt				\
 	lib_omx_player_arm11_elinux			 \
 	lib_omx_client_arm11_elinux			\
@@ -357,7 +358,9 @@ PRODUCT_COPY_FILES +=	\
 	device/fsl/common/display/display_mode_fb4.conf:system/etc/display_mode_fb4.conf \
     device/fsl-proprietary/media-profile/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
     device/fsl-proprietary/media-profile/media_codecs_google_video.xml:system/etc/media_codecs_google_video.xml \
-    device/fsl-proprietary/media-profile/media_profiles_720p.xml:system/etc/media_profiles_720p.xml
+    device/fsl-proprietary/media-profile/media_codecs_google_telephony.xml:system/etc/media_codecs_google_telephony.xml \
+    device/fsl-proprietary/media-profile/media_profiles_720p.xml:system/etc/media_profiles_720p.xml \
+    
 
 # we have enough storage space to hold precise GC data
 PRODUCT_TAGS += dalvik.gc.type-precise
