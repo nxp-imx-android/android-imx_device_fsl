@@ -390,6 +390,10 @@ PRODUCT_TAGS += dalvik.gc.type-precise
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
 	persist.sys.usb.config=mtp
 
+#this must be set before including tablet-7in-hdpi-1024-dalvik-heap.mk
+PRODUCT_PROPERTY_OVERRIDES += \
+        dalvik.vm.heapgrowthlimit=128m
+
 PRODUCT_DEFAULT_DEV_CERTIFICATE := \
         device/fsl/common/security/testkey
 
