@@ -8,4 +8,7 @@ allow init tmpfs:lnk_file  { create };
 allow init storage_file:dir  { mounton };
 allow init block_device:blk_file  { write };
 allow init sysfs_devices_system_cpu:dir  { write };
+allow init configfs:dir  { write add_name remove_name create };
+allow init configfs:file  { write create };
+allow init configfs:lnk_file  { create unlink };
 allow init block_device:chr_file  { getattr ioctl };
