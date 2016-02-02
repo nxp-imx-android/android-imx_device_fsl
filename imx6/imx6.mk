@@ -20,7 +20,9 @@ PRODUCT_PACKAGES += \
 	CactusPlayer                            \
 	WfdSink                                 \
 	wfd                                     \
-    A2dpSinkApp                             \
+	A2dpSinkApp                             \
+	BleServerEmulator                       \
+	BleClient                               \
 	ethernet                                \
 	libfsl_wfd.so                           \
 	libfsl_wfd                           \
