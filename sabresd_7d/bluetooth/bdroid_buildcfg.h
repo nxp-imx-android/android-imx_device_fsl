@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-/* Copyright (C) 2015 Freescale Semiconductor, Inc. */
+/* Copyright (C) 2015-2016 Freescale Semiconductor, Inc. */
 
 #ifndef _BDROID_BUILDCFG_H
 #define _BDROID_BUILDCFG_H
@@ -27,7 +27,7 @@
 #define BTA_DM_COD {0x1A, 0x01, 0x14}
 
 #define BTIF_HF_SERVICES (BTA_HSP_SERVICE_MASK)
-#define BTIF_HF_SERVICE_NAMES  { BTIF_HSAG_SERVICE_NAME }
+#define BTIF_HF_SERVICE_NAMES  { BTIF_HSAG_SERVICE_NAME, NULL }
 #define BTM_WBS_INCLUDED TRUE
 #define BTIF_HF_WBS_PREFERRED TRUE
 
