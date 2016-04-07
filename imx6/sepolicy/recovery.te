@@ -7,5 +7,6 @@ recovery_only(`
   allow recovery mtd_device:chr_file { getattr read write open ioctl};
   allow recovery cache_file:dir { mounton }; 
   allow recovery debug_prop:property_service { set }; 
+  allow recovery ffs_prop:property_service { set };
 ')
 
