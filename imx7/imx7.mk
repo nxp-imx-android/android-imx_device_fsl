@@ -118,6 +118,24 @@ PRODUCT_PACKAGES += \
 	fw_bcmdhd.bin				\
 	fw_bcmdhd_apsta.bin
 
+# Broadcom BCM4339 extended binary
+PRODUCT_PACKAGES += \
+    bcmdhd.SN8000.OOB.cal     \
+    bcmdhd.SN8000.SDIO.cal    \
+    sn_fw_bcmdhd_apsta.bin    \
+    sn_fw_bcmdhd.bin          \
+    sn_fw_bcmdhd_mfgtest.bin  \
+    1bw_fw_bcmdhd.bin         \
+    1bw_fw_bcmdhd_mfgtest.bin \
+    BCM43341B0.1BW.hcd        \
+    bcmdhd.1BW.OOB.cal        \
+    bcmdhd.1BW.SDIO.cal       \
+    1dx_fw_bcmdhd.bin         \
+    1dx_fw_bcmdhd_mfgtest.bin \
+    BCM43430A1.1DX.hcd        \
+    bcmdhd.1DX.OOB.cal        \
+    bcmdhd.1DX.SDIO.cal       \
+    wl
 
 # Atheros wifi firmwre files.
 PRODUCT_PACKAGES += \
