@@ -43,14 +43,12 @@ USE_OPENGL_RENDERER := true
 TARGET_CPU_SMP := true
 
 TARGET_RELEASETOOLS_EXTENSIONS := device/fsl/imx6
-# UNITE is a virtual device support both atheros and realtek wifi(ar6103 and rtl8723as)
+# UNITE is a virtual device.
 BOARD_WLAN_DEVICE            := UNITE
 WPA_SUPPLICANT_VERSION       := VER_0_8_UNITE
 BOARD_WPA_SUPPLICANT_DRIVER  := NL80211
 BOARD_HOSTAPD_DRIVER         := NL80211
 
-BOARD_HOSTAPD_PRIVATE_LIB_RTL               := lib_driver_cmd_rtl
-BOARD_WPA_SUPPLICANT_PRIVATE_LIB_RTL        := lib_driver_cmd_rtl
 #for intel vendor
 ifeq ($(BOARD_WLAN_VENDOR),INTEL)
 BOARD_HOSTAPD_PRIVATE_LIB                := private_lib_driver_cmd
