@@ -1,1 +1,2 @@
 type configfs, fs_type;
+type tracefs, fs_type;
