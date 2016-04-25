@@ -13,7 +13,6 @@ on init
 
     # setup the global environment
     export SHM_MOUNTPOINT /mnt/shm
-    export LIGHTSENSOR_PATH /sys/class/i2c-adapter/i2c-1/1-0044
     export VPU_FW_PATH /system/lib/firmware/vpu
     export CODEC_SHM_PATH /mnt/shm
     export CORE_REGISTER_FILE /system/etc/core_register
