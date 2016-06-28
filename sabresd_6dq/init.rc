@@ -20,13 +20,19 @@ on init
     export CORE_REGISTER_FILE /system/etc/core_register
     export COMPONENT_REGISTER_FILE /system/etc/component_register
     export CONTENTPIPE_REGISTER_FILE /system/etc/contentpipe_register
-    
+
 
     # disable cursor blink for fbcon, if no splash screen support
     write /sys/class/graphics/fbcon/cursor_blink 0
 
     # deattch the fbcon as hdmi hotplug conflict with fbcon
     write /sys/class/vtconsole/vtcon1/bind 0
+
+    mkdir /device 0771 system system
+
+    # shared memory used by VPU to distinguish VPU instance.
+    mkdir /mnt/shm  0775 media syste
+    mount tmpfs tmpfs /mnt/shm mode=0775,uid=1013,gid=1000,size=1m
 
 on boot
 
@@ -326,3 +332,5 @@ on post-fs
     # Swap in only 1 page at a time
     write /proc/sys/vm/page-cluster 0
 
+    # This may have been created by the recovery system with the wrong context.
+    restorecon /cache/recovery
