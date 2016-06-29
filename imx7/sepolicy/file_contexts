@@ -1,6 +1,5 @@
 /system/bin/magd                u:object_r:sensors_exec:s0
 /system/bin/fsl_sensor_fusion   u:object_r:sensors_exec:s0
-/system/bin/ingsvcd             u:object_r:gpsd_exec:s0
 /system/bin/rtl_wpa_supplicant  u:object_r:wpa_exec:s0
 /system/bin/rtl_hostapd         u:object_r:hostapd_exec:s0
 /system/bin/bcm_supplicant      u:object_r:wpa_exec:s0
