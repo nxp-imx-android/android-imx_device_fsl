@@ -6,6 +6,9 @@ include device/fsl/imx8/soc/imx8dq.mk
 include device/fsl/sabreauto_8dq/build_id.mk
 include device/fsl/imx8/BoardConfigCommon.mk
 include device/fsl-proprietary/gpu-viv/fsl-gpu.mk
+ifeq ($(PREBUILT_FSL_IMX_CODEC),true)
+include device/fsl-codec/fsl-codec64.mk
+endif
 # sabreauto_6dq default target for EXT4
 BUILD_TARGET_FS ?= ext4
 include device/fsl/imx8/imx8_target_fs.mk
