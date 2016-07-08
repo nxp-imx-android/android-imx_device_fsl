@@ -107,13 +107,8 @@ $(error "TARGET_USERIMAGES_USE_UBIFS and TARGET_USERIMAGES_USE_EXT4 config open 
 endif
 endif
 
-ifeq ($(TARGET_USERIMAGES_USE_UBIFS),true)
-TARGET_BOARD_DTS_CONFIG := imx8dv-nand:fsl-imx8dv-zebu.dtb
-TARGET_BOOTLOADER_CONFIG := imx8dv-nand:imx8dv_zebu_defconfig
-else 
-TARGET_BOARD_DTS_CONFIG := imx8dv:fsl-imx8dv-zebu.dtb 
-TARGET_BOOTLOADER_CONFIG := imx8dv:imx8dv_zebu_defconfig
-endif
+TARGET_BOARD_DTS_CONFIG := imx8dv:fsl-imx8dv-sabreauto.dtb
+TARGET_BOOTLOADER_CONFIG := imx8dv:imx8dv_sabreauto_android_defconfig
 
 BOARD_SEPOLICY_DIRS := \
        device/fsl/imx8/sepolicy \
