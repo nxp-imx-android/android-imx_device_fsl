@@ -8,6 +8,9 @@ on early-init
 on init
     start watchdogd
 
+    # Load persistent dm-verity state
+    verity_load_state
+
     # Support legacy paths
     symlink /sdcard /mnt/sdcard
     symlink /sdcard /storage/sdcard0
@@ -311,6 +314,12 @@ service pppd_gprs /etc/ppp/init.gprs-pppd
 on fs
 # mount ext4 partitions
     mount_all /fstab.freescale
+
+    # Update dm-verity state and set partition.*.verified properties
+    verity_update_state
+
+on verity-logging
+    exec u:r:slideshow:s0 -- /sbin/slideshow warning/verity_red_1 warning/verity_red_2
 
 on post-fs
     # Turn on swap

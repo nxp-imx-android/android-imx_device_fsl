@@ -175,6 +175,10 @@ PRODUCT_PACKAGES += \
 	iwlwifi-5000-5.ucode			\
 	iwlagn.ko
 
+PRODUCT_PACKAGES += \
+    slideshow \
+    verity_warning_images
+
 # drm related lib
 PRODUCT_PACKAGES += \
 	drmserver                   		\
