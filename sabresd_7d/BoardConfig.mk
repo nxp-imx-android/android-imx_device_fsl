@@ -95,3 +95,4 @@ BOARD_SEPOLICY_DIRS := \
        device/fsl/imx7/sepolicy \
        device/fsl/sabresd_7d/sepolicy
 
+TARGET_BOARD_KERNEL_HEADERS := device/fsl/common/kernel-headers
