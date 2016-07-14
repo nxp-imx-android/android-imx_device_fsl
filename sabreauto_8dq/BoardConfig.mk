@@ -89,7 +89,7 @@ BOARD_HAVE_USB_CAMERA := true
 USE_ION_ALLOCATOR := false
 USE_GPU_ALLOCATOR := true
 
-BOARD_KERNEL_CMDLINE := console=ttymxc3,115200 init=/init video=mxcfb0:dev=ldb,bpp=32 video=mxcfb1:off video=mxcfb2:off video=mxcfb3:off vmalloc=320M androidboot.console=ttymxc3 consoleblank=0 androidboot.hardware=freescale cma=384M 
+BOARD_KERNEL_CMDLINE := console=ttymxc2,115200 init=/init androidboot.zygote=zygote64_32 vmalloc=320M androidboot.console=ttymxc2 consoleblank=0 androidboot.hardware=freescale cma=384M androidboot.watchdogd=disabled androidboot.selinux=disabled androidboot.dm_verity=disabled androidboot.serialno=150831d4e1fdfca7
 
 ifeq ($(TARGET_USERIMAGES_USE_UBIFS),true)
 #UBI boot command line.
