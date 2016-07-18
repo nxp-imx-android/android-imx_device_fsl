@@ -19,6 +19,7 @@
 /dev/ir                   0660   system     system
 /dev/mma8x5x              0640   compass     system
 /dev/caam_kb              0660   system     system
+/dev/block/mmcblk3p12     0600   system     system
 
 # sysfs properties
 /sys/devices/virtual/input/input*   name        0660  root   input
