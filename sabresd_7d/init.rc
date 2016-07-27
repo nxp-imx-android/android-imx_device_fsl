@@ -246,12 +246,12 @@ service dhcpcd_p2p /system/bin/dhcpcd -aABKL
     disabled
     oneshot
 
-service dhcpcd_eth0 /system/bin/dhcpcd -ABKL
+service dhcpcd_eth0 /system/bin/dhcpcd -ABKL eth0
     class main
     disabled
     oneshot
 
-service dhcpcd_bt-pan /system/bin/dhcpcd -ABKL
+service dhcpcd_bt-pan /system/bin/dhcpcd -ABKL bt-pan
     class main
     disabled
     oneshot
@@ -266,12 +266,12 @@ service iprenew_p2p /system/bin/dhcpcd -n
     disabled
     oneshot
 
-service iprenew_eth0 /system/bin/dhcpcd -n
+service iprenew_eth0 /system/bin/dhcpcd -n eth0
     class main
     disabled
     oneshot
 
-service iprenew_bt-pan /system/bin/dhcpcd -n
+service iprenew_bt-pan /system/bin/dhcpcd -n bt-pan
     class main
     disabled
     oneshot
