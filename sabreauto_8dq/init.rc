@@ -130,7 +130,7 @@ on boot
     chmod 0660 /sys/class/backlight/pwm-backlight/brightness
 
     # Set light sensor sysfs path and light sensor threshold lux value
-    setprop ro.hardware.lightsensor "/sys/class/i2c-dev/i2c-2/device/2-0044/"
+    setprop ro.hardware.lightsensor "/sys/class/i2c-dev/i2c-1/device/1-0044/"
     setprop ro.lightsensor.threshold  20
 
     # No bluetooth hardware present
@@ -217,14 +217,12 @@ service wpa_supplicant /system/bin/wpa_supplicant \
     disabled
     oneshot
 
-# magd daemon
-service magd /system/bin/magd
+service sensor_fusion /system/bin/fsl_sensor_fusion
     class late_start
     seclabel u:r:sensors:s0
     user system
     group input
     oneshot
-
 
 # Set watchdog timer to 30 seconds and pet it every 10 seconds to get a 20 second margin
 service watchdogd /sbin/watchdogd 10 20

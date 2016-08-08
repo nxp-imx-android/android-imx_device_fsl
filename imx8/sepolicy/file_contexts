@@ -1,4 +1,4 @@
-/system/bin/magd                u:object_r:sensors_exec:s0
+/system/bin/fsl_sensor_fusion   u:object_r:sensors_exec:s0
 /system/bin/ingsvcd             u:object_r:gpsd_exec:s0
 /system/bin/rtl_wpa_supplicant  u:object_r:wpa_exec:s0
 /system/bin/rtl_hostapd         u:object_r:hostapd_exec:s0
@@ -19,6 +19,9 @@
 /dev/galcore                    u:object_r:gpu_device:s0
 /dev/sda[0-8]*			u:object_r:fuse:s0
 /dev/caam_kb                    u:object_r:caam_device:s0
+/dev/FreescaleAccelerometer     u:object_r:sensors_device:s0
+/dev/FreescaleMagnetometer      u:object_r:sensors_device:s0
+/dev/FreescaleGyroscope         u:object_r:sensors_device:s0
 
 
 /dev/block/mmcblk[0-9]p2 		u:object_r:recovery_block_device:s0

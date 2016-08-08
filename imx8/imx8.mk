@@ -118,9 +118,12 @@ PRODUCT_PACKAGES += \
 	power.imx8				\
 	audio.r_submix.default			\
 	libbt-vendor				\
-	libbt-vendor-broadcom		\
+	libbt-vendor-broadcom			\
 	magd                                    \
-	consumerir.imx8
+	consumerir.imx8 			\
+	fsl_sensor_fusion
+
+
 
 
 # Atheros wifi firmwre files.

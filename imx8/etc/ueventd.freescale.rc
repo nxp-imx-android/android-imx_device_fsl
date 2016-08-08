@@ -19,6 +19,44 @@
 /dev/ir                   0660   system     system
 /dev/mma8x5x              0640   compass     system
 /dev/caam_kb              0660   system     system
+#sensors sysfs
+/sys/class/misc/Freescale*          name        0660  root   input
+/sys/class/misc/Freescale*          max         0660  root   input
+/sys/class/misc/Freescale*          min         0660  root   input
+/sys/class/misc/Freescale*          poll        0660  root   input
+/sys/class/misc/Freescale*          enable      0660  root   input
+/sys/class/misc/Freescale*          position    0660  root   input
+/sys/class/misc/Freescale*          poll_delay  0660  root   input
+/sys/class/misc/Freescale*          fifo        0660  root   input
+/dev/FreescaleAccelerometer                     0660  system input
+/dev/FreescaleMagnetometer                      0660  system input
+/dev/FreescaleGyroscope                         0660  system input
+
+#sensors virtual misc
+/sys/devices/virtual/misc/Freescale*          name        0660  root   input
+/sys/devices/virtual/misc/Freescale*          max         0660  root   input
+/sys/devices/virtual/misc/Freescale*          min         0660  root   input
+/sys/devices/virtual/misc/Freescale*          poll        0660  root   input
+/sys/devices/virtual/misc/Freescale*          enable      0660  root   input
+/sys/devices/virtual/misc/Freescale*          position    0660  root   input
+/sys/devices/virtual/misc/Freescale*          poll_delay  0660  root   input
+/sys/devices/virtual/misc/Freescale*          fifo        0660  root   input
+/sys/devices/virtual/misc/FreescaleAccelerometer                     0660  system input
+/sys/devices/virtual/misc/FreescaleMagnetometer                      0660  system input
+/sys/devices/virtual/misc/FreescaleGyroscope                         0660  system input
+
+/sys/class/i2c_dev/i2c-1/device/1-0044 mode                          0660 system system
+/sys/class/i2c_dev/i2c-1/device/1-0044 lux                           0660 system system
+/sys/class/i2c_dev/i2c-1/device/1-0044 int_lt_lux                    0660 system system
+/sys/class/i2c_dev/i2c-1/device/1-0044 int_ht_lux                    0660 system system
+/sys/class/i2c_dev/i2c-1/device/1-0044                               0660 system input
+
+/sys/devices/platform/5e110000.i2c/i2c-1/1-0044 mode                 0660 system system
+/sys/devices/platform/5e110000.i2c/i2c-1/1-0044 lux                  0660 system system
+/sys/devices/platform/5e110000.i2c/i2c-1/1-0044 int_lt_lux           0660 system system
+/sys/devices/platform/5e110000.i2c/i2c-1/1-0044 int_ht_lux           0660 system system
+/sys/devices/platform/5e110000.i2c/i2c-1/1-0044                      0660 system input
+
 
 # sysfs properties
 /sys/devices/virtual/input/input*   name        0660  root   input
