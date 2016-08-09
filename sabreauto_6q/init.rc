@@ -53,7 +53,7 @@ on boot
     setprop debug.egl.hw	1
 
     # Persistent Data Block
-    setprop ro.frp.pst /dev/block/mmcblk3p12
+    setprop ro.frp.pst /dev/block/mmcblk2p12
 
     setprop hwc.stretch.filter  1
     setprop hwc.enable_dither   1
