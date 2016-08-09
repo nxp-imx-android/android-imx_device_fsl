@@ -349,6 +349,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     fsck.f2fs mkfs.f2fs
 
+PRODUCT_PACKAGES += \
+    slideshow \
+    verity_warning_images
+
 PRODUCT_COPY_FILES +=	\
 	device/fsl/common/input/Dell_Dell_USB_Keyboard.kl:system/usr/keylayout/Dell_Dell_USB_Keyboard.kl \
 	device/fsl/common/input/Dell_Dell_USB_Keyboard.idc:system/usr/idc/Dell_Dell_USB_Keyboard.idc \
