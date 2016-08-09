@@ -57,3 +57,11 @@ PRODUCT_COPY_FILES += \
 	frameworks/native/data/etc/android.hardware.camera.front.xml:system/etc/permissions/android.hardware.camera.front.xml \
 	frameworks/native/data/etc/android.hardware.ethernet.xml:system/etc/permissions/android.hardware.ethernet.xml \
 	device/fsl/evk_6sl/required_hardware.xml:system/etc/permissions/required_hardware.xml
+
+PRODUCT_PACKAGES += \
+    gralloc_viv.imx6 \
+    hwcomposer_viv.imx6 \
+    hwcomposer_fsl.imx6 \
+    libGAL \
+    libg2d \
+    libgpuhelper

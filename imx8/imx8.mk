@@ -32,8 +32,6 @@ PRODUCT_PACKAGES += \
 	libfsl_hdcp_blob                     \
 	libstagefright_hdcp.so                  \
 	libstagefright_hdcp                  \
-	hwcomposer_fsl.imx8.so                  \
-	hwcomposer_fsl.imx8                  \
 	VideoEditor				\
 	FSLProfileApp				\
 	FSLProfileService			\

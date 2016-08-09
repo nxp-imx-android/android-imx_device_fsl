@@ -59,4 +59,20 @@ PRODUCT_COPY_FILES += \
 	frameworks/native/data/etc/android.hardware.bluetooth_le.xml:system/etc/permissions/android.hardware.bluetooth_le.xml \
 	frameworks/native/data/etc/android.hardware.ethernet.xml:system/etc/permissions/android.hardware.ethernet.xml \
 	device/fsl/sabresd_6dq/required_hardware.xml:system/etc/permissions/required_hardware.xml
-PRODUCT_PACKAGES += AudioRoute
+
+PRODUCT_COPY_FILES += \
+    device/fsl-proprietary/gpu-viv/lib/egl/egl.cfg:system/lib/egl/egl.cfg
+
+PRODUCT_PACKAGES += \
+    AudioRoute  \
+    libEGL_VIVANTE \
+    libGLESv1_CM_VIVANTE \
+    libGLESv2_VIVANTE \
+    gralloc_viv.imx6 \
+    hwcomposer_viv.imx6 \
+    hwcomposer_fsl.imx6 \
+    libGAL \
+    libGLSLC \
+    libVSC \
+    libg2d \
+    libgpuhelper

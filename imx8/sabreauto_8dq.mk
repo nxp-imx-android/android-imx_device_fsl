@@ -66,4 +66,18 @@ PRODUCT_COPY_FILES += \
 	frameworks/native/data/etc/android.hardware.ethernet.xml:system/etc/permissions/android.hardware.ethernet.xml \
 	device/fsl/sabreauto_8dq/required_hardware.xml:system/etc/permissions/required_hardware.xml \
 
-PRODUCT_PACKAGES += AudioRoute
+PRODUCT_COPY_FILES += \
+    device/fsl-proprietary/gpu-viv/lib64/egl/egl.cfg:system/lib64/egl/egl.cfg \
+    device/fsl-proprietary/gpu-viv/lib/egl/egl.cfg:system/lib/egl/egl.cfg
+
+PRODUCT_PACKAGES += AudioRoute  \
+                    libEGL_VIVANTE \
+                    libGLESv1_CM_VIVANTE \
+                    libGLESv2_VIVANTE \
+                    gralloc_viv.imx8 \
+                    hwcomposer_fsl.imx8 \
+                    libGAL \
+                    libGLSLC \
+                    libVSC \
+                    libg2d \
+                    libgpuhelper

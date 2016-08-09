@@ -5,7 +5,6 @@
 include device/fsl/imx6/soc/imx6sl.mk
 include device/fsl/evk_6sl/build_id.mk
 include device/fsl/imx6/BoardConfigCommon.mk
--include device/fsl-proprietary/gpu-viv/fsl-gpu.mk
 # evk_mx6sl default target for EXT4
 BUILD_TARGET_FS ?= ext4
 include device/fsl/imx6/imx6_target_fs.mk
