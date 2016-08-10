@@ -233,12 +233,12 @@ service magd /system/bin/magd
     group input
     oneshot
 
-service dhcpcd_eth1 /system/bin/dhcpcd -ABKL
+service dhcpcd_eth1 /system/bin/dhcpcd -ABKL eth1
     class main
     disabled
     oneshot
 
-service iprenew_eth1 /system/bin/dhcpcd -n
+service iprenew_eth1 /system/bin/dhcpcd -n eth1
     class main
     disabled
     oneshot
