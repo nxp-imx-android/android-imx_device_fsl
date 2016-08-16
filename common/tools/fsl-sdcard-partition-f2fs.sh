@@ -5,10 +5,10 @@
 
 # partition size in MB
 BOOTLOAD_RESERVE=8
-BOOT_ROM_SIZE=16
+BOOT_ROM_SIZE=32
 SYSTEM_ROM_SIZE=800
 CACHE_SIZE=512
-RECOVERY_ROM_SIZE=16
+RECOVERY_ROM_SIZE=32
 DEVICE_SIZE=8
 MISC_SIZE=4
 DATAFOOTER_SIZE=2
@@ -73,7 +73,7 @@ fi
 
 # call sfdisk to create partition table
 # get total card size
-seprate=40
+seprate=100
 total_size=`sfdisk -s ${node}`
 total_size=`expr ${total_size} / 1024`
 boot_rom_sizeb=`expr ${BOOT_ROM_SIZE} + ${BOOTLOAD_RESERVE}`
@@ -118,13 +118,13 @@ if [ "${flash_images}" -eq "1" ]; then
     echo "boot image: ${bootimage_file}"
     echo "recovery image: ${recoveryimage_file}"
     echo "system image: ${systemimage_file}"
-    dd if=/dev/zero of=${node} bs=1k seek=384 count=129
-    dd if=${bootimage_file} of=${node}${part}1
-    dd if=${recoveryimage_file} of=${node}${part}2
+    dd if=/dev/zero of=${node} bs=1k seek=${bootloader_offset} conv=fsync count=800
+    dd if=${bootloader_file} of=${node} bs=1k seek=${bootloader_offset} conv=fsync
+    dd if=${bootimage_file} of=${node}${part}1 conv=fsync
+    dd if=${recoveryimage_file} of=${node}${part}2 conv=fsync
     simg2img ${systemimage_file} ${systemimage_raw_file}
-    dd if=${systemimage_raw_file} of=${node}${part}5
+    dd if=${systemimage_raw_file} of=${node}${part}5 conv=fsync
     rm ${systemimage_raw_file}
-    dd if=${bootloader_file} of=${node} bs=1k seek=1
     sync
 fi
 }
@@ -158,6 +158,13 @@ EOF
 sfdisk --force ${opt_unit} ${node} -N1 << EOF
 ${BOOTLOAD_RESERVE}${unit_mb},${BOOT_ROM_SIZE}${unit_mb},83
 EOF
+
+# sleep 5s after re-partition
+# umount the partition which is mounted automatically.
+# sync the mbr table with hdparm
+sleep 5
+for i in `cat /proc/mounts | grep "${node}" | awk '{print $2}'`; do umount $i; done
+hdparm -z ${node}
 
 # format the SDCARD/DATA/CACHE partition
 part=""
