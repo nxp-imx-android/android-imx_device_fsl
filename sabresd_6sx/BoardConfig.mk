@@ -119,4 +119,6 @@ BOARD_SEPOLICY_DIRS := \
        device/fsl/imx6/sepolicy \
        device/fsl/sabresd_6sx/sepolicy
 
+BOARD_SECCOMP_POLICY += device/fsl/sabresd_6sx/seccomp
+
 TARGET_BOARD_KERNEL_HEADERS := device/fsl/common/kernel-headers

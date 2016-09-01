@@ -114,3 +114,4 @@ BOARD_SEPOLICY_DIRS := \
        device/fsl/imx8/sepolicy \
        device/fsl/sabreauto_8dq/sepolicy
 
+BOARD_SECCOMP_POLICY += device/fsl/sabreauto_8dq/seccomp
