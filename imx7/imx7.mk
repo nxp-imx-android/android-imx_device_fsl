@@ -22,6 +22,7 @@ PRODUCT_PACKAGES += \
 	BleServerEmulator                       \
 	BleClient                               \
 	ethernet                                \
+	libpxp                            \
 	VideoEditor				\
 	FSLProfileApp				\
 	FSLProfileService			\
