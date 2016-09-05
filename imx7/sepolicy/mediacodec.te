@@ -1,0 +1,3 @@
+allow mediacodec sysfs:file { read open getattr };
+allow mediacodec tmpfs:dir { search write add_name };
+allow mediacodec mediacodec_tmpfs:file { create open setattr };

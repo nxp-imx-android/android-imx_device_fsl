@@ -1,0 +1,5 @@
+allow cameraserver sysfs:dir { read open };
+allow cameraserver sysfs:file { open getattr read };
+allow cameraserver mediacodec_tmpfs:file { read write setattr open };
+allow cameraserver gpu_device:chr_file { read open write ioctl };
+allow cameraserver self:netlink_kobject_uevent_socket { create setopt bind read };
