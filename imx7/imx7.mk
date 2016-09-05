@@ -374,6 +374,23 @@ PRODUCT_COPY_FILES +=	\
     device/fsl-proprietary/media-profile/media_codecs_google_video.xml:system/etc/media_codecs_google_video.xml \
     device/fsl-proprietary/media-profile/media_codecs_google_telephony.xml:system/etc/media_codecs_google_telephony.xml \
 
+PRODUCT_COPY_FILES += \
+	external/imx-firmware/BCM4339/TypeZP/BCM4339_BT/Type_ZP.hcd:system/etc/firmware/bcm/Type_ZP.hcd 	\
+	external/imx-firmware/BCM4339/TypeZP/BCM4339_wifi/fw_bcmdhd.bin:system/etc/firmware/bcm/fw_bcmdhd.bin 	\
+	external/imx-firmware/BCM4339/TypeZP/BCM4339_wifi/fw_bcmdhd_apsta.bin:system/etc/firmware/bcm/fw_bcmdhd_apsta.bin 	\
+	external/imx-firmware/brcm/1BW_BCM43340/BCM43341B0.1BW.hcd:system/etc/firmware/bcm/1BW_BCM43340/BCM43341B0.1BW.hcd 	\
+	external/imx-firmware/brcm/1BW_BCM43340/bcmdhd.1BW.OOB.cal:system/etc/firmware/bcm/1BW_BCM43340/bbcmdhd.1BW.OOB.cal 	\
+	external/imx-firmware/brcm/1BW_BCM43340/bcmdhd.1BW.SDIO.cal:system/etc/firmware/bcm/1BW_BCM43340/bcmdhd.1BW.SDIO.cal 	\
+	external/imx-firmware/brcm/1BW_BCM43340/fw_bcmdhd.bin:system/etc/firmware/bcm/1BW_BCM43340/1bw_fw_bcmdhd.bin 	\
+	external/imx-firmware/brcm/1DX_BCM4343W/BCM43430A1.1DX.hcd:system/etc/firmware/bcm/1DX_BCM4343W/BCM43430A1.1DX.hcd 	\
+	external/imx-firmware/brcm/1DX_BCM4343W/bcmdhd.1DX.OOB.cal:system/etc/firmware/bcm/1DX_BCM4343W/bcmdhd.1DX.OOB.cal	\
+	external/imx-firmware/brcm/1DX_BCM4343W/bcmdhd.1DX.SDIO.cal:system/etc/firmware/bcm/1DX_BCM4343W/bcmdhd.1DX.SDIO.cal	\
+	external/imx-firmware/brcm/1DX_BCM4343W/fw_bcmdhd.bin:system/etc/firmware/bcm/1DX_BCM4343W/1dx_fw_bcmdhd.bin 	\
+	external/imx-firmware/brcm/SN8000_BCM43362/bcmdhd.SN8000.OOB.cal:system/etc/firmware/bcm/SN8000_BCM43362/bcmdhd.SN8000.OOB.cal 	\
+	external/imx-firmware/brcm/SN8000_BCM43362/bcmdhd.SN8000.SDIO.cal:system/etc/firmware/bcm/SN8000_BCM43362/bcmdhd.SN8000.SDIO.cal	\
+	external/imx-firmware/brcm/SN8000_BCM43362/fw_bcmdhd.bin:system/etc/firmware/bcm/SN8000_BCM43362/sn_fw_bcmdhd.bin 	\
+	external/imx-firmware/brcm/SN8000_BCM43362/fw_bcmdhd_apsta.bin:system/etc/firmware/bcm/SN8000_BCM43362/sn_fw_bcmdhd_apsta.bin 	\
+
 
 # we have enough storage space to hold precise GC data
 PRODUCT_TAGS += dalvik.gc.type-precise
