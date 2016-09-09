@@ -1,7 +1,7 @@
 on boot
 
     # Set OpenGLES version
-    setprop ro.opengles.version 196609
+    setprop ro.opengles.version 196610
 
     # Set GPU 3D minimum clock to 3/64
     write /sys/bus/platform/drivers/galcore/gpu3DMinClock 3
