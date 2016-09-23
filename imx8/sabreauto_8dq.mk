@@ -84,4 +84,7 @@ PRODUCT_PACKAGES += AudioRoute  \
                     libGLSLC \
                     libVSC \
                     libg2d \
-                    libgpuhelper
+                    libgpuhelper \
+                    libSPIRV \
+                    libvulkan_VIVANTE \
+                    vulkan.imx8
