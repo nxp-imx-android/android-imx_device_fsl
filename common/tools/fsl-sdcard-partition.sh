@@ -73,8 +73,8 @@ if [ $sfdisk_version -ge "26" ]; then
     opt_unit=""
     unit_mb="M"
 else
-    opt_unit="-uM"
-    unit_mb=""
+    echo "Please update your sfdisk version to 2.26 or later version"
+    exit
 fi
 
 # call sfdisk to create partition table
