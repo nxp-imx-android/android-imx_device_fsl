@@ -15,6 +15,8 @@ TARGET_RECOVERY_FSTAB = device/fsl/evk_6ul/fstab_nand.freescale
 PRODUCT_COPY_FILES +=	\
 	device/fsl/evk_6ul/fstab_nand.freescale:root/fstab.freescale
 else
+ADDITIONAL_BUILD_PROPERTIES += \
+                        ro.frp.pst=/dev/block/mmcblk1p12
 ifneq ($(BUILD_TARGET_FS),f2fs)
 TARGET_RECOVERY_FSTAB = device/fsl/evk_6ul/fstab.freescale
 # build for ext4
