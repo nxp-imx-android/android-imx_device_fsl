@@ -56,19 +56,15 @@ UMS_ONEPARTITION_PER_DISK := true
 PREBUILT_FSL_IMX_CODEC := true
 PREBUILT_FSL_IMX_GPU := true
 PREBUILT_FSL_WFDSINK := true
-PREBUILT_FSL_HWCOMPOSER := true
 
 # override some prebuilt setting if DISABLE_FSL_PREBUILT is define
 ifeq ($(DISABLE_FSL_PREBUILT),GPU)
 PREBUILT_FSL_IMX_GPU := false
 else ifeq ($(DISABLE_FSL_PREBUILT),WFD)
 PREBUILT_FSL_WFDSINK := false
-else ifeq ($(DISABLE_FSL_PREBUILT),HWC)
-PREBUILT_FSL_HWCOMPOSER := false
 else ifeq ($(DISABLE_FSL_PREBUILT),ALL)
 PREBUILT_FSL_IMX_GPU := false
 PREBUILT_FSL_WFDSINK := false
-PREBUILT_FSL_HWCOMPOSER := false
 endif
 
 # use non-neon memory copy on mx6x to get better performance
