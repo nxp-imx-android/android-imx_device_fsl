@@ -12,5 +12,5 @@ on boot
     # set back camera.
     setprop back_camera_name ov5640_camera
 
-    # disable front camera support.
-    setprop front_camera_name 0
+    # set front camera.
+    setprop front_camera_name uvc
