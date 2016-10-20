@@ -13,6 +13,7 @@ TARGET_KERNEL_DEFCONF := imx8_android_defconfig
 -include external/fsl_vpu_omx/codec_env.mk
 -include external/fsl_imx_omx/codec_env.mk
 TARGET_HAVE_IMX_GRALLOC := true
+TARGET_HIGH_PERFORMANCE := true
 TARGET_HAVE_IMX_HWCOMPOSER = false
 TARGET_HAVE_VIV_HWCOMPOSER = false
 TARGET_FSL_IMX_2D := DPU2D
