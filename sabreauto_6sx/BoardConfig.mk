@@ -61,6 +61,7 @@ BOARD_MODEM_VENDOR := AMAZON
 USE_ATHR_GPS_HARDWARE := false
 USE_QEMU_GPS_HARDWARE := false
 
+PHONE_MODULE_INCLUDE := flase
 #for accelerator sensor, need to define sensor type here
 BOARD_HAS_SENSOR := true
 SENSOR_MMA8451 := true
