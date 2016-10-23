@@ -1,0 +1,3 @@
+allow uncrypt block_device:blk_file { write open };
+allow uncrypt mtd_device:dir { write open search read};
+allow uncrypt mtd_device:chr_file { write open ioctl read};
