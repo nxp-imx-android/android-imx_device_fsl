@@ -33,7 +33,7 @@ on init
     mkdir /device 0771 system system
 
     # shared memory used by VPU to distinguish VPU instance.
-    mkdir /mnt/shm  0775 media mediadrm
+    mkdir /mnt/shm  0775 media drmrpc
     mount tmpfs tmpfs /mnt/shm mode=0775,uid=1013,gid=1031,size=1m
 
 on boot
