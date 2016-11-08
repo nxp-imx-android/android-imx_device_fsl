@@ -76,17 +76,17 @@ PRODUCT_COPY_FILES += \
     device/fsl-proprietary/gpu-viv/lib64/egl/egl.cfg:system/lib64/egl/egl.cfg \
     device/fsl-proprietary/gpu-viv/lib/egl/egl.cfg:system/lib/egl/egl.cfg
 
-PRODUCT_PACKAGES += AudioRoute  \
-                    libEGL_VIVANTE \
-                    libGLESv1_CM_VIVANTE \
-                    libGLESv2_VIVANTE \
-                    gralloc_viv.imx8 \
-                    hwcomposer_fsl.imx8 \
-                    libGAL \
-                    libGLSLC \
-                    libVSC \
-                    libg2d \
-                    libgpuhelper \
-                    libSPIRV \
-                    libvulkan_VIVANTE \
-                    vulkan.imx8
+PRODUCT_PACKAGES += \
+        libEGL_VIVANTE \
+        libGLESv1_CM_VIVANTE \
+        libGLESv2_VIVANTE \
+        gralloc_viv.imx8 \
+        hwcomposer_fsl.imx8 \
+        libGAL \
+        libGLSLC \
+        libVSC \
+        libg2d \
+        libgpuhelper \
+        libSPIRV \
+        libvulkan_VIVANTE \
+        vulkan.imx8

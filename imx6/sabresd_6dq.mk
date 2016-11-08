@@ -64,7 +64,6 @@ PRODUCT_COPY_FILES += \
     device/fsl-proprietary/gpu-viv/lib/egl/egl.cfg:system/lib/egl/egl.cfg
 
 PRODUCT_PACKAGES += \
-    AudioRoute  \
     libEGL_VIVANTE \
     libGLESv1_CM_VIVANTE \
     libGLESv2_VIVANTE \
