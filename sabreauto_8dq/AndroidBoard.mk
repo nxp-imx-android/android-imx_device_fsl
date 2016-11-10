@@ -6,3 +6,4 @@ endif
 
 include device/fsl-proprietary/media-profile/media-profile.mk
 include device/fsl-proprietary/sensor/fsl-sensor.mk
+include device/fsl/sabreauto_8dq/AndroidUboot.mk
