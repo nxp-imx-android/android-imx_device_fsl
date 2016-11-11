@@ -81,7 +81,6 @@ PRODUCT_PACKAGES += \
         libGLESv1_CM_VIVANTE \
         libGLESv2_VIVANTE \
         gralloc_viv.imx8 \
-        hwcomposer_fsl.imx8 \
         libGAL \
         libGLSLC \
         libVSC \
