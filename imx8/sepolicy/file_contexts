@@ -16,6 +16,7 @@
 /dev/ubi0_2                     u:object_r:block_device:s0
 /dev/ubi0_3                     u:object_r:block_device:s0
 /dev/galcore                    u:object_r:gpu_device:s0
+/dev/imxdpu                     u:object_r:gpu_device:s0
 /dev/sda[0-8]*			u:object_r:fuse:s0
 /dev/caam_kb                    u:object_r:caam_device:s0
 /dev/pxp_device                 u:object_r:pxp_device:s0
