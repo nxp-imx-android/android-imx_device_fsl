@@ -34,7 +34,7 @@ $(call inherit-product, build/target/product/verity.mk)
 endif
 # GPU files
 
-DEVICE_PACKAGE_OVERLAYS := device/fsl/sabreauto_6q/overlay
+DEVICE_PACKAGE_OVERLAYS := device/fsl/sabreauto_8dq/overlay
 
 PRODUCT_CHARACTERISTICS := tablet
 
