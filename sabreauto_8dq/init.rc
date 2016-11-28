@@ -82,6 +82,9 @@ on boot
     setprop alsa.mixer.playback.headset Headphone
     setprop alsa.mixer.capture.headset Capture
 
+    # Set period_us for usb audio
+    setprop ro.audio.usb.period_us 20000
+
     # Prepare for wifi
     setprop wifi.interface wlan0
     setprop wifi.ap.interface wlan0
