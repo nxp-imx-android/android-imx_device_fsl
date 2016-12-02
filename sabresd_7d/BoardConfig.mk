@@ -29,6 +29,8 @@ PRODUCT_COPY_FILES +=	\
 endif # BUILD_TARGET_FS
 endif # BUILD_TARGET_FS
 
+ADDITIONAL_BUILD_PROPERTIES += \
+                       ro.internel.storage_size=/dev/block/mmcblk0/size
 TARGET_BOOTLOADER_BOARD_NAME := SABRESD
 PRODUCT_MODEL := SABRESD_MX7D
 
