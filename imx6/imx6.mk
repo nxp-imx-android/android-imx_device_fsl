@@ -46,18 +46,12 @@ PRODUCT_PACKAGES += \
 	ip-up-vpn				\
 	ip-up-ppp0				\
 	ip-down-ppp0				\
-	rtl_wpa_supplicant			\
 	wpa_supplicant				\
 	wpa_supplicant.conf			\
 	p2p_supplicant_overlay.conf			\
 	wpa_supplicant_overlay.conf			\
     p2p_supplicant_advance_overlay.conf \
-	dispd					\
-	ts_calibrator				\
-	libion                                  \
-	display_mode_fb0.conf                   \
-	display_mode_fb2.conf                   \
-	display_mode_fb4.conf
+	libion
 
 #FREESCALE_EXTENDED
 PRODUCT_PACKAGES += freescale-extended 		\
@@ -92,23 +86,13 @@ PRODUCT_PACKAGES += \
  
 # Debug utils
 PRODUCT_PACKAGES += \
-	busybox					\
-	bash					\
 	taskset					\
-	sqlite3					\
-	libefence				\
-	powerdebug
+	sqlite3
 
 # Wifi AP mode
 PRODUCT_PACKAGES += \
-	rtl_hostapd 				\
 	hostapd					\
 	hostapd_cli
-
-# keyboard mapping files.
-PRODUCT_PACKAGES += \
-	Dell_Dell_USB_Keyboard.kcm		\
-	mxckpd.kcm				\
 
 #audio related lib
 PRODUCT_PACKAGES += \
@@ -138,8 +122,7 @@ PRODUCT_PACKAGES += \
 	audio.r_submix.default			\
 	libbt-vendor				\
 	libbt-vendor-broadcom		\
-	magd                                    \
-	consumerir.imx6
+	magd
 
 
 # Freescale VPU firmware files.
@@ -147,32 +130,6 @@ PRODUCT_PACKAGES += \
 	libvpu					\
 	vpu_fw_imx6q.bin			\
 	vpu_fw_imx6d.bin			\
-
-# Atheros wifi firmwre files.
-PRODUCT_PACKAGES += \
-	fw-3					\
-	bdata					\
-	athtcmd_ram				\
-	nullTestFlow				\
-	cfg80211.ko				\
-	compat.ko				\
-	ath6kl_sdio.ko				\
-	check_wifi_mac.sh
-
-# Atheros wifi tool
-PRODUCT_PACKAGES += \
-	abtfilt					\
-	artagent				\
-	ath6kl-fwlog-record			\
-	athtestcmd				\
-	psatUtil				\
-	wmiconfig
-
-# Intel PCIE wifi firmware
-PRODUCT_PACKAGES += \
-	iwlwifi-6000-4.ucode			\
-	iwlwifi-5000-5.ucode			\
-	iwlagn.ko
 
 PRODUCT_PACKAGES += \
     slideshow \
@@ -351,7 +308,6 @@ PRODUCT_AAPT_CONFIG := normal mdpi
 
 # ril related libs
 PRODUCT_PACKAGES += \
-	libreference-ril-zte.so \
 	libruntime-ril-port
 
 PRODUCT_PACKAGES += \
@@ -377,9 +333,6 @@ PRODUCT_COPY_FILES +=	\
 	device/fsl/imx6/etc/ppp/init.gprs-pppd:system/etc/ppp/init.gprs-pppd \
 	device/fsl/imx6/etc/ota.conf:system/etc/ota.conf \
         device/fsl/imx6/init.recovery.freescale.rc:root/init.recovery.freescale.rc \
-	device/fsl/common/display/display_mode_fb0.conf:system/etc/display_mode_fb0.conf \
-	device/fsl/common/display/display_mode_fb2.conf:system/etc/display_mode_fb2.conf \
-	device/fsl/common/display/display_mode_fb4.conf:system/etc/display_mode_fb4.conf \
     device/fsl-proprietary/media-profile/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
     device/fsl-proprietary/media-profile/media_codecs_google_video.xml:system/etc/media_codecs_google_video.xml \
     device/fsl-proprietary/media-profile/media_codecs_google_telephony.xml:system/etc/media_codecs_google_telephony.xml \
