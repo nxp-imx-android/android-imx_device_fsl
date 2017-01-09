@@ -20,9 +20,17 @@ PRODUCT_COPY_FILES += \
 	device/fsl/sabreauto_8dq/init.rc:root/init.freescale.rc \
 	device/fsl/sabreauto_8dq/init.i.MX8DV.rc:root/init.freescale.i.MX8DV.rc \
 	device/fsl/sabreauto_8dq/init.i.MX8QM.rc:root/init.freescale.i.MX8QM.rc \
-	device/fsl/sabreauto_8dq/audio_policy.conf:system/etc/audio_policy.conf \
-	device/fsl/sabreauto_8dq/audio_policy_cts.conf:system/etc/audio_policy_cts.conf \
-	device/fsl/sabreauto_8dq/audio_effects.conf:system/vendor/etc/audio_effects.conf
+
+# Audio
+USE_XML_AUDIO_POLICY_CONF := 1
+PRODUCT_COPY_FILES += \
+	device/fsl/sabreauto_8dq/audio_effects.conf:system/vendor/etc/audio_effects.conf \
+	device/fsl/sabreauto_8dq/audio_policy_configuration.xml:system/etc/audio_policy_configuration.xml \
+	device/fsl/sabreauto_8dq/audio_policy_configuration_cts.xml:system/etc/audio_policy_configuration_cts.xml \
+	frameworks/av/services/audiopolicy/config/r_submix_audio_policy_configuration.xml:system/etc/r_submix_audio_policy_configuration.xml \
+	frameworks/av/services/audiopolicy/config/usb_audio_policy_configuration.xml:system/etc/usb_audio_policy_configuration.xml \
+	frameworks/av/services/audiopolicy/config/default_volume_tables.xml:system/etc/default_volume_tables.xml \
+	frameworks/av/services/audiopolicy/config/audio_policy_volumes.xml:system/etc/audio_policy_volumes.xml \
 
 PRODUCT_COPY_FILES +=	\
 	external/linux-firmware-imx/firmware/vpu/vpu_fw_imx6d.bin:system/lib/firmware/vpu/vpu_fw_imx8dv.bin 	\

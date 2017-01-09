@@ -18,8 +18,17 @@ PRODUCT_DEVICE := sabreauto_6sx
 
 PRODUCT_COPY_FILES += \
 	device/fsl/sabreauto_6sx/init.rc:root/init.freescale.rc \
-	device/fsl/sabreauto_6sx/audio_policy.conf:system/etc/audio_policy.conf \
-	device/fsl/sabreauto_6sx/audio_effects.conf:system/vendor/etc/audio_effects.conf
+
+# Audio
+USE_XML_AUDIO_POLICY_CONF := 1
+PRODUCT_COPY_FILES += \
+	device/fsl/sabreauto_6sx/audio_effects.conf:system/vendor/etc/audio_effects.conf \
+	device/fsl/sabreauto_6sx/audio_policy_configuration.xml:system/etc/audio_policy_configuration.xml \
+	frameworks/av/services/audiopolicy/config/r_submix_audio_policy_configuration.xml:system/etc/r_submix_audio_policy_configuration.xml \
+	frameworks/av/services/audiopolicy/config/usb_audio_policy_configuration.xml:system/etc/usb_audio_policy_configuration.xml \
+	frameworks/av/services/audiopolicy/config/default_volume_tables.xml:system/etc/default_volume_tables.xml \
+	frameworks/av/services/audiopolicy/config/audio_policy_volumes.xml:system/etc/audio_policy_volumes.xml \
+
 # setup dm-verity configs.
 ifneq ($(BUILD_TARGET_FS),ubifs)
  PRODUCT_SYSTEM_VERITY_PARTITION := /dev/block/mmcblk2p5
