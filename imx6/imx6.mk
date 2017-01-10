@@ -363,6 +363,10 @@ PRODUCT_TAGS += dalvik.gc.type-precise
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
 	persist.sys.usb.config=mtp
 
+# enlarge media max memory size to 3G.
+PRODUCT_PROPERTY_OVERRIDES += \
+        ro.media.maxmem=3221225472
+
 #this must be set before including tablet-7in-hdpi-1024-dalvik-heap.mk
 PRODUCT_PROPERTY_OVERRIDES += \
         dalvik.vm.heapgrowthlimit=128m
