@@ -18,7 +18,7 @@ PRODUCT_COPY_FILES +=	\
 	device/fsl/sabreauto_6q/fstab_nand.freescale:root/fstab.freescale
 else
 ADDITIONAL_BUILD_PROPERTIES += \
-                        ro.internel.storage_size=/dev/block/mmcblk2/size \
+                        ro.internel.storage_size=/sys/block/mmcblk2/size \
                         ro.boot.storage_type=sd \
                         ro.frp.pst=/dev/block/mmcblk2p12
 ifneq ($(BUILD_TARGET_FS),f2fs)

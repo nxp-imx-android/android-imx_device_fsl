@@ -29,7 +29,7 @@ endif # BUILD_TARGET_FS
 endif # BUILD_TARGET_FS
 
 ADDITIONAL_BUILD_PROPERTIES += \
-                       ro.internel.storage_size=/dev/block/mmcblk1/size
+                       ro.internel.storage_size=/sys/block/mmcblk1/size
 TARGET_BOOTLOADER_BOARD_NAME := EVK
 PRODUCT_MODEL := EVK_MX6SL
 

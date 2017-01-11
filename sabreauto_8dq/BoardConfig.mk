@@ -21,7 +21,7 @@ PRODUCT_COPY_FILES +=	\
 	device/fsl/sabreauto_8dq/fstab_nand.freescale:root/fstab.freescale
 else
 ADDITIONAL_BUILD_PROPERTIES += \
-                        ro.internel.storage_size=/dev/block/mmcblk1/size \
+                        ro.internel.storage_size=/sys/block/mmcblk1/size \
                         ro.boot.storage_type=sd
 ifneq ($(BUILD_TARGET_FS),f2fs)
 TARGET_RECOVERY_FSTAB = device/fsl/sabreauto_8dq/fstab.freescale

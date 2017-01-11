@@ -16,7 +16,7 @@ PRODUCT_COPY_FILES +=	\
 	device/fsl/sabresd_6sx/fstab_nand.freescale:root/fstab.freescale
 else
 ADDITIONAL_BUILD_PROPERTIES += \
-                        ro.internel.storage_size=/dev/block/mmcblk3/size \
+                        ro.internel.storage_size=/sys/block/mmcblk3/size \
                         ro.frp.pst=/dev/block/mmcblk3p12
 ifneq ($(BUILD_TARGET_FS),f2fs)
 TARGET_RECOVERY_FSTAB = device/fsl/sabresd_6sx/fstab.freescale
