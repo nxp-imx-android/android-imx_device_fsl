@@ -14,4 +14,4 @@ allow untrusted_app mmc_prop:file { getattr open };
 allow untrusted_app device_logging_prop:file { getattr open };
 allow untrusted_app sysfs:dir { read open };
 allow untrusted_app sysfs:lnk_file { getattr };
-
+allow untrusted_app debugfs_tracing:file { write };

@@ -1,1 +1,2 @@
 allow zygote storage_file:dir { getattr };
+allow zygote debugfs_tracing:file { getattr write open };
