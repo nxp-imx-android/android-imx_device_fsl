@@ -73,5 +73,18 @@ PRODUCT_COPY_FILES += \
 	frameworks/native/data/etc/android.hardware.bluetooth_le.xml:system/etc/permissions/android.hardware.bluetooth_le.xml \
 	device/fsl/evk_7ulp/required_hardware.xml:system/etc/permissions/required_hardware.xml
 
+PRODUCT_COPY_FILES += \
+    device/fsl-proprietary/gpu-viv/lib/egl/egl.cfg:system/lib/egl/egl.cfg
+
 PRODUCT_PACKAGES += \
-        libg2d
+    libEGL_VIVANTE \
+    libGLESv1_CM_VIVANTE \
+    libGLESv2_VIVANTE \
+    gralloc_viv.imx7 \
+    hwcomposer_viv.imx7 \
+    hwcomposer_fsl.imx7 \
+    libGAL \
+    libGLSLC \
+    libVSC \
+    libg2d \
+    libgpuhelper
