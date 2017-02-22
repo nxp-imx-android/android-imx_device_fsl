@@ -60,9 +60,9 @@ endif
 
 BOARD_SUPPORT_BCM_WIFI := true
 
-WIFI_DRIVER_FW_PATH_STA 	:= "/system/etc/firmware/bcm/fw_bcmdhd.bin"
-WIFI_DRIVER_FW_PATH_P2P 	:= "/system/etc/firmware/bcm/fw_bcmdhd.bin"
-WIFI_DRIVER_FW_PATH_AP  	:= "/system/etc/firmware/bcm/fw_bcmdhd_apsta.bin"
+WIFI_DRIVER_FW_PATH_STA 	:= "/system/etc/firmware/bcm/1DX_BCM4343W/fw_bcmdhd.bin"
+WIFI_DRIVER_FW_PATH_P2P 	:= "/system/etc/firmware/bcm/1DX_BCM4343W/fw_bcmdhd.bin"
+WIFI_DRIVER_FW_PATH_AP  	:= "/system/etc/firmware/bcm/1DX_BCM4343W/fw_bcmdhd_apsta.bin"
 WIFI_DRIVER_FW_PATH_PARAM 	:= "/sys/module/bcmdhd/parameters/firmware_path"
 
 BOARD_MODEM_VENDOR := AMAZON
