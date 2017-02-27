@@ -2,4 +2,5 @@ allow shell proc_uid_cputime_showstat:file { getattr read open };
 allow shell proc_uid_cputime_removeuid:file { getattr read open };
 allow shell unlabeled:lnk_file { read };
 allow shell system_data_file:file { read };
+allow shell device:dir { read open};
 dontaudit shell self:capability { dac_override };

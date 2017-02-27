@@ -1,0 +1,3 @@
+allow ueventd audio_device:chr_file  { relabelfrom relabelto };
+allow ueventd input_device:chr_file  { relabelfrom relabelto };
+allow ueventd video_device:chr_file  { relabelfrom relabelto };
