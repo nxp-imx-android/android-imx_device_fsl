@@ -13,7 +13,7 @@ $(shell touch device/fsl/evk_6sl/fstab.freescale)
 endif
 
 # setup dm-verity configs.
- PRODUCT_SYSTEM_VERITY_PARTITION := /dev/block/mmcblk1p5
+ PRODUCT_SYSTEM_VERITY_PARTITION := /dev/block/by-name/system
  $(call inherit-product, build/target/product/verity.mk)
 
 # Overrides
@@ -66,6 +66,7 @@ PRODUCT_COPY_FILES += \
 	frameworks/native/data/etc/android.hardware.ethernet.xml:system/etc/permissions/android.hardware.ethernet.xml \
 	device/fsl/evk_6sl/required_hardware.xml:system/etc/permissions/required_hardware.xml
 
+PRODUCT_COPY_FILES += device/fsl/evk_6sl/init.freescale.sd.rc:root/init.freescale.sd.rc
 PRODUCT_PACKAGES += \
     gralloc_viv.imx6 \
     hwcomposer_viv.imx6 \

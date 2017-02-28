@@ -96,7 +96,11 @@ TARGET_BOARD_DTS_CONFIG := imx7d:imx7d-sdb.dtb imx7d-epdc:imx7d-sdb-epdc.dtb
 
 BOARD_SEPOLICY_DIRS := \
        device/fsl/imx7/sepolicy \
-       device/fsl/sabresd_7d/sepolicy
+       device/fsl/sabresd_7d/sepolicy \
+       device/fsl/common/sepolicy
+
+# Support gpt
+BOARD_BPT_INPUT_FILES += device/fsl/common/partition/device-partitions.bpt
 
 BOARD_SECCOMP_POLICY += device/fsl/sabresd_7d/seccomp
 

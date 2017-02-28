@@ -13,7 +13,7 @@ $(shell touch device/fsl/evk_7ulp/fstab.freescale)
 endif
 
 # setup dm-verity configs.
- PRODUCT_SYSTEM_VERITY_PARTITION := /dev/block/mmcblk0p5
+ PRODUCT_SYSTEM_VERITY_PARTITION := /dev/block/by-name/system
  $(call inherit-product, build/target/product/verity.mk)
 
 # Overrides
@@ -75,6 +75,8 @@ PRODUCT_COPY_FILES += \
 
 PRODUCT_COPY_FILES += \
     device/fsl-proprietary/gpu-viv/lib/egl/egl.cfg:system/lib/egl/egl.cfg
+
+PRODUCT_COPY_FILES += device/fsl/evk_7ulp/init.freescale.sd.rc:root/init.freescale.sd.rc
 
 PRODUCT_PACKAGES += \
     libEGL_VIVANTE \

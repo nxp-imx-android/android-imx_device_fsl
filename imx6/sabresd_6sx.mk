@@ -31,7 +31,7 @@ PRODUCT_COPY_FILES += \
 	frameworks/av/services/audiopolicy/config/audio_policy_volumes.xml:system/etc/audio_policy_volumes.xml \
 
 # setup dm-verity configs.
- PRODUCT_SYSTEM_VERITY_PARTITION := /dev/block/mmcblk3p5
+ PRODUCT_SYSTEM_VERITY_PARTITION := /dev/block/by-name/system
  $(call inherit-product, build/target/product/verity.mk)
 
 # GPU files
@@ -55,6 +55,9 @@ PRODUCT_COPY_FILES += \
 	frameworks/native/data/etc/android.hardware.bluetooth_le.xml:system/etc/permissions/android.hardware.bluetooth_le.xml \
 	frameworks/native/data/etc/android.hardware.ethernet.xml:system/etc/permissions/android.hardware.ethernet.xml \
 	device/fsl/sabresd_6sx/required_hardware.xml:system/etc/permissions/required_hardware.xml
+
+PRODUCT_COPY_FILES += \
+    device/fsl/sabresd_6sx/init.freescale.sd.rc:root/init.freescale.sd.rc
 
 PRODUCT_COPY_FILES += \
     device/fsl-proprietary/gpu-viv/lib/egl/egl.cfg:system/lib/egl/egl.cfg

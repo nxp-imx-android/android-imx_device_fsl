@@ -1,15 +1,12 @@
 import init.${ro.hardware}.usb.rc
 import init.${ro.hardware}.${ro.soc}.rc
+import init.${ro.hardware}.${ro.boot.storage_type}.rc
 
 on early-init
     # mount the debugfs
     mount debugfs none /sys/kernel/debug/ mode=0755
 
 on init
-
-    # Load persistent dm-verity state
-    verity_load_state
-
     start watchdogd
 
     # Support legacy paths

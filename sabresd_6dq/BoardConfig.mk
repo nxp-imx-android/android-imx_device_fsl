@@ -9,27 +9,8 @@ include device/fsl/imx6/BoardConfigCommon.mk
 BUILD_TARGET_FS ?= ext4
 include device/fsl/imx6/imx6_target_fs.mk
 
-ifeq ($(BUILD_TARGET_DEVICE),sd)
 ADDITIONAL_BUILD_PROPERTIES += \
-                        ro.internel.storage_size=/sys/block/mmcblk2/size \
-                        ro.boot.storage_type=sd \
-                        ro.frp.pst=/dev/block/mmcblk2p12
-ifneq ($(BUILD_TARGET_FS),f2fs)
-TARGET_RECOVERY_FSTAB = device/fsl/sabresd_6dq/fstab_sd.freescale
-# build for ext4
-PRODUCT_COPY_FILES +=	\
-	device/fsl/sabresd_6dq/fstab_sd.freescale:root/fstab.freescale
-else
-TARGET_RECOVERY_FSTAB = device/fsl/sabresd_6dq/fstab_sd-f2fs.freescale
-# build for f2fs
-PRODUCT_COPY_FILES +=	\
-	device/fsl/sabresd_6dq/fstab_sd-f2fs.freescale:root/fstab.freescale
-endif # BUILD_TARGET_FS
-else
-ADDITIONAL_BUILD_PROPERTIES += \
-                        ro.internel.storage_size=/sys/block/mmcblk3/size \
-                        ro.boot.storage_type=emmc \
-                        ro.frp.pst=/dev/block/mmcblk3p12
+                        ro.internel.storage_size=/sys/block/bootdev_size
 ifneq ($(BUILD_TARGET_FS),f2fs)
 TARGET_RECOVERY_FSTAB = device/fsl/sabresd_6dq/fstab.freescale
 # build for ext4
@@ -41,8 +22,7 @@ TARGET_RECOVERY_FSTAB = device/fsl/sabresd_6dq/fstab-f2fs.freescale
 PRODUCT_COPY_FILES +=	\
 	device/fsl/sabresd_6dq/fstab-f2fs.freescale:root/fstab.freescale
 endif # BUILD_TARGET_FS
-endif # BUILD_TARGET_DEVICE
-
+ADDITIONAL_BUILD_PROPERTIES += ro.frp.pst=/dev/block/by-name/presistdata
 
 TARGET_BOOTLOADER_BOARD_NAME := SABRESD
 PRODUCT_MODEL := SABRESD-MX6DQ
@@ -109,7 +89,7 @@ $(error "TARGET_USERIMAGES_USE_UBIFS and TARGET_USERIMAGES_USE_EXT4 config open 
 endif
 endif
 
-BOARD_KERNEL_CMDLINE := console=ttymxc0,115200 init=/init video=mxcfb0:dev=ldb,bpp=32 video=mxcfb1:off video=mxcfb2:off video=mxcfb3:off vmalloc=128M androidboot.console=ttymxc0 consoleblank=0 androidboot.hardware=freescale cma=448M
+BOARD_KERNEL_CMDLINE := console=ttymxc0,115200 init=/init video=mxcfb0:dev=ldb,bpp=32 video=mxcfb1:off video=mxcfb2:off video=mxcfb3:off vmalloc=128M androidboot.console=ttymxc0 consoleblank=0 androidboot.hardware=freescale cma=448M androidboot.selinux=permissive
 
 ifeq ($(TARGET_USERIMAGES_USE_UBIFS),true)
 #UBI boot command line.
@@ -129,6 +109,7 @@ PHONE_MODULE_INCLUDE := true
 # camera hal v3
 IMX_CAMERA_HAL_V3 := true
 
+
 #define consumer IR HAL support
 IMX6_CONSUMER_IR_HAL := false
 
@@ -137,7 +118,10 @@ TARGET_BOARD_DTS_CONFIG := imx6q:imx6q-sabresd.dtb imx6dl:imx6dl-sabresd.dtb imx
 
 BOARD_SEPOLICY_DIRS := \
        device/fsl/imx6/sepolicy \
-       device/fsl/sabresd_6dq/sepolicy
+       device/fsl/sabresd_6dq/sepolicy \
+       device/fsl/common/sepolicy
+# Support gpt
+BOARD_BPT_INPUT_FILES += device/fsl/common/partition/device-partitions.bpt
 
 BOARD_SECCOMP_POLICY += device/fsl/sabresd_6dq/seccomp
 

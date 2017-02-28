@@ -37,10 +37,12 @@ PRODUCT_COPY_FILES +=	\
 	external/linux-firmware-imx/firmware/vpu/vpu_fw_imx6q.bin:system/lib/firmware/vpu/vpu_fw_imx8qm.bin
 # setup dm-verity configs.
 ifneq ($(BUILD_TARGET_FS),ubifs)
-PRODUCT_SYSTEM_VERITY_PARTITION := /dev/block/mmcblk1p5
+PRODUCT_SYSTEM_VERITY_PARTITION := /dev/block/by-name/system
 $(call inherit-product, build/target/product/verity.mk)
 endif
 # GPU files
+
+PRODUCT_COPY_FILES += device/fsl/sabreauto_8dq/init.freescale.sd.rc:root/init.freescale.sd.rc
 
 DEVICE_PACKAGE_OVERLAYS := device/fsl/sabreauto_8dq/overlay
 

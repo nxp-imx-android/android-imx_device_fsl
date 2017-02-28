@@ -17,7 +17,7 @@ PRODUCT_COPY_FILES +=	\
 else
 ADDITIONAL_BUILD_PROPERTIES += \
                         ro.internel.storage_size=/sys/block/mmcblk3/size \
-                        ro.frp.pst=/dev/block/mmcblk3p12
+                        ro.frp.pst=/dev/block/by-name/presistdata
 ifneq ($(BUILD_TARGET_FS),f2fs)
 TARGET_RECOVERY_FSTAB = device/fsl/sabresd_6sx/fstab.freescale
 # build for ext4
@@ -122,7 +122,11 @@ TARGET_BOARD_DTS_CONFIG := imx6sx:imx6sx-sdb.dtb
 
 BOARD_SEPOLICY_DIRS := \
        device/fsl/imx6/sepolicy \
-       device/fsl/sabresd_6sx/sepolicy
+       device/fsl/sabresd_6sx/sepolicy \
+       device/fsl/common/sepolicy
+
+# Support gpt
+BOARD_BPT_INPUT_FILES += device/fsl/common/partition/device-partitions.bpt
 
 BOARD_SECCOMP_POLICY += device/fsl/sabresd_6sx/seccomp
 

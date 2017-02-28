@@ -38,7 +38,7 @@ PRODUCT_COPY_FILES +=	\
 	external/linux-firmware-imx/firmware/vpu/vpu_fw_imx6q.bin:system/lib/firmware/vpu/vpu_fw_imx6q.bin
 # setup dm-verity configs.
 ifneq ($(BUILD_TARGET_FS),ubifs)
-PRODUCT_SYSTEM_VERITY_PARTITION := /dev/block/mmcblk2p5
+PRODUCT_SYSTEM_VERITY_PARTITION := /dev/block/by-name/system
 $(call inherit-product, build/target/product/verity.mk)
 endif
 # GPU files
@@ -74,6 +74,11 @@ PRODUCT_COPY_FILES += \
 	frameworks/native/data/etc/android.hardware.camera.front.xml:system/etc/permissions/android.hardware.camera.front.xml \
 	frameworks/native/data/etc/android.hardware.ethernet.xml:system/etc/permissions/android.hardware.ethernet.xml \
 	device/fsl/sabreauto_6q/required_hardware.xml:system/etc/permissions/required_hardware.xml \
+
+ifneq ($(BUILD_TARGET_FS),ubifs)
+PRODUCT_COPY_FILES += \
+     device/fsl/sabreauto_6q/init.freescale.sd.rc:root/init.freescale.sd.rc
+endif
 
 PRODUCT_COPY_FILES += \
      device/fsl-proprietary/gpu-viv/lib/egl/egl.cfg:system/lib/egl/egl.cfg

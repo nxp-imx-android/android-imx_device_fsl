@@ -18,9 +18,12 @@ PRODUCT_DEVICE := sabresd_6dq
 
 PRODUCT_COPY_FILES += \
 	device/fsl/sabresd_6dq/init.rc:root/init.freescale.rc \
-        device/fsl/sabresd_6dq/init.i.MX6Q.rc:root/init.freescale.i.MX6Q.rc \
-        device/fsl/sabresd_6dq/init.i.MX6DL.rc:root/init.freescale.i.MX6DL.rc \
+	device/fsl/sabresd_6dq/init.i.MX6Q.rc:root/init.freescale.i.MX6Q.rc \
+	device/fsl/sabresd_6dq/init.i.MX6DL.rc:root/init.freescale.i.MX6DL.rc \
 	device/fsl/sabresd_6dq/init.i.MX6QP.rc:root/init.freescale.i.MX6QP.rc \
+
+PRODUCT_COPY_FILES += device/fsl/sabresd_6dq/init.freescale.emmc.rc:root/init.freescale.emmc.rc
+PRODUCT_COPY_FILES += device/fsl/sabresd_6dq/init.freescale.sd.rc:root/init.freescale.sd.rc
 
 # Audio
 USE_XML_AUDIO_POLICY_CONF := 1
@@ -37,14 +40,9 @@ PRODUCT_COPY_FILES +=	\
 	external/linux-firmware-imx/firmware/vpu/vpu_fw_imx6d.bin:system/lib/firmware/vpu/vpu_fw_imx6d.bin 	\
 	external/linux-firmware-imx/firmware/vpu/vpu_fw_imx6q.bin:system/lib/firmware/vpu/vpu_fw_imx6q.bin
 # setup dm-verity configs.
-ifneq ($(BUILD_TARGET_DEVICE),sd)
- PRODUCT_SYSTEM_VERITY_PARTITION := /dev/block/mmcblk3p5
- $(call inherit-product, build/target/product/verity.mk)
-else 
- PRODUCT_SYSTEM_VERITY_PARTITION := /dev/block/mmcblk2p5
+ PRODUCT_SYSTEM_VERITY_PARTITION := /dev/block/by-name/system
  $(call inherit-product, build/target/product/verity.mk)
 
-endif
 
 # GPU files
 

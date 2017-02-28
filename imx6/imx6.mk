@@ -3,7 +3,7 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/generic.mk)
 $(call inherit-product, $(TOPDIR)frameworks/base/data/sounds/AllAudio.mk)
 # overrides
 PRODUCT_BRAND := Freescale
-PRODUCT_MANUFACTURER := Freescale
+PRODUCT_MANUFACTURER := freescale
 
 # Android infrastructures
 PRODUCT_PACKAGES += \

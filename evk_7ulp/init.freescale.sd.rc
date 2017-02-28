@@ -1,0 +1,8 @@
+on init
+
+    # link emmc node to /dev/block/by-name
+    symlink   /dev/block/platform/40000000.ahb-bridge0/40370000.usdhc/by-name /dev/block/by-name
+    symlink   /dev/block/platform/40000000.ahb-bridge0/40370000.usdhc/mmcblk0 /dev/block/by-name/bootloader
+
+    # Load persistent dm-verity state
+    verity_load_state

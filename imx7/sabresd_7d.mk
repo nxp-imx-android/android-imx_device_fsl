@@ -13,7 +13,7 @@ $(shell touch device/fsl/sabresd_7d/fstab.freescale)
 endif
 
 # setup dm-verity configs.
- PRODUCT_SYSTEM_VERITY_PARTITION := /dev/block/mmcblk0p5
+ PRODUCT_SYSTEM_VERITY_PARTITION := /dev/block/by-name/system
  $(call inherit-product, build/target/product/verity.mk)
 
 # Overrides
@@ -27,6 +27,7 @@ PRODUCT_COPY_FILES += \
 	device/fsl/common/input/20b8000_kpp.idc:system/usr/idc/20b8000_kpp.idc \
 	device/fsl/common/input/20b8000_kpp.kl:system/usr/keylayout/20b8000_kpp.kl \
 
+PRODUCT_COPY_FILES += device/fsl/sabresd_7d/init.freescale.sd.rc:root/init.freescale.sd.rc
 
 # Audio
 USE_XML_AUDIO_POLICY_CONF := 1

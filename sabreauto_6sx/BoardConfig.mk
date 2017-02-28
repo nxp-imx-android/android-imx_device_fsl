@@ -10,8 +10,6 @@ BUILD_TARGET_FS ?= ext4
 include device/fsl/imx6/imx6_target_fs.mk
 
 ifeq ($(BUILD_TARGET_FS),ubifs)
-ADDITIONAL_BUILD_PROPERTIES += \
-                        ro.boot.storage_type=nand
 TARGET_RECOVERY_FSTAB = device/fsl/sabreauto_6sx/fstab_nand.freescale
 # build ubifs for nand devices
 PRODUCT_COPY_FILES +=	\
@@ -19,8 +17,7 @@ PRODUCT_COPY_FILES +=	\
 else
 ADDITIONAL_BUILD_PROPERTIES += \
                         ro.internel.storage_size=/sys/block/mmcblk2/size \
-                        ro.boot.storage_type=sd \
-                        ro.frp.pst=/dev/block/mmcblk2p12
+                        ro.frp.pst=/dev/block/by-name/presistdata
 ifneq ($(BUILD_TARGET_FS),f2fs)
 TARGET_RECOVERY_FSTAB = device/fsl/sabreauto_6sx/fstab.freescale
 # build for ext4
@@ -32,6 +29,10 @@ TARGET_RECOVERY_FSTAB = device/fsl/sabreauto_6sx/fstab-f2fs.freescale
 PRODUCT_COPY_FILES +=	\
 	device/fsl/sabreauto_6sx/fstab-f2fs.freescale:root/fstab.freescale
 endif # BUILD_TARGET_FS
+
+# Support gpt
+BOARD_BPT_INPUT_FILES += device/fsl/common/partition/device-partitions.bpt
+
 endif # BUILD_TARGET_FS
 
 TARGET_BOOTLOADER_BOARD_NAME := SABREAUTO
@@ -108,7 +109,8 @@ TARGET_BOOTLOADER_CONFIG := imx6sx:mx6sxsabreautoandroid_config
 endif
 BOARD_SEPOLICY_DIRS := \
        device/fsl/imx6/sepolicy \
-       device/fsl/sabreauto_6sx/sepolicy
+       device/fsl/sabreauto_6sx/sepolicy \
+       device/fsl/common/sepolicy
 
 BOARD_SECCOMP_POLICY += device/fsl/sabreauto_6sx/seccomp
 

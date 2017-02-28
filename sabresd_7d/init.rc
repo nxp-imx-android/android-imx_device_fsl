@@ -1,4 +1,5 @@
 import init.${ro.hardware}.usb.rc
+import init.${ro.hardware}.${ro.boot.storage_type}.rc
 
 on early-init
     # mount the debugfs
@@ -7,8 +8,6 @@ on early-init
 on init
     start watchdogd
 
-    # Load persistent dm-verity state
-    verity_load_state
 
     # Support legacy paths
     symlink /sdcard /mnt/sdcard
