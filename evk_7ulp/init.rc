@@ -90,7 +90,7 @@ on boot
     setprop ro.ril.wake_lock_timeout 300
 
     # Set OpenGLES version
-    # setprop ro.opengles.version 131072
+    setprop ro.opengles.version 131072
 
     # Set rotation to 270 to cofigure as portrait mode
     setprop ro.sf.hwrotation 0
