@@ -90,7 +90,7 @@ USE_GPU_ALLOCATOR := true
 IMX_CAMERA_HAL_V1 := true
 TARGET_VSYNC_DIRECT_REFRESH := true
 
-BOARD_KERNEL_CMDLINE := console=ttyLP0,115200 init=/init androidboot.console=ttyLP0 consoleblank=0 androidboot.hardware=freescale
+BOARD_KERNEL_CMDLINE := console=ttyLP0,115200 init=/init androidboot.console=ttyLP0 consoleblank=0 androidboot.hardware=freescale vmalloc=256M cma=448M
 TARGET_BOOTLOADER_CONFIG := imx7ulp:mx7ulp_evk_android_config
 TARGET_BOARD_DTS_CONFIG := imx7ulp:imx7ulp-evk.dtb
 
