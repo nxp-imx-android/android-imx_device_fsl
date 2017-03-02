@@ -1,1 +1,2 @@
 allow audioserver rootfs:lnk_file { getattr };
+allow audioserver debugfs_tracing:file { write open };
