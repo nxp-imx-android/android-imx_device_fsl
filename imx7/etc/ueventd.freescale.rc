@@ -23,6 +23,7 @@
 /dev/mma8x5x              0640   compass     system
 /dev/caam_kb              0660   system     system
 /dev/block/mmcblk*p9      0600   system     system
+/dev/ttyLP2               0660   bluetooth  net_bt_stack
 
 # Sensors sysfs for 7d platform.
 /sys/devices/virtual/misc/Freescale* name       0660 root input
