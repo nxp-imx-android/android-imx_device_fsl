@@ -1,3 +1,2 @@
 allow zygote storage_file:dir { getattr };
-allow zygote debugfs_tracing:file { getattr write open };
 allow zygote gpu_device:chr_file { getattr read write open ioctl };
