@@ -60,6 +60,7 @@ on boot
     setprop media.omxgm.enable-scan 1
     setprop rw.VIDEO_RENDER_NAME video_render.surface
     setprop media.fsl_codec.flag 7
+    setprop media.omx.enable-tunnel 0
 
     #Define the config for dual camera
     setprop camera.disable_zsl_mode 1
