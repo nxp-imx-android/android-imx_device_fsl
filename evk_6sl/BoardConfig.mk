@@ -82,6 +82,9 @@ DM_VERITY_RUNTIME_CONFIG := true
 USE_ION_ALLOCATOR := false
 USE_GPU_ALLOCATOR := true
 
+# define frame buffer count
+NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
+
 PHONE_MODULE_INCLUDE := flase
 # camera hal v1
 IMX_CAMERA_HAL_V1 := true

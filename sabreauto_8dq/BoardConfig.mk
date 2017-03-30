@@ -91,6 +91,9 @@ BOARD_HAVE_USB_CAMERA := true
 USE_ION_ALLOCATOR := false
 USE_GPU_ALLOCATOR := true
 
+# define frame buffer count
+NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
+
 BOARD_KERNEL_CMDLINE := console=ttymxc2,115200 init=/init video=imxdpufb1:off video=imxdpufb2:off video=imxdpufb3:off video=imxdpufb4:off androidboot.zygote=zygote64_32 androidboot.console=ttymxc2 consoleblank=0 androidboot.hardware=freescale cma=800M androidboot.watchdogd=disabled androidboot.serialno=150831d4e1fdfca7
 
 ifeq ($(TARGET_USERIMAGES_USE_UBIFS),true)
