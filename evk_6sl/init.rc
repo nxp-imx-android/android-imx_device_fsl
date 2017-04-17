@@ -147,7 +147,6 @@ on property:sys.boot_completed=1
     write /sys/devices/system/cpu/cpufreq/interactive/timer_rate 40000
     write /sys/devices/system/cpu/cpufreq/interactive/min_sample_time 60000
     write /sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load 40
-    #write /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq 792000
 # change interactive atrrubuties permissions when interactive is actived
 on property:sys.interactive="active"
     chown system root /sys/devices/system/cpu/cpufreq/interactive/timer_rate
@@ -164,12 +163,13 @@ on property:sys.interactive="active"
     chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/boost
     chown system root /sys/devices/system/cpu/cpufreq/interactive/boostpulse
     chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/boostpulse
-    chown system root /sys/devices/system/cpu/cpufreq/interactive/input_boost
-    chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/input_boost
     chown system system /sys/devices/system/cpu/cpufreq/interactive/boostpulse_duration
     chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/boostpulse_duration
     chown system system /sys/devices/system/cpu/cpufreq/interactive/io_is_busy
     chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/io_is_busy
+    write /sys/devices/system/cpu/cpufreq/interactive/timer_rate 40000
+    write /sys/devices/system/cpu/cpufreq/interactive/min_sample_time 60000
+    write /sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load 40
 
 service p2p_supplicant /system/bin/wpa_supplicant \
     -ip2p0 -Dnl80211 -c/data/misc/wifi/p2p_supplicant.conf \
