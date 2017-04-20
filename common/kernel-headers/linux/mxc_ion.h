@@ -44,4 +44,3 @@ struct ion_phys_virt_data {
 #define ION_IOC_PHYS_DMA _IOWR(ION_IOC_MAGIC, 9, struct ion_phys_dma_data)
 #define ION_IOC_PHYS_VIRT _IOWR(ION_IOC_MAGIC, 10, struct ion_phys_virt_data)
 #endif
-

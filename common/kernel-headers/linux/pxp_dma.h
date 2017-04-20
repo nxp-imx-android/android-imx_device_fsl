@@ -195,39 +195,41 @@ struct pxp_proc_data {
   char lut_map_updated;
   char combine_enable;
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+  __u64 lut_sels;
   enum pxp_working_mode working_mode;
   enum pxp_engine_ctrl engine_enable;
   char partial_update;
-  char alpha_en;
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+  char alpha_en;
   char lut_update;
   char reagl_en;
   char reagl_d_en;
-  char detection_only;
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+  char detection_only;
   int lut;
+  char lut_cleanup;
   unsigned int lut_status_1;
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
   unsigned int lut_status_2;
   int dither_mode;
-/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
   unsigned int quant_bit;
 };
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
 struct pxp_config_data {
   struct pxp_layer_param s0_param;
-/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
   struct pxp_layer_param ol_param[8];
   struct pxp_layer_param out_param;
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
   struct pxp_layer_param wfe_a_fetch_param[2];
   struct pxp_layer_param wfe_a_store_param[2];
-/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
   struct pxp_layer_param wfe_b_fetch_param[2];
   struct pxp_layer_param wfe_b_store_param[2];
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
   struct pxp_layer_param dither_fetch_param[2];
   struct pxp_layer_param dither_store_param[2];
-/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
   struct pxp_proc_data proc_data;
   int layer_nr;
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
   int handle;
 };
-/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
 #endif
