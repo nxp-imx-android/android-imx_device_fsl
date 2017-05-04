@@ -336,7 +336,7 @@ PRODUCT_COPY_FILES += \
 	external/imx-firmware/brcm/1DX_BCM4343W/fw_bcmdhd.bin:system/etc/firmware/bcm/1DX_BCM4343W/fw_bcmdhd.bin 	\
 	external/imx-firmware/brcm/1DX_BCM4343W/fw_bcmdhd.bin:system/etc/firmware/bcm/1DX_BCM4343W/fw_bcmdhd_apsta.bin 	\
 	external/imx-firmware/brcm/SN8000_BCM43362/fw_bcmdhd.bin:system/etc/firmware/bcm/SN8000_BCM43362/fw_bcmdhd.bin 	\
-	external/imx-firmware/brcm/SN8000_BCM43362/fw_bcmdhd_apsta.bin:system/etc/firmware/bcm/SN8000_BCM43362/fw_bcmdhd_apsta.bin 	\
+	external/imx-firmware/brcm/SN8000_BCM43362/fw_bcmdhd.bin:system/etc/firmware/bcm/SN8000_BCM43362/fw_bcmdhd_apsta.bin 	\
 
 
 # we have enough storage space to hold precise GC data
