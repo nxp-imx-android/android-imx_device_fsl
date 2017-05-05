@@ -339,9 +339,9 @@ PRODUCT_COPY_FILES +=	\
     device/fsl-proprietary/media-profile/media_profiles_720p.xml:system/etc/media_profiles_720p.xml \
     
 PRODUCT_COPY_FILES += \
-	external/imx-firmware/BCM4339/TypeZP/BCM4339_BT/Type_ZP.hcd:system/etc/firmware/bcm/Type_ZP.hcd 	\
-	external/imx-firmware/BCM4339/TypeZP/BCM4339_wifi/fw_bcmdhd.bin:system/etc/firmware/bcm/fw_bcmdhd.bin 	\
-	external/imx-firmware/BCM4339/TypeZP/BCM4339_wifi/fw_bcmdhd.bin:system/etc/firmware/bcm/fw_bcmdhd_apsta.bin 	\
+	external/imx-firmware/brcm/ZP_BCM4339/BCM4335C0.ZP.hcd:system/etc/firmware/bcm/Type_ZP.hcd 	\
+	external/imx-firmware/brcm/ZP_BCM4339/fw_bcmdhd.bin:system/etc/firmware/bcm/fw_bcmdhd.bin 	\
+	external/imx-firmware/brcm/ZP_BCM4339/fw_bcmdhd.bin:system/etc/firmware/bcm/fw_bcmdhd_apsta.bin 	\
 	external/imx-firmware/brcm/1BW_BCM43340/BCM43341B0.1BW.hcd:system/etc/firmware/bcm/1BW_BCM43340/BCM43341B0.1BW.hcd 	\
 	external/imx-firmware/brcm/1BW_BCM43340/fw_bcmdhd.bin:system/etc/firmware/bcm/1BW_BCM43340/fw_bcmdhd.bin 	\
 	external/imx-firmware/brcm/1BW_BCM43340/fw_bcmdhd.bin:system/etc/firmware/bcm/1BW_BCM43340/fw_bcmdhd_apsta.bin 	\
