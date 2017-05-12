@@ -25,19 +25,34 @@ typedef unsigned long dma_addr_t;
 #define fourcc(a,b,c,d) (((__u32) (a) << 0) | ((__u32) (b) << 8) | ((__u32) (c) << 16) | ((__u32) (d) << 24))
 #define PXP_PIX_FMT_RGB332 fourcc('R', 'G', 'B', '1')
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+#define PXP_PIX_FMT_RGB444 fourcc('R', '4', '4', '4')
+#define PXP_PIX_FMT_ARGB444 fourcc('A', 'R', '1', '2')
+#define PXP_PIX_FMT_RGBA444 fourcc('R', 'A', '1', '2')
+#define PXP_PIX_FMT_XRGB444 fourcc('X', 'R', '1', '2')
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
 #define PXP_PIX_FMT_RGB555 fourcc('R', 'G', 'B', 'O')
+#define PXP_PIX_FMT_ARGB555 fourcc('A', 'R', '1', '5')
+#define PXP_PIX_FMT_RGBA555 fourcc('R', 'A', '1', '5')
+#define PXP_PIX_FMT_XRGB555 fourcc('X', 'R', '1', '5')
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
 #define PXP_PIX_FMT_RGB565 fourcc('R', 'G', 'B', 'P')
+#define PXP_PIX_FMT_BGR565 fourcc('B', 'G', 'R', 'P')
 #define PXP_PIX_FMT_RGB666 fourcc('R', 'G', 'B', '6')
 #define PXP_PIX_FMT_BGR666 fourcc('B', 'G', 'R', '6')
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
 #define PXP_PIX_FMT_BGR24 fourcc('B', 'G', 'R', '3')
 #define PXP_PIX_FMT_RGB24 fourcc('R', 'G', 'B', '3')
-#define PXP_PIX_FMT_BGR32 fourcc('B', 'G', 'R', '4')
-#define PXP_PIX_FMT_BGRA32 fourcc('B', 'G', 'R', 'A')
+#define PXP_PIX_FMT_XBGR32 fourcc('X', 'B', 'G', 'R')
+#define PXP_PIX_FMT_BGRX32 fourcc('B', 'G', 'R', 'X')
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
-#define PXP_PIX_FMT_RGB32 fourcc('R', 'G', 'B', '4')
+#define PXP_PIX_FMT_BGRA32 fourcc('B', 'G', 'R', 'A')
+#define PXP_PIX_FMT_XRGB32 fourcc('X', 'R', 'G', 'B')
+#define PXP_PIX_FMT_RGBX32 fourcc('R', 'G', 'B', 'X')
+#define PXP_PIX_FMT_ARGB32 fourcc('A', 'R', 'G', 'B')
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
 #define PXP_PIX_FMT_RGBA32 fourcc('R', 'G', 'B', 'A')
 #define PXP_PIX_FMT_ABGR32 fourcc('A', 'B', 'G', 'R')
+#define PXP_PIX_FMT_RGB32 PXP_PIX_FMT_XRGB32
 #define PXP_PIX_FMT_YUYV fourcc('Y', 'U', 'Y', 'V')
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
 #define PXP_PIX_FMT_UYVY fourcc('U', 'Y', 'V', 'Y')
@@ -46,190 +61,232 @@ typedef unsigned long dma_addr_t;
 #define PXP_PIX_FMT_Y41P fourcc('Y', '4', '1', 'P')
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
 #define PXP_PIX_FMT_VUY444 fourcc('V', 'U', 'Y', 'A')
+#define PXP_PIX_FMT_YUV444 fourcc('A', 'Y', 'U', 'V')
+#define PXP_PIX_FMT_YVU444 fourcc('A', 'Y', 'V', 'U')
 #define PXP_PIX_FMT_NV12 fourcc('N', 'V', '1', '2')
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
 #define PXP_PIX_FMT_NV21 fourcc('N', 'V', '2', '1')
 #define PXP_PIX_FMT_NV16 fourcc('N', 'V', '1', '6')
-/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
 #define PXP_PIX_FMT_NV61 fourcc('N', 'V', '6', '1')
 #define PXP_PIX_FMT_GREY fourcc('G', 'R', 'E', 'Y')
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
 #define PXP_PIX_FMT_GY04 fourcc('G', 'Y', '0', '4')
 #define PXP_PIX_FMT_YVU410P fourcc('Y', 'V', 'U', '9')
-/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
 #define PXP_PIX_FMT_YUV410P fourcc('Y', 'U', 'V', '9')
 #define PXP_PIX_FMT_YVU420P fourcc('Y', 'V', '1', '2')
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
 #define PXP_PIX_FMT_YUV420P fourcc('I', '4', '2', '0')
 #define PXP_PIX_FMT_YUV420P2 fourcc('Y', 'U', '1', '2')
-/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
 #define PXP_PIX_FMT_YVU422P fourcc('Y', 'V', '1', '6')
 #define PXP_PIX_FMT_YUV422P fourcc('4', '2', '2', 'P')
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
 #define PXP_LUT_NONE 0x0
 #define PXP_LUT_INVERT 0x1
-/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
 #define PXP_LUT_BLACK_WHITE 0x2
 #define PXP_LUT_USE_CMAP 0x4
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
 #define PXP_DITHER_PASS_THROUGH 0
 #define PXP_DITHER_FLOYD 1
-/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
 #define PXP_DITHER_ATKINSON 2
 #define PXP_DITHER_ORDERED 3
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
 #define PXP_DITHER_QUANT_ONLY 4
 #define NR_PXP_VIRT_CHANNEL 16
-/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
 #define PXP_IOC_MAGIC 'P'
 #define PXP_IOC_GET_CHAN _IOR(PXP_IOC_MAGIC, 0, struct pxp_mem_desc)
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
 #define PXP_IOC_PUT_CHAN _IOW(PXP_IOC_MAGIC, 1, struct pxp_mem_desc)
 #define PXP_IOC_CONFIG_CHAN _IOW(PXP_IOC_MAGIC, 2, struct pxp_mem_desc)
-/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
 #define PXP_IOC_START_CHAN _IOW(PXP_IOC_MAGIC, 3, struct pxp_mem_desc)
 #define PXP_IOC_GET_PHYMEM _IOWR(PXP_IOC_MAGIC, 4, struct pxp_mem_desc)
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
 #define PXP_IOC_PUT_PHYMEM _IOW(PXP_IOC_MAGIC, 5, struct pxp_mem_desc)
 #define PXP_IOC_WAIT4CMPLT _IOWR(PXP_IOC_MAGIC, 6, struct pxp_mem_desc)
-/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
 #define PXP_IOC_FILL_DATA _IOWR(PXP_IOC_MAGIC, 7, struct pxp_mem_desc)
+#define ALPHA_MODE_ROP 0x1
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+#define ALPHA_MODE_LEGACY 0x2
+#define ALPHA_MODE_PORTER_DUFF 0x3
 enum pxp_channel_status {
   PXP_CHANNEL_FREE,
-  PXP_CHANNEL_INITIALIZED,
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+  PXP_CHANNEL_INITIALIZED,
   PXP_CHANNEL_READY,
 };
 enum pxp_working_mode {
-  PXP_MODE_LEGACY = 0x1,
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+  PXP_MODE_LEGACY = 0x1,
   PXP_MODE_STANDARD = 0x2,
   PXP_MODE_ADVANCED = 0x4,
 };
-enum pxp_buffer_flag {
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+enum pxp_buffer_flag {
   PXP_BUF_FLAG_WFE_A_FETCH0 = 0x0001,
   PXP_BUF_FLAG_WFE_A_FETCH1 = 0x0002,
   PXP_BUF_FLAG_WFE_A_STORE0 = 0x0004,
-  PXP_BUF_FLAG_WFE_A_STORE1 = 0x0008,
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+  PXP_BUF_FLAG_WFE_A_STORE1 = 0x0008,
   PXP_BUF_FLAG_WFE_B_FETCH0 = 0x0010,
   PXP_BUF_FLAG_WFE_B_FETCH1 = 0x0020,
   PXP_BUF_FLAG_WFE_B_STORE0 = 0x0040,
-  PXP_BUF_FLAG_WFE_B_STORE1 = 0x0080,
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+  PXP_BUF_FLAG_WFE_B_STORE1 = 0x0080,
   PXP_BUF_FLAG_DITHER_FETCH0 = 0x0100,
   PXP_BUF_FLAG_DITHER_FETCH1 = 0x0200,
   PXP_BUF_FLAG_DITHER_STORE0 = 0x0400,
-  PXP_BUF_FLAG_DITHER_STORE1 = 0x0800,
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+  PXP_BUF_FLAG_DITHER_STORE1 = 0x0800,
 };
 enum pxp_engine_ctrl {
   PXP_ENABLE_ROTATE0 = 0x001,
-  PXP_ENABLE_ROTATE1 = 0x002,
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+  PXP_ENABLE_ROTATE1 = 0x002,
   PXP_ENABLE_LUT = 0x004,
   PXP_ENABLE_CSC2 = 0x008,
   PXP_ENABLE_ALPHA_B = 0x010,
-  PXP_ENABLE_INPUT_FETCH_SOTRE = 0x020,
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+  PXP_ENABLE_INPUT_FETCH_SOTRE = 0x020,
   PXP_ENABLE_WFE_B = 0x040,
   PXP_ENABLE_WFE_A = 0x080,
   PXP_ENABLE_DITHER = 0x100,
-  PXP_ENABLE_PS_AS_OUT = 0x200,
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+  PXP_ENABLE_PS_AS_OUT = 0x200,
   PXP_ENABLE_COLLISION_DETECT = 0x400,
   PXP_ENABLE_HANDSHAKE = 0x1000,
   PXP_ENABLE_DITHER_BYPASS = 0x2000,
-};
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+};
+enum pxp_op_type {
+  PXP_OP_2D = 0x001,
+  PXP_OP_DITHER = 0x002,
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+  PXP_OP_WFE_A = 0x004,
+  PXP_OP_WFE_B = 0x008,
+};
 struct rect {
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
   int top;
   int left;
   int width;
-/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
   int height;
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+};
+#define ALPHA_MODE_STRAIGHT 0x0
+#define ALPHA_MODE_INVERSED 0x1
+#define GLOBAL_ALPHA_MODE_ON 0x0
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+#define GLOBAL_ALPHA_MODE_OFF 0x1
+#define GLOBAL_ALPHA_MODE_SCALE 0x2
+#define FACTOR_MODE_ONE 0x0
+#define FACTOR_MODE_ZERO 0x1
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+#define FACTOR_MODE_STRAIGHT 0x2
+#define FACTOR_MODE_INVERSED 0x3
+#define COLOR_MODE_STRAIGHT 0x0
+#define COLOR_MODE_MULTIPLY 0x1
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+struct pxp_alpha {
+  unsigned int alpha_mode;
+  unsigned int global_alpha_mode;
+  unsigned int global_alpha_value;
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+  unsigned int factor_mode;
+  unsigned int color_mode;
 };
 struct pxp_layer_param {
-  unsigned short left;
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+  unsigned short left;
   unsigned short top;
   unsigned short width;
   unsigned short height;
-  unsigned short stride;
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+  unsigned short stride;
   unsigned int pixel_fmt;
   unsigned int flag;
-  char combine_enable;
+  unsigned char combine_enable;
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
   unsigned int color_key_enable;
-/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
   unsigned int color_key;
-  char global_alpha_enable;
-  char global_override;
+  unsigned char global_alpha_enable;
+  unsigned char global_override;
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
   unsigned char global_alpha;
-/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
-  char alpha_invert;
-  char local_alpha_enable;
+  unsigned char alpha_invert;
+  unsigned char local_alpha_enable;
   int comp_mask;
-  dma_addr_t paddr;
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+  struct pxp_alpha alpha;
+  dma_addr_t paddr;
 };
 struct pxp_collision_info {
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
   unsigned int pixel_cnt;
   unsigned int rect_min_x;
-/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
   unsigned int rect_min_y;
   unsigned int rect_max_x;
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
   unsigned int rect_max_y;
   unsigned int victim_luts[2];
-/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
 };
 struct pxp_proc_data {
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
   int scaling;
   int hflip;
-/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
   int vflip;
   int rotate;
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
   int rot_pos;
   int yuv;
-/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+  unsigned int alpha_mode;
   struct rect srect;
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
   struct rect drect;
   unsigned int bgcolor;
+  unsigned char fill_en;
   int overlay_state;
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
   int lut_transform;
   unsigned char * lut_map;
-  char lut_map_updated;
-  char combine_enable;
+  unsigned char lut_map_updated;
+  unsigned char combine_enable;
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+  enum pxp_op_type op_type;
   __u64 lut_sels;
   enum pxp_working_mode working_mode;
   enum pxp_engine_ctrl engine_enable;
-  char partial_update;
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
-  char alpha_en;
-  char lut_update;
-  char reagl_en;
-  char reagl_d_en;
+  unsigned char partial_update;
+  unsigned char alpha_en;
+  unsigned char lut_update;
+  unsigned char reagl_en;
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
-  char detection_only;
+  unsigned char reagl_d_en;
+  unsigned char detection_only;
   int lut;
-  char lut_cleanup;
-  unsigned int lut_status_1;
+  unsigned char lut_cleanup;
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+  unsigned int lut_status_1;
   unsigned int lut_status_2;
   int dither_mode;
   unsigned int quant_bit;
-};
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+};
 struct pxp_config_data {
   struct pxp_layer_param s0_param;
-  struct pxp_layer_param ol_param[8];
-  struct pxp_layer_param out_param;
+  struct pxp_layer_param ol_param[1];
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+  struct pxp_layer_param out_param;
   struct pxp_layer_param wfe_a_fetch_param[2];
   struct pxp_layer_param wfe_a_store_param[2];
   struct pxp_layer_param wfe_b_fetch_param[2];
-  struct pxp_layer_param wfe_b_store_param[2];
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+  struct pxp_layer_param wfe_b_store_param[2];
   struct pxp_layer_param dither_fetch_param[2];
   struct pxp_layer_param dither_store_param[2];
   struct pxp_proc_data proc_data;
-  int layer_nr;
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+  int layer_nr;
   int handle;
 };
 #endif
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
