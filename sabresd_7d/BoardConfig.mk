@@ -27,6 +27,8 @@ TARGET_RECOVERY_FSTAB = device/fsl/sabresd_7d/fstab-f2fs.freescale
 PRODUCT_COPY_FILES +=	\
 	device/fsl/sabresd_7d/fstab-f2fs.freescale:root/fstab.freescale
 endif # BUILD_TARGET_FS
+PRODUCT_COPY_FILES +=	\
+	device/fsl/sabresd_7d/fstab.freescale.sd:root/fstab.freescale.sd
 endif # BUILD_TARGET_FS
 
 ADDITIONAL_BUILD_PROPERTIES += \

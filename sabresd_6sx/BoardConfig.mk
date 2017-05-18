@@ -29,6 +29,8 @@ TARGET_RECOVERY_FSTAB = device/fsl/sabresd_6sx/fstab-f2fs.freescale
 PRODUCT_COPY_FILES +=	\
 	device/fsl/sabresd_6sx/fstab-f2fs.freescale:root/fstab.freescale
 endif # BUILD_TARGET_FS
+PRODUCT_COPY_FILES +=	\
+	device/fsl/sabresd_6sx/fstab.freescale.sd:root/fstab.freescale.sd
 endif # BUILD_TARGET_FS
 
 

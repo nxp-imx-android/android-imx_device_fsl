@@ -26,6 +26,8 @@ TARGET_RECOVERY_FSTAB = device/fsl/evk_6sl/fstab-f2fs.freescale
 PRODUCT_COPY_FILES +=	\
 	device/fsl/evk_6sl/fstab-f2fs.freescale:root/fstab.freescale
 endif # BUILD_TARGET_FS
+PRODUCT_COPY_FILES +=	\
+	device/fsl/evk_6sl/fstab.freescale.sd:root/fstab.freescale.sd
 endif # BUILD_TARGET_FS
 
 ADDITIONAL_BUILD_PROPERTIES += \
