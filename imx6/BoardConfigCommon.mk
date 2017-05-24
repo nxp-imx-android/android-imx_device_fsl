@@ -87,11 +87,11 @@ TARGET_RECOVERY_UI_LIB := librecovery_ui_imx
 ADDITIONAL_BUILD_PROPERTIES += \
     ro.FSL_AVI_PARSER=1 \
     ro.FSL_AAC_PARSER=1 \
-    ro.FSL_ASF_PARSER=0 \
     ro.FSL_FLV_PARSER=1 \
     ro.FSL_MKV_PARSER=1 \
     ro.FSL_FLAC_PARSER=1 \
     ro.FSL_MPG2_PARSER=1 \
-    ro.FSL_REAL_PARSER=0 \
 
 -include device/google/gapps/gapps_config.mk
+-include external/fsl-restricted-codec/fsl_ms_codec/BoardConfig.mk
+-include external/fsl-restricted-codec/fsl_real_dec/BoardConfig.mk
