@@ -28,3 +28,4 @@
 
 PRODUCT_MAKEFILES := \
   $(LOCAL_DIR)/sabreauto_8dq.mk \
+  $(LOCAL_DIR)/arm2_8qm.mk \

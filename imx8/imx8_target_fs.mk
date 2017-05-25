@@ -1,7 +1,7 @@
 # BUILD_TARGET_FS is from BoardConfig or build environment
 # e.g make BUILD_TARGET_FS=ubifs for NAND device
 # e.g make BUILD_TARGET_FS=ext4 for eMMC/SD
-# sabreauto_8dq default target for EXT4
+# default target for EXT4
 #
 ifeq ($(BUILD_TARGET_FS),ubifs)
 # build ubifs for nand devices
