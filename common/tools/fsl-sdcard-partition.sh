@@ -64,6 +64,10 @@ if [ "${soc_name}" = "imx8dv" ]; then
     bootloader_offset=16
 fi
 
+if [ "${soc_name}" = "imx8qm" ]; then
+    bootloader_offset=33
+fi
+
 if [ ! -e ${node} ]; then
 	help
 	exit
