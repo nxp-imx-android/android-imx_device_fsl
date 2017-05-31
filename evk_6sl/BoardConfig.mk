@@ -28,6 +28,10 @@ PRODUCT_COPY_FILES +=	\
 endif # BUILD_TARGET_FS
 endif # BUILD_TARGET_FS
 
+# Vendor Interface Manifest
+PRODUCT_COPY_FILES += \
+    device/fsl/evk_6sl/manifest.xml:system/vendor/manifest.xml
+
 TARGET_BOOTLOADER_BOARD_NAME := EVK
 PRODUCT_MODEL := EVK_MX6SL
 

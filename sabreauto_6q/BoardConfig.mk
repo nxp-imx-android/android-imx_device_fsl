@@ -31,6 +31,10 @@ BOARD_BPT_INPUT_FILES += device/fsl/common/partition/device-partitions.bpt
 
 endif # BUILD_TARGET_FS
 
+# Vendor Interface Manifest
+PRODUCT_COPY_FILES += \
+    device/fsl/sabreauto_6q/manifest.xml:system/vendor/manifest.xml
+
 TARGET_BOOTLOADER_BOARD_NAME := SABREAUTO
 
 PRODUCT_MODEL := SABREAUTO-MX6Q

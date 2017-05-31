@@ -21,6 +21,10 @@ PRODUCT_COPY_FILES +=	\
 	device/fsl/sabresd_6dq/fstab-f2fs.freescale:root/fstab.freescale
 endif # BUILD_TARGET_FS
 
+# Vendor Interface Manifest
+PRODUCT_COPY_FILES += \
+    device/fsl/sabresd_6dq/manifest.xml:system/vendor/manifest.xml
+
 TARGET_BOOTLOADER_BOARD_NAME := SABRESD
 PRODUCT_MODEL := SABRESD-MX6DQ
 

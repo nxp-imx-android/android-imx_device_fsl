@@ -37,6 +37,10 @@ BOARD_BPT_INPUT_FILES += device/fsl/common/partition/device-partitions.bpt
 
 endif # BUILD_TARGET_FS
 
+# Vendor Interface Manifest
+PRODUCT_COPY_FILES += \
+    device/fsl/arm2_8qm/manifest.xml:system/vendor/manifest.xml
+
 TARGET_BOOTLOADER_BOARD_NAME := SABREAUTO
 
 PRODUCT_MODEL := ARM2-MX8QM

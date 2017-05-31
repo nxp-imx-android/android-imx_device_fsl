@@ -75,6 +75,16 @@ endif
 PRODUCT_COPY_FILES += \
     device/fsl-proprietary/gpu-viv/lib/egl/egl.cfg:system/lib/egl/egl.cfg
 
+# HWC2 HAL
+PRODUCT_PACKAGES += \
+    android.hardware.graphics.composer@2.1-impl
+
+# Gralloc HAL
+PRODUCT_PACKAGES += \
+    android.hardware.graphics.mapper@2.0-impl \
+    android.hardware.graphics.allocator@2.0-impl \
+    android.hardware.graphics.allocator@2.0-service
+
 PRODUCT_PACKAGES += \
     AudioRoute  \
     libEGL_VIVANTE \

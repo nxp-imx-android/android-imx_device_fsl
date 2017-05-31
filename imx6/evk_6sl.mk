@@ -67,6 +67,17 @@ PRODUCT_COPY_FILES += \
 	device/fsl/evk_6sl/required_hardware.xml:system/etc/permissions/required_hardware.xml
 
 PRODUCT_COPY_FILES += device/fsl/evk_6sl/init.freescale.sd.rc:root/init.freescale.sd.rc
+
+# HWC2 HAL
+PRODUCT_PACKAGES += \
+    android.hardware.graphics.composer@2.1-impl
+
+# Gralloc HAL
+PRODUCT_PACKAGES += \
+    android.hardware.graphics.mapper@2.0-impl \
+    android.hardware.graphics.allocator@2.0-impl \
+    android.hardware.graphics.allocator@2.0-service
+
 PRODUCT_PACKAGES += \
     gralloc_viv.imx6 \
     hwcomposer_viv.imx6 \
