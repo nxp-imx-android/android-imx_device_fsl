@@ -304,6 +304,12 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     fsck.f2fs mkfs.f2fs
 
+# WiFi Support in O
+PRODUCT_PACKAGES += \
+    android.hardware.wifi@1.0-service \
+    wifilogd \
+    wificond
+
 PRODUCT_PACKAGES += \
     slideshow \
     verity_warning_images
