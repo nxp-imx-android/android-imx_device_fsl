@@ -1,8 +1,0 @@
-# Android fstab file.
-#<src>                                                  <mnt_point>         <type>    <mnt_flags and options>                       <fs_mgr_flags>
-# The filesystem that contains the filesystem checker binary (typically /system) cannot
-# specify MF_CHECK, and must come before any filesystems that do specify MF_CHECK
-
-/devices/platform/5a260000.usdhc/mmc_host* auto auto defaults voldmanaged=sdcard:auto,encryptable=userdata
-/devices/platform/5a210000.usb/ci_hdrc.0*  auto auto defaults voldmanaged=usb:auto
-

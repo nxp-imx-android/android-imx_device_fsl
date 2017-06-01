@@ -22,10 +22,6 @@ TARGET_RECOVERY_FSTAB = device/fsl/sabresd_6dq/fstab-f2fs.freescale
 PRODUCT_COPY_FILES +=	\
 	device/fsl/sabresd_6dq/fstab-f2fs.freescale:root/fstab.freescale
 endif # BUILD_TARGET_FS
-
-PRODUCT_COPY_FILES +=	\
-	device/fsl/sabresd_6dq/fstab.freescale.emmc:root/fstab.freescale.emmc \
-	device/fsl/sabresd_6dq/fstab.freescale.sd:root/fstab.freescale.sd
 ADDITIONAL_BUILD_PROPERTIES += ro.frp.pst=/dev/block/by-name/presistdata
 
 TARGET_BOOTLOADER_BOARD_NAME := SABRESD
