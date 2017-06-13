@@ -9,8 +9,6 @@ include device/fsl/imx6/BoardConfigCommon.mk
 BUILD_TARGET_FS ?= ext4
 include device/fsl/imx6/imx6_target_fs.mk
 
-ADDITIONAL_BUILD_PROPERTIES += \
-                        ro.internel.storage_size=/sys/block/bootdev_size
 ifneq ($(BUILD_TARGET_FS),f2fs)
 TARGET_RECOVERY_FSTAB = device/fsl/sabresd_6dq/fstab.freescale
 # build for ext4
@@ -22,7 +20,6 @@ TARGET_RECOVERY_FSTAB = device/fsl/sabresd_6dq/fstab-f2fs.freescale
 PRODUCT_COPY_FILES +=	\
 	device/fsl/sabresd_6dq/fstab-f2fs.freescale:root/fstab.freescale
 endif # BUILD_TARGET_FS
-ADDITIONAL_BUILD_PROPERTIES += ro.frp.pst=/dev/block/by-name/presistdata
 
 TARGET_BOOTLOADER_BOARD_NAME := SABRESD
 PRODUCT_MODEL := SABRESD-MX6DQ

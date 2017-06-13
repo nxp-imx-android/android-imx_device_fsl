@@ -76,3 +76,6 @@ PRODUCT_COPY_FILES += \
 
 PRODUCT_PACKAGES += \
         libg2d
+
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.internel.storage_size=/sys/block/mmcblk0/size

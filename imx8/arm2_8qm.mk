@@ -98,3 +98,8 @@ PRODUCT_PACKAGES += \
         libSPIRV \
         libvulkan_VIVANTE \
         vulkan.imx8
+
+ifneq ($(BUILD_TARGET_FS),ubifs)
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.internel.storage_size=/sys/block/mmcblk1/size
+endif

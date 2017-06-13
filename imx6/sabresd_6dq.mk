@@ -82,3 +82,8 @@ PRODUCT_PACKAGES += \
     libVSC \
     libg2d \
     libgpuhelper
+
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.internel.storage_size=/sys/block/bootdev_size
+
+PRODUCT_PROPERTY_OVERRIDES += ro.frp.pst=/dev/block/by-name/presistdata

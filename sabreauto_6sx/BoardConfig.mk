@@ -15,9 +15,6 @@ TARGET_RECOVERY_FSTAB = device/fsl/sabreauto_6sx/fstab_nand.freescale
 PRODUCT_COPY_FILES +=	\
 	device/fsl/sabreauto_6sx/fstab_nand.freescale:root/fstab.freescale
 else
-ADDITIONAL_BUILD_PROPERTIES += \
-                        ro.internel.storage_size=/sys/block/mmcblk2/size \
-                        ro.frp.pst=/dev/block/by-name/presistdata
 ifneq ($(BUILD_TARGET_FS),f2fs)
 TARGET_RECOVERY_FSTAB = device/fsl/sabreauto_6sx/fstab.freescale
 # build for ext4

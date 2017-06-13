@@ -18,8 +18,6 @@ TARGET_RECOVERY_FSTAB = device/fsl/arm2_8qm/fstab_nand.freescale
 PRODUCT_COPY_FILES +=	\
 	device/fsl/arm2_8qm/fstab_nand.freescale:root/fstab.freescale
 else
-ADDITIONAL_BUILD_PROPERTIES += \
-                        ro.internel.storage_size=/sys/block/mmcblk1/size
 ifneq ($(BUILD_TARGET_FS),f2fs)
 TARGET_RECOVERY_FSTAB = device/fsl/arm2_8qm/fstab.freescale
 # build for ext4

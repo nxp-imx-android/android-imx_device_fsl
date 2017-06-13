@@ -88,3 +88,9 @@ PRODUCT_PACKAGES += \
     libVSC \
     libg2d \
     libgpuhelper
+
+ifneq ($(BUILD_TARGET_FS),ubifs)
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.internel.storage_size=/sys/block/mmcblk2/size \
+    ro.frp.pst=/dev/block/by-name/presistdata
+endif

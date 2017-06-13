@@ -74,3 +74,6 @@ PRODUCT_PACKAGES += \
     libGAL \
     libg2d \
     libgpuhelper
+
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.internel.storage_size=/sys/block/mmcblk1/size

@@ -90,3 +90,6 @@ PRODUCT_PACKAGES += \
     libVSC \
     libg2d \
     libgpuhelper
+
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.internel.storage_size=/sys/block/mmcblk0/size

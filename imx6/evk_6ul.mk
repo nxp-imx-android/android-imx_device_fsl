@@ -60,3 +60,8 @@ PRODUCT_COPY_FILES += \
 
 PRODUCT_PACKAGES += \
         libg2d
+
+ifneq ($(BUILD_TARGET_FS),ubifs)
+PRODUCT_PROPERTY_OVERRIDES += \
+                        ro.frp.pst=/dev/block/mmcblk1p12
+endif
