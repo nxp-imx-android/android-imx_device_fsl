@@ -125,3 +125,4 @@ BOARD_SEPOLICY_DIRS := \
 BOARD_SECCOMP_POLICY += device/fsl/sabreauto_6q/seccomp
 
 TARGET_BOARD_KERNEL_HEADERS := device/fsl/common/kernel-headers
+FSL_VPU_OMX_ONLY := true

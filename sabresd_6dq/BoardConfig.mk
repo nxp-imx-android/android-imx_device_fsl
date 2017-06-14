@@ -131,3 +131,4 @@ BOARD_BPT_INPUT_FILES += device/fsl/common/partition/device-partitions.bpt
 BOARD_SECCOMP_POLICY += device/fsl/sabresd_6dq/seccomp
 
 TARGET_BOARD_KERNEL_HEADERS := device/fsl/common/kernel-headers
+FSL_VPU_OMX_ONLY := true
