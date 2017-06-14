@@ -22,8 +22,13 @@ PRODUCT_COPY_FILES +=	\
 endif # BUILD_TARGET_FS
 
 # Vendor Interface Manifest
+ifeq ($(PRODUCT_IMX_CAR),true)
+PRODUCT_COPY_FILES += \
+    device/fsl/sabresd_6dq/manifest_car.xml:system/vendor/manifest.xml
+else
 PRODUCT_COPY_FILES += \
     device/fsl/sabresd_6dq/manifest.xml:system/vendor/manifest.xml
+endif
 
 TARGET_BOOTLOADER_BOARD_NAME := SABRESD
 PRODUCT_MODEL := SABRESD-MX6DQ
