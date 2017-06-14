@@ -95,16 +95,6 @@ BOARD_CACHEIMAGE_PARTITION_SIZE := 444596224
 BOARD_FLASH_BLOCK_SIZE := 4096
 TARGET_RECOVERY_UI_LIB := librecovery_ui_imx
 
-# Freescale multimedia parser related prop setting
-# Define fsl avi/aac/asf/mkv/flv/flac format support
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.FSL_AVI_PARSER=1 \
-    ro.FSL_AAC_PARSER=1 \
-    ro.FSL_FLV_PARSER=1 \
-    ro.FSL_MKV_PARSER=1 \
-    ro.FSL_FLAC_PARSER=1 \
-    ro.FSL_MPG2_PARSER=1 \
-
 -include device/google/gapps/gapps_config.mk
 -include external/fsl-restricted-codec/fsl_ms_codec/BoardConfig.mk
 -include external/fsl-restricted-codec/fsl_real_dec/BoardConfig.mk

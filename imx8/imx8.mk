@@ -331,6 +331,16 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
         ro.media.maxmem=3221225472
 
+# Freescale multimedia parser related prop setting
+# Define fsl avi/aac/asf/mkv/flv/flac format support
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.FSL_AVI_PARSER=1 \
+    ro.FSL_AAC_PARSER=1 \
+    ro.FSL_FLV_PARSER=1 \
+    ro.FSL_MKV_PARSER=1 \
+    ro.FSL_FLAC_PARSER=1 \
+    ro.FSL_MPG2_PARSER=1 \
+
 PRODUCT_DEFAULT_DEV_CERTIFICATE := \
         device/fsl/common/security/testkey
 
