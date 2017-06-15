@@ -3,6 +3,8 @@ on boot
     write /config/usb_gadget/g1/strings/0x409/manufacturer ${ro.product.manufacturer}
     write /config/usb_gadget/g1/strings/0x409/product ${ro.product.model}
 
+    setprop sys.usb.configfs 1
+
     # OS DESCRIPTORS
     #===============
     # OS STRING
