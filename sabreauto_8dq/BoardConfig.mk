@@ -123,6 +123,9 @@ BOARD_SEPOLICY_DIRS := \
        device/fsl/sabreauto_8dq/sepolicy \
        device/fsl/common/sepolicy
 
-BOARD_SECCOMP_POLICY += device/fsl/sabreauto_8dq/seccomp
+# Vendor seccomp policy files for media components:
+PRODUCT_COPY_FILES += \
+       device/fsl/sabresd_6dq/seccomp/mediacodec-seccomp.policy:system/vendor/etc/seccomp_policy/mediacodec.policy \
+       device/fsl/sabresd_6dq/seccomp/mediaextractor-seccomp.policy:system/vendor/etc/seccomp_policy/mediaextractor.policy
 
 TARGET_BOARD_KERNEL_HEADERS := device/fsl/common/kernel-headers
