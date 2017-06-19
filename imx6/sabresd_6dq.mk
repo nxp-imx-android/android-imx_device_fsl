@@ -18,9 +18,9 @@ PRODUCT_DEVICE := sabresd_6dq
 
 PRODUCT_COPY_FILES += \
 	device/fsl/sabresd_6dq/init.rc:root/init.freescale.rc \
-	device/fsl/sabresd_6dq/init.i.MX6Q.rc:root/init.freescale.i.MX6Q.rc \
-	device/fsl/sabresd_6dq/init.i.MX6DL.rc:root/init.freescale.i.MX6DL.rc \
-	device/fsl/sabresd_6dq/init.i.MX6QP.rc:root/init.freescale.i.MX6QP.rc \
+	device/fsl/sabresd_6dq/init.imx6q.rc:root/init.freescale.imx6q.rc \
+	device/fsl/sabresd_6dq/init.imx6dl.rc:root/init.freescale.imx6dl.rc \
+	device/fsl/sabresd_6dq/init.imx6qp.rc:root/init.freescale.imx6qp.rc \
 
 PRODUCT_COPY_FILES += device/fsl/sabresd_6dq/init.freescale.emmc.rc:root/init.freescale.emmc.rc
 PRODUCT_COPY_FILES += device/fsl/sabresd_6dq/init.freescale.sd.rc:root/init.freescale.sd.rc

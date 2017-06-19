@@ -18,9 +18,9 @@ PRODUCT_DEVICE := sabreauto_6q
 
 PRODUCT_COPY_FILES += \
 	device/fsl/sabreauto_6q/init.rc:root/init.freescale.rc \
-	device/fsl/sabreauto_6q/init.i.MX6Q.rc:root/init.freescale.i.MX6Q.rc \
-	device/fsl/sabreauto_6q/init.i.MX6DL.rc:root/init.freescale.i.MX6DL.rc \
-	device/fsl/sabreauto_6q/init.i.MX6QP.rc:root/init.freescale.i.MX6QP.rc \
+	device/fsl/sabreauto_6q/init.imx6q.rc:root/init.freescale.imx6q.rc \
+	device/fsl/sabreauto_6q/init.imx6dl.rc:root/init.freescale.imx6dl.rc \
+	device/fsl/sabreauto_6q/init.imx6qp.rc:root/init.freescale.imx6qp.rc \
 
 # Audio
 USE_XML_AUDIO_POLICY_CONF := 1

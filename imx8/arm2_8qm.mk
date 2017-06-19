@@ -18,7 +18,7 @@ PRODUCT_DEVICE := arm2_8qm
 
 PRODUCT_COPY_FILES += \
 	device/fsl/arm2_8qm/init.rc:root/init.freescale.rc \
-	device/fsl/arm2_8qm/init.i.MX8QM.rc:root/init.freescale.i.MX8QM.rc \
+	device/fsl/arm2_8qm/init.imx8qm.rc:root/init.freescale.imx8qm.rc \
 
 # Audio
 USE_XML_AUDIO_POLICY_CONF := 1

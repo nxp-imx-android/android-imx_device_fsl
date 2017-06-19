@@ -18,8 +18,8 @@ PRODUCT_DEVICE := sabreauto_8dq
 
 PRODUCT_COPY_FILES += \
 	device/fsl/sabreauto_8dq/init.rc:root/init.freescale.rc \
-	device/fsl/sabreauto_8dq/init.i.MX8DV.rc:root/init.freescale.i.MX8DV.rc \
-	device/fsl/sabreauto_8dq/init.i.MX8QM.rc:root/init.freescale.i.MX8QM.rc \
+	device/fsl/sabreauto_8dq/init.imx8dv.rc:root/init.freescale.imx8dv.rc \
+	device/fsl/sabreauto_8dq/init.imx8qm.rc:root/init.freescale.imx8qm.rc \
 
 # Audio
 USE_XML_AUDIO_POLICY_CONF := 1
