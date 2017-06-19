@@ -88,7 +88,7 @@ $(error "TARGET_USERIMAGES_USE_UBIFS and TARGET_USERIMAGES_USE_EXT4 config open 
 endif
 endif
 
-TARGET_BOARD_DTS_CONFIG := imx8qxp:fsl-imx8qxp-lpddr4-arm2.dtb
+TARGET_BOARD_DTS_CONFIG := imx8qxp:fsl-imx8qxp-lpddr4-arm2-it6263.dtb
 TARGET_BOOTLOADER_CONFIG := imx8qxp:mx8qxp_lpddr4_arm2_android_defconfig
 
 BOARD_SEPOLICY_DIRS := \
