@@ -23,6 +23,20 @@ PRODUCT_PROPERTY_OVERRIDES += \
     com.android.car.radio.demo=true \
     com.android.car.radio.demo.dual=true
 
+# Add Google prebuilt services
+PRODUCT_PACKAGES += \
+    GoogleSearchEmbedded \
+    GoogleDemandspace \
+    GoogleMaps \
+    GooglePlayStore \
+    GoogleGmscore_demo \
+    GoogleServicesFramework_demo \
+    GoogleLoginService_demo \
+    GoogleExtServices_demo \
+    GoogleExtShared_demo \
+    GooglePartnerSetup_demo
+
+# Add Car related HAL
 PRODUCT_PACKAGES += \
     libion \
     vehicle.default
