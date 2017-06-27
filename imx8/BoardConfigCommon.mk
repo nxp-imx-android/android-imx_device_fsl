@@ -22,8 +22,6 @@ TARGET_NO_KERNEL := false
 TARGET_NO_RECOVERY := false
 TARGET_NO_RADIOIMAGE := true
 
-TARGET_PROVIDES_INIT_RC := true
-
 BOARD_SOC_CLASS := IMX8
 
 BOARD_KERNEL_OFFSET := 0x00080000
@@ -34,10 +32,8 @@ BOARD_MKBOOTIMG_ARGS := --ramdisk_offset $(BOARD_RAMDISK_OFFSET) --second_offset
 
 #BOARD_USES_GENERIC_AUDIO := true
 BOARD_USES_ALSA_AUDIO := true
-BUILD_WITH_ALSA_UTILS := true
 BOARD_HAVE_BLUETOOTH := true
 USE_CAMERA_STUB := false
-BOARD_CAMERA_LIBRARIES := libcamera
 
 BOARD_HAVE_WIFI := true
 
@@ -48,12 +44,7 @@ BOARD_MODEM_HAVE_DATA_DEVICE := true
 BOARD_HAVE_IMX_CAMERA := true
 BOARD_HAVE_USB_CAMERA := false
 
-BUILD_WITHOUT_FSL_DIRECTRENDER := false
-BUILD_WITHOUT_FSL_XEC := true
-
 TARGET_USERIMAGES_BLOCKS := 204800
-
-BUILD_WITH_GST := false
 
 # Enable dex-preoptimization to speed up first boot sequence
 ifeq ($(HOST_OS),linux)
@@ -79,9 +70,6 @@ else ifeq ($(DISABLE_FSL_PREBUILT),ALL)
 PREBUILT_FSL_IMX_GPU := false
 PREBUILT_FSL_WFDSINK := false
 endif
-
-# use non-neon memory copy on mx8x to get better performance
-ARCH_ARM_USE_NON_NEON_MEMCPY := true
 
 # for kernel/user space split
 # comment out for 1g/3g space split
