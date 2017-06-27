@@ -30,8 +30,6 @@ PRODUCT_COPY_FILES +=	\
 	device/fsl/arm2_8qxp/fstab-f2fs.freescale:root/fstab.freescale
 endif # BUILD_TARGET_FS
 
-PRODUCT_COPY_FILES +=	\
-	device/fsl/arm2_8qxp/fstab.freescale.sd:root/fstab.freescale.sd
 # Support gpt
 BOARD_BPT_INPUT_FILES += device/fsl/common/partition/device-partitions.bpt
 
