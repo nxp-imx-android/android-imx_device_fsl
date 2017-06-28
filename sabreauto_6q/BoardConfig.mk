@@ -111,4 +111,3 @@ PRODUCT_COPY_FILES += \
        device/fsl/sabresd_6dq/seccomp/mediaextractor-seccomp.policy:vendor/etc/seccomp_policy/mediaextractor.policy
 
 TARGET_BOARD_KERNEL_HEADERS := device/fsl/common/kernel-headers
-FSL_VPU_OMX_ONLY := true
