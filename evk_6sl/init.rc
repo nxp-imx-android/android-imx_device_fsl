@@ -242,3 +242,6 @@ on post-fs
 
     # This may have been created by the recovery system with the wrong context.
     restorecon /cache/recovery
+
+on post-fs-data
+    setprop vold.post_fs_data_done 1
