@@ -76,6 +76,7 @@ PRODUCT_PACKAGES += \
 
 #audio related lib
 PRODUCT_PACKAGES += \
+	audio.primary.imx8			\
 	audio_policy.conf			\
 	tinyplay				\
 	audio.a2dp.default			\
