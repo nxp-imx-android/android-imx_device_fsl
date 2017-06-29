@@ -1,3 +1,4 @@
+import init.${ro.hardware}.${ro.boot.storage_type}.rc
 on init 
     # disable cursor blink for fbcon, if no splash screen support
     write /sys/class/graphics/fbcon/cursor_blink 0
