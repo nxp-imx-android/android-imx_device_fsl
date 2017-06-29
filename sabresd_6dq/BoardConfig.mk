@@ -10,10 +10,16 @@ BUILD_TARGET_FS ?= ext4
 include device/fsl/imx6/imx6_target_fs.mk
 
 ifneq ($(BUILD_TARGET_FS),f2fs)
-TARGET_RECOVERY_FSTAB = device/fsl/sabresd_6dq/fstab.freescale
 # build for ext4
+ifeq ($(PRODUCT_IMX_CAR),true)
+TARGET_RECOVERY_FSTAB = device/fsl/sabresd_6dq/fstab.freescale.car
+PRODUCT_COPY_FILES +=	\
+	device/fsl/sabresd_6dq/fstab.freescale.car:root/fstab.freescale
+else
+TARGET_RECOVERY_FSTAB = device/fsl/sabresd_6dq/fstab.freescale
 PRODUCT_COPY_FILES +=	\
 	device/fsl/sabresd_6dq/fstab.freescale:root/fstab.freescale
+endif # PRODUCT_IMX_CAR
 else
 TARGET_RECOVERY_FSTAB = device/fsl/sabresd_6dq/fstab-f2fs.freescale
 # build for f2fs
