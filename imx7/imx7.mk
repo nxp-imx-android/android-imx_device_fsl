@@ -314,6 +314,11 @@ PRODUCT_PACKAGES += \
     slideshow \
     verity_warning_images
 
+# display libs
+PRODUCT_PACKAGES += \
+    libdrm \
+    libfsldisplay
+
 PRODUCT_COPY_FILES +=	\
 	device/fsl/common/input/Dell_Dell_USB_Keyboard.kl:system/usr/keylayout/Dell_Dell_USB_Keyboard.kl \
 	device/fsl/common/input/Dell_Dell_USB_Keyboard.idc:system/usr/idc/Dell_Dell_USB_Keyboard.idc \
