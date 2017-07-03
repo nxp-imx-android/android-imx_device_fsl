@@ -45,6 +45,8 @@ bootloader_file="u-boot.imx"
 bootimage_file="boot.img"
 systemimage_file="system.img"
 systemimage_raw_file="system_raw.img"
+vendor_file="vendor.img"
+vendor_raw_file="vendor_raw.img"
 recoveryimage_file="recovery.img"
 partition_file="partition-table.img"
 while [ "$moreoptions" = 1 -a $# -gt 0 ]; do
@@ -96,7 +98,7 @@ fi
 function format_android
 {
     echo "formating android images"
-    mkfs.ext4 -F ${node}10 -L data
+    mkfs.ext4 -F ${node}11 -L data
     mkfs.ext4 -F ${node}3 -Lsystem
     mkfs.ext4 -F ${node}4 -Lcache
     mkfs.ext4 -F ${node}5 -Ldevice
@@ -118,11 +120,15 @@ if [ "${flash_images}" -eq "1" ]; then
     echo "boot image: ${bootimage_file}"
     echo "recovery image: ${recoveryimage_file}"
     echo "system image: ${systemimage_file}"
+    echo "vendor image: ${vendor_file}"
     dd if=${bootimage_file} of=${node}1 conv=fsync
     dd if=${recoveryimage_file} of=${node}2 conv=fsync
     simg2img ${systemimage_file} ${systemimage_raw_file}
     dd if=${systemimage_raw_file} of=${node}3 conv=fsync
     rm ${systemimage_raw_file}
+    simg2img ${vendor_file} ${vendor_raw_file}
+    dd if=${vendor_raw_file} of=${node}10 conv=fsync
+    rm ${vendor_raw_file}
     dd if=/dev/zero of=${node} bs=1k seek=${bootloader_offset} conv=fsync count=800
     dd if=${bootloader_file} of=${node} bs=1k seek=${bootloader_offset} conv=fsync
 fi

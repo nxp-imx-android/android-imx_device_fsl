@@ -183,7 +183,7 @@ service wpa_supplicant /vendor/bin/hw/wpa_supplicant \
     oneshot
 
 # magd daemon
-service magd /system/bin/magd
+service magd /vendor/bin/magd
     class late_start
     seclabel u:r:sensors:s0
     user system

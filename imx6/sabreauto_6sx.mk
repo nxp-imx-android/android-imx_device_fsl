@@ -22,7 +22,7 @@ PRODUCT_COPY_FILES += \
 # Audio
 USE_XML_AUDIO_POLICY_CONF := 1
 PRODUCT_COPY_FILES += \
-	device/fsl/sabreauto_6sx/audio_effects.conf:system/vendor/etc/audio_effects.conf \
+	device/fsl/sabreauto_6sx/audio_effects.conf:vendor/etc/audio_effects.conf \
 	device/fsl/sabreauto_6sx/audio_policy_configuration.xml:system/etc/audio_policy_configuration.xml \
 	frameworks/av/services/audiopolicy/config/r_submix_audio_policy_configuration.xml:system/etc/r_submix_audio_policy_configuration.xml \
 	frameworks/av/services/audiopolicy/config/usb_audio_policy_configuration.xml:system/etc/usb_audio_policy_configuration.xml \

@@ -185,7 +185,7 @@ service wpa_supplicant /vendor/bin/hw/wpa_supplicant \
     disabled
     oneshot
 
-service sensor_fusion /system/bin/fsl_sensor_fusion
+service sensor_fusion /vendor/bin/fsl_sensor_fusion
     class late_start
     seclabel u:r:sensors:s0
     user system

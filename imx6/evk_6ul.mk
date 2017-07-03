@@ -27,7 +27,7 @@ PRODUCT_COPY_FILES += \
 	device/fsl/common/input/20b8000_kpp.idc:system/usr/idc/20b8000_kpp.idc \
 	device/fsl/common/input/20b8000_kpp.kl:system/usr/keylayout/20b8000_kpp.kl \
 	device/fsl/evk_6ul/audio_policy.conf:system/etc/audio_policy.conf \
-	device/fsl/evk_6ul/audio_effects.conf:system/vendor/etc/audio_effects.conf
+	device/fsl/evk_6ul/audio_effects.conf:vendor/etc/audio_effects.conf
 
 
 DEVICE_PACKAGE_OVERLAYS := device/fsl/evk_6ul/overlay

@@ -30,7 +30,7 @@ endif # BUILD_TARGET_FS
 
 # Vendor Interface Manifest
 PRODUCT_COPY_FILES += \
-    device/fsl/sabresd_6sx/manifest.xml:system/vendor/manifest.xml
+    device/fsl/sabresd_6sx/manifest.xml:vendor/manifest.xml
 
 TARGET_BOOTLOADER_BOARD_NAME := SABRESD
 PRODUCT_MODEL := SABRESD-MX6SX
@@ -115,7 +115,7 @@ BOARD_BPT_INPUT_FILES += device/fsl/common/partition/device-partitions.bpt
 
 # Vendor seccomp policy files for media components:
 PRODUCT_COPY_FILES += \
-       device/fsl/sabresd_6dq/seccomp/mediacodec-seccomp.policy:system/vendor/etc/seccomp_policy/mediacodec.policy \
-       device/fsl/sabresd_6dq/seccomp/mediaextractor-seccomp.policy:system/vendor/etc/seccomp_policy/mediaextractor.policy
+       device/fsl/sabresd_6dq/seccomp/mediacodec-seccomp.policy:vendor/etc/seccomp_policy/mediacodec.policy \
+       device/fsl/sabresd_6dq/seccomp/mediaextractor-seccomp.policy:vendor/etc/seccomp_policy/mediaextractor.policy
 
 TARGET_BOARD_KERNEL_HEADERS := device/fsl/common/kernel-headers

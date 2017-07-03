@@ -31,7 +31,7 @@ PRODUCT_COPY_FILES += \
 # Audio
 USE_XML_AUDIO_POLICY_CONF := 1
 PRODUCT_COPY_FILES += \
-	device/fsl/evk_7ulp/audio_effects.conf:system/vendor/etc/audio_effects.conf \
+	device/fsl/evk_7ulp/audio_effects.conf:vendor/etc/audio_effects.conf \
 	device/fsl/evk_7ulp/audio_policy_configuration.xml:system/etc/audio_policy_configuration.xml \
 	frameworks/av/services/audiopolicy/config/a2dp_audio_policy_configuration.xml:system/etc/a2dp_audio_policy_configuration.xml \
 	frameworks/av/services/audiopolicy/config/r_submix_audio_policy_configuration.xml:system/etc/r_submix_audio_policy_configuration.xml \

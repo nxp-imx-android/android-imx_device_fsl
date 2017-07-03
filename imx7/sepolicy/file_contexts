@@ -1,5 +1,5 @@
-/system/bin/magd                u:object_r:sensors_exec:s0
-/system/bin/fsl_sensor_fusion   u:object_r:sensors_exec:s0
+/vendor/bin/magd                u:object_r:sensors_exec:s0
+/vendor/bin/fsl_sensor_fusion   u:object_r:sensors_exec:s0
 /dev/ttyGS[0-9]*                u:object_r:tty_device:s0
 /dev/ttymxc[0-9]*               u:object_r:tty_device:s0
 /dev/ttyLP[0-9]*                u:object_r:tty_device:s0
