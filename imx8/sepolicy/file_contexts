@@ -20,4 +20,5 @@
 /dev/FreescaleAccelerometer     u:object_r:sensors_device:s0
 /dev/FreescaleMagnetometer      u:object_r:sensors_device:s0
 /dev/FreescaleGyroscope         u:object_r:sensors_device:s0
+/dev/dri(/.*)?	                u:object_r:graphics_device:s0
 
