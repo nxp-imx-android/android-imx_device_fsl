@@ -18,7 +18,6 @@ PRODUCT_PACKAGES += \
 	Email					\
 	FSLOta					\
 	CactusPlayer                            \
-	A2dpSinkApp                             \
 	BleServerEmulator                       \
 	BleClient                               \
 	ethernet                                \

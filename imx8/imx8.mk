@@ -21,7 +21,6 @@ PRODUCT_PACKAGES += \
 	CactusPlayer                            \
 	WfdSink                                 \
 	wfd                                     \
-	A2dpSinkApp                             \
 	BleServerEmulator                       \
 	BleClient                               \
 	ethernet                                \
