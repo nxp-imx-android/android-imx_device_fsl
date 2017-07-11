@@ -16,3 +16,4 @@ allow init proc:file { create };
 allow init cgroup:file { create };
 allow init sysfs:dir { write add_name };
 allow init sysfs:file { create };
+allow init mtd_device:chr_file { ioctl write };
