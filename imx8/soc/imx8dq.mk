@@ -10,8 +10,6 @@ HAVE_FSL_IMX_IPU := false
 HAVE_FSL_IMX_PXP := false
 BOARD_KERNEL_BASE := 0x80000000
 TARGET_KERNEL_DEFCONF := imx8_android_defconfig
--include external/fsl_vpu_omx/codec_env.mk
--include external/fsl_imx_omx/codec_env.mk
 TARGET_GRALLOC_VERSION := v3
 TARGET_HIGH_PERFORMANCE := true
 # HWComposer version depends on this.
