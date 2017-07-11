@@ -6,6 +6,9 @@ include device/fsl/imx7/soc/imx7d.mk
 include device/fsl/sabresd_7d/build_id.mk
 include device/fsl/imx7/BoardConfigCommon.mk
 include external/linux-firmware-imx/firmware/epdc/fsl-epdc.mk
+ifeq ($(PREBUILT_FSL_IMX_CODEC),true)
+-include device/fsl-codec/fsl-codec.mk
+endif
 # sabresd_mx7d default target for EXT4
 BUILD_TARGET_FS ?= ext4
 include device/fsl/imx7/imx7_target_fs.mk

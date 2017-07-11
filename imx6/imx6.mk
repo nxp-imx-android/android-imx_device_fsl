@@ -411,3 +411,5 @@ endif
 include frameworks/native/build/tablet-7in-hdpi-1024-dalvik-heap.mk
 
 -include device/google/gapps/gapps.mk
+-include external/fsl-restricted-codec/fsl_real_dec/fsl_real_dec.mk
+-include external/fsl-restricted-codec/fsl_ms_codec/fsl_ms_codec.mk
