@@ -360,6 +360,10 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
         ro.media.maxmem=3221225472
 
+#this makes imx7 wifionly devices
+PRODUCT_PROPERTY_OVERRIDES += \
+        ro.radio.noril=yes
+
 # Freescale multimedia parser related prop setting
 # Define fsl avi/aac/asf/mkv/flv/flac format support
 PRODUCT_PROPERTY_OVERRIDES += \
