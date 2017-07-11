@@ -126,6 +126,7 @@ PRODUCT_PACKAGES += \
 
 ifneq ($(BUILD_TARGET_FS),ubifs)
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.internel.storage_size=/sys/block/mmcblk1/size
+    ro.internel.storage_size=/sys/block/mmcblk1/size \
+    ro.frp.pst=/dev/block/by-name/presistdata
 endif
 
