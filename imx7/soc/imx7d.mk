@@ -14,9 +14,7 @@ TARGET_KERNEL_DEFCONF := imx_v7_android_defconfig
 -include external/fsl_imx_omx/codec_env.mk
 TARGET_GRALLOC_VERSION := v3
 TARGET_HIGH_PERFORMANCE := false
-# HWComposer version depends on this.
-TARGET_USES_HWC2 := true
-TARGET_HWCOMPOSER_VERSION := v2.0
+TARGET_HWCOMPOSER_VERSION = v1.3
 TARGET_FSL_IMX_2D := PXP2D
 USE_OPENGL_RENDERER := true
 TARGET_CPU_SMP := false
