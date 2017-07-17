@@ -216,76 +216,78 @@ struct pxp_layer_param {
   int comp_mask;
   struct pxp_alpha alpha;
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+  struct rect crop;
   dma_addr_t paddr;
 };
 struct pxp_collision_info {
-  unsigned int pixel_cnt;
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+  unsigned int pixel_cnt;
   unsigned int rect_min_x;
   unsigned int rect_min_y;
   unsigned int rect_max_x;
-  unsigned int rect_max_y;
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+  unsigned int rect_max_y;
   unsigned int victim_luts[2];
 };
 struct pxp_proc_data {
-  int scaling;
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+  int scaling;
   int hflip;
   int vflip;
   int rotate;
-  int rot_pos;
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+  int rot_pos;
   int yuv;
   unsigned int alpha_mode;
   struct rect srect;
-  struct rect drect;
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+  struct rect drect;
   unsigned int bgcolor;
   unsigned char fill_en;
   int overlay_state;
-  int lut_transform;
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+  int lut_transform;
   unsigned char * lut_map;
   unsigned char lut_map_updated;
   unsigned char combine_enable;
-  enum pxp_op_type op_type;
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+  enum pxp_op_type op_type;
   __u64 lut_sels;
   enum pxp_working_mode working_mode;
   enum pxp_engine_ctrl engine_enable;
-  unsigned char partial_update;
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+  unsigned char partial_update;
   unsigned char alpha_en;
   unsigned char lut_update;
   unsigned char reagl_en;
-  unsigned char reagl_d_en;
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+  unsigned char reagl_d_en;
   unsigned char detection_only;
   int lut;
   unsigned char lut_cleanup;
-  unsigned int lut_status_1;
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+  unsigned int lut_status_1;
   unsigned int lut_status_2;
   int dither_mode;
   unsigned int quant_bit;
-};
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+};
 struct pxp_config_data {
   struct pxp_layer_param s0_param;
   struct pxp_layer_param ol_param[1];
-  struct pxp_layer_param out_param;
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+  struct pxp_layer_param out_param;
   struct pxp_layer_param wfe_a_fetch_param[2];
   struct pxp_layer_param wfe_a_store_param[2];
   struct pxp_layer_param wfe_b_fetch_param[2];
-  struct pxp_layer_param wfe_b_store_param[2];
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+  struct pxp_layer_param wfe_b_store_param[2];
   struct pxp_layer_param dither_fetch_param[2];
   struct pxp_layer_param dither_store_param[2];
   struct pxp_proc_data proc_data;
-  int layer_nr;
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+  int layer_nr;
   int handle;
 };
 #endif
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
