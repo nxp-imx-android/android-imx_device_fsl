@@ -31,3 +31,4 @@ PRODUCT_MAKEFILES := \
   $(LOCAL_DIR)/arm2_8qm.mk \
   $(LOCAL_DIR)/arm2_8qxp.mk \
   $(LOCAL_DIR)/evk_8mq.mk \
+  $(LOCAL_DIR)/mek_8q.mk \
