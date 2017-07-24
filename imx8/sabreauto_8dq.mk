@@ -32,9 +32,6 @@ PRODUCT_COPY_FILES += \
 	frameworks/av/services/audiopolicy/config/default_volume_tables.xml:system/etc/default_volume_tables.xml \
 	frameworks/av/services/audiopolicy/config/audio_policy_volumes.xml:system/etc/audio_policy_volumes.xml \
 
-PRODUCT_COPY_FILES +=	\
-	external/linux-firmware-imx/firmware/vpu/vpu_fw_imx6d.bin:system/lib/firmware/vpu/vpu_fw_imx8dv.bin 	\
-	external/linux-firmware-imx/firmware/vpu/vpu_fw_imx6q.bin:system/lib/firmware/vpu/vpu_fw_imx8qm.bin
 # setup dm-verity configs.
 ifneq ($(BUILD_TARGET_FS),ubifs)
 PRODUCT_SYSTEM_VERITY_PARTITION := /dev/block/by-name/system

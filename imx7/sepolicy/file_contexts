@@ -8,7 +8,6 @@
 /dev/mxc_asrc                   u:object_r:audio_device:s0
 /dev/mxc_hdmi                   u:object_r:video_device:s0
 /dev/mxc_ipu                    u:object_r:video_device:s0
-/dev/mxc_vpu                    u:object_r:video_device:s0
 /dev/ubi0_0                     u:object_r:block_device:s0
 /dev/ubi0_1                     u:object_r:block_device:s0
 /dev/ubi0_2                     u:object_r:block_device:s0

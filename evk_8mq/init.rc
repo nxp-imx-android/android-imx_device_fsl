@@ -14,10 +14,7 @@ on init
     symlink /sdcard /storage/sdcard0
 
     # setup the global environment
-    export SHM_MOUNTPOINT /mnt/shm
     export LIGHTSENSOR_PATH /sys/class/i2c-adapter/i2c-1/1-0044
-    export VPU_FW_PATH /system/lib/firmware/vpu
-    export CODEC_SHM_PATH /mnt/shm
     export CORE_REGISTER_FILE /vendor/etc/core_register
     export COMPONENT_REGISTER_FILE /vendor/etc/component_register
     export CONTENTPIPE_REGISTER_FILE /vendor/etc/contentpipe_register
@@ -29,10 +26,6 @@ on init
     write /sys/class/vtconsole/vtcon1/bind 0
 
     mkdir /device 0771 system system
-
-    # shared memory used by VPU to distinguish VPU instance.
-    mkdir /mnt/shm  0775 media drmrpc
-    mount tmpfs tmpfs /mnt/shm mode=0775,uid=1013,gid=1031,size=1m
 
 on boot
 
