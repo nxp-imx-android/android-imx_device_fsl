@@ -21,8 +21,14 @@ else
 ifneq ($(BUILD_TARGET_FS),f2fs)
 TARGET_RECOVERY_FSTAB = device/fsl/arm2_8qm/fstab.freescale
 # build for ext4
+ifeq ($(PRODUCT_IMX_CAR),true)
+TARGET_RECOVERY_FSTAB = device/fsl/arm2_8qm/fstab.freescale.car
+PRODUCT_COPY_FILES +=	\
+	device/fsl/arm2_8qm/fstab.freescale.car:root/fstab.freescale
+else
 PRODUCT_COPY_FILES +=	\
 	device/fsl/arm2_8qm/fstab.freescale:root/fstab.freescale
+endif # PRODUCT_IMX_CAR
 else
 TARGET_RECOVERY_FSTAB = device/fsl/arm2_8qm/fstab-f2fs.freescale
 # build for f2fs
@@ -36,8 +42,13 @@ BOARD_BPT_INPUT_FILES += device/fsl/common/partition/device-partitions.bpt
 endif # BUILD_TARGET_FS
 
 # Vendor Interface Manifest
+ifeq ($(PRODUCT_IMX_CAR),true)
+PRODUCT_COPY_FILES += \
+    device/fsl/arm2_8qm/manifest_car.xml:vendor/manifest.xml
+else
 PRODUCT_COPY_FILES += \
     device/fsl/arm2_8qm/manifest.xml:vendor/manifest.xml
+endif
 
 TARGET_BOOTLOADER_BOARD_NAME := SABREAUTO
 
