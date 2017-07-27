@@ -2,7 +2,7 @@
 MAKE += SHELL=/bin/bash
 
 define build_uboot
-	cp  bootable/bootloader/uboot-imx/u-boot.$(strip $(1)) external/imx-mkimage/iMX8QX/u-boot.bin; \
+	cp  out/target/product/arm2_8qxp/obj/BOOTLOADER_OBJ/u-boot.$(strip $(1)) external/imx-mkimage/iMX8QX/u-boot.bin; \
 	cp  external/linux-firmware-imx/firmware/scfw_tcm/scfw_tcm_8qxp.bin external/imx-mkimage/iMX8QX/scfw_tcm.bin; \
 	$(MAKE) -C external/imx-mkimage/iMX8QX/ clean; \
 	$(MAKE) -C external/imx-mkimage/iMX8QX/ flash; \
