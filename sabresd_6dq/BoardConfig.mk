@@ -121,6 +121,13 @@ BOARD_SEPOLICY_DIRS := \
        device/fsl/imx6/sepolicy \
        device/fsl/sabresd_6dq/sepolicy \
        device/fsl/common/sepolicy
+
+ifeq ($(PRODUCT_IMX_CAR),true)
+BOARD_SEPOLICY_DIRS += \
+     packages/services/Car/car_product/sepolicy \
+     device/generic/car/common/sepolicy
+endif
+
 # Support gpt
 BOARD_BPT_INPUT_FILES += device/fsl/common/partition/device-partitions.bpt
 

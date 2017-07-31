@@ -105,6 +105,12 @@ BOARD_SEPOLICY_DIRS := \
        device/fsl/arm2_8qm/sepolicy \
        device/fsl/common/sepolicy
 
+ifeq ($(PRODUCT_IMX_CAR),true)
+BOARD_SEPOLICY_DIRS += \
+     packages/services/Car/car_product/sepolicy \
+     device/generic/car/common/sepolicy
+endif
+
 # Vendor seccomp policy files for media components:
 PRODUCT_COPY_FILES += \
        device/fsl/sabresd_6dq/seccomp/mediacodec-seccomp.policy:vendor/etc/seccomp_policy/mediacodec.policy \
