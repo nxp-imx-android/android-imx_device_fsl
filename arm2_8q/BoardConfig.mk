@@ -2,8 +2,8 @@
 # Product-specific compile-time definitions.
 #
 
-include device/fsl/imx8/soc/imx8qxp.mk
-include device/fsl/arm2_8qxp/build_id.mk
+include device/fsl/imx8/soc/imx8q.mk
+include device/fsl/arm2_8q/build_id.mk
 include device/fsl/imx8/BoardConfigCommon.mk
 ifeq ($(PREBUILT_FSL_IMX_CODEC),true)
 -include device/fsl-codec/fsl-codec64.mk
@@ -13,27 +13,27 @@ BUILD_TARGET_FS ?= ext4
 include device/fsl/imx8/imx8_target_fs.mk
 
 ifeq ($(BUILD_TARGET_FS),ubifs)
-TARGET_RECOVERY_FSTAB = device/fsl/arm2_8qxp/fstab_nand.freescale
+TARGET_RECOVERY_FSTAB = device/fsl/arm2_8q/fstab_nand.freescale
 # build ubifs for nand devices
 PRODUCT_COPY_FILES +=	\
-	device/fsl/arm2_8qxp/fstab_nand.freescale:root/fstab.freescale
+	device/fsl/arm2_8q/fstab_nand.freescale:root/fstab.freescale
 else
 ifneq ($(BUILD_TARGET_FS),f2fs)
-TARGET_RECOVERY_FSTAB = device/fsl/arm2_8qxp/fstab.freescale
+TARGET_RECOVERY_FSTAB = device/fsl/arm2_8q/fstab.freescale
 # build for ext4
 ifeq ($(PRODUCT_IMX_CAR),true)
-TARGET_RECOVERY_FSTAB = device/fsl/arm2_8qxp/fstab.freescale.car
+TARGET_RECOVERY_FSTAB = device/fsl/arm2_8q/fstab.freescale.car
 PRODUCT_COPY_FILES +=	\
-	device/fsl/arm2_8qxp/fstab.freescale.car:root/fstab.freescale
+	device/fsl/arm2_8q/fstab.freescale.car:root/fstab.freescale
 else
 PRODUCT_COPY_FILES +=	\
-	device/fsl/arm2_8qxp/fstab.freescale:root/fstab.freescale
+	device/fsl/arm2_8q/fstab.freescale:root/fstab.freescale
 endif # PRODUCT_IMX_CAR
 else
-TARGET_RECOVERY_FSTAB = device/fsl/arm2_8qxp/fstab-f2fs.freescale
+TARGET_RECOVERY_FSTAB = device/fsl/arm2_8q/fstab-f2fs.freescale
 # build for f2fs
 PRODUCT_COPY_FILES +=	\
-	device/fsl/arm2_8qxp/fstab-f2fs.freescale:root/fstab.freescale
+	device/fsl/arm2_8q/fstab-f2fs.freescale:root/fstab.freescale
 endif # BUILD_TARGET_FS
 
 # Support gpt
@@ -44,15 +44,15 @@ endif # BUILD_TARGET_FS
 # Vendor Interface Manifest
 ifeq ($(PRODUCT_IMX_CAR),true)
 PRODUCT_COPY_FILES += \
-    device/fsl/arm2_8qxp/manifest_car.xml:vendor/manifest.xml
+    device/fsl/arm2_8q/manifest_car.xml:vendor/manifest.xml
 else
 PRODUCT_COPY_FILES += \
-    device/fsl/arm2_8qxp/manifest.xml:vendor/manifest.xml
+    device/fsl/arm2_8q/manifest.xml:vendor/manifest.xml
 endif
 
-TARGET_BOOTLOADER_BOARD_NAME := SABREAUTO
+TARGET_BOOTLOADER_BOARD_NAME := ARM2
 
-PRODUCT_MODEL := ARM2-MX8QXP
+PRODUCT_MODEL := ARM2-MX8Q
 
 TARGET_BOOTLOADER_POSTFIX := bin
 
@@ -88,7 +88,7 @@ USE_GPU_ALLOCATOR := true
 # define frame buffer count
 NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
 
-BOARD_KERNEL_CMDLINE := console=ttyLP0,115200 earlycon=lpuart32,0x5a060000,115200,115200 init=/init video=imxdpufb1:off video=imxdpufb2:off video=imxdpufb3:off video=imxdpufb4:off androidboot.console=ttyLP0 consoleblank=0 androidboot.hardware=freescale cma=800M androidboot.watchdogd=disabled androidboot.storage_type=sd galcore.powerManagement=0 androidboot.serialno=150831d4e1fdfca7
+BOARD_KERNEL_CMDLINE := console=ttyLP0,115200 earlycon=lpuart32,0x5a060000,115200,115200 init=/init video=imxdpufb1:off video=imxdpufb2:off video=imxdpufb3:off video=imxdpufb4:off androidboot.console=ttyLP0 consoleblank=0 androidboot.hardware=freescale cma=800M androidboot.watchdogd=disabled androidboot.storage_type=sd androidboot.serialno=150831d4e1fdfca7
 
 
 ifeq ($(TARGET_USERIMAGES_USE_UBIFS),true)
@@ -97,12 +97,12 @@ $(error "TARGET_USERIMAGES_USE_UBIFS and TARGET_USERIMAGES_USE_EXT4 config open 
 endif
 endif
 
-TARGET_BOARD_DTS_CONFIG := imx8qxp:fsl-imx8qxp-lpddr4-arm2-it6263.dtb
-TARGET_BOOTLOADER_CONFIG := imx8qxp:mx8qxp_lpddr4_arm2_android_defconfig
+TARGET_BOARD_DTS_CONFIG := imx8qm:fsl-imx8qm-lpddr4-arm2-it6263.dtb imx8qxp:fsl-imx8qxp-lpddr4-arm2-it6263.dtb
+TARGET_BOOTLOADER_CONFIG := imx8qm:mx8qm_lpddr4_arm2_android_defconfig imx8qxp:mx8qxp_lpddr4_arm2_android_defconfig
 
 BOARD_SEPOLICY_DIRS := \
        device/fsl/imx8/sepolicy \
-       device/fsl/arm2_8qxp/sepolicy \
+       device/fsl/arm2_8q/sepolicy \
        device/fsl/common/sepolicy
 
 ifeq ($(PRODUCT_IMX_CAR),true)

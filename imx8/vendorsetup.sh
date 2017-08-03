@@ -1,13 +1,9 @@
 add_lunch_combo sabreauto_8dq-eng
 add_lunch_combo sabreauto_8dq-user
-add_lunch_combo arm2_8qm-eng
-add_lunch_combo arm2_8qm-user
-add_lunch_combo arm2_8qm_car-eng
-add_lunch_combo arm2_8qm_car-user
-add_lunch_combo arm2_8qxp-eng
-add_lunch_combo arm2_8qxp-user
-add_lunch_combo arm2_8qxp_car-eng
-add_lunch_combo arm2_8qxp_car-user
+add_lunch_combo arm2_8q-eng
+add_lunch_combo arm2_8q-user
+add_lunch_combo arm2_8q_car-eng
+add_lunch_combo arm2_8q_car-user
 add_lunch_combo evk_8mq-eng
 add_lunch_combo evk_8mq-user
 add_lunch_combo mek_8q-eng

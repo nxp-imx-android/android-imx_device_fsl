@@ -2,7 +2,7 @@
 # SoC-specific compile-time definitions.
 #
 
-BOARD_SOC_TYPE := IMX8QM
+BOARD_SOC_TYPE := IMX8Q
 BOARD_HAVE_VPU := false
 HAVE_FSL_IMX_GPU2D := true
 HAVE_FSL_IMX_GPU3D := true

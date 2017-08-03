@@ -3,29 +3,30 @@
 
 $(call inherit-product, device/fsl/imx8/imx8.mk)
 
-ifneq ($(wildcard device/fsl/arm2_8qxp/fstab_nand.freescale),)
-$(shell touch device/fsl/arm2_8qxp/fstab_nand.freescale)
+ifneq ($(wildcard device/fsl/arm2_8q/fstab_nand.freescale),)
+$(shell touch device/fsl/arm2_8q/fstab_nand.freescale)
 endif
 
-ifneq ($(wildcard device/fsl/arm2_8qxp/fstab.freescale),)
-$(shell touch device/fsl/arm2_8qxp/fstab.freescale)
+ifneq ($(wildcard device/fsl/arm2_8q/fstab.freescale),)
+$(shell touch device/fsl/arm2_8q/fstab.freescale)
 endif
 
 # Overrides
-PRODUCT_NAME := arm2_8qxp
-PRODUCT_DEVICE := arm2_8qxp
+PRODUCT_NAME := arm2_8q
+PRODUCT_DEVICE := arm2_8q
 
 
 PRODUCT_COPY_FILES += \
-	device/fsl/arm2_8qxp/init.rc:root/init.freescale.rc \
-	device/fsl/arm2_8qxp/init.imx8qxp.rc:root/init.freescale.imx8qxp.rc \
+	device/fsl/arm2_8q/init.rc:root/init.freescale.rc \
+	device/fsl/arm2_8q/init.imx8qxp.rc:root/init.freescale.imx8qxp.rc \
+	device/fsl/arm2_8q/init.imx8qm.rc:root/init.freescale.imx8qm.rc
 
 # Audio
 USE_XML_AUDIO_POLICY_CONF := 1
 PRODUCT_COPY_FILES += \
-	device/fsl/arm2_8qxp/audio_effects.conf:vendor/etc/audio_effects.conf \
-	device/fsl/arm2_8qxp/audio_policy_configuration.xml:system/etc/audio_policy_configuration.xml \
-	device/fsl/arm2_8qxp/audio_policy_configuration_cts.xml:system/etc/audio_policy_configuration_cts.xml \
+	device/fsl/arm2_8q/audio_effects.conf:vendor/etc/audio_effects.conf \
+	device/fsl/arm2_8q/audio_policy_configuration.xml:system/etc/audio_policy_configuration.xml \
+	device/fsl/arm2_8q/audio_policy_configuration_cts.xml:system/etc/audio_policy_configuration_cts.xml \
 	frameworks/av/services/audiopolicy/config/r_submix_audio_policy_configuration.xml:system/etc/r_submix_audio_policy_configuration.xml \
 	frameworks/av/services/audiopolicy/config/usb_audio_policy_configuration.xml:system/etc/usb_audio_policy_configuration.xml \
 	frameworks/av/services/audiopolicy/config/default_volume_tables.xml:system/etc/default_volume_tables.xml \
@@ -38,9 +39,9 @@ $(call inherit-product, build/target/product/verity.mk)
 endif
 # GPU files
 
-PRODUCT_COPY_FILES += device/fsl/arm2_8qxp/init.freescale.sd.rc:root/init.freescale.sd.rc
+PRODUCT_COPY_FILES += device/fsl/arm2_8q/init.freescale.sd.rc:root/init.freescale.sd.rc
 
-DEVICE_PACKAGE_OVERLAYS := device/fsl/arm2_8qxp/overlay
+DEVICE_PACKAGE_OVERLAYS := device/fsl/arm2_8q/overlay
 
 PRODUCT_CHARACTERISTICS := tablet
 
@@ -76,7 +77,7 @@ PRODUCT_COPY_FILES += \
 	frameworks/native/data/etc/android.hardware.opengles.aep.xml:system/etc/permissions/android.hardware.opengles.aep.xml \
 	frameworks/native/data/etc/android.hardware.vulkan.version-1_0_3.xml:system/etc/permissions/android.hardware.vulkan.version-1_0_3.xml \
 	frameworks/native/data/etc/android.hardware.vulkan.level-0.xml:system/etc/permissions/android.hardware.vulkan.level-0.xml \
-	device/fsl/arm2_8qxp/required_hardware.xml:system/etc/permissions/required_hardware.xml \
+	device/fsl/arm2_8q/required_hardware.xml:system/etc/permissions/required_hardware.xml \
 
 PRODUCT_COPY_FILES += \
     device/fsl-proprietary/gpu-viv/lib64/egl/egl.cfg:system/lib64/egl/egl.cfg \

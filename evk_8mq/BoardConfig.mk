@@ -39,7 +39,7 @@ endif # BUILD_TARGET_FS
 
 # Vendor Interface Manifest
 PRODUCT_COPY_FILES += \
-	device/fsl/arm2_8qm/manifest.xml:vendor/manifest.xml
+	device/fsl/evk_8mq/manifest.xml:vendor/manifest.xml
 
 TARGET_BOOTLOADER_BOARD_NAME := EVK
 
