@@ -326,7 +326,9 @@ PRODUCT_COPY_FILES +=	\
     device/fsl-proprietary/media-profile/media_codecs_google_video.xml:system/etc/media_codecs_google_video.xml \
     device/fsl-proprietary/media-profile/media_codecs_google_telephony.xml:system/etc/media_codecs_google_telephony.xml \
     device/fsl-proprietary/media-profile/media_profiles_720p.xml:system/etc/media_profiles_720p.xml \
-    
+
+PRODUCT_COPY_FILES += \
+	external/imx-firmware/brcm/1FD_BCM89359/BCM4349B1_002.002.014.0077.0083.hcd:system/etc/firmware/bcm/1FD_BCM89359/Type_ZP.hcd
 
 # we have enough storage space to hold precise GC data
 PRODUCT_TAGS += dalvik.gc.type-precise

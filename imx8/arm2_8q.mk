@@ -115,6 +115,9 @@ PRODUCT_PACKAGES += \
     android.hardware.soundtrigger@2.0-impl \
     android.hardware.sensors@1.0-impl
 
+# Set Bluetooth transport initialization timeout
+PRODUCT_PROPERTY_OVERRIDES += \
+    bluetooth.enable_timeout_ms=16000
 # Bluetooth HAL
 PRODUCT_PACKAGES += \
     android.hardware.bluetooth@1.0-impl
