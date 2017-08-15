@@ -39,6 +39,7 @@ endif
 # GPU files
 
 PRODUCT_COPY_FILES += device/fsl/evk_8mq/init.freescale.sd.rc:root/init.freescale.sd.rc
+PRODUCT_COPY_FILES += device/fsl/evk_8mq/init.freescale.emmc.rc:root/init.freescale.emmc.rc
 
 DEVICE_PACKAGE_OVERLAYS := device/fsl/evk_8mq/overlay
 
@@ -95,3 +96,9 @@ PRODUCT_PACKAGES += \
         libSPIRV \
         libvulkan_VIVANTE \
         vulkan.imx8
+
+ifneq ($(BUILD_TARGET_FS),ubifs)
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.internel.storage_size=/sys/block/mmcblk0/size \
+    ro.frp.pst=/dev/block/by-name/presistdata
+endif

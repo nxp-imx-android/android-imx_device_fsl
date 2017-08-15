@@ -2,7 +2,7 @@
 # Product-specific compile-time definitions.
 #
 
-include device/fsl/imx8/soc/imx8qxp.mk
+include device/fsl/imx8/soc/imx8q.mk
 include device/fsl/mek_8q/build_id.mk
 include device/fsl/imx8/BoardConfigCommon.mk
 ifeq ($(PREBUILT_FSL_IMX_CODEC),true)
@@ -88,7 +88,7 @@ USE_GPU_ALLOCATOR := true
 # define frame buffer count
 NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
 
-BOARD_KERNEL_CMDLINE := console=ttyLP0,115200 earlycon=lpuart32,0x5a060000,115200,115200 init=/init video=imxdpufb1:off video=imxdpufb2:off video=imxdpufb3:off video=imxdpufb4:off androidboot.console=ttyLP0 consoleblank=0 androidboot.hardware=freescale cma=800M androidboot.watchdogd=disabled androidboot.storage_type=sd galcore.powerManagement=0 androidboot.serialno=150831d4e1fdfca7
+BOARD_KERNEL_CMDLINE := console=ttyLP0,115200 earlycon=lpuart32,0x5a060000,115200,115200 init=/init video=imxdpufb1:off video=imxdpufb2:off video=imxdpufb3:off video=imxdpufb4:off androidboot.console=ttyLP0 consoleblank=0 androidboot.hardware=freescale cma=800M androidboot.watchdogd=disabled galcore.powerManagement=0
 
 
 ifeq ($(TARGET_USERIMAGES_USE_UBIFS),true)

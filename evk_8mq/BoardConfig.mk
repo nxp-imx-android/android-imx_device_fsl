@@ -18,8 +18,6 @@ TARGET_RECOVERY_FSTAB = device/fsl/evk_8mq/fstab_nand.freescale
 PRODUCT_COPY_FILES +=	\
 	device/fsl/evk_8mq/fstab_nand.freescale:root/fstab.freescale
 else
-ADDITIONAL_BUILD_PROPERTIES += \
-                        ro.internel.storage_size=/sys/block/mmcblk1/size
 ifneq ($(BUILD_TARGET_FS),f2fs)
 TARGET_RECOVERY_FSTAB = device/fsl/evk_8mq/fstab.freescale
 # build for ext4
@@ -98,7 +96,7 @@ USE_GPU_ALLOCATOR := true
 # define frame buffer count
 NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
 
-BOARD_KERNEL_CMDLINE := console=ttymxc0,115200 earlycon=imxuart,0x30860000,115200 init=/init video=imxdpufb1:off video=imxdpufb2:off video=imxdpufb3:off video=imxdpufb4:off androidboot.console=ttymxc0 consoleblank=0 androidboot.hardware=freescale cma=800M androidboot.watchdogd=disabled androidboot.storage_type=sd androidboot.serialno=150831d4e1fdfca7 androidboot.selinux=permissive
+BOARD_KERNEL_CMDLINE := console=ttymxc0,115200 earlycon=imxuart,0x30860000,115200 init=/init video=imxdpufb1:off video=imxdpufb2:off video=imxdpufb3:off video=imxdpufb4:off androidboot.console=ttymxc0 consoleblank=0 androidboot.hardware=freescale cma=800M androidboot.watchdogd=disabled androidboot.selinux=permissive
 
 
 ifeq ($(TARGET_USERIMAGES_USE_UBIFS),true)

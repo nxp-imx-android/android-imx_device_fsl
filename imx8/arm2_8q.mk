@@ -40,6 +40,7 @@ endif
 # GPU files
 
 PRODUCT_COPY_FILES += device/fsl/arm2_8q/init.freescale.sd.rc:root/init.freescale.sd.rc
+PRODUCT_COPY_FILES += device/fsl/arm2_8q/init.freescale.emmc.rc:root/init.freescale.emmc.rc
 
 DEVICE_PACKAGE_OVERLAYS := device/fsl/arm2_8q/overlay
 
@@ -124,7 +125,7 @@ PRODUCT_PACKAGES += \
 
 ifneq ($(BUILD_TARGET_FS),ubifs)
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.internel.storage_size=/sys/block/mmcblk1/size \
+    ro.internel.storage_size=/sys/block/mmcblk0/size \
     ro.frp.pst=/dev/block/by-name/presistdata
 endif
 
