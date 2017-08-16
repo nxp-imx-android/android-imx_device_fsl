@@ -105,7 +105,7 @@ $(error "TARGET_USERIMAGES_USE_UBIFS and TARGET_USERIMAGES_USE_EXT4 config open 
 endif
 endif
 
-TARGET_BOARD_DTS_CONFIG := imx8mq:fsl-imx8mq-evk.dtb
+TARGET_BOARD_DTS_CONFIG := imx8mq:fsl-imx8mq-evk.dtb imx8mq-4k:fsl-imx8mq-evk-4k.dtb
 TARGET_BOOTLOADER_CONFIG := imx8mq:mx8mq_evk_android_defconfig
 
 BOARD_SEPOLICY_DIRS := \
