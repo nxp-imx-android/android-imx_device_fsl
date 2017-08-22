@@ -30,7 +30,7 @@ PRODUCT_COPY_FILES +=	\
 	device/fsl/sabreauto_6q/fstab-f2fs.freescale:root/fstab.freescale
 endif # BUILD_TARGET_FS
 # Support gpt
-BOARD_BPT_INPUT_FILES += device/fsl/common/partition/device-partitions.bpt
+BOARD_BPT_INPUT_FILES += device/fsl/common/partition/device-partitions-7GB.bpt
 
 endif # BUILD_TARGET_FS
 

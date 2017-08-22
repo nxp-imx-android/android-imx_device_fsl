@@ -87,7 +87,7 @@ BOARD_SEPOLICY_DIRS := \
        device/fsl/common/sepolicy
 
 # Support gpt
-BOARD_BPT_INPUT_FILES += device/fsl/common/partition/device-partitions.bpt
+BOARD_BPT_INPUT_FILES += device/fsl/common/partition/device-partitions-7GB.bpt
 
 # Vendor seccomp policy files for media components:
 PRODUCT_COPY_FILES += \
