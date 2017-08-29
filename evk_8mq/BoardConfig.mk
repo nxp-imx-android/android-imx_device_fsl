@@ -32,6 +32,8 @@ endif # BUILD_TARGET_FS
 
 # Support gpt
 BOARD_BPT_INPUT_FILES += device/fsl/common/partition/device-partitions-14GB.bpt
+ADDITION_BPT_PARTITION = partition-table-7GB:device/fsl/common/partition/device-partitions-7GB.bpt \
+                         partition-table-28GB:device/fsl/common/partition/device-partitions-28GB.bpt
 
 endif # BUILD_TARGET_FS
 

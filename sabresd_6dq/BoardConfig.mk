@@ -130,6 +130,8 @@ endif
 
 # Support gpt
 BOARD_BPT_INPUT_FILES += device/fsl/common/partition/device-partitions-7GB.bpt
+ADDITION_BPT_PARTITION = partition-table-14GB:device/fsl/common/partition/device-partitions-14GB.bpt \
+                         partition-table-28GB:device/fsl/common/partition/device-partitions-28GB.bpt
 
 # Vendor seccomp policy files for media components:
 PRODUCT_COPY_FILES += \
