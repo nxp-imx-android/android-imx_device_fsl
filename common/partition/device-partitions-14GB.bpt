@@ -61,7 +61,7 @@
         },
         {
             "label": "vendor",
-            "size": "64 MiB",
+            "size": "112 MiB",
             "guid": "auto",
             "type_guid": "2578eab2-a534-43e2-92c0-fed1b01c5d1d"
         },
