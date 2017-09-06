@@ -97,6 +97,9 @@ PRODUCT_PACKAGES += \
         libvulkan_VIVANTE \
         vulkan.imx8
 
+PRODUCT_PACKAGES += \
+    Launcher3
+
 ifneq ($(BUILD_TARGET_FS),ubifs)
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.internel.storage_size=/sys/block/mmcblk0/size \

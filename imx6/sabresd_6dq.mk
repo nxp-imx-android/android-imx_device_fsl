@@ -108,6 +108,9 @@ PRODUCT_PACKAGES += \
     libg2d \
     libgpuhelper
 
+PRODUCT_PACKAGES += \
+    Launcher3
+
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.internel.storage_size=/sys/block/bootdev_size
 
