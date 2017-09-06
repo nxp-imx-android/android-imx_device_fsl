@@ -107,6 +107,12 @@ PRODUCT_PACKAGES += \
 	magd                                    \
 	fsl_sensor_fusion
 
+# Memtrack HAL
+PRODUCT_PACKAGES += \
+	memtrack.imx8 \
+	android.hardware.memtrack@1.0-impl \
+	android.hardware.memtrack@1.0-service
+
 # camera related libs
 PRODUCT_PACKAGES += \
        camera.device@1.0-impl          \

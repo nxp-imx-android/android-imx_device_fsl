@@ -125,6 +125,12 @@ PRODUCT_PACKAGES += \
 	libbt-vendor-broadcom		\
 	magd
 
+# Memtrack HAL
+PRODUCT_PACKAGES += \
+	memtrack.imx6 \
+	android.hardware.memtrack@1.0-impl \
+	android.hardware.memtrack@1.0-service
+
 # camera related libs
 PRODUCT_PACKAGES += \
 	camera.device@1.0-impl          \
