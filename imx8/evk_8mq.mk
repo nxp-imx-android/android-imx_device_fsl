@@ -18,7 +18,7 @@ PRODUCT_DEVICE := evk_8mq
 
 PRODUCT_COPY_FILES += \
 	device/fsl/evk_8mq/init.rc:root/init.freescale.rc \
-	device/fsl/evk_8mq/init.i.MX8MQ.rc:root/init.freescale.i.MX8MQ.rc \
+	device/fsl/evk_8mq/init.imx8mq.rc:root/init.freescale.imx8mq.rc \
 
 # Audio
 USE_XML_AUDIO_POLICY_CONF := 1
