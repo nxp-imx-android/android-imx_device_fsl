@@ -19,4 +19,4 @@
 # capitalized by convention.
 
 export BUILD_ID=1.1.0-ear-rc1
-export BUILD_NUMBER=20170825
+export BUILD_NUMBER=20170928
