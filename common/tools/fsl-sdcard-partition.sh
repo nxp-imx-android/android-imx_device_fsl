@@ -129,7 +129,7 @@ if [ "${flash_images}" -eq "1" ]; then
     simg2img ${vendor_file} ${vendor_raw_file}
     dd if=${vendor_raw_file} of=${node}10 conv=fsync
     rm ${vendor_raw_file}
-    dd if=/dev/zero of=${node} bs=1k seek=${bootloader_offset} conv=fsync count=800
+    dd if=/dev/zero of=${node} bs=1k seek=${bootloader_offset} conv=fsync count=1500
     dd if=${bootloader_file} of=${node} bs=1k seek=${bootloader_offset} conv=fsync
 fi
 }
