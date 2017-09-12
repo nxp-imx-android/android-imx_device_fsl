@@ -99,7 +99,7 @@ $(error "TARGET_USERIMAGES_USE_UBIFS and TARGET_USERIMAGES_USE_EXT4 config open 
 endif
 endif
 
-TARGET_BOARD_DTS_CONFIG := imx8qxp:fsl-imx8qxp-mek.dtb
+TARGET_BOARD_DTS_CONFIG := imx8qxp:fsl-imx8qxp-mek-lvds0-lvds1-it6263.dtb
 TARGET_BOOTLOADER_CONFIG := imx8qxp:mx8qxp_mek_android_defconfig
 
 BOARD_SEPOLICY_DIRS := \
