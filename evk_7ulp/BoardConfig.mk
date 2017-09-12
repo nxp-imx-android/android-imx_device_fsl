@@ -87,8 +87,7 @@ TARGET_BOARD_DTS_CONFIG := imx7ulp:imx7ulp-evk.dtb
 
 BOARD_SEPOLICY_DIRS := \
        device/fsl/imx7/sepolicy \
-       device/fsl/evk_7ulp/sepolicy \
-       device/fsl/common/sepolicy
+       device/fsl/evk_7ulp/sepolicy
 
 # Support gpt
 BOARD_BPT_INPUT_FILES += device/fsl/common/partition/device-partitions-7GB.bpt

@@ -101,8 +101,7 @@ TARGET_BOOTLOADER_CONFIG := imx8dv:imx8dv_sabreauto_android_defconfig
 
 BOARD_SEPOLICY_DIRS := \
        device/fsl/imx8/sepolicy \
-       device/fsl/sabreauto_8dq/sepolicy \
-       device/fsl/common/sepolicy
+       device/fsl/sabreauto_8dq/sepolicy
 
 # Vendor seccomp policy files for media components:
 PRODUCT_COPY_FILES += \

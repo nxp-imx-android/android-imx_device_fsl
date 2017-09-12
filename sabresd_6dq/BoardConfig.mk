@@ -119,8 +119,7 @@ TARGET_BOARD_DTS_CONFIG := imx6q:imx6q-sabresd.dtb imx6dl:imx6dl-sabresd.dtb imx
 
 BOARD_SEPOLICY_DIRS := \
        device/fsl/imx6/sepolicy \
-       device/fsl/sabresd_6dq/sepolicy \
-       device/fsl/common/sepolicy
+       device/fsl/sabresd_6dq/sepolicy
 
 ifeq ($(PRODUCT_IMX_CAR),true)
 BOARD_SEPOLICY_DIRS += \

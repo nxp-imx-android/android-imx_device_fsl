@@ -115,8 +115,7 @@ TARGET_BOOTLOADER_CONFIG := imx8qm:mx8qm_lpddr4_arm2_android_defconfig imx8qxp:m
 
 BOARD_SEPOLICY_DIRS := \
        device/fsl/imx8/sepolicy \
-       device/fsl/arm2_8q/sepolicy \
-       device/fsl/common/sepolicy
+       device/fsl/arm2_8q/sepolicy
 
 ifeq ($(PRODUCT_IMX_CAR),true)
 BOARD_SEPOLICY_DIRS += \

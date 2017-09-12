@@ -83,8 +83,7 @@ TARGET_BOARD_DTS_CONFIG := imx6sl:imx6sl-evk-csi.dtb
 
 BOARD_SEPOLICY_DIRS := \
        device/fsl/imx6/sepolicy \
-       device/fsl/evk_6sl/sepolicy \
-       device/fsl/common/sepolicy
+       device/fsl/evk_6sl/sepolicy
 
 # Support gpt
 BOARD_BPT_INPUT_FILES += device/fsl/common/partition/device-partitions-7GB.bpt

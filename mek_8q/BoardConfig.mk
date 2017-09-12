@@ -104,8 +104,7 @@ TARGET_BOOTLOADER_CONFIG := imx8qxp:mx8qxp_mek_android_defconfig
 
 BOARD_SEPOLICY_DIRS := \
        device/fsl/imx8/sepolicy \
-       device/fsl/mek_8q/sepolicy \
-       device/fsl/common/sepolicy
+       device/fsl/mek_8q/sepolicy
 
 # Vendor seccomp policy files for media components:
 PRODUCT_COPY_FILES += \

@@ -110,8 +110,7 @@ TARGET_BOARD_DTS_CONFIG := imx6sx:imx6sx-sdb.dtb
 
 BOARD_SEPOLICY_DIRS := \
        device/fsl/imx6/sepolicy \
-       device/fsl/sabresd_6sx/sepolicy \
-       device/fsl/common/sepolicy
+       device/fsl/sabresd_6sx/sepolicy
 
 # Support gpt
 BOARD_BPT_INPUT_FILES += device/fsl/common/partition/device-partitions-7GB.bpt

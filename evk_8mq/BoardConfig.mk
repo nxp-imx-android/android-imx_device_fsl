@@ -112,8 +112,7 @@ TARGET_BOOTLOADER_CONFIG := imx8mq:mx8mq_evk_android_defconfig
 
 BOARD_SEPOLICY_DIRS := \
        device/fsl/imx8/sepolicy \
-       device/fsl/evk_8mq/sepolicy \
-       device/fsl/common/sepolicy
+       device/fsl/evk_8mq/sepolicy
 
 BOARD_SECCOMP_POLICY += device/fsl/evk_8mq/seccomp
 

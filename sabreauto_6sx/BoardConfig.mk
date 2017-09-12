@@ -102,8 +102,7 @@ TARGET_BOOTLOADER_CONFIG := imx6sx:mx6sxsabreautoandroid_config
 endif
 BOARD_SEPOLICY_DIRS := \
        device/fsl/imx6/sepolicy \
-       device/fsl/sabreauto_6sx/sepolicy \
-       device/fsl/common/sepolicy
+       device/fsl/sabreauto_6sx/sepolicy
 
 # Vendor seccomp policy files for media components:
 PRODUCT_COPY_FILES += \
