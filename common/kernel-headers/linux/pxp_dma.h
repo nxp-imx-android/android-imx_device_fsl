@@ -107,187 +107,189 @@ typedef unsigned long dma_addr_t;
 #define ALPHA_MODE_LEGACY 0x2
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
 #define ALPHA_MODE_PORTER_DUFF 0x3
+#define PXP_DEVICE_LEGACY
 enum pxp_channel_status {
   PXP_CHANNEL_FREE,
-  PXP_CHANNEL_INITIALIZED,
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+  PXP_CHANNEL_INITIALIZED,
   PXP_CHANNEL_READY,
 };
 enum pxp_working_mode {
-  PXP_MODE_LEGACY = 0x1,
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+  PXP_MODE_LEGACY = 0x1,
   PXP_MODE_STANDARD = 0x2,
   PXP_MODE_ADVANCED = 0x4,
 };
-enum pxp_buffer_flag {
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+enum pxp_buffer_flag {
   PXP_BUF_FLAG_WFE_A_FETCH0 = 0x0001,
   PXP_BUF_FLAG_WFE_A_FETCH1 = 0x0002,
   PXP_BUF_FLAG_WFE_A_STORE0 = 0x0004,
-  PXP_BUF_FLAG_WFE_A_STORE1 = 0x0008,
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+  PXP_BUF_FLAG_WFE_A_STORE1 = 0x0008,
   PXP_BUF_FLAG_WFE_B_FETCH0 = 0x0010,
   PXP_BUF_FLAG_WFE_B_FETCH1 = 0x0020,
   PXP_BUF_FLAG_WFE_B_STORE0 = 0x0040,
-  PXP_BUF_FLAG_WFE_B_STORE1 = 0x0080,
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+  PXP_BUF_FLAG_WFE_B_STORE1 = 0x0080,
   PXP_BUF_FLAG_DITHER_FETCH0 = 0x0100,
   PXP_BUF_FLAG_DITHER_FETCH1 = 0x0200,
   PXP_BUF_FLAG_DITHER_STORE0 = 0x0400,
-  PXP_BUF_FLAG_DITHER_STORE1 = 0x0800,
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+  PXP_BUF_FLAG_DITHER_STORE1 = 0x0800,
 };
 enum pxp_engine_ctrl {
   PXP_ENABLE_ROTATE0 = 0x001,
-  PXP_ENABLE_ROTATE1 = 0x002,
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+  PXP_ENABLE_ROTATE1 = 0x002,
   PXP_ENABLE_LUT = 0x004,
   PXP_ENABLE_CSC2 = 0x008,
   PXP_ENABLE_ALPHA_B = 0x010,
-  PXP_ENABLE_INPUT_FETCH_SOTRE = 0x020,
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+  PXP_ENABLE_INPUT_FETCH_SOTRE = 0x020,
   PXP_ENABLE_WFE_B = 0x040,
   PXP_ENABLE_WFE_A = 0x080,
   PXP_ENABLE_DITHER = 0x100,
-  PXP_ENABLE_PS_AS_OUT = 0x200,
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+  PXP_ENABLE_PS_AS_OUT = 0x200,
   PXP_ENABLE_COLLISION_DETECT = 0x400,
   PXP_ENABLE_HANDSHAKE = 0x1000,
   PXP_ENABLE_DITHER_BYPASS = 0x2000,
-};
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+};
 enum pxp_op_type {
   PXP_OP_2D = 0x001,
   PXP_OP_DITHER = 0x002,
-  PXP_OP_WFE_A = 0x004,
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+  PXP_OP_WFE_A = 0x004,
   PXP_OP_WFE_B = 0x008,
 };
 struct rect {
-  int top;
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+  int top;
   int left;
   int width;
   int height;
-};
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+};
 #define ALPHA_MODE_STRAIGHT 0x0
 #define ALPHA_MODE_INVERSED 0x1
 #define GLOBAL_ALPHA_MODE_ON 0x0
-#define GLOBAL_ALPHA_MODE_OFF 0x1
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+#define GLOBAL_ALPHA_MODE_OFF 0x1
 #define GLOBAL_ALPHA_MODE_SCALE 0x2
 #define FACTOR_MODE_ONE 0x0
 #define FACTOR_MODE_ZERO 0x1
-#define FACTOR_MODE_STRAIGHT 0x2
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+#define FACTOR_MODE_STRAIGHT 0x2
 #define FACTOR_MODE_INVERSED 0x3
 #define COLOR_MODE_STRAIGHT 0x0
 #define COLOR_MODE_MULTIPLY 0x1
-struct pxp_alpha {
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+struct pxp_alpha {
   unsigned int alpha_mode;
   unsigned int global_alpha_mode;
   unsigned int global_alpha_value;
-  unsigned int factor_mode;
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+  unsigned int factor_mode;
   unsigned int color_mode;
 };
 struct pxp_layer_param {
-  unsigned short left;
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+  unsigned short left;
   unsigned short top;
   unsigned short width;
   unsigned short height;
-  unsigned short stride;
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+  unsigned short stride;
   unsigned int pixel_fmt;
   unsigned int flag;
   unsigned char combine_enable;
-  unsigned int color_key_enable;
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+  unsigned int color_key_enable;
   unsigned int color_key;
   unsigned char global_alpha_enable;
   unsigned char global_override;
-  unsigned char global_alpha;
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+  unsigned char global_alpha;
   unsigned char alpha_invert;
   unsigned char local_alpha_enable;
   int comp_mask;
-  struct pxp_alpha alpha;
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+  struct pxp_alpha alpha;
   struct rect crop;
   dma_addr_t paddr;
 };
-struct pxp_collision_info {
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+struct pxp_collision_info {
   unsigned int pixel_cnt;
   unsigned int rect_min_x;
   unsigned int rect_min_y;
-  unsigned int rect_max_x;
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+  unsigned int rect_max_x;
   unsigned int rect_max_y;
   unsigned int victim_luts[2];
 };
-struct pxp_proc_data {
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+struct pxp_proc_data {
   int scaling;
   int hflip;
   int vflip;
-  int rotate;
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+  int rotate;
   int rot_pos;
   int yuv;
   unsigned int alpha_mode;
-  struct rect srect;
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+  struct rect srect;
   struct rect drect;
   unsigned int bgcolor;
   unsigned char fill_en;
-  int overlay_state;
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+  int overlay_state;
   int lut_transform;
   unsigned char * lut_map;
   unsigned char lut_map_updated;
-  unsigned char combine_enable;
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+  unsigned char combine_enable;
   enum pxp_op_type op_type;
   __u64 lut_sels;
   enum pxp_working_mode working_mode;
-  enum pxp_engine_ctrl engine_enable;
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+  enum pxp_engine_ctrl engine_enable;
   unsigned char partial_update;
   unsigned char alpha_en;
   unsigned char lut_update;
-  unsigned char reagl_en;
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
+  unsigned char reagl_en;
   unsigned char reagl_d_en;
   unsigned char detection_only;
+  unsigned char pxp_legacy;
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
   int lut;
   unsigned char lut_cleanup;
-/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
   unsigned int lut_status_1;
   unsigned int lut_status_2;
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
   int dither_mode;
   unsigned int quant_bit;
-/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
 };
 struct pxp_config_data {
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
   struct pxp_layer_param s0_param;
   struct pxp_layer_param ol_param[1];
-/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
   struct pxp_layer_param out_param;
   struct pxp_layer_param wfe_a_fetch_param[2];
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
   struct pxp_layer_param wfe_a_store_param[2];
   struct pxp_layer_param wfe_b_fetch_param[2];
-/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
   struct pxp_layer_param wfe_b_store_param[2];
   struct pxp_layer_param dither_fetch_param[2];
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
   struct pxp_layer_param dither_store_param[2];
   struct pxp_proc_data proc_data;
-/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
   int layer_nr;
   int handle;
+/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
 };
 #endif
-/* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
