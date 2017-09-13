@@ -104,7 +104,7 @@ PRODUCT_PACKAGES += \
         libVSC \
         libg2d \
         libgpuhelper \
-        libSPIRV \
+        libSPIRV_viv \
         libvulkan_VIVANTE \
         vulkan.imx8
 
