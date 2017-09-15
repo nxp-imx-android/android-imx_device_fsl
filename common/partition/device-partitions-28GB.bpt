@@ -30,12 +30,6 @@
             "type_guid": "aa3434b2-ddc3-4065-8b1a-18e99ea15cb7"
         },
         {
-            "label": "device",
-            "size": "8 MiB",
-            "guid": "auto",
-            "type_guid": "1fd63daf-8583-4772-8e79-3d69d8477de5"
-        },
-        {
             "label": "misc",
             "size": "4 MiB",
             "guid": "auto",
