@@ -98,10 +98,8 @@ fi
 function format_android
 {
     echo "formating android images"
-    mkfs.ext4 -F ${node}11 -L data
-    mkfs.ext4 -F ${node}3 -Lsystem
-    mkfs.ext4 -F ${node}4 -Lcache
-    mkfs.ext4 -F ${node}5 -Ldevice
+    mkfs.ext4 -F ${node}`gdisk -l ${node} | grep -w userdata | awk '{print $1}'` -Ldata
+    mkfs.ext4 -F ${node}`gdisk -l ${node} | grep -w cache | awk '{print $1}'` -Lcache
 }
 function make_partition
 {
@@ -121,13 +119,13 @@ if [ "${flash_images}" -eq "1" ]; then
     echo "recovery image: ${recoveryimage_file}"
     echo "system image: ${systemimage_file}"
     echo "vendor image: ${vendor_file}"
-    dd if=${bootimage_file} of=${node}1 conv=fsync
-    dd if=${recoveryimage_file} of=${node}2 conv=fsync
+    dd if=${bootimage_file} of=${node}`gdisk -l ${node} | grep -w boot | awk '{print $1}'` conv=fsync
+    dd if=${recoveryimage_file} of=${node}`gdisk -l ${node} | grep -w recovery | awk '{print $1}'` conv=fsync
     simg2img ${systemimage_file} ${systemimage_raw_file}
-    dd if=${systemimage_raw_file} of=${node}3 conv=fsync
+    dd if=${systemimage_raw_file} of=${node}`gdisk -l ${node} | grep -w system | awk '{print $1}'` conv=fsync
     rm ${systemimage_raw_file}
     simg2img ${vendor_file} ${vendor_raw_file}
-    dd if=${vendor_raw_file} of=${node}10 conv=fsync
+    dd if=${vendor_raw_file} of=${node}`gdisk -l ${node} | grep -w vendor | awk '{print $1}'` conv=fsync
     rm ${vendor_raw_file}
     dd if=/dev/zero of=${node} bs=1k seek=${bootloader_offset} conv=fsync count=1500
     dd if=${bootloader_file} of=${node} bs=1k seek=${bootloader_offset} conv=fsync
