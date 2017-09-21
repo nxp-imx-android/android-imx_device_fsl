@@ -10,5 +10,3 @@ add_lunch_combo sabresd_6sx-eng
 add_lunch_combo sabresd_6sx-userdebug
 add_lunch_combo sabreauto_6sx-eng
 add_lunch_combo sabreauto_6sx-userdebug
-add_lunch_combo evk_6ul-eng
-add_lunch_combo evk_6ul-userdebug

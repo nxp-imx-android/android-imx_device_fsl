@@ -1,5 +1,3 @@
-add_lunch_combo sabreauto_8dq-eng
-add_lunch_combo sabreauto_8dq-userdebug
 add_lunch_combo arm2_8q-eng
 add_lunch_combo arm2_8q-userdebug
 add_lunch_combo arm2_8q_car-eng
