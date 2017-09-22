@@ -104,3 +104,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.internel.storage_size=/sys/block/mmcblk0/size \
     ro.frp.pst=/dev/block/by-name/presistdata
 endif
+
+# ro.product.first_api_level indicates the first api level the device has commercially launched on.
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.product.first_api_level=26
+
