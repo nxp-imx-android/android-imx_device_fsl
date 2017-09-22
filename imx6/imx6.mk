@@ -88,9 +88,6 @@ PRODUCT_PACKAGES += \
 	taskset					\
 	sqlite3
 
-PRODUCT_PACKAGES += \
-	android.hardware.light@2.0-impl
-
 # Wifi AP mode
 PRODUCT_PACKAGES += \
 	hostapd					\

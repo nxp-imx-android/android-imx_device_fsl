@@ -119,7 +119,9 @@ PRODUCT_PACKAGES += \
     android.hardware.audio.effect@2.0-impl \
     android.hardware.sensors@1.0-impl \
     android.hardware.power@1.0-impl \
-    android.hardware.power@1.0-service
+    android.hardware.power@1.0-service \
+    android.hardware.light@2.0-impl \
+    android.hardware.light@2.0-service
 
 # Set Bluetooth transport initialization timeout
 PRODUCT_PROPERTY_OVERRIDES += \
