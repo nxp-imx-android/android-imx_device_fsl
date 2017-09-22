@@ -314,12 +314,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     fsck.f2fs mkfs.f2fs
 
-# WiFi Support in O
-PRODUCT_PACKAGES += \
-    android.hardware.wifi@1.0-service \
-    wifilogd \
-    wificond
-
 # display libs
 PRODUCT_PACKAGES += \
     libdrm \
