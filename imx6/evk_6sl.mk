@@ -94,6 +94,9 @@ PRODUCT_PACKAGES += \
     android.hardware.power@1.0-impl \
     android.hardware.power@1.0-service
 
+# Usb HAL
+PRODUCT_PACKAGES += \
+    android.hardware.usb@1.0-service
 
 # Bluetooth HAL
 PRODUCT_PACKAGES += \

@@ -99,6 +99,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     Launcher3
 
+# Usb HAL
+PRODUCT_PACKAGES += \
+    android.hardware.usb@1.0-service
+
 ifneq ($(BUILD_TARGET_FS),ubifs)
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.internel.storage_size=/sys/block/mmcblk0/size \

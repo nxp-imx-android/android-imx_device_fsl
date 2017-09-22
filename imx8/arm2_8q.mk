@@ -126,6 +126,11 @@ PRODUCT_PACKAGES += \
 # Set Bluetooth transport initialization timeout
 PRODUCT_PROPERTY_OVERRIDES += \
     bluetooth.enable_timeout_ms=16000
+
+# Usb HAL
+PRODUCT_PACKAGES += \
+    android.hardware.usb@1.0-service
+
 # Bluetooth HAL
 PRODUCT_PACKAGES += \
     android.hardware.bluetooth@1.0-impl
