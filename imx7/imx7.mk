@@ -307,9 +307,7 @@ PRODUCT_PACKAGES += \
     charger
 
 PRODUCT_PACKAGES += \
-    libEGL_swiftshader \
-    libGLESv1_CM_swiftshader \
-    libGLESv2_swiftshader
+    libGLES_android
 
 PRODUCT_PACKAGES += \
     fsck.f2fs mkfs.f2fs
