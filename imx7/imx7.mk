@@ -39,7 +39,8 @@ PRODUCT_PACKAGES += \
 	p2p_supplicant_overlay.conf			\
 	wpa_supplicant_overlay.conf			\
     p2p_supplicant_advance_overlay.conf \
-	libion
+	libion \
+	vndk-sp
 
 #FREESCALE_EXTENDED
 PRODUCT_PACKAGES += freescale-extended         \
