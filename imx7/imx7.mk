@@ -42,6 +42,9 @@ PRODUCT_PACKAGES += \
 	libion \
 	vndk-sp
 
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.vendor.vndk.version=26.1.0 \
+
 #FREESCALE_EXTENDED
 PRODUCT_PACKAGES += freescale-extended         \
 		    freescale-extended.xml
