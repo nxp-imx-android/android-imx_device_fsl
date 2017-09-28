@@ -2,11 +2,20 @@
 MAKE += SHELL=/bin/bash
 
 define build_uboot
-	cp  out/target/product/mek_8q/obj/BOOTLOADER_OBJ/u-boot.$(strip $(1)) external/imx-mkimage/iMX8QX/u-boot.bin; \
-	cp  external/linux-firmware-imx/firmware/scfw_tcm/scfw_tcm_8qxp.bin external/imx-mkimage/iMX8QX/scfw_tcm.bin; \
-	$(MAKE) -C external/imx-mkimage/iMX8QX/ clean; \
-	$(MAKE) -C external/imx-mkimage/iMX8QX/ flash; \
-	cp external/imx-mkimage/iMX8QX/flash.bin $(PRODUCT_OUT)/u-boot-$(strip $(2)).imx;
+	if [ "$(strip $(2))" == "imx8qm" ]; then \
+		MKIMAGE_PLATFORM=`echo iMX8QM`; \
+		SCFW_PLATFORM=`echo 8qm`;  \
+	elif [ "$(strip $(2))" == "imx8qxp" ]; then \
+		MKIMAGE_PLATFORM=`echo iMX8QX`; \
+		SCFW_PLATFORM=`echo 8qx`; \
+	fi; \
+	cp  out/target/product/mek_8q/obj/BOOTLOADER_OBJ/u-boot.$(strip $(1)) external/imx-mkimage/$$MKIMAGE_PLATFORM/u-boot.bin; \
+	cp  device/fsl-proprietary/uboot-firmware/mx$$SCFW_PLATFORM-scfw-tcm.bin external/imx-mkimage/$$MKIMAGE_PLATFORM/scfw_tcm.bin; \
+	cp  device/fsl-proprietary/uboot-firmware/imx$$SCFW_PLATFORM_dcd.cfg.tmp external/imx-mkimage/$$MKIMAGE_PLATFORM/.; \
+	cp  device/fsl-proprietary/uboot-firmware/bl31-$(strip $(2)).bin external/imx-mkimage/$$MKIMAGE_PLATFORM/bl31.bin; \
+	$(MAKE) -C external/imx-mkimage/ clean; \
+	$(MAKE) -C external/imx-mkimage/ SOC=$$MKIMAGE_PLATFORM flash; \
+	cp external/imx-mkimage/$$MKIMAGE_PLATFORM/flash.bin $(PRODUCT_OUT)/u-boot-$(strip $(2)).imx;
 endef
 
 
