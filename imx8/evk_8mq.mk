@@ -82,6 +82,16 @@ PRODUCT_COPY_FILES += \
     device/fsl-proprietary/gpu-viv/lib64/egl/egl.cfg:system/lib64/egl/egl.cfg \
     device/fsl-proprietary/gpu-viv/lib/egl/egl.cfg:system/lib/egl/egl.cfg
 
+# HWC2 HAL
+PRODUCT_PACKAGES += \
+    android.hardware.graphics.composer@2.1-impl
+
+# Gralloc HAL
+PRODUCT_PACKAGES += \
+    android.hardware.graphics.mapper@2.0-impl \
+    android.hardware.graphics.allocator@2.0-impl \
+    android.hardware.graphics.allocator@2.0-service
+
 PRODUCT_PACKAGES += \
         libEGL_VIVANTE \
         libGLESv1_CM_VIVANTE \
@@ -100,6 +110,9 @@ PRODUCT_PACKAGES += \
     Launcher3
 
 PRODUCT_PACKAGES += \
+    android.hardware.audio@2.0-impl \
+    android.hardware.audio@2.0-service \
+    android.hardware.audio.effect@2.0-impl \
     android.hardware.power@1.0-impl \
     android.hardware.power@1.0-service \
     android.hardware.light@2.0-impl \
@@ -119,6 +132,10 @@ PRODUCT_PACKAGES += \
     android.hardware.wifi@1.0-service \
     wifilogd \
     wificond
+
+# Keymaster HAL
+PRODUCT_PACKAGES += \
+    android.hardware.keymaster@3.0-impl
 
 ifneq ($(BUILD_TARGET_FS),ubifs)
 PRODUCT_PROPERTY_OVERRIDES += \
