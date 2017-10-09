@@ -1,3 +1,4 @@
+/dev/block/platform/soc0/soc/2100000\.aips-bus/2194000\.usdhc/by-name/presistdata 0600   system     system
 /dev/pmem_gpu             0660   system     graphics
 /dev/ttymxc2              0660   bluetooth  bluetooth
 /dev/ttymxc4              0660   bluetooth  bluetooth
@@ -20,7 +21,6 @@
 /dev/ir                   0660   system     system
 /dev/mma8x5x              0640   compass     system
 /dev/caam_kb              0660   system     system
-/dev/block/mmcblk*p9      0600   system     system
 /dev/input/event*         0660   system     system
 
 # sysfs properties

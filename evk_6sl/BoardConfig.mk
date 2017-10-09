@@ -85,6 +85,9 @@ BOARD_SEPOLICY_DIRS := \
        device/fsl/imx6/sepolicy \
        device/fsl/evk_6sl/sepolicy
 
+PRODUCT_COPY_FILES +=	\
+       device/fsl/evk_6sl/ueventd.freescale.rc:root/ueventd.freescale.rc
+
 # Support gpt
 BOARD_BPT_INPUT_FILES += device/fsl/common/partition/device-partitions-7GB.bpt
 ADDITION_BPT_PARTITION = partition-table-14GB:device/fsl/common/partition/device-partitions-14GB.bpt \

@@ -94,6 +94,9 @@ BOARD_BPT_INPUT_FILES += device/fsl/common/partition/device-partitions-7GB.bpt
 ADDITION_BPT_PARTITION = partition-table-14GB:device/fsl/common/partition/device-partitions-14GB.bpt \
                          partition-table-28GB:device/fsl/common/partition/device-partitions-28GB.bpt
 
+PRODUCT_COPY_FILES +=	\
+       device/fsl/evk_7ulp/ueventd.freescale.rc:root/ueventd.freescale.rc
+
 # Vendor seccomp policy files for media components:
 PRODUCT_COPY_FILES += \
        device/fsl/evk_7ulp/seccomp/mediacodec-seccomp.policy:vendor/etc/seccomp_policy/mediacodec.policy \

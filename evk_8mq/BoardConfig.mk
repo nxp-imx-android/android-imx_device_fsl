@@ -95,6 +95,9 @@ BOARD_HAVE_USB_CAMERA := true
 USE_ION_ALLOCATOR := false
 USE_GPU_ALLOCATOR := true
 
+PRODUCT_COPY_FILES +=	\
+       device/fsl/evk_8mq/ueventd.freescale.rc:root/ueventd.freescale.rc
+
 # define frame buffer count
 NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
 

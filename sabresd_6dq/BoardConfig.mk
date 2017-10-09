@@ -127,6 +127,9 @@ BOARD_SEPOLICY_DIRS += \
      device/generic/car/common/sepolicy
 endif
 
+PRODUCT_COPY_FILES +=	\
+       device/fsl/sabresd_6dq/ueventd.freescale.rc:root/ueventd.freescale.rc
+
 # Support gpt
 BOARD_BPT_INPUT_FILES += device/fsl/common/partition/device-partitions-7GB.bpt
 ADDITION_BPT_PARTITION = partition-table-14GB:device/fsl/common/partition/device-partitions-14GB.bpt \

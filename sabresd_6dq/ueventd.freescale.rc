@@ -1,5 +1,8 @@
+/dev/block/platform/soc0/soc/2100000\.aips-bus/2198000\.usdhc/by-name/presistdata 0600   system     system
+/dev/block/platform/soc0/soc/2100000\.aips-bus/219c000\.usdhc/by-name/presistdata 0600   system     system
 /dev/pmem_gpu             0660   system     graphics
-/dev/ttymxc5              0660   bluetooth  bluetooth
+/dev/ttymxc2              0660   bluetooth  bluetooth
+/dev/ttymxc4              0660   bluetooth  bluetooth
 /dev/snd/*                0660   system     audio
 /dev/ttyUSB*              0640   radio      radio
 /dev/ttyACM*              0640   radio      radio
@@ -8,46 +11,18 @@
 /dev/video1               0660   system     camera
 /dev/video2               0660   system     camera
 /dev/video16              0660   system     graphics
-/dev/pxp_device           0666   media      drmrpc
+/dev/mxc_ipu              0660   media      drmrpc
+/dev/mxc_vpu              0660   media      drmrpc
+/dev/pxp_device           0660   media      drmrpc
 /dev/uinput               0660   system     bluetooth
-/dev/ttymxc2              0660   system     gps
-/dev/ttya0                0660   system     gps
-/dev/ptya0                0660   system     gps
-/dev/ttya1                0660   system     gps
-/dev/ptya1                0660   system     gps
 /dev/ion                  0666   media      drmrpc
-/dev/galcore              0666   system     graphics
+/dev/galcore	          0666 	 system     graphics
 /dev/graphics/fb0         0660   system     graphics
 /dev/watchdog             0660   system     root
 /dev/ir                   0660   system     system
 /dev/mma8x5x              0640   compass     system
 /dev/caam_kb              0660   system     system
-/dev/block/mmcblk*p9      0600   system     system
-/dev/ttyLP2               0660   bluetooth  bluetooth
-
-# Sensors sysfs for 7d platform.
-/sys/devices/virtual/misc/Freescale* name       0660 root input
-/sys/devices/virtual/misc/Freescale* max        0660 root input
-/sys/devices/virtual/misc/Freescale* min        0660 root input
-/sys/devices/virtual/misc/Freescale* poll       0660 root input
-/sys/devices/virtual/misc/Freescale* enable     0660 root input
-/sys/devices/virtual/misc/Freescale* position   0660 root input
-/sys/devices/virtual/misc/Freescale* poll_delay 0660 root input
-/sys/devices/virtual/misc/Freescale* fifo       0660 root input
-
-#sensors sysfs
-/sys/class/misc/Freescale*          name        0660  system system
-/sys/class/misc/Freescale*          max         0660  system system
-/sys/class/misc/Freescale*          min         0660  system system
-/sys/class/misc/Freescale*          poll        0660  system system
-/sys/class/misc/Freescale*          enable      0660  system system
-/sys/class/misc/Freescale*          position    0660  system system
-/sys/class/misc/Freescale*          poll_delay  0660  system system
-/sys/class/misc/Freescale*          fifo        0660  system system
-/dev/FreescaleAccelerometer                     0660  system system
-/dev/FreescaleMagnetometer                      0660  system system
-/dev/FreescaleGyroscope                         0660  system system
-
+/dev/input/event*         0660   system     system
 
 # sysfs properties
 /sys/devices/virtual/input/input*   name        0660  system   system
@@ -64,5 +39,15 @@
 
 /sys/devices/platform/mxsdhci.2/mmc_host/mmc0/mmc0:000* boot_bus_config 0660 root root
 /sys/devices/platform/mxsdhci.2/mmc_host/mmc0/mmc0:000* boot_config 0660 root root
+# for sabresd
+/sys/devices/soc0/soc/2100000.aips-bus/21a8000.i2c/i2c-2/2-0044 mode 0660 system system
+/sys/devices/soc0/soc/2100000.aips-bus/21a8000.i2c/i2c-2/2-0044 lux 0660 system system
+/sys/devices/soc0/soc/2100000.aips-bus/21a8000.i2c/i2c-2/2-0044 int_lt_lux 0660 system system
+/sys/devices/soc0/soc/2100000.aips-bus/21a8000.i2c/i2c-2/2-0044 int_ht_lux 0660 system system
+# for sabreauto
+/sys/devices/soc0/soc/2100000.aips-bus/21a8000.i2c/i2c-1/1-0044 mode 0660 system system
+/sys/devices/soc0/soc/2100000.aips-bus/21a8000.i2c/i2c-1/1-0044 lux 0660 system system
+/sys/devices/soc0/soc/2100000.aips-bus/21a8000.i2c/i2c-1/1-0044 int_lt_lux 0660 system system
+/sys/devices/soc0/soc/2100000.aips-bus/21a8000.i2c/i2c-1/1-0044 int_ht_lux 0660 system system
 /sys/devices/platform/mxc_dvfs_core.0 enable 0660 system system
 /sys/devices/platform/busfreq.0 enable 0660 system system

@@ -122,6 +122,8 @@ BOARD_SEPOLICY_DIRS += \
      packages/services/Car/car_product/sepolicy \
      device/generic/car/common/sepolicy
 endif
+PRODUCT_COPY_FILES +=	\
+       device/fsl/arm2_8q/ueventd.freescale.rc:root/ueventd.freescale.rc
 
 # Vendor seccomp policy files for media components:
 PRODUCT_COPY_FILES += \
