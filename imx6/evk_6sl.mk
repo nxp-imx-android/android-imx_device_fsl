@@ -79,6 +79,10 @@ PRODUCT_PACKAGES += \
     android.hardware.graphics.allocator@2.0-service \
     android.hardware.sensors@1.0-impl
 
+# RenderScript HAL
+PRODUCT_PACKAGES += \
+    android.hardware.renderscript@1.0-impl
+
 PRODUCT_PACKAGES += \
     gralloc_viv.imx6 \
     hwcomposer_viv.imx6 \
