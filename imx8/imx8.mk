@@ -330,7 +330,6 @@ PRODUCT_COPY_FILES +=	\
 	device/fsl/common/input/eGalax_Touch_Screen.idc:system/usr/idc/HannStar_P1003_Touchscreen.idc \
 	device/fsl/common/input/eGalax_Touch_Screen.idc:system/usr/idc/Novatek_NT11003_Touch_Screen.idc \
 	system/core/rootdir/init.rc:root/init.rc \
-	device/fsl/imx8/etc/init.usb.rc:root/init.freescale.usb.rc \
 	device/fsl/imx8/etc/ota.conf:system/etc/ota.conf \
         device/fsl/imx8/init.recovery.freescale.rc:root/init.recovery.freescale.rc \
     device/fsl-proprietary/media-profile/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
