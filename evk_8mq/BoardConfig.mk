@@ -116,6 +116,9 @@ BOARD_SEPOLICY_DIRS := \
        device/fsl/imx8/sepolicy \
        device/fsl/evk_8mq/sepolicy
 
-BOARD_SECCOMP_POLICY += device/fsl/evk_8mq/seccomp
+# Vendor seccomp policy files for media components:
+PRODUCT_COPY_FILES += \
+       device/fsl/evk_8mq/seccomp/mediacodec-seccomp.policy:vendor/etc/seccomp_policy/mediacodec.policy \
+       device/fsl/evk_8mq/seccomp/mediaextractor-seccomp.policy:vendor/etc/seccomp_policy/mediaextractor.policy
 
 TARGET_BOARD_KERNEL_HEADERS := device/fsl/common/kernel-headers
