@@ -51,30 +51,19 @@ USE_OPENGL_RENDERER := true
 TARGET_CPU_SMP := true
 
 TARGET_RELEASETOOLS_EXTENSIONS := device/fsl/imx8
-# UNITE is a virtual device support both atheros and realtek wifi(ar6103 and rtl8723as)
-BOARD_WLAN_DEVICE            := UNITE
-WPA_SUPPLICANT_VERSION       := VER_0_8_UNITE
+BOARD_WLAN_DEVICE            := bcmdhd
+WPA_SUPPLICANT_VERSION       := VER_0_8_X
 BOARD_WPA_SUPPLICANT_DRIVER  := NL80211
 BOARD_HOSTAPD_DRIVER         := NL80211
 
-BOARD_HOSTAPD_PRIVATE_LIB_RTL               := lib_driver_cmd_rtl
-BOARD_WPA_SUPPLICANT_PRIVATE_LIB_RTL        := lib_driver_cmd_rtl
-#for intel vendor
-ifeq ($(BOARD_WLAN_VENDOR),INTEL)
-BOARD_HOSTAPD_PRIVATE_LIB                := private_lib_driver_cmd
-BOARD_WPA_SUPPLICANT_PRIVATE_LIB         := private_lib_driver_cmd
-WPA_SUPPLICANT_VERSION                   := VER_0_8_X
-HOSTAPD_VERSION                          := VER_0_8_X
-BOARD_WPA_SUPPLICANT_PRIVATE_LIB         := private_lib_driver_cmd_intel
-WIFI_DRIVER_MODULE_PATH                  := "/system/lib/modules/iwlagn.ko"
-WIFI_DRIVER_MODULE_NAME                  := "iwlagn"
-WIFI_DRIVER_MODULE_PATH                  ?= auto
-endif
+BOARD_HOSTAPD_PRIVATE_LIB_BCM               := lib_driver_cmd_bcmdhd
+BOARD_WPA_SUPPLICANT_PRIVATE_LIB_BCM        := lib_driver_cmd_bcmdhd
 
-BOARD_MODEM_VENDOR := AMAZON
-
-USE_ATHR_GPS_HARDWARE := false
-USE_QEMU_GPS_HARDWARE := false
+BOARD_SUPPORT_BCM_WIFI  := true
+WIFI_DRIVER_FW_PATH_STA        := "/system/etc/firmware/bcm/1CX_BCM4356/fw_bcmdhd.bin"
+WIFI_DRIVER_FW_PATH_P2P        := "/system/etc/firmware/bcm/1CX_BCM4356/fw_bcmdhd.bin"
+WIFI_DRIVER_FW_PATH_AP         := "/system/etc/firmware/bcm/1CX_BCM4356/fw_bcmdhd_apsta.bin"
+WIFI_DRIVER_FW_PATH_PARAM      := "/sys/module/bcmdhd/parameters/firmware_path"
 
 PHONE_MODULE_INCLUDE := flase
 BOARD_USE_SENSOR_FUSION := true
