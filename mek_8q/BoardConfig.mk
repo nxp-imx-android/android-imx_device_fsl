@@ -111,7 +111,6 @@ PRODUCT_COPY_FILES +=	\
 
 # Vendor seccomp policy files for media components:
 PRODUCT_COPY_FILES += \
-       device/fsl/mek_8q/seccomp/mediacodec-seccomp.policy:vendor/etc/seccomp_policy/mediacodec.policy \
        device/fsl/mek_8q/seccomp/mediaextractor-seccomp.policy:vendor/etc/seccomp_policy/mediaextractor.policy
 
 TARGET_BOARD_KERNEL_HEADERS := device/fsl/common/kernel-headers
