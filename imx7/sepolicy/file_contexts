@@ -2,4 +2,4 @@
 /dev/mxc_hdmi                   u:object_r:video_device:s0
 /dev/galcore                    u:object_r:gpu_device:s0
 /dev/caam_kb                    u:object_r:caam_device:s0
-/dev/pxp_device                 u:object_r:pxp_device:s0
+/dev/pxp_device                 u:object_r:gpu_device:s0
