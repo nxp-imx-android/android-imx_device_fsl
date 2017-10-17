@@ -56,8 +56,8 @@ WPA_SUPPLICANT_VERSION       := VER_0_8_X
 BOARD_WPA_SUPPLICANT_DRIVER  := NL80211
 BOARD_HOSTAPD_DRIVER         := NL80211
 
-BOARD_HOSTAPD_PRIVATE_LIB_BCM               := lib_driver_cmd_bcmdhd
-BOARD_WPA_SUPPLICANT_PRIVATE_LIB_BCM        := lib_driver_cmd_bcmdhd
+BOARD_HOSTAPD_PRIVATE_LIB               := lib_driver_cmd_bcmdhd
+BOARD_WPA_SUPPLICANT_PRIVATE_LIB        := lib_driver_cmd_bcmdhd
 
 BOARD_SUPPORT_BCM_WIFI  := true
 WIFI_DRIVER_FW_PATH_STA        := "/system/etc/firmware/bcm/1CX_BCM4356/fw_bcmdhd.bin"
