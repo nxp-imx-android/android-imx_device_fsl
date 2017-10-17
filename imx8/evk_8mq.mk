@@ -153,3 +153,8 @@ endif
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.product.first_api_level=26
 
+PRODUCT_PACKAGES += \
+    libg1 \
+    libhantro \
+    libcodec
+
