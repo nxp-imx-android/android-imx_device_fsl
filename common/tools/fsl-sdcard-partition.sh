@@ -28,6 +28,9 @@ options:
   -s				only get partition size
   -np 				not partition.
   -f soc_name			flash android image.
+  -c card_size			optional setting: 7 / 14 / 28
+					If not set, use partition-table.img
+					If set to 7, use partition-table-7GB.img for 7GB SD card
 EOF
 
 }
@@ -37,6 +40,7 @@ moreoptions=1
 node="na"
 soc_name=""
 cal_only=0
+card_size=0
 bootloader_offset=1
 flash_images=0
 not_partition=0
@@ -54,6 +58,7 @@ while [ "$moreoptions" = 1 -a $# -gt 0 ]; do
 	    -h) help; exit ;;
 	    -s) cal_only=1 ;;
 	    -f) flash_images=1 ; soc_name=$2; shift;;
+	    -c) card_size=$2; shift;;
 	    -np) not_partition=1 ;;
 	    -nf) not_format_fs=1 ;;
 	    *)  moreoptions=0; node=$1 ;;
@@ -61,6 +66,10 @@ while [ "$moreoptions" = 1 -a $# -gt 0 ]; do
 	[ "$moreoptions" = 0 ] && [ $# -gt 1 ] && help && exit
 	[ "$moreoptions" = 1 ] && shift
 done
+
+if [ ${card_size} -ne 0 ] && [ ${card_size} -ne 7 ] && [ ${card_size} -ne 14 ] && [ ${card_size} -ne 28 ]; then
+    help; exit;
+fi
 
 if [ "${soc_name}" = "imx8dv" ]; then
     bootloader_offset=16
@@ -103,7 +112,10 @@ function format_android
 }
 function make_partition
 {
-    echo "make gpt partition for android"
+    if [ ${card_size} -gt 0 ]; then
+        partition_file="partition-table-${card_size}GB.img"
+    fi
+    echo "make gpt partition for android: ${partition_file}"
     dd if=${partition_file} of=${node} conv=fsync
 }
 
