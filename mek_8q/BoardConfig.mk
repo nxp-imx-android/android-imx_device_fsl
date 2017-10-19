@@ -70,6 +70,19 @@ WPA_SUPPLICANT_VERSION       := VER_0_8_X
 BOARD_WPA_SUPPLICANT_DRIVER  := NL80211
 BOARD_HOSTAPD_DRIVER         := NL80211
 
+BOARD_HOSTAPD_PRIVATE_LIB               := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
+BOARD_WPA_SUPPLICANT_PRIVATE_LIB        := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
+
+BOARD_SUPPORT_BCM_WIFI  := true
+WIFI_DRIVER_FW_PATH_STA        := "/system/etc/firmware/bcm/1CX_BCM4356/fw_bcmdhd.bin"
+WIFI_DRIVER_FW_PATH_P2P        := "/system/etc/firmware/bcm/1CX_BCM4356/fw_bcmdhd.bin"
+WIFI_DRIVER_FW_PATH_AP         := "/system/etc/firmware/bcm/1CX_BCM4356/fw_bcmdhd_apsta.bin"
+WIFI_DRIVER_FW_PATH_PARAM      := "/sys/module/bcmdhd/parameters/firmware_path"
+
+BOARD_VENDOR_KERNEL_MODULES += \
+                            $(KERNEL_OUT)/drivers/net/wireless/bcmdhd_1363/bcmdhd.ko
+
+
 BOARD_HAVE_BLUETOOTH_BCM := true
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/fsl/mek_8q/bluetooth
 
