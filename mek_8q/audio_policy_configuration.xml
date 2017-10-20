@@ -29,10 +29,6 @@
                     <profile name="" format="AUDIO_FORMAT_PCM_16_BIT"
                              samplingRates="48000" channelMasks="AUDIO_CHANNEL_OUT_STEREO"/>
                 </mixPort>
-                <mixPort name="hdmi output" role="source" flags="AUDIO_OUTPUT_FLAG_DIRECT">
-                    <profile name="" format="AUDIO_FORMAT_PCM_16_BIT"
-                             samplingRates="dynamic" channelMasks="dynamic"/>
-                </mixPort>
                 <mixPort name="esai output" role="source" flags="AUDIO_OUTPUT_FLAG_DIRECT">
                     <profile name="" format="AUDIO_FORMAT_PCM_16_BIT"
                              samplingRates="48000" channelMasks="AUDIO_CHANNEL_OUT_5POINT1,AUDIO_CHANNEL_OUT_7POINT1"/>
@@ -50,8 +46,6 @@
                 </devicePort>
                 <devicePort tagName="Wired Headphones" type="AUDIO_DEVICE_OUT_WIRED_HEADPHONE" role="sink">
                 </devicePort>
-                <devicePort tagName="HDMI Out" type="AUDIO_DEVICE_OUT_AUX_DIGITAL" role="sink">
-                </devicePort>
 
                 <devicePort tagName="Built-In Mic" type="AUDIO_DEVICE_IN_BUILTIN_MIC" role="source">
                 </devicePort>
@@ -67,8 +61,6 @@
                        sources="primary output"/>
                 <route type="mix" sink="Wired Headphones"
                        sources="primary output"/>
-                <route type="mix" sink="HDMI Out"
-                       sources="hdmi output,primary output"/>
 
                 <route type="mix" sink="primary input"
                        sources="Built-In Mic,Wired Headset Mic,Spdif-In"/>
