@@ -1,14 +1,14 @@
 {
     "settings": {
         "disk_size": "28 GiB",
-        "disk_alignment": 2097152
+        "disk_alignment": 2097152,
+        "first_partition_offset": 8388608
     },
     "partitions": [
         {
             "label": "boot",
             "size": "32 MiB",
             "guid": "auto",
-            "offset": 0,
             "type_guid": "bb499290-b57e-49f6-bf41-190386693794"
         },
         {
