@@ -4,6 +4,7 @@
 
 BOARD_SOC_TYPE := IMX6DQ
 BOARD_HAVE_VPU := true
+BOARD_VPU_TYPE := chipsmedia
 HAVE_FSL_IMX_GPU2D := true
 HAVE_FSL_IMX_GPU3D := true
 HAVE_FSL_IMX_IPU := true
