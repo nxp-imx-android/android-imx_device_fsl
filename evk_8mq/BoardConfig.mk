@@ -51,22 +51,18 @@ USE_OPENGL_RENDERER := true
 TARGET_CPU_SMP := true
 
 TARGET_RELEASETOOLS_EXTENSIONS := device/fsl/imx8
-BOARD_WLAN_DEVICE            := bcmdhd
+BOARD_WLAN_DEVICE            := qcwcn
 WPA_SUPPLICANT_VERSION       := VER_0_8_X
 BOARD_WPA_SUPPLICANT_DRIVER  := NL80211
 BOARD_HOSTAPD_DRIVER         := NL80211
 
-BOARD_HOSTAPD_PRIVATE_LIB               := lib_driver_cmd_bcmdhd
-BOARD_WPA_SUPPLICANT_PRIVATE_LIB        := lib_driver_cmd_bcmdhd
-
-BOARD_SUPPORT_BCM_WIFI  := true
-WIFI_DRIVER_FW_PATH_STA        := "/vendor/firmware/bcm/1CX_BCM4356/fw_bcmdhd.bin"
-WIFI_DRIVER_FW_PATH_P2P        := "/vendor/firmware/bcm/1CX_BCM4356/fw_bcmdhd.bin"
-WIFI_DRIVER_FW_PATH_AP         := "/vendor/firmware/bcm/1CX_BCM4356/fw_bcmdhd_apsta.bin"
-WIFI_DRIVER_FW_PATH_PARAM      := "/sys/module/bcmdhd/parameters/firmware_path"
+BOARD_HOSTAPD_PRIVATE_LIB               := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
+BOARD_WPA_SUPPLICANT_PRIVATE_LIB        := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
 
 BOARD_VENDOR_KERNEL_MODULES += \
-                            $(KERNEL_OUT)/drivers/net/wireless/bcmdhd_1363/bcmdhd.ko
+                            $(KERNEL_OUT)/drivers/net/wireless/ath/ath.ko \
+                            $(KERNEL_OUT)/drivers/net/wireless/ath/ath10k/ath10k_core.ko \
+                            $(KERNEL_OUT)/drivers/net/wireless/ath/ath10k/ath10k_pci.ko
 
 PHONE_MODULE_INCLUDE := flase
 BOARD_USE_SENSOR_FUSION := true

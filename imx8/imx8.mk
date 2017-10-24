@@ -85,6 +85,14 @@ PRODUCT_PACKAGES += \
     bcmdhd.1CX.cal            \
     bcmdhd.1FD.cal
 
+# Ath10K 1CQ firmware
+PRODUCT_PACKAGES += \
+    nvm_tlv_3.2.bin           \
+    rampatch_tlv_3.2.tlv      \
+    firmware-4.bin            \
+    board-2.bin               \
+    board.bin
+
 # Debug utils
 PRODUCT_PACKAGES += \
 	taskset					\
