@@ -9,6 +9,9 @@ $(call inherit-product, $(TOPDIR)frameworks/base/data/sounds/AllAudio.mk)
 PRODUCT_BRAND := Android
 PRODUCT_MANUFACTURER := freescale
 
+PRODUCT_PACKAGES += \
+    bootctrl.avb
+
 # Android infrastructures
 PRODUCT_PACKAGES += \
 	LiveWallpapers				\
@@ -129,7 +132,9 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
        camera.device@1.0-impl          \
        camera.device@3.2-impl          \
-       android.hardware.camera.provider@2.4-impl
+       android.hardware.camera.provider@2.4-impl \
+       android.hardware.boot@1.0-impl \
+       android.hardware.boot@1.0-service
 
 PRODUCT_PACKAGES += \
 	slideshow				\
