@@ -10,7 +10,10 @@ PRODUCT_BRAND := Android
 PRODUCT_MANUFACTURER := freescale
 
 PRODUCT_PACKAGES += \
-    bootctrl.avb
+    bootctrl.avb \
+    update_engine_sideload \
+    update_engine \
+    update_engine_client
 
 # Android infrastructures
 PRODUCT_PACKAGES += \

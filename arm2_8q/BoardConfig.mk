@@ -39,9 +39,9 @@ PRODUCT_COPY_FILES +=	\
 endif # BUILD_TARGET_FS
 
 # Support gpt
-BOARD_BPT_INPUT_FILES += device/fsl/common/partition/device-partitions-14GB.bpt
-ADDITION_BPT_PARTITION = partition-table-7GB:device/fsl/common/partition/device-partitions-7GB.bpt \
-                         partition-table-28GB:device/fsl/common/partition/device-partitions-28GB.bpt
+BOARD_BPT_INPUT_FILES += device/fsl/common/partition/device-partitions-14GB-ab.bpt
+ADDITION_BPT_PARTITION = partition-table-7GB:device/fsl/common/partition/device-partitions-7GB-ab.bpt \
+                         partition-table-28GB:device/fsl/common/partition/device-partitions-28GB-ab.bpt
 
 endif # BUILD_TARGET_FS
 
@@ -129,6 +129,8 @@ BOARD_SEPOLICY_DIRS += \
 endif
 PRODUCT_COPY_FILES +=	\
        device/fsl/arm2_8q/ueventd.freescale.rc:root/ueventd.freescale.rc
+
+BOARD_AVB_ENABLE := true
 
 # Vendor seccomp policy files for media components:
 PRODUCT_COPY_FILES += \
