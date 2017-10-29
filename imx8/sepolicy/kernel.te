@@ -4,3 +4,4 @@ allow kernel fuse:dir rw_dir_perms;
 allow kernel device:blk_file  { create setattr getattr unlink};
 allow kernel device:dir  { add_name write create remove_name rmdir };
 allow kernel device:chr_file  { create setattr getattr unlink };
+allow kernel sysfs_devices_system_cpu:file  { write };

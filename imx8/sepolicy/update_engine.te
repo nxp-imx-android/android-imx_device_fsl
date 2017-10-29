@@ -1,0 +1,1 @@
+allow update_engine sysfs:file { read open };

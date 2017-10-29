@@ -1,2 +1,3 @@
 type caam_device, dev_type;
 type pxp_device, dev_type;
+type vbmeta_block_device, dev_type;
