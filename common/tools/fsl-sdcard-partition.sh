@@ -31,6 +31,7 @@ options:
   -c card_size			optional setting: 7 / 14 / 28
 					If not set, use partition-table.img
 					If set to 7, use partition-table-7GB.img for 7GB SD card
+  -ab 				program ab image
 EOF
 
 }
@@ -45,12 +46,14 @@ bootloader_offset=1
 flash_images=0
 not_partition=0
 not_format_fs=0
+enable_ab=0
 bootloader_file="u-boot.imx"
 bootimage_file="boot.img"
 systemimage_file="system.img"
 systemimage_raw_file="system_raw.img"
 vendor_file="vendor.img"
 vendor_raw_file="vendor_raw.img"
+vbmeta_file="vbmeta.img"
 recoveryimage_file="recovery.img"
 partition_file="partition-table.img"
 while [ "$moreoptions" = 1 -a $# -gt 0 ]; do
@@ -61,6 +64,7 @@ while [ "$moreoptions" = 1 -a $# -gt 0 ]; do
 	    -c) card_size=$2; shift;;
 	    -np) not_partition=1 ;;
 	    -nf) not_format_fs=1 ;;
+	    -ab) enable_ab=1;;
 	    *)  moreoptions=0; node=$1 ;;
 	esac
 	[ "$moreoptions" = 0 ] && [ $# -gt 1 ] && help && exit
@@ -108,7 +112,11 @@ function format_android
 {
     echo "formating android images"
     mkfs.ext4 -F ${node}`gdisk -l ${node} | grep -w userdata | awk '{print $1}'` -Ldata
-    mkfs.ext4 -F ${node}`gdisk -l ${node} | grep -w cache | awk '{print $1}'` -Lcache
+    if [ "${enable_ab}" -eq "0" ]; then
+       mkfs.ext4 -F ${node}`gdisk -l ${node} | grep -w cache | awk '{print $1}'` -Lcache
+    fi
+    dd if=/dev/zero of=${node}`gdisk -l ${node} | grep -w presistdata | awk '{print $1}'` bs=1024 conv=fsync count=1024
+    dd if=/dev/zero of=${node}`gdisk -l ${node} | grep -w fbmisc | awk '{print $1}'` bs=1024 conv=fsync count=1024
 }
 function make_partition
 {
@@ -144,8 +152,41 @@ if [ "${flash_images}" -eq "1" ]; then
 fi
 }
 
+function flash_android_ab
+{
+    bootloader_file="u-boot-${soc_name}.imx"
+    bootimage_file="boot-${soc_name}.img"
+    recoveryimage_file="recovery-${soc_name}.img"
+if [ "${flash_images}" -eq "1" ]; then
+    echo "flashing android images..."
+    echo "bootloader: ${bootloader_file} offset: ${bootloader_offset}"
+    echo "boot image: ${bootimage_file}"
+    echo "vbmeta image: ${vbmeta_file}"
+    echo "system image: ${systemimage_file}"
+    echo "vendor image: ${vendor_file}"
+    dd if=${bootimage_file} of=${node}`gdisk -l ${node} | grep -w boot_a | awk '{print $1}'` conv=fsync
+    dd if=${bootimage_file} of=${node}`gdisk -l ${node} | grep -w boot_b | awk '{print $1}'` conv=fsync
+    dd if=${vbmeta_file} of=${node}`gdisk -l ${node} | grep -w vbmeta_a | awk '{print $1}'` conv=fsync
+    dd if=${vbmeta_file} of=${node}`gdisk -l ${node} | grep -w vbmeta_b | awk '{print $1}'` conv=fsync
+    simg2img ${systemimage_file} ${systemimage_raw_file}
+    dd if=${systemimage_raw_file} of=${node}`gdisk -l ${node} | grep -w system_a | awk '{print $1}'` conv=fsync
+    dd if=${systemimage_raw_file} of=${node}`gdisk -l ${node} | grep -w system_b | awk '{print $1}'` conv=fsync
+    rm ${systemimage_raw_file}
+    simg2img ${vendor_file} ${vendor_raw_file}
+    dd if=${vendor_raw_file} of=${node}`gdisk -l ${node} | grep -w vendor_a | awk '{print $1}'` conv=fsync
+    dd if=${vendor_raw_file} of=${node}`gdisk -l ${node} | grep -w vendor_b | awk '{print $1}'` conv=fsync
+    rm ${vendor_raw_file}
+    dd if=/dev/zero of=${node} bs=1k seek=${bootloader_offset} conv=fsync count=1500
+    dd if=${bootloader_file} of=${node} bs=1k seek=${bootloader_offset} conv=fsync
+fi
+}
+
 if [[ "${not_partition}" -eq "1" && "${flash_images}" -eq "1" ]] ; then
-    flash_android
+    if [ "${enable_ab}" -eq "1" ] ; then
+       flash_android_ab
+    else
+       flash_android
+    fi
     exit
 fi
 
@@ -158,8 +199,11 @@ hdparm -z ${node}
 echo -e 'r\ne\nY\nw\nY\nY' |  gdisk ${node}
 
 format_android
-flash_android
-
+if [ "${enable_ab}" -eq "1" ] ; then
+   flash_android_ab
+else
+   flash_android
+fi
 
 # For MFGTool Notes:
 # MFGTool use mksdcard-android.tar store this script
