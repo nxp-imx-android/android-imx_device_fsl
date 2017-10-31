@@ -112,6 +112,7 @@ PRODUCT_PACKAGES += \
 	sensors.SABRESD				\
 	sensors.ARM2				\
 	sensors.SABREAUTO			\
+	sensors.MEK 				\
 	overlay.imx8				\
 	lights.imx8				\
 	gralloc.imx8				\
