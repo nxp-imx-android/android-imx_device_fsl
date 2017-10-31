@@ -157,6 +157,7 @@ function flash_android_ab
     bootloader_file="u-boot-${soc_name}.imx"
     bootimage_file="boot-${soc_name}.img"
     recoveryimage_file="recovery-${soc_name}.img"
+    vbmeta_file="vbmeta-${soc_name}.img"
 if [ "${flash_images}" -eq "1" ]; then
     echo "flashing android images..."
     echo "bootloader: ${bootloader_file} offset: ${bootloader_offset}"
