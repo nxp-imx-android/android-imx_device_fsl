@@ -7,8 +7,8 @@ include device/fsl/mek_8q/build_id.mk
 include device/fsl/imx8/BoardConfigCommon.mk
 ifeq ($(PREBUILT_FSL_IMX_CODEC),true)
 -include device/fsl-codec/fsl-codec.mk
--include external/fsl-restricted-codec/fsl_hifi4_aacp_dec/fsl_hifi4_aacp_dec.mk
--include external/fsl-restricted-codec/fsl_hifi4_dec/fsl_hifi4_dec.mk
+-include external/fsl-restricted-codec/imx_hifi4_aacp_dec/imx_hifi4_aacp_dec.mk
+-include external/fsl-restricted-codec/imx_hifi4_dec/imx_hifi4_dec.mk
 endif
 # sabreauto_6dq default target for EXT4
 BUILD_TARGET_FS ?= ext4
