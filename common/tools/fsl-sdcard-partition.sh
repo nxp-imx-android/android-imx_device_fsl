@@ -115,8 +115,9 @@ function format_android
     if [ "${enable_ab}" -eq "0" ]; then
        mkfs.ext4 -F ${node}`gdisk -l ${node} | grep -w cache | awk '{print $1}'` -Lcache
     fi
-    dd if=/dev/zero of=${node}`gdisk -l ${node} | grep -w presistdata | awk '{print $1}'` bs=1024 conv=fsync count=1024
-    dd if=/dev/zero of=${node}`gdisk -l ${node} | grep -w fbmisc | awk '{print $1}'` bs=1024 conv=fsync count=1024
+    dd if=/dev/zero of=${node}`gdisk -l ${node} | grep -w presistdata | awk '{print $1}'` bs=1048576 conv=fsync count=${PRESISTDATA_SIZE}
+    dd if=/dev/zero of=${node}`gdisk -l ${node} | grep -w fbmisc | awk '{print $1}'` bs=1048576 conv=fsync count=${FBMISC_SIZE}
+    dd if=/dev/zero of=${node}`gdisk -l ${node} | grep -w misc | awk '{print $1}'` bs=1048576 conv=fsync count=${MISC_SIZE}
 }
 function make_partition
 {
