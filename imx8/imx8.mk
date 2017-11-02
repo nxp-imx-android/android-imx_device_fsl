@@ -12,6 +12,7 @@ PRODUCT_MANUFACTURER := freescale
 PRODUCT_PACKAGES += \
     bootctrl.avb \
     update_engine_sideload \
+    brillo_update_payload \
     update_engine \
     update_engine_client
 
