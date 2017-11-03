@@ -26,6 +26,12 @@ VNDK_SP_LIBRARIES := \
     libunwind\
     liblzma\
 
+VNDK_SP_LIBRARIES += \
+     libui\
+     libhardware_legacy\
+     libion\
+     libdrm
+
 define define-vndk-lib
 include $$(CLEAR_VARS)
 LOCAL_MODULE := $1.$2
