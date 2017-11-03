@@ -14,3 +14,5 @@
 /system/bin/e2fsdroid           u:object_r:e2fs_exec:s0
 /system/bin/mke2fs              u:object_r:e2fs_exec:s0
 /vendor/bin/hw/android\.hardware\.usb@1\.1-service.imx             u:object_r:hal_usb_default_exec:s0
+/dev/diag                       u:object_r:diag_device:s0
+/vendor/bin/wcnss_filter        u:object_r:wcnss_filter_exec:s0
