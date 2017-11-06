@@ -52,6 +52,7 @@ PRODUCT_PACKAGES += \
 	librs_jni				\
 	chat					\
 	ip-up-vpn				\
+	IMXLinks				\
 	wpa_supplicant				\
 	wpa_supplicant.conf			\
 	p2p_supplicant_overlay.conf			\
