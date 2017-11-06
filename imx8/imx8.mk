@@ -14,6 +14,7 @@ PRODUCT_PACKAGES += \
     update_engine_sideload \
     brillo_update_payload \
     update_engine \
+    update_verifier \
     update_engine_client
 
 # Android infrastructures
