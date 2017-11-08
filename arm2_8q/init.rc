@@ -17,7 +17,6 @@ on init
     symlink /sdcard /storage/sdcard0
 
     # setup the global environment
-    export LIGHTSENSOR_PATH /sys/class/i2c-adapter/i2c-1/1-0044
     export CORE_REGISTER_FILE /vendor/etc/core_register
     export COMPONENT_REGISTER_FILE /vendor/etc/component_register
     export CONTENTPIPE_REGISTER_FILE /vendor/etc/contentpipe_register
@@ -131,7 +130,7 @@ on boot
     chmod 0660 /sys/class/backlight/backlight/brightness
 
     # Set light sensor sysfs path and light sensor threshold lux value
-    setprop ro.hardware.lightsensor "/sys/class/i2c-dev/i2c-0/device/0-0044/"
+    setprop ro.hardware.lightsensor "/sys/class/i2c-dev/i2c-1/device/1-0044/"
     setprop ro.lightsensor.threshold  20
 
     # No bluetooth hardware present

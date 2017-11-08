@@ -1,2 +1,7 @@
 allow hal_sensors_default sysfs:file { read write };
-allow hal_sensors_default sysfs:file { open };
+allow hal_sensors_default sysfs:file { open getattr };
+allow hal_sensors_default input_device:dir { read } ;
+allow hal_sensors_default sysfs:dir { read open } ;
+allow hal_sensors_default input_device:dir { open search }  ;
+allow hal_sensors_default input_device:chr_file { ioctl read open }  ;
+allow hal_sensors_default sysfs:chr_file { open }  ;
