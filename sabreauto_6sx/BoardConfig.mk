@@ -83,8 +83,8 @@ endif
 endif
 
 
-USE_ION_ALLOCATOR := false
-USE_GPU_ALLOCATOR := true
+USE_ION_ALLOCATOR := true
+USE_GPU_ALLOCATOR := false
 
 # define frame buffer count
 NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3

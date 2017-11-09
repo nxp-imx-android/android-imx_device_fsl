@@ -80,8 +80,8 @@ IMX_CAMERA_HAL_V3 := true
 
 BOARD_HAVE_USB_CAMERA := true
 
-USE_ION_ALLOCATOR := false
-USE_GPU_ALLOCATOR := true
+USE_ION_ALLOCATOR := true
+USE_GPU_ALLOCATOR := false
 
 PRODUCT_COPY_FILES +=	\
        device/fsl/evk_8mq/ueventd.freescale.rc:root/ueventd.freescale.rc
