@@ -91,7 +91,7 @@ BOARD_AVB_ENABLE := true
 # define frame buffer count
 NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
 
-BOARD_KERNEL_CMDLINE := console=ttymxc0,115200 earlycon=imxuart,0x30860000,115200 init=/init video=imxdpufb1:off video=imxdpufb2:off video=imxdpufb3:off video=imxdpufb4:off androidboot.console=ttymxc0 consoleblank=0 androidboot.hardware=freescale cma=800M androidboot.watchdogd=disabled androidboot.selinux=permissive androidboot.gui_resolution=1080p
+BOARD_KERNEL_CMDLINE := console=ttymxc0,115200 earlycon=imxuart,0x30860000,115200 init=/init video=imxdpufb1:off video=imxdpufb2:off video=imxdpufb3:off video=imxdpufb4:off video=HDMI-A-1:1920x1080-32@60 androidboot.console=ttymxc0 consoleblank=0 androidboot.hardware=freescale cma=800M androidboot.watchdogd=disabled androidboot.selinux=permissive androidboot.gui_resolution=1080p
 
 BOARD_HAVE_BLUETOOTH_BCM := true
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/fsl/evk_8mq/bluetooth
@@ -102,7 +102,7 @@ $(error "TARGET_USERIMAGES_USE_UBIFS and TARGET_USERIMAGES_USE_EXT4 config open 
 endif
 endif
 
-TARGET_BOARD_DTS_CONFIG := imx8mq:fsl-imx8mq-evk.dtb imx8mq-4k:fsl-imx8mq-evk-4k.dtb
+TARGET_BOARD_DTS_CONFIG := imx8mq:fsl-imx8mq-evk-drm.dtb imx8mq-4k:fsl-imx8mq-evk-4k.dtb
 TARGET_BOOTLOADER_CONFIG := imx8mq:mx8mq_evk_android_defconfig
 
 BOARD_SEPOLICY_DIRS := \
