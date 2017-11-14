@@ -10,7 +10,7 @@ PRODUCT_BRAND := Android
 PRODUCT_MANUFACTURER := freescale
 
 PRODUCT_PACKAGES += \
-    bootctrl.avb \
+    bootctrl.default \
     update_engine_sideload \
     brillo_update_payload \
     update_engine \
@@ -53,7 +53,6 @@ PRODUCT_PACKAGES += \
 	librs_jni				\
 	chat					\
 	ip-up-vpn				\
-	IMXLinks				\
 	wpa_supplicant				\
 	wpa_supplicant.conf			\
 	p2p_supplicant_overlay.conf			\
