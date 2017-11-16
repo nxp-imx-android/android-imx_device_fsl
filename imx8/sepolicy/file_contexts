@@ -6,4 +6,5 @@
 /dev/imxdpu                     u:object_r:gpu_device:s0
 /dev/caam_kb                    u:object_r:caam_device:s0
 /dev/dri(/.*)?	                u:object_r:graphics_device:s0
-
+/system/bin/e2fsdroid           u:object_r:e2fs_exec:s0
+/system/bin/mke2fs              u:object_r:e2fs_exec:s0
