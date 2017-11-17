@@ -123,6 +123,10 @@ PRODUCT_PACKAGES += \
     android.hardware.light@2.0-impl \
     android.hardware.light@2.0-service
 
+# imx8 sensor HAL libs.
+PRODUCT_PACKAGES += \
+        sensors.imx8
+
 # Set Bluetooth transport initialization timeout
 PRODUCT_PROPERTY_OVERRIDES += \
     bluetooth.enable_timeout_ms=16000

@@ -73,9 +73,6 @@ PRODUCT_PACKAGES += \
 
 # imx7 Hardware HAL libs.
 PRODUCT_PACKAGES += \
-	sensors.SABRESD				\
-	sensors.ARM2				\
-	sensors.SABREAUTO			\
 	gralloc.imx7				\
 	overlay.imx7				\
 	hwcomposer.imx7				\

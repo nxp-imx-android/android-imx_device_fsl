@@ -111,9 +111,6 @@ PRODUCT_PACKAGES += \
 
 # imx6 Hardware HAL libs.
 PRODUCT_PACKAGES += \
-	sensors.SABRESD				\
-	sensors.ARM2				\
-	sensors.SABREAUTO			\
 	overlay.imx6				\
 	lights.imx6				\
 	gralloc.imx6				\
