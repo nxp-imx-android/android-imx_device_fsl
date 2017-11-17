@@ -24,16 +24,17 @@
 /dev/mma8x5x              0640   compass     system
 /dev/caam_kb              0660   system     system
 /dev/ttyLP2               0660   bluetooth  bluetooth
+/dev/input/event*         0660   system     system
 
 # Sensors sysfs for 7d platform.
-/sys/devices/virtual/misc/Freescale* name       0660 root input
-/sys/devices/virtual/misc/Freescale* max        0660 root input
-/sys/devices/virtual/misc/Freescale* min        0660 root input
-/sys/devices/virtual/misc/Freescale* poll       0660 root input
-/sys/devices/virtual/misc/Freescale* enable     0660 root input
-/sys/devices/virtual/misc/Freescale* position   0660 root input
-/sys/devices/virtual/misc/Freescale* poll_delay 0660 root input
-/sys/devices/virtual/misc/Freescale* fifo       0660 root input
+/sys/devices/virtual/misc/Freescale* name       0660 system system
+/sys/devices/virtual/misc/Freescale* max        0660 system system
+/sys/devices/virtual/misc/Freescale* min        0660 system system
+/sys/devices/virtual/misc/Freescale* poll       0660 system system
+/sys/devices/virtual/misc/Freescale* enable     0660 system system
+/sys/devices/virtual/misc/Freescale* position   0660 system system
+/sys/devices/virtual/misc/Freescale* poll_delay 0660 system system
+/sys/devices/virtual/misc/Freescale* fifo       0660 system system
 
 #sensors sysfs
 /sys/class/misc/Freescale*          name        0660  system system
@@ -48,6 +49,16 @@
 /dev/FreescaleMagnetometer                      0660  system system
 /dev/FreescaleGyroscope                         0660  system system
 
+# sensor sysfs properties
+/sys/class/input/input*   name        0660  system system
+/sys/class/input/input*   max         0660  system system
+/sys/class/input/input*   min         0660  system system
+/sys/class/input/input*   min         0660  system system
+/sys/class/input/input*   poll        0660  system system
+/sys/class/input/input*   enable      0660  system system
+/sys/class/input/input*   position    0660  system system
+/sys/class/input/input*   poll_delay  0660  system system
+/sys/class/input/input*   fifo        0660  system system
 
 # sysfs properties
 /sys/devices/virtual/input/input*   name        0660  system   system
