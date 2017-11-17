@@ -7,6 +7,7 @@
 /dev/block/platform/soc0/soc/30800000\.aips-bus/30b40000\.usdhc/by-name/metadata    u:object_r:metadata_block_device:s0
 /dev/block/platform/soc0/soc/30800000\.aips-bus/30b40000\.usdhc/by-name/presistdata u:object_r:frp_block_device:s0
 /dev/block/platform/soc0/soc/30800000\.aips-bus/30b40000\.usdhc/by-name/userdata    u:object_r:userdata_block_device:s0
+/dev/block/platform/soc0/soc/30800000\.aips-bus/30b40000\.usdhc/by-name/datafooter  u:object_r:metadata_block_device:s0
 
 #peripheral
 /vendor/bin/magd                u:object_r:sensors_exec:s0
