@@ -13,3 +13,4 @@ allow system_server audioserver:file { write };
 allow system_server system_app:file { write };
 allow system_server sensors_device:chr_file { open read };
 allow system_server bluetooth:file { write };
+allow system_server hal_audio_default:file { write };
