@@ -155,8 +155,12 @@ if [ "${flash_images}" -eq "1" ]; then
     rm ${vendor_raw_file}
     flash_partition vbmeta
     echo "erase_partition: uboot : ${node}"
-    dd if=/dev/zero of=${node} bs=1k seek=${bootloader_offset} conv=fsync count=1500
     echo "flash_partition: ${bootloader_file} ---> ${node}"
+    first_partition_offset=`gdisk -l ${node} | grep ' 1 ' | awk '{print $2}'`
+    # the unit of first_partition_offset is sector size which is 512 Byte.
+    count_bootloader=`expr ${first_partition_offset} / 2 - ${bootloader_offset}`
+    echo "the bootloader partition size: ${count_bootloader}"
+    dd if=/dev/zero of=${node} bs=1k seek=${bootloader_offset} conv=fsync count=${count_bootloader}
     dd if=${bootloader_file} of=${node} bs=1k seek=${bootloader_offset} conv=fsync
 fi
 }
