@@ -1,0 +1,6 @@
+allow hal_usb_default sysfs_usb_c:dir r_dir_perms;
+allow hal_usb_default sysfs_usb_c:lnk_file read;
+allow hal_usb_default sysfs_usb_c:file rw_file_perms;
+allow hal_usb_default sysfs:dir { write add_name } ;
+allow hal_usb_default sysfs:file { create } ;
+

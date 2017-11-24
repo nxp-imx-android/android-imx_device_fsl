@@ -13,3 +13,4 @@
 /dev/dri/renderD129             u:object_r:gpu_device:s0
 /system/bin/e2fsdroid           u:object_r:e2fs_exec:s0
 /system/bin/mke2fs              u:object_r:e2fs_exec:s0
+/vendor/bin/hw/android\.hardware\.usb@1\.1-service.imx             u:object_r:hal_usb_default_exec:s0
