@@ -140,4 +140,7 @@ PRODUCT_COPY_FILES += \
        device/fsl/sabresd_6dq/seccomp/mediacodec-seccomp.policy:vendor/etc/seccomp_policy/mediacodec.policy \
        device/fsl/sabresd_6dq/seccomp/mediaextractor-seccomp.policy:vendor/etc/seccomp_policy/mediaextractor.policy
 
+PRODUCT_COPY_FILES += \
+       device/fsl/sabresd_6dq/app_whitelist.xml:system/etc/sysconfig/app_whitelist.xml
+
 TARGET_BOARD_KERNEL_HEADERS := device/fsl/common/kernel-headers

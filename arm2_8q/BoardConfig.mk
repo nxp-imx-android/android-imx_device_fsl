@@ -133,6 +133,8 @@ PRODUCT_COPY_FILES +=	\
        device/fsl/arm2_8q/ueventd.freescale.rc:root/ueventd.freescale.rc
 
 BOARD_AVB_ENABLE := true
+PRODUCT_COPY_FILES += \
+       device/fsl/arm2_8q/app_whitelist.xml:system/etc/sysconfig/app_whitelist.xml
 
 # Vendor seccomp policy files for media components:
 PRODUCT_COPY_FILES += \

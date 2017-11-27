@@ -135,4 +135,7 @@ BOARD_AVB_ENABLE := true
 PRODUCT_COPY_FILES += \
        device/fsl/mek_8q/seccomp/mediaextractor-seccomp.policy:vendor/etc/seccomp_policy/mediaextractor.policy
 
+PRODUCT_COPY_FILES += \
+       device/fsl/mek_8q/app_whitelist.xml:system/etc/sysconfig/app_whitelist.xml
+
 TARGET_BOARD_KERNEL_HEADERS := device/fsl/common/kernel-headers

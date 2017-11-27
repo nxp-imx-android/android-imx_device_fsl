@@ -112,4 +112,7 @@ PRODUCT_COPY_FILES += \
        device/fsl/sabreauto_6sx/seccomp/mediacodec-seccomp.policy:vendor/etc/seccomp_policy/mediacodec.policy \
        device/fsl/sabreauto_6sx/seccomp/mediaextractor-seccomp.policy:vendor/etc/seccomp_policy/mediaextractor.policy
 
+PRODUCT_COPY_FILES += \
+       device/fsl/sabreauto_6sx/app_whitelist.xml:system/etc/sysconfig/app_whitelist.xml
+
 TARGET_BOARD_KERNEL_HEADERS := device/fsl/common/kernel-headers

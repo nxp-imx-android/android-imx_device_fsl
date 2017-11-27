@@ -98,4 +98,7 @@ PRODUCT_COPY_FILES += \
        device/fsl/evk_6sl/seccomp/mediacodec-seccomp.policy:vendor/etc/seccomp_policy/mediacodec.policy \
        device/fsl/evk_6sl/seccomp/mediaextractor-seccomp.policy:vendor/etc/seccomp_policy/mediaextractor.policy
 
+PRODUCT_COPY_FILES += \
+       device/fsl/evk_6sl/app_whitelist.xml:system/etc/sysconfig/app_whitelist.xml
+
 TARGET_BOARD_KERNEL_HEADERS := device/fsl/common/kernel-headers
