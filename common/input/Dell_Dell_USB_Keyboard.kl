@@ -20,27 +20,27 @@ key 72    8
 key 73    9
 key 82    0
 key 58    CAPS_LOCK
-key 1     BACK              WAKE     
-key 230   SOFT_RIGHT        WAKE
-key 60    SOFT_RIGHT        WAKE
-key 107   ENDCALL           WAKE
-key 62    ENDCALL           WAKE
-key 64    ENDCALL           WAKE
-key 127   MENU              WAKE
-key 59    MENU              WAKE
+key 1     BACK
+key 230   SOFT_RIGHT
+key 60    SOFT_RIGHT
+key 107   ENDCALL
+key 62    ENDCALL
+key 64    ENDCALL
+key 127   MENU
+key 59    MENU
 key 228   POUND
 key 227   STAR
-key 231   CALL              WAKE
-key 61    CALL              WAKE
+key 231   CALL
+key 61    CALL
 key 67    DPAD_CENTER
 key 108   DPAD_DOWN
 key 103   DPAD_UP
-key 66    HOME              WAKE
+key 66    HOME
 key 105   DPAD_LEFT
 key 106   DPAD_RIGHT
 key 115   VOLUME_UP
 key 114   VOLUME_DOWN
-key 116   POWER             WAKE
+key 116   POWER
 key 211   FOCUS
 key 212   CAMERA
 

@@ -24,8 +24,6 @@ PRODUCT_COPY_FILES += \
 	device/fsl/sabresd_7d/init.rc:root/init.freescale.rc \
 	device/fsl/common/input/imx-keypad.idc:system/usr/idc/imx-keypad.idc \
 	device/fsl/common/input/imx-keypad.kl:system/usr/keylayout/imx-keypad.kl \
-	device/fsl/common/input/20b8000_kpp.idc:system/usr/idc/20b8000_kpp.idc \
-	device/fsl/common/input/20b8000_kpp.kl:system/usr/keylayout/20b8000_kpp.kl \
 
 PRODUCT_COPY_FILES += device/fsl/sabresd_7d/init.freescale.sd.rc:root/init.freescale.sd.rc
 
