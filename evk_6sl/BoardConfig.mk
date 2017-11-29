@@ -64,7 +64,6 @@ WIFI_DRIVER_FW_PATH_PARAM      := "/sys/module/bcmdhd/parameters/firmware_path"
 TARGET_SELECT_KEY := 28
 # we don't support sparse image.
 TARGET_USERIMAGES_SPARSE_EXT_DISABLED := false
-DM_VERITY_RUNTIME_CONFIG := true
 
 USE_ION_ALLOCATOR := true
 USE_GPU_ALLOCATOR := false

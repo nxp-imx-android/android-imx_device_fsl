@@ -66,7 +66,6 @@ BOARD_USE_SENSOR_FUSION := true
 TARGET_SELECT_KEY := 28
 # we don't support sparse image.
 TARGET_USERIMAGES_SPARSE_EXT_DISABLED := false
-DM_VERITY_RUNTIME_CONFIG := true
 # atheros 3k BT
 BOARD_HAVE_BLUETOOTH_BCM := true
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/fsl/sabresd_7d/bluetooth

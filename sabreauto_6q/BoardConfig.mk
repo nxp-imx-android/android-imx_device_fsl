@@ -66,7 +66,6 @@ SENSOR_MMA8451 := true
 TARGET_SELECT_KEY := 28
 # we don't support sparse image.
 TARGET_USERIMAGES_SPARSE_EXT_DISABLED := false
-DM_VERITY_RUNTIME_CONFIG := true
 
 # camera hal v3
 IMX_CAMERA_HAL_V3 := true
