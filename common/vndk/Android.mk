@@ -31,6 +31,11 @@ VNDK_SP_LIBRARIES += \
      libion\
      libdrm
 
+ifneq ($(TARGET_2ND_ARCH),)
+VNDK_SP_LIBRARIES += \
+     libdrm_vivante
+endif
+
 define define-vndk-lib
 include $$(CLEAR_VARS)
 LOCAL_MODULE := $1.$2
