@@ -1,6 +1,6 @@
 {
     "settings": {
-        "disk_size": "14 GiB",
+        "disk_size": "13 GiB",
         "disk_alignment": 2097152,
         "first_partition_offset": 8388608
     },
