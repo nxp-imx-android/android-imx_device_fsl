@@ -9,12 +9,12 @@ define build_uboot
 		MKIMAGE_PLATFORM=`echo iMX8QX`; \
 		SCFW_PLATFORM=`echo 8qx`; \
 	fi; \
-	cp  out/target/product/mek_8q/obj/BOOTLOADER_OBJ/u-boot.$(strip $(1)) external/imx-mkimage/$$MKIMAGE_PLATFORM/u-boot.bin; \
-	cp  device/fsl-proprietary/uboot-firmware/imx8q/mx$$SCFW_PLATFORM-scfw-tcm.bin external/imx-mkimage/$$MKIMAGE_PLATFORM/scfw_tcm.bin; \
-	cp  device/fsl-proprietary/uboot-firmware/imx8q/bl31-$(strip $(2)).bin external/imx-mkimage/$$MKIMAGE_PLATFORM/bl31.bin; \
-	$(MAKE) -C external/imx-mkimage/ clean; \
-	$(MAKE) -C external/imx-mkimage/ SOC=$$MKIMAGE_PLATFORM flash; \
-	cp external/imx-mkimage/$$MKIMAGE_PLATFORM/flash.bin $(PRODUCT_OUT)/u-boot-$(strip $(2)).imx;
+	cp  out/target/product/mek_8q/obj/BOOTLOADER_OBJ/u-boot.$(strip $(1)) $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/u-boot.bin; \
+	cp  $(FSL_PROPRIETARY_PATH)/fsl-proprietary/uboot-firmware/imx8q/mx$$SCFW_PLATFORM-scfw-tcm.bin $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/scfw_tcm.bin; \
+	cp  $(FSL_PROPRIETARY_PATH)/fsl-proprietary/uboot-firmware/imx8q/bl31-$(strip $(2)).bin $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/bl31.bin; \
+	$(MAKE) -C $(IMX_MKIMAGE_PATH)/imx-mkimage/ clean; \
+	$(MAKE) -C $(IMX_MKIMAGE_PATH)/imx-mkimage/ SOC=$$MKIMAGE_PLATFORM flash; \
+	cp $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/flash.bin $(PRODUCT_OUT)/u-boot-$(strip $(2)).imx;
 endef
 
 

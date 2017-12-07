@@ -76,5 +76,5 @@ BOARD_FLASH_BLOCK_SIZE := 4096
 TARGET_RECOVERY_UI_LIB := librecovery_ui_imx
 
 -include device/google/gapps/gapps_config.mk
--include external/fsl-restricted-codec/fsl_ms_codec/BoardConfig.mk
--include external/fsl-restricted-codec/fsl_real_dec/BoardConfig.mk
+-include $(FSL_RESTRICTED_CODEC_PATH)/fsl-restricted-codec/fsl_ms_codec/BoardConfig.mk
+-include $(FSL_RESTRICTED_CODEC_PATH)/fsl-restricted-codec/fsl_real_dec/BoardConfig.mk

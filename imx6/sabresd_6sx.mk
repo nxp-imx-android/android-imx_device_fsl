@@ -61,7 +61,7 @@ PRODUCT_COPY_FILES += \
     device/fsl/sabresd_6sx/init.freescale.sd.rc:root/init.freescale.sd.rc
 
 PRODUCT_COPY_FILES += \
-    device/fsl-proprietary/gpu-viv/lib/egl/egl.cfg:system/lib/egl/egl.cfg
+    $(FSL_PROPRIETARY_PATH)/fsl-proprietary/gpu-viv/lib/egl/egl.cfg:system/lib/egl/egl.cfg
 
 # HWC2 HAL
 PRODUCT_PACKAGES += \

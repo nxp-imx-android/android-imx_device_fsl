@@ -73,7 +73,7 @@ PRODUCT_COPY_FILES += \
 	device/fsl/evk_7ulp/required_hardware.xml:system/etc/permissions/required_hardware.xml
 
 PRODUCT_COPY_FILES += \
-    device/fsl-proprietary/gpu-viv/lib/egl/egl.cfg:system/lib/egl/egl.cfg
+    $(FSL_PROPRIETARY_PATH)/fsl-proprietary/gpu-viv/lib/egl/egl.cfg:system/lib/egl/egl.cfg
 
 PRODUCT_COPY_FILES += device/fsl/evk_7ulp/init.freescale.sd.rc:root/init.freescale.sd.rc
 

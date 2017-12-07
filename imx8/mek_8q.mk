@@ -78,8 +78,8 @@ PRODUCT_COPY_FILES += \
 	device/fsl/mek_8q/required_hardware.xml:system/etc/permissions/required_hardware.xml \
 
 PRODUCT_COPY_FILES += \
-    device/fsl-proprietary/gpu-viv/lib64/egl/egl.cfg:system/lib64/egl/egl.cfg \
-    device/fsl-proprietary/gpu-viv/lib/egl/egl.cfg:system/lib/egl/egl.cfg
+    $(FSL_PROPRIETARY_PATH)/fsl-proprietary/gpu-viv/lib64/egl/egl.cfg:system/lib64/egl/egl.cfg \
+    $(FSL_PROPRIETARY_PATH)/fsl-proprietary/gpu-viv/lib/egl/egl.cfg:system/lib/egl/egl.cfg
 
 # HWC2 HAL
 PRODUCT_PACKAGES += \
