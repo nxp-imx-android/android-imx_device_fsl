@@ -1,0 +1,23 @@
+import init.${ro.hardware}.${ro.boot.soc_type}.main.rc
+
+
+on init
+    # create for OP-TEE test
+    mkdir -p /data/tee 0775 shell shell
+    mkdir -p /data/tee/optee_armtz 0775 shell shell
+    restorecon_recursive /data/tee
+
+on boot
+    # optee device
+    chmod 0755 /dev/tee0
+    chown media media /dev/tee0
+
+    # activate DRM
+    setprop drm.64bit.enabled true
+
+service tee_supplicant /system/bin/tee-supplicant
+    class main
+    user root
+    group shell
+    oneshot
+

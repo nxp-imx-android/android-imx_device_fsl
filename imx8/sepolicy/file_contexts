@@ -19,3 +19,5 @@
 /vendor/bin/wcnss_filter        u:object_r:wcnss_filter_exec:s0
 /dev/shm                        u:object_r:video_device:s0
 /dev/shm/vpu_msg_fifo[0-9]*     u:object_r:video_device:s0
+/system/bin/tee-supplicant	u:object_r:tee_exec:s0
+/system/bin/xtest		u:object_r:tee_exec:s0

@@ -16,7 +16,7 @@ endif
 PRODUCT_NAME := evk_8mq
 PRODUCT_DEVICE := evk_8mq
 
-PRODUCT_FULL_TREBLE_OVERRIDE := true
+PRODUCT_FULL_TREBLE_OVERRIDE ?= true
 
 PRODUCT_COPY_FILES += \
 	device/fsl/evk_8mq/init.rc:root/init.freescale.rc \
