@@ -39,6 +39,7 @@ soc_name=""
 cal_only=0
 card_size=0
 bootloader_offset=1
+vaild_gpt_size=17
 flash_images=0
 not_partition=0
 not_format_fs=0
@@ -138,7 +139,7 @@ function make_partition
         partition_file="partition-table-${card_size}GB.img"
     fi
     echo "make gpt partition for android: ${partition_file}"
-    dd if=${partition_file} of=${node} conv=fsync
+    dd if=${partition_file} of=${node} bs=1k count=${vaild_gpt_size} conv=fsync
 }
 
 function flash_android
