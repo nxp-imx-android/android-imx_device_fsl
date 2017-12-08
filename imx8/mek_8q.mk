@@ -1,6 +1,7 @@
 # This is a FSL Android Reference Design platform based on i.MX8QP ARD board
 # It will inherit from FSL core product which in turn inherit from Google generic
 
+-include device/fsl/common/imx_path/ImxPathConfig.mk
 $(call inherit-product, device/fsl/imx8/imx8.mk)
 
 ifneq ($(wildcard device/fsl/mek_8q/fstab_nand.freescale),)
