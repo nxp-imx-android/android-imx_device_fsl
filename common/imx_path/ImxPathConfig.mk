@@ -15,13 +15,11 @@ LINUX_FIRMWARE_IMX_PATH := vendor/nxp
 
 FSL_RESTRICTED_CODEC_PATH := vendor/nxp-private
 GPU_VIV6_PATH := vendor/nxp-private
-IMX_WFD_PATH := vendor/nxp-private
 RESTRICTED_APP_PATH := vendor/nxp-private
 
 KERNEL_IMX_PATH := vendor/nxp-opensource
 UBOOT_IMX_PATH := vendor/nxp-opensource
 IMX_LIB_PATH := vendor/nxp-opensource
 IMX_MKIMAGE_PATH := vendor/nxp-opensource
-WFD_SINK_APP_PATH := vendor/nxp-opensource
 IMX_PATH := vendor/nxp-opensource
 FSL_IMX_DEMO_PATH := vendor/nxp-opensource

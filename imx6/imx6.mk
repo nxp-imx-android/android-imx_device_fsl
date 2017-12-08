@@ -21,13 +21,9 @@ PRODUCT_PACKAGES += \
 	Email					\
 	FSLOta					\
 	CactusPlayer                            \
-	WfdSink                                 \
-	wfd                                     \
 	BleServerEmulator                       \
 	BleClient                               \
 	ethernet                                \
-	libfsl_wfd.so                           \
-	libfsl_wfd                           \
 	libpxp                               \
 	fsl.imx.jar                             \
 	libfsl_hdcp_blob.so                     \
