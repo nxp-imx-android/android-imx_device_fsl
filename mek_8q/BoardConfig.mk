@@ -138,7 +138,8 @@ BOARD_AVB_ENABLE := true
 
 # Vendor seccomp policy files for media components:
 PRODUCT_COPY_FILES += \
-       device/fsl/mek_8q/seccomp/mediaextractor-seccomp.policy:vendor/etc/seccomp_policy/mediaextractor.policy
+       device/fsl/mek_8q/seccomp/mediaextractor-seccomp.policy:vendor/etc/seccomp_policy/mediaextractor.policy \
+       device/fsl/mek_8q/seccomp/mediacodec-seccomp.policy:vendor/etc/seccomp_policy/mediacodec.policy
 
 PRODUCT_COPY_FILES += \
        device/fsl/mek_8q/app_whitelist.xml:system/etc/sysconfig/app_whitelist.xml

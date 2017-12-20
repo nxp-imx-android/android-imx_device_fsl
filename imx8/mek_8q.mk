@@ -156,3 +156,6 @@ endif
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.product.first_api_level=26
 
+PRODUCT_PACKAGES += \
+    libvpu-malone
+

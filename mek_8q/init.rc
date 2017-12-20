@@ -29,6 +29,9 @@ on init
 
     mkdir /device 0771 system system
 
+    # shared memory used by VPU to distinguish VPU instance.
+    mkdir /dev/shm  0774 mediacodec drmrpc
+
 on boot
 
 	# emmulate battery property
