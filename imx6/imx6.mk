@@ -21,8 +21,6 @@ PRODUCT_PACKAGES += \
 	Email					\
 	FSLOta					\
 	CactusPlayer                            \
-	BleServerEmulator                       \
-	BleClient                               \
 	ethernet                                \
 	libpxp                               \
 	fsl.imx.jar                             \

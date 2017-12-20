@@ -30,8 +30,6 @@ PRODUCT_PACKAGES += \
 	Email					\
 	FSLOta					\
 	CactusPlayer                            \
-	BleServerEmulator                       \
-	BleClient                               \
 	ethernet                                \
 	fsl.imx.jar                             \
 	libfsl_hdcp_blob.so                     \
