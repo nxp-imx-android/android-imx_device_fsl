@@ -38,4 +38,5 @@ PRODUCT_PACKAGES += \
 # Add Car related HAL
 PRODUCT_PACKAGES += \
     libion \
-    vehicle.default
+    vehicle.default \
+    android.hardware.automotive.vehicle@2.0-service
