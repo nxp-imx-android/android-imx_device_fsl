@@ -125,6 +125,12 @@ BOARD_SEPOLICY_DIRS := \
        device/fsl/imx8/sepolicy \
        device/fsl/mek_8q/sepolicy
 
+ifeq ($(PRODUCT_IMX_CAR),true)
+BOARD_SEPOLICY_DIRS += \
+     packages/services/Car/car_product/sepolicy \
+     device/generic/car/common/sepolicy
+endif
+
 PRODUCT_COPY_FILES +=	\
        device/fsl/mek_8q/ueventd.freescale.rc:root/ueventd.freescale.rc
 
