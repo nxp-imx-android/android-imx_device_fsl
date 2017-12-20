@@ -18,8 +18,6 @@ PRODUCT_PACKAGES += \
 	Email					\
 	FSLOta					\
 	CactusPlayer                            \
-	BleServerEmulator                       \
-	BleClient                               \
 	ethernet                                \
 	libpxp                            \
 	VideoEditor				\
