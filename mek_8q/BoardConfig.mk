@@ -81,9 +81,15 @@ BOARD_VENDOR_KERNEL_MODULES += \
                             $(KERNEL_OUT)/drivers/net/wireless/ath/ath10k/ath10k_core.ko \
                             $(KERNEL_OUT)/drivers/net/wireless/ath/ath10k/ath10k_pci.ko
 
-
-BOARD_HAVE_BLUETOOTH_BCM := true
+# Qcom 1CQ(QCA6174) BT
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/fsl/mek_8q/bluetooth
+BOARD_HAVE_BLUETOOTH_QCOM := true
+BOARD_HAS_QCA_BT_ROME := true
+BOARD_HAVE_BLUETOOTH_BLUEZ := false
+QCOM_BT_USE_SIBS := true
+ifeq ($(QCOM_BT_USE_SIBS), true)
+    WCNSS_FILTER_USES_SIBS := true
+endif
 
 PHONE_MODULE_INCLUDE := flase
 BOARD_USE_SENSOR_FUSION := true
