@@ -7,7 +7,7 @@ on early-init
     mount debugfs none /sys/kernel/debug/ mode=0755
 
 on early-init
-   exec u:r:modprobe:s0 -- /vendor/bin/modprobe -a -d /vendor/lib/modules bcmdhd.ko
+   exec u:r:modprobe:s0 -- /vendor/bin/modprobe -a -d /vendor/lib/modules ath.ko ath10k_core.ko ath10k_pci.ko
 
 on init
     start watchdogd
