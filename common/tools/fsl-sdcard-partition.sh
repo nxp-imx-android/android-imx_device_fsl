@@ -25,6 +25,8 @@ options:
   -s				only get partition size
   -np 				not partition.
   -f soc_name			flash android image.
+  -a				only flash image to slot_a
+  -b				only flash image to slot_b
   -c card_size			optional setting: 7 / 14 / 28
 					If not set, use partition-table.img
 					If set to 7, use partition-table-7GB.img for 7GB SD card
@@ -43,6 +45,7 @@ vaild_gpt_size=17
 flash_images=0
 not_partition=0
 not_format_fs=0
+slot=""
 systemimage_file="system.img"
 systemimage_raw_file="system_raw.img"
 vendor_file="vendor.img"
@@ -56,6 +59,8 @@ while [ "$moreoptions" = 1 -a $# -gt 0 ]; do
 	    -c) card_size=$2; shift;;
 	    -np) not_partition=1 ;;
 	    -nf) not_format_fs=1 ;;
+	    -a) slot="_a" ;;
+	    -b) slot="_b" ;;
 	    *)  moreoptions=0; node=$1 ;;
 	esac
 	[ "$moreoptions" = 0 ] && [ $# -gt 1 ] && help && exit
@@ -110,12 +115,12 @@ function flash_partition
     for num in `gdisk -l ${node} | grep $1 | awk '{print $1}'`
     do
         if [ $? -eq 0 ]; then
-            if [ "$1" == "system" ] 2>/dev/null; then
+            if [ $(echo ${1} | grep "system") != "" ] 2>/dev/null; then
                 img_name=${systemimage_raw_file}
-            elif [ "$1" == "vendor" ] 2>/dev/null; then
+            elif [ $(echo ${1} | grep "vendor") != "" ] 2>/dev/null; then
                 img_name=${vendor_raw_file}
             else
-                img_name="$1-${soc_name}.img"
+                img_name="${1%_*}-${soc_name}.img"
             fi
             echo "flash_partition: ${img_name} ---> ${node}${num}"
             dd if=${img_name} of=${node}${num} conv=fsync
@@ -144,17 +149,23 @@ function make_partition
 
 function flash_android
 {
+    boot_partition="boot"${slot}
+    recovery_partition="recovery"${slot}
+    system_partition="system"${slot}
+    vendor_partition="vendor"${slot}
+    vbmeta_partition="vbmeta"${slot}
+
 if [ "${flash_images}" -eq "1" ]; then
     bootloader_file="u-boot-${soc_name}.imx"
-    flash_partition boot
-    flash_partition recovery
+    flash_partition ${boot_partition}
+    flash_partition ${recovery_partition}
     simg2img ${systemimage_file} ${systemimage_raw_file}
-    flash_partition system
+    flash_partition ${system_partition}
     rm ${systemimage_raw_file}
     simg2img ${vendor_file} ${vendor_raw_file}
-    flash_partition vendor
+    flash_partition ${vendor_partition}
     rm ${vendor_raw_file}
-    flash_partition vbmeta
+    flash_partition ${vbmeta_partition}
     echo "erase_partition: uboot : ${node}"
     echo "flash_partition: ${bootloader_file} ---> ${node}"
     first_partition_offset=`gdisk -l ${node} | grep ' 1 ' | awk '{print $2}'`
