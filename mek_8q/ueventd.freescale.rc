@@ -52,17 +52,17 @@
 /sys/devices/virtual/misc/FreescaleGyroscope                         0660  system system
 
 # light sensor sysfs properities
-/sys/class/i2c-dev/i2c-8/device/8-0044 mode                          0660 system system
-/sys/class/i2c-dev/i2c-8/device/8-0044 lux                           0660 system system
-/sys/class/i2c-dev/i2c-8/device/8-0044 int_lt_lux                    0660 system system
-/sys/class/i2c-dev/i2c-8/device/8-0044 int_ht_lux                    0660 system system
-/sys/class/i2c-dev/i2c-8/device/8-0044                               0660 system system
+/sys/class/i2c-dev/i2c-0/device/0-0044 mode                          0660 system system
+/sys/class/i2c-dev/i2c-0/device/0-0044 lux                           0660 system system
+/sys/class/i2c-dev/i2c-0/device/0-0044 int_lt_lux                    0660 system system
+/sys/class/i2c-dev/i2c-0/device/0-0044 int_ht_lux                    0660 system system
+/sys/class/i2c-dev/i2c-0/device/0-0044                               0660 system system
 
-/sys/devices/platform/5a810000.i2c/i2c-8/8-0044 mode                 0660 system system
-/sys/devices/platform/5a810000.i2c/i2c-8/8-0044 lux                  0660 system system
-/sys/devices/platform/5a810000.i2c/i2c-8/8-0044 int_lt_lux           0660 system system
-/sys/devices/platform/5a810000.i2c/i2c-8/8-0044 int_ht_lux           0660 system system
-/sys/devices/platform/5a810000.i2c/i2c-8/8-0044                      0660 system system
+/sys/devices/platform/5a800000.i2c/i2c-0/0-0044 mode                 0660 system system
+/sys/devices/platform/5a800000.i2c/i2c-0/0-0044 lux                  0660 system system
+/sys/devices/platform/5a800000.i2c/i2c-0/0-0044 int_lt_lux           0660 system system
+/sys/devices/platform/5a800000.i2c/i2c-0/0-0044 int_ht_lux           0660 system system
+/sys/devices/platform/5a800000.i2c/i2c-0/0-0044                      0660 system system
 
 # sensor sysfs properties
 /sys/class/input/input/input*   name        0660  system system
