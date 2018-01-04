@@ -5,6 +5,7 @@ define build_uboot
 	if [ "$(strip $(2))" == "imx8qm" ]; then \
 		MKIMAGE_PLATFORM=`echo iMX8QM`; \
 		SCFW_PLATFORM=`echo 8qm`;  \
+		cp $(FSL_PROPRIETARY_PATH)/linux-firmware-imx/firmware/hdmi/cadence/hdmitxfw.bin $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/hdmitxfw.bin; \
 	elif [ "$(strip $(2))" == "imx8qxp" ]; then \
 		MKIMAGE_PLATFORM=`echo iMX8QX`; \
 		SCFW_PLATFORM=`echo 8qx`; \
