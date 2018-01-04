@@ -288,6 +288,7 @@ omx_excluded_libs :=					\
     lib_rm_parser_arm11_elinux.3.0 \
     lib_omx_ra_dec_v2_arm11_elinux \
     lib_dsp_wrap_arm12_android \
+    lib_dsp_codec_wrap \
     lib_dsp_aac_dec \
     lib_dsp_bsac_dec \
     lib_dsp_mp3_dec \
