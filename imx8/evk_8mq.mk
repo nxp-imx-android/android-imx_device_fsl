@@ -138,11 +138,11 @@ PRODUCT_PACKAGES += \
 
 # Qcom WiFi Firmware
 PRODUCT_COPY_FILES += \
-    $(IMX_FIRMWARE_PATH)/linux-firmware/qca/nvm_00130302.bin:vendor/firmware/nvm_tlv_3.2.bin \
-    $(IMX_FIRMWARE_PATH)/linux-firmware/qca/rampatch_00130302.bin:vendor/firmware/rampatch_tlv_3.2.tlv \
-    $(IMX_FIRMWARE_PATH)/linux-firmware/ath10k/QCA6174/hw3.0/board.bin:vendor/firmware/ath10k/QCA6174/hw3.0/board.bin \
-    $(IMX_FIRMWARE_PATH)/linux-firmware/ath10k/QCA6174/hw3.0/board-2.bin:vendor/firmware/ath10k/QCA6174/hw3.0/board-2.bin \
-    $(IMX_FIRMWARE_PATH)/linux-firmware/ath10k/QCA6174/hw3.0/firmware-4.bin:vendor/firmware/ath10k/QCA6174/hw3.0/firmware-4.bin
+    external/linux-firmware/qca/nvm_00130302.bin:vendor/firmware/nvm_tlv_3.2.bin \
+    external/linux-firmware/qca/rampatch_00130302.bin:vendor/firmware/rampatch_tlv_3.2.tlv \
+    external/linux-firmware/ath10k/QCA6174/hw3.0/board.bin:vendor/firmware/ath10k/QCA6174/hw3.0/board.bin \
+    external/linux-firmware/ath10k/QCA6174/hw3.0/board-2.bin:vendor/firmware/ath10k/QCA6174/hw3.0/board-2.bin \
+    external/linux-firmware/ath10k/QCA6174/hw3.0/firmware-4.bin:vendor/firmware/ath10k/QCA6174/hw3.0/firmware-4.bin
 
 # Keymaster HAL
 PRODUCT_PACKAGES += \
