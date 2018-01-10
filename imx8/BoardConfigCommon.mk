@@ -68,6 +68,9 @@ else ifeq ($(DISABLE_FSL_PREBUILT),ALL)
 PREBUILT_FSL_IMX_GPU := false
 endif
 
+# Indicate use vivante drm based egl and gralloc
+BOARD_GPU_DRIVERS := vivante
+
 # for kernel/user space split
 # comment out for 1g/3g space split
 # TARGET_KERNEL_2G := true
