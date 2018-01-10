@@ -20,6 +20,7 @@ PRODUCT_DEVICE := mek_8q
 PRODUCT_COPY_FILES += \
 	device/fsl/mek_8q/init.rc:root/init.freescale.rc \
 	device/fsl/mek_8q/init.imx8qxp.rc:root/init.freescale.imx8qxp.rc \
+	device/fsl/mek_8q/init.imx8qm.rc:root/init.freescale.imx8qm.rc \
 	device/fsl/mek_8q/init.usb.rc:root/init.freescale.usb.rc
 
 # Audio
