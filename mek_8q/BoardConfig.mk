@@ -125,7 +125,7 @@ $(error "TARGET_USERIMAGES_USE_UBIFS and TARGET_USERIMAGES_USE_EXT4 config open 
 endif
 endif
 
-TARGET_BOARD_DTS_CONFIG := imx8qm:fsl-imx8qm-mek-it6263.dtb imx8qm-mipi:fsl-imx8qm-mek-dsi-adv7535.dtb imx8qm-hdmi:fsl-imx8qm-mek-hdmi.dtb imx8qxp:fsl-imx8qxp-mek-lvds0-lvds1-it6263.dtb imx8qxp-mipi:fsl-imx8qxp-mek-dsi-adv7535.dtb
+TARGET_BOARD_DTS_CONFIG := imx8qm:fsl-imx8qm-mek.dtb imx8qm-dual:fsl-imx8qm-mek-it6263.dtb imx8qm-mipi:fsl-imx8qm-mek-dsi-adv7535.dtb imx8qm-hdmi:fsl-imx8qm-mek-hdmi.dtb imx8qxp:fsl-imx8qxp-mek-lvds0-it6263.dtb imx8qxp-dual:fsl-imx8qxp-mek-lvds0-lvds1-it6263.dtb imx8qxp-mipi:fsl-imx8qxp-mek-dsi-adv7535.dtb
 TARGET_BOOTLOADER_CONFIG := imx8qm:mx8qm_mek_android_defconfig imx8qxp:mx8qxp_mek_android_defconfig
 
 BOARD_SEPOLICY_DIRS := \
