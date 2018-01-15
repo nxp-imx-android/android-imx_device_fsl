@@ -161,6 +161,10 @@ PRODUCT_PACKAGES += \
     android.hardware.light@2.0-impl \
     android.hardware.light@2.0-service
 
+# Neural Network HAL
+PRODUCT_PACKAGES += \
+    android.hardware.neuralnetworks@1.0-service-imx-nn
+
 # imx8 sensor HAL libs.
 PRODUCT_PACKAGES += \
         sensors.imx8

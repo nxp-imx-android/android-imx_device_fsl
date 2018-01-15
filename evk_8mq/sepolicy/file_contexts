@@ -30,3 +30,6 @@
 /dev/FreescaleMagnetometer      u:object_r:sensors_device:s0
 /dev/FreescaleGyroscope         u:object_r:sensors_device:s0
 /dev/sda[0-8]*                  u:object_r:fuse:s0
+
+#Neural Network HAL service
+/vendor/bin/hw/android\.hardware\.neuralnetworks@1\.0-service-imx-nn          u:object_r:hal_neuralnetworks_imx_exec:s0
