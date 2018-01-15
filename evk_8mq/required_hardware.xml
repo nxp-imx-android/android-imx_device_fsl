@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Copyright (C) 2009 The Android Open Source Project
+     Copyright 2018 NXP
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -17,6 +18,8 @@
 <!-- These are the hardware components that are included in i.MX reference board
 -->
 <permissions>
+    <!-- This is Android and fully CTS compatible.  Basically this is for CTS tests to use. -->
+    <feature name="android.software.cts" />
     <feature name="android.software.home_screen" />
     <feature name="android.software.input_methods" />
     <feature name="android.hardware.location" />

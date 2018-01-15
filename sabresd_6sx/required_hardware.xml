@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Copyright (C) 2009 The Android Open Source Project
+     Copyright 2018 NXP
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -18,6 +19,8 @@
            except the bluetooth is removed and android.software.live_wallpaper was added.
 -->
 <permissions>
+    <!-- This is Android and fully CTS compatible.  Basically this is for CTS tests to use. -->
+    <feature name="android.software.cts" />
     <feature name="android.hardware.camera.any" />
     <feature name="android.hardware.audio.output" />
     <feature name="android.hardware.location" />
