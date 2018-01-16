@@ -2,7 +2,11 @@
 # Product-specific compile-time definitions.
 #
 include device/fsl/imx6/soc/imx6dq.mk
+ifeq ($(PRODUCT_IMX_CAR),true)
+include device/fsl/sabresd_6dq/build_id_car.mk
+else
 include device/fsl/sabresd_6dq/build_id.mk
+endif # PRODUCT_IMX_CAR
 include device/fsl/imx6/BoardConfigCommon.mk
 ifeq ($(PREBUILT_FSL_IMX_CODEC),true)
 -include $(FSL_CODEC_PATH)/fsl-codec/fsl-codec.mk

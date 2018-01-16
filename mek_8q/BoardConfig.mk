@@ -3,7 +3,11 @@
 #
 
 include device/fsl/imx8/soc/imx8q.mk
+ifeq ($(PRODUCT_IMX_CAR),true)
+include device/fsl/mek_8q/build_id_car.mk
+else
 include device/fsl/mek_8q/build_id.mk
+endif # PRODUCT_IMX_CAR
 include device/fsl/imx8/BoardConfigCommon.mk
 ifeq ($(PREBUILT_FSL_IMX_CODEC),true)
 -include $(FSL_CODEC_PATH)/fsl-codec/fsl-codec.mk
