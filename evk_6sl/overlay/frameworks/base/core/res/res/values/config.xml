@@ -35,13 +35,6 @@
       <item>"wlan0"</item>
     </string-array>
 
-    <!-- Regex array of allowable upstream ifaces for tethering - for example if you want
-         tethering on a new interface called "foo2" add <item>"foo\\d"</item> to the array -->
-    <add-resource type="string" name="config_tether_upstream_regexs">
-       <item>ppp.*</item>
-       <item>wlan.*</item>
-    </add-resource>
-
     <!-- Array of ConnectivityManager.TYPE_xxxx values allowable for tethering -->
     <!-- Common options are [1, 4] for TYPE_WIFI and TYPE_MOBILE_DUN or
     <!== [0,1,5,7,9] for TYPE_MOBILE, TYPE_WIFI, TYPE_MOBILE_HIPRI, TYPE_BLUETOOTH and TYPE_ETHERNET -->
@@ -150,21 +143,8 @@
          autodetected from the Configuration. -->
     <bool name="config_showNavigationBar">true</bool>
 
-    <integer name="config_undockedHdmiRotation">0</integer>
-
     <!-- This device is not "voice capable"; it's data-only. -->
     <bool name="config_voice_capable">false</bool>
-
-    <!-- Max space (in MB) allocated to DownloadManager to store the downloaded files
-         if they are to be stored in DownloadManager's data dir,
-         which typically is /data/data/com.android.providers.downloads/files. -->
-    <integer name="config_downloadDataDirSize">200</integer>
-
-    <!-- When the free space available in DownloadManager's data dir falls
-         below the percentage value specified by this param, DownloadManager
-         starts removing files to try to make percentage of available
-         free space above this threshold value. -->
-    <integer name="config_downloadDataDirLowSpaceThreshold">10</integer>
 
     <!-- Boolean indicating whether the wifi chipset has dual frequency band support -->
     <bool translatable="false" name="config_wifi_dual_band_support">true</bool>
@@ -182,12 +162,6 @@
          * The device must be provisioned with HDCP keys (for protected content).
     -->
     <bool name="config_enableWifiDisplay">false</bool>
-
-    <!-- Disables fading edges when marquee is enabled in TextView.
-         The fading edge effect will bring performance drop when
-	 the hardware rendering is used.
-    -->
-    <bool name="config_ui_enableFadingMarquee">false</bool>
 
     <!-- If true, the doze component is not started until after the screen has been
          turned off and the screen off animation has been performed. -->
