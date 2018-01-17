@@ -7,7 +7,7 @@ include device/fsl/imx8/mek_8q.mk
 
 # Overrides
 PRODUCT_NAME := mek_8q_car
-PRODUCT_PACKAGE_OVERLAYS := packages/services/Car/car_product/overlay
+PRODUCT_PACKAGE_OVERLAYS := device/fsl/mek_8q/overlay_car packages/services/Car/car_product/overlay
 
 PRODUCT_COPY_FILES += \
     packages/services/Car/car_product/init/init.car.rc:root/init.car.rc \
