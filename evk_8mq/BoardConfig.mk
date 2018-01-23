@@ -66,7 +66,6 @@ BOARD_VENDOR_KERNEL_MODULES += \
                             $(KERNEL_OUT)/drivers/net/wireless/ath/ath10k/ath10k_core.ko \
                             $(KERNEL_OUT)/drivers/net/wireless/ath/ath10k/ath10k_pci.ko
 
-PHONE_MODULE_INCLUDE := flase
 BOARD_USE_SENSOR_FUSION := true
 
 # for recovery service

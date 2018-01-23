@@ -100,7 +100,6 @@ ifeq ($(QCOM_BT_USE_SIBS), true)
     WCNSS_FILTER_USES_SIBS := true
 endif
 
-PHONE_MODULE_INCLUDE := flase
 BOARD_USE_SENSOR_FUSION := true
 
 # for recovery service

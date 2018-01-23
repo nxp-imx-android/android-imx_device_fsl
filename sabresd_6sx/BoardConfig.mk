@@ -56,7 +56,6 @@ WIFI_DRIVER_FW_PATH_P2P        := "/vendor/firmware/bcm/fw_bcmdhd.bin"
 WIFI_DRIVER_FW_PATH_AP         := "/vendor/firmware/bcm/fw_bcmdhd_apsta.bin"
 WIFI_DRIVER_FW_PATH_PARAM      := "/sys/module/bcmdhd/parameters/firmware_path"
 
-PHONE_MODULE_INCLUDE := flase
 #for accelerator sensor, need to define sensor type here
 BOARD_HAS_SENSOR := true
 SENSOR_MMA8451 := true

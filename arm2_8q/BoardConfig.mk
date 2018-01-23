@@ -85,7 +85,6 @@ WIFI_DRIVER_FW_PATH_PARAM      := "/sys/module/bcmdhd/parameters/firmware_path"
 BOARD_VENDOR_KERNEL_MODULES += \
                             $(KERNEL_OUT)/drivers/net/wireless/bcmdhd_1363/bcmdhd.ko
 
-PHONE_MODULE_INCLUDE := flase
 BOARD_USE_SENSOR_FUSION := true
 
 # for recovery service
