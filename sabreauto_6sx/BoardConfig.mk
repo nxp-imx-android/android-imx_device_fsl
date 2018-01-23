@@ -54,7 +54,6 @@ WPA_SUPPLICANT_VERSION       := VER_0_8_X
 BOARD_WPA_SUPPLICANT_DRIVER  := NL80211
 BOARD_HOSTAPD_DRIVER         := NL80211
 
-PHONE_MODULE_INCLUDE := flase
 #for accelerator sensor, need to define sensor type here
 BOARD_HAS_SENSOR := true
 SENSOR_MMA8451 := true
