@@ -237,13 +237,6 @@ service iprenew_bt-pan /system/bin/dhcpcd -n
     disabled
     oneshot
 
-service hostapd /system/bin/hostapd /data/misc/wifi/hostapd.conf
-    socket hostapd_wlan0 dgram 660 root wifi
-    user root
-    group wifi
-    oneshot
-    disabled
-
 # bugreport is triggered by holding down volume down, volume up and power
 service bugreport /system/bin/dumpstate -d -p -B -z \
         -o /data/user_de/0/com.android.shell/files/bugreports/bugreport
