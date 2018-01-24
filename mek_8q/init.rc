@@ -135,8 +135,7 @@ on boot
     chown system system /sys/class/backlight/backlight/brightness
     chmod 0660 /sys/class/backlight/backlight/brightness
 
-    # Set light sensor sysfs path and light sensor threshold lux value
-    setprop ro.hardware.lightsensor "/sys/class/i2c-dev/i2c-0/device/0-0044/"
+    # Set light sensor threshold lux value
     setprop ro.lightsensor.threshold  20
 
     # No bluetooth hardware present
