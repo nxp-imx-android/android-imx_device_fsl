@@ -26,12 +26,6 @@
             "type_guid": "6b2378b0-0fbc-4aa9-a4f6-4d6e17281c47"
         },
         {
-            "label": "datafooter",
-            "size": "2 MiB",
-            "guid": "auto",
-            "type_guid": "314f99d5-b2bf-4883-8d03-e2f2ce507d6a"
-        },
-        {
             "label": "metadata",
             "size": "2 MiB",
             "guid": "auto",
