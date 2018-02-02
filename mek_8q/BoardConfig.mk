@@ -121,7 +121,11 @@ $(error "TARGET_USERIMAGES_USE_UBIFS and TARGET_USERIMAGES_USE_EXT4 config open 
 endif
 endif
 
+ifeq ($(PRODUCT_IMX_CAR),true)
+TARGET_BOARD_DTS_CONFIG := imx8qm:fsl-imx8qm-mek.dtb imx8qxp:fsl-imx8qxp-mek.dtb
+else
 TARGET_BOARD_DTS_CONFIG := imx8qm:fsl-imx8qm-mek.dtb imx8qm-hdmi:fsl-imx8qm-mek-hdmi.dtb imx8qxp:fsl-imx8qxp-mek.dtb
+endif #PRODUCT_IMX_CAR
 TARGET_BOOTLOADER_CONFIG := imx8qm:mx8qm_mek_android_defconfig imx8qxp:mx8qxp_mek_android_defconfig
 
 BOARD_SEPOLICY_DIRS := \
