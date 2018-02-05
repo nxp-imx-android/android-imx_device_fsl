@@ -19,41 +19,31 @@ PRODUCT_PACKAGES += \
 
 # Android infrastructures
 PRODUCT_PACKAGES += \
-	LiveWallpapers				\
-	LiveWallpapersPicker			\
-	MagicSmokeWallpapers			\
-	Gallery2				\
-	Gallery		    			\
-	SoundRecorder				\
-	Camera					\
-        LegacyCamera                            \
-	Email					\
 	FSLOta					\
-	CactusPlayer                            \
-	ethernet                                \
-	fsl.imx.jar                             \
-	libfsl_hdcp_blob.so                     \
-	libfsl_hdcp_blob                     \
-	libstagefright_hdcp.so                  \
-	libstagefright_hdcp                  \
-	VideoEditor				\
-	FSLProfileApp				\
-	FSLProfileService			\
-	VisualizationWallpapers			\
-	CubeLiveWallpapers			\
-	PinyinIME				\
-	libjni_pinyinime        		\
 	libRS					\
 	librs_jni				\
-	chat					\
-	ip-up-vpn				\
 	wpa_supplicant				\
 	wpa_supplicant.conf			\
 	p2p_supplicant_overlay.conf			\
 	wpa_supplicant_overlay.conf			\
-    p2p_supplicant_advance_overlay.conf \
+	p2p_supplicant_advance_overlay.conf \
 	libion \
 	vndk-sp
+
+ifneq ($(PRODUCT_IMX_CAR),true)
+PRODUCT_PACKAGES += \
+	Gallery2				\
+	SoundRecorder				\
+	Camera					\
+	LegacyCamera                            \
+	Email					\
+	CactusPlayer                            \
+	ethernet                                \
+	LiveWallpapersPicker			\
+	MagicSmokeWallpapers			\
+	CubeLiveWallpapers
+endif
+
 
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.vendor.vndk.version=26.1.0 \
@@ -61,30 +51,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 #FREESCALE_EXTENDED
 PRODUCT_PACKAGES += freescale-extended 		\
 		    freescale-extended.xml
-
-# Broadcom firmwares
-PRODUCT_PACKAGES += \
-	Type_ZP.hcd   	\
-	bt_vendor.conf	\
-	bcmdhd.cal		\
-	fw_bcmdhd.bin	\
-	fw_bcmdhd_apsta.bin
-
-# Broadcom BCM4339 extended binary
-PRODUCT_PACKAGES += \
-    bcmdhd.SN8000.OOB.cal     \
-    bcmdhd.SN8000.SDIO.cal    \
-    bcmdhd.1BW.OOB.cal        \
-    bcmdhd.1BW.SDIO.cal       \
-    bcmdhd.1DX.OOB.cal        \
-    bcmdhd.1DX.SDIO.cal       \
-    bcmdhd.1CX.cal            \
-    bcmdhd.1FD.cal
-
-# Debug utils
-PRODUCT_PACKAGES += \
-	taskset					\
-	sqlite3
 
 # Wifi AP mode
 PRODUCT_PACKAGES += \
@@ -114,7 +80,6 @@ PRODUCT_PACKAGES += \
 	power.imx8				\
 	audio.r_submix.default			\
 	libbt-vendor				\
-	libbt-vendor-broadcom			\
 	magd                                    \
 	fsl_sensor_fusion
 
@@ -144,14 +109,6 @@ PRODUCT_PACKAGES += \
 	libdrmpassthruplugin        		\
 	libfwdlockengine
 
-# power tool
-PRODUCT_PACKAGES += \
-	powerdebug
-
-# gpu debug tool
-PRODUCT_PACKAGES += \
-	gmem_info
-
 # Omx related libs, please align to device/fsl/proprietary/omx/fsl-omx.mk
 omx_libs := \
 	core_register					\
@@ -160,7 +117,7 @@ omx_libs := \
 	fslomx.cfg					\
 	media_profiles.xml				\
 	media_codecs.xml				\
-    media_codecs_performance.xml    \
+	media_codecs_performance.xml    \
 	ComponentRegistry.txt				\
 	lib_omx_player_arm11_elinux			 \
 	lib_omx_client_arm11_elinux			\
@@ -253,9 +210,9 @@ omx_libs := \
 	libavutil \
         libswresample \
 	lib_omx_libav_audio_dec_arm11_elinux \
-    lib_omx_soft_hevc_dec_arm11_elinux \
-    lib_ape_parser_arm11_elinux.3.0 \
-    lib_omx_bsac_dec_v2_arm11_elinux \
+	lib_omx_soft_hevc_dec_arm11_elinux \
+	lib_ape_parser_arm11_elinux.3.0 \
+	lib_omx_bsac_dec_v2_arm11_elinux \
 
 
 
@@ -266,7 +223,6 @@ omx_excluded_libs :=					\
 	lib_WMV789_dec_v2_arm11_elinux		\
 	lib_aacplus_dec_v2_arm11_elinux			\
 	lib_ac3_dec_v2_arm11_elinux			\
-	\
 	lib_omx_wma_dec_v2_arm11_elinux			\
 	lib_omx_wmv_dec_v2_arm11_elinux			\
 	lib_omx_ac3_dec_v2_arm11_elinux			\
@@ -275,21 +231,19 @@ omx_excluded_libs :=					\
 	lib_ac3d_wrap_arm11_elinux_android \
         lib_ddpd_wrap_arm12_elinux_android \
         lib_ddplus_dec_v2_arm12_elinux \
-    lib_realad_wrap_arm11_elinux_android \
-    lib_realaudio_dec_v2_arm11_elinux \
-    lib_rm_parser_arm11_elinux.3.0 \
-    lib_omx_ra_dec_v2_arm11_elinux \
-    lib_dsp_wrap_arm12_android \
-    lib_dsp_codec_wrap \
-    lib_dsp_aac_dec \
-    lib_dsp_bsac_dec \
-    lib_dsp_mp3_dec \
+        lib_realad_wrap_arm11_elinux_android \
+        lib_realaudio_dec_v2_arm11_elinux \
+        lib_rm_parser_arm11_elinux.3.0 \
+        lib_omx_ra_dec_v2_arm11_elinux \
+        lib_dsp_wrap_arm12_android \
+        lib_dsp_codec_wrap \
+        lib_dsp_aac_dec \
+        lib_dsp_bsac_dec \
+        lib_dsp_mp3_dec \
 
 
 
 PRODUCT_PACKAGES += $(omx_libs) $(omx_excluded_libs)
-
-PRODUCT_PACKAGES += libubi ubinize ubiformat ubiattach ubidetach ubiupdatevol ubimkvol ubinfo mkfs_ubifs 
 
 # FUSE based emulated sdcard daemon
 PRODUCT_PACKAGES += sdcard
@@ -303,11 +257,6 @@ PRODUCT_PACKAGES += \
 	libext2_profile	\
 	libext2_uuid	\
 	libext2fs
-
-# ntfs-3g binary
-PRODUCT_PACKAGES += \
-	ntfs-3g		\
-	ntfsfix 	
 
 # for CtsVerifier
 PRODUCT_PACKAGES += \
@@ -344,29 +293,10 @@ PRODUCT_COPY_FILES +=	\
 	system/core/rootdir/init.rc:root/init.rc \
 	device/fsl/imx8/etc/ota.conf:system/etc/ota.conf \
         device/fsl/imx8/init.recovery.freescale.rc:root/init.recovery.freescale.rc \
-    $(FSL_PROPRIETARY_PATH)/fsl-proprietary/media-profile/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
-    $(FSL_PROPRIETARY_PATH)/fsl-proprietary/media-profile/media_codecs_google_video.xml:system/etc/media_codecs_google_video.xml \
-    $(FSL_PROPRIETARY_PATH)/fsl-proprietary/media-profile/media_codecs_google_telephony.xml:system/etc/media_codecs_google_telephony.xml \
-    $(FSL_PROPRIETARY_PATH)/fsl-proprietary/media-profile/media_profiles_720p.xml:system/etc/media_profiles_720p.xml \
-
-PRODUCT_COPY_FILES += \
-	$(IMX_FIRMWARE_PATH)/imx-firmware/brcm/ZP_BCM4339/BCM4335C0.ZP.hcd:vendor/firmware/bcm/Type_ZP.hcd \
-	$(IMX_FIRMWARE_PATH)/imx-firmware/brcm/ZP_BCM4339/fw_bcmdhd.bin:vendor/firmware/bcm/fw_bcmdhd.bin \
-	$(IMX_FIRMWARE_PATH)/imx-firmware/brcm/ZP_BCM4339/fw_bcmdhd.bin:vendor/firmware/bcm/fw_bcmdhd_apsta.bin \
-	$(IMX_FIRMWARE_PATH)/imx-firmware/brcm/1BW_BCM43340/BCM43341B0.1BW.hcd:vendor/firmware/bcm/1BW_BCM43340/BCM43341B0.1BW.hcd \
-	$(IMX_FIRMWARE_PATH)/imx-firmware/brcm/1BW_BCM43340/fw_bcmdhd.bin:vendor/firmware/bcm/1BW_BCM43340/fw_bcmdhd.bin \
-	$(IMX_FIRMWARE_PATH)/imx-firmware/brcm/1BW_BCM43340/fw_bcmdhd.bin:vendor/firmware/bcm/1BW_BCM43340/fw_bcmdhd_apsta.bin \
-	$(IMX_FIRMWARE_PATH)/imx-firmware/brcm/1CX_BCM4356/fw_bcmdhd.bin:vendor/firmware/bcm/1CX_BCM4356/fw_bcmdhd.bin \
-	$(IMX_FIRMWARE_PATH)/imx-firmware/brcm/1CX_BCM4356/fw_bcmdhd.bin:vendor/firmware/bcm/1CX_BCM4356/fw_bcmdhd_apsta.bin \
-	$(IMX_FIRMWARE_PATH)/imx-firmware/brcm/1CX_BCM4356/BCM4354A2_001.003.015.0041.0083.hcd:vendor/firmware/bcm/1CX_BCM4356/BCM4354A2_1CX.hcd \
-	$(IMX_FIRMWARE_PATH)/imx-firmware/brcm/1DX_BCM4343W/BCM43430A1.1DX.hcd:vendor/firmware/bcm/1DX_BCM4343W/BCM43430A1.1DX.hcd \
-	$(IMX_FIRMWARE_PATH)/imx-firmware/brcm/1DX_BCM4343W/fw_bcmdhd.bin:vendor/firmware/bcm/1DX_BCM4343W/fw_bcmdhd.bin \
-	$(IMX_FIRMWARE_PATH)/imx-firmware/brcm/1DX_BCM4343W/fw_bcmdhd.bin:vendor/firmware/bcm/1DX_BCM4343W/fw_bcmdhd_apsta.bin \
-	$(IMX_FIRMWARE_PATH)/imx-firmware/brcm/SN8000_BCM43362/fw_bcmdhd.bin:vendor/firmware/bcm/SN8000_BCM43362/fw_bcmdhd.bin \
-	$(IMX_FIRMWARE_PATH)/imx-firmware/brcm/SN8000_BCM43362/fw_bcmdhd.bin:vendor/firmware/bcm/SN8000_BCM43362/fw_bcmdhd_apsta.bin \
-	$(IMX_FIRMWARE_PATH)/imx-firmware/brcm/1FD_BCM89359/BCM4349B1_002.002.014.0077.0083.hcd:vendor/firmware/bcm/1FD_BCM89359/Type_ZP.hcd \
-	$(IMX_FIRMWARE_PATH)/imx-firmware/brcm/1FD_BCM89359/fw_bcmdhd.bin:vendor/firmware/bcm/1FD_BCM89359/fw_bcmdhd.bin \
-	$(IMX_FIRMWARE_PATH)/imx-firmware/brcm/1FD_BCM89359/fw_bcmdhd.bin:vendor/firmware/bcm/1FD_BCM89359/fw_bcmdhd_apsta.bin
+        $(FSL_PROPRIETARY_PATH)/fsl-proprietary/media-profile/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
+        $(FSL_PROPRIETARY_PATH)/fsl-proprietary/media-profile/media_codecs_google_video.xml:system/etc/media_codecs_google_video.xml \
+        $(FSL_PROPRIETARY_PATH)/fsl-proprietary/media-profile/media_codecs_google_telephony.xml:system/etc/media_codecs_google_telephony.xml \
+        $(FSL_PROPRIETARY_PATH)/fsl-proprietary/media-profile/media_profiles_720p.xml:system/etc/media_profiles_720p.xml \
 
 # we have enough storage space to hold precise GC data
 PRODUCT_TAGS += dalvik.gc.type-precise
@@ -410,6 +340,5 @@ endif
 # include a google recommand heap config file.
 include frameworks/native/build/tablet-10in-xhdpi-2048-dalvik-heap.mk
 
--include device/google/gapps/gapps.mk
 -include $(FSL_RESTRICTED_CODEC_PATH)/fsl-restricted-codec/fsl_real_dec/fsl_real_dec.mk
 -include $(FSL_RESTRICTED_CODEC_PATH)/fsl-restricted-codec/fsl_ms_codec/fsl_ms_codec.mk
