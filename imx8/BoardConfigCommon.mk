@@ -35,16 +35,8 @@ BOARD_USES_ALSA_AUDIO := true
 BOARD_HAVE_BLUETOOTH := true
 USE_CAMERA_STUB := false
 
-BOARD_HAVE_WIFI := true
-
-BOARD_NOT_HAVE_MODEM := false
-BOARD_MODEM_VENDOR := HUAWEI
-BOARD_MODEM_ID := EM750M
-BOARD_MODEM_HAVE_DATA_DEVICE := true
 BOARD_HAVE_IMX_CAMERA := true
 BOARD_HAVE_USB_CAMERA := false
-
-TARGET_USERIMAGES_BLOCKS := 204800
 
 # Enable dex-preoptimization to speed up first boot sequence
 ifeq ($(HOST_OS),linux)
@@ -54,8 +46,6 @@ ifeq ($(HOST_OS),linux)
 	endif
    endif
 endif
-# for ums config, only export one partion instead of the whole disk
-UMS_ONEPARTITION_PER_DISK := true
 
 PREBUILT_FSL_IMX_CODEC := true
 PREBUILT_FSL_IMX_OMX := false
@@ -91,6 +81,5 @@ TARGET_COPY_OUT_VENDOR := vendor
 BOARD_FLASH_BLOCK_SIZE := 4096
 TARGET_RECOVERY_UI_LIB := librecovery_ui_imx
 
--include device/google/gapps/gapps_config.mk
 -include $(FSL_RESTRICTED_CODEC_PATH)/fsl-restricted-codec/fsl_ms_codec/BoardConfig.mk
 -include $(FSL_RESTRICTED_CODEC_PATH)/fsl-restricted-codec/fsl_real_dec/BoardConfig.mk

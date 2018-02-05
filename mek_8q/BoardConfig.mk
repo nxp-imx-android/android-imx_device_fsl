@@ -23,12 +23,6 @@ include device/fsl/imx8/imx8_target_fs.mk
 PRODUCT_COPY_FILES +=	\
 	vendor/nxp/linux-firmware-imx/firmware/hdmi/cadence/hdmitxfw.bin:system/etc/firmware/hdmi/hdmitxfw.bin
 
-ifeq ($(BUILD_TARGET_FS),ubifs)
-TARGET_RECOVERY_FSTAB = device/fsl/mek_8q/fstab_nand.freescale
-# build ubifs for nand devices
-PRODUCT_COPY_FILES +=	\
-	device/fsl/mek_8q/fstab_nand.freescale:root/fstab.freescale
-else
 ifneq ($(BUILD_TARGET_FS),f2fs)
 TARGET_RECOVERY_FSTAB = device/fsl/mek_8q/fstab.freescale
 # build for ext4
@@ -52,7 +46,6 @@ BOARD_BPT_INPUT_FILES += device/fsl/common/partition/device-partitions-13GB-ab.b
 ADDITION_BPT_PARTITION = partition-table-7GB:device/fsl/common/partition/device-partitions-7GB-ab.bpt \
                          partition-table-28GB:device/fsl/common/partition/device-partitions-28GB-ab.bpt
 
-endif # BUILD_TARGET_FS
 
 # Vendor Interface Manifest
 ifeq ($(PRODUCT_IMX_CAR),true)
