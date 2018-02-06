@@ -1,2 +1,2 @@
-allow modprobe vendor_toolbox_exec:file { entrypoint };
 allow modprobe vendor_file:system { module_load };
+allow modprobe vendor_file:file { read open getattr execute };

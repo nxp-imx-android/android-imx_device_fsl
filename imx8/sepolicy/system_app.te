@@ -12,3 +12,4 @@ allow system_app net_dns_prop:property_service  { set };
 allow system_app http_proxy_prop:property_service  { set };
 allow system_app net_dns_prop:file { read } ;
 allow system_app update_engine:binder { call transfer };
+allow system_app vendor_file:file { read open getattr execute };

@@ -6,3 +6,4 @@ allow cameraserver tmpfs:dir { search };
 allow cameraserver pxp_device:chr_file { read write open ioctl };
 allow cameraserver debugfs_tracing:file { write open };
 allow cameraserver mediacodec_tmpfs:file { write read open setattr };
+allow cameraserver vendor_file:file { read open getattr execute };

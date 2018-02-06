@@ -16,6 +16,7 @@ endif
 PRODUCT_NAME := mek_8q
 PRODUCT_DEVICE := mek_8q
 
+PRODUCT_FULL_TREBLE_OVERRIDE := true
 
 PRODUCT_COPY_FILES += \
 	device/fsl/mek_8q/init.rc:root/init.freescale.rc \
@@ -84,7 +85,8 @@ PRODUCT_COPY_FILES += \
 
 # HWC2 HAL
 PRODUCT_PACKAGES += \
-    android.hardware.graphics.composer@2.1-impl
+    android.hardware.graphics.composer@2.1-impl \
+    android.hardware.graphics.composer@2.1-service
 
 # Gralloc HAL
 PRODUCT_PACKAGES += \
@@ -153,7 +155,8 @@ PRODUCT_COPY_FILES += \
 
 # Keymaster HAL
 PRODUCT_PACKAGES += \
-    android.hardware.keymaster@3.0-impl
+    android.hardware.keymaster@3.0-impl \
+    android.hardware.keymaster@3.0-service
 
 ifneq ($(BUILD_TARGET_FS),ubifs)
 PRODUCT_PROPERTY_OVERRIDES += \
