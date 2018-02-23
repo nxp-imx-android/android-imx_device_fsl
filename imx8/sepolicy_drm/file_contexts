@@ -1,0 +1,2 @@
+/system/bin/tee-supplicant     u:object_r:tee_exec:s0
+/system/bin/xtest              u:object_r:tee_exec:s0

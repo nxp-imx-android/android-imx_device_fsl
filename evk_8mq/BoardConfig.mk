@@ -111,6 +111,7 @@ BOARD_SEPOLICY_DIRS := \
 
 ifeq ($(PRODUCT_IMX_DRM),true)
 BOARD_SEPOLICY_DIRS += \
+       device/fsl/imx8/sepolicy_drm \
        device/fsl/evk_8mq/sepolicy_drm
 endif
 
