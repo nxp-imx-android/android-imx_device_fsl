@@ -19,10 +19,6 @@ endif
 BUILD_TARGET_FS ?= ext4
 include device/fsl/imx8/imx8_target_fs.mk
 
-# hdmi firmware
-PRODUCT_COPY_FILES +=	\
-	vendor/nxp/linux-firmware-imx/firmware/hdmi/cadence/hdmitxfw.bin:system/etc/firmware/hdmi/hdmitxfw.bin
-
 ifneq ($(BUILD_TARGET_FS),f2fs)
 TARGET_RECOVERY_FSTAB = device/fsl/mek_8q/fstab.freescale
 # build for ext4
