@@ -50,10 +50,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.vendor.vndk.version=26.1.0 \
 
-#FREESCALE_EXTENDED
-PRODUCT_PACKAGES += freescale-extended 		\
-		    freescale-extended.xml
-
 # Broadcom firmwares
 PRODUCT_PACKAGES += \
 	Type_ZP.hcd   	\
