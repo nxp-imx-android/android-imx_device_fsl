@@ -10,7 +10,7 @@ PRODUCT_BRAND := Android
 PRODUCT_MANUFACTURER := freescale
 
 PRODUCT_PACKAGES += \
-    bootctrl.default \
+    bootctrl.avb \
     update_engine_sideload \
     brillo_update_payload \
     update_engine \
@@ -337,6 +337,9 @@ ifneq (,$(filter userdebug, $(TARGET_BUILD_VARIANT)))
     $(call add-product-dex-preopt-module-config,services,--generate-mini-debug-info)
     $(call add-product-dex-preopt-module-config,wifi-service,--generate-mini-debug-info)
 endif
+
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.hardware.bootctrl=avb
 
 # include a google recommand heap config file.
 include frameworks/native/build/tablet-10in-xhdpi-2048-dalvik-heap.mk
