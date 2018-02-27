@@ -46,8 +46,6 @@
             <devicePorts>
                 <devicePort tagName="Speaker" type="AUDIO_DEVICE_OUT_SPEAKER" role="sink" >
                 </devicePort>
-                <devicePort tagName="Wired Headset" type="AUDIO_DEVICE_OUT_WIRED_HEADSET" role="sink">
-                </devicePort>
                 <devicePort tagName="Wired Headphones" type="AUDIO_DEVICE_OUT_WIRED_HEADPHONE" role="sink">
                 </devicePort>
                 <devicePort tagName="HDMI Out" type="AUDIO_DEVICE_OUT_AUX_DIGITAL" role="sink">
@@ -62,11 +60,9 @@
             </devicePorts>
             <routes>
                 <route type="mix" sink="Speaker"
-                       sources="esai output,primary output"/>
-                <route type="mix" sink="Wired Headset"
                        sources="primary output"/>
                 <route type="mix" sink="Wired Headphones"
-                       sources="primary output"/>
+                       sources="esai output,primary output"/>
                 <route type="mix" sink="HDMI Out"
                        sources="hdmi output,primary output"/>
 
