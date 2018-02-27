@@ -10,5 +10,5 @@ set_prop(hal_bluetooth_default, wc_prop)
 allow hal_bluetooth_default fwk_scheduler_hwservice:hwservice_manager {find};
 allow hal_bluetooth_default system_server:binder {call};
 
-allow hal_bluetooth_default bluetooth_data_file:dir { add_name write } ;
+allow hal_bluetooth_default bluetooth_data_file:dir { add_name write search } ;
 allow hal_bluetooth_default bluetooth_data_file:file { create read write open getattr append } ;
