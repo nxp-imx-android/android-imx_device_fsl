@@ -18,8 +18,15 @@ PRODUCT_DEVICE := mek_8q
 
 PRODUCT_FULL_TREBLE_OVERRIDE := true
 
+ifeq ($(PRODUCT_IMX_CAR),true)
 PRODUCT_COPY_FILES += \
-	device/fsl/mek_8q/init.rc:root/init.freescale.rc \
+        device/fsl/mek_8q/init_car.rc:root/init.freescale.rc
+else
+PRODUCT_COPY_FILES += \
+        device/fsl/mek_8q/init.rc:root/init.freescale.rc
+endif # PRODUCT_IMX_CAR
+
+PRODUCT_COPY_FILES += \
 	device/fsl/mek_8q/init.imx8qxp.rc:root/init.freescale.imx8qxp.rc \
 	device/fsl/mek_8q/init.imx8qm.rc:root/init.freescale.imx8qm.rc \
 	device/fsl/mek_8q/init.usb.rc:root/init.freescale.usb.rc
