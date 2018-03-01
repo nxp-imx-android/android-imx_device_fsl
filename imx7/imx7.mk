@@ -143,7 +143,7 @@ omx_libs := \
 	component_register				\
 	contentpipe_register				\
 	fslomx.cfg					\
-	media_profiles.xml				\
+	media_profiles_V1_0.xml				\
 	media_codecs.xml				\
     media_codecs_performance.xml  \
 	ComponentRegistry.txt				\
