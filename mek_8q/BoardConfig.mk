@@ -4,6 +4,7 @@
 
 include device/fsl/imx8/soc/imx8q.mk
 ifeq ($(PRODUCT_IMX_CAR),true)
+TARGET_KERNEL_DEFCONF := android_car_defconfig
 include device/fsl/mek_8q/build_id_car.mk
 else
 include device/fsl/mek_8q/build_id.mk
