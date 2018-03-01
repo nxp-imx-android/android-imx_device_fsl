@@ -82,6 +82,7 @@ BOARD_AVB_ENABLE := true
 # define frame buffer count
 NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
 
+KERNEL_NAME := Image
 BOARD_KERNEL_CMDLINE := console=ttymxc0,115200 earlycon=imxuart,0x30860000,115200 init=/init video=HDMI-A-1:1920x1080-32@60 androidboot.console=ttymxc0 consoleblank=0 androidboot.hardware=freescale cma=800M firmware_class.path=/vendor/firmware
 
 # Qcom 1CQ(QCA6174) BT

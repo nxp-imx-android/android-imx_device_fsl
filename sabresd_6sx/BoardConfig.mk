@@ -81,6 +81,7 @@ $(error "TARGET_USERIMAGES_USE_UBIFS and TARGET_USERIMAGES_USE_EXT4 config open 
 endif
 endif
 
+KERNEL_NAME := zImage
 BOARD_KERNEL_CMDLINE := console=ttymxc0,115200 init=/init androidboot.console=ttymxc0 consoleblank=0 androidboot.hardware=freescale vmalloc=128M cma=448M galcore.contiguousSize=33554432
 
 ifeq ($(TARGET_USERIMAGES_USE_UBIFS),true)

@@ -120,6 +120,12 @@ USE_GPU_ALLOCATOR := false
 # define frame buffer count
 NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
 
+ifeq ($(PRODUCT_IMX_CAR),true)
+	KERNEL_NAME := Image.lz4
+else
+	KERNEL_NAME := Image
+endif
+
 BOARD_KERNEL_CMDLINE := console=ttyLP0,115200 earlycon=lpuart32,0x5a060000,115200,115200 init=/init androidboot.console=ttyLP0 consoleblank=0 androidboot.hardware=freescale cma=800M firmware_class.path=/vendor/firmware
 
 
