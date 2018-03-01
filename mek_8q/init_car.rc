@@ -6,9 +6,6 @@ on early-init
     # mount the debugfs
     mount debugfs none /sys/kernel/debug/ mode=0755
 
-on early-init
-   exec u:r:modprobe:s0 -- /vendor/bin/modprobe -a -d /vendor/lib/modules ath.ko ath10k_core.ko ath10k_pci.ko
-
 on init
     start watchdogd
 
@@ -146,6 +143,9 @@ on boot
 
 
 on property:sys.boot_completed=1
+    exec u:r:modprobe:s0 -- /vendor/bin/modprobe -a -d /vendor/lib/modules ath.ko ath10k_core.ko ath10k_pci.ko \
+        ghash-generic.ko ccm.ko gcm.ko mac80211.ko cfg80211.ko
+
 # Set default CPU frequency governor
 # Set timer 40ms, min sample 60ms,hispeed at cpufreq MAX freq in freq_table at load 40%
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor interactive
