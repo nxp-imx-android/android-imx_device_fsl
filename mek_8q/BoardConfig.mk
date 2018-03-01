@@ -77,6 +77,14 @@ BOARD_VENDOR_KERNEL_MODULES += \
                             $(KERNEL_OUT)/drivers/net/wireless/ath/ath.ko \
                             $(KERNEL_OUT)/drivers/net/wireless/ath/ath10k/ath10k_core.ko \
                             $(KERNEL_OUT)/drivers/net/wireless/ath/ath10k/ath10k_pci.ko
+ifeq ($(PRODUCT_IMX_CAR),true)
+BOARD_VENDOR_KERNEL_MODULES += \
+                            $(KERNEL_OUT)/crypto/ccm.ko \
+                            $(KERNEL_OUT)/crypto/gcm.ko \
+                            $(KERNEL_OUT)/net/mac80211/mac80211.ko \
+                            $(KERNEL_OUT)/crypto/ghash-generic.ko \
+                            $(KERNEL_OUT)/net/wireless/cfg80211.ko
+endif
 
 # Qcom 1CQ(QCA6174) BT
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/fsl/mek_8q/bluetooth
