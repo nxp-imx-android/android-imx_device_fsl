@@ -24,17 +24,7 @@ VNDK_SP_LIBRARIES := \
     libbacktrace\
     libunwind\
     liblzma\
-
-VNDK_SP_LIBRARIES += \
-     libui\
-     libhardware_legacy\
-     libion\
-     libdrm
-
-ifneq ($(TARGET_2ND_ARCH),)
-VNDK_SP_LIBRARIES += \
-     libdrm_vivante
-endif
+    libion
 
 define define-vndk-lib
 include $$(CLEAR_VARS)
