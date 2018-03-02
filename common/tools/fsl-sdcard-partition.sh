@@ -3,17 +3,6 @@
 # android-tools-fsutils should be installed as
 # "sudo apt-get install android-tools-fsutils"
 
-# partition size in MB
-BOOTLOAD_RESERVE=1
-BOOT_ROM_SIZE=32
-SYSTEM_ROM_SIZE=1536
-CACHE_SIZE=512
-MISC_SIZE=4
-DATAFOOTER_SIZE=2
-METADATA_SIZE=2
-FBMISC_SIZE=1
-PRESISTDATA_SIZE=1
-
 help() {
 
 bn=`basename $0`
@@ -42,7 +31,7 @@ cal_only=0
 card_size=0
 bootloader_offset=1
 vaild_gpt_size=17
-flash_images=0
+flash_images=1
 not_partition=0
 not_format_fs=0
 slot=""
@@ -51,6 +40,7 @@ systemimage_raw_file="system_raw.img"
 vendor_file="vendor.img"
 vendor_raw_file="vendor_raw.img"
 partition_file="partition-table.img"
+g_sizes=0
 while [ "$moreoptions" = 1 -a $# -gt 0 ]; do
 	case $1 in
 	    -h) help; exit ;;
@@ -80,6 +70,10 @@ if [ "${soc_name}" = "imx8qm" -o "${soc_name}" = "imx8qxp" -o "${soc_name}" = "i
     bootloader_offset=33
 fi
 
+if [ "${soc_name}" != "" ]; then
+    soc_name="-${soc_name}"
+fi
+
 if [ ! -e ${node} ]; then
 	help
 	exit
@@ -91,6 +85,14 @@ if [ "${cal_only}" -eq "1" ]; then
 gdisk -l ${node} 2>/dev/null | grep -A 20 "Number  "
 exit
 fi
+
+function get_partition_size
+{
+    start_sector=`gdisk -l ${node} | grep -w $1 | awk '{print $2}'`
+    end_sector=`gdisk -l ${node} | grep -w $1 | awk '{print $3}'`
+    # 1 sector = 512 bytes. This will change unit from sector to MBytes.
+    let "g_sizes=($end_sector - $start_sector + 1) / 2048"
+}
 
 function format_partition
 {
@@ -105,14 +107,15 @@ function erase_partition
 {
     num=`gdisk -l ${node} | grep -w $1 | awk '{print $1}'`
     if [ ${num} -gt 0 ] 2>/dev/null; then
-        echo "erase_partition: $1 : ${node}${num} $2M"
-        dd if=/dev/zero of=${node}${num} bs=1048576 conv=fsync count=$2
+        get_partition_size $1
+        echo "erase_partition: $1 : ${node}${num} ${g_sizes}M"
+        dd if=/dev/zero of=${node}${num} bs=1048576 conv=fsync count=$g_sizes
     fi
 }
 
 function flash_partition
 {
-    for num in `gdisk -l ${node} | grep $1 | awk '{print $1}'`
+    for num in `gdisk -l ${node} | grep -E -w "$1|$1_a|$1_b" | awk '{print $1}'`
     do
         if [ $? -eq 0 ]; then
             if [ $(echo ${1} | grep "system") != "" ] 2>/dev/null; then
@@ -120,7 +123,7 @@ function flash_partition
             elif [ $(echo ${1} | grep "vendor") != "" ] 2>/dev/null; then
                 img_name=${vendor_raw_file}
             else
-                img_name="${1%_*}-${soc_name}.img"
+                img_name="${1%_*}${soc_name}.img"
             fi
             echo "flash_partition: ${img_name} ---> ${node}${num}"
             dd if=${img_name} of=${node}${num} conv=fsync
@@ -133,9 +136,9 @@ function format_android
     echo "formating android images"
     format_partition userdata
     format_partition cache
-    erase_partition presistdata ${PRESISTDATA_SIZE}
-    erase_partition fbmisc ${FBMISC_SIZE}
-    erase_partition misc ${MISC_SIZE}
+    erase_partition presistdata
+    erase_partition fbmisc
+    erase_partition misc
 }
 
 function make_partition
@@ -156,7 +159,7 @@ function flash_android
     vbmeta_partition="vbmeta"${slot}
 
 if [ "${flash_images}" -eq "1" ]; then
-    bootloader_file="u-boot-${soc_name}.imx"
+    bootloader_file="u-boot${soc_name}.imx"
     flash_partition ${boot_partition}
     flash_partition ${recovery_partition}
     simg2img ${systemimage_file} ${systemimage_raw_file}
