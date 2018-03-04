@@ -87,7 +87,40 @@ BOARD_VENDOR_KERNEL_MODULES += \
                             $(KERNEL_OUT)/crypto/gcm.ko \
                             $(KERNEL_OUT)/net/mac80211/mac80211.ko \
                             $(KERNEL_OUT)/crypto/ghash-generic.ko \
-                            $(KERNEL_OUT)/net/wireless/cfg80211.ko
+                            $(KERNEL_OUT)/net/wireless/cfg80211.ko \
+                            $(KERNEL_OUT)/drivers/extcon/extcon-core.ko \
+                            $(KERNEL_OUT)/drivers/extcon/extcon-ptn5150.ko \
+                            $(KERNEL_OUT)/drivers/hid/usbhid/usbhid.ko \
+                            $(KERNEL_OUT)/drivers/staging/typec/tcpci.ko \
+                            $(KERNEL_OUT)/drivers/staging/typec/tcpm.ko \
+                            $(KERNEL_OUT)/drivers/usb/cdns3/cdns3.ko \
+                            $(KERNEL_OUT)/drivers/usb/chipidea/ci_hdrc.ko \
+                            $(KERNEL_OUT)/drivers/usb/chipidea/ci_hdrc_imx.ko \
+                            $(KERNEL_OUT)/drivers/usb/chipidea/ci_hdrc_msm.ko \
+                            $(KERNEL_OUT)/drivers/usb/chipidea/ci_hdrc_pci.ko \
+                            $(KERNEL_OUT)/drivers/usb/chipidea/usbmisc_imx.ko \
+                            $(KERNEL_OUT)/drivers/usb/chipidea/ci_hdrc_usb2.ko \
+                            $(KERNEL_OUT)/drivers/usb/chipidea/ci_hdrc_zevio.ko \
+                            $(KERNEL_OUT)/drivers/usb/core/usbcore.ko \
+                            $(KERNEL_OUT)/drivers/usb/host/xhci-pci.ko \
+                            $(KERNEL_OUT)/drivers/usb/host/ehci-pci.ko \
+                            $(KERNEL_OUT)/drivers/usb/host/xhci-hcd.ko \
+                            $(KERNEL_OUT)/drivers/usb/host/ohci-platform.ko \
+                            $(KERNEL_OUT)/drivers/usb/host/ohci-hcd.ko \
+                            $(KERNEL_OUT)/drivers/usb/host/ehci-hcd.ko \
+                            $(KERNEL_OUT)/drivers/usb/host/ohci-pci.ko \
+                            $(KERNEL_OUT)/drivers/usb/host/xhci-plat-hcd.ko \
+                            $(KERNEL_OUT)/drivers/usb/host/ehci-platform.ko \
+                            $(KERNEL_OUT)/drivers/usb/storage/usb-storage.ko \
+                            $(KERNEL_OUT)/drivers/usb/typec/typec.ko \
+                            $(KERNEL_OUT)/drivers/input/tablet/aiptek.ko \
+                            $(KERNEL_OUT)/drivers/ata/libata.ko \
+                            $(KERNEL_OUT)/drivers/ata/libahci_platform.ko \
+                            $(KERNEL_OUT)/drivers/ata/libahci.ko \
+                            $(KERNEL_OUT)/drivers/ata/ahci_imx.ko \
+                            $(KERNEL_OUT)/drivers/ata/ahci.ko \
+                            $(KERNEL_OUT)/drivers/scsi/scsi_mod.ko \
+                            $(KERNEL_OUT)/drivers/scsi/sd_mod.ko
 endif
 
 # Qcom 1CQ(QCA6174) BT
