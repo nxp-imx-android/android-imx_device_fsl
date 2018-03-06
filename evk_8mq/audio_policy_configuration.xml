@@ -53,8 +53,6 @@
 
                 <devicePort tagName="Built-In Mic" type="AUDIO_DEVICE_IN_BUILTIN_MIC" role="source">
                 </devicePort>
-                <devicePort tagName="Wired Headset Mic" type="AUDIO_DEVICE_IN_WIRED_HEADSET" role="source">
-                </devicePort>
                 <devicePort tagName="Spdif-In" type="AUDIO_DEVICE_IN_AUX_DIGITAL" role="source">
                 </devicePort>
             </devicePorts>
@@ -67,7 +65,7 @@
                        sources="hdmi output,primary output"/>
 
                 <route type="mix" sink="primary input"
-                       sources="Built-In Mic,Wired Headset Mic,Spdif-In"/>
+                       sources="Built-In Mic,Spdif-In"/>
             </routes>
         </module>
 
