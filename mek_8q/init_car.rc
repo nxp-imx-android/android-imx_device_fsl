@@ -227,7 +227,7 @@ service hci_filter_root /vendor/bin/wcnss_filter
 
 on fs
 # mount ext4 partitions
-    mount_all /fstab.freescale
+    mount_all /fstab.freescale --early
 
     # Update dm-verity state and set partition.*.verified properties
     verity_update_state
@@ -236,6 +236,13 @@ on verity-logging
     exec u:r:slideshow:s0 -- /sbin/slideshow warning/verity_red_1 warning/verity_red_2
 
 on late-fs
+    start servicemanager
+    start surfaceflinger
+    start bootanim
+
+    # Mount RW partitions which need run fsck
+    mount_all /fstab.freescale --late
+
     # boot time fs tune
     write /sys/block/mmcblk0/queue/iostats 0
     write /sys/block/mmcblk0/queue/scheduler cfq
