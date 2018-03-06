@@ -19,3 +19,5 @@ allow init proc:file { create };
 allow init cgroup:file { create };
 allow init sysfs:dir { write add_name };
 allow init sysfs:file { create };
+allow init boot_block_device:lnk_file { relabelto };
+allow init vbmeta_block_device:lnk_file { relabelto };
