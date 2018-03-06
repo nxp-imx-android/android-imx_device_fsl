@@ -87,11 +87,6 @@ on boot
     setprop wifi.interface wlan0
     setprop wifi.ap.interface wlan0
 
-    # Prepare for bluetooth
-    chmod 665 /sys/class/rfkill/rfkill0/state
-    chown bluetooth bluetooth /sys/class/rfkill/rfkill0/state
-    write /sys/class/rfkill/rfkill0/state 0
-
     setprop qcom.bluetooth.soc rome_uart
     setprop wc_transport.start_hci false
 
@@ -152,6 +147,15 @@ on property:sys.boot_completed=1
         xhci-hcd.ko ohci-platform.ko usbmisc_imx.ko ohci-hcd.ko ci_hdrc_usb2.ko ehci-hcd.ko ohci-pci.ko ci_hdrc_zevio.ko \
         xhci-plat-hcd.ko typec.ko ehci-platform.ko aiptek.ko libata.ko scsi_mod.ko usb-storage.ko libahci_platform.ko \
         libahci.ko ahci_imx.ko ahci.ko sd_mod.ko
+
+    # load Bluetooth related kernel module
+    exec u:r:modprobe:s0 -- /vendor/bin/modprobe -a -d /vendor/lib/modules mx8_bt_rfkill.ko cmac.ko bluetooth.ko rfcomm.ko \
+        rfkill-gpio.ko rfkill.ko
+
+    # Prepare for bluetooth
+    chmod 665 /sys/class/rfkill/rfkill0/state
+    chown bluetooth bluetooth /sys/class/rfkill/rfkill0/state
+    write /sys/class/rfkill/rfkill0/state 0
 
 # Set default CPU frequency governor
 # Set timer 40ms, min sample 60ms,hispeed at cpufreq MAX freq in freq_table at load 40%

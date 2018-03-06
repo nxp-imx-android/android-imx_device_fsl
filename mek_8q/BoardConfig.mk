@@ -116,7 +116,13 @@ BOARD_VENDOR_KERNEL_MODULES += \
                             $(KERNEL_OUT)/drivers/ata/ahci_imx.ko \
                             $(KERNEL_OUT)/drivers/ata/ahci.ko \
                             $(KERNEL_OUT)/drivers/scsi/scsi_mod.ko \
-                            $(KERNEL_OUT)/drivers/scsi/sd_mod.ko
+                            $(KERNEL_OUT)/drivers/scsi/sd_mod.ko \
+                            $(KERNEL_OUT)/drivers/bluetooth/mx8_bt_rfkill.ko \
+                            $(KERNEL_OUT)/crypto/cmac.ko \
+                            $(KERNEL_OUT)/net/bluetooth/bluetooth.ko \
+                            $(KERNEL_OUT)/net/bluetooth/rfcomm/rfcomm.ko \
+                            $(KERNEL_OUT)/net/rfkill/rfkill-gpio.ko \
+                            $(KERNEL_OUT)/net/rfkill/rfkill.ko
 endif
 
 # Qcom 1CQ(QCA6174) BT
