@@ -187,6 +187,7 @@ PRODUCT_COPY_FILES +=	\
        device/fsl/mek_8q/ueventd.freescale.rc:root/ueventd.freescale.rc
 
 BOARD_AVB_ENABLE := true
+TARGET_USES_MKE2FS := true
 
 # Vendor seccomp policy files for media components:
 PRODUCT_COPY_FILES += \
