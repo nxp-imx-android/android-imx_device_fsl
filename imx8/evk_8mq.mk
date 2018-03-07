@@ -16,7 +16,7 @@ endif
 PRODUCT_NAME := evk_8mq
 PRODUCT_DEVICE := evk_8mq
 
-PRODUCT_FULL_TREBLE_OVERRIDE ?= true
+PRODUCT_FULL_TREBLE_OVERRIDE := true
 
 PRODUCT_COPY_FILES += \
 	device/fsl/evk_8mq/init.rc:root/init.freescale.rc \
@@ -145,6 +145,12 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     android.hardware.keymaster@3.0-impl \
     android.hardware.keymaster@3.0-service
+
+# DRM HAL
+TARGET_ENABLE_MEDIADRM_64 := true
+PRODUCT_PACKAGES += \
+    android.hardware.drm@1.0-impl \
+    android.hardware.drm@1.0-service
 
 ifneq ($(BUILD_TARGET_FS),ubifs)
 PRODUCT_PROPERTY_OVERRIDES += \

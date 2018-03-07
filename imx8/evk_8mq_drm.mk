@@ -14,10 +14,7 @@ $(call inherit-product, $(TOPDIR)device/fsl/imx8/evk_8mq.mk)
 
 # Overrides
 PRODUCT_NAME := evk_8mq_drm
-PRODUCT_FULL_TREBLE_OVERRIDE := false
 
-# DRM plugins loading
-TARGET_ENABLE_MEDIADRM_64 := true
 CFG_SECURE_DATA_PATH ?= y
 CFG_TEE_SDP_MEM_BASE := 0xe4000000
 CFG_TEE_SDP_MEM_SIZE := 0x02000000
@@ -25,10 +22,6 @@ CFG_TEE_SDP_MEM_SIZE := 0x02000000
 BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive
 
 TARGET_BOARD_DTS_CONFIG := imx8mq:fsl-imx8mq-evk-drm.dtb imx8mq-mipi:fsl-imx8mq-evk-lcdif-adv7535.dtb imx8mq-dual:fsl-imx8mq-evk-dual-display.dtb
-
-# DRM HAL
-PRODUCT_PACKAGES += \
-    android.hardware.drm@1.0-impl
 
 # Exoplayer
 PRODUCT_PACKAGES += \

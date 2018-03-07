@@ -12,9 +12,6 @@ on boot
     chmod 0755 /dev/tee0
     chown media media /dev/tee0
 
-    # activate DRM
-    setprop drm.64bit.enabled true
-
 service tee_supplicant /system/bin/tee-supplicant
     class main
     user root

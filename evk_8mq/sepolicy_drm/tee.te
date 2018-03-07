@@ -1,3 +1,5 @@
+typeattribute tee coredomain;
+
 # allow run xtest as shell
 domain_auto_trans(shell, tee_exec, tee);
 allow tee console_device:chr_file {  getattr read write ioctl };
@@ -11,7 +13,6 @@ allow tee tee:tcp_socket { create connect read write getopt setopt };
 allow tee tee:udp_socket { create connect read write getopt getattr };
 allow tee tee:capability { net_raw };
 allow tee fwmarkd_socket:sock_file { write };
-allow tee netd:unix_stream_socket { connectto };
 allow tee port:tcp_socket { name_connect };
 
 # For tee-supplicant
