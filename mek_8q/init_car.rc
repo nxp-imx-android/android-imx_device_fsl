@@ -6,6 +6,9 @@ on early-init
     # mount the debugfs
     mount debugfs none /sys/kernel/debug/ mode=0755
 
+    # load some basic kernel modules
+    exec u:r:modprobe:s0 -- /vendor/bin/modprobe -a -d /vendor/lib/modules ghash-generic.ko ccm.ko gcm.ko mac80211.ko cfg80211.ko
+
 on init
     start watchdogd
 
@@ -139,8 +142,8 @@ on boot
 
 on property:sys.boot_completed=1
     # load QCA WIFI related kernel module
-    exec u:r:modprobe:s0 -- /vendor/bin/modprobe -a -d /vendor/lib/modules ath.ko ath10k_core.ko ath10k_pci.ko \
-        ghash-generic.ko ccm.ko gcm.ko mac80211.ko cfg80211.ko
+    exec u:r:modprobe:s0 -- /vendor/bin/modprobe -a -d /vendor/lib/modules ath.ko ath10k_core.ko ath10k_pci.ko
+
     # load USB related kernel module(hardware driver, hid driver, ATA, etc.)
     exec u:r:modprobe:s0 -- /vendor/bin/modprobe -a -d /vendor/lib/modules extcon-core.ko extcon-ptn5150.ko usbhid.ko \
         tcpci.ko tcpm.ko cdns3.ko ci_hdrc.ko ci_hdrc_imx.ko ci_hdrc_msm.ko ci_hdrc_pci.ko xhci-pci.ko ehci-pci.ko usbcore.ko \
