@@ -83,11 +83,6 @@ BOARD_VENDOR_KERNEL_MODULES += \
                             $(KERNEL_OUT)/drivers/net/wireless/ath/ath10k/ath10k_pci.ko
 ifeq ($(PRODUCT_IMX_CAR),true)
 BOARD_VENDOR_KERNEL_MODULES += \
-                            $(KERNEL_OUT)/crypto/ccm.ko \
-                            $(KERNEL_OUT)/crypto/gcm.ko \
-                            $(KERNEL_OUT)/net/mac80211/mac80211.ko \
-                            $(KERNEL_OUT)/crypto/ghash-generic.ko \
-                            $(KERNEL_OUT)/net/wireless/cfg80211.ko \
                             $(KERNEL_OUT)/drivers/extcon/extcon-core.ko \
                             $(KERNEL_OUT)/drivers/extcon/extcon-ptn5150.ko \
                             $(KERNEL_OUT)/drivers/hid/usbhid/usbhid.ko \

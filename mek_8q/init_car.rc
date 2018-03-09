@@ -6,9 +6,6 @@ on early-init
     # mount the debugfs
     mount debugfs none /sys/kernel/debug/ mode=0755
 
-    # load some basic kernel modules
-    exec u:r:modprobe:s0 -- /vendor/bin/modprobe -a -d /vendor/lib/modules ghash-generic.ko ccm.ko gcm.ko mac80211.ko cfg80211.ko
-
 on init
     start watchdogd
 
