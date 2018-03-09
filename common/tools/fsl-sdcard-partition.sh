@@ -126,7 +126,7 @@ function flash_partition
                 img_name="${1%_*}${soc_name}.img"
             fi
             echo "flash_partition: ${img_name} ---> ${node}${num}"
-            dd if=${img_name} of=${node}${num} conv=fsync
+            dd if=${img_name} of=${node}${num} bs=10M conv=fsync
         fi
     done
 }
