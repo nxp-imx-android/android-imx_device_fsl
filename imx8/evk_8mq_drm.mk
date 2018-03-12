@@ -16,7 +16,7 @@ $(call inherit-product, $(TOPDIR)device/fsl/imx8/evk_8mq.mk)
 PRODUCT_NAME := evk_8mq_drm
 
 CFG_SECURE_DATA_PATH ?= y
-CFG_TEE_SDP_MEM_BASE := 0xe4000000
+CFG_TEE_SDP_MEM_BASE := 0xcc000000
 CFG_TEE_SDP_MEM_SIZE := 0x02000000
 
 BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive
