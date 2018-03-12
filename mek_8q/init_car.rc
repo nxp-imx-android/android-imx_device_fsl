@@ -126,12 +126,11 @@ on property:sys.boot_completed=1
     exec u:r:modprobe:s0 -- /vendor/bin/modprobe -a -d /vendor/lib/modules extcon-core.ko extcon-ptn5150.ko usbhid.ko \
         tcpci.ko tcpm.ko cdns3.ko ci_hdrc.ko ci_hdrc_imx.ko ci_hdrc_msm.ko ci_hdrc_pci.ko xhci-pci.ko ehci-pci.ko usbcore.ko \
         xhci-hcd.ko ohci-platform.ko usbmisc_imx.ko ohci-hcd.ko ci_hdrc_usb2.ko ehci-hcd.ko ohci-pci.ko ci_hdrc_zevio.ko \
-        xhci-plat-hcd.ko typec.ko ehci-platform.ko aiptek.ko libata.ko scsi_mod.ko usb-storage.ko libahci_platform.ko \
-        libahci.ko ahci_imx.ko ahci.ko sd_mod.ko
+        xhci-plat-hcd.ko typec.ko ehci-platform.ko aiptek.ko libata.ko scsi_mod.ko usb-storage.ko \
+        libahci.ko ahci.ko sd_mod.ko
 
     # load Bluetooth related kernel module
-    exec u:r:modprobe:s0 -- /vendor/bin/modprobe -a -d /vendor/lib/modules mx8_bt_rfkill.ko cmac.ko bluetooth.ko rfcomm.ko \
-        rfkill-gpio.ko rfkill.ko
+    exec u:r:modprobe:s0 -- /vendor/bin/modprobe -a -d /vendor/lib/modules mx8_bt_rfkill.ko cmac.ko bluetooth.ko rfcomm.ko
 
     # Prepare for bluetooth
     chmod 665 /sys/class/rfkill/rfkill0/state
