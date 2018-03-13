@@ -87,6 +87,10 @@ PRODUCT_PACKAGES += \
     libg2d \
     libgpuhelper
 
+# imx7 Hardware HAL libs.
+PRODUCT_PACKAGES += \
+        gralloc.imx7      \
+
 # HWC2 HAL
 PRODUCT_PACKAGES += \
 	android.hardware.graphics.composer@2.1-impl
@@ -111,6 +115,10 @@ PRODUCT_PACKAGES += \
     android.hardware.power@1.0-service \
     android.hardware.light@2.0-impl \
     android.hardware.light@2.0-service
+
+# imx7 sensor HAL libs.
+PRODUCT_PACKAGES += \
+        sensors.imx7
 
 # Usb HAL
 PRODUCT_PACKAGES += \

@@ -82,7 +82,7 @@ TARGET_VSYNC_DIRECT_REFRESH := true
 
 BOARD_KERNEL_CMDLINE := console=ttyLP0,115200 init=/init androidboot.console=ttyLP0 consoleblank=0 androidboot.hardware=freescale vmalloc=128M cma=448M
 TARGET_BOOTLOADER_CONFIG := imx7ulp:mx7ulp_evk_android_config
-TARGET_BOARD_DTS_CONFIG := imx7ulp:imx7ulp-evk.dtb
+TARGET_BOARD_DTS_CONFIG := imx7ulp:imx7ulp-evk-hdmi.dtb imx7ulp-mipi:imx7ulp-evk.dtb
 
 BOARD_SEPOLICY_DIRS := \
        device/fsl/imx7/sepolicy \
