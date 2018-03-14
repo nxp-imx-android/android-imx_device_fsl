@@ -13,7 +13,12 @@ options:
   -h				displays this help message
   -s				only get partition size
   -np 				not partition.
-  -f soc_name			flash android image.
+  -f soc_name			flash android image file with soc_name
+  -F soc_name			determine the device_node's offset to flash bootloader and flash default android image file
+					 soc     				offset(KB)
+					default					   1
+					imx8dv					  16
+					imx8qm/imx8qxp/imx8mq			  33
   -a				only flash image to slot_a
   -b				only flash image to slot_b
   -c card_size			optional setting: 7 / 14 / 28
@@ -31,7 +36,6 @@ cal_only=0
 card_size=0
 bootloader_offset=1
 vaild_gpt_size=17
-flash_images=1
 not_partition=0
 not_format_fs=0
 slot=""
@@ -41,11 +45,13 @@ vendor_file="vendor.img"
 vendor_raw_file="vendor_raw.img"
 partition_file="partition-table.img"
 g_sizes=0
+append_soc_name=0
 while [ "$moreoptions" = 1 -a $# -gt 0 ]; do
 	case $1 in
 	    -h) help; exit ;;
 	    -s) cal_only=1 ;;
-	    -f) flash_images=1 ; soc_name=$2; shift;;
+	    -f) append_soc_name=1 ; soc_name=$2; shift;;
+	    -F) soc_name=$2; shift;;
 	    -c) card_size=$2; shift;;
 	    -np) not_partition=1 ;;
 	    -nf) not_format_fs=1 ;;
@@ -70,8 +76,12 @@ if [ "${soc_name}" = "imx8qm" -o "${soc_name}" = "imx8qxp" -o "${soc_name}" = "i
     bootloader_offset=33
 fi
 
-if [ "${soc_name}" != "" ]; then
+echo "${soc_name} bootloader offset is: ${bootloader_offset}"
+
+if [ "${soc_name}" != "" ] && [ "${append_soc_name}" -eq 1 ]; then
     soc_name="-${soc_name}"
+else
+    soc_name=""
 fi
 
 if [ ! -e ${node} ]; then
@@ -158,7 +168,6 @@ function flash_android
     vendor_partition="vendor"${slot}
     vbmeta_partition="vbmeta"${slot}
 
-if [ "${flash_images}" -eq "1" ]; then
     bootloader_file="u-boot${soc_name}.imx"
     flash_partition ${boot_partition}
     flash_partition ${recovery_partition}
@@ -177,10 +186,9 @@ if [ "${flash_images}" -eq "1" ]; then
     echo "the bootloader partition size: ${count_bootloader}"
     dd if=/dev/zero of=${node} bs=1k seek=${bootloader_offset} conv=fsync count=${count_bootloader}
     dd if=${bootloader_file} of=${node} bs=1k seek=${bootloader_offset} conv=fsync
-fi
 }
 
-if [[ "${not_partition}" -eq "1" && "${flash_images}" -eq "1" ]] ; then
+if [ "${not_partition}" -eq "1" ] ; then
     flash_android
     exit
 fi
