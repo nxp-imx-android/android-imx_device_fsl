@@ -161,7 +161,7 @@ endif
 endif
 
 ifeq ($(PRODUCT_IMX_CAR),true)
-TARGET_BOARD_DTS_CONFIG := imx8qm:fsl-imx8qm-mek.dtb imx8qxp:fsl-imx8qxp-mek.dtb
+TARGET_BOARD_DTS_CONFIG := imx8qm:fsl-imx8qm-mek-car.dtb imx8qxp:fsl-imx8qxp-mek-car.dtb
 TARGET_BOOTLOADER_CONFIG := imx8qm:mx8qm_mek_androidauto_defconfig imx8qxp:mx8qxp_mek_androidauto_defconfig
 else
 TARGET_BOARD_DTS_CONFIG := imx8qm:fsl-imx8qm-mek.dtb imx8qm-hdmi:fsl-imx8qm-mek-hdmi.dtb imx8qxp:fsl-imx8qxp-mek.dtb
