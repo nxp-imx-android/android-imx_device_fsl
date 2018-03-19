@@ -82,7 +82,7 @@ BOARD_AVB_ENABLE := true
 # define frame buffer count
 NUM_FRAMEBUFFER_SURFACE_BUFFERS := 5
 
-BOARD_KERNEL_CMDLINE += console=ttymxc0,115200 earlycon=imxuart,0x30860000,115200 init=/init video=HDMI-A-1:1920x1080-32@60 androidboot.console=ttymxc0 consoleblank=0 androidboot.hardware=freescale cma=800M firmware_class.path=/vendor/firmware
+BOARD_KERNEL_CMDLINE += console=ttymxc0,115200 earlycon=imxuart,0x30860000,115200 init=/init video=HDMI-A-1:1920x1080-32@60 androidboot.console=ttymxc0 consoleblank=0 androidboot.hardware=freescale cma=1536M firmware_class.path=/vendor/firmware
 
 # Qcom 1CQ(QCA6174) BT
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/fsl/evk_8mq/bluetooth
