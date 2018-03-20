@@ -1,14 +1,4 @@
-on boot
-
-    # Set OpenGLES version
-    setprop ro.opengles.version 196609
-
-    # Set GPU 3D minimum clock to 3/64
-    write /sys/bus/platform/drivers/galcore/gpu3DMinClock 3
-
-    # Set light sensor sysfs path
-    setprop ro.hardware.lightsensor "/sys/class/i2c-dev/i2c-7/device/7-0044/"
-
+on init
     # change for cpu related
     chown root system /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
     chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
@@ -27,6 +17,22 @@ on boot
     chmod 0664 /sys/devices/system/cpu/cpu2/online
     chown root system /sys/devices/system/cpu/cpu3/online
     chmod 0664 /sys/devices/system/cpu/cpu3/online
+
+    write /sys/devices/system/cpu/cpu0/online 1
+    write /sys/devices/system/cpu/cpu1/online 1
+    write /sys/devices/system/cpu/cpu2/online 1
+    write /sys/devices/system/cpu/cpu3/online 1
+
+on boot
+
+    # Set OpenGLES version
+    setprop ro.opengles.version 196609
+
+    # Set GPU 3D minimum clock to 3/64
+    write /sys/bus/platform/drivers/galcore/gpu3DMinClock 3
+
+    # Set light sensor sysfs path
+    setprop ro.hardware.lightsensor "/sys/class/i2c-dev/i2c-7/device/7-0044/"
 
 on property:sys.boot_completed=1
    # Set default CPU frequency governor
