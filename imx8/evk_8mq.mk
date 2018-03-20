@@ -103,7 +103,8 @@ PRODUCT_PACKAGES += \
         libgpuhelper \
         libSPIRV_viv \
         libvulkan_VIVANTE \
-        vulkan.imx8
+        vulkan.imx8 \
+        gatekeeper.imx8
 
 PRODUCT_PACKAGES += \
     Launcher3
@@ -151,6 +152,11 @@ TARGET_ENABLE_MEDIADRM_64 := true
 PRODUCT_PACKAGES += \
     android.hardware.drm@1.0-impl \
     android.hardware.drm@1.0-service
+
+# new gatekeeper HAL
+PRODUCT_PACKAGES += \
+    android.hardware.gatekeeper@1.0-impl \
+    android.hardware.gatekeeper@1.0-service
 
 ifneq ($(BUILD_TARGET_FS),ubifs)
 PRODUCT_PROPERTY_OVERRIDES += \

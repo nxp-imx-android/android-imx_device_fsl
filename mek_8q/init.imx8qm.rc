@@ -1,3 +1,8 @@
+on early-boot
+    # Configure DRM in 64-bit architecture. This shall be done before to start
+    # the DRM service which is triggered by the 'on boot' event.
+    setprop drm.64bit.enabled true
+
 on boot
 
     # Set OpenGLES version

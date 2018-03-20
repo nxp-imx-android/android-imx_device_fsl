@@ -30,9 +30,9 @@ ADDITION_BPT_PARTITION = partition-table-7GB:device/fsl/common/partition/device-
                          partition-table-28GB:device/fsl/common/partition/device-partitions-28GB-ab.bpt
 
 
-# Vendor Interface Manifest
-PRODUCT_COPY_FILES += \
-	device/fsl/evk_8mq/manifest.xml:vendor/manifest.xml
+# Vendor Interface manifest and compatibility
+DEVICE_MANIFEST_FILE := device/fsl/evk_8mq/manifest.xml
+DEVICE_MATRIX_FILE := device/fsl/evk_8mq/compatibility_matrix.xml
 
 TARGET_BOOTLOADER_BOARD_NAME := EVK
 

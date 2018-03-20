@@ -48,8 +48,8 @@ ifeq ($(PRODUCT_IMX_CAR),true)
 PRODUCT_COPY_FILES += \
     device/fsl/mek_8q/manifest_car.xml:vendor/manifest.xml
 else
-PRODUCT_COPY_FILES += \
-    device/fsl/mek_8q/manifest.xml:vendor/manifest.xml
+DEVICE_MANIFEST_FILE := device/fsl/mek_8q/manifest.xml
+DEVICE_MATRIX_FILE := device/fsl/mek_8q/compatibility_matrix.xml
 endif
 
 TARGET_BOOTLOADER_BOARD_NAME := MEK
