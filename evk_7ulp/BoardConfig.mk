@@ -44,19 +44,17 @@ TARGET_DTB_POSTFIX := -dtb
 
 TARGET_RELEASETOOLS_EXTENSIONS := device/fsl/imx7
 
-BOARD_WLAN_DEVICE            := bcmdhd
+BOARD_WLAN_DEVICE            := qcwcn
 WPA_SUPPLICANT_VERSION       := VER_0_8_X
 
 BOARD_WPA_SUPPLICANT_DRIVER  := NL80211
 BOARD_HOSTAPD_DRIVER         := NL80211
 
-BOARD_HOSTAPD_PRIVATE_LIB               := lib_driver_cmd_bcmdhd
-BOARD_WPA_SUPPLICANT_PRIVATE_LIB        := lib_driver_cmd_bcmdhd
+BOARD_HOSTAPD_PRIVATE_LIB               := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
+BOARD_WPA_SUPPLICANT_PRIVATE_LIB        := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
 
-WIFI_DRIVER_FW_PATH_STA 	:= "/vendor/firmware/bcm/1DX_BCM4343W/fw_bcmdhd.bin"
-WIFI_DRIVER_FW_PATH_P2P 	:= "/vendor/firmware/bcm/1DX_BCM4343W/fw_bcmdhd.bin"
-WIFI_DRIVER_FW_PATH_AP  	:= "/vendor/firmware/bcm/1DX_BCM4343W/fw_bcmdhd_apsta.bin"
-WIFI_DRIVER_FW_PATH_PARAM 	:= "/sys/module/bcmdhd/parameters/firmware_path"
+BOARD_VENDOR_KERNEL_MODULES += \
+    $(KERNEL_OUT)/drivers/net/wireless/qcacld-2.0/wlan.ko
 
 #for accelerator sensor, need to define sensor type here
 BOARD_USE_SENSOR_FUSION := true

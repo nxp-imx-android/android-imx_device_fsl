@@ -141,6 +141,15 @@ PRODUCT_PACKAGES += \
     wifilogd \
     wificond
 
+
+# Qcom WiFi Firmware
+PRODUCT_COPY_FILES += \
+    vendor/nxp/qca-wifi-bt/1PJ_QCA9377-3/lib/firmware/bdwlan30.bin:vendor/firmware/bdwlan30.bin \
+    vendor/nxp/qca-wifi-bt/1PJ_QCA9377-3/lib/firmware/otp30.bin:vendor/firmware/otp30.bin \
+    vendor/nxp/qca-wifi-bt/1PJ_QCA9377-3/lib/firmware/qwlan30.bin:vendor/firmware/qwlan30.bin \
+    vendor/nxp/qca-wifi-bt/1PJ_QCA9377-3/lib/firmware/wlan/cfg.dat:vendor/firmware/wlan/cfg.dat \
+    vendor/nxp/qca-wifi-bt/1PJ_QCA9377-3/lib/firmware/wlan/qcom_cfg.ini:vendor/firmware/wlan/qcom_cfg.ini \
+
 # Keymaster HAL
 PRODUCT_PACKAGES += \
     android.hardware.keymaster@3.0-impl
