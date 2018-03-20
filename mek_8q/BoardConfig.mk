@@ -190,6 +190,7 @@ TARGET_KERNEL_DEFCONF := android_defconfig
 include device/fsl/mek_8q/build_id.mk
 endif # PRODUCT_IMX_CAR
 # TARGET_KERNEL_ADDITION_DEFCONF := android_addition_defconfig
+TARGET_KERNEL_DTB := freescale/fsl-imx8qm-mek.dtb
 
 BOARD_SEPOLICY_DIRS := \
        device/fsl/imx8/sepolicy \

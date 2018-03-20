@@ -116,6 +116,7 @@ TARGET_BOOTLOADER_CONFIG := imx8mq:imx8mq_evk_android_defconfig
 
 TARGET_KERNEL_DEFCONF ?= android_defconfig
 # TARGET_KERNEL_ADDITION_DEFCONF ?= android_addition_defconfig
+TARGET_KERNEL_DTB := freescale/fsl-imx8mq-evk.dtb
 
 BOARD_SEPOLICY_DIRS := \
        device/fsl/imx8/sepolicy \

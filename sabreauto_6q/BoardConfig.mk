@@ -105,6 +105,7 @@ else
 TARGET_BOARD_DTS_CONFIG := imx6q:imx6q-sabreauto.dtb imx6dl:imx6dl-sabreauto.dtb imx6qp:imx6qp-sabreauto.dtb
 TARGET_BOOTLOADER_CONFIG := imx6q:imx6qsabreautoandroid_defconfig imx6dl:imx6dlsabreautoandroid_defconfig imx6qp:imx6qpsabreautoandroid_defconfig
 endif
+TARGET_KERNEL_DTB := imx6q-sabreauto.dtb
 
 TARGET_KERNEL_DEFCONF := imx_v7_android_defconfig
 # TARGET_KERNEL_ADDITION_DEFCONF := imx_v7_android_addition_defconfig
