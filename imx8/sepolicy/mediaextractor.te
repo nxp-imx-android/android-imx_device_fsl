@@ -1,3 +1,2 @@
 allow mediaextractor system_server:fifo_file { write };
-allow mediaextractor vendor_file:file { read open getattr execute };
 allow mediaextractor sdcardfs:file { read getattr};

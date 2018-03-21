@@ -1,2 +1,1 @@
-allow update_engine sysfs:file { read open };
 allow update_engine system_app:binder { call transfer };
