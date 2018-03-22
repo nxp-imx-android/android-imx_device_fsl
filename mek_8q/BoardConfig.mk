@@ -107,7 +107,7 @@ USE_GPU_ALLOCATOR := false
 # define frame buffer count
 NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
 
-BOARD_KERNEL_CMDLINE := console=ttyLP0,115200 earlycon=lpuart32,0x5a060000,115200,115200 init=/init androidboot.console=ttyLP0 consoleblank=0 androidboot.hardware=freescale androidboot.fbTileSupport=enable cma=800M firmware_class.path=/vendor/firmware
+BOARD_KERNEL_CMDLINE := console=ttyLP0,115200 earlycon=lpuart32,0x5a060000,115200,115200 init=/init androidboot.console=ttyLP0 consoleblank=0 androidboot.hardware=freescale androidboot.fbTileSupport=enable cma=800M androidboot.primary_display=imx-drm firmware_class.path=/vendor/firmware
 
 
 ifeq ($(TARGET_USERIMAGES_USE_UBIFS),true)
