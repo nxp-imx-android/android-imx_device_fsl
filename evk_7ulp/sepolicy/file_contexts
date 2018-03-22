@@ -20,3 +20,4 @@
 /dev/FreescaleMagnetometer      u:object_r:sensors_device:s0
 /dev/FreescaleGyroscope         u:object_r:sensors_device:s0
 /dev/sda[0-8]*                  u:object_r:fuse:s0
+/dev/ttyLP[0-9]*                u:object_r:tty_device:s0
