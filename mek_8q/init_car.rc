@@ -133,6 +133,9 @@ on property:sys.boot_completed=1
     chown bluetooth bluetooth /sys/class/rfkill/rfkill0/state
     write /sys/class/rfkill/rfkill0/state 0
 
+    # Trigger start adbd service
+    setprop sys.usb.configfs 1
+
 service wpa_supplicant /vendor/bin/hw/wpa_supplicant \
     -iwlan0 -Dnl80211 -c/data/misc/wifi/wpa_supplicant.conf \
     -e/data/misc/wifi/entropy.bin  -g@android:wpa_wlan0
