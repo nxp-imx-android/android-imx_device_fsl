@@ -113,7 +113,8 @@ BOARD_VENDOR_KERNEL_MODULES += \
                             $(KERNEL_OUT)/crypto/cmac.ko \
                             $(KERNEL_OUT)/net/bluetooth/bluetooth.ko \
                             $(KERNEL_OUT)/net/bluetooth/rfcomm/rfcomm.ko \
-                            $(KERNEL_OUT)/drivers/bluetooth/mx8_bt_rfkill.ko
+                            $(KERNEL_OUT)/drivers/bluetooth/mx8_bt_rfkill.ko \
+                            $(KERNEL_OUT)/drivers/hid/hid-multitouch.ko
 endif
 
 # Qcom 1CQ(QCA6174) BT
