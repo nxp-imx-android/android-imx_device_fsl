@@ -116,6 +116,9 @@ PRODUCT_PACKAGES += \
 	android.hardware.memtrack@1.0-impl \
 	android.hardware.memtrack@1.0-service
 
+PRODUCT_PACKAGES += \
+	libedid
+
 # camera related libs
 PRODUCT_PACKAGES += \
 	camera.device@1.0-impl          \
