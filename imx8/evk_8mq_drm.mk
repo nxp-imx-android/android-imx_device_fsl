@@ -9,8 +9,12 @@ PRODUCT_COPY_FILES += \
 	device/fsl/evk_8mq/init.imx8mq.rc:root/init.freescale.imx8mq.main.rc \
 	device/fsl/evk_8mq/init.imx8mq.drm.rc:root/init.freescale.imx8mq.rc \
 
+
 $(call inherit-product, $(TOPDIR)device/fsl/imx8/optee-packages.mk)
 $(call inherit-product, $(TOPDIR)device/fsl/imx8/evk_8mq.mk)
+
+TARGET_KERNEL_DEFCONF := android_drm_defconfig
+
 
 # Overrides
 PRODUCT_NAME := evk_8mq_drm
