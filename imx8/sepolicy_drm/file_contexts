@@ -1,2 +1,7 @@
 /system/bin/tee-supplicant     u:object_r:tee_exec:s0
 /system/bin/xtest              u:object_r:tee_exec:s0
+
+/dev/teepriv[0-9]*             u:object_r:tee_device:s0
+/dev/tee[0-9]*                 u:object_r:tee_device:s0
+/data/tee(/.*)?                u:object_r:tee_data_file:s0
+

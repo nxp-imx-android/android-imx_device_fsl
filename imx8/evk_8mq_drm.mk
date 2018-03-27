@@ -27,8 +27,6 @@ DECRYPTED_BUFFER_LEN	:= $(CFG_TEE_SDP_MEM_SIZE)
 DECODED_BUFFER_START	:= 0xCE000000
 DECODED_BUFFER_LEN		:= 0x30000000
 
-BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive
-
 TARGET_BOARD_DTS_CONFIG := imx8mq:fsl-imx8mq-evk-drm.dtb imx8mq-mipi:fsl-imx8mq-evk-lcdif-adv7535.dtb imx8mq-dual:fsl-imx8mq-evk-dual-display.dtb
 
 # Exoplayer
