@@ -146,3 +146,6 @@ PRODUCT_COPY_FILES += \
        device/fsl/sabresd_6dq/app_whitelist.xml:system/etc/sysconfig/app_whitelist.xml
 
 TARGET_BOARD_KERNEL_HEADERS := device/fsl/common/kernel-headers
+
+#Enable AVB
+BOARD_AVB_ENABLE := true

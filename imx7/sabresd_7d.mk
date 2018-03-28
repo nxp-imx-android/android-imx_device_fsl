@@ -13,10 +13,6 @@ ifneq ($(wildcard device/fsl/sabresd_7d/fstab.freescale),)
 $(shell touch device/fsl/sabresd_7d/fstab.freescale)
 endif
 
-# setup dm-verity configs.
- PRODUCT_SYSTEM_VERITY_PARTITION := /dev/block/by-name/system
- $(call inherit-product, build/target/product/verity.mk)
-
 # Overrides
 PRODUCT_NAME := sabresd_7d
 PRODUCT_DEVICE := sabresd_7d

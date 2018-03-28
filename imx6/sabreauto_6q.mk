@@ -36,11 +36,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES +=	\
 	$(LINUX_FIRMWARE_IMX_PATH)/linux-firmware-imx/firmware/vpu/vpu_fw_imx6d.bin:system/lib/firmware/vpu/vpu_fw_imx6d.bin 	\
 	$(LINUX_FIRMWARE_IMX_PATH)/linux-firmware-imx/firmware/vpu/vpu_fw_imx6q.bin:system/lib/firmware/vpu/vpu_fw_imx6q.bin
-# setup dm-verity configs.
-ifneq ($(BUILD_TARGET_FS),ubifs)
-PRODUCT_SYSTEM_VERITY_PARTITION := /dev/block/by-name/system
-$(call inherit-product, build/target/product/verity.mk)
-endif
 # GPU files
 
 DEVICE_PACKAGE_OVERLAYS := device/fsl/sabreauto_6q/overlay

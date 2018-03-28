@@ -30,11 +30,6 @@ PRODUCT_COPY_FILES += \
 	frameworks/av/services/audiopolicy/config/default_volume_tables.xml:$(TARGET_COPY_OUT_VENDOR)/etc/default_volume_tables.xml \
 	frameworks/av/services/audiopolicy/config/audio_policy_volumes.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_volumes.xml \
 
-# setup dm-verity configs.
-ifneq ($(BUILD_TARGET_FS),ubifs)
- PRODUCT_SYSTEM_VERITY_PARTITION := /dev/block/by-name/system
- $(call inherit-product, build/target/product/verity.mk)
-endif
 # GPU files
 
 DEVICE_PACKAGE_OVERLAYS := device/fsl/sabreauto_6sx/overlay

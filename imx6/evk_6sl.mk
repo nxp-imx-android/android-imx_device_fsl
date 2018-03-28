@@ -13,10 +13,6 @@ ifneq ($(wildcard device/fsl/evk_6sl/fstab.freescale),)
 $(shell touch device/fsl/evk_6sl/fstab.freescale)
 endif
 
-# setup dm-verity configs.
- PRODUCT_SYSTEM_VERITY_PARTITION := /dev/block/by-name/system
- $(call inherit-product, build/target/product/verity.mk)
-
 # Overrides
 PRODUCT_NAME := evk_6sl
 PRODUCT_DEVICE := evk_6sl
