@@ -127,6 +127,14 @@ PRODUCT_PACKAGES += \
     android.hardware.bluetooth@1.0-impl \
     android.hardware.bluetooth@1.0-service
 
+# Qcom 1PJ Bluetooth Firmware
+ PRODUCT_COPY_FILES += \
+    vendor/nxp/qca-wifi-bt/1PJ_QCA9377-3/lib/firmware/qca/tfbtnv11.bin:vendor/firmware/nvm_tlv_3.2.bin \
+    vendor/nxp/qca-wifi-bt/1PJ_QCA9377-3/lib/firmware/qca/tfbtfw11.tlv:vendor/firmware/rampatch_tlv_3.2.tlv
+
+PRODUCT_COPY_FILES += \
+    vendor/nxp/qca-wifi-bt/qca-bt-properity/wcnss_filter_7ulp:vendor/bin/wcnss_filter
+
 # WiFi HAL
 PRODUCT_PACKAGES += \
     android.hardware.wifi@1.0-service \
