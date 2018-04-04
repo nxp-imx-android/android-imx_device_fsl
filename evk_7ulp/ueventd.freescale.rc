@@ -24,6 +24,7 @@
 /dev/mma8x5x              0640   compass     system
 /dev/caam_kb              0660   system     system
 /dev/ttyLP2               0660   bluetooth  bluetooth
+/dev/input/event*         0660   system     system
 
 # Sensors sysfs for 7d platform.
 /sys/devices/virtual/misc/Freescale* name       0660 root input
@@ -47,6 +48,8 @@
 /dev/FreescaleAccelerometer                     0660  system system
 /dev/FreescaleMagnetometer                      0660  system system
 /dev/FreescaleGyroscope                         0660  system system
+/sys/class/misc/step_*              enable      0660  system system
+/sys/class/misc/step_*              poll_delay  0660  system system
 
 
 # sysfs properties
