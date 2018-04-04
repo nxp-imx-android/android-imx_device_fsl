@@ -33,7 +33,8 @@ PRODUCT_PACKAGES += \
     GoogleLoginService_demo \
     GoogleExtServices_demo \
     GoogleExtShared_demo \
-    GooglePartnerSetup_demo
+    GooglePartnerSetup_demo \
+    HeadUnit
 
 # Add Car related HAL
 PRODUCT_PACKAGES += \
