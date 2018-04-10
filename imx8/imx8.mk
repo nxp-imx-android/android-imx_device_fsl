@@ -341,6 +341,9 @@ endif
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.hardware.bootctrl=avb
 
+PRODUCT_PROPERTY_OVERRIDES += \
+    pm.dexopt.boot=quicken
+
 # include a google recommand heap config file.
 include frameworks/native/build/tablet-10in-xhdpi-2048-dalvik-heap.mk
 
