@@ -106,5 +106,9 @@ PRODUCT_COPY_FILES += \
 
 TARGET_BOARD_KERNEL_HEADERS := device/fsl/common/kernel-headers
 
+# Copy prebuilt M4 demo image:
+PRODUCT_COPY_FILES += \
+       vendor/nxp/fsl-proprietary/mcu-sdk/7ulp/imx7ulp_m4_demo.img:imx7ulp_m4_demo.img
+
 #Enable AVB
 BOARD_AVB_ENABLE := true
