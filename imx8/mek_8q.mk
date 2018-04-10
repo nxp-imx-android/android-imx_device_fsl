@@ -35,6 +35,11 @@ PRODUCT_COPY_FILES += \
 	frameworks/av/services/audiopolicy/config/default_volume_tables.xml:$(TARGET_COPY_OUT_VENDOR)/etc/default_volume_tables.xml \
 	frameworks/av/services/audiopolicy/config/audio_policy_volumes.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_volumes.xml \
 
+# VPU files
+PRODUCT_COPY_FILES += \
+	$(LINUX_FIRMWARE_IMX_PATH)/linux-firmware-imx/firmware/vpu/vpu_fw_imx8qxp_dec.bin:vendor/firmware/vpu_fw_imx8qxp_dec.bin \
+	$(LINUX_FIRMWARE_IMX_PATH)/linux-firmware-imx/firmware/vpu/vpu_fw_imx8qxp_enc.bin:vendor/firmware/vpu_fw_imx8qxp_enc.bin
+
 # GPU files
 
 PRODUCT_COPY_FILES += device/fsl/mek_8q/init.freescale.sd.rc:root/init.freescale.sd.rc
