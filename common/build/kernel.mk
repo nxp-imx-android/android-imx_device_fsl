@@ -181,7 +181,10 @@ endif
 
 # Merges all TARGET_KERNEL_DTB files together into a single kernel.dtb.
 KERNEL_DTB := $(addprefix $(KERNEL_OUT)/arch/$(KERNEL_SRC_ARCH)/boot/dts/, $(TARGET_KERNEL_DTB))
-$(PRODUCT_OUT)/kernel.dtb: $(KERNEL_BIN)
+KERNEL_DTB_SRC := $(addprefix $(TARGET_KERNEL_SRC)/arch/$(KERNEL_SRC_ARCH)/boot/dts/, $(patsubst %.dtb,%.dts,$(TARGET_KERNEL_DTB)))
+$(KERNEL_DTB) : $(KERNEL_DTB_SRC)
+	$(call build_kernel,dtbs)
+$(PRODUCT_OUT)/kernel.dtb: $(KERNEL_DTB)
 	$(hide) cat $(KERNEL_DTB) > $@
 
 $(TARGET_OUT_OEM)/kernel.dtb: $(PRODUCT_OUT)/kernel.dtb
