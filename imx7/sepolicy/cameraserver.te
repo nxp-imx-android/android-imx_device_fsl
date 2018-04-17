@@ -6,3 +6,4 @@ allow cameraserver tmpfs:dir { search };
 allow cameraserver rootfs:lnk_file { getattr };
 allow cameraserver debugfs_tracing:file { write open };
 allow cameraserver mediacodec_tmpfs:file { write read open setattr };
+allow cameraserver vendor_file:file { read open getattr execute };

@@ -17,6 +17,8 @@ endif
 PRODUCT_NAME := evk_7ulp
 PRODUCT_DEVICE := evk_7ulp
 
+PRODUCT_FULL_TREBLE_OVERRIDE := true
+
 PRODUCT_COPY_FILES += \
 	device/fsl/evk_7ulp/init.rc:root/init.freescale.rc \
 	device/fsl/common/input/imx-keypad.idc:$(TARGET_COPY_OUT_VENDOR)/usr/idc/imx-keypad.idc \
@@ -83,7 +85,8 @@ PRODUCT_PACKAGES += \
     libGLSLC \
     libVSC \
     libg2d \
-    libgpuhelper
+    libgpuhelper \
+    gatekeeper.imx7
 
 # imx7 Hardware HAL libs.
 PRODUCT_PACKAGES += \
@@ -91,13 +94,14 @@ PRODUCT_PACKAGES += \
 
 # HWC2 HAL
 PRODUCT_PACKAGES += \
-	android.hardware.graphics.composer@2.1-impl
+    android.hardware.graphics.composer@2.1-impl \
+    android.hardware.graphics.composer@2.1-service
 
 # Gralloc HAL
 PRODUCT_PACKAGES += \
-	android.hardware.graphics.mapper@2.0-impl \
-	android.hardware.graphics.allocator@2.0-impl \
-	android.hardware.graphics.allocator@2.0-service
+    android.hardware.graphics.mapper@2.0-impl \
+    android.hardware.graphics.allocator@2.0-impl \
+    android.hardware.graphics.allocator@2.0-service
 
 # RenderScript HAL
 PRODUCT_PACKAGES += \
@@ -152,7 +156,18 @@ PRODUCT_COPY_FILES += \
 
 # Keymaster HAL
 PRODUCT_PACKAGES += \
-    android.hardware.keymaster@3.0-impl
+    android.hardware.keymaster@3.0-impl \
+    android.hardware.keymaster@3.0-service
+
+# DRM HAL
+PRODUCT_PACKAGES += \
+    android.hardware.drm@1.0-impl \
+    android.hardware.drm@1.0-service
+
+# new gatekeeper HAL
+PRODUCT_PACKAGES += \
+    android.hardware.gatekeeper@1.0-impl \
+    android.hardware.gatekeeper@1.0-service
 
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.internel.storage_size=/sys/block/mmcblk0/size
