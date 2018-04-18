@@ -128,13 +128,14 @@ on property:sys.boot_completed=1
     # load Bluetooth related kernel module
     exec u:r:modprobe:s0 -- /vendor/bin/modprobe -a -d /vendor/lib/modules mx8_bt_rfkill.ko cmac.ko bluetooth.ko rfcomm.ko
 
-    # Prepare for bluetooth
-    chmod 665 /sys/class/rfkill/rfkill0/state
-    chown bluetooth bluetooth /sys/class/rfkill/rfkill0/state
-    write /sys/class/rfkill/rfkill0/state 0
-
     # Trigger start adbd service
     setprop sys.usb.configfs 1
+
+on property:bluetooth.rfkill_initialized=1
+    # Prepare for bluetooth
+    chmod 664 /sys/class/rfkill/rfkill0/state
+    chown bluetooth bluetooth /sys/class/rfkill/rfkill0/state
+    write /sys/class/rfkill/rfkill0/state 0
 
 service wpa_supplicant /vendor/bin/hw/wpa_supplicant \
     -iwlan0 -Dnl80211 -c/data/misc/wifi/wpa_supplicant.conf \
