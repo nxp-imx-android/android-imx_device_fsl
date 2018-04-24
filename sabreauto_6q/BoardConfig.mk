@@ -36,9 +36,9 @@ ADDITION_BPT_PARTITION = partition-table-14GB:device/fsl/common/partition/device
 
 endif # BUILD_TARGET_FS
 
-# Vendor Interface Manifest
-PRODUCT_COPY_FILES += \
-    device/fsl/sabreauto_6q/manifest.xml:vendor/manifest.xml
+# Vendor Interface manifest and compatibility
+DEVICE_MANIFEST_FILE := device/fsl/sabreauto_6q/manifest.xml
+DEVICE_MATRIX_FILE := device/fsl/sabreauto_6q/compatibility_matrix.xml
 
 TARGET_BOOTLOADER_BOARD_NAME := SABREAUTO
 

@@ -16,6 +16,7 @@ endif
 PRODUCT_NAME := sabreauto_6sx
 PRODUCT_DEVICE := sabreauto_6sx
 
+PRODUCT_FULL_TREBLE_OVERRIDE := true
 
 PRODUCT_COPY_FILES += \
 	device/fsl/sabreauto_6sx/init.rc:root/init.freescale.rc \
@@ -73,7 +74,8 @@ PRODUCT_COPY_FILES += \
 
 # HWC2 HAL
 PRODUCT_PACKAGES += \
-    android.hardware.graphics.composer@2.1-impl
+    android.hardware.graphics.composer@2.1-impl \
+    android.hardware.graphics.composer@2.1-service
 
 # Gralloc HAL
 PRODUCT_PACKAGES += \
@@ -94,7 +96,8 @@ PRODUCT_PACKAGES += \
     libGLSLC \
     libVSC \
     libg2d \
-    libgpuhelper
+    libgpuhelper \
+    gatekeeper.imx6
 
 PRODUCT_PACKAGES += \
     Launcher3
@@ -120,8 +123,18 @@ PRODUCT_PACKAGES += \
 
 # Keymaster HAL
 PRODUCT_PACKAGES += \
-    android.hardware.keymaster@3.0-impl
+    android.hardware.keymaster@3.0-impl \
+    android.hardware.keymaster@3.0-service
 
+# DRM HAL
+PRODUCT_PACKAGES += \
+    android.hardware.drm@1.0-impl \
+    android.hardware.drm@1.0-service
+
+# new gatekeeper HAL
+PRODUCT_PACKAGES += \
+    android.hardware.gatekeeper@1.0-impl \
+    android.hardware.gatekeeper@1.0-service
 
 ifneq ($(BUILD_TARGET_FS),ubifs)
 PRODUCT_PROPERTY_OVERRIDES += \

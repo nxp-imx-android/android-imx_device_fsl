@@ -15,3 +15,5 @@ allow system_server sensors_device:chr_file { open read };
 allow system_server bluetooth:file { write };
 allow system_server hal_audio_default:file { write };
 allow system_server mediaprovider:file { write };
+allow system_server vendor_file:file { read open getattr execute };
+allow system_server untrusted_app_25:file { write };

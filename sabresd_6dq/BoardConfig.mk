@@ -39,8 +39,9 @@ ifeq ($(PRODUCT_IMX_CAR),true)
 PRODUCT_COPY_FILES += \
     device/fsl/sabresd_6dq/manifest_car.xml:vendor/manifest.xml
 else
-PRODUCT_COPY_FILES += \
-    device/fsl/sabresd_6dq/manifest.xml:vendor/manifest.xml
+# Vendor Interface manifest and compatibility
+DEVICE_MANIFEST_FILE := device/fsl/sabresd_6dq/manifest.xml
+DEVICE_MATRIX_FILE := device/fsl/sabresd_6dq/compatibility_matrix.xml
 endif
 
 TARGET_BOOTLOADER_BOARD_NAME := SABRESD

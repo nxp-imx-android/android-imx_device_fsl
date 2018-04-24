@@ -5,3 +5,4 @@ allow kernel device:blk_file  { create setattr getattr unlink };
 allow kernel device:dir  { add_name write remove_name create rmdir };
 allow kernel device:chr_file  { create setattr getattr unlink };
 allow kernel mediaprovider:fd use;
+allow kernel vendor_file:file { read open };

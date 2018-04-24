@@ -17,6 +17,8 @@ endif
 PRODUCT_NAME := evk_6sl
 PRODUCT_DEVICE := evk_6sl
 
+PRODUCT_FULL_TREBLE_OVERRIDE := true
+
 PRODUCT_COPY_FILES += \
 	device/fsl/evk_6sl/init.rc:root/init.freescale.rc \
 	device/fsl/common/input/imx-keypad.idc:system/usr/idc/imx-keypad.idc \
@@ -67,7 +69,8 @@ PRODUCT_COPY_FILES += device/fsl/evk_6sl/init.freescale.sd.rc:root/init.freescal
 
 # HWC2 HAL
 PRODUCT_PACKAGES += \
-    android.hardware.graphics.composer@2.1-impl
+    android.hardware.graphics.composer@2.1-impl \
+    android.hardware.graphics.composer@2.1-service
 
 # Gralloc HAL
 PRODUCT_PACKAGES += \
@@ -82,7 +85,8 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libGAL \
     libg2d \
-    libgpuhelper
+    libgpuhelper \
+    gatekeeper.imx6
 
 PRODUCT_PACKAGES += \
     android.hardware.audio@2.0-impl \
@@ -110,7 +114,18 @@ PRODUCT_PACKAGES += \
 
 # Keymaster HAL
 PRODUCT_PACKAGES += \
-    android.hardware.keymaster@3.0-impl
+    android.hardware.keymaster@3.0-impl \
+    android.hardware.keymaster@3.0-service
+
+# DRM HAL
+PRODUCT_PACKAGES += \
+    android.hardware.drm@1.0-impl \
+    android.hardware.drm@1.0-service
+
+# new gatekeeper HAL
+PRODUCT_PACKAGES += \
+    android.hardware.gatekeeper@1.0-impl \
+    android.hardware.gatekeeper@1.0-service
 
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.internel.storage_size=/sys/block/mmcblk1/size
