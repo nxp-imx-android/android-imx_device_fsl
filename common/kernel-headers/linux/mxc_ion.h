@@ -22,6 +22,7 @@
 #include <linux/types.h>
 /* WARNING: DO NOT EDIT, AUTO-GENERATED CODE - SEE TOP FOR INSTRUCTIONS */
 #define ION_CMA_HEAP_ID 0
+#define ION_CARVEOUT_HEAP_ID 3
 struct ion_phys_data {
   ion_user_handle_t handle;
   unsigned long phys;
