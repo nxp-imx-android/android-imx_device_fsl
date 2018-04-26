@@ -1,1 +1,0 @@
-allow untrusted_app_25 vendor_file:file { read open getattr execute };
