@@ -75,6 +75,10 @@ PRODUCT_COPY_FILES += \
     $(FSL_PROPRIETARY_PATH)/fsl-proprietary/gpu-viv/lib64/egl/egl.cfg:$(TARGET_COPY_OUT_VENDOR)/lib64/egl/egl.cfg \
     $(FSL_PROPRIETARY_PATH)/fsl-proprietary/gpu-viv/lib/egl/egl.cfg:$(TARGET_COPY_OUT_VENDOR)/lib/egl/egl.cfg
 
+# GPU openCL g2d
+PRODUCT_COPY_FILES += \
+    $(FSL_PROPRIETARY_PATH)/fsl-proprietary/gpu-viv/opencl-bin/8mq/cl_g2d.bin:$(TARGET_COPY_OUT_VENDOR)/etc/cl_g2d.bin
+
 # HWC2 HAL
 PRODUCT_PACKAGES += \
     android.hardware.graphics.composer@2.1-impl \
@@ -103,6 +107,10 @@ PRODUCT_PACKAGES += \
         libSPIRV_viv \
         libvulkan_VIVANTE \
         vulkan.imx8 \
+        libCLC \
+        libLLVM_viv \
+        libOpenCL \
+        libopencl-2d.so \
         gatekeeper.imx8
 
 PRODUCT_PACKAGES += \
