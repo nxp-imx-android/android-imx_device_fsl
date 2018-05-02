@@ -12,7 +12,7 @@
 /vendor/lib/hw/gralloc\.imx7\.so       u:object_r:same_process_hal_file:s0
 /vendor/lib/libfsldisplay\.so          u:object_r:same_process_hal_file:s0
 /vendor/lib/libedid\.so                u:object_r:same_process_hal_file:s0
-/vendor/lib/libdrm\.so                 u:object_r:same_process_hal_file:s0
+/vendor/lib/libdrm_android\.so         u:object_r:same_process_hal_file:s0
 
 /vendor/lib/libGLSLC\.so               u:object_r:same_process_hal_file:s0
 /vendor/lib/libVSC\.so                 u:object_r:same_process_hal_file:s0

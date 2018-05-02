@@ -277,7 +277,7 @@ PRODUCT_PACKAGES += \
 
 # display libs
 PRODUCT_PACKAGES += \
-    libdrm \
+    libdrm_android \
     libfsldisplay
 
 # Vivante libdrm support
