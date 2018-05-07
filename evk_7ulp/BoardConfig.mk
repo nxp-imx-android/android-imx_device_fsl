@@ -55,9 +55,10 @@ BOARD_WPA_SUPPLICANT_PRIVATE_LIB        := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
 BOARD_VENDOR_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/net/wireless/qcacld-2.0/wlan.ko
 
-#for accelerator sensor, need to define sensor type here
+#for sensors, need to define sensor type here
 BOARD_USE_SENSOR_FUSION := true
-#SENSOR_MMA8451 := true
+BOARD_USE_SENSOR_PEDOMETER :=true
+BOARD_USE_LEGACY_SENSOR :=false
 
 # for recovery service
 TARGET_SELECT_KEY := 28

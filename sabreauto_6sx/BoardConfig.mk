@@ -57,6 +57,8 @@ BOARD_HOSTAPD_DRIVER         := NL80211
 #for accelerator sensor, need to define sensor type here
 BOARD_HAS_SENSOR := true
 SENSOR_MMA8451 := true
+BOARD_USE_SENSOR_PEDOMETER := false
+BOARD_USE_LEGACY_SENSOR := true
 
 # for recovery service
 TARGET_SELECT_KEY := 28

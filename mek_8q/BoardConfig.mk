@@ -127,7 +127,10 @@ ifeq ($(QCOM_BT_USE_SIBS), true)
     WCNSS_FILTER_USES_SIBS := true
 endif
 
+# sensor configs
 BOARD_USE_SENSOR_FUSION := true
+BOARD_USE_SENSOR_PEDOMETER := false
+BOARD_USE_LEGACY_SENSOR := true
 
 # for recovery service
 TARGET_SELECT_KEY := 28

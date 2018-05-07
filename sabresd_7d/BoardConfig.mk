@@ -61,6 +61,8 @@ WIFI_DRIVER_FW_PATH_PARAM 	:= "/sys/module/bcmdhd/parameters/firmware_path"
 #for accelerator sensor, need to define sensor type here
 BOARD_USE_SENSOR_FUSION := true
 #SENSOR_MMA8451 := true
+BOARD_USE_SENSOR_PEDOMETER := false
+BOARD_USE_LEGACY_SENSOR := true
 
 # for recovery service
 TARGET_SELECT_KEY := 28

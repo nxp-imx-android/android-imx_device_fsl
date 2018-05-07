@@ -76,6 +76,8 @@ BOARD_VENDOR_KERNEL_MODULES += \
                             $(KERNEL_OUT)/drivers/net/wireless/bcmdhd_1363/bcmdhd.ko
 
 BOARD_USE_SENSOR_FUSION := true
+BOARD_USE_SENSOR_PEDOMETER := false
+BOARD_USE_LEGACY_SENSOR := true
 
 # for recovery service
 TARGET_SELECT_KEY := 28
