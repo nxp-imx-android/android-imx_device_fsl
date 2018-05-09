@@ -44,8 +44,8 @@ PRODUCT_COPY_FILES += \
 
 # VPU files
 PRODUCT_COPY_FILES += \
-	$(LINUX_FIRMWARE_IMX_PATH)/linux-firmware-imx/firmware/vpu/vpu_fw_imx8qxp_dec.bin:vendor/firmware/vpu_fw_imx8qxp_dec.bin \
-	$(LINUX_FIRMWARE_IMX_PATH)/linux-firmware-imx/firmware/vpu/vpu_fw_imx8qxp_enc.bin:vendor/firmware/vpu_fw_imx8qxp_enc.bin
+	$(LINUX_FIRMWARE_IMX_PATH)/linux-firmware-imx/firmware/vpu/vpu_fw_imx8qxp_dec.bin:vendor/firmware/vpu/vpu_fw_imx8qxp_dec.bin \
+	$(LINUX_FIRMWARE_IMX_PATH)/linux-firmware-imx/firmware/vpu/vpu_fw_imx8qxp_enc.bin:vendor/firmware/vpu/vpu_fw_imx8qxp_enc.bin
 
 # GPU files
 
@@ -200,7 +200,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.product.first_api_level=26
 
 PRODUCT_PACKAGES += \
-    libvpu-malone
+    libvpu-malone \
+    lib_omx_v4l2_common_arm11_elinux \
+    lib_omx_v4l2_dec_arm11_elinux \
+    lib_omx_v4l2_enc_arm11_elinux
 
 # Add oem unlocking option in settings.
 PRODUCT_PROPERTY_OVERRIDES += ro.frp.pst=/dev/block/by-name/presistdata
