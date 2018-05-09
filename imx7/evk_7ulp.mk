@@ -159,6 +159,9 @@ PRODUCT_PACKAGES += \
     android.hardware.drm@1.0-impl \
     android.hardware.drm@1.0-service
 
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.frp.pst=/dev/block/by-name/presistdata
+
 # new gatekeeper HAL
 PRODUCT_PACKAGES += \
     android.hardware.gatekeeper@1.0-impl \
