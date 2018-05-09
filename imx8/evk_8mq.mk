@@ -172,3 +172,5 @@ PRODUCT_PACKAGES += \
     libhantro \
     libcodec
 
+# Add oem unlocking option in settings.
+PRODUCT_PROPERTY_OVERRIDES += ro.frp.pst=/dev/block/by-name/presistdata
