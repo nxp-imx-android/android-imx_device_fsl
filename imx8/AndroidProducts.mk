@@ -33,3 +33,4 @@ PRODUCT_MAKEFILES := \
   $(LOCAL_DIR)/evk_8mq_drm.mk \
   $(LOCAL_DIR)/mek_8q.mk \
   $(LOCAL_DIR)/mek_8q_car.mk \
+  $(LOCAL_DIR)/evk_8mm.mk \

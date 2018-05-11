@@ -75,7 +75,7 @@ if [ "${soc_name}" = "imx8qxp" ]; then
    bootloader_offset=32
 fi
 
-if [ "${soc_name}" = "imx8qm" -o "${soc_name}" = "imx8mq" ]; then
+if [ "${soc_name}" = "imx8qm" -o "${soc_name}" = "imx8mq" -o "${soc_name}" = "imx8mm" ]; then
     bootloader_offset=33
 fi
 

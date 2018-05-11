@@ -10,3 +10,5 @@ add_lunch_combo mek_8q-eng
 add_lunch_combo mek_8q-userdebug
 add_lunch_combo mek_8q_car-eng
 add_lunch_combo mek_8q_car-userdebug
+add_lunch_combo evk_8mm-eng
+add_lunch_combo evk_8mm-userdebug
