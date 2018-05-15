@@ -74,9 +74,8 @@ BOARD_WPA_SUPPLICANT_PRIVATE_LIB        := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
 
 
 BOARD_VENDOR_KERNEL_MODULES += \
-                            $(KERNEL_OUT)/drivers/net/wireless/ath/ath.ko \
-                            $(KERNEL_OUT)/drivers/net/wireless/ath/ath10k/ath10k_core.ko \
-                            $(KERNEL_OUT)/drivers/net/wireless/ath/ath10k/ath10k_pci.ko
+                            $(KERNEL_OUT)/drivers/net/wireless/qcacld-2.0/wlan.ko
+
 ifeq ($(PRODUCT_IMX_CAR),true)
 BOARD_VENDOR_KERNEL_MODULES += \
                             $(KERNEL_OUT)/drivers/extcon/extcon-core.ko \
