@@ -148,7 +148,7 @@ USE_ION_ALLOCATOR := true
 USE_GPU_ALLOCATOR := false
 
 # define frame buffer count
-NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
+NUM_FRAMEBUFFER_SURFACE_BUFFERS := 5
 
 ifeq ($(PRODUCT_IMX_CAR),true)
 	KERNEL_NAME := Image.lz4
