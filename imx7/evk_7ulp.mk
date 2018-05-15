@@ -128,11 +128,9 @@ PRODUCT_PACKAGES += \
 
 # Qcom 1PJ Bluetooth Firmware
  PRODUCT_COPY_FILES += \
-    vendor/nxp/qca-wifi-bt/1PJ_QCA9377-3/lib/firmware/qca/tfbtnv11.bin:vendor/firmware/nvm_tlv_3.2.bin \
-    vendor/nxp/qca-wifi-bt/1PJ_QCA9377-3/lib/firmware/qca/tfbtfw11.tlv:vendor/firmware/rampatch_tlv_3.2.tlv
-
-PRODUCT_COPY_FILES += \
-    vendor/nxp/qca-wifi-bt/qca-bt-properity/wcnss_filter_7ulp:vendor/bin/wcnss_filter
+    vendor/nxp/qca-wifi-bt/1PJ_QCA9377-3_LEA_2.0/lib/firmware/qca/tfbtnv11.bin:vendor/firmware/nvm_tlv_3.2.bin \
+    vendor/nxp/qca-wifi-bt/1PJ_QCA9377-3_LEA_2.0/lib/firmware/qca/tfbtfw11.tlv:vendor/firmware/rampatch_tlv_3.2.tlv \
+    vendor/nxp/qca-wifi-bt/qca-properity/wcnss_filter_7ulp:vendor/bin/wcnss_filter
 
 # WiFi HAL
 PRODUCT_PACKAGES += \
@@ -140,14 +138,12 @@ PRODUCT_PACKAGES += \
     wifilogd \
     wificond
 
-
 # Qcom WiFi Firmware
 PRODUCT_COPY_FILES += \
-    vendor/nxp/qca-wifi-bt/1PJ_QCA9377-3/lib/firmware/bdwlan30.bin:vendor/firmware/bdwlan30.bin \
-    vendor/nxp/qca-wifi-bt/1PJ_QCA9377-3/lib/firmware/otp30.bin:vendor/firmware/otp30.bin \
-    vendor/nxp/qca-wifi-bt/1PJ_QCA9377-3/lib/firmware/qwlan30.bin:vendor/firmware/qwlan30.bin \
-    vendor/nxp/qca-wifi-bt/1PJ_QCA9377-3/lib/firmware/wlan/cfg.dat:vendor/firmware/wlan/cfg.dat \
-    vendor/nxp/qca-wifi-bt/1PJ_QCA9377-3/lib/firmware/wlan/qcom_cfg.ini:vendor/firmware/wlan/qcom_cfg.ini \
+    vendor/nxp/qca-wifi-bt/1PJ_QCA9377-3_LEA_2.0/lib/firmware/qca9377/bdwlan30.bin:vendor/firmware/bdwlan30.bin \
+    vendor/nxp/qca-wifi-bt/1PJ_QCA9377-3_LEA_2.0/lib/firmware/qca9377/otp30.bin:vendor/firmware/otp30.bin \
+    vendor/nxp/qca-wifi-bt/1PJ_QCA9377-3_LEA_2.0/lib/firmware/qca9377/qwlan30.bin:vendor/firmware/qwlan30.bin \
+    vendor/nxp/qca-wifi-bt/1PJ_QCA9377-3_LEA_2.0/lib/firmware/wlan/qca9377/qcom_cfg.ini:vendor/firmware/wlan/qcom_cfg.ini
 
 # Keymaster HAL
 PRODUCT_PACKAGES += \
