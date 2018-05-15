@@ -53,9 +53,7 @@ BOARD_HOSTAPD_PRIVATE_LIB               := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
 BOARD_WPA_SUPPLICANT_PRIVATE_LIB        := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
 
 BOARD_VENDOR_KERNEL_MODULES += \
-                            $(KERNEL_OUT)/drivers/net/wireless/ath/ath.ko \
-                            $(KERNEL_OUT)/drivers/net/wireless/ath/ath10k/ath10k_core.ko \
-                            $(KERNEL_OUT)/drivers/net/wireless/ath/ath10k/ath10k_pci.ko
+        $(KERNEL_OUT)/drivers/net/wireless/qcacld-2.0/wlan.ko
 
 BOARD_USE_SENSOR_FUSION := true
 
@@ -89,7 +87,7 @@ CMASIZE=1280M
 endif
 
 KERNEL_NAME := Image
-BOARD_KERNEL_CMDLINE := console=ttymxc0,115200 earlycon=imxuart,0x30860000,115200 init=/init androidboot.gui_resolution=1080p androidboot.console=ttymxc0 consoleblank=0 androidboot.hardware=freescale androidboot.fbTileSupport=enable cma=$(CMASIZE) androidboot.primary_display=imx-drm firmware_class.path=/vendor/firmware
+BOARD_KERNEL_CMDLINE := console=ttymxc0,115200 earlycon=imxuart,0x30860000,115200 init=/init androidboot.gui_resolution=1080p androidboot.console=ttymxc0 consoleblank=0 androidboot.hardware=freescale androidboot.fbTileSupport=enable cma=$(CMASIZE) androidboot.primary_display=imx-drm firmware_class.path=/vendor/firmware pci=nomsi
 
 # Qcom 1CQ(QCA6174) BT
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/fsl/evk_8mq/bluetooth
