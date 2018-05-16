@@ -18,8 +18,8 @@ on boot
 
     setprop sys.usb.configfs 1
 
-    # 38100000.dwc3 is the fixed UDC name for 8mq type c usb
-    setprop sys.usb.controller 38100000.dwc3
+    # ci_hdrc.0 is the UDC name for 8mm type c usb otg1
+    setprop sys.usb.controller ci_hdrc.0
 
 on fs
     mkdir /dev/usb-ffs 0770 shell shell
