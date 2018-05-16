@@ -108,6 +108,9 @@ TARGET_VSYNC_DIRECT_REFRESH := true
 
 TARGET_BOOTLOADER_CONFIG := imx6sx:mx6sxsabresdandroid_config
 TARGET_BOARD_DTS_CONFIG := imx6sx:imx6sx-sdb.dtb
+TARGET_KERNEL_DEFCONF := imx_v7_android_defconfig
+# TARGET_KERNEL_ADDITION_DEFCONF := imx_v7_android_addition_defconfig
+
 
 BOARD_SEPOLICY_DIRS := \
        device/fsl/imx6/sepolicy \

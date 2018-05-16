@@ -104,6 +104,8 @@ endif
 
 TARGET_BOARD_DTS_CONFIG ?= imx8mm:fsl-imx8mm-evk.dtb
 TARGET_BOOTLOADER_CONFIG := imx8mm:mx8mm_evk_android_defconfig
+TARGET_KERNEL_DEFCONF := android_defconfig
+# TARGET_KERNEL_ADDITION_DEFCONF := android_addition_defconfig
 
 BOARD_SEPOLICY_DIRS := \
        device/fsl/imx8/sepolicy \

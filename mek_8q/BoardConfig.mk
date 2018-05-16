@@ -3,12 +3,6 @@
 #
 
 include device/fsl/imx8/soc/imx8q.mk
-ifeq ($(PRODUCT_IMX_CAR),true)
-TARGET_KERNEL_DEFCONF := android_car_defconfig
-include device/fsl/mek_8q/build_id_car.mk
-else
-include device/fsl/mek_8q/build_id.mk
-endif # PRODUCT_IMX_CAR
 include device/fsl/imx8/BoardConfigCommon.mk
 ifeq ($(PREBUILT_FSL_IMX_CODEC),true)
 -include $(FSL_CODEC_PATH)/fsl-codec/fsl-codec.mk
@@ -170,6 +164,15 @@ else
 TARGET_BOARD_DTS_CONFIG := imx8qm:fsl-imx8qm-mek.dtb imx8qm-hdmi:fsl-imx8qm-mek-hdmi.dtb imx8qxp:fsl-imx8qxp-mek.dtb
 TARGET_BOOTLOADER_CONFIG := imx8qm:mx8qm_mek_android_defconfig imx8qxp:mx8qxp_mek_android_defconfig
 endif #PRODUCT_IMX_CAR
+
+ifeq ($(PRODUCT_IMX_CAR),true)
+TARGET_KERNEL_DEFCONF := android_car_defconfig
+include device/fsl/mek_8q/build_id_car.mk
+else
+TARGET_KERNEL_DEFCONF := android_defconfig
+include device/fsl/mek_8q/build_id.mk
+endif # PRODUCT_IMX_CAR
+# TARGET_KERNEL_ADDITION_DEFCONF := android_addition_defconfig
 
 BOARD_SEPOLICY_DIRS := \
        device/fsl/imx8/sepolicy \

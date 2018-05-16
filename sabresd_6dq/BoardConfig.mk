@@ -122,6 +122,8 @@ IMX6_CONSUMER_IR_HAL := false
 
 TARGET_BOOTLOADER_CONFIG := imx6q:mx6qsabresdandroid_config imx6dl:mx6dlsabresdandroid_config imx6q-ldo:mx6qsabresdandroid_config imx6qp:mx6qpsabresdandroid_config imx6qp-ldo:mx6qpsabresdandroid_config
 TARGET_BOARD_DTS_CONFIG := imx6q:imx6q-sabresd.dtb imx6dl:imx6dl-sabresd.dtb imx6q-ldo:imx6q-sabresd-ldo.dtb imx6qp:imx6qp-sabresd.dtb imx6qp-ldo:imx6qp-sabresd-ldo.dtb
+TARGET_KERNEL_DEFCONF := imx_v7_android_defconfig
+# TARGET_KERNEL_ADDITION_DEFCONF := imx_v7_android_addition_defconfig
 
 BOARD_SEPOLICY_DIRS := \
        device/fsl/imx6/sepolicy \
