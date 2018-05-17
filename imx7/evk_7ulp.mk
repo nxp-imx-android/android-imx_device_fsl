@@ -130,7 +130,7 @@ PRODUCT_PACKAGES += \
  PRODUCT_COPY_FILES += \
     vendor/nxp/qca-wifi-bt/1PJ_QCA9377-3_LEA_2.0/lib/firmware/qca/tfbtnv11.bin:vendor/firmware/nvm_tlv_3.2.bin \
     vendor/nxp/qca-wifi-bt/1PJ_QCA9377-3_LEA_2.0/lib/firmware/qca/tfbtfw11.tlv:vendor/firmware/rampatch_tlv_3.2.tlv \
-    vendor/nxp/qca-wifi-bt/qca-properity/wcnss_filter_7ulp:vendor/bin/wcnss_filter
+    vendor/nxp/qca-wifi-bt/qca_proprietary/Android_HAL/wcnss_filter_7ulp:vendor/bin/wcnss_filter
 
 # WiFi HAL
 PRODUCT_PACKAGES += \
