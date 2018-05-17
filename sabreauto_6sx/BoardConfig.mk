@@ -99,7 +99,7 @@ TARGET_BOARD_DTS_CONFIG := imx6sx-nand:imx6sx-sabreauto.dtb
 TARGET_BOOTLOADER_CONFIG := imx6sx-nand:mx6sxsabreautoandroid_nand_config 
 else
 TARGET_BOARD_DTS_CONFIG := imx6sx:imx6sx-sabreauto.dtb
-TARGET_BOOTLOADER_CONFIG := imx6sx:mx6sxsabreautoandroid_config
+TARGET_BOOTLOADER_CONFIG := imx6sx:imx6sxsabreautoandroid_defconfig
 endif
 
 TARGET_KERNEL_DEFCONF := imx_v7_android_defconfig

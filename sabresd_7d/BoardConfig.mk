@@ -84,7 +84,7 @@ TARGET_VSYNC_DIRECT_REFRESH := true
 
 KERNEL_NAME := zImage
 BOARD_KERNEL_CMDLINE := console=ttymxc0,115200 init=/init androidboot.console=ttymxc0 consoleblank=0 androidboot.hardware=freescale 
-TARGET_BOOTLOADER_CONFIG := imx7d:mx7dsabresdandroid_config imx7d-epdc:mx7dsabresdandroid_config
+TARGET_BOOTLOADER_CONFIG := imx7d:imx7dsabresdandroid_defconfig imx7d-epdc:imx7dsabresdandroid_defconfig
 TARGET_BOARD_DTS_CONFIG := imx7d:imx7d-sdb.dtb imx7d-epdc:imx7d-sdb-epdc.dtb
 TARGET_KERNEL_DEFCONF := imx_v7_android_defconfig
 # TARGET_KERNEL_ADDITION_DEFCONF := imx_v7_android_addition_defconfig

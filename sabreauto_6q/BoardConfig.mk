@@ -103,7 +103,7 @@ TARGET_BOARD_DTS_CONFIG := imx6q-nand:imx6q-sabreauto-gpmi-weim.dtb  imx6dl-nand
 TARGET_BOOTLOADER_CONFIG := imx6q-nand:mx6qsabreautoandroid_nand_config imx6dl-nand:mx6dlsabreautoandroid_nand_config  imx6qp-nand:mx6qpsabreautoandroid_nand_config
 else 
 TARGET_BOARD_DTS_CONFIG := imx6q:imx6q-sabreauto.dtb imx6dl:imx6dl-sabreauto.dtb imx6qp:imx6qp-sabreauto.dtb
-TARGET_BOOTLOADER_CONFIG := imx6q:mx6qsabreautoandroid_config imx6dl:mx6dlsabreautoandroid_config imx6qp:mx6qpsabreautoandroid_config
+TARGET_BOOTLOADER_CONFIG := imx6q:imx6qsabreautoandroid_defconfig imx6dl:imx6dlsabreautoandroid_defconfig imx6qp:mx6qpsabreautoandroid_defconfig
 endif
 
 TARGET_KERNEL_DEFCONF := imx_v7_android_defconfig

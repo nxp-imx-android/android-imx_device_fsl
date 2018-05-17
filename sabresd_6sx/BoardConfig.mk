@@ -106,7 +106,7 @@ NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
 IMX_CAMERA_HAL_V1 := true
 TARGET_VSYNC_DIRECT_REFRESH := true
 
-TARGET_BOOTLOADER_CONFIG := imx6sx:mx6sxsabresdandroid_config
+TARGET_BOOTLOADER_CONFIG := imx6sx:imx6sxsabresdandroid_defconfig
 TARGET_BOARD_DTS_CONFIG := imx6sx:imx6sx-sdb.dtb
 TARGET_KERNEL_DEFCONF := imx_v7_android_defconfig
 # TARGET_KERNEL_ADDITION_DEFCONF := imx_v7_android_addition_defconfig
