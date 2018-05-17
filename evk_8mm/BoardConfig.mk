@@ -52,6 +52,9 @@ BOARD_HOSTAPD_DRIVER         := NL80211
 BOARD_HOSTAPD_PRIVATE_LIB               := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
 BOARD_WPA_SUPPLICANT_PRIVATE_LIB        := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
 
+BOARD_VENDOR_KERNEL_MODULES += \
+                            $(KERNEL_OUT)/drivers/net/wireless/qcacld-2.0/wlan.ko
+
 BOARD_USE_SENSOR_FUSION := true
 
 # for recovery service
@@ -105,7 +108,7 @@ endif
 TARGET_BOARD_DTS_CONFIG ?= imx8mm:fsl-imx8mm-evk.dtb
 TARGET_BOOTLOADER_CONFIG := imx8mm:imx8mm_evk_android_defconfig
 TARGET_KERNEL_DEFCONF := android_defconfig
-# TARGET_KERNEL_ADDITION_DEFCONF := android_addition_defconfig
+TARGET_KERNEL_ADDITION_DEFCONF := android_addition_defconfig
 
 BOARD_SEPOLICY_DIRS := \
        device/fsl/imx8/sepolicy \
