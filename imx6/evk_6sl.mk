@@ -17,8 +17,6 @@ endif
 PRODUCT_NAME := evk_6sl
 PRODUCT_DEVICE := evk_6sl
 
-PRODUCT_FULL_TREBLE_OVERRIDE := true
-
 PRODUCT_COPY_FILES += \
 	device/fsl/evk_6sl/init.rc:root/init.freescale.rc \
 	device/fsl/common/input/imx-keypad.idc:$(TARGET_COPY_OUT_VENDOR)/usr/idc/imx-keypad.idc \
