@@ -15,7 +15,7 @@ on init
 
     # setup the global environment
     export SHM_MOUNTPOINT /mnt/shm
-    export VPU_FW_PATH /system/lib/firmware/vpu
+    export VPU_FW_PATH /vendor/lib/firmware/vpu
     export CODEC_SHM_PATH /mnt/shm
     export CORE_REGISTER_FILE /vendor/etc/core_register
     export COMPONENT_REGISTER_FILE /vendor/etc/component_register
