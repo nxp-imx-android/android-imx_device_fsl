@@ -19,8 +19,6 @@ PRODUCT_PACKAGES += \
 	Camera					\
         LegacyCamera                            \
 	Email					\
-	FSLOta					\
-	CactusPlayer                            \
 	libpxp                               \
 	fsl.imx.jar                             \
 	libfsl_hdcp_blob.so                     \
@@ -181,9 +179,7 @@ omx_libs := \
 	lib_omx_pcm_dec_v2_arm11_elinux			\
 	lib_omx_mp3_dec_v2_arm11_elinux			\
 	lib_omx_aac_dec_v2_arm11_elinux			\
-	lib_omx_amr_dec_v2_arm11_elinux			\
 	lib_omx_vorbis_dec_v2_arm11_elinux		\
-	lib_omx_flac_dec_v2_arm11_elinux		\
 	lib_omx_audio_processor_v2_arm11_elinux		\
 	lib_omx_sorenson_dec_v2_arm11_elinux		\
 	lib_omx_android_audio_render_arm11_elinux	\
@@ -202,7 +198,6 @@ omx_libs := \
 	lib_flac_parser_arm11_elinux			\
 	lib_mp3_dec_v2_arm12_elinux			\
 	lib_aac_dec_v2_arm12_elinux			\
-	lib_flac_dec_v2_arm11_elinux			\
 	lib_nb_amr_dec_v2_arm9_elinux			\
 	lib_oggvorbis_dec_v2_arm11_elinux		\
 	lib_peq_v2_arm11_elinux				\
@@ -211,7 +206,6 @@ omx_libs := \
 	libxec						\
 	lib_omx_vpu_v2_arm11_elinux			\
 	lib_omx_vpu_dec_v2_arm11_elinux			\
-	lib_vpu_wrapper					\
 	lib_ogg_parser_arm11_elinux.3.0		\
 	libfslxec					\
 	lib_omx_overlay_render_arm11_elinux             \
