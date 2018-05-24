@@ -18,7 +18,6 @@ PRODUCT_PACKAGES += \
 	Email					\
 	FSLOta					\
 	CactusPlayer                            \
-	ethernet                                \
 	libpxp                            \
 	VideoEditor				\
 	FSLProfileApp				\

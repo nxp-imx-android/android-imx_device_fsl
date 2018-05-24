@@ -35,7 +35,6 @@ PRODUCT_PACKAGES += \
 	LegacyCamera                            \
 	Email					\
 	CactusPlayer                            \
-	ethernet                                \
 	LiveWallpapersPicker			\
 	MagicSmokeWallpapers			\
 	CubeLiveWallpapers

@@ -156,11 +156,7 @@ USE_GPU_ALLOCATOR := false
 # define frame buffer count
 NUM_FRAMEBUFFER_SURFACE_BUFFERS := 5
 
-ifeq ($(PRODUCT_IMX_CAR),true)
-	KERNEL_NAME := Image.lz4
-else
-	KERNEL_NAME := Image
-endif
+KERNEL_NAME := Image
 
 ifeq ($(PRODUCT_IMX_CAR),true)
 BOARD_KERNEL_CMDLINE := console=ttyLP0,115200 earlycon=lpuart32,0x5a060000,115200,115200 init=/init androidboot.console=ttyLP0 consoleblank=0 androidboot.hardware=freescale androidboot.xen_boot=default androidboot.fbTileSupport=enable cma=928M@0x960M-0xe00M androidboot.primary_display=imx-drm firmware_class.path=/vendor/firmware
@@ -177,9 +173,11 @@ endif
 ifeq ($(PRODUCT_IMX_CAR),true)
 TARGET_BOARD_DTS_CONFIG := imx8qm:fsl-imx8qm-mek-car.dtb imx8qxp:fsl-imx8qxp-mek-car.dtb
 TARGET_BOOTLOADER_CONFIG := imx8qm:imx8qm_mek_androidauto_defconfig imx8qxp:imx8qxp_mek_androidauto_defconfig
+TARGET_KERNEL_DTB := freescale/fsl-imx8qm-mek-car.dtb
 else
 TARGET_BOARD_DTS_CONFIG := imx8qm:fsl-imx8qm-mek.dtb imx8qm-hdmi:fsl-imx8qm-mek-hdmi.dtb imx8qxp:fsl-imx8qxp-mek-ov5640.dtb imx8qxp-ov5640mipi:fsl-imx8qxp-mek-mipi-ov5640.dtb
 TARGET_BOOTLOADER_CONFIG := imx8qm:imx8qm_mek_android_defconfig imx8qxp:imx8qxp_mek_android_defconfig
+TARGET_KERNEL_DTB := freescale/fsl-imx8qm-mek.dtb
 endif #PRODUCT_IMX_CAR
 
 ifeq ($(PRODUCT_IMX_CAR),true)

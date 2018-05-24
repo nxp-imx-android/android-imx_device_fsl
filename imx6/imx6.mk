@@ -21,7 +21,6 @@ PRODUCT_PACKAGES += \
 	Email					\
 	FSLOta					\
 	CactusPlayer                            \
-	ethernet                                \
 	libpxp                               \
 	fsl.imx.jar                             \
 	libfsl_hdcp_blob.so                     \
