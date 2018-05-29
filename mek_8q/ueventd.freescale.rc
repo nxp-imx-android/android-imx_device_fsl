@@ -1,5 +1,7 @@
 /dev/block/platform/5b020000\.usdhc/by-name/presistdata 0600   system     system
 /dev/block/platform/5b010000\.usdhc/by-name/presistdata 0600   system     system
+/dev/block/platform/passthrough/15b020000\.usdhc/by-name/presistdata 0600   system     system
+/dev/block/platform/passthrough/15b010000\.usdhc/by-name/presistdata 0600   system     system
 /dev/pmem_gpu             0660   system     graphics
 /dev/ttymxc2              0660   bluetooth  bluetooth
 /dev/ttymxc4              0660   bluetooth  bluetooth

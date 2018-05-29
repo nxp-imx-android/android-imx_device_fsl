@@ -49,8 +49,15 @@ PRODUCT_COPY_FILES += \
 
 # GPU files
 
+ifeq ($(PRODUCT_IMX_CAR),true)
+PRODUCT_COPY_FILES += device/fsl/mek_8q/init.freescale.sd.xen.rc:root/init.freescale.sd.xen.rc
+PRODUCT_COPY_FILES += device/fsl/mek_8q/init.freescale.emmc.xen.rc:root/init.freescale.emmc.xen.rc
+PRODUCT_COPY_FILES += device/fsl/mek_8q/init.freescale.sd.rc:root/init.freescale.sd.default.rc
+PRODUCT_COPY_FILES += device/fsl/mek_8q/init.freescale.emmc.rc:root/init.freescale.emmc.default.rc
+else
 PRODUCT_COPY_FILES += device/fsl/mek_8q/init.freescale.sd.rc:root/init.freescale.sd.rc
 PRODUCT_COPY_FILES += device/fsl/mek_8q/init.freescale.emmc.rc:root/init.freescale.emmc.rc
+endif
 
 DEVICE_PACKAGE_OVERLAYS := device/fsl/mek_8q/overlay
 
