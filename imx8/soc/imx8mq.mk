@@ -20,3 +20,6 @@ TARGET_CPU_SMP := true
 TARGET_HAVE_VULKAN := true
 ENABLE_CFI=false
 
+# enable opencl 2d.
+TARGET_OPENCL_2D := true
+
