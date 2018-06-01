@@ -33,7 +33,7 @@ on init
     mkdir /mnt/shm  0775 media drmrpc
     mount tmpfs tmpfs /mnt/shm mode=0775,uid=1013,gid=1031,size=1m
 
-on boot
+on early-boot
 
 	# emmulate battery property
 	setprop sys.emulated.battery 1

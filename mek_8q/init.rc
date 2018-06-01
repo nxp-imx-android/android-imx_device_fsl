@@ -32,7 +32,7 @@ on init
     # shared memory used by VPU to distinguish VPU instance.
     mkdir /dev/shm  0774 mediacodec drmrpc
 
-on boot
+on early-boot
 
     # emmulate battery property
     setprop sys.emulated.battery 1

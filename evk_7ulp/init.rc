@@ -26,7 +26,7 @@ on init
 
     mkdir /device 0771 system system
 
-on boot
+on early-boot
 
     # emmulate battery property
     setprop sys.emulated.battery 1
