@@ -8,7 +8,7 @@
         {
             "ab": true,
             "label": "boot",
-            "size": "32 MiB",
+            "size": "48 MiB",
             "guid": "auto",
             "type_guid": "bb499290-b57e-49f6-bf41-190386693794"
         },
