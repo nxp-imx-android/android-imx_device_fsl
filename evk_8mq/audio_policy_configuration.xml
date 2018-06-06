@@ -39,7 +39,7 @@
                 </mixPort>
                 <mixPort name="dsd output" role="source" flags="AUDIO_OUTPUT_FLAG_DIRECT|AUDIO_OUTPUT_FLAG_COMPRESS_OFFLOAD">
                     <profile name="" format="AUDIO_FORMAT_DSD"
-                             samplingRates="2822400" channelMasks="AUDIO_CHANNEL_OUT_STEREO"/>
+                             samplingRates="2822400,5644800,11289600,22579200" channelMasks="AUDIO_CHANNEL_OUT_STEREO"/>
                 </mixPort>
                 <mixPort name="primary input" role="sink">
                     <profile name="" format="AUDIO_FORMAT_PCM_16_BIT"
