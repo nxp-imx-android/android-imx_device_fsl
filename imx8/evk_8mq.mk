@@ -110,7 +110,7 @@ PRODUCT_PACKAGES += \
         libCLC \
         libLLVM_viv \
         libOpenCL \
-        libopencl-2d.so \
+        libopencl-2d \
         gatekeeper.imx8
 
 PRODUCT_PACKAGES += \
