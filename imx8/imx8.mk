@@ -160,6 +160,7 @@ omx_libs := \
 	lib_mp3_parser_v2_arm11_elinux			\
 	lib_aac_parser_arm11_elinux			\
 	lib_flac_parser_arm11_elinux			\
+	lib_dsf_parser_arm11_elinux.3.0			\
 	lib_mp3_dec_v2_arm12_elinux			\
 	lib_aac_dec_v2_arm12_elinux			\
 	lib_flac_dec_v2_arm11_elinux			\
