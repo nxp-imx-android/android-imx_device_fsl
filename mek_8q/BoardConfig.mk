@@ -150,9 +150,9 @@ else
 endif
 
 ifeq ($(PRODUCT_IMX_CAR),true)
-BOARD_KERNEL_CMDLINE := console=ttyLP0,115200 earlycon=lpuart32,0x5a060000,115200,115200 init=/init androidboot.console=ttyLP0 consoleblank=0 androidboot.hardware=freescale androidboot.xen_boot=default androidboot.fbTileSupport=enable cma=800M@0x960M-0xe00M androidboot.primary_display=imx-drm firmware_class.path=/vendor/firmware
+BOARD_KERNEL_CMDLINE := console=ttyLP0,115200 earlycon=lpuart32,0x5a060000,115200,115200 init=/init androidboot.console=ttyLP0 consoleblank=0 androidboot.hardware=freescale androidboot.xen_boot=default androidboot.fbTileSupport=enable cma=736M@0x960M-0xc40M androidboot.primary_display=imx-drm firmware_class.path=/vendor/firmware
 else
-BOARD_KERNEL_CMDLINE := console=ttyLP0,115200 earlycon=lpuart32,0x5a060000,115200,115200 init=/init androidboot.console=ttyLP0 consoleblank=0 androidboot.hardware=freescale androidboot.fbTileSupport=enable cma=800M@0x960M-0xe00M androidboot.primary_display=imx-drm firmware_class.path=/vendor/firmware
+BOARD_KERNEL_CMDLINE := console=ttyLP0,115200 earlycon=lpuart32,0x5a060000,115200,115200 init=/init androidboot.console=ttyLP0 consoleblank=0 androidboot.hardware=freescale androidboot.fbTileSupport=enable cma=736M@0x960M-0xc40M androidboot.primary_display=imx-drm firmware_class.path=/vendor/firmware
 endif
 
 ifeq ($(TARGET_USERIMAGES_USE_UBIFS),true)
