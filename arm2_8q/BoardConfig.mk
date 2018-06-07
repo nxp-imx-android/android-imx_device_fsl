@@ -98,7 +98,7 @@ USE_GPU_ALLOCATOR := false
 NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
 
 KERNEL_NAME := Image
-BOARD_KERNEL_CMDLINE := console=ttyLP0,115200 earlycon=lpuart32,0x5a060000,115200,115200 init=/init androidboot.console=ttyLP0 consoleblank=0 androidboot.hardware=freescale cma=928M@0x960M-0xe00M androidboot.primary_display=imx-drm
+BOARD_KERNEL_CMDLINE := console=ttyLP0,115200 earlycon=lpuart32,0x5a060000,115200,115200 init=/init androidboot.console=ttyLP0 consoleblank=0 androidboot.hardware=freescale cma=800M@0x960M-0xe00M androidboot.primary_display=imx-drm
 
 BOARD_HAVE_BLUETOOTH_BCM := true
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/fsl/arm2_8q/bluetooth
