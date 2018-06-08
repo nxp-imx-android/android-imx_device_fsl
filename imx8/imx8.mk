@@ -296,7 +296,6 @@ PRODUCT_COPY_FILES +=	\
 	device/fsl/common/input/eGalax_Touch_Screen.idc:$(TARGET_COPY_OUT_VENDOR)/usr/idc/Novatek_NT11003_Touch_Screen.idc \
 	system/core/rootdir/init.rc:root/init.rc \
 	device/fsl/imx8/etc/ota.conf:$(TARGET_COPY_OUT_VENDOR)/etc/ota.conf \
-        device/fsl/imx8/init.recovery.freescale.rc:root/init.recovery.freescale.rc \
         $(FSL_PROPRIETARY_PATH)/fsl-proprietary/media-profile/media_codecs_google_audio.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_audio.xml \
         $(FSL_PROPRIETARY_PATH)/fsl-proprietary/media-profile/media_codecs_google_video.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_video.xml \
         $(FSL_PROPRIETARY_PATH)/fsl-proprietary/media-profile/media_codecs_google_telephony.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_telephony.xml \
@@ -304,6 +303,13 @@ PRODUCT_COPY_FILES +=	\
 
 # we have enough storage space to hold precise GC data
 PRODUCT_TAGS += dalvik.gc.type-precise
+
+ifneq ($(PRODUCT_IMX_CAR),true)
+PRODUCT_COPY_FILES += device/fsl/imx8/init.recovery.freescale.rc:root/init.recovery.freescale.rc
+else
+PRODUCT_COPY_FILES += device/fsl/imx8/init.recovery.freescale.car.rc:root/init.recovery.freescale.rc
+endif
+
 
 # for property
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
