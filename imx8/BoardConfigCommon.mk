@@ -61,6 +61,9 @@ endif
 # Indicate use vivante drm based egl and gralloc
 BOARD_GPU_DRIVERS := vivante
 
+# Indicate use NXP libdrm-imx or Android external/libdrm
+BOARD_GPU_LIBDRM := libdrm_imx
+
 # for kernel/user space split
 # comment out for 1g/3g space split
 # TARGET_KERNEL_2G := true
