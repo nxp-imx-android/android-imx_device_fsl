@@ -1,2 +1,4 @@
 rw.HTTP_PROXY        u:object_r:http_proxy_prop:s0
 wc_transport.        u:object_r:wc_prop:s0
+rpmsg.can.event      u:object_r:evs_prop:s0
+rpmsg.can.register   u:object_r:evs_prop:s0

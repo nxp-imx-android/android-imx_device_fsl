@@ -41,3 +41,5 @@
 /vendor/lib(64)?/libCLC\.so                 u:object_r:same_process_hal_file:s0
 /vendor/lib(64)?/libLLVM_viv\.so            u:object_r:same_process_hal_file:s0
 /vendor/lib(64)?/libOpenCL\.so              u:object_r:same_process_hal_file:s0
+
+/vendor/bin/evs_can_service                 u:object_r:evs_can_service_exec:s0

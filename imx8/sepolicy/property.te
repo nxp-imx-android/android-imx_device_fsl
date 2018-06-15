@@ -1,2 +1,3 @@
 type http_proxy_prop, property_type;
 type wc_prop, property_type;
+type evs_prop, property_type;
