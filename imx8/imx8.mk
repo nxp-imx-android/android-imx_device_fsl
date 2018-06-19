@@ -44,7 +44,8 @@ endif
 
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.vendor.vndk.version=26.1.0 \
-    audio.offload.min.duration.secs=10
+    audio.offload.min.duration.secs=10\
+    ro.af.client_heap_size_kbyte=32768
 
 # Wifi AP mode
 PRODUCT_PACKAGES += \
