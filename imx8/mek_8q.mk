@@ -111,7 +111,7 @@ PRODUCT_COPY_FILES += \
 
 # GPU openCL g2d
 PRODUCT_COPY_FILES += \
-    $(FSL_PROPRIETARY_PATH)/fsl-proprietary/gpu-viv/opencl-bin/cl_g2d.bin:$(TARGET_COPY_OUT_VENDOR)/etc/cl_g2d.bin
+    $(FSL_PROPRIETARY_PATH)/fsl-proprietary/gpu-viv/opencl-bin/mek_8q/cl_g2d.bin:$(TARGET_COPY_OUT_VENDOR)/etc/cl_g2d.bin
 
 # HWC2 HAL
 PRODUCT_PACKAGES += \
