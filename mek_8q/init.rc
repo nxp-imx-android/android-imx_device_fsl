@@ -27,8 +27,6 @@ on init
     # deattch the fbcon as hdmi hotplug conflict with fbcon
     write /sys/class/vtconsole/vtcon1/bind 0
 
-    mkdir /device 0771 system system
-
     # shared memory used by VPU to distinguish VPU instance.
     mkdir /dev/shm  0774 mediacodec drmrpc
 
