@@ -181,10 +181,10 @@ TARGET_KERNEL_DTB := freescale/fsl-imx8qm-mek.dtb
 endif #PRODUCT_IMX_CAR
 
 ifeq ($(PRODUCT_IMX_CAR),true)
-TARGET_KERNEL_DEFCONF := android_car_defconfig
+TARGET_KERNEL_DEFCONFIG := android_car_defconfig
 include device/fsl/mek_8q/build_id_car.mk
 else
-TARGET_KERNEL_DEFCONF := android_defconfig
+TARGET_KERNEL_DEFCONFIG := android_defconfig
 include device/fsl/mek_8q/build_id.mk
 endif # PRODUCT_IMX_CAR
 # TARGET_KERNEL_ADDITION_DEFCONF := android_addition_defconfig

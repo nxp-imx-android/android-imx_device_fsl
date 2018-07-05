@@ -107,7 +107,7 @@ TARGET_BOOTLOADER_CONFIG := imx6q:imx6qsabreautoandroid_defconfig imx6dl:imx6dls
 endif
 TARGET_KERNEL_DTB := imx6q-sabreauto.dtb
 
-TARGET_KERNEL_DEFCONF := imx_v7_android_defconfig
+TARGET_KERNEL_DEFCONFIG := imx_v7_android_defconfig
 # TARGET_KERNEL_ADDITION_DEFCONF := imx_v7_android_addition_defconfig
 
 BOARD_SEPOLICY_DIRS := \

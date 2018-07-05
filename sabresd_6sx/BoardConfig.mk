@@ -108,7 +108,7 @@ TARGET_VSYNC_DIRECT_REFRESH := true
 
 TARGET_BOOTLOADER_CONFIG := imx6sx:imx6sxsabresdandroid_defconfig
 TARGET_BOARD_DTS_CONFIG := imx6sx:imx6sx-sdb.dtb
-TARGET_KERNEL_DEFCONF := imx_v7_android_defconfig
+TARGET_KERNEL_DEFCONFIG := imx_v7_android_defconfig
 # TARGET_KERNEL_ADDITION_DEFCONF := imx_v7_android_addition_defconfig
 
 TARGET_KERNEL_DTB := imx6sx-sdb.dtb

@@ -13,7 +13,7 @@ PRODUCT_COPY_FILES += \
 $(call inherit-product, $(TOPDIR)device/fsl/imx8/optee-packages.mk)
 $(call inherit-product, $(TOPDIR)device/fsl/imx8/evk_8mq.mk)
 
-TARGET_KERNEL_DEFCONF := android_drm_defconfig
+TARGET_KERNEL_DEFCONFIG := android_drm_defconfig
 
 
 # Overrides
