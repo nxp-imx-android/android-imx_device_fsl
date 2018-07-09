@@ -173,11 +173,9 @@ endif
 ifeq ($(PRODUCT_IMX_CAR),true)
 TARGET_BOARD_DTS_CONFIG := imx8qm:fsl-imx8qm-mek-car.dtb imx8qxp:fsl-imx8qxp-mek-car.dtb
 TARGET_BOOTLOADER_CONFIG := imx8qm:imx8qm_mek_androidauto_defconfig imx8qxp:imx8qxp_mek_androidauto_defconfig
-TARGET_KERNEL_DTB := freescale/fsl-imx8qm-mek-car.dtb
 else
 TARGET_BOARD_DTS_CONFIG := imx8qm:fsl-imx8qm-mek.dtb imx8qm-hdmi:fsl-imx8qm-mek-hdmi.dtb imx8qxp:fsl-imx8qxp-mek-ov5640.dtb imx8qxp-ov5640mipi:fsl-imx8qxp-mek-mipi-ov5640.dtb
 TARGET_BOOTLOADER_CONFIG := imx8qm:imx8qm_mek_android_defconfig imx8qxp:imx8qxp_mek_android_defconfig
-TARGET_KERNEL_DTB := freescale/fsl-imx8qm-mek.dtb
 endif #PRODUCT_IMX_CAR
 
 ifeq ($(PRODUCT_IMX_CAR),true)
@@ -188,7 +186,6 @@ TARGET_KERNEL_DEFCONFIG := android_defconfig
 include device/fsl/mek_8q/build_id.mk
 endif # PRODUCT_IMX_CAR
 # TARGET_KERNEL_ADDITION_DEFCONF := android_addition_defconfig
-TARGET_KERNEL_DTB := freescale/fsl-imx8qm-mek.dtb
 
 BOARD_SEPOLICY_DIRS := \
        device/fsl/imx8/sepolicy \

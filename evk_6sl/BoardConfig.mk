@@ -80,7 +80,6 @@ TARGET_BOOTLOADER_CONFIG := imx6sl:imx6slevkandroid_defconfig
 TARGET_BOARD_DTS_CONFIG := imx6sl:imx6sl-evk-csi.dtb
 TARGET_KERNEL_DEFCONFIG := imx_v7_android_defconfig
 # TARGET_KERNEL_ADDITION_DEFCONF := imx_v7_android_addition_defconfig
-TARGET_KERNEL_DTB := imx6sl-evk-csi.dtb
 
 BOARD_SEPOLICY_DIRS := \
        device/fsl/imx6/sepolicy \
