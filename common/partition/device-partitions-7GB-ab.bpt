@@ -7,6 +7,13 @@
     "partitions": [
         {
             "ab": true,
+            "label": "oem_bootloader",
+            "size": "4 MiB",
+            "guid": "auto",
+            "type_guid": "b3c54657-8b47-48bc-9792-37b7c091ae69"
+        },
+        {
+            "ab": true,
             "label": "boot",
             "size": "48 MiB",
             "guid": "auto",
