@@ -24,9 +24,6 @@
 # The following maybe set:
 # TARGET_KERNEL_CROSS_COMPILE_PREFIX to override toolchain.
 # TARGET_KERNEL_CONFIGS to specify a set of additional kernel config files.
-# TARGET_KERNEL_DTB to define a DTB to build.
-# TARGET_KERNEL_DTB_APPEND to append the built DTB to the kernel.
-
 
 # Brillo does not support prebuilt kernels.
 ifneq ($(TARGET_PREBUILT_KERNEL),)
@@ -57,13 +54,7 @@ ifeq ($(TARGET_KERNEL_ARCH), arm)
 KERNEL_CROSS_COMPILE := $(KERNEL_TOOLCHAIN_ABS)/arm-linux-androidkernel-
 KERNEL_SRC_ARCH := arm
 KERNEL_CFLAGS :=
-ifdef TARGET_KERNEL_DTB
 KERNEL_NAME := zImage
-else
-# If TARGET_KERNEL_DTB is not defined, the source tree already has logic
-# built into it to produce a merged kernel/DTB image.
-KERNEL_NAME := zImage-dtb
-endif
 else ifeq ($(TARGET_KERNEL_ARCH), arm64)
 # Override the toolchain for arm64 and make it explict. This allows
 # for a 64bit kernel and 32bit userspace. Currently this is arm64 only.
@@ -148,8 +139,6 @@ endef
 
 $(KERNEL_BIN): $(KERNEL_CONFIG) | $(KERNEL_OUT)
 	$(hide) echo "Building $(KERNEL_ARCH) $(KERNEL_VERSION) kernel ..."
-	$(hide) rm -rf $(KERNEL_OUT)/arch/$(KERNEL_ARCH)/boot/dts
-	$(hide) rm -rf $(PRODUCT_OUT)/kernel.dtb $(PRODUCT_OUT)/kernel-and-dtb
 	$(hide) PATH=$$PATH $(MAKE) -C $(TARGET_KERNEL_SRC) mrproper
 	$(call build_kernel,all)
 
@@ -179,45 +168,12 @@ ifeq ($(BREAKPAD_GENERATE_SYMBOLS),true)
 	done
 endif
 
-# Merges all TARGET_KERNEL_DTB files together into a single kernel.dtb.
-KERNEL_DTB := $(addprefix $(KERNEL_OUT)/arch/$(KERNEL_SRC_ARCH)/boot/dts/, $(TARGET_KERNEL_DTB))
-KERNEL_DTB_SRC := $(addprefix $(TARGET_KERNEL_SRC)/arch/$(KERNEL_SRC_ARCH)/boot/dts/, $(patsubst %.dtb,%.dts,$(TARGET_KERNEL_DTB)))
-$(KERNEL_DTB) : $(KERNEL_DTB_SRC)
-	$(call build_kernel,dtbs)
-$(PRODUCT_OUT)/kernel.dtb: $(KERNEL_DTB)
-	$(hide) cat $(KERNEL_DTB) > $@
-
-$(TARGET_OUT_OEM)/kernel.dtb: $(PRODUCT_OUT)/kernel.dtb
-ifndef TARGET_KERNEL_DTB_APPEND
-	$(hide) rm -rf $(TARGET_OUT_OEM)/kernel.dtb
-	$(hide) cat $(KERNEL_DTB) > $@
-endif
-
-# Produces a merged kernel and kernel.dtb file.
-$(PRODUCT_OUT)/kernel-and-dtb: $(KERNEL_BIN) $(PRODUCT_OUT)/kernel.dtb
-	$(hide) cat $^ > $@
-
 # The list of dependencies for the final kernel.
 KERNEL_DEPS := $(KERNEL_BIN).vdso $(KERNEL_HEADERS_INSTALL) $(KERNEL_MODULES_INSTALL)
-ifdef TARGET_KERNEL_DTB
-# If we need the DTB, include it in the build list.
-KERNEL_DEPS += $(PRODUCT_OUT)/kernel.dtb
-endif
-
-# The final kernel image is either the raw kernel binary or merged kernel+dtb.
-ifdef TARGET_KERNEL_DTB_APPEND
-KERNEL_IMAGE := $(PRODUCT_OUT)/kernel-and-dtb
-else
 KERNEL_IMAGE := $(KERNEL_BIN)
-endif
 
 # Makes sure any built modules will be included in the system image build.
 ALL_DEFAULT_INSTALLED_MODULES += $(KERNEL_MODULES_INSTALL)
-
-ifndef TARGET_KERNEL_DTB_APPEND
-ALL_DEFAULT_INSTALLED_MODULES += \
-	$(TARGET_OUT_OEM)/kernel.dtb
-endif
 
 # Produces the actual kernel image!
 $(PRODUCT_OUT)/kernel: $(KERNEL_IMAGE) $(KERNEL_DEPS) | $(ACP)
