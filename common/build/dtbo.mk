@@ -50,8 +50,7 @@ define build_dtb
 	dtbs
 endef
 
-.PHONY: dtboimage
-dtboimage: $(KERNEL_CONFIG) $(DTS_SRC) | $(MKDTIMG)
+$(BOARD_PREBUILT_DTBOIMAGE): $(KERNEL_CONFIG) $(DTS_SRC) | $(MKDTIMG) $(AVBTOOL)
 	$(hide) echo "Building $(KERNEL_ARCH) dtbo ..."
 	$(hide) rm -rf $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/arch/$(KERNEL_ARCH)/boot/dts
 	$(hide) PATH=$$PATH $(MAKE) -C $(TARGET_KERNEL_SRC) mrproper
@@ -62,5 +61,29 @@ dtboimage: $(KERNEL_CONFIG) $(DTS_SRC) | $(MKDTIMG)
 		DTB=`echo $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/arch/$(TARGET_KERNEL_ARCH)/boot/dts/$(DTS_ADDITIONAL_PATH)/$${DTB_NAME}`; \
 		DTBO_IMG=`echo $(PRODUCT_OUT)/dtbo-$${DTS_PLATFORM}.img`; \
 		$(MKDTIMG) create $$DTBO_IMG $$DTB; \
+		$(AVBTOOL) add_hash_footer --image $$DTBO_IMG  \
+			--partition_name dtbo \
+			--partition_size $(BOARD_DTBOIMG_PARTITION_SIZE); \
 	done
-droid: dtboimage
+
+.PHONY: dtboimage
+dtboimage: $(BOARD_PREBUILT_DTBOIMAGE)
+
+IMX_INSTALLED_VBMETAIMAGE_TARGET := $(PRODUCT_OUT)/vbmeta-$(shell echo $(word 1,$(TARGET_BOARD_DTS_CONFIG)) | cut -d':' -f1).img
+$(IMX_INSTALLED_VBMETAIMAGE_TARGET): $(PRODUCT_OUT)/vbmeta.img $(BOARD_PREBUILT_DTBOIMAGE) | $(AVBTOOL)
+	for dtsplat in $(TARGET_BOARD_DTS_CONFIG); do \
+		DTS_PLATFORM=`echo $$dtsplat | cut -d':' -f1`; \
+		DTBO_IMG=`echo $(PRODUCT_OUT)/dtbo-$${DTS_PLATFORM}.img`; \
+		VBMETA_IMG=`echo $(PRODUCT_OUT)/vbmeta-$${DTS_PLATFORM}.img`; \
+		$(AVBTOOL) make_vbmeta_image \
+			$(INTERNAL_AVB_SIGNING_ARGS) \
+			$(BOARD_AVB_MAKE_VBMETA_IMAGE_ARGS) \
+			--include_descriptors_from_image $(PRODUCT_OUT)/vbmeta.img \
+			--include_descriptors_from_image $$DTBO_IMG \
+			--output $$VBMETA_IMG; \
+	done
+
+.PHONY: imx_vbmetaimage
+imx_vbmetaimage: $(IMX_INSTALLED_VBMETAIMAGE_TARGET)
+
+droid: imx_vbmetaimage

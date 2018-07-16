@@ -106,6 +106,7 @@ NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
 IMX_CAMERA_HAL_V1 := true
 TARGET_VSYNC_DIRECT_REFRESH := true
 
+BOARD_PREBUILT_DTBOIMAGE := out/target/product/sabresd_6sx/dtbo-imx6sx.img
 TARGET_BOOTLOADER_CONFIG := imx6sx:imx6sxsabresdandroid_defconfig
 TARGET_BOARD_DTS_CONFIG := imx6sx:imx6sx-sdb.dtb
 TARGET_KERNEL_DEFCONFIG := imx_v7_android_defconfig

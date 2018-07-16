@@ -120,6 +120,7 @@ IMX_CAMERA_HAL_V3 := true
 #define consumer IR HAL support
 IMX6_CONSUMER_IR_HAL := false
 
+BOARD_PREBUILT_DTBOIMAGE := out/target/product/sabresd_6dq/dtbo-imx6q.img
 TARGET_BOOTLOADER_CONFIG := imx6q:imx6qsabresdandroid_defconfig imx6dl:imx6dlsabresdandroid_defconfig imx6q-ldo:imx6qsabresdandroid_defconfig imx6qp:imx6qpsabresdandroid_defconfig imx6qp-ldo:imx6qpsabresdandroid_defconfig
 TARGET_BOARD_DTS_CONFIG := imx6q:imx6q-sabresd.dtb imx6dl:imx6dl-sabresd.dtb imx6q-ldo:imx6q-sabresd-ldo.dtb imx6qp:imx6qp-sabresd.dtb imx6qp-ldo:imx6qp-sabresd-ldo.dtb
 TARGET_KERNEL_DEFCONFIG := imx_v7_android_defconfig

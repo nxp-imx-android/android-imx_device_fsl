@@ -91,6 +91,7 @@ TARGET_BOOTLOADER_CONFIG := imx7ulp:imx7ulp_evk_android_defconfig
 TARGET_BOARD_DTS_CONFIG := imx7ulp:imx7ulp-evk.dtb imx7ulp-mipi:imx7ulp-evk-mipi.dtb
 TARGET_KERNEL_DEFCONFIG := imx_v7_android_defconfig
 # TARGET_KERNEL_ADDITION_DEFCONF := imx_v7_android_addition_defconfig
+BOARD_PREBUILT_DTBOIMAGE := out/target/product/evk_7ulp/dtbo-imx7ulp.img
 
 BOARD_SEPOLICY_DIRS := \
        device/fsl/imx7/sepolicy \

@@ -94,6 +94,7 @@ NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
 IMX_CAMERA_HAL_V1 := true
 TARGET_VSYNC_DIRECT_REFRESH := true
 
+BOARD_PREBUILT_DTBOIMAGE := out/target/product/sabreauto_6sx/dtbo-imx6sx.img
 ifeq ($(TARGET_USERIMAGES_USE_UBIFS),true)
 TARGET_BOARD_DTS_CONFIG := imx6sx-nand:imx6sx-sabreauto.dtb
 TARGET_BOOTLOADER_CONFIG := imx6sx-nand:mx6sxsabreautoandroid_nand_config 
