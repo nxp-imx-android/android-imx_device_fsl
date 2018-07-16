@@ -19,6 +19,7 @@ PRODUCT_PACKAGES += \
 	Camera					\
         LegacyCamera                            \
 	Email					\
+	FSLOta					\
 	libpxp                               \
 	fsl.imx.jar                             \
 	libfsl_hdcp_blob.so                     \

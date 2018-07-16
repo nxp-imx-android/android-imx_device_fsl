@@ -16,6 +16,7 @@ PRODUCT_PACKAGES += \
 	Camera					\
         LegacyCamera                            \
 	Email					\
+	FSLOta					\
 	libpxp                            \
 	VideoEditor				\
 	FSLProfileApp				\

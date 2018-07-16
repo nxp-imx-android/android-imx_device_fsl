@@ -19,6 +19,7 @@ PRODUCT_PACKAGES += \
 
 # Android infrastructures
 PRODUCT_PACKAGES += \
+	FSLOta					\
 	libRS					\
 	librs_jni				\
 	wpa_supplicant				\
