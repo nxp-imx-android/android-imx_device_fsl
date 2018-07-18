@@ -91,8 +91,15 @@ KERNEL_VERSION := $(shell PATH=$$PATH $(MAKE) --no-print-directory -C $(TARGET_K
 
 # Brillo kernel config file sources.
 KERNEL_CONFIG_DEFAULT := $(TARGET_KERNEL_SRC)/arch/$(KERNEL_SRC_ARCH)/configs/$(TARGET_KERNEL_DEFCONFIG)
-KERNEL_CONFIG_SRC := $(KERNEL_CONFIG_DEFAULT)
+ifneq ($(TARGET_KERNEL_ADDITION_DEFCONF),)
+KERNEL_CONFIG_ADDITION := $(TARGET_DEVICE_DIR)/$(TARGET_KERNEL_ADDITION_DEFCONF)
+else
+KERNEL_CONFIG_ADDITION :=
+endif
+KERNEL_CONFIG_SRC := $(KERNEL_CONFIG_DEFAULT) \
+  $(KERNEL_CONFIG_ADDITION)
 KERNEL_CONFIG := $(KERNEL_OUT)/.config
+KERNEL_MERGE_CONFIG := device/fsl/common/tools/mergeconfig.sh
 
 KERNEL_HEADERS_INSTALL := $(KERNEL_OUT)/usr
 #KERNEL_MODULES_INSTALL := $(TARGET_OUT)/lib/modules
@@ -116,14 +123,9 @@ $(KERNEL_CONFIG_REQUIRED): $(KERNEL_CONFIG_REQUIRED_SRC) | $(KERNEL_OUT)
 
 # Merge the final target kernel config.
 $(KERNEL_CONFIG): $(KERNEL_CONFIG_SRC) | $(KERNEL_OUT)
-	$(hide) echo Building kernel config
-	$(MAKE) -C $(TARGET_KERNEL_SRC) \
-		O=$(realpath $(KERNEL_OUT)) \
-		ARCH=$(KERNEL_ARCH) \
-		CROSS_COMPILE="$(KERNEL_CROSS_COMPILE_WRAPPER)" \
-		KCFLAGS="$(KERNEL_CFLAGS)" \
-		KAFLAGS="$(KERNEL_AFLAGS)" \
-        $(TARGET_KERNEL_DEFCONFIG)
+	$(hide) echo Merging KERNEL config
+	$(KERNEL_MERGE_CONFIG) $(TARGET_KERNEL_SRC) $(realpath $(KERNEL_OUT)) \
+	$(KERNEL_ARCH) $(KERNEL_CROSS_COMPILE) $^
 
 # Disable CCACHE_DIRECT so that header location changes are noticed.
 define build_kernel
