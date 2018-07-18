@@ -280,6 +280,10 @@ PRODUCT_PACKAGES += \
     libdrm_android \
     libfsldisplay
 
+# Vivante libdrm support
+PRODUCT_PACKAGES += \
+    libdrm_vivante
+
 PRODUCT_COPY_FILES +=	\
 	device/fsl/common/input/Dell_Dell_USB_Keyboard.kl:$(TARGET_COPY_OUT_VENDOR)/usr/keylayout/Dell_Dell_USB_Keyboard.kl \
 	device/fsl/common/input/Dell_Dell_USB_Keyboard.idc:$(TARGET_COPY_OUT_VENDOR)/usr/idc/Dell_Dell_USB_Keyboard.idc \

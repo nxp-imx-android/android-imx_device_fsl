@@ -99,6 +99,7 @@ PRODUCT_PACKAGES += \
      libEGL_VIVANTE \
      libGLESv1_CM_VIVANTE \
      libGLESv2_VIVANTE \
+     gralloc_viv.imx6 \
      libGAL \
      libGLSLC \
      libVSC \

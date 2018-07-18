@@ -81,6 +81,7 @@ PRODUCT_PACKAGES += \
     android.hardware.renderscript@1.0-impl
 
 PRODUCT_PACKAGES += \
+    gralloc_viv.imx6 \
     libGAL \
     libg2d \
     libgpuhelper \
