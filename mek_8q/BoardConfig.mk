@@ -123,7 +123,11 @@ endif
 # sensor configs
 BOARD_USE_SENSOR_FUSION := true
 BOARD_USE_SENSOR_PEDOMETER := false
-BOARD_USE_LEGACY_SENSOR := true
+ifeq ($(PRODUCT_IMX_CAR),true)
+    BOARD_USE_LEGACY_SENSOR := false
+else
+    BOARD_USE_LEGACY_SENSOR :=true
+endif
 
 # for recovery service
 TARGET_SELECT_KEY := 28
