@@ -11,7 +11,6 @@ allow init ram_device:blk_file { write };
 allow init configfs:dir  { write add_name remove_name create };
 allow init configfs:file  { write create };
 allow init configfs:lnk_file  { create unlink };
-allow init proc:file { create };
 allow init sysfs:file { create };
 allow init boot_block_device:lnk_file { relabelto };
 allow init userdata_block_device:blk_file { open read write ioctl getattr };

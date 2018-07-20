@@ -25,6 +25,5 @@ allow sensors cgroup:dir { create add_name };
 allow sensors input_device:chr_file rw_file_perms;
 allow sensors input_device:dir r_dir_perms;
 allow sensors uhid_device:chr_file rw_file_perms;
-allow sensors system_data_file:file { open };
 allow sensors rootfs:lnk_file { getattr };
 allow sensors device:dir { open read };
