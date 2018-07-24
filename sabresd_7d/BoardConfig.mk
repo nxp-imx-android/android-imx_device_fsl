@@ -113,3 +113,4 @@ TARGET_BOARD_KERNEL_HEADERS := device/fsl/common/kernel-headers
 
 #Enable AVB
 BOARD_AVB_ENABLE := true
+TARGET_USES_MKE2FS := true

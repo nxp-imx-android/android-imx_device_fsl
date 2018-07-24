@@ -86,6 +86,7 @@ PRODUCT_COPY_FILES +=	\
        device/fsl/evk_8mm/ueventd.freescale.rc:root/ueventd.freescale.rc
 
 BOARD_AVB_ENABLE := true
+TARGET_USES_MKE2FS := true
 
 # define frame buffer count
 NUM_FRAMEBUFFER_SURFACE_BUFFERS := 5
