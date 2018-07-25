@@ -5,6 +5,7 @@ define build_uboot
 	if [ "$(strip $(2))" == "imx8qm" ]; then \
 		MKIMAGE_PLATFORM=`echo iMX8QM`; \
 		SCFW_PLATFORM=`echo 8qm`;  \
+		cp  $(FSL_PROPRIETARY_PATH)/linux-firmware-imx/firmware/seco/mx8qm-ahab-container.img $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/mx8qm-ahab-container.img; \
 		if [ "$(PRODUCT_IMX_CAR)" != "true" ]; then \
 			FLASH_TARGET=`echo flash`;  \
 			cp $(FSL_PROPRIETARY_PATH)/linux-firmware-imx/firmware/hdmi/cadence/hdmitxfw.bin $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/hdmitxfw.bin; \
@@ -18,7 +19,7 @@ define build_uboot
 	elif [ "$(strip $(2))" == "imx8qxp" ]; then \
 		MKIMAGE_PLATFORM=`echo iMX8QX`; \
 		SCFW_PLATFORM=`echo 8qx`; \
-	        cp  $(FSL_PROPRIETARY_PATH)/linux-firmware-imx/firmware/seco/ahab-container.img $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/ahab-container.img; \
+		cp  $(FSL_PROPRIETARY_PATH)/linux-firmware-imx/firmware/seco/mx8qx-ahab-container.img $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/mx8qx-ahab-container.img; \
 		if [ "$(PRODUCT_IMX_CAR)" == "true" ]; then \
 			FLASH_TARGET=`echo flash_b0_all`;  \
 			cp  $(FSL_PROPRIETARY_PATH)/fsl-proprietary/mcu-sdk/imx8q/imx8qx_m4_TCM_hello_world.bin $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/CM4.bin; \
