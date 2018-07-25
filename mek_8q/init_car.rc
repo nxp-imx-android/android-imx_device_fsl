@@ -5,6 +5,7 @@ import init.${ro.hardware}.${ro.boot.storage_type}.${ro.boot.xen_boot}.rc
 on early-init
     # mount the debugfs
     mount debugfs none /sys/kernel/debug/ mode=0755
+    start insmod_sh
 
 on init
     start watchdogd
@@ -28,9 +29,7 @@ on init
     mkdir /dev/shm  0774 mediacodec drmrpc
 
 on early-boot
-
-    # emmulate battery property
-    setprop sys.emulated.battery 1
+    wait_for_prop sys.all.modules.ready 1
 
     # Set permission for IIM node
     symlink /dev/mxs_viim /dev/mxc_mem
@@ -38,12 +37,6 @@ on early-boot
     # Enable Tethering in the Settings
     setprop ro.tether.denied false
 
-    # 3D acceleration property
-    setprop debug.sf.showfps    0
-    setprop debug.sf.enable_hgl 1
-    setprop debug.egl.hw	1
-
-    setprop sys.hwc.disable     1
     setprop hwc.stretch.filter  1
     setprop hwc.enable_dither   1
 
@@ -83,7 +76,6 @@ on early-boot
     setprop wifi.ap.interface wlan0
 
     setprop qcom.bluetooth.soc rome_uart
-    setprop wc_transport.start_hci false
 
     # Set rotation to 270 to cofigure as portrait mode
     setprop ro.sf.hwrotation 0
@@ -98,7 +90,6 @@ on early-boot
     chmod 0755 /sys/kernel/debug/tracing
 
     # Default backlight device
-    setprop hw.backlight.dev "backlight"
     # Chmod/chown FSL specific sys entry
     chown system system /sys/class/backlight/backlight/brightness
     chmod 0660 /sys/class/backlight/backlight/brightness
@@ -111,7 +102,6 @@ on early-boot
     setprop wlan.interface wlan0
     # Set WiFi Display Source VideoBitRate Adaptive
     setprop media.wfd.video-bitrate 3000000
-
 
 on property:sys.boot_completed=1
     # load Bluetooth related kernel module
@@ -222,6 +212,13 @@ service hci_filter_root /vendor/bin/wcnss_filter
     user bluetooth
     group bluetooth diag system
     disabled
+
+service insmod_sh /vendor/bin/init.insmod.sh
+    class main
+    user root
+    group root system
+    disabled
+    oneshot
 
 on fs
 # mount ext4 partitions
