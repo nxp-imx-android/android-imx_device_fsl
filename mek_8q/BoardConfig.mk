@@ -187,6 +187,7 @@ endif
 
 ifeq ($(PRODUCT_IMX_CAR),true)
 TARGET_BOARD_DTS_CONFIG := imx8qm:fsl-imx8qm-mek-mipi-ov5640.dtb imx8qxp:fsl-imx8qxp-mek-mipi-ov5640.dtb
+TARGET_BOARD_IMAGE_FORMAT := imx8qm:squashfs imx8qxp:ext4
 TARGET_BOOTLOADER_CONFIG := imx8qm:imx8qm_mek_androidauto_defconfig imx8qxp:imx8qxp_mek_androidauto_defconfig
 else
 TARGET_BOARD_DTS_CONFIG := imx8qm:fsl-imx8qm-mek.dtb imx8qm-hdmi:fsl-imx8qm-mek-hdmi.dtb imx8qxp:fsl-imx8qxp-mek-ov5640.dtb imx8qxp-ov5640mipi:fsl-imx8qxp-mek-mipi-ov5640.dtb
@@ -195,6 +196,7 @@ endif #PRODUCT_IMX_CAR
 
 ifeq ($(PRODUCT_IMX_CAR),true)
 TARGET_KERNEL_DEFCONF := android_car_defconfig
+BOARD_SYSTEMIMAGE_FILE_SYSTEM_TYPE := squashfs
 include device/fsl/mek_8q/build_id_car.mk
 else
 TARGET_KERNEL_DEFCONF := android_defconfig
