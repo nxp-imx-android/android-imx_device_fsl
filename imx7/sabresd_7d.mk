@@ -22,7 +22,9 @@ PRODUCT_COPY_FILES += \
 	device/fsl/common/input/imx-keypad.idc:$(TARGET_COPY_OUT_VENDOR)/usr/idc/imx-keypad.idc \
 	device/fsl/common/input/imx-keypad.kl:$(TARGET_COPY_OUT_VENDOR)/usr/keylayout/imx-keypad.kl \
 
-PRODUCT_COPY_FILES += device/fsl/sabresd_7d/init.freescale.sd.rc:root/init.freescale.sd.rc
+PRODUCT_COPY_FILES += \
+    device/fsl/sabresd_7d/init.freescale.sd.rc:root/init.freescale.sd.rc \
+    device/fsl/sabresd_7d/init.freescale.sd.rc:root/init.recovery.freescale.sd.rc
 
 # Audio
 USE_XML_AUDIO_POLICY_CONF := 1

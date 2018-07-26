@@ -70,7 +70,9 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(FSL_PROPRIETARY_PATH)/fsl-proprietary/gpu-viv/lib/egl/egl.cfg:$(TARGET_COPY_OUT_VENDOR)/lib/egl/egl.cfg
 
-PRODUCT_COPY_FILES += device/fsl/evk_7ulp/init.freescale.sd.rc:root/init.freescale.sd.rc
+PRODUCT_COPY_FILES += \
+    device/fsl/evk_7ulp/init.freescale.sd.rc:root/init.freescale.sd.rc \
+    device/fsl/evk_7ulp/init.freescale.sd.rc:root/init.recovery.freescale.sd.rc
 
 PRODUCT_PACKAGES += \
     libEGL_VIVANTE \

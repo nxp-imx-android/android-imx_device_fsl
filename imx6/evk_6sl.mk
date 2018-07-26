@@ -63,7 +63,9 @@ PRODUCT_COPY_FILES += \
 	frameworks/native/data/etc/android.hardware.ethernet.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.ethernet.xml \
 	device/fsl/evk_6sl/required_hardware.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/required_hardware.xml
 
-PRODUCT_COPY_FILES += device/fsl/evk_6sl/init.freescale.sd.rc:root/init.freescale.sd.rc
+PRODUCT_COPY_FILES += \
+    device/fsl/evk_6sl/init.freescale.sd.rc:root/init.freescale.sd.rc \
+    device/fsl/evk_6sl/init.freescale.sd.rc:root/init.recovery.freescale.sd.rc
 
 # HWC2 HAL
 PRODUCT_PACKAGES += \

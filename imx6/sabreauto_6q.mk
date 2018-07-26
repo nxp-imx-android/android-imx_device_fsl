@@ -73,7 +73,8 @@ PRODUCT_COPY_FILES += \
 
 ifneq ($(BUILD_TARGET_FS),ubifs)
 PRODUCT_COPY_FILES += \
-     device/fsl/sabreauto_6q/init.freescale.sd.rc:root/init.freescale.sd.rc
+    device/fsl/sabreauto_6q/init.freescale.sd.rc:root/init.freescale.sd.rc \
+    device/fsl/sabreauto_6q/init.freescale.sd.rc:root/init.recovery.freescale.sd.rc
 endif
 
 PRODUCT_COPY_FILES += \

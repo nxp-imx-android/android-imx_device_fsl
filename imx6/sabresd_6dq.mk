@@ -25,8 +25,11 @@ PRODUCT_COPY_FILES += \
 	device/fsl/sabresd_6dq/init.imx6dl.rc:root/init.freescale.imx6dl.rc \
 	device/fsl/sabresd_6dq/init.imx6qp.rc:root/init.freescale.imx6qp.rc \
 
-PRODUCT_COPY_FILES += device/fsl/sabresd_6dq/init.freescale.emmc.rc:root/init.freescale.emmc.rc
-PRODUCT_COPY_FILES += device/fsl/sabresd_6dq/init.freescale.sd.rc:root/init.freescale.sd.rc
+PRODUCT_COPY_FILES += \
+    device/fsl/sabresd_6dq/init.freescale.emmc.rc:root/init.freescale.emmc.rc \
+    device/fsl/sabresd_6dq/init.freescale.emmc.rc:root/init.recovery.freescale.emmc.rc \
+    device/fsl/sabresd_6dq/init.freescale.sd.rc:root/init.freescale.sd.rc \
+    device/fsl/sabresd_6dq/init.freescale.sd.rc:root/init.recovery.freescale.sd.rc
 
 # Audio
 USE_XML_AUDIO_POLICY_CONF := 1
