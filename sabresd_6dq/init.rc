@@ -81,8 +81,7 @@ on early-boot
     setprop alsa.mixer.capture.headset Capture
 
     # Wifi firmware reload path
-    chown wifi wifi /sys/module/bcmdhd/parameters/firmware_path
-    chown wifi wifi /sys/module/bcmdhd/parameters/nvram_path
+    chown wifi wifi /sys/module/brcmfmac/parameters/alternative_fw_path
 
     # Prepare for wifi
     setprop wifi.interface wlan0
@@ -136,21 +135,10 @@ on early-boot
     setprop ro.hardware.lightsensor "/sys/class/i2c-dev/i2c-2/device/2-0044/"
     setprop ro.lightsensor.threshold  20
 
-    # Wifi firmware reload path
-    chown wifi wifi /sys/module/bcmdhd/parameters/firmware_path
-    chown wifi wifi /sys/module/bcmdhd/parameters/nvram_path
-
-    # No bluetooth hardware present
-    setprop wlan.interface wlan0
-
-    # Set WiFi Display Source VideoBitRate Adaptive
-    setprop media.wfd.video-bitrate 3000000
-
 # Set watchdog timer to 30 seconds and pet it every 10 seconds to get a 20 second margin
     service watchdogd /sbin/watchdogd 10 20
     class core
     seclabel u:r:watchdogd:s0
-
 
 on charger
     # Enable Power modes and set the CPU Freq Sampling rates

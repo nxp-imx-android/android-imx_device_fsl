@@ -74,8 +74,7 @@ on early-boot
     setprop alsa.mixer.capture.headset Capture
 
     # Wifi firmware reload path
-    chown wifi wifi /sys/module/bcmdhd/parameters/firmware_path
-    chown wifi wifi /sys/module/bcmdhd/parameters/nvram_path
+    chown wifi wifi /sys/module/brcmfmac/parameters/alternative_fw_path
 
     # Prepare for wifi
     setprop wifi.interface wlan0

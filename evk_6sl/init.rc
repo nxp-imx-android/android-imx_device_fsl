@@ -78,8 +78,7 @@ on early-boot
     setprop alsa.mixer.capture.headset Capture
 
     # Wifi firmware reload path
-    chown wifi wifi /sys/module/bcmdhd/parameters/firmware_path
-    chown wifi wifi /sys/module/bcmdhd/parameters/nvram_path
+    chown wifi wifi /sys/module/brcmfmac/parameters/alternative_fw_path
 
     # Prepare for wifi
     setprop wifi.interface wlan0
@@ -129,11 +128,6 @@ on early-boot
     # Chmod/chown FSL specific sys entry
     chown system system /sys/class/backlight/backlight/brightness
     chmod 0660 /sys/class/backlight/backlight/brightness
-
-
-    # No bluetooth hardware present
-    setprop wlan.interface wlan0
-
 
 on property:sys.boot_completed=1
 # Set default CPU frequency governor
