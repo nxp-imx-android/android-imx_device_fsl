@@ -72,7 +72,6 @@ BOARD_VENDOR_KERNEL_MODULES += \
 
 ifeq ($(PRODUCT_IMX_CAR),true)
 BOARD_VENDOR_KERNEL_MODULES += \
-                            $(KERNEL_OUT)/drivers/extcon/extcon-core.ko \
                             $(KERNEL_OUT)/drivers/extcon/extcon-ptn5150.ko \
                             $(KERNEL_OUT)/drivers/hid/usbhid/usbhid.ko \
                             $(KERNEL_OUT)/drivers/staging/typec/tcpci.ko \
@@ -98,12 +97,7 @@ BOARD_VENDOR_KERNEL_MODULES += \
                             $(KERNEL_OUT)/drivers/usb/storage/usb-storage.ko \
                             $(KERNEL_OUT)/drivers/usb/typec/typec.ko \
                             $(KERNEL_OUT)/drivers/input/tablet/aiptek.ko \
-                            $(KERNEL_OUT)/drivers/ata/libata.ko \
-                            $(KERNEL_OUT)/drivers/ata/libahci.ko \
-                            $(KERNEL_OUT)/drivers/ata/ahci.ko \
-                            $(KERNEL_OUT)/drivers/scsi/scsi_mod.ko \
                             $(KERNEL_OUT)/drivers/scsi/sd_mod.ko \
-                            $(KERNEL_OUT)/crypto/cmac.ko \
                             $(KERNEL_OUT)/net/bluetooth/bluetooth.ko \
                             $(KERNEL_OUT)/net/bluetooth/rfcomm/rfcomm.ko \
                             $(KERNEL_OUT)/drivers/bluetooth/mx8_bt_rfkill.ko \
