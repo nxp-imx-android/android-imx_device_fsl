@@ -1,0 +1,2 @@
+allow hal_evs_default default_android_hwservice:hwservice_manager { add };
+allow hal_evs_default hidl_base_hwservice:hwservice_manager { add };

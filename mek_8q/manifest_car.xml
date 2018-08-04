@@ -207,4 +207,25 @@
             <instance>default</instance>
         </interface>
     </hal>
+    <hal format="hidl">
+        <name>android.hardware.automotive.evs</name>
+        <transport>hwbinder</transport>
+        <version>1.0</version>
+        <interface>
+            <name>IEvsEnumerator</name>
+            <instance>EvsEnumeratorHw</instance>
+        </interface>
+        <interface>
+            <name>IEvsCamera</name>
+            <instance>default</instance>
+        </interface>
+        <interface>
+            <name>IEvsDisplay</name>
+            <instance>default</instance>
+        </interface>
+        <interface>
+            <name>IEvsCameraStream</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
 </manifest>
