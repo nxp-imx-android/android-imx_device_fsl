@@ -7,7 +7,11 @@ help() {
 
 bn=`basename $0`
 cat << EOF
-usage $bn <option> device_node
+
+Version: 1.0
+Last change: support flash dtbo image
+
+Usage: $bn <option> device_node
 
 options:
   -h				displays this help message
@@ -46,6 +50,7 @@ vendor_raw_file="vendor_raw.img"
 partition_file="partition-table.img"
 g_sizes=0
 append_soc_name=0
+support_dtbo=0
 while [ "$moreoptions" = 1 -a $# -gt 0 ]; do
 	case $1 in
 	    -h) help; exit ;;
@@ -79,6 +84,11 @@ if [ "${soc_name}" = "imx8qm" -o "${soc_name}" = "imx8mq" -o "${soc_name}" = "im
     bootloader_offset=33
 fi
 
+if [ ! -e ${node} ]; then
+	help
+	exit
+fi
+
 echo "${soc_name} bootloader offset is: ${bootloader_offset}"
 
 if [ "${soc_name}" != "" ] && [ "${append_soc_name}" -eq 1 ]; then
@@ -86,12 +96,6 @@ if [ "${soc_name}" != "" ] && [ "${append_soc_name}" -eq 1 ]; then
 else
     soc_name=""
 fi
-
-if [ ! -e ${node} ]; then
-	help
-	exit
-fi
-
 
 # dump partitions
 if [ "${cal_only}" -eq "1" ]; then
@@ -135,6 +139,8 @@ function flash_partition
                 img_name=${systemimage_raw_file}
             elif [ $(echo ${1} | grep "vendor") != "" ] 2>/dev/null; then
                 img_name=${vendor_raw_file}
+            elif [ ${support_dtbo} -eq 1 ] && [ $(echo ${1} | grep "boot") != "" ] 2>/dev/null; then
+                img_name="boot.img"
             else
                 img_name="${1%_*}${soc_name}.img"
             fi
@@ -170,8 +176,10 @@ function flash_android
     system_partition="system"${slot}
     vendor_partition="vendor"${slot}
     vbmeta_partition="vbmeta"${slot}
+    dtbo_partition="dtbo"${slot}
 
     bootloader_file="u-boot${soc_name}.imx"
+    flash_partition ${dtbo_partition}
     flash_partition ${boot_partition}
     flash_partition ${recovery_partition}
     simg2img ${systemimage_file} ${systemimage_raw_file}
@@ -197,6 +205,9 @@ if [ "${not_partition}" -eq "1" ] ; then
 fi
 
 make_partition
+gdisk -l ${node} 2>/dev/null | grep -q "dtbo" && support_dtbo=1
+echo "support_dtbo: ${support_dtbo}"
+
 sleep 3
 for i in `cat /proc/mounts | grep "${node}" | awk '{print $2}'`; do umount $i; done
 hdparm -z ${node}
