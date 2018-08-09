@@ -43,6 +43,9 @@ on early-boot
     # emmulate battery property
     setprop sys.emulated.battery 1
 
+    # enable opengl hardware UI at default
+    setprop debug.hwui.renderer opengl
+
     # Set permission for IIM node
     symlink /dev/mxs_viim /dev/mxc_mem
 
