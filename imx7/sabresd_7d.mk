@@ -26,6 +26,9 @@ PRODUCT_COPY_FILES += \
     device/fsl/sabresd_7d/init.freescale.sd.rc:root/init.freescale.sd.rc \
     device/fsl/sabresd_7d/init.freescale.sd.rc:root/init.recovery.freescale.sd.rc
 
+PRODUCT_COPY_FILES +=	\
+    $(LINUX_FIRMWARE_IMX_PATH)/linux-firmware-imx/firmware/sdma/sdma-imx7d.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/imx/sdma/sdma-imx7d.bin
+
 # Audio
 USE_XML_AUDIO_POLICY_CONF := 1
 PRODUCT_COPY_FILES += \
