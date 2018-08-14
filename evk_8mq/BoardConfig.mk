@@ -137,3 +137,7 @@ PRODUCT_COPY_FILES += \
        device/fsl/evk_8mq/app_whitelist.xml:system/etc/sysconfig/app_whitelist.xml
 
 TARGET_BOARD_KERNEL_HEADERS := device/fsl/common/kernel-headers
+
+PRODUCT_COPY_FILES += \
+	device/fsl/common/wifi/wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf \
+	device/fsl/common/wifi/p2p_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/p2p_supplicant_overlay.conf
