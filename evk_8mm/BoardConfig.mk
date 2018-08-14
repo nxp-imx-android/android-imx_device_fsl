@@ -106,7 +106,7 @@ $(error "TARGET_USERIMAGES_USE_UBIFS and TARGET_USERIMAGES_USE_EXT4 config open 
 endif
 endif
 
-TARGET_BOARD_DTS_CONFIG ?= imx8mm:fsl-imx8mm-evk.dtb imx8mm-mipi-panel:fsl-imx8mm-evk-rm67191.dtb imx8mm-dsd:fsl-imx8mm-evk-ak4497.dtb
+TARGET_BOARD_DTS_CONFIG ?= imx8mm:fsl-imx8mm-evk.dtb imx8mm-mipi-panel:fsl-imx8mm-evk-rm67191.dtb imx8mm-dsd:fsl-imx8mm-evk-ak4497.dtb imx8mm-m4:fsl-imx8mm-evk-m4.dtb
 BOARD_PREBUILT_DTBOIMAGE := out/target/product/evk_8mm/dtbo-imx8mm.img
 TARGET_BOOTLOADER_CONFIG := imx8mm:imx8mm_evk_android_defconfig
 TARGET_KERNEL_DEFCONFIG := android_defconfig
@@ -129,6 +129,10 @@ PRODUCT_COPY_FILES += \
 
 PRODUCT_COPY_FILES += \
        device/fsl/evk_8mm/app_whitelist.xml:system/etc/sysconfig/app_whitelist.xml
+
+# Copy prebuilt M4 demo image:
+PRODUCT_COPY_FILES += \
+       vendor/nxp/fsl-proprietary/mcu-sdk/imx8mm/imx8mm_m4_demo.img:imx8mm_m4_demo.img
 
 TARGET_BOARD_KERNEL_HEADERS := device/fsl/common/kernel-headers
 
