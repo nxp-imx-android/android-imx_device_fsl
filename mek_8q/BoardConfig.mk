@@ -110,9 +110,14 @@ BOARD_VENDOR_KERNEL_MODULES += \
                             $(KERNEL_OUT)/drivers/hid/hid-multitouch.ko
 
 PRODUCT_COPY_FILES += \
-       device/fsl/mek_8q/init.insmod.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.insmod.sh \
+       device/fsl/mek_8q/init.insmod_car.cfg:$(TARGET_COPY_OUT_VENDOR)/etc/init.insmod.cfg
+else
+PRODUCT_COPY_FILES += \
        device/fsl/mek_8q/init.insmod.cfg:$(TARGET_COPY_OUT_VENDOR)/etc/init.insmod.cfg
 endif
+
+PRODUCT_COPY_FILES += \
+       device/fsl/common/init/init.insmod.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.insmod.sh
 
 # Qcom 1CQ(QCA6174) BT
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/fsl/mek_8q/bluetooth

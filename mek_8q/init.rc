@@ -7,7 +7,7 @@ on early-init
     mount debugfs none /sys/kernel/debug/ mode=0755
 
 on early-init
-   exec u:r:modprobe:s0 -- /vendor/bin/modprobe -a -d /vendor/lib/modules wlan.ko
+    start insmod_sh
 
 on init
     start watchdogd
@@ -269,3 +269,10 @@ on zygote-start
     mkdir /data/vendor/wifi/wpa/sockets 0770 wifi wifi
     mkdir /data/misc/dhcp 0770 dhcp dhcp
     chown dhcp dhcp /data/misc/dhcp
+
+service insmod_sh /vendor/bin/init.insmod.sh
+    class main
+    user root
+    group root system
+    disabled
+    oneshot

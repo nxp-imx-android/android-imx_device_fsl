@@ -114,9 +114,6 @@ on property:sys.boot_completed=1
         xhci-plat-hcd.ko typec.ko ehci-platform.ko aiptek.ko libata.ko scsi_mod.ko usb-storage.ko \
         libahci.ko ahci.ko sd_mod.ko hid-multitouch.ko
 
-    # load QCA WIFI related kernel module
-    exec u:r:modprobe:s0 -- /vendor/bin/modprobe -a -d /vendor/lib/modules wlan.ko
-
     # Trigger start adbd service
     setprop sys.usb.configfs 1
 

@@ -41,3 +41,7 @@
 /vendor/lib(64)?/libCLC\.so                 u:object_r:same_process_hal_file:s0
 /vendor/lib(64)?/libLLVM_viv\.so            u:object_r:same_process_hal_file:s0
 /vendor/lib(64)?/libOpenCL\.so              u:object_r:same_process_hal_file:s0
+
+#insmod_sh service
+/vendor/bin/init\.insmod\.sh                u:object_r:init-insmod-sh_exec:s0
+/vendor/etc/init\.insmod\.cfg               u:object_r:init-insmod-sh_exec:s0

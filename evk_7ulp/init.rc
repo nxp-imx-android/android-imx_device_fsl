@@ -4,6 +4,7 @@ import init.${ro.hardware}.${ro.boot.storage_type}.rc
 on early-init
     # mount the debugfs
     mount debugfs none /sys/kernel/debug/ mode=0755
+    start insmod_sh
 
 on init
     start watchdogd
@@ -134,8 +135,6 @@ on early-boot
     # Chmod/chown FSL specific sys entry
     chown system system /sys/class/backlight/backlight/brightness
     chmod 0660 /sys/class/backlight/backlight/brightness
-
-    exec u:r:modprobe:s0 -- /vendor/bin/modprobe -a -d /vendor/lib/modules wlan.ko
 
     # No bluetooth hardware present
     setprop wlan.interface wlan0
@@ -293,3 +292,10 @@ on zygote-start
     mkdir /data/vendor/wifi/wpa/sockets 0770 wifi wifi
     mkdir /data/misc/dhcp 0770 dhcp dhcp
     chown dhcp dhcp /data/misc/dhcp
+
+service insmod_sh /vendor/bin/init.insmod.sh
+    class main
+    user root
+    group root system
+    disabled
+    oneshot

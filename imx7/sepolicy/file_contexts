@@ -23,3 +23,7 @@
 
 /vendor/lib/hw/gralloc_viv\.imx7\.so   u:object_r:same_process_hal_file:s0
 /vendor/lib/libdrm_vivante\.so         u:object_r:same_process_hal_file:s0
+
+#insmod_sh service
+/vendor/bin/init\.insmod\.sh                u:object_r:init-insmod-sh_exec:s0
+/vendor/etc/init\.insmod\.cfg               u:object_r:init-insmod-sh_exec:s0
