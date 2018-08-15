@@ -97,6 +97,8 @@ on early-boot
     setprop wifi.interface wlan0
     setprop wifi.ap.interface wlan0
 
+    setprop ro.boot.btmacaddr 22:22:67:C6:69:73
+
     # Prepare for bluetooth
     chmod 665 /sys/class/rfkill/rfkill0/state
     chown bluetooth bluetooth /sys/class/rfkill/rfkill0/state

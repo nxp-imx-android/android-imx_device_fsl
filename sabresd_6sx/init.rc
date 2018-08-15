@@ -86,6 +86,8 @@ on early-boot
     chown bluetooth bluetooth /sys/class/rfkill/rfkill0/state
     write /sys/class/rfkill/rfkill0/state 0
 
+    setprop ro.boot.btmacaddr 22:22:67:C6:69:73
+
     # Set OpenGLES version
     setprop ro.opengles.version 131072
 

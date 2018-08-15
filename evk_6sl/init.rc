@@ -85,6 +85,8 @@ on early-boot
     setprop wifi.interface wlan0
     setprop wifi.ap.interface wlan0
 
+    setprop ro.boot.btmacaddr 22:22:67:C6:69:73
+
     # Set OpenGLES version
     # setprop ro.opengles.version 131072
 

@@ -93,6 +93,8 @@ on early-boot
     chown bluetooth bluetooth /sys/class/rfkill/rfkill0/state
     write /sys/class/rfkill/rfkill0/state 0
 
+    setprop ro.boot.btmacaddr 22:22:67:C6:69:73
+
     # Set rotation to 270 to cofigure as portrait mode
     setprop ro.sf.hwrotation 0
 
