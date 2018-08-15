@@ -49,6 +49,8 @@
                 </devicePort>
                 <devicePort tagName="Wired Headphones" type="AUDIO_DEVICE_OUT_WIRED_HEADPHONE" role="sink">
                 </devicePort>
+                <devicePort tagName="Line-Out" type="AUDIO_DEVICE_OUT_LINE" role="sink">
+                </devicePort>
 
                 <devicePort tagName="Built-In Mic" type="AUDIO_DEVICE_IN_BUILTIN_MIC" role="source">
                 </devicePort>
@@ -60,6 +62,8 @@
                        sources="dsd output,primary output"/>
                 <route type="mix" sink="Wired Headphones"
                        sources="esai output,primary output"/>
+                <route type="mix" sink="Line-Out"
+                       sources="dsd output,esai output,primary output"/>
 
                 <route type="mix" sink="primary input"
                        sources="Built-In Mic,Spdif-In"/>
