@@ -24,6 +24,7 @@ options:
   -c card_size			optional setting: 7 / 14 / 28
 					If not set, use partition-table.img
 					If set to 7, use partition-table-7GB.img for 7GB SD card
+  -m				flash m4 image
 EOF
 
 }
@@ -35,6 +36,7 @@ soc_name=""
 cal_only=0
 card_size=0
 bootloader_offset=1
+m4_image_offset=5120
 vaild_gpt_size=17
 not_partition=0
 not_format_fs=0
@@ -46,6 +48,7 @@ vendor_raw_file="vendor_raw.img"
 partition_file="partition-table.img"
 g_sizes=0
 append_soc_name=0
+flash_m4=0
 while [ "$moreoptions" = 1 -a $# -gt 0 ]; do
 	case $1 in
 	    -h) help; exit ;;
@@ -57,6 +60,7 @@ while [ "$moreoptions" = 1 -a $# -gt 0 ]; do
 	    -nf) not_format_fs=1 ;;
 	    -a) slot="_a" ;;
 	    -b) slot="_b" ;;
+	    -m) flash_m4=1 ;;
 	    *)  moreoptions=0; node=$1 ;;
 	esac
 	[ "$moreoptions" = 0 ] && [ $# -gt 1 ] && help && exit
@@ -189,6 +193,11 @@ function flash_android
     echo "the bootloader partition size: ${count_bootloader}"
     dd if=/dev/zero of=${node} bs=1k seek=${bootloader_offset} conv=fsync count=${count_bootloader}
     dd if=${bootloader_file} of=${node} bs=1k seek=${bootloader_offset} conv=fsync
+    if [ "${flash_m4}" -eq "1" ] ; then
+        m4_image=${soc_name#*-}"_m4_demo.img"
+        echo "flash_partition: ${m4_image} ---> ${node}"
+        dd if=${m4_image} of=${node} bs=1k seek=${m4_image_offset} conv=fsync
+    fi
 }
 
 if [ "${not_partition}" -eq "1" ] ; then
