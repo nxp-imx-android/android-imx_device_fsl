@@ -130,7 +130,7 @@ $(UBOOT_BIN): $(UBOOT_OUT)
 		install -D $(PRODUCT_OUT)/u-boot-$$UBOOT_PLATFORM.imx $(UBOOT_BIN); \
 	done
 
-.PHONY: bootloader
+.PHONY: $(UBOOT_BIN)
 
 bootloader: $(UBOOT_BIN)
 
