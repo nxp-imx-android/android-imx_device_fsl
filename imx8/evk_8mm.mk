@@ -19,6 +19,9 @@ PRODUCT_COPY_FILES += \
 	device/fsl/evk_8mm/init.imx8mm.rc:root/init.freescale.imx8mm.rc \
 	device/fsl/evk_8mm/init.usb.rc:root/init.freescale.usb.rc
 
+PRODUCT_COPY_FILES +=	\
+    $(LINUX_FIRMWARE_IMX_PATH)/linux-firmware-imx/firmware/sdma/sdma-imx7d.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/imx/sdma/sdma-imx7d.bin
+
 # Audio
 USE_XML_AUDIO_POLICY_CONF := 1
 PRODUCT_COPY_FILES += \
