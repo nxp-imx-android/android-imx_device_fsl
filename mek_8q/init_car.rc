@@ -100,6 +100,8 @@ on early-boot
     # Set light sensor threshold lux value
     setprop ro.lightsensor.threshold  20
 
+    setprop ro.boot.btmacaddr 22:22:67:C6:69:73
+
     # No bluetooth hardware present
     setprop hw.bluetooth 0
     setprop wlan.interface wlan0
