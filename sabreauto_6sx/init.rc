@@ -36,6 +36,9 @@ on early-boot
     # Set permission for IIM node
     symlink /dev/mxs_viim /dev/mxc_mem
 
+    # enable opengl hardware UI at default
+    setprop debug.hwui.renderer opengl
+
     # Enable Tethering in the Settings
     setprop ro.tether.denied false
 
