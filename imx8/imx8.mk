@@ -211,6 +211,7 @@ omx_libs := \
 	lib_omx_soft_hevc_dec_arm11_elinux \
 	lib_ape_parser_arm11_elinux.3.0 \
 	lib_omx_bsac_dec_v2_arm11_elinux \
+	libfslextractor.so \
 
 
 
