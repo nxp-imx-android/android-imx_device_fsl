@@ -104,7 +104,9 @@ BOARD_VENDOR_KERNEL_MODULES += \
                             $(KERNEL_OUT)/drivers/hid/hid-multitouch.ko
 
 PRODUCT_COPY_FILES += \
-       device/fsl/mek_8q/init.insmod_car.cfg:$(TARGET_COPY_OUT_VENDOR)/etc/init.insmod.cfg
+       device/fsl/mek_8q/init.insmod_car.cfg:$(TARGET_COPY_OUT_VENDOR)/etc/init.insmod.cfg \
+       device/fsl/mek_8q/init.insmod_auto.cfg:$(TARGET_COPY_OUT_VENDOR)/etc/init.insmod_auto.cfg \
+       device/fsl/mek_8q/init.insmod_auto.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.insmod_auto.sh
 else
 PRODUCT_COPY_FILES += \
        device/fsl/mek_8q/init.insmod.cfg:$(TARGET_COPY_OUT_VENDOR)/etc/init.insmod.cfg

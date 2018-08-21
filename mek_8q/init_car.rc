@@ -109,15 +109,9 @@ on early-boot
     setprop media.wfd.video-bitrate 3000000
 
 on property:sys.boot_completed=1
-    # load Bluetooth related kernel module
-    exec u:r:modprobe:s0 -- /vendor/bin/modprobe -a -d /vendor/lib/modules mx8_bt_rfkill.ko  bluetooth.ko rfcomm.ko
+    start insmod_auto_sh
 
-    # load USB related kernel module(hardware driver, hid driver, etc.)
-    exec u:r:modprobe:s0 -- /vendor/bin/modprobe -a -d /vendor/lib/modules  extcon-ptn5150.ko usbhid.ko \
-        tcpci.ko tcpm.ko cdns3.ko ci_hdrc.ko ci_hdrc_imx.ko ci_hdrc_msm.ko ci_hdrc_pci.ko xhci-pci.ko ehci-pci.ko usbcore.ko \
-        xhci-hcd.ko ohci-platform.ko usbmisc_imx.ko ohci-hcd.ko ci_hdrc_usb2.ko ehci-hcd.ko ohci-pci.ko ci_hdrc_zevio.ko \
-        xhci-plat-hcd.ko typec.ko ehci-platform.ko aiptek.ko usb-storage.ko sd_mod.ko hid-multitouch.ko
-
+    wait_for_prop sys.all.modules.loaded 1
     # Trigger start adbd service
     setprop sys.usb.configfs 1
 
@@ -215,6 +209,13 @@ service hci_filter_root /vendor/bin/wcnss_filter
     disabled
 
 service insmod_sh /vendor/bin/init.insmod.sh
+    class main
+    user root
+    group root system
+    disabled
+    oneshot
+
+service insmod_auto_sh /vendor/bin/init.insmod_auto.sh
     class main
     user root
     group root system

@@ -53,3 +53,8 @@
 
 #Neural Network HAL service
 /vendor/bin/hw/android\.hardware\.neuralnetworks@1\.0-service-imx-nn          u:object_r:hal_neuralnetworks_imx_exec:s0
+
+#insmod_sh service
+/vendor/bin/init\.insmod\_auto\.sh                u:object_r:init-insmod-sh_exec:s0
+/vendor/etc/init\.insmod\_auto\.cfg               u:object_r:init-insmod-sh_exec:s0
+
