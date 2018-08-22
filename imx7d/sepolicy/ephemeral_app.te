@@ -1,0 +1,4 @@
+typeattribute ephemeral_app mlstrustedobject;
+
+allow ephemeral_app shell_data_file:dir { search };
+allow ephemeral_app vendor_file:file { read open getattr };

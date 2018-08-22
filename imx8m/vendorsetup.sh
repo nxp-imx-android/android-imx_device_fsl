@@ -1,0 +1,6 @@
+add_lunch_combo evk_8mq-eng
+add_lunch_combo evk_8mq-userdebug
+add_lunch_combo evk_8mq_drm-eng
+add_lunch_combo evk_8mq_drm-userdebug
+add_lunch_combo evk_8mm-eng
+add_lunch_combo evk_8mm-userdebug

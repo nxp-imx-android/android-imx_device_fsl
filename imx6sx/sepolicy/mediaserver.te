@@ -1,0 +1,4 @@
+allow mediaserver tmpfs:dir rw_dir_perms;
+allow mediaserver tmpfs:file rw_file_perms;
+allow mediaserver mediaserver:netlink_kobject_uevent_socket { create setopt bind read };
+allow mediaserver vendor_file:file { read getattr };

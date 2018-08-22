@@ -1,0 +1,166 @@
+#
+# Product-specific compile-time definitions.
+#
+
+IMX_DEVICE_PATH := device/fsl/imx6dq/sabresd_6dq
+
+ifeq ($(PRODUCT_IMX_CAR),true)
+include $(IMX_DEVICE_PATH)/build_id_car.mk
+else
+include $(IMX_DEVICE_PATH)/build_id.mk
+endif # PRODUCT_IMX_CAR
+include device/fsl/imx6dq/BoardConfigCommon.mk
+ifeq ($(PREBUILT_FSL_IMX_CODEC),true)
+-include $(FSL_CODEC_PATH)/fsl-codec/fsl-codec.mk
+endif
+
+# sabresd_6dq default target for EXT4
+BUILD_TARGET_FS ?= ext4
+include device/fsl/imx6dq/imx6_target_fs.mk
+
+ifneq ($(BUILD_TARGET_FS),f2fs)
+# build for ext4
+ifeq ($(PRODUCT_IMX_CAR),true)
+TARGET_RECOVERY_FSTAB = $(IMX_DEVICE_PATH)/fstab.freescale.car
+PRODUCT_COPY_FILES +=	\
+	$(IMX_DEVICE_PATH)/fstab.freescale.car:root/fstab.freescale
+else
+TARGET_RECOVERY_FSTAB = $(IMX_DEVICE_PATH)/fstab.freescale
+PRODUCT_COPY_FILES +=	\
+	$(IMX_DEVICE_PATH)/fstab.freescale:root/fstab.freescale
+endif # PRODUCT_IMX_CAR
+else
+TARGET_RECOVERY_FSTAB = $(IMX_DEVICE_PATH)/fstab-f2fs.freescale
+# build for f2fs
+PRODUCT_COPY_FILES +=	\
+	$(IMX_DEVICE_PATH)/fstab-f2fs.freescale:root/fstab.freescale
+endif # BUILD_TARGET_FS
+
+# Vendor Interface Manifest
+ifeq ($(PRODUCT_IMX_CAR),true)
+PRODUCT_COPY_FILES += \
+    $(IMX_DEVICE_PATH)/manifest_car.xml:vendor/manifest.xml
+else
+# Vendor Interface manifest and compatibility
+DEVICE_MANIFEST_FILE := $(IMX_DEVICE_PATH)/manifest.xml
+DEVICE_MATRIX_FILE := $(IMX_DEVICE_PATH)/compatibility_matrix.xml
+endif
+
+TARGET_BOOTLOADER_BOARD_NAME := SABRESD
+PRODUCT_MODEL := SABRESD-MX6DQ
+
+TARGET_BOOTLOADER_POSTFIX := imx
+TARGET_DTB_POSTFIX := -dtb
+
+TARGET_RELEASETOOLS_EXTENSIONS := device/fsl/imx6
+# UNITE is a virtual device.
+BOARD_WLAN_DEVICE            := bcmdhd
+WPA_SUPPLICANT_VERSION       := VER_0_8_X
+
+BOARD_WPA_SUPPLICANT_DRIVER  := NL80211
+BOARD_HOSTAPD_DRIVER         := NL80211
+
+BOARD_HOSTAPD_PRIVATE_LIB               := lib_driver_cmd_bcmdhd
+BOARD_WPA_SUPPLICANT_PRIVATE_LIB        := lib_driver_cmd_bcmdhd
+
+WIFI_DRIVER_FW_PATH_PARAM      := "/sys/module/brcmfmac/parameters/alternative_fw_path"
+
+BOARD_VENDOR_KERNEL_MODULES += \
+                            $(KERNEL_OUT)/drivers/net/wireless/broadcom/brcm80211/brcmfmac/brcmfmac.ko \
+                            $(KERNEL_OUT)/drivers/net/wireless/broadcom/brcm80211/brcmutil/brcmutil.ko
+
+#for accelerator sensor, need to define sensor type here
+BOARD_HAS_SENSOR := true
+SENSOR_MMA8451 := true
+BOARD_USE_SENSOR_PEDOMETER := false
+BOARD_USE_LEGACY_SENSOR := true
+
+# for recovery service
+TARGET_SELECT_KEY := 28
+
+# we don't support sparse image.
+TARGET_USERIMAGES_SPARSE_EXT_DISABLED := false
+# uncomment below lins if use NAND
+#TARGET_USERIMAGES_USE_UBIFS = true
+
+
+ifeq ($(TARGET_USERIMAGES_USE_UBIFS),true)
+UBI_ROOT_INI := $(IMX_DEVICE_PATH)/ubi/ubinize.ini
+TARGET_MKUBIFS_ARGS := -m 4096 -e 516096 -c 4096 -x none
+TARGET_UBIRAW_ARGS := -m 4096 -p 512KiB $(UBI_ROOT_INI)
+endif
+
+ifeq ($(TARGET_USERIMAGES_USE_UBIFS),true)
+ifeq ($(TARGET_USERIMAGES_USE_EXT4),true)
+$(error "TARGET_USERIMAGES_USE_UBIFS and TARGET_USERIMAGES_USE_EXT4 config open in same time, please only choose one target file system image")
+endif
+endif
+
+KERNEL_NAME := zImage
+BOARD_KERNEL_CMDLINE := console=ttymxc0,115200 init=/init video=mxcfb0:dev=ldb,fbpix=RGB32,bpp=32 video=mxcfb1:off video=mxcfb2:off video=mxcfb3:off vmalloc=128M androidboot.console=ttymxc0 consoleblank=0 androidboot.hardware=freescale cma=448M galcore.contiguousSize=33554432
+
+ifeq ($(TARGET_USERIMAGES_USE_UBIFS),true)
+#UBI boot command line.
+# Note: this NAND partition table must align with MFGTool's config.
+BOARD_KERNEL_CMDLINE +=  mtdparts=gpmi-nand:16m(bootloader),16m(bootimg),128m(recovery),-(root) gpmi_debug_init ubi.mtd=3
+endif
+
+
+# Broadcom BCM4339 BT
+BOARD_HAVE_BLUETOOTH_BCM := true
+BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(IMX_DEVICE_PATH)/bluetooth
+
+USE_ION_ALLOCATOR := true
+USE_GPU_ALLOCATOR := false
+
+# define frame buffer count
+NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
+
+# camera hal v3
+IMX_CAMERA_HAL_V3 := true
+
+
+#define consumer IR HAL support
+IMX6_CONSUMER_IR_HAL := false
+
+BOARD_PREBUILT_DTBOIMAGE := out/target/product/sabresd_6dq/dtbo-imx6q.img
+TARGET_BOOTLOADER_CONFIG := imx6q:imx6qsabresdandroid_defconfig imx6dl:imx6dlsabresdandroid_defconfig imx6q-ldo:imx6qsabresdandroid_defconfig imx6qp:imx6qpsabresdandroid_defconfig imx6qp-ldo:imx6qpsabresdandroid_defconfig
+TARGET_BOARD_DTS_CONFIG := imx6q:imx6q-sabresd.dtb imx6dl:imx6dl-sabresd.dtb imx6q-ldo:imx6q-sabresd-ldo.dtb imx6qp:imx6qp-sabresd.dtb imx6qp-ldo:imx6qp-sabresd-ldo.dtb
+TARGET_KERNEL_DEFCONFIG := imx_v7_android_defconfig
+# TARGET_KERNEL_ADDITION_DEFCONF := imx_v7_android_addition_defconfig
+
+BOARD_SEPOLICY_DIRS := \
+       device/fsl/imx6dq/sepolicy \
+       $(IMX_DEVICE_PATH)/sepolicy
+
+ifeq ($(PRODUCT_IMX_CAR),true)
+BOARD_SEPOLICY_DIRS += \
+     packages/services/Car/car_product/sepolicy \
+     device/generic/car/common/sepolicy
+endif
+
+PRODUCT_COPY_FILES +=	\
+       $(IMX_DEVICE_PATH)/ueventd.freescale.rc:root/ueventd.freescale.rc
+
+# Support gpt
+BOARD_BPT_INPUT_FILES += device/fsl/common/partition/device-partitions-7GB.bpt
+ADDITION_BPT_PARTITION = partition-table-14GB:device/fsl/common/partition/device-partitions-14GB.bpt \
+                         partition-table-28GB:device/fsl/common/partition/device-partitions-28GB.bpt
+
+# Vendor seccomp policy files for media components:
+PRODUCT_COPY_FILES += \
+       $(IMX_DEVICE_PATH)/seccomp/mediacodec-seccomp.policy:vendor/etc/seccomp_policy/mediacodec.policy \
+       $(IMX_DEVICE_PATH)/seccomp/mediaextractor-seccomp.policy:vendor/etc/seccomp_policy/mediaextractor.policy
+
+PRODUCT_COPY_FILES += \
+       $(IMX_DEVICE_PATH)/app_whitelist.xml:system/etc/sysconfig/app_whitelist.xml
+
+TARGET_BOARD_KERNEL_HEADERS := device/fsl/common/kernel-headers
+
+#Enable AVB
+BOARD_AVB_ENABLE := true
+TARGET_USES_MKE2FS := true
+
+PRODUCT_COPY_FILES += \
+	device/fsl/common/wifi/wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf \
+	device/fsl/common/wifi/p2p_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/p2p_supplicant_overlay.conf

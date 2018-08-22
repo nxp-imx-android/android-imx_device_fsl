@@ -1,0 +1,2 @@
+allow mediaextractor system_server:fifo_file { write };
+allow mediaextractor sdcardfs:file { read getattr};
