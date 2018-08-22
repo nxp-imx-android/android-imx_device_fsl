@@ -97,7 +97,6 @@ PRODUCT_PACKAGES += \
     android.hardware.renderscript@1.0-impl
 
 PRODUCT_PACKAGES += \
-     AudioRoute  \
      libEGL_VIVANTE \
      libGLESv1_CM_VIVANTE \
      libGLESv2_VIVANTE \
