@@ -34,21 +34,11 @@ include device/fsl/imx8m/BoardConfigCommon.mk
 ifeq ($(PREBUILT_FSL_IMX_CODEC),true)
 -include $(FSL_CODEC_PATH)/fsl-codec/fsl-codec.mk
 endif
-# sabreauto_6dq default target for EXT4
-BUILD_TARGET_FS ?= ext4
-include device/fsl/imx8m/imx8_target_fs.mk
 
-ifneq ($(BUILD_TARGET_FS),f2fs)
+BUILD_TARGET_FS ?= ext4
+TARGET_USERIMAGES_USE_EXT4 := true
+
 TARGET_RECOVERY_FSTAB = $(IMX_DEVICE_PATH)/fstab.freescale
-# build for ext4
-PRODUCT_COPY_FILES +=	\
-	$(IMX_DEVICE_PATH)/fstab.freescale:root/fstab.freescale
-else
-TARGET_RECOVERY_FSTAB = $(IMX_DEVICE_PATH)/fstab-f2fs.freescale
-# build for f2fs
-PRODUCT_COPY_FILES +=	\
-	$(IMX_DEVICE_PATH)/fstab-f2fs.freescale:root/fstab.freescale
-endif # BUILD_TARGET_FS
 
 # Support gpt
 BOARD_BPT_INPUT_FILES += device/fsl/common/partition/device-partitions-13GB-ab.bpt
@@ -103,9 +93,6 @@ BOARD_HAVE_USB_CAMERA := true
 USE_ION_ALLOCATOR := true
 USE_GPU_ALLOCATOR := false
 
-PRODUCT_COPY_FILES +=	\
-       $(IMX_DEVICE_PATH)/ueventd.freescale.rc:root/ueventd.freescale.rc
-
 BOARD_AVB_ENABLE := true
 TARGET_USES_MKE2FS := true
 
@@ -154,20 +141,4 @@ BOARD_SEPOLICY_DIRS += \
        $(IMX_DEVICE_PATH)/sepolicy_drm
 endif
 
-# Vendor seccomp policy files for media components:
-PRODUCT_COPY_FILES += \
-       $(IMX_DEVICE_PATH)/seccomp/mediacodec-seccomp.policy:vendor/etc/seccomp_policy/mediacodec.policy \
-       $(IMX_DEVICE_PATH)/seccomp/mediaextractor-seccomp.policy:vendor/etc/seccomp_policy/mediaextractor.policy
-
-PRODUCT_COPY_FILES += \
-       $(IMX_DEVICE_PATH)/app_whitelist.xml:system/etc/sysconfig/app_whitelist.xml
-
 TARGET_BOARD_KERNEL_HEADERS := device/fsl/common/kernel-headers
-
-PRODUCT_COPY_FILES += \
-	device/fsl/common/wifi/wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf \
-	device/fsl/common/wifi/p2p_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/p2p_supplicant_overlay.conf
-
-PRODUCT_COPY_FILES += \
-	device/fsl/common/init/init.insmod.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.insmod.sh \
-	$(IMX_DEVICE_PATH)/init.insmod.cfg:$(TARGET_COPY_OUT_VENDOR)/etc/init.insmod.cfg

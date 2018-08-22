@@ -12,11 +12,27 @@ PRODUCT_NAME := mek_8q_car
 PRODUCT_PACKAGE_OVERLAYS := $(IMX_DEVICE_PATH)/overlay_car packages/services/Car/car_product/overlay
 
 PRODUCT_COPY_FILES += \
-    packages/services/Car/car_product/init/init.car.rc:root/init.car.rc \
+    $(IMX_DEVICE_PATH)/fstab.freescale.car:root/fstab.freescale \
+    $(IMX_DEVICE_PATH)/init.freescale.emmc.rc:root/init.freescale.emmc.default.rc \
+    $(IMX_DEVICE_PATH)/init.freescale.emmc.rc:root/init.recovery.freescale.emmc.default.rc \
+    $(IMX_DEVICE_PATH)/init.freescale.emmc.xen.rc:root/init.freescale.emmc.xen.rc \
+    $(IMX_DEVICE_PATH)/init.freescale.emmc.xen.rc:root/init.recovery.freescale.emmc.xen.rc \
+    $(IMX_DEVICE_PATH)/init.freescale.sd.rc:root/init.freescale.sd.default.rc \
+    $(IMX_DEVICE_PATH)/init.freescale.sd.rc:root/init.recovery.freescale.sd.default.rc \
+    $(IMX_DEVICE_PATH)/init.freescale.sd.xen.rc:root/init.freescale.sd.xen.rc \
+    $(IMX_DEVICE_PATH)/init.freescale.sd.xen.rc:root/init.recovery.freescale.sd.xen.rc \
+    $(IMX_DEVICE_PATH)/init.insmod_car.cfg:$(TARGET_COPY_OUT_VENDOR)/etc/init.insmod.cfg \
+    $(IMX_DEVICE_PATH)/init_car.rc:root/init.freescale.rc \
+    $(IMX_DEVICE_PATH)/required_hardware_auto.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/required_hardware.xml \
+    device/fsl/imx8q/init.recovery.freescale.car.rc:root/init.recovery.freescale.rc \
     packages/services/Car/car_product/init/init.bootstat.rc:root/init.bootstat.rc \
-    frameworks/native/data/etc/android.hardware.type.automotive.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.type.automotive.xml \
+    packages/services/Car/car_product/init/init.car.rc:root/init.car.rc
+
+# ONLY devices that meet the CDD's requirements may declare these features
+PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.screen.landscape.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.screen.landscape.xml \
-    frameworks/native/data/etc/android.software.freeform_window_management.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.freeform_window_management.xml \
+    frameworks/native/data/etc/android.hardware.type.automotive.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.type.automotive.xml \
+    frameworks/native/data/etc/android.software.freeform_window_management.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.freeform_window_management.xml
 
 PRODUCT_PROPERTY_OVERRIDES += \
     android.car.drawer.unlimited=true \

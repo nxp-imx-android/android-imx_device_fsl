@@ -14,32 +14,18 @@ ifeq ($(PREBUILT_FSL_IMX_CODEC),true)
 -include $(FSL_CODEC_PATH)/fsl-codec/fsl-codec.mk
 endif
 
-# sabresd_6dq default target for EXT4
 BUILD_TARGET_FS ?= ext4
-include device/fsl/imx6dq/imx6_target_fs.mk
+TARGET_USERIMAGES_USE_EXT4 := true
 
-ifneq ($(BUILD_TARGET_FS),f2fs)
-# build for ext4
 ifeq ($(PRODUCT_IMX_CAR),true)
 TARGET_RECOVERY_FSTAB = $(IMX_DEVICE_PATH)/fstab.freescale.car
-PRODUCT_COPY_FILES +=	\
-	$(IMX_DEVICE_PATH)/fstab.freescale.car:root/fstab.freescale
 else
 TARGET_RECOVERY_FSTAB = $(IMX_DEVICE_PATH)/fstab.freescale
-PRODUCT_COPY_FILES +=	\
-	$(IMX_DEVICE_PATH)/fstab.freescale:root/fstab.freescale
 endif # PRODUCT_IMX_CAR
-else
-TARGET_RECOVERY_FSTAB = $(IMX_DEVICE_PATH)/fstab-f2fs.freescale
-# build for f2fs
-PRODUCT_COPY_FILES +=	\
-	$(IMX_DEVICE_PATH)/fstab-f2fs.freescale:root/fstab.freescale
-endif # BUILD_TARGET_FS
 
 # Vendor Interface Manifest
 ifeq ($(PRODUCT_IMX_CAR),true)
-PRODUCT_COPY_FILES += \
-    $(IMX_DEVICE_PATH)/manifest_car.xml:vendor/manifest.xml
+DEVICE_MANIFEST_FILE := $(IMX_DEVICE_PATH)/manifest_car.xml
 else
 # Vendor Interface manifest and compatibility
 DEVICE_MANIFEST_FILE := $(IMX_DEVICE_PATH)/manifest.xml
@@ -139,28 +125,13 @@ BOARD_SEPOLICY_DIRS += \
      device/generic/car/common/sepolicy
 endif
 
-PRODUCT_COPY_FILES +=	\
-       $(IMX_DEVICE_PATH)/ueventd.freescale.rc:root/ueventd.freescale.rc
-
 # Support gpt
 BOARD_BPT_INPUT_FILES += device/fsl/common/partition/device-partitions-7GB.bpt
 ADDITION_BPT_PARTITION = partition-table-14GB:device/fsl/common/partition/device-partitions-14GB.bpt \
                          partition-table-28GB:device/fsl/common/partition/device-partitions-28GB.bpt
-
-# Vendor seccomp policy files for media components:
-PRODUCT_COPY_FILES += \
-       $(IMX_DEVICE_PATH)/seccomp/mediacodec-seccomp.policy:vendor/etc/seccomp_policy/mediacodec.policy \
-       $(IMX_DEVICE_PATH)/seccomp/mediaextractor-seccomp.policy:vendor/etc/seccomp_policy/mediaextractor.policy
-
-PRODUCT_COPY_FILES += \
-       $(IMX_DEVICE_PATH)/app_whitelist.xml:system/etc/sysconfig/app_whitelist.xml
 
 TARGET_BOARD_KERNEL_HEADERS := device/fsl/common/kernel-headers
 
 #Enable AVB
 BOARD_AVB_ENABLE := true
 TARGET_USES_MKE2FS := true
-
-PRODUCT_COPY_FILES += \
-	device/fsl/common/wifi/wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf \
-	device/fsl/common/wifi/p2p_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/p2p_supplicant_overlay.conf

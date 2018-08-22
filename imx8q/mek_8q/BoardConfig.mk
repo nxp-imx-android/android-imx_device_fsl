@@ -11,27 +11,15 @@ ifeq ($(PREBUILT_FSL_IMX_CODEC),true)
 -include $(FSL_RESTRICTED_CODEC_PATH)/fsl-restricted-codec/imx_dsp_codec/imx_dsp_codec.mk
 -include $(FSL_RESTRICTED_CODEC_PATH)/fsl-restricted-codec/imx_dsp/imx_dsp.mk
 endif
-# sabreauto_6dq default target for EXT4
-BUILD_TARGET_FS ?= ext4
-include device/fsl/imx8q/imx8_target_fs.mk
 
-ifneq ($(BUILD_TARGET_FS),f2fs)
-TARGET_RECOVERY_FSTAB = $(IMX_DEVICE_PATH)/fstab.freescale
-# build for ext4
+BUILD_TARGET_FS ?= ext4
+TARGET_USERIMAGES_USE_EXT4 := true
+
 ifeq ($(PRODUCT_IMX_CAR),true)
 TARGET_RECOVERY_FSTAB = $(IMX_DEVICE_PATH)/fstab.freescale.car
-PRODUCT_COPY_FILES +=	\
-	$(IMX_DEVICE_PATH)/fstab.freescale.car:root/fstab.freescale
 else
-PRODUCT_COPY_FILES +=	\
-	$(IMX_DEVICE_PATH)/fstab.freescale:root/fstab.freescale
+TARGET_RECOVERY_FSTAB = $(IMX_DEVICE_PATH)/fstab.freescale
 endif # PRODUCT_IMX_CAR
-else
-TARGET_RECOVERY_FSTAB = $(IMX_DEVICE_PATH)/fstab-f2fs.freescale
-# build for f2fs
-PRODUCT_COPY_FILES +=	\
-	$(IMX_DEVICE_PATH)/fstab-f2fs.freescale:root/fstab.freescale
-endif # BUILD_TARGET_FS
 
 # Support gpt
 BOARD_BPT_INPUT_FILES += device/fsl/common/partition/device-partitions-13GB-ab.bpt
@@ -41,8 +29,7 @@ ADDITION_BPT_PARTITION = partition-table-7GB:device/fsl/common/partition/device-
 
 # Vendor Interface Manifest
 ifeq ($(PRODUCT_IMX_CAR),true)
-PRODUCT_COPY_FILES += \
-    $(IMX_DEVICE_PATH)/manifest_car.xml:vendor/manifest.xml
+DEVICE_MANIFEST_FILE := $(IMX_DEVICE_PATH)/manifest_car.xml
 else
 DEVICE_MANIFEST_FILE := $(IMX_DEVICE_PATH)/manifest.xml
 DEVICE_MATRIX_FILE := $(IMX_DEVICE_PATH)/compatibility_matrix.xml
@@ -112,9 +99,6 @@ else
 PRODUCT_COPY_FILES += \
        $(IMX_DEVICE_PATH)/init.insmod.cfg:$(TARGET_COPY_OUT_VENDOR)/etc/init.insmod.cfg
 endif
-
-PRODUCT_COPY_FILES += \
-       device/fsl/common/init/init.insmod.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.insmod.sh
 
 # Qcom 1CQ(QCA6174) BT
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(IMX_DEVICE_PATH)/bluetooth
@@ -200,22 +184,7 @@ BOARD_SEPOLICY_DIRS += \
      device/generic/car/common/sepolicy
 endif
 
-PRODUCT_COPY_FILES +=	\
-       $(IMX_DEVICE_PATH)/ueventd.freescale.rc:root/ueventd.freescale.rc
-
 BOARD_AVB_ENABLE := true
 TARGET_USES_MKE2FS := true
 
-# Vendor seccomp policy files for media components:
-PRODUCT_COPY_FILES += \
-       $(IMX_DEVICE_PATH)/seccomp/mediaextractor-seccomp.policy:vendor/etc/seccomp_policy/mediaextractor.policy \
-       $(IMX_DEVICE_PATH)/seccomp/mediacodec-seccomp.policy:vendor/etc/seccomp_policy/mediacodec.policy
-
-PRODUCT_COPY_FILES += \
-       $(IMX_DEVICE_PATH)/app_whitelist.xml:system/etc/sysconfig/app_whitelist.xml
-
 TARGET_BOARD_KERNEL_HEADERS := device/fsl/common/kernel-headers
-
-PRODUCT_COPY_FILES += \
-	device/fsl/common/wifi/wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf \
-	device/fsl/common/wifi/p2p_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/p2p_supplicant_overlay.conf

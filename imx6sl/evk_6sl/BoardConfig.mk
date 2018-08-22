@@ -31,28 +31,11 @@ include device/fsl/imx6sl/BoardConfigCommon.mk
 ifeq ($(PREBUILT_FSL_IMX_CODEC),true)
 -include $(FSL_CODEC_PATH)/fsl-codec/fsl-codec.mk
 endif
-# evk_mx6sl default target for EXT4
-BUILD_TARGET_FS ?= ext4
-include device/fsl/imx6sl/imx6_target_fs.mk
 
-ifeq ($(BUILD_TARGET_FS),ubifs)
-TARGET_RECOVERY_FSTAB = $(IMX_DEVICE_PATH)/fstab_nand.freescale
-# build ubifs for nand devices
-PRODUCT_COPY_FILES +=	\
-	$(IMX_DEVICE_PATH)/fstab_nand.freescale:root/fstab.freescale
-else
-ifneq ($(BUILD_TARGET_FS),f2fs)
+BUILD_TARGET_FS ?= ext4
+TARGET_USERIMAGES_USE_EXT4 := true
+
 TARGET_RECOVERY_FSTAB = $(IMX_DEVICE_PATH)/fstab.freescale
-# build for ext4
-PRODUCT_COPY_FILES +=	\
-	$(IMX_DEVICE_PATH)/fstab.freescale:root/fstab.freescale
-else
-TARGET_RECOVERY_FSTAB = $(IMX_DEVICE_PATH)/fstab-f2fs.freescale
-# build for f2fs
-PRODUCT_COPY_FILES +=	\
-	$(IMX_DEVICE_PATH)/fstab-f2fs.freescale:root/fstab.freescale
-endif # BUILD_TARGET_FS
-endif # BUILD_TARGET_FS
 
 # Vendor Interface manifest and compatibility
 DEVICE_MANIFEST_FILE := $(IMX_DEVICE_PATH)/manifest.xml
@@ -111,28 +94,13 @@ BOARD_SEPOLICY_DIRS := \
        device/fsl/imx6sl/sepolicy \
        $(IMX_DEVICE_PATH)/sepolicy
 
-PRODUCT_COPY_FILES +=	\
-       $(IMX_DEVICE_PATH)/ueventd.freescale.rc:root/ueventd.freescale.rc
-
 # Support gpt
 BOARD_BPT_INPUT_FILES += device/fsl/common/partition/device-partitions-7GB.bpt
 ADDITION_BPT_PARTITION = partition-table-14GB:device/fsl/common/partition/device-partitions-14GB.bpt \
                          partition-table-28GB:device/fsl/common/partition/device-partitions-28GB.bpt
-
-# Vendor seccomp policy files for media components:
-PRODUCT_COPY_FILES += \
-       $(IMX_DEVICE_PATH)/seccomp/mediacodec-seccomp.policy:vendor/etc/seccomp_policy/mediacodec.policy \
-       $(IMX_DEVICE_PATH)/seccomp/mediaextractor-seccomp.policy:vendor/etc/seccomp_policy/mediaextractor.policy
-
-PRODUCT_COPY_FILES += \
-       $(IMX_DEVICE_PATH)/app_whitelist.xml:system/etc/sysconfig/app_whitelist.xml
 
 TARGET_BOARD_KERNEL_HEADERS := device/fsl/common/kernel-headers
 
 #Enable AVB
 BOARD_AVB_ENABLE := true
 TARGET_USES_MKE2FS := true
-
-PRODUCT_COPY_FILES += \
-	device/fsl/common/wifi/wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf \
-	device/fsl/common/wifi/p2p_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/p2p_supplicant_overlay.conf
