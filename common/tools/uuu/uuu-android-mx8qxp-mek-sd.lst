@@ -1,0 +1,21 @@
+uuu_version 1.0.29
+#uuu scripts for imx8qxp Android imx_pi9.0 sd card
+CFG: FB: -vid 0x1fc9 -pid 0x012f
+SDPS: boot -f u-boot-imx8qxp.imx
+FB: ucmd setenv fastboot_dev mmc
+FB: ucmd setenv mmcdev 1
+FB: ucmd mmc dev 1
+FB: flash bootloader0 u-boot-imx8qxp.imx
+FB: flash gpt partition-table.img
+FB: flash boot_a boot.img
+FB: flash boot_b boot.img
+FB: flash vbmeta_a vbmeta-imx8qxp.img
+FB: flash vbmeta_b vbmeta-imx8qxp.img
+FB[-t 20000]: flash vendor_a vendor.img
+FB[-t 20000]: flash vendor_b vendor.img
+FB[-t 100000]: flash system_a system.img
+FB[-t 100000]: flash system_b system.img
+FB: flash dtbo_a dtbo-imx8qxp.img
+FB: flash dtbo_b dtbo-imx8qxp.img
+FB: done
+
