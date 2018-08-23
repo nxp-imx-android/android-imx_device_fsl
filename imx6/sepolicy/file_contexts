@@ -24,3 +24,8 @@
 
 /vendor/lib/hw/gralloc_viv\.imx6\.so   u:object_r:same_process_hal_file:s0
 /vendor/lib/libdrm_vivante\.so         u:object_r:same_process_hal_file:s0
+
+/vendor/lib(64)?/lib_mp4_parser_arm11_elinux\.3\.0\.so       u:object_r:same_process_hal_file:s0
+/vendor/lib(64)?/lib_mkv_parser_arm11_elinux\.3\.0\.so       u:object_r:same_process_hal_file:s0
+/vendor/lib(64)?/lib_aac_parser_arm11_elinux\.3\.0\.so       u:object_r:same_process_hal_file:s0
+/vendor/lib(64)?/extractors/libfslextractor\.so              u:object_r:same_process_hal_file:s0
