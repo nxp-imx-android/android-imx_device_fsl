@@ -50,9 +50,8 @@ define build_dtb
 	dtbs
 endef
 
-$(BOARD_PREBUILT_DTBOIMAGE): $(KERNEL_CONFIG) $(DTS_SRC) | $(MKDTIMG) $(AVBTOOL)
+$(BOARD_PREBUILT_DTBOIMAGE): $(KERNEL_BIN) $(DTS_SRC) | $(MKDTIMG) $(AVBTOOL)
 	$(hide) echo "Building $(KERNEL_ARCH) dtbo ..."
-	$(hide) rm -rf $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/arch/$(KERNEL_ARCH)/boot/dts
 	$(hide) PATH=$$PATH $(MAKE) -C $(TARGET_KERNEL_SRC) mrproper
 	$(call build_dtb); \
 	for dtsplat in $(TARGET_BOARD_DTS_CONFIG); do \
