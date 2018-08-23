@@ -7,7 +7,7 @@ on early-boot
     write /sys/bus/platform/drivers/galcore/gpu3DMinClock 3
 
     # set media_profile.xml
-    setprop media.settings.xml /etc/media_profiles_720p.xml
+    setprop media.settings.xml /vendor/etc/media_profiles_720p.xml
 
     # set back camera.
     setprop back_camera_name ov5640_camera
