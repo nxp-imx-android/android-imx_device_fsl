@@ -31,7 +31,3 @@
 /vendor/lib(64)?/extractors/libfslextractor\.so              u:object_r:same_process_hal_file:s0
 
 /vendor/usr/idc/eGalax_Touch_Screen\.idc              u:object_r:same_process_hal_file:s0
-
-#insmod_sh service
-/vendor/bin/init\.insmod\.sh                u:object_r:init-insmod-sh_exec:s0
-/vendor/etc/init\.insmod\.cfg               u:object_r:init-insmod-sh_exec:s0
