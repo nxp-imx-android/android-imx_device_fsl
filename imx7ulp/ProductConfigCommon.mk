@@ -28,7 +28,6 @@ PRODUCT_PACKAGES += \
     charger_res_images \
     chat \
     ethernet \
-    fsck.f2fs \
     ip-up-vpn \
     libGLES_android \
     libRS \
@@ -38,7 +37,6 @@ PRODUCT_PACKAGES += \
     libpxp \
     librs_jni \
     libubi \
-    mkfs.f2fs \
     mkfs_ubifs \
     slideshow \
     ubiattach \

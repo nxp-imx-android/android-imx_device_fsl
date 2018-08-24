@@ -16,13 +16,11 @@ PRODUCT_PACKAGES += \
     charger \
     charger_res_images \
     ethernet \
-    fsck.f2fs \
     libGLES_android \
     libRS \
     libedid \
     libion \
     librs_jni \
-    mkfs.f2fs
     slideshow \
     verity_warning_images \
     vndk-sp
@@ -129,7 +127,7 @@ PRODUCT_PACKAGES += \
     libext2_e2p \
     libext2_profile \
     libext2_uuid \
-    libext2fs
+    libext2fs \
     mke2fs
 
 # for CtsVerifier

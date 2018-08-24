@@ -31,7 +31,6 @@ PRODUCT_PACKAGES += \
     charger_res_images \
     chat \
     ethernet \
-    fsck.f2fs \
     fsl.imx.jar \
     ip-up-vpn \
     libGLES_android \

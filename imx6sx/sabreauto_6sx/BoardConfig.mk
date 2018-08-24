@@ -20,8 +20,6 @@ BOARD_BPT_INPUT_FILES += device/fsl/common/partition/device-partitions-7GB.bpt
 ADDITION_BPT_PARTITION = partition-table-14GB:device/fsl/common/partition/device-partitions-14GB.bpt \
                          partition-table-28GB:device/fsl/common/partition/device-partitions-28GB.bpt
 
-endif # BUILD_TARGET_FS
-
 # Vendor Interface manifest and compatibility
 DEVICE_MANIFEST_FILE := $(IMX_DEVICE_PATH)/manifest.xml
 DEVICE_MATRIX_FILE := $(IMX_DEVICE_PATH)/compatibility_matrix.xml
