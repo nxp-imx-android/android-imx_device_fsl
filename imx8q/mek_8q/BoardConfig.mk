@@ -90,14 +90,6 @@ BOARD_VENDOR_KERNEL_MODULES += \
                             $(KERNEL_OUT)/net/bluetooth/rfcomm/rfcomm.ko \
                             $(KERNEL_OUT)/drivers/bluetooth/mx8_bt_rfkill.ko \
                             $(KERNEL_OUT)/drivers/hid/hid-multitouch.ko
-
-PRODUCT_COPY_FILES += \
-       $(IMX_DEVICE_PATH)/init.insmod_car.cfg:$(TARGET_COPY_OUT_VENDOR)/etc/init.insmod.cfg \
-       $(IMX_DEVICE_PATH)/init.insmod_auto.cfg:$(TARGET_COPY_OUT_VENDOR)/etc/init.insmod_auto.cfg \
-       $(IMX_DEVICE_PATH)/init.insmod_auto.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.insmod_auto.sh
-else
-PRODUCT_COPY_FILES += \
-       $(IMX_DEVICE_PATH)/init.insmod.cfg:$(TARGET_COPY_OUT_VENDOR)/etc/init.insmod.cfg
 endif
 
 # Qcom 1CQ(QCA6174) BT

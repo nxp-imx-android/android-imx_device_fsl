@@ -27,22 +27,39 @@ PRODUCT_COPY_FILES += \
     $(IMX_DEVICE_PATH)/app_whitelist.xml:system/etc/sysconfig/app_whitelist.xml \
     $(IMX_DEVICE_PATH)/audio_effects.conf:$(TARGET_COPY_OUT_VENDOR)/etc/audio_effects.conf \
     $(IMX_DEVICE_PATH)/audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_configuration.xml \
-    $(IMX_DEVICE_PATH)/fstab.freescale:root/fstab.freescale \
+    $(IMX_DEVICE_PATH)/init.imx8qm.rc:root/init.freescale.imx8qm.rc \
+    $(IMX_DEVICE_PATH)/init.imx8qxp.rc:root/init.freescale.imx8qxp.rc \
+    $(IMX_DEVICE_PATH)/init.usb.rc:root/init.freescale.usb.rc \
+    $(IMX_DEVICE_PATH)/ueventd.freescale.rc:root/ueventd.freescale.rc \
+    device/fsl/common/init/init.insmod.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.insmod.sh \
+    device/fsl/common/wifi/p2p_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/p2p_supplicant_overlay.conf \
+    device/fsl/common/wifi/wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf
+
+ifeq ($(PRODUCT_IMX_CAR),true)
+PRODUCT_COPY_FILES += \
+    $(IMX_DEVICE_PATH)/init.freescale.emmc.rc:root/init.freescale.emmc.default.rc \
+    $(IMX_DEVICE_PATH)/init.freescale.emmc.rc:root/init.recovery.freescale.emmc.default.rc \
+    $(IMX_DEVICE_PATH)/init.freescale.sd.rc:root/init.freescale.sd.default.rc \
+    $(IMX_DEVICE_PATH)/init.freescale.sd.rc:root/init.recovery.freescale.sd.default.rc \
+    $(IMX_DEVICE_PATH)/init_car.rc:root/init.freescale.rc \
+    $(IMX_DEVICE_PATH)/fstab.freescale.car:root/fstab.freescale \
+    $(IMX_DEVICE_PATH)/init.insmod_car.cfg:$(TARGET_COPY_OUT_VENDOR)/etc/init.insmod.cfg \
+    $(IMX_DEVICE_PATH)/init.insmod_auto.cfg:$(TARGET_COPY_OUT_VENDOR)/etc/init.insmod_auto.cfg \
+    $(IMX_DEVICE_PATH)/required_hardware_auto.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/required_hardware.xml \
+    device/fsl/imx8q/init.recovery.freescale.car.rc:root/init.recovery.freescale.rc \
+    $(IMX_DEVICE_PATH)/init.insmod_auto.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.insmod_auto.sh
+else
+PRODUCT_COPY_FILES += \
     $(IMX_DEVICE_PATH)/init.freescale.emmc.rc:root/init.freescale.emmc.rc \
     $(IMX_DEVICE_PATH)/init.freescale.emmc.rc:root/init.recovery.freescale.emmc.rc \
     $(IMX_DEVICE_PATH)/init.freescale.sd.rc:root/init.freescale.sd.rc \
     $(IMX_DEVICE_PATH)/init.freescale.sd.rc:root/init.recovery.freescale.sd.rc \
-    $(IMX_DEVICE_PATH)/init.imx8qm.rc:root/init.freescale.imx8qm.rc \
-    $(IMX_DEVICE_PATH)/init.imx8qxp.rc:root/init.freescale.imx8qxp.rc \
-    $(IMX_DEVICE_PATH)/init.insmod.cfg:$(TARGET_COPY_OUT_VENDOR)/etc/init.insmod.cfg \
     $(IMX_DEVICE_PATH)/init.rc:root/init.freescale.rc \
-    $(IMX_DEVICE_PATH)/init.usb.rc:root/init.freescale.usb.rc \
+    $(IMX_DEVICE_PATH)/fstab.freescale:root/fstab.freescale \
     $(IMX_DEVICE_PATH)/required_hardware.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/required_hardware.xml \
-    $(IMX_DEVICE_PATH)/ueventd.freescale.rc:root/ueventd.freescale.rc \
-    device/fsl/common/init/init.insmod.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.insmod.sh \
-    device/fsl/common/wifi/p2p_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/p2p_supplicant_overlay.conf \
-    device/fsl/common/wifi/wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf \
-    device/fsl/imx8q/init.recovery.freescale.rc:root/init.recovery.freescale.rc
+    device/fsl/imx8q/init.recovery.freescale.rc:root/init.recovery.freescale.rc \
+    $(IMX_DEVICE_PATH)/init.insmod.cfg:$(TARGET_COPY_OUT_VENDOR)/etc/init.insmod.cfg
+endif
 
 # ONLY devices that meet the CDD's requirements may declare these features
 PRODUCT_COPY_FILES += \
