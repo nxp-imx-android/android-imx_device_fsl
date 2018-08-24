@@ -232,6 +232,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.product.first_api_level=26
 
 PRODUCT_PACKAGES += \
+    libvpu-malone \
     lib_omx_v4l2_common_arm11_elinux \
     lib_omx_v4l2_dec_arm11_elinux \
     lib_omx_v4l2_enc_arm11_elinux

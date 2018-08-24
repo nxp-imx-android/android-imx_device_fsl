@@ -79,7 +79,7 @@ BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE = ext4
 TARGET_COPY_OUT_VENDOR := vendor
 
 BOARD_FLASH_BLOCK_SIZE := 4096
-#TARGET_RECOVERY_UI_LIB := librecovery_ui_imx
+TARGET_RECOVERY_UI_LIB := librecovery_ui_imx
 
 -include device/google/gapps/gapps_config.mk
 -include $(FSL_RESTRICTED_CODEC_PATH)/fsl-restricted-codec/fsl_ms_codec/BoardConfig.mk
