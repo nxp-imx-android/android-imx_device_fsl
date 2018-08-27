@@ -267,8 +267,8 @@ on post-fs-data
     setprop vold.post_fs_data_done 1
 
     # tmp dir for opencl Compiler
-    setprop TMPDIR /data/.opencl-cache
-    mkdir /data/.opencl-cache 0771 system system
+    setprop TMPDIR /data/vendor/.opencl-cache
+    mkdir /data/vendor/.opencl-cache 0771 camera camera
 
 on zygote-start
     # Create the directories used by the Wireless subsystem

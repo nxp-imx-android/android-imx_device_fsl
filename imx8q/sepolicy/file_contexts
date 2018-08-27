@@ -20,6 +20,7 @@
 /vendor/bin/wcnss_filter        u:object_r:wcnss_filter_exec:s0
 /dev/shm                        u:object_r:video_device:s0
 /dev/shm/vpu_msg_fifo[0-9]*     u:object_r:video_device:s0
+/data/vendor/.opencl-cache(/.*)?       u:object_r:opencl_cache_file:s0
 
 ###############################################
 # same-process HAL files and their dependencies
