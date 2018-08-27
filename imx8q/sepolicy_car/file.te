@@ -1,0 +1,1 @@
+type sysfs_canregister, sysfs_type, fs_type;

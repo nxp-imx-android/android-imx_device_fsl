@@ -101,7 +101,8 @@ endif
 
 ifeq ($(PRODUCT_IMX_CAR),true)
 PRODUCT_PACKAGES += \
-    evs_can_service
+    evs_can_service \
+    android.hardware.automotive.evs@1.0-EvsEnumeratorHw
 endif
 
 # display

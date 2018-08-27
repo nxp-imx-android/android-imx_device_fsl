@@ -1,0 +1,3 @@
+allow servicemanager hal_evs_driver:dir { search };
+allow servicemanager hal_evs_driver:file { read open };
+allow servicemanager hal_evs_driver:process { getattr };

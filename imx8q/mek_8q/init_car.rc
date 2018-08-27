@@ -108,12 +108,34 @@ on early-boot
     # Set WiFi Display Source VideoBitRate Adaptive
     setprop media.wfd.video-bitrate 3000000
 
+on property:rpmsg.can.register=1
+    # load i2c module
+    exec u:r:modprobe:s0 -- /vendor/bin/modprobe -a -d /vendor/lib/modules i2c-imx-lpi2c.ko
+    # load dpu related module
+    exec u:r:modprobe:s0 -- /vendor/bin/modprobe -a -d /vendor/lib/modules imx8_prg.ko imx8_dprc.ko imx-dpu-core.ko \
+       nwl-dsi.ko nwl_dsi-imx.ko imx-dpu-crtc.ko imx-dpu-blit.ko imx-dpu-render.ko
+    # load camera related module
+    exec u:r:modprobe:s0 -- /vendor/bin/modprobe -a -d /vendor/lib/modules ov5640_mipi_v3.ko mxc-mipi-csi2.ko \
+        mxc-capture.ko
+
+on property:rpmsg.can.event=1
+    start evs_driver
+    start evs_app
+
+on property:rpmsg.can.event=0
+    stop evs_driver
+    stop evs_app
+
+
 on property:sys.boot_completed=1
     start insmod_auto_sh
 
     wait_for_prop sys.all.modules.loaded 1
     # Trigger start adbd service
     setprop sys.usb.configfs 1
+
+    # register the can_rpmsg
+    write /sys/devices/platform/can_rpmsg/register 1
 
 on property:bluetooth.rfkill_initialized=1
     # Prepare for bluetooth
@@ -175,6 +197,15 @@ service iprenew_bt-pan /system/bin/dhcpcd -n
     class main
     disabled
     oneshot
+
+service evs_driver /vendor/bin/android.hardware.automotive.evs@1.0-EvsEnumeratorHw
+    user graphics
+    group automotive_evs camera
+    onrestart restart evs_manager
+
+service evs_app /system/bin/evs_app --hw
+    user automotive_evs
+    group automotive_evs
 
 # bugreport is triggered by holding down volume down, volume up and power
 service bugreport /system/bin/dumpstate -d -p -B -z \

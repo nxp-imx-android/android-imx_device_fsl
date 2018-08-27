@@ -89,7 +89,19 @@ BOARD_VENDOR_KERNEL_MODULES += \
                             $(KERNEL_OUT)/net/bluetooth/bluetooth.ko \
                             $(KERNEL_OUT)/net/bluetooth/rfcomm/rfcomm.ko \
                             $(KERNEL_OUT)/drivers/bluetooth/mx8_bt_rfkill.ko \
-                            $(KERNEL_OUT)/drivers/hid/hid-multitouch.ko
+                            $(KERNEL_OUT)/drivers/hid/hid-multitouch.ko \
+                            $(KERNEL_OUT)/drivers/i2c/busses/i2c-imx-lpi2c.ko \
+                            $(KERNEL_OUT)/drivers/gpu/imx/imx8_prg.ko \
+                            $(KERNEL_OUT)/drivers/gpu/imx/imx8_dprc.ko \
+                            $(KERNEL_OUT)/drivers/gpu/imx/dpu-blit/imx-dpu-blit.ko \
+                            $(KERNEL_OUT)/drivers/gpu/drm/imx/dpu/imx-dpu-render.ko \
+                            $(KERNEL_OUT)/drivers/gpu/imx/dpu/imx-dpu-core.ko \
+                            $(KERNEL_OUT)/drivers/gpu/drm/imx/dpu/imx-dpu-crtc.ko \
+                            $(KERNEL_OUT)/drivers/gpu/drm/bridge/nwl-dsi.ko \
+                            $(KERNEL_OUT)/drivers/gpu/drm/imx/nwl_dsi-imx.ko \
+                            $(KERNEL_OUT)/drivers/media/platform/imx8/ov5640_mipi_v3.ko \
+                            $(KERNEL_OUT)/drivers/media/platform/imx8/mxc-mipi-csi2.ko \
+                            $(KERNEL_OUT)/drivers/media/platform/imx8/mxc-capture.ko
 endif
 
 # Qcom 1CQ(QCA6174) BT
@@ -150,7 +162,7 @@ endif
 
 BOARD_PREBUILT_DTBOIMAGE := out/target/product/mek_8q/dtbo-imx8qm.img
 ifeq ($(PRODUCT_IMX_CAR),true)
-TARGET_BOARD_DTS_CONFIG := imx8qm:fsl-imx8qm-mek-car.dtb imx8qxp:fsl-imx8qxp-mek-car.dtb
+TARGET_BOARD_DTS_CONFIG := imx8qm:fsl-imx8qm-mek-mipi-ov5640.dtb imx8qxp:fsl-imx8qxp-mek-mipi-ov5640.dtb
 TARGET_BOOTLOADER_CONFIG := imx8qm:imx8qm_mek_androidauto_defconfig imx8qxp:imx8qxp_mek_androidauto_defconfig
 else
 TARGET_BOARD_DTS_CONFIG := imx8qm:fsl-imx8qm-mek.dtb imx8qm-hdmi:fsl-imx8qm-mek-hdmi.dtb imx8qxp:fsl-imx8qxp-mek-ov5640.dtb imx8qxp-ov5640mipi:fsl-imx8qxp-mek-mipi-ov5640.dtb

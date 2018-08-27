@@ -1,0 +1,1 @@
+allow hal_graphics_composer_default hal_evs_driver:fd { use };

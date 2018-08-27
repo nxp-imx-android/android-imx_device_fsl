@@ -1,0 +1,1 @@
+allow init sysfs_canregister:file { open write };

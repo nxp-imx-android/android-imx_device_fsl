@@ -1,0 +1,1 @@
+genfscon sysfs /devices/platform/can_rpmsg/register    u:object_r:sysfs_canregister:s0
