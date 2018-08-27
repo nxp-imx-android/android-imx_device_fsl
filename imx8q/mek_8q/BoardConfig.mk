@@ -173,6 +173,8 @@ BOARD_SEPOLICY_DIRS := \
 ifeq ($(PRODUCT_IMX_CAR),true)
 BOARD_SEPOLICY_DIRS += \
      packages/services/Car/car_product/sepolicy \
+     packages/services/Car/evs/sepolicy \
+     device/fsl/imx8q/sepolicy_car \
      device/generic/car/common/sepolicy
 endif
 

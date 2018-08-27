@@ -99,6 +99,11 @@ PRODUCT_PACKAGES += \
     camera.imx8
 endif
 
+ifeq ($(PRODUCT_IMX_CAR),true)
+PRODUCT_PACKAGES += \
+    evs_can_service
+endif
+
 # display
 PRODUCT_PACKAGES += \
     libdrm_android \
