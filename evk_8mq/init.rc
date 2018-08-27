@@ -263,4 +263,4 @@ on post-fs-data
 
     # tmp dir for opencl Compiler
     setprop TMPDIR /data/.opencl-cache
-    mkdir /data/.opencl-cache 0771 system system
+    mkdir /data/.opencl-cache 0771 camera camera
