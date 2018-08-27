@@ -49,3 +49,21 @@
 /dev/FreescaleMagnetometer      u:object_r:sensors_device:s0
 /dev/FreescaleGyroscope         u:object_r:sensors_device:s0
 /dev/sda[0-8]*                  u:object_r:fuse:s0
+
+/vendor/lib(64)?/lib_aac_parser_arm11_elinux\.3\.0\.so       u:object_r:same_process_hal_file:s0
+/vendor/lib(64)?/lib_amr_parser_arm11_elinux\.3\.0\.so       u:object_r:same_process_hal_file:s0
+/vendor/lib(64)?/lib_ape_parser_arm11_elinux\.3\.0\.so       u:object_r:same_process_hal_file:s0
+/vendor/lib(64)?/lib_asf_parser_arm11_elinux\.3\.0\.so       u:object_r:same_process_hal_file:s0
+/vendor/lib(64)?/lib_avi_parser_arm11_elinux\.3\.0\.so       u:object_r:same_process_hal_file:s0
+/vendor/lib(64)?/lib_dsf_parser_arm11_elinux\.3\.0\.so       u:object_r:same_process_hal_file:s0
+/vendor/lib(64)?/lib_flac_parser_arm11_elinux\.3\.0\.so      u:object_r:same_process_hal_file:s0
+/vendor/lib(64)?/lib_flv_parser_arm11_elinux\.3\.0\.so       u:object_r:same_process_hal_file:s0
+/vendor/lib(64)?/lib_mkv_parser_arm11_elinux\.3\.0\.so       u:object_r:same_process_hal_file:s0
+/vendor/lib(64)?/lib_mp3_parser_arm11_elinux\.3\.0\.so       u:object_r:same_process_hal_file:s0
+/vendor/lib(64)?/lib_mp3_parser_v2_arm11_elinux\.so          u:object_r:same_process_hal_file:s0
+/vendor/lib(64)?/lib_mp4_parser_arm11_elinux\.3\.0\.so       u:object_r:same_process_hal_file:s0
+/vendor/lib(64)?/lib_mpg2_parser_arm11_elinux\.3\.0\.so      u:object_r:same_process_hal_file:s0
+/vendor/lib(64)?/lib_ogg_parser_arm11_elinux\.3\.0\.so       u:object_r:same_process_hal_file:s0
+/vendor/lib(64)?/lib_rm_parser_arm11_elinux\.3\.0\.so        u:object_r:same_process_hal_file:s0
+/vendor/lib(64)?/lib_wav_parser_arm11_elinux\.3\.0\.so       u:object_r:same_process_hal_file:s0
+/vendor/lib(64)?/extractors/libfslextractor\.so              u:object_r:same_process_hal_file:s0
