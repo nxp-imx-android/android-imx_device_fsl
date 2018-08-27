@@ -134,8 +134,19 @@ on property:sys.boot_completed=1
     # Trigger start adbd service
     setprop sys.usb.configfs 1
 
+on property:sys.boot_completed=1 && property:ro.boot.soc_type=imx8qm
     # register the can_rpmsg
     write /sys/devices/platform/can_rpmsg/register 1
+
+on property:sys.boot_completed=1 && property:ro.boot.soc_type=imx8qxp
+    # load i2c module
+    exec u:r:modprobe:s0 -- /vendor/bin/modprobe -a -d /vendor/lib/modules i2c-imx-lpi2c.ko
+    # load dpu related module
+    exec u:r:modprobe:s0 -- /vendor/bin/modprobe -a -d /vendor/lib/modules imx8_prg.ko imx8_dprc.ko imx-dpu-core.ko \
+    nwl-dsi.ko nwl_dsi-imx.ko imx-dpu-crtc.ko imx-dpu-blit.ko imx-dpu-render.ko
+    # load camera related module
+    exec u:r:modprobe:s0 -- /vendor/bin/modprobe -a -d /vendor/lib/modules ov5640_mipi_v3.ko mxc-mipi-csi2.ko \
+        mxc-capture.ko
 
 on property:bluetooth.rfkill_initialized=1
     # Prepare for bluetooth
