@@ -45,9 +45,9 @@ PRODUCT_COPY_FILES += \
     $(IMX_DEVICE_PATH)/fstab.freescale.car:root/fstab.freescale \
     $(IMX_DEVICE_PATH)/init.insmod_car.cfg:$(TARGET_COPY_OUT_VENDOR)/etc/init.insmod.cfg \
     $(IMX_DEVICE_PATH)/init.insmod_auto.cfg:$(TARGET_COPY_OUT_VENDOR)/etc/init.insmod_auto.cfg \
+    $(IMX_DEVICE_PATH)/init.insmod_can.cfg:$(TARGET_COPY_OUT_VENDOR)/etc/init.insmod_can.cfg \
     $(IMX_DEVICE_PATH)/required_hardware_auto.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/required_hardware.xml \
-    device/fsl/imx8q/init.recovery.freescale.car.rc:root/init.recovery.freescale.rc \
-    $(IMX_DEVICE_PATH)/init.insmod_auto.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.insmod_auto.sh
+    device/fsl/imx8q/init.recovery.freescale.car.rc:root/init.recovery.freescale.rc
 else
 PRODUCT_COPY_FILES += \
     $(IMX_DEVICE_PATH)/init.freescale.emmc.rc:root/init.freescale.emmc.rc \

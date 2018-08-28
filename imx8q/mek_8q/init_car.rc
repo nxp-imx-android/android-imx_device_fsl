@@ -109,14 +109,8 @@ on early-boot
     setprop media.wfd.video-bitrate 3000000
 
 on property:rpmsg.can.register=1
-    # load i2c module
-    exec u:r:modprobe:s0 -- /vendor/bin/modprobe -a -d /vendor/lib/modules i2c-imx-lpi2c.ko
-    # load dpu related module
-    exec u:r:modprobe:s0 -- /vendor/bin/modprobe -a -d /vendor/lib/modules imx8_prg.ko imx8_dprc.ko imx-dpu-core.ko \
-       nwl-dsi.ko nwl_dsi-imx.ko imx-dpu-crtc.ko imx-dpu-blit.ko imx-dpu-render.ko
-    # load camera related module
-    exec u:r:modprobe:s0 -- /vendor/bin/modprobe -a -d /vendor/lib/modules ov5640_mipi_v3.ko mxc-mipi-csi2.ko \
-        mxc-capture.ko
+    start insmod_can_sh
+    wait_for_prop sys.all.can_modules.loaded 1
 
 on property:rpmsg.can.event=1
     start evs_driver
@@ -139,14 +133,8 @@ on property:sys.boot_completed=1 && property:ro.boot.soc_type=imx8qm
     write /sys/devices/platform/can_rpmsg/register 1
 
 on property:sys.boot_completed=1 && property:ro.boot.soc_type=imx8qxp
-    # load i2c module
-    exec u:r:modprobe:s0 -- /vendor/bin/modprobe -a -d /vendor/lib/modules i2c-imx-lpi2c.ko
-    # load dpu related module
-    exec u:r:modprobe:s0 -- /vendor/bin/modprobe -a -d /vendor/lib/modules imx8_prg.ko imx8_dprc.ko imx-dpu-core.ko \
-    nwl-dsi.ko nwl_dsi-imx.ko imx-dpu-crtc.ko imx-dpu-blit.ko imx-dpu-render.ko
-    # load camera related module
-    exec u:r:modprobe:s0 -- /vendor/bin/modprobe -a -d /vendor/lib/modules ov5640_mipi_v3.ko mxc-mipi-csi2.ko \
-        mxc-capture.ko
+    start insmod_can_sh
+    wait_for_prop sys.all.can_modules.loaded 1
 
 on property:bluetooth.rfkill_initialized=1
     # Prepare for bluetooth
@@ -250,14 +238,21 @@ service hci_filter_root /vendor/bin/wcnss_filter
     group bluetooth diag system
     disabled
 
-service insmod_sh /vendor/bin/init.insmod.sh
+service insmod_sh /vendor/bin/init.insmod.sh /vendor/etc/init.insmod.cfg sys.all.modules.ready
     class main
     user root
     group root system
     disabled
     oneshot
 
-service insmod_auto_sh /vendor/bin/init.insmod_auto.sh
+service insmod_auto_sh /vendor/bin/init.insmod.sh /vendor/etc/init.insmod_auto.cfg sys.all.modules.loaded
+    class main
+    user root
+    group root system
+    disabled
+    oneshot
+
+service insmod_can_sh /vendor/bin/init.insmod.sh /vendor/etc/init.insmod_can.cfg sys.all.can_modules.loaded
     class main
     user root
     group root system

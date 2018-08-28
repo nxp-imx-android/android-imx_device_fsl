@@ -7,7 +7,7 @@
 ### ...                               ###
 #########################################
 
-cfg_file="/vendor/etc/init.insmod.cfg"
+cfg_file=$1
 
 if [ -f $cfg_file ]; then
   while IFS=" " read -r action name value
@@ -21,4 +21,4 @@ fi
 
 # set property even if there is no insmod config
 # as property value "1" is expected in early-boot trigger
-setprop sys.all.modules.ready 1
+setprop $2 1

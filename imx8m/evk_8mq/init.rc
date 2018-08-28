@@ -280,7 +280,7 @@ on zygote-start
     mkdir /data/misc/dhcp 0770 dhcp dhcp
     chown dhcp dhcp /data/misc/dhcp
 
-service insmod_sh /vendor/bin/init.insmod.sh
+service insmod_sh /vendor/bin/init.insmod.sh /vendor/etc/init.insmod.cfg sys.all.modules.ready
     class main
     user root
     group root system
