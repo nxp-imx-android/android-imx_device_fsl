@@ -104,8 +104,8 @@ USE_XML_AUDIO_POLICY_CONF := 1
 
 # VPU files
 PRODUCT_COPY_FILES += \
-    $(LINUX_FIRMWARE_IMX_PATH)/linux-firmware-imx/firmware/vpu/vpu_fw_imx8qxp_dec.bin:vendor/firmware/vpu/vpu_fw_imx8qxp_dec.bin \
-    $(LINUX_FIRMWARE_IMX_PATH)/linux-firmware-imx/firmware/vpu/vpu_fw_imx8qxp_enc.bin:vendor/firmware/vpu/vpu_fw_imx8qxp_enc.bin
+    $(LINUX_FIRMWARE_IMX_PATH)/linux-firmware-imx/firmware/vpu/vpu_fw_imx8_dec.bin:vendor/firmware/vpu/vpu_fw_imx8_dec.bin \
+    $(LINUX_FIRMWARE_IMX_PATH)/linux-firmware-imx/firmware/vpu/vpu_fw_imx8_enc.bin:vendor/firmware/vpu/vpu_fw_imx8_enc.bin
 
 DEVICE_PACKAGE_OVERLAYS := $(IMX_DEVICE_PATH)/overlay
 
