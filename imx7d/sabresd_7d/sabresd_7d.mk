@@ -113,6 +113,9 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_PACKAGES += \
     libg2d \
+    libEGL_swiftshader \
+    libGLESv1_CM_swiftshader \
+    libGLESv2_swiftshader \
     gatekeeper.imx7
 
 PRODUCT_PACKAGES += \
