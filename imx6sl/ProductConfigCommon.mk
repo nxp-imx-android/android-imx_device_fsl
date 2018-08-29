@@ -374,10 +374,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.FSL_FLAC_PARSER=1 \
     ro.FSL_MPG2_PARSER=1
 
-# for property
-PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
-    persist.sys.usb.config=mtp
-
 # we have enough storage space to hold precise GC data
 PRODUCT_TAGS += dalvik.gc.type-precise
 

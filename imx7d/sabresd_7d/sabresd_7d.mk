@@ -132,7 +132,7 @@ PRODUCT_PACKAGES += \
 
 # Usb HAL
 PRODUCT_PACKAGES += \
-    android.hardware.usb@1.0-service
+    android.hardware.usb@1.1-service.imx
 
 # Bluetooth HAL
 PRODUCT_PACKAGES += \
