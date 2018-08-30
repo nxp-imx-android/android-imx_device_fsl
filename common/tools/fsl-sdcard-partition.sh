@@ -29,6 +29,7 @@ options:
 					If not set, use partition-table.img
 					If set to 7, use partition-table-7GB.img for 7GB SD card
   -m				flash m4 image
+  -o force_offset		force set uboot offset
 EOF
 
 }
@@ -37,6 +38,7 @@ EOF
 moreoptions=1
 node="na"
 soc_name=""
+force_offset=""
 cal_only=0
 card_size=0
 bootloader_offset=1
@@ -66,6 +68,7 @@ while [ "$moreoptions" = 1 -a $# -gt 0 ]; do
 	    -a) slot="_a" ;;
 	    -b) slot="_b" ;;
 	    -m) flash_m4=1 ;;
+	    -o) force_offset=$2; shift;;
 	    *)  moreoptions=0; node=$1 ;;
 	esac
 	[ "$moreoptions" = 0 ] && [ $# -gt 1 ] && help && exit
@@ -80,12 +83,16 @@ if [ "${soc_name}" = "imx8dv" ]; then
     bootloader_offset=16
 fi
 
-if [ "${soc_name}" = "imx8qxp" ]; then
+if [ "${soc_name}" = "imx8qxp" -o "${soc_name}" = "imx8qm" ]; then
    bootloader_offset=32
 fi
 
-if [ "${soc_name}" = "imx8qm" -o "${soc_name}" = "imx8mq" -o "${soc_name}" = "imx8mm" ]; then
+if [ "${soc_name}" = "imx8mq" -o "${soc_name}" = "imx8mm" ]; then
     bootloader_offset=33
+fi
+
+if [ "${force_offset}" != "" ]; then
+    bootloader_offset=${force_offset}
 fi
 
 if [ ! -e ${node} ]; then
