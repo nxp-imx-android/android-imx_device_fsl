@@ -102,11 +102,7 @@ TARGET_USES_MKE2FS := true
 # define frame buffer count
 NUM_FRAMEBUFFER_SURFACE_BUFFERS := 5
 
-ifeq ($(PRODUCT_IMX_DRM),true)
-CMASIZE=736M
-else
 CMASIZE=800M
-endif
 
 KERNEL_NAME := Image
 BOARD_KERNEL_CMDLINE := console=ttymxc1,115200 earlycon=ec_imx6q,0x30890000,115200 init=/init androidboot.console=ttymxc1 consoleblank=0 androidboot.hardware=freescale cma=$(CMASIZE) androidboot.primary_display=imx-drm firmware_class.path=/vendor/firmware transparent_hugepage=never
@@ -126,11 +122,5 @@ TARGET_KERNEL_ADDITION_DEFCONF := android_addition_defconfig
 BOARD_SEPOLICY_DIRS := \
        device/fsl/imx8m/sepolicy \
        $(IMX_DEVICE_PATH)/sepolicy
-
-ifeq ($(PRODUCT_IMX_DRM),true)
-BOARD_SEPOLICY_DIRS += \
-       device/fsl/imx8m/sepolicy_drm \
-       $(IMX_DEVICE_PATH)/sepolicy_drm
-endif
 
 TARGET_BOARD_KERNEL_HEADERS := device/fsl/common/kernel-headers
