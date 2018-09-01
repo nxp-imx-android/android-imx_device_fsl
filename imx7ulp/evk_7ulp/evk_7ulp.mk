@@ -28,7 +28,7 @@ PRODUCT_COPY_FILES += \
     $(IMX_DEVICE_PATH)/fstab.freescale:root/fstab.freescale \
     $(IMX_DEVICE_PATH)/init.freescale.sd.rc:root/init.freescale.sd.rc \
     $(IMX_DEVICE_PATH)/init.freescale.sd.rc:root/init.recovery.freescale.sd.rc \
-    $(IMX_DEVICE_PATH)/init.insmod.cfg:$(TARGET_COPY_OUT_VENDOR)/etc/init.insmod.cfg \
+    $(IMX_DEVICE_PATH)/early.init.cfg:$(TARGET_COPY_OUT_VENDOR)/etc/early.init.cfg \
     $(IMX_DEVICE_PATH)/init.rc:root/init.freescale.rc \
     $(IMX_DEVICE_PATH)/required_hardware.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/required_hardware.xml \
     $(IMX_DEVICE_PATH)/ueventd.freescale.rc:root/ueventd.freescale.rc \

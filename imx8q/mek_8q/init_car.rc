@@ -5,7 +5,7 @@ import init.${ro.hardware}.${ro.boot.storage_type}.${ro.boot.xen_boot}.rc
 on early-init
     # mount the debugfs
     mount debugfs none /sys/kernel/debug/ mode=0755
-    start insmod_sh
+    start early_init_sh
 
 on init
     start watchdogd
@@ -29,7 +29,7 @@ on init
     mkdir /dev/shm  0774 mediacodec drmrpc
 
 on early-boot
-    wait_for_prop sys.all.modules.ready 1
+    wait_for_prop sys.all.early_init.ready 1
 
     # Set permission for IIM node
     symlink /dev/mxs_viim /dev/mxc_mem
@@ -109,8 +109,7 @@ on early-boot
     setprop media.wfd.video-bitrate 3000000
 
 on property:rpmsg.can.register=1
-    start insmod_can_sh
-    wait_for_prop sys.all.can_modules.loaded 1
+    start post_boot_completed_sh
 
 on property:rpmsg.can.event=1
     start evs_driver
@@ -122,9 +121,9 @@ on property:rpmsg.can.event=0
 
 
 on property:sys.boot_completed=1
-    start insmod_auto_sh
+    start boot_completed_sh
 
-    wait_for_prop sys.all.modules.loaded 1
+    wait_for_prop sys.all.boot_completed.ready 1
     # Trigger start adbd service
     start usbd
 
@@ -133,8 +132,7 @@ on property:sys.boot_completed=1 && property:ro.boot.soc_type=imx8qm
     write /sys/devices/platform/can_rpmsg/register 1
 
 on property:sys.boot_completed=1 && property:ro.boot.soc_type=imx8qxp
-    start insmod_can_sh
-    wait_for_prop sys.all.can_modules.loaded 1
+    start post_boot_completed_sh
 
 on property:bluetooth.rfkill_initialized=1
     # Prepare for bluetooth
@@ -238,21 +236,21 @@ service hci_filter_root /vendor/bin/wcnss_filter
     group bluetooth diag system
     disabled
 
-service insmod_sh /vendor/bin/init.insmod.sh /vendor/etc/init.insmod.cfg sys.all.modules.ready
+service early_init_sh /vendor/bin/init.insmod.sh /vendor/etc/early.init.cfg sys.all.early_init.ready
     class main
     user root
     group root system
     disabled
     oneshot
 
-service insmod_auto_sh /vendor/bin/init.insmod.sh /vendor/etc/init.insmod_auto.cfg sys.all.modules.loaded
+service boot_completed_sh /vendor/bin/init.insmod.sh /vendor/etc/boot.completed.cfg sys.all.boot_completed.ready
     class main
     user root
     group root system
     disabled
     oneshot
 
-service insmod_can_sh /vendor/bin/init.insmod.sh /vendor/etc/init.insmod_can.cfg sys.all.can_modules.loaded
+service post_boot_completed_sh /vendor/bin/init.insmod.sh /vendor/etc/post.boot.completed.cfg sys.all.post_boot_completed.ready
     class main
     user root
     group root system

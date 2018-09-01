@@ -4,7 +4,7 @@ import init.${ro.hardware}.${ro.boot.storage_type}.rc
 on early-init
     # mount the debugfs
     mount debugfs none /sys/kernel/debug/ mode=0755
-    start insmod_sh
+    start early_init_sh
 
 on init
     start watchdogd
@@ -298,7 +298,7 @@ on zygote-start
     mkdir /data/misc/dhcp 0770 dhcp dhcp
     chown dhcp dhcp /data/misc/dhcp
 
-service insmod_sh /vendor/bin/init.insmod.sh /vendor/etc/init.insmod.cfg sys.all.modules.ready
+service early_init_sh /vendor/bin/init.insmod.sh /vendor/etc/early.init.cfg sys.all.early_init.ready
     class main
     user root
     group root system

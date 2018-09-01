@@ -30,7 +30,7 @@ PRODUCT_COPY_FILES += \
     $(IMX_DEVICE_PATH)/init.freescale.sd.rc:root/init.freescale.sd.rc \
     $(IMX_DEVICE_PATH)/init.freescale.sd.rc:root/init.recovery.freescale.sd.rc \
     $(IMX_DEVICE_PATH)/init.imx8mm.rc:root/init.freescale.imx8mm.rc \
-    $(IMX_DEVICE_PATH)/init.insmod.cfg:$(TARGET_COPY_OUT_VENDOR)/etc/init.insmod.cfg \
+    $(IMX_DEVICE_PATH)/early.init.cfg:$(TARGET_COPY_OUT_VENDOR)/etc/early.init.cfg \
     $(IMX_DEVICE_PATH)/init.rc:root/init.freescale.rc \
     $(IMX_DEVICE_PATH)/init.usb.rc:root/init.freescale.usb.rc \
     $(IMX_DEVICE_PATH)/required_hardware.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/required_hardware.xml \

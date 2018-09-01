@@ -1,7 +1,7 @@
 #! /vendor/bin/sh
 
 #########################################
-### init.insmod.cfg format:           ###
+### cfg file format:                  ###
 ### --------------------------------- ###
 ### [insmod|setprop] [path|prop name] ###
 ### ...                               ###
