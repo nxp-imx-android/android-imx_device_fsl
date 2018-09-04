@@ -257,6 +257,9 @@ service post_boot_completed_sh /vendor/bin/init.insmod.sh /vendor/etc/post.boot.
     disabled
     oneshot
 
+on property:sys.all.post_boot_completed.ready=1
+    restart audioserver
+
 on fs
 # mount ext4 partitions
     mount_all /fstab.freescale --early
