@@ -123,16 +123,16 @@ on property:rpmsg.can.event=0
 on property:sys.boot_completed=1
     start boot_completed_sh
 
-    wait_for_prop sys.all.boot_completed.ready 1
-    # Trigger start adbd service
-    start usbd
-
 on property:sys.boot_completed=1 && property:ro.boot.soc_type=imx8qm
     # register the can_rpmsg
     write /sys/devices/platform/can_rpmsg/register 1
 
 on property:sys.boot_completed=1 && property:ro.boot.soc_type=imx8qxp
     start post_boot_completed_sh
+
+on property:sys.all.post_boot_completed.ready=1
+    # Trigger start adbd service
+    start usbd
 
 on property:bluetooth.rfkill_initialized=1
     # Prepare for bluetooth
