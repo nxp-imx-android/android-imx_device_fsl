@@ -1,0 +1,16 @@
+uuu_version 1.1.29
+# uuu scripts for sabresd_6sx Android imx_pi9.0 sd card
+SDP: boot -f u-boot-imx6sx.imx
+
+FB: ucmd setenv fastboot_dev mmc
+FB: ucmd setenv mmcdev 2
+FB: ucmd mmc dev 2
+FB[-t 600000]: flash gpt partition-table.img
+FB: flash bootloader u-boot-imx6sx.imx
+FB: flash boot boot.img
+FB[-t 200000]: flash system system.img
+FB: flash recovery recovery.img
+FB: flash vbmeta vbmeta-imx6sx.img
+FB: flash vendor vendor.img
+FB: flash dtbo dtbo-imx6sx.img
+FB: done

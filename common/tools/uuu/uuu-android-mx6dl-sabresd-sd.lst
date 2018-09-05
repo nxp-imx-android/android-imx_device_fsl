@@ -1,0 +1,17 @@
+uuu_version 1.1.29
+# uuu scripts for sabresd_6dl Android imx_pi9.0 sd card
+CFG: SDP: -chip MX6D -pid 0x0061 -vid 0x15a2
+SDP: boot -f u-boot-imx6dl.imx
+
+FB: ucmd setenv fastboot_dev mmc
+FB: ucmd setenv mmcdev 1
+FB: ucmd mmc dev 1
+FB[-t 600000]: flash gpt partition-table.img
+FB: flash bootloader u-boot-imx6dl.imx
+FB: flash boot boot.img
+FB[-t 200000]: flash system system.img
+FB: flash recovery recovery.img
+FB: flash vbmeta vbmeta-imx6dl.img
+FB: flash vendor vendor.img
+FB: flash dtbo dtbo-imx6dl.img
+FB: done
