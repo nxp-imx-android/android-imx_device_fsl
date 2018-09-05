@@ -7,7 +7,7 @@
 /dev/block/by-name/system      /system      ext4    ro,barrier=1                                                                     wait,avb
 /dev/block/by-name/vendor      /vendor      ext4    ro,barrier=1                                                                     wait,avb
 /dev/block/by-name/userdata    /data        ext4    nosuid,nodev,nodiratime,noatime,nomblk_io_submit,noauto_da_alloc,errors=panic    wait,formattable,encryptable=/dev/block/by-name/datafooter,quota
-/dev/block/by-name/cache       /cache       ext4    noatime,nosuid,nodev,nomblk_io_submit                                                    wait
+/dev/block/by-name/cache       /cache       ext4    noatime,nosuid,nodev,nomblk_io_submit                                                    wait,formattable
 /dev/block/by-name/vbmeta      /vbmeta      emmc    defaults                                                                         defaults
 /dev/block/by-name/boot        /boot        emmc    defaults                                                                         defaults
 /dev/block/by-name/recovery    /recovery    emmc    defaults                                                                         defaults
