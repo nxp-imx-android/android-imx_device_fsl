@@ -163,7 +163,8 @@ PRODUCT_PACKAGES += \
     android.hardware.power@1.0-impl \
     android.hardware.power@1.0-service \
     android.hardware.light@2.0-impl \
-    android.hardware.light@2.0-service
+    android.hardware.light@2.0-service \
+    android.hardware.health@2.0-service
 
 # Neural Network HAL
 PRODUCT_PACKAGES += \
