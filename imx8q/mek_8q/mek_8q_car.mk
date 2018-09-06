@@ -50,3 +50,10 @@ PRODUCT_PACKAGES += \
     libion \
     vehicle.default \
     android.hardware.automotive.vehicle@2.0-service
+
+# Add Trusty OS backed Keymaster HAL
+PRODUCT_PACKAGES += \
+    keystore.trusty
+
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.hardware.keystore=trusty

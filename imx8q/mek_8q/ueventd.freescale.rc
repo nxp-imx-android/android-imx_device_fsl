@@ -26,6 +26,7 @@
 /dev/mma8x5x              0640   compass     system
 /dev/caam_kb              0660   system     system
 /dev/input/event*         0660   system     system
+/dev/trusty-ipc-dev0      0660   system     drmrpc
 
 #sensors sysfs
 /sys/class/misc/Freescale*          name        0660  system   system
