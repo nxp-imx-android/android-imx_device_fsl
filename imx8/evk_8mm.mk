@@ -97,7 +97,8 @@ PRODUCT_PACKAGES += \
     gatekeeper.imx8
 
 PRODUCT_PACKAGES += \
-    Launcher3
+    Launcher3 \
+    DirectAudioPlayer
 
 PRODUCT_PACKAGES += \
     android.hardware.audio@2.0-impl \
