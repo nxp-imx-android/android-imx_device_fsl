@@ -93,6 +93,7 @@ BOARD_VENDOR_KERNEL_MODULES += \
                             $(KERNEL_OUT)/drivers/i2c/busses/i2c-imx-lpi2c.ko \
                             $(KERNEL_OUT)/drivers/gpu/imx/imx8_prg.ko \
                             $(KERNEL_OUT)/drivers/gpu/imx/imx8_dprc.ko \
+                            $(KERNEL_OUT)/drivers/gpu/imx/imx8_pc.ko \
                             $(KERNEL_OUT)/drivers/gpu/imx/dpu-blit/imx-dpu-blit.ko \
                             $(KERNEL_OUT)/drivers/gpu/drm/imx/dpu/imx-dpu-render.ko \
                             $(KERNEL_OUT)/drivers/gpu/imx/dpu/imx-dpu-core.ko \
