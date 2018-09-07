@@ -7,3 +7,4 @@ allow kernel device:chr_file  { create setattr getattr unlink };
 allow kernel mediaprovider:fd use;
 allow kernel vendor_file:file { read open map };
 allow kernel vendor_configs_file:file { map };
+allow kernel rootfs:file { execute };
