@@ -4,3 +4,6 @@ allow hal_evs_driver hal_configstore_default:binder { call };
 allow hal_evs_driver video_device:chr_file { map };
 allow hal_evs_driver hal_evs_hwservice:hwservice_manager { add };
 allow hal_evs_driver hidl_base_hwservice:hwservice_manager { add };
+allow hal_evs_driver gpu_device:chr_file { map };
+allow hal_evs_driver opencl_cache_file:dir { create_dir_perms };
+allow hal_evs_driver opencl_cache_file:file { create_file_perms };
