@@ -96,6 +96,9 @@ PRODUCT_CHARACTERISTICS := tablet
 PRODUCT_AAPT_CONFIG += xlarge large tvdpi hdpi xhdpi
 
 
+PRODUCT_PACKAGES += \
+    Launcher2
+
 # HWC2 HAL
 PRODUCT_PACKAGES += \
     android.hardware.graphics.composer@2.1-impl \

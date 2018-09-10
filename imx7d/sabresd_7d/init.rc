@@ -45,6 +45,12 @@ on early-boot
     setprop hwc.stretch.filter  1
     setprop hwc.enable_dither   1
 
+    # Disable OpenGL Renderer on sabresd_7d
+    setprop sys.viewroot.hw false
+
+    # platform need use Launcher2 as default launcher should set this prop
+    setprop ro.legacy.op true
+
     # fsl omx graphic manager media framework property
     setprop media.omxgm.enable-player 0
     setprop media.omxgm.enable-record 0
