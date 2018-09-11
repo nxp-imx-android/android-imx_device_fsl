@@ -1,4 +1,5 @@
 #sd boot
+/dev/block/platform/30b50000\.usdhc/by-name/dtbo_[ab]        u:object_r:dtbo_block_device:s0
 /dev/block/platform/30b50000\.usdhc/by-name/boot_[ab]        u:object_r:boot_block_device:s0
 /dev/block/platform/30b50000\.usdhc/by-name/system_[ab]      u:object_r:system_block_device:s0
 /dev/block/platform/30b50000\.usdhc/by-name/vendor_[ab]      u:object_r:system_block_device:s0
@@ -9,6 +10,7 @@
 /dev/block/platform/30b50000\.usdhc/by-name/vbmeta_[ab]    u:object_r:vbmeta_block_device:s0
 
 #emmc boot
+/dev/block/platform/30b40000\.usdhc/by-name/dtbo_[ab]        u:object_r:dtbo_block_device:s0
 /dev/block/platform/30b40000\.usdhc/by-name/boot_[ab]        u:object_r:boot_block_device:s0
 /dev/block/platform/30b40000\.usdhc/by-name/system_[ab]      u:object_r:system_block_device:s0
 /dev/block/platform/30b40000\.usdhc/by-name/vendor_[ab]      u:object_r:system_block_device:s0

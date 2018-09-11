@@ -28,6 +28,7 @@
 /vendor/bin/init\.insmod\.sh                u:object_r:init-insmod-sh_exec:s0
 /vendor/etc/early\.init\.cfg                u:object_r:init-insmod-sh_exec:s0
 #sd boot
+/dev/block/platform/40000000\.ahb-bridge0/40370000\.usdhc/by-name/dtbo        u:object_r:dtbo_block_device:s0
 /dev/block/platform/40000000\.ahb-bridge0/40370000\.usdhc/by-name/boot        u:object_r:boot_block_device:s0
 /dev/block/platform/40000000\.ahb-bridge0/40370000\.usdhc/by-name/recovery    u:object_r:recovery_block_device:s0
 /dev/block/platform/40000000\.ahb-bridge0/40370000\.usdhc/by-name/system      u:object_r:system_block_device:s0
