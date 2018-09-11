@@ -215,3 +215,7 @@ BOARD_AVB_ENABLE := true
 TARGET_USES_MKE2FS := true
 
 TARGET_BOARD_KERNEL_HEADERS := device/fsl/common/kernel-headers
+
+ifeq ($(PRODUCT_IMX_CAR),true)
+BOARD_HAVE_IMX_EVS := true
+endif
