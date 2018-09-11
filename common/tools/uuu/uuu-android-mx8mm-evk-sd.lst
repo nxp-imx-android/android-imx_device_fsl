@@ -14,10 +14,15 @@ FB: ucmd setenv fastboot_dev mmc
 FB: ucmd setenv mmcdev 0
 FB: ucmd mmc dev 0
 FB: flash gpt partition-table.img
+
+# erase userdata and misc partition
+FB[-t 600000]: ERASE userdata
+FB: ERASE misc
+
 FB: flash boot_a boot.img
 FB: flash boot_b boot.img
-FB[-t 50000]: flash system_a system.img
-FB[-t 50000]: flash system_b system.img
+FB[-t 100000]: flash system_a system.img
+FB[-t 100000]: flash system_b system.img
 FB: flash vbmeta_a vbmeta-imx8mm.img
 FB: flash vbmeta_b vbmeta-imx8mm.img
 FB: flash vendor_a vendor.img
@@ -25,4 +30,8 @@ FB: flash vendor_b vendor.img
 FB: flash bootloader0 u-boot-imx8mm.imx
 FB: flash dtbo_a dtbo-imx8mm.img
 FB: flash dtbo_b dtbo-imx8mm.img
+
+# erase environment variables of uboot
+FB: ucmd mmc erase 0x2000 8
+
 FB: done

@@ -13,6 +13,11 @@ FB: ucmd setenv mmcdev 1
 FB: ucmd mmc dev 1
 FB: flash bootloader0 u-boot-imx8mq.imx
 FB: flash gpt partition-table.img
+
+# erase userdata and misc partition
+FB[-t 600000]: ERASE userdata
+FB: ERASE misc
+
 FB: flash boot_a boot.img
 FB: flash boot_b boot.img
 FB[-t 200000]: flash system_a system.img
@@ -23,4 +28,8 @@ FB: flash vendor_a vendor.img
 FB: flash vendor_b vendor.img
 FB: flash dtbo_a dtbo-imx8mq.img
 FB: flash dtbo_b dtbo-imx8mq.img
+
+# erase environment variables of uboot
+FB: ucmd mmc erase 0x2000 8
+
 FB: done

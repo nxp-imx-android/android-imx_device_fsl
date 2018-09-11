@@ -1,4 +1,4 @@
-uuu_version 1.0.29
+uuu_version 1.1.29
 #uuu scripts for imx8qxp Android imx_pi9.0 eMMC
 CFG: FB: -vid 0x1fc9 -pid 0x012f
 SDPS: boot -f u-boot-imx8qxp.imx
@@ -7,6 +7,11 @@ FB: ucmd setenv mmcdev 0
 FB: ucmd mmc dev 0
 FB: flash bootloader0 u-boot-imx8qxp.imx
 FB: flash gpt partition-table.img
+
+# erase userdata and misc partition
+FB[-t 600000]: ERASE userdata
+FB: ERASE misc
+
 FB: flash boot_a boot.img
 FB: flash boot_b boot.img
 FB: flash vbmeta_a vbmeta-imx8qxp.img
@@ -17,5 +22,10 @@ FB: flash system_a system.img
 FB: flash system_b system.img
 FB: flash dtbo_a dtbo-imx8qxp.img
 FB: flash dtbo_b dtbo-imx8qxp.img
+
+# erase environment variables of uboot
+FB: ucmd mmc dev 0 0
+FB: ucmd mmc erase 0x2000 0x10
+
 FB: ucmd mmc partconf 0 0 1 0
 FB: done

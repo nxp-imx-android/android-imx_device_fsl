@@ -9,8 +9,17 @@ FB[-t 600000]: flash gpt partition-table.img
 FB: flash bootloader u-boot-imx6sx.imx
 FB: flash boot boot.img
 FB[-t 200000]: flash system system.img
-FB: flash recovery recovery.img
+FB: flash recovery recovery-imx6sx.img
 FB: flash vbmeta vbmeta-imx6sx.img
 FB: flash vendor vendor.img
 FB: flash dtbo dtbo-imx6sx.img
+
+# erase userdata, misc and cache partition
+FB[-t 600000]: ERASE userdata
+FB: ERASE misc
+FB[-t 100000]: ERASE cache
+
+# erase environment variables of uboot
+FB: ucmd mmc erase 0x700 0x10
+
 FB: done

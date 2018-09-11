@@ -8,10 +8,20 @@ FB: ucmd setenv mmcdev 1
 FB: ucmd mmc dev 1
 FB[-t 600000]: flash gpt partition-table.img
 FB: flash bootloader u-boot-imx6q.imx
+
+# erase userdata, misc and cache partition
+FB[-t 600000]: ERASE userdata
+FB: ERASE misc
+FB[-t 100000]: ERASE cache
+
 FB: flash boot boot.img
 FB[-t 200000]: flash system system.img
-FB: flash recovery recovery.img
+FB: flash recovery recovery-imx6q.img
 FB: flash vbmeta vbmeta-imx6q.img
 FB: flash vendor vendor.img
 FB: flash dtbo dtbo-imx6q.img
+
+# erase environment variables of uboot
+FB: ucmd mmc erase 0x700 0x10
+
 FB: done

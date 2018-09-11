@@ -1,10 +1,10 @@
 uuu_version 1.1.29
-#uuu scripts for imx8qm revB board Android imx_pi9.0 sd card
+#uuu scripts for imx8qm revB board Android imx_pi9.0 eMMC
 CFG: FB: -vid 0x1fc9 -pid 0x0129
 SDPS: boot -f u-boot-imx8qm.imx
 FB: ucmd setenv fastboot_dev mmc
-FB: ucmd setenv mmcdev 1
-FB: ucmd mmc dev 1
+FB: ucmd setenv mmcdev 0
+FB: ucmd mmc dev 0
 FB: flash bootloader0 u-boot-imx8qm.imx
 FB: flash gpt partition-table.img
 
@@ -24,6 +24,8 @@ FB: flash dtbo_a dtbo-imx8qm.img
 FB: flash dtbo_b dtbo-imx8qm.img
 
 # erase environment variables of uboot
+FB: ucmd mmc dev 0 0
 FB: ucmd mmc erase 0x2000 0x10
 
+FB: ucmd mmc partconf 0 0 1 0
 FB: done
