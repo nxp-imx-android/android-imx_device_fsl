@@ -96,3 +96,4 @@ $(IMX_INSTALLED_VBMETAIMAGE_TARGET): IMX_INSTALLED_RECOVERYIMAGE_TARGET $(PRODUC
 imx_vbmetaimage: $(IMX_INSTALLED_VBMETAIMAGE_TARGET)
 
 droid: imx_vbmetaimage
+otapackage: imx_vbmetaimage
