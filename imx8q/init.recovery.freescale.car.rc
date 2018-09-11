@@ -18,6 +18,22 @@ on init
     write /config/usb_gadget/g1/strings/0x409/manufacturer ${ro.product.manufacturer}
     write /config/usb_gadget/g1/strings/0x409/product ${ro.product.model}
 
+on early-init
+    # register the can_rpmsg which will relase display module
+    write /sys/devices/platform/can_rpmsg/register 1
+
+on init
+    insmod /lib/modules/i2c-imx-lpi2c.ko
+    insmod /lib/modules/imx8_pc.ko
+    insmod /lib/modules/imx8_prg.ko
+    insmod /lib/modules/imx8_dprc.ko
+    insmod /lib/modules/imx-dpu-core.ko
+    insmod /lib/modules/nwl-dsi.ko
+    insmod /lib/modules/nwl_dsi-imx.ko
+    insmod /lib/modules/imx-dpu-crtc.ko
+    insmod /lib/modules/imx-dpu-blit.ko
+    insmod /lib/modules/imx-dpu-render.ko
+
 on property:sys.usb.ffs.ready=1
     rm /config/usb_gadget/g1/configs/b.1/f1
     symlink /config/usb_gadget/g1/functions/ffs.adb /config/usb_gadget/g1/configs/b.1/f1
