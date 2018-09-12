@@ -8,8 +8,8 @@ help() {
 bn=`basename $0`
 cat << EOF
 
-Version: 1.1
-Last change: support flash pie image on imx6/7
+Version: 1.0
+Last change: support flash dtbo image
 
 Usage: $bn <option> device_node
 
@@ -152,8 +152,6 @@ function flash_partition
                 img_name=${vendor_raw_file}
             elif [ ${support_dtbo} -eq 1 ] && [ $(echo ${1} | grep "boot") != "" ] 2>/dev/null; then
                 img_name="boot.img"
-            elif [ ${support_dtbo} -eq 1 ] && [ $(echo ${1} | grep "recovery") != "" ] 2>/dev/null; then
-                img_name="recovery.img"
             else
                 img_name="${1%_*}${soc_name}.img"
             fi
