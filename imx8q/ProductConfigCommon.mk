@@ -70,6 +70,11 @@ PRODUCT_PACKAGES += \
     tinymix \
     tinyplay
 
+# LDAC codec
+PRODUCT_PACKAGES += \
+    libldacBT_enc \
+    libldacBT_abr
+
 # wifi
 PRODUCT_PACKAGES += \
     hostapd \
