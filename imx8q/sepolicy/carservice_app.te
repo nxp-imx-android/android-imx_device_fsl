@@ -1,0 +1,1 @@
+allow carservice_app sysfs:file { getattr };

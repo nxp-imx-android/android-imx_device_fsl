@@ -20,3 +20,5 @@ allow system_server sysfs:dir { read open };
 allow system_server sysfs:file { getattr };
 allow system_server vendor_configs_file:file { map };
 allow system_server shell_data_file:file { map };
+allow system_server graphics_device:dir { search };
+allow system_server graphics_device:chr_file { open read ioctl };

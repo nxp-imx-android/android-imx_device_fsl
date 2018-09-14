@@ -1,4 +1,5 @@
 allow hal_bluetooth_default sysfs:file { write };
+allow hal_bluetooth_default bluetooth_data_file:file { write read append };
 
 # connect to the UART
 allow hal_bluetooth_default wcnss_filter:unix_stream_socket {connectto};
