@@ -25,7 +25,7 @@
         },
         {
             "label": "system",
-            "size": "1536 MiB",
+            "size": "1792 MiB",
             "guid": "auto",
             "type_guid": "0f2778c4-5cc1-4300-8670-6c88b7e57ed6"
         },
