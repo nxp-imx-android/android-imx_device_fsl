@@ -1,35 +1,35 @@
-#!/bin/bash
-
-# android-tools-fsutils should be installed as
-# "sudo apt-get install android-tools-fsutils"
+#!/bin/bash -e
 
 help() {
 
 bn=`basename $0`
 cat << EOF
 
-Version: 1.0
-Last change: support flash dtbo image
+Version: 1.2
+Last change: Exit on error, and general cleanup
 
 Usage: $bn <option> device_node
 
 options:
-  -h				displays this help message
-  -s				only get partition size
-  -np 				not partition.
-  -f soc_name			flash android image file with soc_name
-  -F soc_name			determine the device_node's offset to flash bootloader and flash default android image file
-					 soc     				offset(KB)
-					default					   1
-					imx8dv					  16
-					imx8qm/imx8qxp/imx8mq			  33
-  -a				only flash image to slot_a
-  -b				only flash image to slot_b
-  -c card_size			optional setting: 7 / 14 / 28
-					If not set, use partition-table.img
-					If set to 7, use partition-table-7GB.img for 7GB SD card
-  -m				flash m4 image
-  -o force_offset		force set uboot offset
+  -h                displays this help message
+  -s                only get partition size
+  -np               not partition.
+  -f soc_name       flash android image file with soc_name
+  -F soc_name       determine the device_node's offset to flash bootloader and flash default android image file
+                          SoC                       offset(KB)
+                        default                          1
+                        imx8dv                          16
+                        imx8qm/imx8qxp/imx8mq           33
+  -a                only flash image to slot_a
+  -b                only flash image to slot_b
+  -c card_size      optional setting: 7 / 14 / 28
+                        If not set, use partition-table.img (default)
+                        If set to  7, use partition-table-7GB.img  for  8GB SD card
+                        If set to 14, use partition-table-14GB.img for 16GB SD card
+                        If set to 28, use partition-table-28GB.img for 32GB SD card
+                    Make sure the corresponding file exist for your platform.
+  -m                flash m4 image
+  -o force_offset   force set uboot offset
 EOF
 
 }
@@ -45,7 +45,6 @@ bootloader_offset=1
 m4_image_offset=5120
 vaild_gpt_size=17
 not_partition=0
-not_format_fs=0
 slot=""
 systemimage_file="system.img"
 systemimage_raw_file="system_raw.img"
@@ -56,27 +55,34 @@ g_sizes=0
 append_soc_name=0
 support_dtbo=0
 flash_m4=0
+RED='\033[0;31m'
+STD='\033[0;0m'
+
 while [ "$moreoptions" = 1 -a $# -gt 0 ]; do
-	case $1 in
-	    -h) help; exit ;;
-	    -s) cal_only=1 ;;
-	    -f) append_soc_name=1 ; soc_name=$2; shift;;
-	    -F) soc_name=$2; shift;;
-	    -c) card_size=$2; shift;;
-	    -np) not_partition=1 ;;
-	    -nf) not_format_fs=1 ;;
-	    -a) slot="_a" ;;
-	    -b) slot="_b" ;;
-	    -m) flash_m4=1 ;;
-	    -o) force_offset=$2; shift;;
-	    *)  moreoptions=0; node=$1 ;;
-	esac
-	[ "$moreoptions" = 0 ] && [ $# -gt 1 ] && help && exit
-	[ "$moreoptions" = 1 ] && shift
+    case $1 in
+        -h) help; exit ;;
+        -s) cal_only=1 ;;
+        -f) append_soc_name=1 ; soc_name=$2; shift;;
+        -F) soc_name=$2; shift;;
+        -c) card_size=$2; shift;;
+        -np) not_partition=1 ;;
+        -a) slot="_a" ;;
+        -b) slot="_b" ;;
+        -m) flash_m4=1 ;;
+        -o) force_offset=$2; shift;;
+        *)  moreoptions=0; node=$1 ;;
+    esac
+    [ "$moreoptions" = 0 ] && [ $# -gt 1 ] && help && exit
+    [ "$moreoptions" = 1 ] && shift
 done
 
+# check required applications are installed
+command -v simg2img >/dev/null 2>&1 || { echo -e >&2 "${RED}Missing simg2img app. Please run: sudo apt-get install android-tools-fsutils${STD}" ; exit 1 ; }
+command -v hdparm >/dev/null 2>&1 || { echo -e >&2 "${RED}Missing hdparm app. Please make sure it is installed. Exiting.${STD}" ; exit 1 ; }
+command -v gdisk >/dev/null 2>&1 || { echo -e >&2 "${RED}Missing gdisk app. Please make sure it is installed. Exiting.${STD}" ; exit 1 ; }
+
 if [ ${card_size} -ne 0 ] && [ ${card_size} -ne 7 ] && [ ${card_size} -ne 14 ] && [ ${card_size} -ne 28 ]; then
-    help; exit;
+    help; exit 1;
 fi
 
 if [ "${soc_name}" = "imx8dv" ]; then
@@ -84,7 +90,7 @@ if [ "${soc_name}" = "imx8dv" ]; then
 fi
 
 if [ "${soc_name}" = "imx8qxp" -o "${soc_name}" = "imx8qm" ]; then
-   bootloader_offset=32
+    bootloader_offset=32
 fi
 
 if [ "${soc_name}" = "imx8mq" -o "${soc_name}" = "imx8mm" ]; then
@@ -96,8 +102,8 @@ if [ "${force_offset}" != "" ]; then
 fi
 
 if [ ! -e ${node} ]; then
-	help
-	exit
+    help
+    exit 1
 fi
 
 echo "${soc_name} bootloader offset is: ${bootloader_offset}"
@@ -110,8 +116,8 @@ fi
 
 # dump partitions
 if [ "${cal_only}" -eq "1" ]; then
-gdisk -l ${node} 2>/dev/null | grep -A 20 "Number  "
-exit
+    gdisk -l ${node} 2>/dev/null | grep -A 20 "Number  "
+    exit 0
 fi
 
 function get_partition_size
@@ -176,6 +182,10 @@ function make_partition
     if [ ${card_size} -gt 0 ]; then
         partition_file="partition-table-${card_size}GB.img"
     fi
+    if [ ! -f "${partition_file}" ]; then
+        echo -e >&2 "${RED}File ${partition_file} not found. Please check. Exiting${STD}"
+        return 1
+    fi
     echo "make gpt partition for android: ${partition_file}"
     dd if=${partition_file} of=${node} bs=1k count=${vaild_gpt_size} conv=fsync
 }
@@ -217,10 +227,10 @@ function flash_android
 
 if [ "${not_partition}" -eq "1" ] ; then
     flash_android
-    exit
+    exit 0
 fi
 
-make_partition
+make_partition || exit 1
 gdisk -l ${node} 2>/dev/null | grep -q "dtbo" && support_dtbo=1
 echo "support_dtbo: ${support_dtbo}"
 
@@ -233,6 +243,11 @@ echo -e 'r\ne\nY\nw\nY\nY' |  gdisk ${node}
 
 format_android
 flash_android
+
+echo
+echo ">>>>>>>>>>>>>> Flashing successfully completed <<<<<<<<<<<<<<"
+
+exit 0
 
 # For MFGTool Notes:
 # MFGTool use mksdcard-android.tar store this script
