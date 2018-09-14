@@ -28,6 +28,9 @@ on init
     # shared memory used by VPU to distinguish VPU instance.
     mkdir /dev/shm  0774 mediacodec drmrpc
 
+    # disable boot animation
+    setprop debug.sf.nobootanimation 1
+
 on early-boot
     wait_for_prop sys.all.early_init.ready 1
 
