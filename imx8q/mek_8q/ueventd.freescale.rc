@@ -32,15 +32,15 @@
 /sys/devices/virtual/misc/Freescale*          position    0660  system   system
 
 # light sensor sysfs properities for 8qm_mek
-/sys/class/i2c-dev/i2c-0/device/0-0044 mode                          0660 system system
-/sys/class/i2c-dev/i2c-0/device/0-0044 lux                           0660 system system
-/sys/class/i2c-dev/i2c-0/device/0-0044 int_lt_lux                    0660 system system
-/sys/class/i2c-dev/i2c-0/device/0-0044 int_ht_lux                    0660 system system
+/sys/class/i2c-dev/i2c-2/device/2-0044 mode                          0660 system system
+/sys/class/i2c-dev/i2c-2/device/2-0044 lux                           0660 system system
+/sys/class/i2c-dev/i2c-2/device/2-0044 int_lt_lux                    0660 system system
+/sys/class/i2c-dev/i2c-2/device/2-0044 int_ht_lux                    0660 system system
 
-/sys/devices/platform/5a800000.i2c/i2c-0/0-0044 mode                 0660 system system
-/sys/devices/platform/5a800000.i2c/i2c-0/0-0044 lux                  0660 system system
-/sys/devices/platform/5a800000.i2c/i2c-0/0-0044 int_lt_lux           0660 system system
-/sys/devices/platform/5a800000.i2c/i2c-0/0-0044 int_ht_lux           0660 system system
+/sys/devices/platform/5a800000.i2c/i2c-2/2-0044 mode                 0660 system system
+/sys/devices/platform/5a800000.i2c/i2c-2/2-0044 lux                  0660 system system
+/sys/devices/platform/5a800000.i2c/i2c-2/2-0044 int_lt_lux           0660 system system
+/sys/devices/platform/5a800000.i2c/i2c-2/2-0044 int_ht_lux           0660 system system
 
 # light sensor sysfs properities for 8qxp_mek
 /sys/class/i2c-dev/i2c-8/device/8-0044 mode                          0660 system system

@@ -24,3 +24,14 @@
 /sys/devices/virtual/input/input*   fifo        0660  system   system
 /sys/devices/virtual/thermal/thermal_zone* trip_point_0_temp 0660 system system
 /sys/devices/virtual/thermal/thermal_zone* trip_point_1_temp 0660 system system
+
+# light sensor sysfs properities for sabresd_6sx
+/sys/class/i2c-dev/i2c-2/device/2-0044 mode                          0660 system system
+/sys/class/i2c-dev/i2c-2/device/2-0044 lux                           0660 system system
+/sys/class/i2c-dev/i2c-2/device/2-0044 int_lt_lux                    0660 system system
+/sys/class/i2c-dev/i2c-2/device/2-0044 int_ht_lux                    0660 system system
+
+/sys/devices/soc0/soc/2100000.aips-bus/21a8000.i2c/i2c-2/2-0044 mode 0660  system system
+/sys/devices/soc0/soc/2100000.aips-bus/21a8000.i2c/i2c-2/2-0044 lux 0660   system system
+/sys/devices/soc0/soc/2100000.aips-bus/21a8000.i2c/i2c-2/2-0044 int_lt_lux 0660 system system
+/sys/devices/soc0/soc/2100000.aips-bus/21a8000.i2c/i2c-2/2-0044 int_ht_lux 0660 system system
