@@ -1,1 +1,0 @@
-allow hal_evs_driver sysfs:file { open read getattr };
