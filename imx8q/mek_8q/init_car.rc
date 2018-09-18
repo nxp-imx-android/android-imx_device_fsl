@@ -115,11 +115,9 @@ on property:rpmsg.can.register=1
     start post_boot_completed_sh
 
 on property:rpmsg.can.event=1
-    start evs_driver
     start evs_app
 
 on property:rpmsg.can.event=0
-    stop evs_driver
     stop evs_app
 
 
@@ -136,6 +134,8 @@ on property:sys.boot_completed=1 && property:ro.boot.soc_type=imx8qxp
 on property:sys.all.post_boot_completed.ready=1
     # Trigger start adbd service
     start usbd
+    # Trigger start evs_driver service
+    start evs_driver
 
 on property:bluetooth.rfkill_initialized=1
     # Prepare for bluetooth
