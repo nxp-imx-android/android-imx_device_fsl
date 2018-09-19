@@ -146,35 +146,10 @@ on early-boot
 
 
 on property:sys.boot_completed=1
-# Set default CPU frequency governor
-# Set timer 40ms, min sample 60ms,hispeed at cpufreq MAX freq in freq_table at load 40%
-    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor interactive
-    write /sys/devices/system/cpu/cpufreq/interactive/timer_rate 40000
-    write /sys/devices/system/cpu/cpufreq/interactive/min_sample_time 60000
-    write /sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load 40
-# change interactive atrrubuties permissions when interactive is actived
-on property:sys.interactive="active"
-    chown system root /sys/devices/system/cpu/cpufreq/interactive/timer_rate
-    chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/timer_rate
-    chown system root /sys/devices/system/cpu/cpufreq/interactive/min_sample_time
-    chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/min_sample_time
-    chown system root /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq
-    chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq
-    chown system root /sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load
-    chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load
-    chown system root /sys/devices/system/cpu/cpufreq/interactive/above_hispeed_delay
-    chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/above_hispeed_delay
-    chown system root /sys/devices/system/cpu/cpufreq/interactive/boost
-    chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/boost
-    chown system root /sys/devices/system/cpu/cpufreq/interactive/boostpulse
-    chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/boostpulse
-    chown system system /sys/devices/system/cpu/cpufreq/interactive/boostpulse_duration
-    chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/boostpulse_duration
-    chown system system /sys/devices/system/cpu/cpufreq/interactive/io_is_busy
-    chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/io_is_busy
-    write /sys/devices/system/cpu/cpufreq/interactive/timer_rate 40000
-    write /sys/devices/system/cpu/cpufreq/interactive/min_sample_time 60000
-    write /sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load 40
+    # Set default CPU frequency governor
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor "schedutil"
+    write /sys/devices/system/cpu/cpufreq/policy0/schedutil/up_rate_limit_us 500
+    write /sys/devices/system/cpu/cpufreq/policy0/schedutil/down_rate_limit_us 20000
 
 service wpa_supplicant /vendor/bin/hw/wpa_supplicant \
     -O/data/vendor/wifi/wpa/sockets -puse_p2p_group_interface=1 \
