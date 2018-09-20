@@ -53,6 +53,8 @@ define build_imx_uboot
 		else \
 			FLASH_TARGET=`echo flash_b0`;  \
 		fi; \
+	elif [ "$(strip $(2))" == "imx8qm-xen" ]; then \
+		exit; \
 	fi; \
 	cp  $(UBOOT_OUT)/u-boot.$(strip $(1)) $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/u-boot.bin; \
 	if [ "$(PRODUCT_IMX_CAR)" == "true" ]; then \

@@ -1,7 +1,7 @@
 on init
     # link emmc node to /dev/block/by-name
-    symlink   /dev/block/platform/passthrough/15b020000.usdhc/by-name /dev/block/by-name
-    symlink   /dev/block/platform/passthrough/15b020000.usdhc/mmcblk1 /dev/block/by-name/bootloader
+    symlink   /dev/block/platform/passthrough/5b020000.usdhc/by-name /dev/block/by-name
+    symlink   /dev/block/platform/passthrough/5b020000.usdhc/mmcblk1 /dev/block/by-name/bootloader
 
     # Load persistent dm-verity state
     verity_load_state
