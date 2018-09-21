@@ -18,6 +18,8 @@
  ****************************************************************************/
 #ifndef _LINUX_SECURE_ION_H
 #define _LINUX_SECURE_ION_H
-#define DWL_ION_ENCODED_BUFFER_VPU_HEAP 4
-#define DWL_ION_DECODED_BUFFER_DCSS_HEAP 2
+#define DWL_ION_ENCODED_BUFFER_OPTEE_HEAP_MASK		4
+#define DWL_ION_ENCODED_BUFFER_OPTEE_HEAP_NAME		"optee"
+#define DWL_ION_DECODED_BUFFER_DISPLAY_HEAP_MASK	2
+#define DWL_ION_DECODED_BUFFER_DISPLAY_HEAP_NAME	"display"
 #endif
