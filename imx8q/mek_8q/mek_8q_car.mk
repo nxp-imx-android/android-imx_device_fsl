@@ -54,6 +54,3 @@ PRODUCT_PACKAGES += \
 # Add Trusty OS backed Keymaster HAL
 PRODUCT_PACKAGES += \
     keystore.trusty
-
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.hardware.keystore=trusty
