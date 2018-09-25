@@ -67,27 +67,13 @@ BOARD_VENDOR_KERNEL_MODULES += \
                             $(KERNEL_OUT)/drivers/usb/cdns3/cdns3.ko \
                             $(KERNEL_OUT)/drivers/usb/chipidea/ci_hdrc.ko \
                             $(KERNEL_OUT)/drivers/usb/chipidea/ci_hdrc_imx.ko \
-                            $(KERNEL_OUT)/drivers/usb/chipidea/ci_hdrc_msm.ko \
-                            $(KERNEL_OUT)/drivers/usb/chipidea/ci_hdrc_pci.ko \
                             $(KERNEL_OUT)/drivers/usb/chipidea/usbmisc_imx.ko \
-                            $(KERNEL_OUT)/drivers/usb/chipidea/ci_hdrc_usb2.ko \
-                            $(KERNEL_OUT)/drivers/usb/chipidea/ci_hdrc_zevio.ko \
                             $(KERNEL_OUT)/drivers/usb/core/usbcore.ko \
-                            $(KERNEL_OUT)/drivers/usb/host/xhci-pci.ko \
-                            $(KERNEL_OUT)/drivers/usb/host/ehci-pci.ko \
                             $(KERNEL_OUT)/drivers/usb/host/xhci-hcd.ko \
-                            $(KERNEL_OUT)/drivers/usb/host/ohci-platform.ko \
-                            $(KERNEL_OUT)/drivers/usb/host/ohci-hcd.ko \
                             $(KERNEL_OUT)/drivers/usb/host/ehci-hcd.ko \
-                            $(KERNEL_OUT)/drivers/usb/host/ohci-pci.ko \
-                            $(KERNEL_OUT)/drivers/usb/host/xhci-plat-hcd.ko \
-                            $(KERNEL_OUT)/drivers/usb/host/ehci-platform.ko \
                             $(KERNEL_OUT)/drivers/usb/storage/usb-storage.ko \
                             $(KERNEL_OUT)/drivers/usb/typec/typec.ko \
-                            $(KERNEL_OUT)/drivers/input/tablet/aiptek.ko \
                             $(KERNEL_OUT)/drivers/scsi/sd_mod.ko \
-                            $(KERNEL_OUT)/net/bluetooth/bluetooth.ko \
-                            $(KERNEL_OUT)/net/bluetooth/rfcomm/rfcomm.ko \
                             $(KERNEL_OUT)/drivers/bluetooth/mx8_bt_rfkill.ko \
                             $(KERNEL_OUT)/drivers/hid/hid-multitouch.ko \
                             $(KERNEL_OUT)/drivers/i2c/busses/i2c-imx-lpi2c.ko \
