@@ -130,9 +130,7 @@ BOARD_SEPOLICY_DIRS := \
 
 ifeq ($(PRODUCT_IMX_DRM),true)
 BOARD_SEPOLICY_DIRS += \
-       device/fsl/imx8m/sepolicy_drm \
        $(IMX_DEVICE_PATH)/sepolicy_drm
 endif
-
 
 TARGET_BOARD_KERNEL_HEADERS := device/fsl/common/kernel-headers

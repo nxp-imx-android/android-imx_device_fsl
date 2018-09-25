@@ -1,35 +1,41 @@
-# This is a FSL Android Reference Design platform based on i.MX8MQ board
+# This is a FSL Android Reference Design platform based on i.MX8MM board
 # It will inherit from FSL core product which in turn inherit from Google generic
 
-IMX_DEVICE_PATH := device/fsl/imx8m/evk_8mq
+IMX_DEVICE_PATH := device/fsl/imx8m/evk_8mm
 
 PRODUCT_IMX_DRM := true
 
-# copy drm specific files before inherit evk_8mq.mk, otherwise copy is ignored
+# copy drm specific files before inherit evk_8mm.mk, otherwise copy is ignored
 PRODUCT_COPY_FILES += \
-	$(IMX_DEVICE_PATH)/audio_policy_configuration_drm.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_configuration.xml \
-	$(IMX_DEVICE_PATH)/init.imx8mq.rc:root/init.freescale.imx8mq.main.rc \
-	$(IMX_DEVICE_PATH)/init.imx8mq.drm.rc:root/init.freescale.imx8mq.rc \
+	$(IMX_DEVICE_PATH)/init.imx8mm.rc:root/init.freescale.imx8mm.main.rc \
+	$(IMX_DEVICE_PATH)/init.imx8mm.drm.rc:root/init.freescale.imx8mm.rc \
 
 
 $(call inherit-product, $(TOPDIR)device/fsl/imx8m/optee-packages.mk)
-$(call inherit-product, $(TOPDIR)$(IMX_DEVICE_PATH)/evk_8mq.mk)
+$(call inherit-product, $(TOPDIR)$(IMX_DEVICE_PATH)/evk_8mm.mk)
 
 TARGET_KERNEL_DEFCONFIG := android_defconfig
 
 
 # Overrides
-PRODUCT_NAME := evk_8mq_drm
+PRODUCT_NAME := evk_8mm_drm
 
 CFG_SECURE_DATA_PATH ?= y
-CFG_TEE_SDP_MEM_BASE := 0xcc000000
+CFG_RDC_SECURE_DATA_PATH ?= y
+
+ifeq ($(CFG_SECURE_DATA_PATH),y)
+CFG_TEE_SDP_MEM_BASE := 0xAE000000
 CFG_TEE_SDP_MEM_SIZE := 0x02000000
+ifeq ($(CFG_RDC_SECURE_DATA_PATH),y)
 DECRYPTED_BUFFER_START	:= $(CFG_TEE_SDP_MEM_BASE)
 DECRYPTED_BUFFER_LEN	:= $(CFG_TEE_SDP_MEM_SIZE)
-DECODED_BUFFER_START	:= 0xCE000000
-DECODED_BUFFER_LEN		:= 0x30000000
+DECODED_BUFFER_START	:= 0xB0000000
+DECODED_BUFFER_LEN		:= 0x08000000
+endif
+endif
 
-TARGET_BOARD_DTS_CONFIG := imx8mq:fsl-imx8mq-evk-drm.dtb imx8mq-mipi:fsl-imx8mq-evk-lcdif-adv7535.dtb imx8mq-dual:fsl-imx8mq-evk-dual-display.dtb
+TARGET_BOARD_DTS_CONFIG := imx8mm:fsl-imx8mm-evk-drm.dtb imx8mm-mipi-panel:fsl-imx8mm-evk-rm67191.dtb imx8mm-dsd:fsl-imx8mm-evk-ak4497.dtb imx8mm-m4:fsl-imx8mm-evk-m4.dtb
+
 
 # Exoplayer
 PRODUCT_PACKAGES += \
