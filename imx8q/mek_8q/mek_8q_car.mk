@@ -12,6 +12,7 @@ PRODUCT_NAME := mek_8q_car
 PRODUCT_PACKAGE_OVERLAYS := $(IMX_DEVICE_PATH)/overlay_car packages/services/Car/car_product/overlay
 
 PRODUCT_COPY_FILES += \
+    $(FSL_PROPRIETARY_PATH)/fsl-proprietary/mcu-sdk/imx8q/imx8qm_m4_1_TCM_hello_world.bin:m4_image-imx8qm.img \
     $(IMX_DEVICE_PATH)/init.freescale.emmc.xen.rc:root/init.freescale.emmc.xen.rc \
     $(IMX_DEVICE_PATH)/init.freescale.emmc.xen.rc:root/init.recovery.freescale.emmc.xen.rc \
     $(IMX_DEVICE_PATH)/init.freescale.sd.xen.rc:root/init.freescale.sd.xen.rc \
