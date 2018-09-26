@@ -18,6 +18,7 @@ allow system_server mediaprovider:file { write };
 allow system_server untrusted_app_25:file { write };
 allow system_server sysfs:dir { read open };
 allow system_server sysfs:file { getattr };
+allow system_server sysfs_rtc:file { read open };
 allow system_server vendor_configs_file:file { map };
 allow system_server shell_data_file:file { map };
 allow system_server graphics_device:dir { search };
