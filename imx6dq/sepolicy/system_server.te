@@ -24,3 +24,4 @@ allow system_server vendor_configs_file:file { map };
 allow system_server shell_data_file:file { map };
 allow system_server graphics_device:dir { search };
 allow system_server graphics_device:chr_file { open read ioctl };
+allow system_server sysfs_extcon:file { getattr open read };

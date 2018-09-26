@@ -4,3 +4,5 @@ genfscon sysfs /class/typec    u:object_r:sysfs_usb_c:s0
 genfscon sysfs /devices/virtual/power_supply/usb/online           u:object_r:sysfs_batteryinfo:s0
 genfscon sysfs /devices/virtual/power_supply/usb/type             u:object_r:sysfs_batteryinfo:s0
 genfscon sysfs /devices/soc0/soc/2000000.aips-bus/20cc000.snvs/20cc000.snvs:snvs-rtc-lp/rtc/rtc0/hctosys  u:object_r:sysfs_rtc:s0
+genfscon sysfs /devices/soc0/sound/extcon/extcon1                 u:object_r:sysfs_extcon:s0
+genfscon sysfs /devices/soc0/soc/20e0000.hdmi_video/extcon/extcon0  u:object_r:sysfs_extcon:s0

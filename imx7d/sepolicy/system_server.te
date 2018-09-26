@@ -26,3 +26,4 @@ allow system_server graphics_device:dir { search };
 allow system_server graphics_device:chr_file { open read ioctl };
 permissive system_server;
 dontaudit system_server self:process execmem;
+allow system_server sysfs_extcon:file { getattr open read };

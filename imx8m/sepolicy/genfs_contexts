@@ -4,3 +4,6 @@ genfscon sysfs /class/typec                                             u:object
 genfscon sysfs /devices/virtual/power_supply/usb/online           u:object_r:sysfs_batteryinfo:s0
 genfscon sysfs /devices/virtual/power_supply/usb/type             u:object_r:sysfs_batteryinfo:s0
 genfscon sysfs /devices/platform/30370000.snvs/30370000.snvs:snvs-rtc-lp/rtc/rtc0/hctosys     u:object_r:sysfs_rtc:s0
+genfscon sysfs /devices/platform/sound-ak4458/extcon/extcon2      u:object_r:sysfs_extcon:s0
+genfscon sysfs /devices/platform/sound-rpmsg/extcon/extcon2       u:object_r:sysfs_extcon:s0
+genfscon sysfs /devices/platform/32c00000.hdmi/extcon/extcon0     u:object_r:sysfs_extcon:s0
