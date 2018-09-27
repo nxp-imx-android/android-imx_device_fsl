@@ -162,6 +162,10 @@ function flash_partition
                 img_name="${1%_*}${soc_name}.img"
             fi
             echo "flash_partition: ${img_name} ---> ${node}${num}"
+            if [ ! -f "${img_name}" ]; then
+                echo -e >&2 "${RED}File ${img_name} not found. Please check. Exiting${STD}"
+                return 1
+            fi
             dd if=${img_name} of=${node}${num} bs=10M conv=fsync
         fi
     done
@@ -198,18 +202,21 @@ function flash_android
     vendor_partition="vendor"${slot}
     vbmeta_partition="vbmeta"${slot}
     dtbo_partition="dtbo"${slot}
+    gdisk -l ${node} 2>/dev/null | grep -q "dtbo" && support_dtbo=1
 
     bootloader_file="u-boot${soc_name}.imx"
-    flash_partition ${dtbo_partition}
-    flash_partition ${boot_partition}
-    flash_partition ${recovery_partition}
+    if [ "${support_dtbo}" -eq "1" ] ; then
+        flash_partition ${dtbo_partition} || exit 1
+    fi
+    flash_partition ${boot_partition}  || exit 1
+    flash_partition ${recovery_partition}  || exit 1
     simg2img ${systemimage_file} ${systemimage_raw_file}
-    flash_partition ${system_partition}
+    flash_partition ${system_partition} || exit 1
     rm ${systemimage_raw_file}
     simg2img ${vendor_file} ${vendor_raw_file}
-    flash_partition ${vendor_partition}
+    flash_partition ${vendor_partition} || exit 1
     rm ${vendor_raw_file}
-    flash_partition ${vbmeta_partition}
+    flash_partition ${vbmeta_partition} || exit 1
     echo "erase_partition: uboot : ${node}"
     echo "flash_partition: ${bootloader_file} ---> ${node}"
     first_partition_offset=`gdisk -l ${node} | grep ' 1 ' | awk '{print $2}'`
@@ -226,13 +233,11 @@ function flash_android
 }
 
 if [ "${not_partition}" -eq "1" ] ; then
-    flash_android
+    flash_android || exit 1
     exit 0
 fi
 
 make_partition || exit 1
-gdisk -l ${node} 2>/dev/null | grep -q "dtbo" && support_dtbo=1
-echo "support_dtbo: ${support_dtbo}"
 
 sleep 3
 for i in `cat /proc/mounts | grep "${node}" | awk '{print $2}'`; do umount $i; done
@@ -242,7 +247,7 @@ hdparm -z ${node}
 echo -e 'r\ne\nY\nw\nY\nY' |  gdisk ${node}
 
 format_android
-flash_android
+flash_android || exit 1
 
 echo
 echo ">>>>>>>>>>>>>> Flashing successfully completed <<<<<<<<<<<<<<"
