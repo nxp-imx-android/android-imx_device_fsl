@@ -28,6 +28,7 @@
 /sys/devices/virtual/input/input*   enable      0660  system system
 
 /sys/devices/virtual/misc/Freescale*          poll        0660  system   system
+/sys/devices/virtual/misc/Freescale*          poll_delay  0660  system   system
 /sys/devices/virtual/misc/Freescale*          enable      0660  system   system
 /sys/devices/virtual/misc/Freescale*          position    0660  system   system
 
