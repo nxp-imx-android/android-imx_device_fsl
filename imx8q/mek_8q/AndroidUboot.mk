@@ -32,7 +32,8 @@ define build_imx_uboot
 			cp  $(FSL_PROPRIETARY_PATH)/fsl-proprietary/mcu-sdk/imx8q/imx8qx_m4_TCM_hello_world.bin $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/CM4.bin; \
 			cp  $(FSL_PROPRIETARY_PATH)/fsl-proprietary/uboot-firmware/imx8q/tee-imx8qxp.bin $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/tee.bin; \
 		else \
-			FLASH_TARGET=`echo flash_b0`;  \
+			FLASH_TARGET=`echo flash_b0_all`;  \
+			cp  $(FSL_PROPRIETARY_PATH)/fsl-proprietary/mcu-sdk/imx8q/imx8qx_m4_default.bin $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/CM4.bin; \
 		fi; \
 	fi; \
 	if [ "$(strip $(2))" != "imx8qm-xen" ]; then \
