@@ -6,11 +6,10 @@ FB: ucmd setenv fastboot_dev mmc
 FB: ucmd setenv mmcdev 1
 FB: ucmd mmc dev 1
 FB: flash bootloader0 u-boot-imx8qxp.imx
-FB: flash gpt partition-table.img
+FB[-t 600000]: flash gpt partition-table.img
 
-# erase userdata and misc partition
-FB[-t 600000]: ERASE userdata
-FB: ERASE misc
+# erase environment variables of uboot
+FB: ucmd mmc erase 0x2000 0x10
 
 FB: flash boot_a boot.img
 FB: flash boot_b boot.img
@@ -23,8 +22,9 @@ FB[-t 100000]: flash system_b system.img
 FB: flash dtbo_a dtbo-imx8qxp.img
 FB: flash dtbo_b dtbo-imx8qxp.img
 
-# erase environment variables of uboot
-FB: ucmd mmc erase 0x2000 0x10
+# erase userdata and misc partition
+FB[-t 600000]: ERASE userdata
+FB: ERASE misc
 
 FB: done
 

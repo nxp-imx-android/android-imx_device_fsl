@@ -5,8 +5,13 @@ SDP: boot -f u-boot-imx6sx.imx
 FB: ucmd setenv fastboot_dev mmc
 FB: ucmd setenv mmcdev 2
 FB: ucmd mmc dev 2
+FB[-t 600000]: OEM unlock
 FB[-t 600000]: flash gpt partition-table.img
 FB: flash bootloader u-boot-imx6sx.imx
+
+# erase environment variables of uboot
+FB: ucmd mmc erase 0x700 0x10
+
 FB: flash boot boot.img
 FB[-t 200000]: flash system system.img
 FB: flash recovery recovery-imx6sx.img
@@ -18,8 +23,5 @@ FB: flash dtbo dtbo-imx6sx.img
 FB[-t 600000]: ERASE userdata
 FB: ERASE misc
 FB[-t 100000]: ERASE cache
-
-# erase environment variables of uboot
-FB: ucmd mmc erase 0x700 0x10
 
 FB: done

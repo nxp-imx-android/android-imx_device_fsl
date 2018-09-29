@@ -6,8 +6,13 @@ SDP: boot -f u-boot-imx7ulp.imx
 FB: ucmd setenv fastboot_dev mmc
 FB: ucmd setenv mmcdev 0
 FB: ucmd mmc dev 0
+FB[-t 600000]: OEM unlock
 FB[-t 600000]: flash gpt partition-table.img
 FB: flash bootloader u-boot-imx7ulp.imx
+
+# erase environment variables of uboot
+FB: ucmd mmc erase 0x700 0x10
+
 FB[-t 100000]: flash system system.img
 FB: flash vbmeta vbmeta-imx7ulp.img
 FB: flash vendor vendor.img
@@ -20,8 +25,5 @@ FB: flash m4_os imx7ulp_m4_demo.img
 FB[-t 600000]: ERASE userdata
 FB: ERASE misc
 FB[-t 100000]: ERASE cache
-
-# erase environment variables of uboot
-FB: ucmd mmc erase 0x700 0x10
 
 FB: done
