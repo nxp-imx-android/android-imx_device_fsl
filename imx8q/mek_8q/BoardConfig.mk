@@ -195,6 +195,11 @@ BOARD_SEPOLICY_DIRS += \
      device/generic/car/common/sepolicy
 endif
 
+ifeq ($(PRODUCT_IMX_CAR),true)
+TARGET_BOARD_RECOVERY_FORMAT_SKIP := true
+TARGET_BOARD_RECOVERY_SBIN_SKIP := true
+endif
+
 BOARD_AVB_ENABLE := true
 TARGET_USES_MKE2FS := true
 

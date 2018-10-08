@@ -13,7 +13,6 @@ PRODUCT_MANUFACTURER := freescale
 PRODUCT_PACKAGES += \
     CactusPlayer \
     FSLOta \
-    charger \
     charger_res_images \
     ethernet \
     libGLES_android \

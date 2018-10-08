@@ -27,7 +27,6 @@ PRODUCT_PACKAGES += \
     SoundRecorder \
     VideoEditor \
     VisualizationWallpapers \
-    charger \
     charger_res_images \
     chat \
     ethernet \

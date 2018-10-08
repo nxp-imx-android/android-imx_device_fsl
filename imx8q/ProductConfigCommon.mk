@@ -13,7 +13,6 @@ PRODUCT_MANUFACTURER := freescale
 PRODUCT_PACKAGES += \
     CactusPlayer \
     FSLOta \
-    charger \
     charger_res_images \
     ethernet \
     libGLES_android \
@@ -21,9 +20,14 @@ PRODUCT_PACKAGES += \
     libedid \
     libion \
     librs_jni \
-    slideshow \
     verity_warning_images \
     vndk-sp
+
+
+ifneq ($(PRODUCT_IMX_CAR),true)
+PRODUCT_PACKAGES += \
+    slideshow
+endif
 
 ifneq ($(PRODUCT_IMX_CAR),true)
 PRODUCT_PACKAGES += \
@@ -54,8 +58,12 @@ PRODUCT_PACKAGES += \
     brillo_update_payload \
     update_engine \
     update_engine_client \
-    update_engine_sideload \
     update_verifier
+
+ifneq ($(PRODUCT_IMX_CAR),true)
+PRODUCT_PACKAGES += \
+    update_engine_sideload
+endif
 
 # audio
 PRODUCT_PACKAGES += \
