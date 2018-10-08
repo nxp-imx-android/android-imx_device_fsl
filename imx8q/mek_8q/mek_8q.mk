@@ -113,6 +113,10 @@ PRODUCT_CHARACTERISTICS := tablet
 
 PRODUCT_AAPT_CONFIG += xlarge large tvdpi hdpi xhdpi
 
+ifeq ($(PRODUCT_IMX_CAR),true)
+PRODUCT_CUSTOM_RECOVERY_DENSITY := ldpi
+endif
+
 # GPU openCL g2d
 PRODUCT_COPY_FILES += \
     $(IMX_PATH)/imx/opencl-2d/cl_g2d.cl:$(TARGET_COPY_OUT_VENDOR)/etc/cl_g2d.cl
