@@ -11,6 +11,9 @@ endif
 OPTEE_CFG_ARM64_CORE ?= y
 OPTEE_TA_TARGETS ?= ta_arm64
 CFG_SECSTOR_TA_MGMT_PTA ?= y
+#Force CFG_TA_DYNLINK=y to fix optee_test build
+#https://github.com/OP-TEE/optee_test/issues/275
+CFG_TA_DYNLINK := y
 #OPTEE_TA_TARGETS ?= ta_arm32
 OPTEE_OS_DIR ?= optee/optee_os
 OPTEE_EXTRA_FLAGS ?= CFG_TEE_CORE_LOG_LEVEL=1 CFG_TEE_TA_LOG_LEVEL=1 DEBUG=0
