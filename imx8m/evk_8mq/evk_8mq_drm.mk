@@ -22,12 +22,18 @@ TARGET_KERNEL_DEFCONFIG := android_defconfig
 PRODUCT_NAME := evk_8mq_drm
 
 CFG_SECURE_DATA_PATH ?= y
+CFG_RDC_SECURE_DATA_PATH ?= y
+
+ifeq ($(CFG_SECURE_DATA_PATH),y)
 CFG_TEE_SDP_MEM_BASE := 0xcc000000
 CFG_TEE_SDP_MEM_SIZE := 0x02000000
+ifeq ($(CFG_RDC_SECURE_DATA_PATH),y)
 DECRYPTED_BUFFER_START	:= $(CFG_TEE_SDP_MEM_BASE)
 DECRYPTED_BUFFER_LEN	:= $(CFG_TEE_SDP_MEM_SIZE)
 DECODED_BUFFER_START	:= 0xCE000000
 DECODED_BUFFER_LEN		:= 0x30000000
+endif
+endif
 
 TARGET_BOARD_DTS_CONFIG := imx8mq:fsl-imx8mq-evk-drm.dtb imx8mq-mipi:fsl-imx8mq-evk-lcdif-adv7535.dtb imx8mq-dual:fsl-imx8mq-evk-dual-display.dtb
 

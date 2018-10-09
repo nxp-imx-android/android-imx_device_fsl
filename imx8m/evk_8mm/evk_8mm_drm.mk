@@ -36,7 +36,6 @@ endif
 
 TARGET_BOARD_DTS_CONFIG := imx8mm:fsl-imx8mm-evk-drm.dtb imx8mm-mipi-panel:fsl-imx8mm-evk-rm67191.dtb imx8mm-dsd:fsl-imx8mm-evk-ak4497.dtb imx8mm-m4:fsl-imx8mm-evk-m4.dtb
 
-
 # Exoplayer
 PRODUCT_PACKAGES += \
 	exoplayer \
