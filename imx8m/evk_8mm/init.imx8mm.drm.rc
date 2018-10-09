@@ -3,9 +3,9 @@ import init.${ro.hardware}.${ro.boot.soc_type}.main.rc
 
 on post-fs-data
     # create for OP-TEE test
-    mkdir /data/tee 0660 media media
-    mkdir /data/tee/optee_armtz 0660 media media
-    restorecon_recursive /data/tee
+    mkdir /data/vendor/tee 0660 media media
+    mkdir /data/vendor/tee/optee_armtz 0660 media media
+    restorecon_recursive /data/vendor/tee
 
 
 on boot
@@ -15,11 +15,3 @@ on boot
 
     chmod 0660 /dev/teepriv0
     chown media media /dev/teepriv0
-
-
-service tee_supplicant /system/bin/tee-supplicant
-    class main
-    user root
-    group shell
-    oneshot
-
