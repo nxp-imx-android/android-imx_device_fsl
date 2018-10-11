@@ -29,10 +29,6 @@ on init
     mkdir /device 0771 system system
 
 on early-boot
-
-	# emmulate battery property
-	setprop sys.emulated.battery 1
-
     # Set permission for IIM node
     symlink /dev/mxs_viim /dev/mxc_mem
 
@@ -42,18 +38,9 @@ on early-boot
     # Enable Tethering in the Settings
     setprop ro.tether.denied false
 
-    # 3D acceleration property
-    setprop debug.sf.showfps    0
-    setprop debug.sf.enable_hgl 1
-    setprop debug.egl.hw	1
-
     setprop hwc.stretch.filter  1
-    setprop hwc.enable_dither   1
 
     # fsl omx graphic manager media framework property
-    setprop media.omxgm.enable-player 0
-    setprop media.omxgm.enable-record 0
-    setprop media.omxgm.enable-scan 1
     setprop rw.VIDEO_RENDER_NAME video_render.surface
     setprop media.fsl_codec.flag 7
     setprop media.omx.enable-tunnel 0
@@ -72,13 +59,6 @@ on early-boot
     write /sys/block/mmcblk0/queue/read_ahead_kb 2048
     write /sys/block/mmcblk1/queue/read_ahead_kb 2048
 
-    # ALSA mixer naming define
-    setprop alsa.mixer.playback.master Playback
-    setprop alsa.mixer.capture.master Capture
-    setprop alsa.mixer.playback.speaker Playback
-    setprop alsa.mixer.playback.headset Headphone
-    setprop alsa.mixer.capture.headset Capture
-
     # Wifi firmware reload path
     chown wifi wifi /sys/module/bcmdhd/parameters/firmware_path
     chown wifi wifi /sys/module/bcmdhd/parameters/nvram_path
@@ -95,14 +75,8 @@ on early-boot
     # Set OpenGLES version
     setprop ro.opengles.version 131072
 
-    # Set rotation to 270 to cofigure as portrait mode
-    setprop ro.sf.hwrotation 0
-
     # Set the density to 160 dpi, default 128dpi is not good
     setprop ro.sf.lcd_density 160
-
-    # Set extsd access permission
-    setprop persist.sampling_profiler 1
 
     # Set GPU 3D minimum clock to 8/64
     write /sys/bus/platform/drivers/galcore/gpu3DMinClock 8
@@ -138,10 +112,7 @@ on early-boot
     setprop ro.hardware.lightsensor "/sys/class/i2c-dev/i2c-2/device/2-0044/"
     setprop ro.lightsensor.threshold  20
 
-    # No bluetooth hardware present
-    setprop hw.bluetooth 0
     setprop wlan.interface wlan0
-
 
 on property:sys.boot_completed=1
     # Set default CPU frequency governor

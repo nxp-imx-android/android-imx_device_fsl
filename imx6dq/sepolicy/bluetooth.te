@@ -1,2 +1,6 @@
+typeattribute bluetooth system_writes_vendor_properties_violators;
+
 allow bluetooth storage_stub_file:dir { getattr };
 allow bluetooth vendor_file:file { read open getattr };
+
+set_prop(bluetooth, vendor_bluetooth_prop)

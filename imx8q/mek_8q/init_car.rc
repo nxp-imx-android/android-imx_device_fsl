@@ -47,12 +47,8 @@ on early-boot
     setprop ro.tether.denied false
 
     setprop hwc.stretch.filter  1
-    setprop hwc.enable_dither   1
 
     # fsl omx graphic manager media framework property
-    setprop media.omxgm.enable-player 0
-    setprop media.omxgm.enable-record 0
-    setprop media.omxgm.enable-scan 1
     setprop rw.VIDEO_RENDER_NAME video_render.surface
     setprop media.fsl_codec.flag 7
 
@@ -65,13 +61,6 @@ on early-boot
     setprop back_camera_orient 0
     setprop front_camera_name uvc,adv7180_decoder
     setprop front_camera_orient 0
-
-    # ALSA mixer naming define
-    setprop alsa.mixer.playback.master Playback
-    setprop alsa.mixer.capture.master Capture
-    setprop alsa.mixer.playback.speaker Playback
-    setprop alsa.mixer.playback.headset Headphone
-    setprop alsa.mixer.capture.headset Capture
 
     # Set period_us for usb audio
     setprop ro.audio.usb.period_us 20000
@@ -86,14 +75,8 @@ on early-boot
 
     setprop qcom.bluetooth.soc rome_uart
 
-    # Set rotation to 270 to cofigure as portrait mode
-    setprop ro.sf.hwrotation 0
-
     # Set the density to 213 tvdpi to match CDD.
     setprop ro.sf.lcd_density 213
-
-    # Set extsd access permission
-    setprop persist.sampling_profiler 1
 
     # Set tracefs permission to 755
     chmod 0755 /sys/kernel/debug/tracing
@@ -107,11 +90,6 @@ on early-boot
     setprop ro.lightsensor.threshold  20
 
     setprop ro.boot.btmacaddr 22:22:67:C6:69:73
-
-    # No bluetooth hardware present
-    setprop hw.bluetooth 0
-    # Set WiFi Display Source VideoBitRate Adaptive
-    setprop media.wfd.video-bitrate 3000000
 
 on property:rpmsg.can.register=1
     start post_boot_completed_sh
