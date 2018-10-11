@@ -174,7 +174,8 @@ PRODUCT_PACKAGES += \
     libhantro \
     libcodec \
     libhantro_h1 \
-    libcodec_enc
+    libcodec_enc \
+    DirectAudioPlayer
 
 # Add oem unlocking option in settings.
 PRODUCT_PROPERTY_OVERRIDES += ro.frp.pst=/dev/block/by-name/presistdata
