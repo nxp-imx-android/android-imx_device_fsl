@@ -122,16 +122,18 @@ PRODUCT_PACKAGES += \
     gatekeeper.imx7
 
 PRODUCT_PACKAGES += \
-    android.hardware.audio@2.0-impl \
+    android.hardware.audio@4.0-impl \
     android.hardware.audio@2.0-service \
-    android.hardware.audio.effect@2.0-impl \
+    android.hardware.audio.effect@4.0-impl \
     android.hardware.sensors@1.0-impl \
     android.hardware.sensors@1.0-service \
     android.hardware.power@1.0-impl \
     android.hardware.power@1.0-service \
     android.hardware.light@2.0-impl \
     android.hardware.light@2.0-service \
-    android.hardware.health@2.0-service
+    android.hardware.health@2.0-service \
+    android.hardware.configstore@1.1-service \
+    configstore@1.1.policy
 
 # imx7 sensor HAL libs.
 PRODUCT_PACKAGES += \

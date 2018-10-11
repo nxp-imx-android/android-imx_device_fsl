@@ -106,14 +106,16 @@ PRODUCT_PACKAGES += \
     gatekeeper.imx8
 
 PRODUCT_PACKAGES += \
-    android.hardware.audio@2.0-impl \
+    android.hardware.audio@4.0-impl:32 \
     android.hardware.audio@2.0-service \
-    android.hardware.audio.effect@2.0-impl \
+    android.hardware.audio.effect@4.0-impl:32 \
     android.hardware.power@1.0-impl \
     android.hardware.power@1.0-service \
     android.hardware.light@2.0-impl \
     android.hardware.light@2.0-service \
-    android.hardware.health@2.0-service
+    android.hardware.health@2.0-service \
+    android.hardware.configstore@1.1-service \
+    configstore@1.1.policy
 
 # Usb HAL
 PRODUCT_PACKAGES += \
