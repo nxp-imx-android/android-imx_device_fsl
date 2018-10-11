@@ -82,7 +82,7 @@ on early-boot
 
     # Prepare for wifi
     setprop wifi.interface wlan0
-    setprop wifi.ap.interface wlan0
+    setprop wifi.concurrent.interface p2p0
 
     setprop qcom.bluetooth.soc rome_uart
 
@@ -110,7 +110,6 @@ on early-boot
 
     # No bluetooth hardware present
     setprop hw.bluetooth 0
-    setprop wlan.interface wlan0
     # Set WiFi Display Source VideoBitRate Adaptive
     setprop media.wfd.video-bitrate 3000000
 

@@ -82,7 +82,7 @@ on early-boot
 
     # Prepare for wifi
     setprop wifi.interface wlan0
-    setprop wifi.ap.interface wlan0
+    setprop wifi.concurrent.interface p2p0
 
     # Prepare for bluetooth
     chmod 665 /sys/class/rfkill/rfkill0/state
@@ -140,10 +140,6 @@ on early-boot
     # Chmod/chown FSL specific sys entry
     chown system system /sys/class/backlight/backlight/brightness
     chmod 0660 /sys/class/backlight/backlight/brightness
-
-    # No bluetooth hardware present
-    setprop wlan.interface wlan0
-
 
 on property:sys.boot_completed=1
     # Set default CPU frequency governor
