@@ -5,8 +5,11 @@ help() {
 bn=`basename $0`
 cat << EOF
 
-Version: 1.0
-Last change: This is first version, this script use fastboot to flash images.
+Version: 1.1
+Last change: Add -D option. handle the situation that dual slot is not supported but a slot is specified.
+
+eg: sudo ./fastboot_imx_flashall.sh -f imx8mm -a -D ~/nfs/179/2018.10.03/imx_pi9.0/sabresd_6dq/
+eg: sudo ./fastboot_imx_flashall.sh -f imx7ulp -D ~/nfs/179/2018.10.03/imx_pi9.0/evk_7ulp/
 
 Usage: $bn <option>
 
@@ -26,6 +29,8 @@ options:
                         If not set, use default dtbo, vbmeta and image
   -e                erase user data after all image files being flashed
   -l                lock the device after all image files being flashed
+  -D directory      the directory of images
+                        No need to use this option if images and this script are in same directory
 EOF
 
 }
@@ -52,18 +57,20 @@ m4_os_partition="m4_os"
 flash_m4=0
 lock=0
 erase=0
+image_directory=""
 
 while [ $# -gt 0 ]; do
     case $1 in
         -h) help; exit ;;
         -f) soc_name=$2; shift;;
         -c) card_size=$2; shift;;
-        -d) device_character=$2 ; shift;;
+        -d) device_character=$2; shift;;
         -a) slot="_a" ;;
         -b) slot="_b" ;;
         -m) flash_m4=1 ;;
         -e) erase=1 ;;
         -l) lock=1 ;;
+        -D) image_directory=$2; shift;;
         *)  help; exit;;
     esac
     shift
@@ -74,24 +81,32 @@ if [ ${card_size} -ne 0 ] && [ ${card_size} -ne 7 ] && [ ${card_size} -ne 14 ] &
     help; exit 1;
 fi
 
+if [ ${card_size} -gt 0 ]; then
+    partition_file="partition-table-${card_size}GB.img"
+fi
+
+image_directory="${image_directory%/}/"
+
 function flash_partition
 {
-    if [ $? -eq 0 ]; then
-        if [ $(echo ${1} | grep "system") != "" ] 2>/dev/null; then
-            img_name=${systemimage_file}
-        elif [ $(echo ${1} | grep "vendor") != "" ] 2>/dev/null; then
-            img_name=${vendor_file}
-        elif [ ${support_dtbo} -eq 1 ] && [ $(echo ${1} | grep "boot") != "" ] 2>/dev/null; then
-            img_name="boot.img"
-        elif [ $(echo ${1} | grep "m4_os") != "" ] 2>/dev/null; then
-            img_name="${soc_name}_m4_demo.img"
-        elif [ $(echo ${1} | grep -E "dtbo|vbmeta|recovery") != "" -a ${device_character} != "" ] 2>/dev/null; then
-            img_name="${1%_*}-${soc_name}-${device_character}.img"
-        else
-            img_name="${1%_*}-${soc_name}.img"
-        fi
-        fastboot flash ${1} ${img_name}
+    if [ $(echo ${1} | grep "system") != "" ] 2>/dev/null; then
+        img_name=${systemimage_file}
+    elif [ $(echo ${1} | grep "vendor") != "" ] 2>/dev/null; then
+        img_name=${vendor_file}
+    elif [ ${support_dtbo} -eq 1 ] && [ $(echo ${1} | grep "boot") != "" ] 2>/dev/null; then
+        img_name="boot.img"
+    elif [ $(echo ${1} | grep "m4_os") != "" ] 2>/dev/null; then
+        img_name="${soc_name}_m4_demo.img"
+    elif [ $(echo ${1} | grep -E "dtbo|vbmeta|recovery") != "" -a ${device_character} != "" ] 2>/dev/null; then
+        img_name="${1%_*}-${soc_name}-${device_character}.img"
+    elif [ $(echo ${1} | grep "bootloader") != "" ] 2>/dev/null; then
+        img_name="u-boot-${soc_name}.imx"
+    elif [ $(echo ${1} | grep "gpt") != "" ] 2>/dev/null; then
+        img_name=${partition_file}
+    else
+        img_name="${1%_*}-${soc_name}.img"
     fi
+    fastboot flash ${1} "${image_directory}${img_name}"
 }
 
 function flash_userpartitions
@@ -124,32 +139,32 @@ function flash_partition_name
 
 function flash_android
 {
-    if [ ${card_size} -gt 0 ]; then
-        partition_file="partition-table-${card_size}GB.img"
-    fi
-    bootloader_file="u-boot-${soc_name}.imx"
-
     if [ ${soc_name#imx8} != ${soc_name} ]; then
-        fastboot flash bootloader0 ${bootloader_file}
+        flash_partition "bootloader0"
     else
-        fastboot flash bootloader ${bootloader_file}
+        flash_partition "bootloader"
     fi
 
     fastboot reboot bootloader
     sleep 5
 
-    fastboot flash gpt ${partition_file}
+    flash_partition "gpt"
     fastboot getvar all 2>/tmp/fastboot_var.log  && grep -q "dtbo" /tmp/fastboot_var.log && support_dtbo=1
     grep -q "recovery" /tmp/fastboot_var.log && support_recovery=1
     # use boot_b to check whether current gpt support a/b slot
     grep -q "boot_b" /tmp/fastboot_var.log && support_dualslot=1
     grep -q "m4_os" /tmp/fastboot_var.log && support_m4_os=1
 
+    # if a platform doesn't support dual slot but a slot is selected, ignore it.
+    if [ ${support_dualslot} -eq 0 ] && [ ${slot} != "" ]; then
+        slot=""
+    fi
+
     if [ ${flash_m4} = 1 -a ${support_m4_os} = 1 ]; then
         flash_partition ${m4_os_partition}
     fi
 
-    if [ "${slot}" = "" ] && [ ${support_dualslot} -eq 1 ] ; then
+    if [ "${slot}" = "" ] && [ ${support_dualslot} -eq 1 ]; then
         #flash image to a and b slot
         flash_partition_name "_a"
         flash_userpartitions
@@ -159,7 +174,7 @@ function flash_android
     else
         flash_partition_name ${slot}
         flash_userpartitions
-        if [ ${support_dualslot} -eq 1 ] ; then
+        if [ ${support_dualslot} -eq 1 ]; then
             fastboot set_active ${slot#_}
         fi
     fi
@@ -169,8 +184,8 @@ flash_android
 
 if [ ${erase} -eq 1 ]; then
     fastboot erase userdata
-    if [ ${soc_name#imx8} = ${soc_name} ]; then
-        fastboot erase misc
+    fastboot erase misc
+    if [ ${soc_name#imx8} = ${soc_name} ] ; then
         fastboot erase cache
     fi
 fi

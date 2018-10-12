@@ -8,6 +8,8 @@
 
 :: For batch script, %0 is not script name in a so-called function, so save the script name here
 set script_first_argument=%0
+:: For users execute this script in powershell, clear the quation marks first.
+set script_first_argument=%script_first_argument:"=%
 :: reserve last 25 characters, which is the lenght of the name of this script file.
 set script_name=%script_first_argument:~-25%
 
@@ -35,6 +37,7 @@ set /A flash_m4=0
 set /A statisc=0
 set /A lock=0
 set /A erase=0
+set image_directory=
 
 
 ::---------------------------------------------------------------------------------
@@ -54,6 +57,7 @@ if %1 == -b set slot=_b& shift & goto :parse_loop
 if %1 == -m set /A flash_m4=1 & shift & goto :parse_loop
 if %1 == -l set /A lock=1 & shift & goto :parse_loop
 if %1 == -e set /A erase=1 & shift & goto :parse_loop
+if %1 == -D set image_directory=%2& shift & shift & goto :parse_loop
 :parse_end
 
 :: If sdcard size is not correctly set, exit
@@ -61,7 +65,11 @@ if %card_size% neq 0 set /A statisc+=1
 if %card_size% neq 7 set /A statisc+=1
 if %card_size% neq 14 set /A statisc+=1
 if %card_size% neq 28 set /A statisc+=1
-if %statisc%==4 echo card_size is not a legal value & goto :eof
+if %statisc% == 4 echo card_size is not a legal value & goto :eof
+
+if %card_size% gtr 0 set partition_file=partition-table-%card_size%GB.img
+
+if not %image_directory:~-1% == \ set image_directory=%image_directory%\
 
 
 ::---------------------------------------------------------------------------------
@@ -71,8 +79,8 @@ call :flash_android
 
 if %erase% == 1 (
     fastboot erase userdata
+    fastboot erase misc
     if %soc_name:imx8=% == %soc_name% (
-        fastboot erase misc
         fastboot erase cache
     )
 )
@@ -92,8 +100,11 @@ goto :eof
 ::----------------------------------------------------------------------------------
 
 :help
-echo Version: 1.0
-echo Last change: This is first version, this script use fastboot to flash images.
+echo Version: 1.1
+echo Last change: Add -D option. handle the situation that dual slot is not supported but a slot is specified.
+echo.
+echo eg: fastboot_imx_flashall.bat -f imx8mm -a -D C:\Users\user_01\Android\images\2018.10.07\evk_8mm
+echo eg: fastboot_imx_flashall.bat -f imx7ulp -D C:\Users\user_01\Android\images\2018.10.07\evk_7ulp
 echo.
 echo Usage: %script_name% ^<option^>
 echo.
@@ -113,6 +124,8 @@ echo  -d dev            flash dtbo, vbmeta and recovery image file with dev
 echo                        If not set, use default dtbo, vbmeta and recovery image
 echo  -e                erase user data after all image files being flashed
 echo  -l                lock the device after all image files being flashed
+echo  -D directory      the directory of of images
+echo                        No need to use this option if images and this script are in same directory
 goto :eof
 
 
@@ -137,11 +150,11 @@ if not [%local_str:dtbo=%] == [%local_str%] if not [%device_character%] == [] (
 if not [%local_str:recovery=%] == [%local_str%] if not [%device_character%] == [] (
     set img_name=%local_str%-%soc_name%-%device_character%.img
 )
+if not [%local_str:bootloader=%] == [%local_str%] set img_name=u-boot-%soc_name%.imx
+if not [%local_str:gpt=%] == [%local_str%] set img_name=%partition_file%
 
 
-:: remove spaces from variable value
-set img_name=%img_name: =%
-fastboot flash %1 %img_name%
+fastboot flash %1 %image_directory%\%img_name%
 goto :eof
 
 
@@ -165,16 +178,10 @@ set dtbo_partition=dtbo%1
 goto :eof
 
 :flash_android
-if %card_size% gtr 0 set partition_file=partition-table-%card_size%GB.img
-set bootloader_file=u-boot-%soc_name%.imx
-:: remove spaces from variable value
-set bootloader_file=%bootloader_file: =%
-
 if not %soc_name:imx8=% == %soc_name% set bootloader_partition=bootloader0
+call :flash_partition %bootloader_partition%
 
-fastboot flash %bootloader_partition% %bootloader_file%
-
-fastboot flash gpt %partition_file%
+call :flash_partition gpt
 
 fastboot getvar all 2> fastboot_var.log && find "dtbo" fastboot_var.log > nul && set /A support_dtbo=1
 
@@ -184,6 +191,10 @@ find "recovery" fastboot_var.log > nul && set /A support_recovery=1
 find "boot_b" fastboot_var.log > nul && set /A support_dualslot=1
 
 find "m4_os" fastboot_var.log > nul && set /A support_m4_os=1
+
+
+if %support_dualslot% == 0 set slot=
+
 
 if %flash_m4% == 1 if %support_m4_os% == 1 call :flash_partition %m4_os_partition%
 
