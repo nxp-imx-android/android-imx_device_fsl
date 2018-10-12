@@ -14,7 +14,6 @@ PRODUCT_PACKAGES += \
     CactusPlayer \
     FSLOta \
     charger_res_images \
-    ethernet \
     libGLES_android \
     libRS \
     libedid \
@@ -34,6 +33,7 @@ PRODUCT_PACKAGES += \
     Camera \
     CubeLiveWallpapers \
     Email \
+    ethernet \
     Gallery2 \
     LegacyCamera \
     LiveWallpapersPicker \
