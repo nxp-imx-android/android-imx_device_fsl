@@ -91,6 +91,9 @@ on early-boot
     setprop qcom.bluetooth.soc rome_uart
     setprop wc_transport.start_hci false
 
+    # Set the density to 213 tvdpi to match CDD.
+    setprop ro.sf.lcd_density 213
+
     # Set tracefs permission to 755
     chmod 0755 /sys/kernel/debug/tracing
 
