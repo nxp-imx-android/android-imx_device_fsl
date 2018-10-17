@@ -4,10 +4,11 @@ vendor.usb.config                   u:object_r:vendor_usb_config_prop:s0
 vendor.powerhal.state               u:object_r:power_hal_prop:s0
 vendor.powerhal.lowpower.max_freq   u:object_r:power_hal_prop:s0
 
-sys.all.early_init.ready            u:object_r:vendor_default_prop:s0
-sys.all.boot_completed.ready        u:object_r:vendor_default_prop:s0
-sys.all.post_boot_completed.ready   u:object_r:vendor_default_prop:s0
-sys.hwc.disable                     u:object_r:vendor_default_prop:s0
+sys.all.early_init.ready            u:object_r:public_vendor_default_prop:s0
+sys.all.boot_completed.ready        u:object_r:public_vendor_default_prop:s0
+sys.all.post_boot_completed.ready   u:object_r:public_vendor_default_prop:s0
+sys.hwc.disable                     u:object_r:public_vendor_default_prop:s0
+
 ro.boot.gui_resolution              u:object_r:vendor_default_prop:s0
 ro.boot.primary_display             u:object_r:vendor_default_prop:s0
 hwc.drm.device                      u:object_r:vendor_default_prop:s0

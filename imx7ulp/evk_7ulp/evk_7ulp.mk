@@ -185,3 +185,4 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.internel.storage_size=/sys/block/mmcblk0/size
+PRODUCT_COMPATIBLE_PROPERTY_OVERRIDE := true
