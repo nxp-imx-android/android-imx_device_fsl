@@ -48,6 +48,7 @@ rw.VIDEO_TVOUT_POS_Y                u:object_r:vendor_default_prop:s0
 rw.VIDEO_TVOUT_WIDTH                u:object_r:vendor_default_prop:s0
 sys.SECOND_DISPLAY_ENABLED          u:object_r:vendor_default_prop:s0
 ro.FSL_DSF_PARSER                   u:object_r:vendor_default_prop:s0
+wifi.concurrent.interface           u:object_r:vendor_default_prop:s0
 
 # vendor_bluetooth_prop
 persist.bluetooth.a4wp              u:object_r:vendor_bluetooth_prop:s0
