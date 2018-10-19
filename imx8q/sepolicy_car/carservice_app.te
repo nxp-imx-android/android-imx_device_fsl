@@ -1,1 +1,3 @@
+get_prop(carservice_app, vendor_default_prop)
+
 allow carservice_app sysfs:file { getattr };

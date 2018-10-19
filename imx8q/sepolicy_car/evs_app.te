@@ -1,3 +1,5 @@
+get_prop(evs_app, vendor_default_prop)
+
 allow evs_app system_file:dir { read open };
 allow evs_app hal_configstore_default:binder { call };
 allow evs_app ion_device:chr_file { read open ioctl };

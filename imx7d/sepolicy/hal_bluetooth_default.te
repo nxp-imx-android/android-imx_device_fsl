@@ -12,3 +12,4 @@ allow hal_bluetooth_default fwk_scheduler_hwservice:hwservice_manager {find};
 allow hal_bluetooth_default system_server:binder {call};
 
 allow hal_bluetooth_default bluetooth_data_file:file { read write getattr append } ;
+allow hal_bluetooth_default hal_bluetooth_default:unix_stream_socket { ioctl };

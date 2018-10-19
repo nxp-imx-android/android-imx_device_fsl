@@ -8,16 +8,17 @@ sys.all.early_init.ready            u:object_r:public_vendor_default_prop:s0
 sys.all.boot_completed.ready        u:object_r:public_vendor_default_prop:s0
 sys.all.post_boot_completed.ready   u:object_r:public_vendor_default_prop:s0
 sys.hwc.disable                     u:object_r:public_vendor_default_prop:s0
+hw.backlight.dev                    u:object_r:public_vendor_default_prop:s0
 
 ro.boot.gui_resolution              u:object_r:vendor_default_prop:s0
 ro.boot.primary_display             u:object_r:vendor_default_prop:s0
+ro.boot.soc_type                    u:object_r:vendor_default_prop:s0
 hwc.drm.device                      u:object_r:vendor_default_prop:s0
 hwc.enable.overlay                  u:object_r:vendor_default_prop:s0
 ro.boot.fake.ui_resolution          u:object_r:vendor_default_prop:s0
 ro.boot.displaymode                 u:object_r:vendor_default_prop:s0
 ro.hardware.lightsensor             u:object_r:vendor_default_prop:s0
 ro.lightsensor.threshold            u:object_r:vendor_default_prop:s0
-hw.backlight.dev                    u:object_r:vendor_default_prop:s0
 rw.camera.test                      u:object_r:vendor_default_prop:s0
 uvc_mjpg                            u:object_r:vendor_default_prop:s0
 back_camera_name                    u:object_r:vendor_default_prop:s0
@@ -47,6 +48,42 @@ rw.VIDEO_TVOUT_POS_Y                u:object_r:vendor_default_prop:s0
 rw.VIDEO_TVOUT_WIDTH                u:object_r:vendor_default_prop:s0
 sys.SECOND_DISPLAY_ENABLED          u:object_r:vendor_default_prop:s0
 ro.FSL_DSF_PARSER                   u:object_r:vendor_default_prop:s0
+AQROOT                              u:object_r:vendor_default_prop:s0
+CL_NOPREPROCESS                     u:object_r:vendor_default_prop:s0
+TEMP                                u:object_r:vendor_default_prop:s0
+TEMPDIR                             u:object_r:vendor_default_prop:s0
+TMP                                 u:object_r:vendor_default_prop:s0
+TMPDIR                              u:object_r:vendor_default_prop:s0
+VCINSTALLDIR                        u:object_r:vendor_default_prop:s0
+VC_OPTION                           u:object_r:vendor_default_prop:s0
+VIV_CL_PROFILE                      u:object_r:vendor_default_prop:s0
+VIV_DEBUG                           u:object_r:vendor_default_prop:s0
+VIV_DISABLE_DEC400                  u:object_r:vendor_default_prop:s0
+VIV_DISABLE_HZ                      u:object_r:vendor_default_prop:s0
+VIV_EGL_PLATFORM                    u:object_r:vendor_default_prop:s0
+VIV_EGL_SWAP_INTERVAL               u:object_r:vendor_default_prop:s0
+VIV_ENABLE_MSAAx2                   u:object_r:vendor_default_prop:s0
+VIV_ENABLE_OPENCV_WORKGROUPSIZE     u:object_r:vendor_default_prop:s0
+VIV_FBO_PREFER_MEM                  u:object_r:vendor_default_prop:s0
+VIV_FBO_PREFER_TILED                u:object_r:vendor_default_prop:s0
+VIV_GLSL_DUMP                       u:object_r:vendor_default_prop:s0
+VIV_MGPU_AFFINITY                   u:object_r:vendor_default_prop:s0
+VIV_NO_MT                           u:object_r:vendor_default_prop:s0
+VIV_NO_Y_INVERT                     u:object_r:vendor_default_prop:s0
+VIV_PROFILE                         u:object_r:vendor_default_prop:s0
+VIV_TRACE                           u:object_r:vendor_default_prop:s0
+VIV_VX_PROFILE                      u:object_r:vendor_default_prop:s0
+VP_DISABLE_PROB                     u:object_r:vendor_default_prop:s0
+VS100COMNTOOLS                      u:object_r:vendor_default_prop:s0
+VS80COMNTOOLS                       u:object_r:vendor_default_prop:s0
+VS90COMNTOOLS                       u:object_r:vendor_default_prop:s0
+VSC_OPTION                          u:object_r:vendor_default_prop:s0
+lpa_enable                          u:object_r:vendor_default_prop:s0
+ro.camera.req.fmq.size              u:object_r:vendor_default_prop:s0
+ro.camera.res.fmq.size              u:object_r:vendor_default_prop:s0
+ro.hardware.gralloc_viv             u:object_r:vendor_default_prop:s0
+ro.rfkilldisabled                   u:object_r:vendor_default_prop:s0
+
 
 # vendor_bluetooth_prop
 persist.bluetooth.a4wp              u:object_r:vendor_bluetooth_prop:s0
@@ -60,3 +97,4 @@ persist.set.rx_delay                u:object_r:vendor_bluetooth_prop:s0
 ro.bluetooth.emb_wp_mode            u:object_r:vendor_bluetooth_prop:s0
 ro.bluetooth.wipower                u:object_r:vendor_bluetooth_prop:s0
 unified_bt_logging                  u:object_r:vendor_bluetooth_prop:s0
+persist.BT3_2.version               u:object_r:vendor_bluetooth_prop:s0
