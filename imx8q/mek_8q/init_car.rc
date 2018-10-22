@@ -95,7 +95,7 @@ on early-boot
     setprop ro.boot.btmacaddr 22:22:67:C6:69:73
 
 on property:rpmsg.can.register=1
-    start post_boot_completed_sh
+    start boot_completed_core_sh
 
 on property:rpmsg.can.event=1
     start evs_app
@@ -103,21 +103,22 @@ on property:rpmsg.can.event=1
 on property:rpmsg.can.event=0
     stop evs_app
 
-
-on property:sys.boot_completed=1
-    start boot_completed_sh
-
 on property:sys.boot_completed=1
     # register the can_rpmsg on raw android.
     write /sys/devices/platform/can_rpmsg/register 1
     # register the can_rpmsg on android running in xen.
     write /sys/devices/platform/passthrough/passthrough\:can_rpmsg/register  1
 
-on property:sys.all.post_boot_completed.ready=1
-    # Trigger start adbd service
-    start usbd
+on property:sys.all.setup_core.ready=1
     # Trigger start evs_driver service
     start evs_driver
+
+on property:sys.all.setup_core.ready=1
+    start boot_completed_main_sh
+
+on property:sys.all.setup_main.ready=1
+    # Trigger start adbd service
+    start usbd
 
 on property:bluetooth.rfkill_initialized=1
     # Prepare for bluetooth
@@ -228,22 +229,19 @@ service early_init_sh /vendor/bin/init.insmod.sh /vendor/etc/early.init.cfg sys.
     disabled
     oneshot
 
-service boot_completed_sh /vendor/bin/init.insmod.sh /vendor/etc/boot.completed.cfg sys.all.boot_completed.ready
+service boot_completed_core_sh /vendor/bin/init.insmod.sh /vendor/etc/setup.core.cfg sys.all.setup_core.ready
     class main
     user root
     group root system
     disabled
     oneshot
 
-service post_boot_completed_sh /vendor/bin/init.insmod.sh /vendor/etc/post.boot.completed.cfg sys.all.post_boot_completed.ready
+service boot_completed_main_sh /vendor/bin/init.insmod.sh /vendor/etc/setup.main.cfg sys.all.setup_main.ready
     class main
     user root
     group root system
     disabled
     oneshot
-
-on property:sys.all.post_boot_completed.ready=1
-    restart audioserver
 
 on fs
 # mount ext4 partitions

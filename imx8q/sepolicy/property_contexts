@@ -6,8 +6,8 @@ vendor.powerhal.state               u:object_r:power_hal_prop:s0
 vendor.powerhal.lowpower.max_freq   u:object_r:power_hal_prop:s0
 
 sys.all.early_init.ready            u:object_r:public_vendor_default_prop:s0
-sys.all.boot_completed.ready        u:object_r:public_vendor_default_prop:s0
-sys.all.post_boot_completed.ready   u:object_r:public_vendor_default_prop:s0
+sys.all.setup_core.ready            u:object_r:public_vendor_default_prop:s0
+sys.all.setup_main.ready            u:object_r:public_vendor_default_prop:s0
 sys.hwc.disable                     u:object_r:public_vendor_default_prop:s0
 hw.backlight.dev                    u:object_r:public_vendor_default_prop:s0
 

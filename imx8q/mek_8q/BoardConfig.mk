@@ -75,7 +75,6 @@ BOARD_VENDOR_KERNEL_MODULES += \
                             $(KERNEL_OUT)/drivers/scsi/sd_mod.ko \
                             $(KERNEL_OUT)/drivers/bluetooth/mx8_bt_rfkill.ko \
                             $(KERNEL_OUT)/drivers/hid/hid-multitouch.ko \
-                            $(KERNEL_OUT)/drivers/i2c/busses/i2c-imx-lpi2c.ko \
                             $(KERNEL_OUT)/drivers/gpu/imx/imx8_prg.ko \
                             $(KERNEL_OUT)/drivers/gpu/imx/imx8_dprc.ko \
                             $(KERNEL_OUT)/drivers/gpu/imx/imx8_pc.ko \
@@ -85,16 +84,12 @@ BOARD_VENDOR_KERNEL_MODULES += \
                             $(KERNEL_OUT)/drivers/gpu/drm/imx/dpu/imx-dpu-crtc.ko \
                             $(KERNEL_OUT)/drivers/gpu/drm/bridge/nwl-dsi.ko \
                             $(KERNEL_OUT)/drivers/gpu/drm/imx/nwl_dsi-imx.ko \
-                            $(KERNEL_OUT)/drivers/media/platform/imx8/ov5640_mipi_v3.ko \
+                            $(KERNEL_OUT)/drivers/media/platform/imx8/max9286_gmsl.ko \
                             $(KERNEL_OUT)/drivers/media/platform/imx8/mxc-mipi-csi2.ko \
+                            $(KERNEL_OUT)/drivers/media/platform/imx8/mxc-media-dev.ko \
                             $(KERNEL_OUT)/drivers/media/platform/imx8/mxc-capture.ko \
-                            $(KERNEL_OUT)/sound/soc/codecs/snd-soc-cs42xx8-i2c.ko \
-                            $(KERNEL_OUT)/sound/soc/codecs/snd-soc-cs42xx8.ko \
-                            $(KERNEL_OUT)/sound/soc/fsl/snd-soc-fsl-asrc.ko \
-                            $(KERNEL_OUT)/sound/soc/fsl/snd-soc-imx-cs42888.ko
 
 BOARD_RECOVERY_KERNEL_MODULES += \
-                            $(KERNEL_OUT)/drivers/i2c/busses/i2c-imx-lpi2c.ko \
                             $(KERNEL_OUT)/drivers/gpu/imx/imx8_prg.ko \
                             $(KERNEL_OUT)/drivers/gpu/imx/imx8_dprc.ko \
                             $(KERNEL_OUT)/drivers/gpu/imx/imx8_pc.ko \

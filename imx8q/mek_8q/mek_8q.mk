@@ -44,8 +44,8 @@ PRODUCT_COPY_FILES += \
     $(IMX_DEVICE_PATH)/init_car.rc:root/init.freescale.rc \
     $(IMX_DEVICE_PATH)/fstab.freescale.car:root/fstab.freescale \
     $(IMX_DEVICE_PATH)/early.init_car.cfg:$(TARGET_COPY_OUT_VENDOR)/etc/early.init.cfg \
-    $(IMX_DEVICE_PATH)/boot.completed.cfg:$(TARGET_COPY_OUT_VENDOR)/etc/boot.completed.cfg \
-    $(IMX_DEVICE_PATH)/post.boot.completed.cfg:$(TARGET_COPY_OUT_VENDOR)/etc/post.boot.completed.cfg \
+    $(IMX_DEVICE_PATH)/setup.main.cfg:$(TARGET_COPY_OUT_VENDOR)/etc/setup.main.cfg \
+    $(IMX_DEVICE_PATH)/setup.core.cfg:$(TARGET_COPY_OUT_VENDOR)/etc/setup.core.cfg \
     $(IMX_DEVICE_PATH)/required_hardware_auto.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/required_hardware.xml \
     device/fsl/imx8q/init.recovery.freescale.car.rc:root/init.recovery.freescale.rc
 else
