@@ -107,6 +107,20 @@ PRODUCT_COPY_FILES += \
     $(LINUX_FIRMWARE_IMX_PATH)/linux-firmware-imx/firmware/vpu/vpu_fw_imx8_dec.bin:vendor/firmware/vpu/vpu_fw_imx8_dec.bin \
     $(LINUX_FIRMWARE_IMX_PATH)/linux-firmware-imx/firmware/vpu/vpu_fw_imx8_enc.bin:vendor/firmware/vpu/vpu_fw_imx8_enc.bin
 
+# uuu scripts, fastboot_imx_flashall scripts and fsl-sdcard-partition
+PRODUCT_COPY_FILES += \
+    device/fsl/common/tools/uuu/uuu-android-mx8qxp-mek-emmc.lst:uuu-android-mx8qxp-mek-emmc.lst \
+    device/fsl/common/tools/uuu/uuu-android-mx8qm-mek-emmc.lst:uuu-android-mx8qm-mek-emmc.lst \
+    device/fsl/common/tools/fastboot_imx_flashall.bat:fastboot_imx_flashall.bat \
+    device/fsl/common/tools/fastboot_imx_flashall.sh:fastboot_imx_flashall.sh
+
+ifneq ($(PRODUCT_IMX_CAR),true)
+PRODUCT_COPY_FILES += \
+    device/fsl/common/tools/uuu/uuu-android-mx8qxp-mek-sd.lst:uuu-android-mx8qxp-mek-sd.lst \
+    device/fsl/common/tools/uuu/uuu-android-mx8qm-mek-sd.lst:uuu-android-mx8qm-mek-sd.lst \
+    device/fsl/common/tools/fsl-sdcard-partition.sh:fsl-sdcard-partition.sh
+endif
+
 DEVICE_PACKAGE_OVERLAYS := $(IMX_DEVICE_PATH)/overlay
 
 PRODUCT_CHARACTERISTICS := tablet
