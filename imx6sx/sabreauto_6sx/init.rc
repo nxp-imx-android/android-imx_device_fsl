@@ -35,6 +35,9 @@ on early-boot
     # enable opengl hardware UI at default
     setprop debug.hwui.renderer opengl
 
+    # Config lowmemorykiller options
+    setprop ro.lmk.use_minfree_levels true
+
     # Enable Tethering in the Settings
     setprop ro.tether.denied false
 
