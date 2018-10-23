@@ -47,7 +47,13 @@ rw.VIDEO_TVOUT_POS_X                u:object_r:vendor_default_prop:s0
 rw.VIDEO_TVOUT_POS_Y                u:object_r:vendor_default_prop:s0
 rw.VIDEO_TVOUT_WIDTH                u:object_r:vendor_default_prop:s0
 sys.SECOND_DISPLAY_ENABLED          u:object_r:vendor_default_prop:s0
+ro.FSL_AAC_PARSER                   u:object_r:vendor_default_prop:s0
+ro.FSL_AVI_PARSER                   u:object_r:vendor_default_prop:s0
 ro.FSL_DSF_PARSER                   u:object_r:vendor_default_prop:s0
+ro.FSL_FLAC_PARSER                  u:object_r:vendor_default_prop:s0
+ro.FSL_FLV_PARSER                   u:object_r:vendor_default_prop:s0
+ro.FSL_MKV_PARSER                   u:object_r:vendor_default_prop:s0
+ro.FSL_MPG2_PARSER                  u:object_r:vendor_default_prop:s0
 AQROOT                              u:object_r:vendor_default_prop:s0
 CL_NOPREPROCESS                     u:object_r:vendor_default_prop:s0
 TEMP                                u:object_r:vendor_default_prop:s0
