@@ -296,10 +296,6 @@ PRODUCT_COPY_FILES += \
 # we have enough storage space to hold precise GC data
 PRODUCT_TAGS += dalvik.gc.type-precise
 
-# enlarge media max memory size to 3G.
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.media.maxmem=3221225472
-
 #this makes imx7 wifionly devices
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.radio.noril=yes

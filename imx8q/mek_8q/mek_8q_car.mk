@@ -27,12 +27,6 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.type.automotive.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.type.automotive.xml \
     frameworks/native/data/etc/android.software.freeform_window_management.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.freeform_window_management.xml
 
-PRODUCT_PROPERTY_OVERRIDES += \
-    android.car.drawer.unlimited=true \
-    android.car.hvac.demo=true \
-    com.android.car.radio.demo=true \
-    com.android.car.radio.demo.dual=true
-
 # Add Google prebuilt services
 PRODUCT_PACKAGES += \
     GoogleSearchEmbedded \

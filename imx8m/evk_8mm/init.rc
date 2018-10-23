@@ -111,6 +111,15 @@ on early-boot
     # Dectect DSF streams when scanning media
     setprop ro.FSL_DSF_PARSER 1
 
+    # Allow DSD file(duration larger than 10s) can play
+    setprop audio.offload.min.duration.secs 10
+
+    # Enlarge limition of audio buffer allocation
+    setprop ro.af.client_heap_size_kbyte 32768
+
+    # enlarge media max memory size to 3G.
+    setprop ro.media.maxmem 3221225471
+
 service wpa_supplicant /vendor/bin/hw/wpa_supplicant \
     -O/data/vendor/wifi/wpa/sockets -puse_p2p_group_interface=1 \
     -g@android:wpa_wlan0

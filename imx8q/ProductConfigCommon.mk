@@ -306,14 +306,8 @@ PRODUCT_COPY_FILES += \
     system/core/rootdir/init.rc:root/init.rc
 
 PRODUCT_PROPERTY_OVERRIDES += \
-    audio.offload.min.duration.secs=10 \
     pm.dexopt.boot=quicken \
-    ro.af.client_heap_size_kbyte=32768 \
     ro.hardware.bootctrl=avb \
-
-# enlarge media max memory size to 3G.
-PRODUCT_PROPERTY_OVERRIDES += \
-	ro.media.maxmem=3221225472
 
 # wifionly device
 PRODUCT_PROPERTY_OVERRIDES += \

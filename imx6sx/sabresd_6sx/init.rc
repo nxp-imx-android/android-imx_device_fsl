@@ -118,6 +118,8 @@ on early-boot
     # No bluetooth hardware present
     setprop wlan.interface wlan0
 
+    # enlarge media max memory size to 3G.
+    setprop ro.media.maxmem 3221225471
 
 on charger
     # Enable Power modes and set the CPU Freq Sampling rates

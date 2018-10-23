@@ -115,6 +115,9 @@ on early-boot
     setprop ro.hardware.lightsensor "/sys/class/i2c-dev/i2c-2/device/2-0044/"
     setprop ro.lightsensor.threshold  20
 
+    # enlarge media max memory size to 3G.
+    setprop ro.media.maxmem 3221225471
+
 # Set watchdog timer to 30 seconds and pet it every 10 seconds to get a 20 second margin
     service watchdogd /sbin/watchdogd 10 20
     class core

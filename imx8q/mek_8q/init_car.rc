@@ -94,6 +94,11 @@ on early-boot
 
     setprop ro.boot.btmacaddr 22:22:67:C6:69:73
 
+    # enlarge media max memory size to 3G.
+    setprop ro.media.maxmem 3221225471
+
+    setprop android.car.hvac.demo true
+
 on property:rpmsg.can.register=1
     start boot_completed_core_sh
 

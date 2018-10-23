@@ -348,10 +348,6 @@ PRODUCT_COPY_FILES +=	\
     device/fsl/imx6sx/init.recovery.freescale.rc:root/init.recovery.freescale.rc \
     system/core/rootdir/init.rc:root/init.rc
 
-# enlarge media max memory size to 3G.
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.media.maxmem=3221225472
-
 #this must be set before including tablet-7in-hdpi-1024-dalvik-heap.mk
 PRODUCT_PROPERTY_OVERRIDES += \
     dalvik.vm.heapgrowthlimit=128m
