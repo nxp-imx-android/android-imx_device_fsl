@@ -24,6 +24,10 @@
 /vendor/lib/hw/gralloc_viv\.imx7\.so   u:object_r:same_process_hal_file:s0
 /vendor/lib/libdrm_vivante\.so         u:object_r:same_process_hal_file:s0
 
+#early_init_sh service
+/vendor/bin/init\.insmod\.sh            u:object_r:init-insmod-sh_exec:s0
+/vendor/etc/early\.init\.cfg            u:object_r:init-insmod-sh_exec:s0
+
 #sd boot
 /dev/block/platform/soc0/soc/30800000\.aips-bus/30b40000\.usdhc/by-name/dtbo        u:object_r:dtbo_block_device:s0
 /dev/block/platform/soc0/soc/30800000\.aips-bus/30b40000\.usdhc/by-name/boot        u:object_r:boot_block_device:s0

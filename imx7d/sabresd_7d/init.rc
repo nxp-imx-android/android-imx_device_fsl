@@ -5,6 +5,8 @@ on early-init
     # mount the debugfs
     mount debugfs none /sys/kernel/debug/ mode=0755
 
+    start early_init_sh
+
 on init
     start watchdogd
 
@@ -187,6 +189,13 @@ service iprenew_eth0 /system/bin/dhcpcd -n eth0
 
 service iprenew_bt-pan /system/bin/dhcpcd -n bt-pan
     class main
+    disabled
+    oneshot
+
+service early_init_sh /vendor/bin/init.insmod.sh /vendor/etc/early.init.cfg sys.all.early_init.ready
+    class main
+    user root
+    group root system
     disabled
     oneshot
 

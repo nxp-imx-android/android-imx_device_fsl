@@ -109,10 +109,15 @@ PRODUCT_PACKAGES += \
 # Wifi AP mode
 PRODUCT_PACKAGES += \
     wpa_supplicant \
-    wpa_supplicant \
     wpa_supplicant.conf \
 	hostapd 				\
 	hostapd_cli
+
+# Copy wifi firmware to board
+PRODUCT_COPY_FILES += \
+    external/cyw-fmac-fw/brcmfmac4339-sdio.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/brcm/brcmfmac4339-sdio.bin \
+    external/cyw-fmac-nvram/brcmfmac4339-sdio.ZP.txt:$(TARGET_COPY_OUT_VENDOR)/firmware/brcm/brcmfmac4339-sdio.txt
+
 
 # memtrack
 PRODUCT_PACKAGES += \
