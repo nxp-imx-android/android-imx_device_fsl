@@ -296,9 +296,6 @@ PRODUCT_COPY_FILES += \
 # we have enough storage space to hold precise GC data
 PRODUCT_TAGS += dalvik.gc.type-precise
 
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.vendor.vndk.version=26.1.0 \
-
 # enlarge media max memory size to 3G.
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.media.maxmem=3221225472

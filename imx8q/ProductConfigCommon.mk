@@ -310,7 +310,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     pm.dexopt.boot=quicken \
     ro.af.client_heap_size_kbyte=32768 \
     ro.hardware.bootctrl=avb \
-    ro.vendor.vndk.version=26.1.0
 
 # enlarge media max memory size to 3G.
 PRODUCT_PROPERTY_OVERRIDES += \

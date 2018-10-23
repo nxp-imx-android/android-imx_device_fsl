@@ -353,9 +353,6 @@ PRODUCT_COPY_FILES +=	\
     device/fsl/imx6dq/init.recovery.freescale.rc:root/init.recovery.freescale.rc \
     system/core/rootdir/init.rc:root/init.rc
 
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.vendor.vndk.version=26.1.0
-
 # enlarge media max memory size to 3G.
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.media.maxmem=3221225472
