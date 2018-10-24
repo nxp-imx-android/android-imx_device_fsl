@@ -49,3 +49,4 @@
 #early_init_sh service
 /vendor/bin/init\.insmod\.sh            u:object_r:init-insmod-sh_exec:s0
 /vendor/etc/early\.init\.cfg            u:object_r:init-insmod-sh_exec:s0
+/vendor/bin/hw/android\.hardware\.health@2\.0-service.imx          u:object_r:hal_health_default_exec:s0

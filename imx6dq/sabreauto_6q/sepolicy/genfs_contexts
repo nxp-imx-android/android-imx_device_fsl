@@ -1,0 +1,1 @@
+genfscon sysfs /devices/soc0/soc/2100000.aips-bus/2198000.usdhc/mmc_host/mmc2/mmc2:e624/block/mmcblk2 u:object_r:sysfs_block_devices:s0

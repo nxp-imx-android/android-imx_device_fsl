@@ -107,6 +107,9 @@ PRODUCT_PACKAGES += \
     libdrmpassthruplugin \
     libfwdlockengine
 
+PRODUCT_PACKAGES += \
+    android.hardware.health@2.0-service.imx
+
 # Vivante libdrm support
 PRODUCT_PACKAGES += \
     libdrm_vivante

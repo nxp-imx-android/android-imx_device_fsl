@@ -70,3 +70,5 @@
 
 # trusty ipc target
 /dev/trusty-ipc-dev0        u:object_r:tee_device:s0
+
+/vendor/bin/hw/android\.hardware\.health@2\.0-service.imx          u:object_r:hal_health_default_exec:s0

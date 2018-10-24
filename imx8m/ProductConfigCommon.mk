@@ -103,6 +103,9 @@ PRODUCT_PACKAGES += \
     camera.imx8
 endif
 
+PRODUCT_PACKAGES += \
+    android.hardware.health@2.0-service.imx
+
 # display
 PRODUCT_PACKAGES += \
     libdrm_android \

@@ -102,6 +102,9 @@ PRODUCT_PACKAGES += \
     android.hardware.memtrack@1.0-service \
     memtrack.imx8
 
+PRODUCT_PACKAGES += \
+    android.hardware.health@2.0-service.imx
+
 # camera
 ifneq ($(PRODUCT_IMX_CAR),true)
 PRODUCT_PACKAGES += \

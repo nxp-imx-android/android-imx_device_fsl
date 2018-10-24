@@ -106,6 +106,9 @@ PRODUCT_PACKAGES += \
     libdrmpassthruplugin \
     libfwdlockengine
 
+PRODUCT_PACKAGES += \
+    android.hardware.health@2.0-service.imx
+
 # Wifi AP mode
 PRODUCT_PACKAGES += \
     wpa_supplicant \

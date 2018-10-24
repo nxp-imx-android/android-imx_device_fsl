@@ -104,6 +104,9 @@ PRODUCT_PACKAGES += \
     libdrm_android \
     libfsldisplay
 
+PRODUCT_PACKAGES += \
+    android.hardware.health@2.0-service.imx
+
 # drm related lib
 PRODUCT_PACKAGES += \
     drmserver \

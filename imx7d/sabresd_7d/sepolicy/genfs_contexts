@@ -1,0 +1,1 @@
+genfscon sysfs /devices/soc0/soc/30800000.aips-bus/30b40000.usdhc/mmc_host/mmc0/mmc0:aaaa/block/mmcblk0 u:object_r:sysfs_block_devices:s0
