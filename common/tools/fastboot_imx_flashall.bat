@@ -38,6 +38,8 @@ set /A statisc=0
 set /A lock=0
 set /A erase=0
 set image_directory=
+set ser_num=
+set fastboot_tool=fastboot
 
 
 ::---------------------------------------------------------------------------------
@@ -58,6 +60,8 @@ if %1 == -m set /A flash_m4=1 & shift & goto :parse_loop
 if %1 == -l set /A lock=1 & shift & goto :parse_loop
 if %1 == -e set /A erase=1 & shift & goto :parse_loop
 if %1 == -D set image_directory=%2& shift & shift & goto :parse_loop
+if %1 == -s set ser_num=%2&shift &shift & goto :parse_loop
+call :help & goto :eof
 :parse_end
 
 :: If sdcard size is not correctly set, exit
@@ -69,8 +73,12 @@ if %statisc% == 4 echo card_size is not a legal value & goto :eof
 
 if %card_size% gtr 0 set partition_file=partition-table-%card_size%GB.img
 
-if not %image_directory:~-1% == \ set image_directory=%image_directory%\
+:: if directory is specified, and the last character is not backslash, add one backslash
+if not [%image_directory%] == [] if not %image_directory:~-1% == \ (
+    set image_directory=%image_directory%\
+)
 
+if not [%ser_num%] == [] set fastboot_tool=fastboot -s %ser_num%
 
 ::---------------------------------------------------------------------------------
 :: Invoke function to flash android images
@@ -78,13 +86,13 @@ if not %image_directory:~-1% == \ set image_directory=%image_directory%\
 call :flash_android
 
 if %erase% == 1 (
-    fastboot erase userdata
-    fastboot erase misc
+    %fastboot_tool% erase userdata
+    %fastboot_tool% erase misc
     if %soc_name:imx8=% == %soc_name% (
-        fastboot erase cache
+        %fastboot_tool% erase cache
     )
 )
-if %lock% == 1 fastboot oem lock
+if %lock% == 1 %fastboot_tool% oem lock
 
 echo #######ALL IMAGE FILES FLASHED#######
 
@@ -100,8 +108,8 @@ goto :eof
 ::----------------------------------------------------------------------------------
 
 :help
-echo Version: 1.1
-echo Last change: Add -D option. handle the situation that dual slot is not supported but a slot is specified.
+echo Version: 1.2
+echo Last change: Add -s option. fix errors when -D option not specified. handle situations that illegal options provided.
 echo.
 echo eg: fastboot_imx_flashall.bat -f imx8mm -a -D C:\Users\user_01\Android\images\2018.10.07\evk_8mm
 echo eg: fastboot_imx_flashall.bat -f imx7ulp -D C:\Users\user_01\Android\images\2018.10.07\evk_7ulp
@@ -126,6 +134,8 @@ echo  -e                erase user data after all image files being flashed
 echo  -l                lock the device after all image files being flashed
 echo  -D directory      the directory of of images
 echo                        No need to use this option if images and this script are in same directory
+echo  -s ser_num        the serial number of board
+echo                        If only one board connected to computer, no need to use this option
 goto :eof
 
 
@@ -154,7 +164,7 @@ if not [%local_str:bootloader=%] == [%local_str%] set img_name=u-boot-%soc_name%
 if not [%local_str:gpt=%] == [%local_str%] set img_name=%partition_file%
 
 
-fastboot flash %1 %image_directory%\%img_name%
+%fastboot_tool% flash %1 %image_directory%%img_name%
 goto :eof
 
 
@@ -183,7 +193,7 @@ call :flash_partition %bootloader_partition%
 
 call :flash_partition gpt
 
-fastboot getvar all 2> fastboot_var.log && find "dtbo" fastboot_var.log > nul && set /A support_dtbo=1
+%fastboot_tool% getvar all 2> fastboot_var.log && find "dtbo" fastboot_var.log > nul && set /A support_dtbo=1
 
 find "recovery" fastboot_var.log > nul && set /A support_recovery=1
 
@@ -210,7 +220,7 @@ if [%slot%] == [] if %support_dualslot% == 1 (
 if not [%slot%] == []  if %support_dualslot% == 1 (
     call :flash_partition_name %slot%
     call :flash_userpartitions
-    fastboot set_active %slot:~-1%
+    %fastboot_tool% set_active %slot:~-1%
 )
 
 if %support_dualslot% == 0 (

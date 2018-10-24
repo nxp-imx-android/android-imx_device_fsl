@@ -5,10 +5,10 @@ help() {
 bn=`basename $0`
 cat << EOF
 
-Version: 1.1
-Last change: Add -D option. handle the situation that dual slot is not supported but a slot is specified.
+Version: 1.2
+Last change: Add -s option. fix errors when -D option not specified.
 
-eg: sudo ./fastboot_imx_flashall.sh -f imx8mm -a -D ~/nfs/179/2018.10.03/imx_pi9.0/sabresd_6dq/
+eg: sudo ./fastboot_imx_flashall.sh -f imx8mm -a -D ~/nfs/179/2018.10.03/imx_pi9.0/evk_8mm/
 eg: sudo ./fastboot_imx_flashall.sh -f imx7ulp -D ~/nfs/179/2018.10.03/imx_pi9.0/evk_7ulp/
 
 Usage: $bn <option>
@@ -31,6 +31,8 @@ options:
   -l                lock the device after all image files being flashed
   -D directory      the directory of images
                         No need to use this option if images and this script are in same directory
+  -s ser_num        the serial number of board
+                        If only one board connected to computer, no need to use this option
 EOF
 
 }
@@ -58,6 +60,8 @@ flash_m4=0
 lock=0
 erase=0
 image_directory=""
+ser_num=""
+fastboot_tool="fastboot"
 
 while [ $# -gt 0 ]; do
     case $1 in
@@ -71,6 +75,7 @@ while [ $# -gt 0 ]; do
         -e) erase=1 ;;
         -l) lock=1 ;;
         -D) image_directory=$2; shift;;
+        -s) ser_num=$2; shift;;
         *)  help; exit;;
     esac
     shift
@@ -85,7 +90,14 @@ if [ ${card_size} -gt 0 ]; then
     partition_file="partition-table-${card_size}GB.img"
 fi
 
-image_directory="${image_directory%/}/"
+# if directory is specified, make sure there is a slash at the end
+if [[ ${image_directory} != "" ]]; then
+    image_directory="${image_directory%/}/"
+fi
+
+if [[ "${ser_num}" != "" ]]; then
+    fastboot_tool="fastboot -s ${ser_num}"
+fi
 
 function flash_partition
 {
@@ -106,7 +118,7 @@ function flash_partition
     else
         img_name="${1%_*}-${soc_name}.img"
     fi
-    fastboot flash ${1} "${image_directory}${img_name}"
+    ${fastboot_tool} flash ${1} "${image_directory}${img_name}"
 }
 
 function flash_userpartitions
@@ -145,11 +157,11 @@ function flash_android
         flash_partition "bootloader"
     fi
 
-    fastboot reboot bootloader
+    ${fastboot_tool} reboot bootloader
     sleep 5
 
     flash_partition "gpt"
-    fastboot getvar all 2>/tmp/fastboot_var.log  && grep -q "dtbo" /tmp/fastboot_var.log && support_dtbo=1
+    ${fastboot_tool} getvar all 2>/tmp/fastboot_var.log  && grep -q "dtbo" /tmp/fastboot_var.log && support_dtbo=1
     grep -q "recovery" /tmp/fastboot_var.log && support_recovery=1
     # use boot_b to check whether current gpt support a/b slot
     grep -q "boot_b" /tmp/fastboot_var.log && support_dualslot=1
@@ -175,7 +187,7 @@ function flash_android
         flash_partition_name ${slot}
         flash_userpartitions
         if [ ${support_dualslot} -eq 1 ]; then
-            fastboot set_active ${slot#_}
+            ${fastboot_tool} set_active ${slot#_}
         fi
     fi
 }
@@ -183,15 +195,15 @@ function flash_android
 flash_android
 
 if [ ${erase} -eq 1 ]; then
-    fastboot erase userdata
-    fastboot erase misc
+    ${fastboot_tool} erase userdata
+    ${fastboot_tool} erase misc
     if [ ${soc_name#imx8} = ${soc_name} ] ; then
-        fastboot erase cache
+        ${fastboot_tool} erase cache
     fi
 fi
 
 if [ ${lock} -eq 1 ]; then
-    fastboot oem lock
+    ${fastboot_tool} oem lock
 fi
 
 echo
