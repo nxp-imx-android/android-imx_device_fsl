@@ -23,7 +23,7 @@ on early-init
     write /sys/devices/platform/can_rpmsg/register 1
 
 on init
-    insmod /lib/modules/i2c-imx-lpi2c.ko
+    insmod /lib/modules/it6263.ko
     insmod /lib/modules/imx8_pc.ko
     insmod /lib/modules/imx8_prg.ko
     insmod /lib/modules/imx8_dprc.ko
