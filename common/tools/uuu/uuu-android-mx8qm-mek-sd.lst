@@ -1,7 +1,7 @@
 uuu_version 1.1.29
 #uuu scripts for imx8qm revB board Android imx_pi9.0 sd card
 CFG: FB: -vid 0x1fc9 -pid 0x0129
-SDPS: boot -f u-boot-imx8qm.imx
+SDPS: boot -f uuu-u-boot-imx8qm.imx
 FB: ucmd setenv fastboot_dev mmc
 FB: ucmd setenv mmcdev 1
 FB: ucmd mmc dev 1
