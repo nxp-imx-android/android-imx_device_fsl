@@ -26,8 +26,9 @@ back_camera_name                    u:object_r:vendor_default_prop:s0
 back_camera_orient                  u:object_r:vendor_default_prop:s0
 front_camera_name                   u:object_r:vendor_default_prop:s0
 front_camera_orient                 u:object_r:vendor_default_prop:s0
-lpa_hold_second                     u:object_r:vendor_default_prop:s0
-lpa_period_ms                       u:object_r:vendor_default_prop:s0
+vendor.audio.lpa.hold_second        u:object_r:vendor_default_prop:s0
+vendor.audio.lpa.period_ms          u:object_r:vendor_default_prop:s0
+vendor.audio.lpa.enable             u:object_r:vendor_default_prop:s0
 qcom.bluetooth.soc                  u:object_r:vendor_default_prop:s0
 hwc.debug.dump_compose              u:object_r:vendor_default_prop:s0
 hwc.debug.dump_bitmap               u:object_r:vendor_default_prop:s0
@@ -86,7 +87,6 @@ VS100COMNTOOLS                      u:object_r:vendor_default_prop:s0
 VS80COMNTOOLS                       u:object_r:vendor_default_prop:s0
 VS90COMNTOOLS                       u:object_r:vendor_default_prop:s0
 VSC_OPTION                          u:object_r:vendor_default_prop:s0
-lpa_enable                          u:object_r:vendor_default_prop:s0
 ro.camera.req.fmq.size              u:object_r:vendor_default_prop:s0
 ro.camera.res.fmq.size              u:object_r:vendor_default_prop:s0
 ro.hardware.gralloc_viv             u:object_r:vendor_default_prop:s0
