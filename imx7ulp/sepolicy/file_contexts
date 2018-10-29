@@ -2,13 +2,10 @@
 /dev/mxc_hdmi                   u:object_r:video_device:s0
 /dev/galcore                    u:object_r:gpu_device:s0
 /dev/caam_kb                    u:object_r:caam_device:s0
-/dev/dri                        u:object_r:gpu_device:s0
-/dev/dri/card0                  u:object_r:graphics_device:s0
-/dev/dri/renderD128             u:object_r:gpu_device:s0
 /dev/pxp_device                 u:object_r:gpu_device:s0
 /dev/diag                       u:object_r:diag_device:s0
 /vendor/bin/wcnss_filter        u:object_r:wcnss_filter_exec:s0
-/vendor/bin/hw/android\.hardware\.usb@1\.1-service.imx             u:object_r:hal_usb_impl_exec:s0
+
 ###############################################
 # same-process HAL files and their dependencies
 #
@@ -20,55 +17,3 @@
 /vendor/lib/libGLSLC\.so               u:object_r:same_process_hal_file:s0
 /vendor/lib/libVSC\.so                 u:object_r:same_process_hal_file:s0
 /vendor/lib/libGAL\.so                 u:object_r:same_process_hal_file:s0
-
-/vendor/lib/hw/gralloc_viv\.imx7\.so   u:object_r:same_process_hal_file:s0
-/vendor/lib/libdrm_vivante\.so         u:object_r:same_process_hal_file:s0
-
-#early_init_sh service
-/vendor/bin/init\.insmod\.sh                u:object_r:init-insmod-sh_exec:s0
-/vendor/etc/early\.init\.cfg                u:object_r:init-insmod-sh_exec:s0
-#sd boot
-/dev/block/platform/40000000\.ahb-bridge0/40370000\.usdhc/by-name/dtbo        u:object_r:dtbo_block_device:s0
-/dev/block/platform/40000000\.ahb-bridge0/40370000\.usdhc/by-name/boot        u:object_r:boot_block_device:s0
-/dev/block/platform/40000000\.ahb-bridge0/40370000\.usdhc/by-name/recovery    u:object_r:recovery_block_device:s0
-/dev/block/platform/40000000\.ahb-bridge0/40370000\.usdhc/by-name/system      u:object_r:system_block_device:s0
-/dev/block/platform/40000000\.ahb-bridge0/40370000\.usdhc/by-name/cache       u:object_r:cache_block_device:s0
-/dev/block/platform/40000000\.ahb-bridge0/40370000\.usdhc/by-name/misc        u:object_r:misc_block_device:s0
-/dev/block/platform/40000000\.ahb-bridge0/40370000\.usdhc/by-name/metadata    u:object_r:metadata_block_device:s0
-/dev/block/platform/40000000\.ahb-bridge0/40370000\.usdhc/by-name/presistdata u:object_r:frp_block_device:s0
-/dev/block/platform/40000000\.ahb-bridge0/40370000\.usdhc/by-name/userdata    u:object_r:userdata_block_device:s0
-/dev/block/platform/40000000\.ahb-bridge0/40370000\.usdhc/by-name/datafooter    u:object_r:metadata_block_device:s0
-
-#peripheral
-/vendor/bin/magd                u:object_r:sensors_exec:s0
-/vendor/bin/fsl_sensor_fusion   u:object_r:sensors_exec:s0
-/dev/mma8x5x                    u:object_r:sensors_device:s0
-/dev/ttyGS[0-9]*                u:object_r:tty_device:s0
-/dev/ttymxc[0-9]*               u:object_r:tty_device:s0
-/dev/ttyUSB[0-9]*               u:object_r:tty_device:s0
-/dev/FreescaleAccelerometer     u:object_r:sensors_device:s0
-/dev/FreescaleMagnetometer      u:object_r:sensors_device:s0
-/dev/FreescaleGyroscope         u:object_r:sensors_device:s0
-/dev/step_counter               u:object_r:sensors_device:s0
-/dev/step_detector              u:object_r:sensors_device:s0
-/dev/sda[0-8]*                  u:object_r:fuse:s0
-/dev/ttyLP[0-9]*                u:object_r:tty_device:s0
-
-/vendor/lib(64)?/lib_aac_parser_arm11_elinux\.3\.0\.so       u:object_r:same_process_hal_file:s0
-/vendor/lib(64)?/lib_amr_parser_arm11_elinux\.3\.0\.so       u:object_r:same_process_hal_file:s0
-/vendor/lib(64)?/lib_ape_parser_arm11_elinux\.3\.0\.so       u:object_r:same_process_hal_file:s0
-/vendor/lib(64)?/lib_asf_parser_arm11_elinux\.3\.0\.so       u:object_r:same_process_hal_file:s0
-/vendor/lib(64)?/lib_avi_parser_arm11_elinux\.3\.0\.so       u:object_r:same_process_hal_file:s0
-/vendor/lib(64)?/lib_dsf_parser_arm11_elinux\.3\.0\.so       u:object_r:same_process_hal_file:s0
-/vendor/lib(64)?/lib_flac_parser_arm11_elinux\.3\.0\.so      u:object_r:same_process_hal_file:s0
-/vendor/lib(64)?/lib_flv_parser_arm11_elinux\.3\.0\.so       u:object_r:same_process_hal_file:s0
-/vendor/lib(64)?/lib_mkv_parser_arm11_elinux\.3\.0\.so       u:object_r:same_process_hal_file:s0
-/vendor/lib(64)?/lib_mp3_parser_arm11_elinux\.3\.0\.so       u:object_r:same_process_hal_file:s0
-/vendor/lib(64)?/lib_mp3_parser_v2_arm11_elinux\.so          u:object_r:same_process_hal_file:s0
-/vendor/lib(64)?/lib_mp4_parser_arm11_elinux\.3\.0\.so       u:object_r:same_process_hal_file:s0
-/vendor/lib(64)?/lib_mpg2_parser_arm11_elinux\.3\.0\.so      u:object_r:same_process_hal_file:s0
-/vendor/lib(64)?/lib_ogg_parser_arm11_elinux\.3\.0\.so       u:object_r:same_process_hal_file:s0
-/vendor/lib(64)?/lib_rm_parser_arm11_elinux\.3\.0\.so        u:object_r:same_process_hal_file:s0
-/vendor/lib(64)?/lib_wav_parser_arm11_elinux\.3\.0\.so       u:object_r:same_process_hal_file:s0
-/vendor/lib(64)?/extractors/libfslextractor\.so              u:object_r:same_process_hal_file:s0
-/vendor/bin/hw/android\.hardware\.health@2\.0-service.imx          u:object_r:hal_health_default_exec:s0

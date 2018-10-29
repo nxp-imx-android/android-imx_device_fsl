@@ -1,1 +1,0 @@
-genfscon sysfs /devices/platform/30b60000.mmc/mmc_host/mmc2/mmc2:0001/block/mmcblk2 u:object_r:sysfs_block_devices:s0

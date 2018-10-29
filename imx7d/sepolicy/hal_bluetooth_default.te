@@ -5,11 +5,10 @@ allow hal_bluetooth_default wcnss_filter:unix_stream_socket {connectto};
 
 # wc_transport.start_hci and friends
 set_prop(hal_bluetooth_default, wc_prop)
-set_prop(hal_bluetooth_default, vendor_bluetooth_prop)
 
 # talk to system_server to set priority
 allow hal_bluetooth_default fwk_scheduler_hwservice:hwservice_manager {find};
 allow hal_bluetooth_default system_server:binder {call};
 
-allow hal_bluetooth_default bluetooth_data_file:file { read write getattr append } ;
-allow hal_bluetooth_default hal_bluetooth_default:unix_stream_socket { ioctl };
+allow hal_bluetooth_default bluetooth_data_file:dir { add_name write search } ;
+allow hal_bluetooth_default bluetooth_data_file:file { create read write open getattr append } ;

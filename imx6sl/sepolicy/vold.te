@@ -1,1 +1,1 @@
-allow vold vendor_configs_file:file { map };
+allow vold self:capability { dac_read_search };

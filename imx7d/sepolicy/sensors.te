@@ -12,6 +12,7 @@ allow sensors self:capability chown;
 dontaudit sensors self:capability fsetid;
 
 # Access /data/misc/sensors/debug and /data/system/sensors/settings
+allow sensors self:capability dac_read_search;
 dontaudit sensors self:capability dac_override;
 
 # Access sensor nodes (/dev/msm_dsps)
@@ -25,5 +26,6 @@ allow sensors cgroup:dir { create add_name };
 allow sensors input_device:chr_file rw_file_perms;
 allow sensors input_device:dir r_dir_perms;
 allow sensors uhid_device:chr_file rw_file_perms;
+allow sensors system_data_file:file { open };
 allow sensors rootfs:lnk_file { getattr };
 allow sensors device:dir { open read };

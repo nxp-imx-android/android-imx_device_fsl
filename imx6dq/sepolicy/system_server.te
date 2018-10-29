@@ -1,8 +1,3 @@
-typeattribute system_server system_writes_vendor_properties_violators;
-
-get_prop(system_server, vendor_default_prop)
-get_prop(system_server, public_vendor_default_prop)
-
 allow system_server unlabeled:dir {relabelfrom rw_dir_perms};
 allow system_server unlabeled:sock_file {link unlink rw_file_perms};
 allow system_server system_data_file:file {relabelto rw_file_perms};
@@ -20,13 +15,5 @@ allow system_server sensors_device:chr_file { open read };
 allow system_server bluetooth:file { write };
 allow system_server hal_audio_default:file { write };
 allow system_server mediaprovider:file { write };
-allow system_server vendor_file:file { read getattr map };
+allow system_server vendor_file:file { read open getattr execute };
 allow system_server untrusted_app_25:file { write };
-allow system_server sysfs:dir { read open };
-allow system_server sysfs:file { getattr };
-allow system_server sysfs_rtc:file { read open };
-allow system_server vendor_configs_file:file { map };
-allow system_server shell_data_file:file { map };
-allow system_server graphics_device:dir { search };
-allow system_server graphics_device:chr_file { open read ioctl };
-allow system_server sysfs_extcon:file { getattr open read };

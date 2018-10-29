@@ -8,7 +8,3 @@ allow shell block_device:dir { search };
 allow shell kernel:process { setsched };
 dontaudit shell self:capability { dac_override };
 allow shell vendor_file:file { read execute open getattr };
-allow shell boottime_prop:file { open getattr };
-allow shell runtime_event_log_tags_file:file { map };
-allow shell ctl_bootanim_prop:file { getattr };
-allow shell system_prop:property_service { set };

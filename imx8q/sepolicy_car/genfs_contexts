@@ -1,3 +1,0 @@
-genfscon sysfs /devices/platform/can_rpmsg/register    u:object_r:sysfs_canregister:s0
-genfscon sysfs /devices/platform/passthrough/passthrough:can_rpmsg/register    u:object_r:sysfs_canregister:s0
-genfscon sysfs /firmware/devicetree/base/passthrough/firmware/android          u:object_r:sysfs_dt_firmware_android:s0

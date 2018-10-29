@@ -1,4 +1,2 @@
-allow mediaextractor vendor_file:file { read map getattr };
+allow mediaextractor vendor_file:file { read open getattr execute map };
 allow mediaextractor sdcardfs:file { read getattr};
-allow mediaextractor vendor_file:dir { open read };
-allow mediaextractor vfat:file rw_file_perms;

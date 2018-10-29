@@ -1,9 +1,5 @@
-typeattribute surfaceflinger system_writes_vendor_properties_violators;
-
-get_prop(surfaceflinger, vendor_default_prop)
-get_prop(surfaceflinger, public_vendor_default_prop)
-
 allow surfaceflinger debug_prop:property_service { set };
 allow surfaceflinger ashmem_device:chr_file {execute};
 allow surfaceflinger self:process execmem;
-allow surfaceflinger vendor_file:file { read getattr };
+allow surfaceflinger debugfs_tracing:file {write open};
+allow surfaceflinger vendor_file:file { read open getattr execute };

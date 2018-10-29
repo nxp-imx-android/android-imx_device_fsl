@@ -1,3 +1,0 @@
-allow init sysfs_canregister:file { open write };
-allow init rootfs:system { module_load };
-allow init self:capability { sys_module };
