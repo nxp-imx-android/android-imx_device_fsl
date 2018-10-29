@@ -50,6 +50,8 @@ rw.VIDEO_TVOUT_POS_Y                u:object_r:vendor_default_prop:s0
 rw.VIDEO_TVOUT_WIDTH                u:object_r:vendor_default_prop:s0
 sys.SECOND_DISPLAY_ENABLED          u:object_r:vendor_default_prop:s0
 ro.FSL_AAC_PARSER                   u:object_r:vendor_default_prop:s0
+ro.FSL_ASF_PARSER                   u:object_r:vendor_default_prop:s0
+ro.FSL_REAL_PARSER                  u:object_r:vendor_default_prop:s0
 ro.FSL_AVI_PARSER                   u:object_r:vendor_default_prop:s0
 ro.FSL_DSF_PARSER                   u:object_r:vendor_default_prop:s0
 ro.FSL_FLAC_PARSER                  u:object_r:vendor_default_prop:s0
