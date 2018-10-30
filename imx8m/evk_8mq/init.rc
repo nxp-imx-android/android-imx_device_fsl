@@ -96,6 +96,9 @@ on early-boot
     # Set the density to 213 tvdpi to match CDD.
     setprop ro.sf.lcd_density 213
 
+    # Disable surfaceflinger back pressure propagate
+    setprop debug.sf.disable_backpressure 1
+
     # Set tracefs permission to 755
     chmod 0755 /sys/kernel/debug/tracing
 
