@@ -164,4 +164,3 @@ PRODUCT_PROPERTY_OVERRIDES += \
                         ro.internel.storage_size=/sys/block/mmcblk3/size \
                         ro.frp.pst=/dev/block/by-name/presistdata
 endif
-PRODUCT_COMPATIBLE_PROPERTY_OVERRIDE := true

@@ -78,7 +78,6 @@ on early-boot
 
     # Prepare for wifi
     setprop wifi.interface wlan0
-    setprop wifi.concurrent.interface p2p0
 
     setprop ro.boot.btmacaddr 22:22:67:C6:69:73
 

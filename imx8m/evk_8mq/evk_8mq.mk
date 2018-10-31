@@ -204,4 +204,3 @@ PRODUCT_PACKAGES += \
 
 # Add oem unlocking option in settings.
 PRODUCT_PROPERTY_OVERRIDES += ro.frp.pst=/dev/block/by-name/presistdata
-PRODUCT_COMPATIBLE_PROPERTY_OVERRIDE := true
