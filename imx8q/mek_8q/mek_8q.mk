@@ -225,9 +225,14 @@ PRODUCT_COPY_FILES += \
     vendor/nxp/qca-wifi-bt/qca_proprietary/Android_HAL/wcnss_filter_mek_8q:vendor/bin/wcnss_filter
 
 # Keymaster HAL
+ifeq ($(PRODUCT_IMX_CAR),true)
+PRODUCT_PACKAGES += \
+    android.hardware.keymaster@3.0-service.trusty
+else
 PRODUCT_PACKAGES += \
     android.hardware.keymaster@3.0-impl \
     android.hardware.keymaster@3.0-service
+endif
 
 # DRM HAL
 TARGET_ENABLE_MEDIADRM_64 := true

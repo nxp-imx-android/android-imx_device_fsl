@@ -7,8 +7,10 @@ on early-init
     mount debugfs none /sys/kernel/debug/ mode=0755
     start early_init_sh
 
-    #Due keymaster start very early so set prop here
+    # Due keymaster start very early so set prop here
+    # Also gatekeeper share same role for keymaster
     setprop ro.hardware.keystore ${ro.boot.keystore}
+    setprop ro.hardware.gatekeeper ${ro.boot.keystore}
 
 on init
     start watchdogd
@@ -290,6 +292,9 @@ on post-fs-data
     setprop TMPDIR /data/vendor/.opencl-cache
     mkdir /data/vendor/.opencl-cache 0771 camera camera
 
+    # create temp node for secure storage proxy
+    mkdir /data/vendor/ss 0700 system system
+
 on zygote-start
     # Create the directories used by the Wireless subsystem
     mkdir /data/misc/wifi 0770 wifi wifi
@@ -299,3 +304,8 @@ on zygote-start
     mkdir /data/vendor/wifi/wpa/sockets 0770 wifi wifi
     mkdir /data/misc/dhcp 0770 dhcp dhcp
     chown dhcp dhcp /data/misc/dhcp
+
+service storageproxyd /vendor/bin/storageproxyd -p /data/vendor/ss -r /dev/block/mmcblk0rpmb -d /dev/trusty-ipc-dev0
+   class late_start
+   group system
+
