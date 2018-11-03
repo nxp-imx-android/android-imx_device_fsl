@@ -8,7 +8,7 @@ on early-init
     start early_init_sh
 
     #Due keymaster start very early so set prop here
-    setprop ro.hardware.keystore ${ro.boot.keystore}
+    # setprop ro.hardware.keystore ${ro.boot.keystore}
 
 on init
     start watchdogd
