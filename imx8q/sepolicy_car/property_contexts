@@ -1,0 +1,2 @@
+rpmsg.can.event      u:object_r:evs_prop:s0
+rpmsg.can.register   u:object_r:evs_prop:s0
