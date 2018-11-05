@@ -124,7 +124,7 @@ on property:sys.all.setup_core.ready=1
 
 on property:sys.all.setup_main.ready=1
     # Trigger start adbd service
-    start usbd
+    setprop sys.usb.configfs 1
 
 on property:bluetooth.rfkill_initialized=1
     # Prepare for bluetooth
