@@ -47,6 +47,8 @@ PRODUCT_PACKAGES += \
     vehicle.default \
     android.hardware.automotive.vehicle@2.0-service
 
-# Add Trusty OS backed Keymaster HAL
+# Add Trusty OS backed gatekeeper and secure storage proxy
 PRODUCT_PACKAGES += \
-    keystore.trusty
+    keystore.trusty \
+    gatekeeper.trusty \
+    storageproxyd

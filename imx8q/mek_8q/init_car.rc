@@ -7,8 +7,10 @@ on early-init
     mount debugfs none /sys/kernel/debug/ mode=0755
     start early_init_sh
 
-    #Due keymaster start very early so set prop here
-    # setprop ro.hardware.keystore ${ro.boot.keystore}
+    # Due keymaster start very early so set prop here
+    # Also gatekeeper share same role for keymaster
+    setprop ro.hardware.keystore ${ro.boot.keystore}
+    setprop ro.hardware.gatekeeper ${ro.boot.keystore}
 
 on init
     start watchdogd
@@ -30,6 +32,9 @@ on init
 
     # shared memory used by VPU to distinguish VPU instance.
     mkdir /dev/shm  0774 mediacodec drmrpc
+
+    # create temp node for secure storage proxy
+    mkdir /data/ss 0700 system system
 
     # disable boot animation
     setprop debug.sf.nobootanimation 1
@@ -298,3 +303,7 @@ on zygote-start
     mkdir /data/vendor/wifi/wpa/sockets 0770 wifi wifi
     mkdir /data/misc/dhcp 0770 dhcp dhcp
     chown dhcp dhcp /data/misc/dhcp
+
+service storageproxyd /vendor/bin/storageproxyd -p /data/ss -r /dev/block/mmcblk0rpmb -d /dev/trusty-ipc-dev0
+   class late_start
+   group system

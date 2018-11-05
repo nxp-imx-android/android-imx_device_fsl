@@ -4,3 +4,4 @@ type vbmeta_block_device, dev_type;
 type sysfs_usb_c, sysfs_type, fs_type;
 type diag_device, dev_type, mlstrustedobject;
 type dtbo_block_device, dev_type;
+type mmc_rpmb_block_device, dev_type;
