@@ -166,6 +166,9 @@ PRODUCT_PACKAGES += \
     libgpuhelper \
     gatekeeper.imx6
 
+PRODUCT_PACKAGES += \
+    Launcher3
+
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.internel.storage_size=/sys/block/bootdev_size
 
