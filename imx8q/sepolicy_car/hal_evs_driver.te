@@ -1,5 +1,9 @@
 allow hal_evs_driver ion_device:chr_file {read open ioctl};
-allow hal_evs_driver binder_device:chr_file {read write open ioctl};
+allow hal_evs_driver binder_device:chr_file {read write open ioctl map};
 allow hal_evs_driver hal_configstore_default:binder {call};
 allow hal_evs_driver default_android_hwservice:hwservice_manager {add find};
 allow hal_evs_driver hidl_base_hwservice:hwservice_manager {add find};
+allow hal_evs_driver gpu_device:chr_file { map };
+allow hal_evs_driver sysfs:file { open read getattr };
+allow hal_evs_driver opencl_cache_file:dir { create_dir_perms };
+allow hal_evs_driver opencl_cache_file:file { create_file_perms };

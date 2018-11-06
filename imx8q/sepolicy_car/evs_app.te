@@ -5,3 +5,4 @@ allow evs_app default_android_hwservice:hwservice_manager {find add};
 allow evs_app hal_vehicle_hwservice:hwservice_manager {find};
 allow evs_app hal_graphics_mapper_hwservice:hwservice_manager {find};
 allow evs_app hal_configstore_ISurfaceFlingerConfigs:hwservice_manager {find};
+allow evs_app gpu_device:chr_file { map };
