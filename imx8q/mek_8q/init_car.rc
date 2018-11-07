@@ -305,7 +305,9 @@ on zygote-start
     mkdir /data/misc/dhcp 0770 dhcp dhcp
     chown dhcp dhcp /data/misc/dhcp
 
+on property:sys.boot_completed=1 && property:ro.hardware.gatekeeper=trusty
+    start storageproxyd
+
 service storageproxyd /vendor/bin/storageproxyd -p /data/vendor/ss -r /dev/block/mmcblk0rpmb -d /dev/trusty-ipc-dev0
-   class late_start
    group system
 
