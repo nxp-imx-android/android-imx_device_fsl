@@ -27,9 +27,6 @@ on init
     # deattch the fbcon as hdmi hotplug conflict with fbcon
     write /sys/class/vtconsole/vtcon1/bind 0
 
-    # shared memory used by VPU to distinguish VPU instance.
-    mkdir /dev/shm  0774 mediacodec drmrpc
-
     # set default schedTune value for foreground/top-app (only affects EAS)
     write /dev/stune/foreground/schedtune.boost 10
     write /dev/stune/foreground/schedtune.prefer_idle 1

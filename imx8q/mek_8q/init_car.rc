@@ -30,9 +30,6 @@ on init
     # deattch the fbcon as hdmi hotplug conflict with fbcon
     write /sys/class/vtconsole/vtcon1/bind 0
 
-    # shared memory used by VPU to distinguish VPU instance.
-    mkdir /dev/shm  0774 mediacodec drmrpc
-
     # disable boot animation
     setprop debug.sf.nobootanimation 1
 
