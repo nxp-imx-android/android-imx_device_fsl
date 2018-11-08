@@ -1,0 +1,1 @@
+genfscon sysfs /devices/platform/32e10000.mipi_dsi/32e10000.mipi_dsi.0/backlight u:object_r:sysfs_leds:s0

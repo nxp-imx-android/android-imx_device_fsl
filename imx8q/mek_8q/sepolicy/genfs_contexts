@@ -1,0 +1,1 @@
+genfscon sysfs /devices/platform/56228000.mipi_dsi_bridge/56228000.mipi_dsi_bridge.0/backlight u:object_r:sysfs_leds:s0
