@@ -37,6 +37,9 @@ on init
     mount tmpfs tmpfs /mnt/shm mode=0775,uid=1013,gid=1031,size=1m
 
 on early-boot
+    # Set the host name which used in console
+    export HOSTNAME sabresd_6dq
+
     # Set permission for IIM node
     symlink /dev/mxs_viim /dev/mxc_mem
 

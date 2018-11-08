@@ -36,6 +36,9 @@ on init
 on early-boot
     wait_for_prop sys.all.early_init.ready 1
 
+    # Set the host name which used in console
+    export HOSTNAME mek_8q
+
     # Set permission for IIM node
     symlink /dev/mxs_viim /dev/mxc_mem
 

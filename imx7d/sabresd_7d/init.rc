@@ -29,6 +29,9 @@ on init
     mkdir /device 0771 system system
 
 on early-boot
+    # Set the host name which used in console
+    export HOSTNAME sabresd_7d
+
     # Set permission for IIM node
     symlink /dev/mxs_viim /dev/mxc_mem
 
