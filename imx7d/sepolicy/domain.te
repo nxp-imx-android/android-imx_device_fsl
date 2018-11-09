@@ -4,3 +4,5 @@ allow domain tty_device:chr_file rw_file_perms;
 allow domain gpu_device:dir { search };
 allow domain unlabeled:lnk_file { read };
 dontaudit domain kernel:system module_request;
+
+get_prop(domain, public_vendor_default_prop)

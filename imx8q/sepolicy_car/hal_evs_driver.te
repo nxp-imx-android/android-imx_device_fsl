@@ -1,5 +1,4 @@
 get_prop(hal_evs_driver, vendor_default_prop)
-get_prop(hal_evs_driver, public_vendor_default_prop)
 
 allow hal_evs_driver ion_device:chr_file { read open ioctl };
 allow hal_evs_driver binder_device:chr_file { read write open ioctl map };

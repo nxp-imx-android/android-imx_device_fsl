@@ -18,4 +18,3 @@ allow system_app fs_bpf:dir { search };
 
 set_prop(system_app, vendor_bluetooth_prop)
 get_prop(system_app, vendor_default_prop)
-get_prop(system_app, public_vendor_default_prop)

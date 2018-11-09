@@ -1,7 +1,6 @@
 typeattribute bootanim system_writes_vendor_properties_violators;
 
 get_prop(bootanim, vendor_default_prop)
-get_prop(bootanim, public_vendor_default_prop)
 
 allow bootanim ashmem_device:chr_file {execute};
 allow bootanim self:process execmem;

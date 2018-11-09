@@ -1,4 +1,3 @@
 typeattribute priv_app system_writes_vendor_properties_violators;
 
 get_prop(priv_app, vendor_default_prop)
-get_prop(priv_app, public_vendor_default_prop)
