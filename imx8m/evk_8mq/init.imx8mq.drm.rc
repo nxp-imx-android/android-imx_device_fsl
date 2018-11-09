@@ -1,5 +1,7 @@
 import init.${ro.hardware}.${ro.boot.soc_type}.main.rc
 
+on property:init.svc.mediadrm=running
+    mkdir /data/vendor/mediadrm 0770 media mediadrm
 
 on post-fs-data
     # create for OP-TEE test
