@@ -36,9 +36,6 @@ on init
     write /dev/stune/rt/schedtune.prefer_idle 1
 
 on early-boot
-    # enable opengl hardware UI at default
-    setprop debug.hwui.renderer opengl
-
     # Config lowmemorykiller options
     setprop ro.lmk.use_minfree_levels true
 

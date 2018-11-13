@@ -28,9 +28,6 @@ on init
     mkdir /device 0771 system system
 
 on early-boot
-    # enable opengl hardware UI at default
-    setprop debug.hwui.renderer opengl
-
     # Config lowmemorykiller options
     setprop ro.lmk.use_minfree_levels true
 
