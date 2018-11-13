@@ -19,25 +19,6 @@ on init
     chown root system /sys/devices/system/cpu/cpu4/cpufreq/cpuinfo_cur_freq
     chmod 0440 /sys/devices/system/cpu/cpu4/cpufreq/cpuinfo_cur_freq
     chown root system /sys/devices/system/cpu/cpu4/cpufreq/scaling_available_frequencies
-    chown root system /sys/devices/system/cpu/cpu0/online
-    chmod 0664 /sys/devices/system/cpu/cpu0/online
-    chown root system /sys/devices/system/cpu/cpu1/online
-    chmod 0664 /sys/devices/system/cpu/cpu1/online
-    chown root system /sys/devices/system/cpu/cpu2/online
-    chmod 0664 /sys/devices/system/cpu/cpu2/online
-    chown root system /sys/devices/system/cpu/cpu3/online
-    chmod 0664 /sys/devices/system/cpu/cpu3/online
-    chown root system /sys/devices/system/cpu/cpu4/online
-    chmod 0664 /sys/devices/system/cpu/cpu4/online
-    chown root system /sys/devices/system/cpu/cpu5/online
-    chmod 0664 /sys/devices/system/cpu/cpu5/online
-
-    write /sys/devices/system/cpu/cpu0/online 1
-    write /sys/devices/system/cpu/cpu1/online 1
-    write /sys/devices/system/cpu/cpu2/online 1
-    write /sys/devices/system/cpu/cpu3/online 1
-    write /sys/devices/system/cpu/cpu4/online 1
-    write /sys/devices/system/cpu/cpu5/online 1
 
 on early-boot
     # Configure DRM in 64-bit architecture. This shall be done before to start
