@@ -104,7 +104,7 @@ on early-boot
 on property:rpmsg.can.register=1
     start boot_completed_core_sh
 
-on property:rpmsg.can.event=1
+on property:rpmsg.can.event=1 && property:evs.video.ready=1
     start evs_app
 
 on property:rpmsg.can.event=0
@@ -116,7 +116,7 @@ on property:sys.boot_completed=1
     # register the can_rpmsg on android running in xen.
     write /sys/devices/platform/passthrough/passthrough\:can_rpmsg/register  1
 
-on property:sys.all.setup_core.ready=1
+on boot
     # Trigger start evs_driver service
     start evs_driver
 
