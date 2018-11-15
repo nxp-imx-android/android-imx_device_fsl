@@ -1,2 +1,3 @@
 rpmsg.can.event      u:object_r:evs_prop:s0
 rpmsg.can.register   u:object_r:evs_prop:s0
+evs.video.ready      u:object_r:evs_prop:s0
