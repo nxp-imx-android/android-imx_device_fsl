@@ -263,3 +263,8 @@ PRODUCT_PACKAGES += \
 # Add oem unlocking option in settings.
 PRODUCT_PROPERTY_OVERRIDES += ro.frp.pst=/dev/block/by-name/presistdata
 PRODUCT_COMPATIBLE_PROPERTY_OVERRIDE := true
+
+# Apply BOARD_VNDK_VERSION just for standard image. For car image, evs break vndk compile rule
+ifneq ($(PRODUCT_IMX_CAR),true)
+BOARD_VNDK_VERSION := current
+endif

@@ -89,5 +89,7 @@ TARGET_COPY_OUT_VENDOR := vendor
 BOARD_FLASH_BLOCK_SIZE := 4096
 TARGET_RECOVERY_UI_LIB := librecovery_ui_imx
 
+BOARD_VNDK_VERSION := current
+
 -include $(FSL_RESTRICTED_CODEC_PATH)/fsl-restricted-codec/fsl_ms_codec/BoardConfig.mk
 -include $(FSL_RESTRICTED_CODEC_PATH)/fsl-restricted-codec/fsl_real_dec/BoardConfig.mk
