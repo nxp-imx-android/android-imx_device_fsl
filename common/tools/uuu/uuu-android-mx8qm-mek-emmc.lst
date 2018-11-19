@@ -12,7 +12,7 @@ FB[-t 600000]: flash gpt partition-table.img
 FB: ucmd mmc dev 0 0
 FB: ucmd mmc erase 0x2000 0x10
 
-FB: ucmd mmc partconf 0 0 1 0
+FB: ucmd mmc partconf 0 1 1 0
 
 FB: flash boot_a boot.img
 FB: flash boot_b boot.img
