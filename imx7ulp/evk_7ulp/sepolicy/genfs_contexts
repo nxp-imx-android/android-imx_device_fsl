@@ -1,2 +1,2 @@
-
 genfscon sysfs /devices/platform/40000000.ahb-bridge0/40370000.usdhc/mmc_host/mmc0/mmc0:aaaa/block/mmcblk0 u:object_r:sysfs_block_devices:s0
+genfscon sysfs /devices/platform/bt_rfkill/rfkill/rfkill0 u:object_r:sysfs_rfkill:s0

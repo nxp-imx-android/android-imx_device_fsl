@@ -16,3 +16,5 @@ allow init boot_block_device:lnk_file { relabelto };
 allow init userdata_block_device:blk_file { open read write ioctl getattr };
 allow init sysfs_dm:file { write open };
 allow init sysfs_devices_system_cpu:file { write };
+allow init sysfs_rfkill:file { open write setattr };
+allow init sysfs_block_devices:file { open write setattr };
