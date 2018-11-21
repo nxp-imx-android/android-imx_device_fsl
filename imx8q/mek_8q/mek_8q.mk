@@ -27,22 +27,22 @@ PRODUCT_COPY_FILES += \
     $(IMX_DEVICE_PATH)/app_whitelist.xml:system/etc/sysconfig/app_whitelist.xml \
     $(IMX_DEVICE_PATH)/audio_effects.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_effects.xml \
     $(IMX_DEVICE_PATH)/audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_configuration.xml \
-    $(IMX_DEVICE_PATH)/init.imx8qm.rc:root/init.freescale.imx8qm.rc \
-    $(IMX_DEVICE_PATH)/init.imx8qxp.rc:root/init.freescale.imx8qxp.rc \
-    $(IMX_DEVICE_PATH)/init.usb.rc:root/init.freescale.usb.rc \
-    $(IMX_DEVICE_PATH)/ueventd.freescale.rc:root/ueventd.freescale.rc \
+    $(IMX_DEVICE_PATH)/init.imx8qm.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.freescale.imx8qm.rc \
+    $(IMX_DEVICE_PATH)/init.imx8qxp.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.freescale.imx8qxp.rc \
+    $(IMX_DEVICE_PATH)/init.usb.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.freescale.usb.rc \
+    $(IMX_DEVICE_PATH)/ueventd.freescale.rc:$(TARGET_COPY_OUT_VENDOR)/ueventd.rc \
     device/fsl/common/init/init.insmod.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.insmod.sh \
     device/fsl/common/wifi/p2p_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/p2p_supplicant_overlay.conf \
     device/fsl/common/wifi/wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf
 
 ifeq ($(PRODUCT_IMX_CAR),true)
 PRODUCT_COPY_FILES += \
-    $(IMX_DEVICE_PATH)/init.freescale.emmc.rc:root/init.freescale.emmc.default.rc \
+    $(IMX_DEVICE_PATH)/init.freescale.emmc.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.freescale.emmc.default.rc \
     $(IMX_DEVICE_PATH)/init.freescale.emmc.rc:root/init.recovery.freescale.emmc.default.rc \
-    $(IMX_DEVICE_PATH)/init.freescale.sd.rc:root/init.freescale.sd.default.rc \
+    $(IMX_DEVICE_PATH)/init.freescale.sd.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.freescale.sd.default.rc \
     $(IMX_DEVICE_PATH)/init.freescale.sd.rc:root/init.recovery.freescale.sd.default.rc \
-    $(IMX_DEVICE_PATH)/init_car.rc:root/init.freescale.rc \
-    $(IMX_DEVICE_PATH)/fstab.freescale.car:root/fstab.freescale \
+    $(IMX_DEVICE_PATH)/init_car.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.freescale.rc \
+    $(IMX_DEVICE_PATH)/fstab.freescale.car:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.freescale \
     $(IMX_DEVICE_PATH)/early.init_car.cfg:$(TARGET_COPY_OUT_VENDOR)/etc/early.init.cfg \
     $(IMX_DEVICE_PATH)/setup.main.cfg:$(TARGET_COPY_OUT_VENDOR)/etc/setup.main.cfg \
     $(IMX_DEVICE_PATH)/setup.core.cfg:$(TARGET_COPY_OUT_VENDOR)/etc/setup.core.cfg \
@@ -50,12 +50,12 @@ PRODUCT_COPY_FILES += \
     device/fsl/imx8q/init.recovery.freescale.car.rc:root/init.recovery.freescale.rc
 else
 PRODUCT_COPY_FILES += \
-    $(IMX_DEVICE_PATH)/init.freescale.emmc.rc:root/init.freescale.emmc.rc \
+    $(IMX_DEVICE_PATH)/init.freescale.emmc.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.freescale.emmc.rc \
     $(IMX_DEVICE_PATH)/init.freescale.emmc.rc:root/init.recovery.freescale.emmc.rc \
-    $(IMX_DEVICE_PATH)/init.freescale.sd.rc:root/init.freescale.sd.rc \
+    $(IMX_DEVICE_PATH)/init.freescale.sd.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.freescale.sd.rc \
     $(IMX_DEVICE_PATH)/init.freescale.sd.rc:root/init.recovery.freescale.sd.rc \
-    $(IMX_DEVICE_PATH)/init.rc:root/init.freescale.rc \
-    $(IMX_DEVICE_PATH)/fstab.freescale:root/fstab.freescale \
+    $(IMX_DEVICE_PATH)/init.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.freescale.rc \
+    $(IMX_DEVICE_PATH)/fstab.freescale:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.freescale \
     frameworks/native/data/etc/android.hardware.ethernet.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.ethernet.xml \
     $(IMX_DEVICE_PATH)/required_hardware.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/required_hardware.xml \
     device/fsl/imx8q/init.recovery.freescale.rc:root/init.recovery.freescale.rc \

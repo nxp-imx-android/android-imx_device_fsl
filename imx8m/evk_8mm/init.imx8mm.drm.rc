@@ -1,4 +1,4 @@
-import init.${ro.hardware}.${ro.boot.soc_type}.main.rc
+import /vendor/etc/init/hw/init.${ro.hardware}.${ro.boot.soc_type}.main.rc
 
 on property:init.svc.mediadrm=running
     mkdir /data/vendor/mediadrm 0770 media mediadrm

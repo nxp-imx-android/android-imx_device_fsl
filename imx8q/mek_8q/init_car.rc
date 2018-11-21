@@ -1,6 +1,6 @@
-import init.${ro.hardware}.usb.rc
-import init.${ro.hardware}.${ro.boot.soc_type}.rc
-import init.${ro.hardware}.${ro.boot.storage_type}.${ro.boot.xen_boot}.rc
+import /vendor/etc/init/hw/init.${ro.hardware}.usb.rc
+import /vendor/etc/init/hw/init.${ro.hardware}.${ro.boot.soc_type}.rc
+import /vendor/etc/init/hw/init.${ro.hardware}.${ro.boot.storage_type}.${ro.boot.xen_boot}.rc
 
 on early-init
     # mount the debugfs
@@ -252,7 +252,7 @@ service boot_completed_main_sh /vendor/bin/init.insmod.sh /vendor/etc/setup.main
 
 on fs
 # mount ext4 partitions
-    mount_all /fstab.freescale --early
+    mount_all /vendor/etc/fstab.freescale --early
 
     # Update dm-verity state and set partition.*.verified properties
     verity_update_state
@@ -267,7 +267,7 @@ on late-fs
     start surfaceflinger
 
     # Mount RW partitions which need run fsck
-    mount_all /fstab.freescale --late
+    mount_all /vendor/etc/fstab.freescale --late
 
     # boot time fs tune
     write /sys/block/mmcblk0/queue/iostats 0

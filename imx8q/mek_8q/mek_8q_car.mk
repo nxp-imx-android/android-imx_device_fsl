@@ -12,12 +12,12 @@ PRODUCT_NAME := mek_8q_car
 PRODUCT_PACKAGE_OVERLAYS := $(IMX_DEVICE_PATH)/overlay_car packages/services/Car/car_product/overlay
 
 PRODUCT_COPY_FILES += \
-    $(IMX_DEVICE_PATH)/init.freescale.emmc.xen.rc:root/init.freescale.emmc.xen.rc \
+    $(IMX_DEVICE_PATH)/init.freescale.emmc.xen.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.freescale.emmc.xen.rc \
     $(IMX_DEVICE_PATH)/init.freescale.emmc.xen.rc:root/init.recovery.freescale.emmc.xen.rc \
-    $(IMX_DEVICE_PATH)/init.freescale.sd.xen.rc:root/init.freescale.sd.xen.rc \
+    $(IMX_DEVICE_PATH)/init.freescale.sd.xen.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.freescale.sd.xen.rc \
     $(IMX_DEVICE_PATH)/init.freescale.sd.xen.rc:root/init.recovery.freescale.sd.xen.rc \
-    packages/services/Car/car_product/init/init.bootstat.rc:root/init.bootstat.rc \
-    packages/services/Car/car_product/init/init.car.rc:root/init.car.rc \
+    packages/services/Car/car_product/init/init.bootstat.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.bootstat.rc \
+    packages/services/Car/car_product/init/init.car.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.car.rc \
     device/fsl/common/security/rpmb_key_test.bin:rpmb_key_test.bin \
     device/fsl/common/tools/uuu/uuu-android-mx8qm-xen-mek-emmc.lst:uuu-android-mx8qm-xen-mek-emmc.lst
 

@@ -356,7 +356,7 @@ PRODUCT_COPY_FILES +=	\
     device/fsl/common/input/eGalax_Touch_Screen.idc:$(TARGET_COPY_OUT_VENDOR)/usr/idc/HannStar_P1003_Touchscreen.idc \
     device/fsl/common/input/eGalax_Touch_Screen.idc:$(TARGET_COPY_OUT_VENDOR)/usr/idc/Novatek_NT11003_Touch_Screen.idc \
     device/fsl/common/input/eGalax_Touch_Screen.idc:$(TARGET_COPY_OUT_VENDOR)/usr/idc/eGalax_Touch_Screen.idc \
-    device/fsl/imx6dq/etc/init.usb.rc:root/init.freescale.usb.rc \
+    device/fsl/imx6dq/etc/init.usb.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.freescale.usb.rc \
     device/fsl/imx6dq/etc/ota.conf:$(TARGET_COPY_OUT_VENDOR)/etc/ota.conf \
     device/fsl/imx6dq/init.recovery.freescale.rc:root/init.recovery.freescale.rc \
     system/core/rootdir/init.rc:root/init.rc

@@ -7,8 +7,8 @@ PRODUCT_IMX_DRM := true
 
 # copy drm specific files before inherit evk_8mm.mk, otherwise copy is ignored
 PRODUCT_COPY_FILES += \
-	$(IMX_DEVICE_PATH)/init.imx8mm.rc:root/init.freescale.imx8mm.main.rc \
-	$(IMX_DEVICE_PATH)/init.imx8mm.drm.rc:root/init.freescale.imx8mm.rc \
+	$(IMX_DEVICE_PATH)/init.imx8mm.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.freescale.imx8mm.main.rc \
+	$(IMX_DEVICE_PATH)/init.imx8mm.drm.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.freescale.imx8mm.rc \
 	$(TOPDIR)device/fsl/imx8m/tee-supplicant.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/tee-supplicant.rc \
 
 
