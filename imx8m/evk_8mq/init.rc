@@ -35,6 +35,10 @@ on init
     write /dev/stune/rt/schedtune.boost 50
     write /dev/stune/rt/schedtune.prefer_idle 1
 
+on late-fs
+    # Start keymaster service
+    start vendor.keymaster-3-0-${ro.boot.keystore}
+
 on early-boot
     # Config lowmemorykiller options
     setprop ro.lmk.use_minfree_levels true

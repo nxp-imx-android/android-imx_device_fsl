@@ -261,6 +261,8 @@ on verity-logging
     exec u:r:slideshow:s0 -- /sbin/slideshow warning/verity_red_1 warning/verity_red_2
 
 on late-fs
+    # Start keymaster service
+    start vendor.keymaster-3-0-${ro.boot.keystore}
     start servicemanager
     start surfaceflinger
     start bootanim

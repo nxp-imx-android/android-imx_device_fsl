@@ -28,6 +28,10 @@ on init
 
     mkdir /device 0771 system system
 
+on late-fs
+    # Start keymaster service
+    start vendor.keymaster-3-0-${ro.boot.keystore}
+
 on early-boot
     # Set the host name which used in console
     export HOSTNAME sabreauto_6sx

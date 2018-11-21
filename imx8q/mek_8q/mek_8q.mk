@@ -228,11 +228,10 @@ PRODUCT_COPY_FILES += \
 ifeq ($(PRODUCT_IMX_CAR),true)
 PRODUCT_PACKAGES += \
     android.hardware.keymaster@3.0-service.trusty
-else
+endif
 PRODUCT_PACKAGES += \
     android.hardware.keymaster@3.0-impl \
     android.hardware.keymaster@3.0-service
-endif
 
 # DRM HAL
 TARGET_ENABLE_MEDIADRM_64 := true
