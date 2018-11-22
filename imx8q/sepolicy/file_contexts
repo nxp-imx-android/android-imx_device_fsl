@@ -46,8 +46,8 @@
 #early_init_sh service
 /vendor/bin/init\.insmod\.sh                u:object_r:init-insmod-sh_exec:s0
 /vendor/etc/early\.init\.cfg                u:object_r:init-insmod-sh_exec:s0
-/vendor/etc/boot\.completed\.cfg            u:object_r:init-insmod-sh_exec:s0
-/vendor/etc/post\.boot\.completed\.cfg      u:object_r:init-insmod-sh_exec:s0
+/vendor/etc/setup\.core\.cfg                u:object_r:init-insmod-sh_exec:s0
+/vendor/etc/setup\.main\.cfg                u:object_r:init-insmod-sh_exec:s0
 
 /vendor/lib(64)?/lib_aac_parser_arm11_elinux\.3\.0\.so       u:object_r:same_process_hal_file:s0
 /vendor/lib(64)?/lib_amr_parser_arm11_elinux\.3\.0\.so       u:object_r:same_process_hal_file:s0

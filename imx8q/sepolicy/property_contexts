@@ -43,6 +43,14 @@ gralloc.drm.device                  u:object_r:public_vendor_default_prop:s0
 gralloc.trace                       u:object_r:public_vendor_default_prop:s0
 ro.hardware.gralloc_viv             u:object_r:public_vendor_default_prop:s0
 ro.boot.soc_type                    u:object_r:public_vendor_default_prop:s0
+ro.lmk.use_minfree_levels           u:object_r:public_vendor_default_prop:s0
+ro.tether.denied                    u:object_r:public_vendor_default_prop:s0
+media.fsl_codec.flag                u:object_r:public_vendor_default_prop:s0
+ro.audio.usb.period_us              u:object_r:public_vendor_default_prop:s0
+ro.media.maxmem                     u:object_r:public_vendor_default_prop:s0
+android.car.hvac.demo               u:object_r:public_vendor_default_prop:s0
+persist.bluetooth.enablenewavrcp    u:object_r:public_vendor_default_prop:s0
+media.amphion_vpu.enable-tile       u:object_r:public_vendor_default_prop:s0
 
 ro.boot.gui_resolution              u:object_r:vendor_default_prop:s0
 ro.boot.primary_display             u:object_r:vendor_default_prop:s0
