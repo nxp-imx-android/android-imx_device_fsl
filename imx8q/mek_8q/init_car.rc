@@ -92,7 +92,7 @@ on early-boot
     # Set light sensor threshold lux value
     setprop ro.lightsensor.threshold  20
 
-    setprop ro.boot.btmacaddr 22:22:67:C6:69:73
+    setprop persist.service.bdroid.bdaddr 22:22:67:C6:69:73
 
     # enlarge media max memory size to 3G.
     setprop ro.media.maxmem 3221225471

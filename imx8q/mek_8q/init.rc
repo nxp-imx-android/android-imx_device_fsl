@@ -90,7 +90,7 @@ on early-boot
     chown bluetooth bluetooth /sys/class/rfkill/rfkill0/state
     write /sys/class/rfkill/rfkill0/state 0
 
-    setprop ro.boot.btmacaddr 22:22:67:C6:69:73
+    setprop persist.service.bdroid.bdaddr 22:22:67:C6:69:73
 
     setprop qcom.bluetooth.soc rome_uart
     setprop wc_transport.start_hci false

@@ -84,7 +84,7 @@ on early-boot
     chown bluetooth bluetooth /sys/class/rfkill/rfkill0/state
     write /sys/class/rfkill/rfkill0/state 0
 
-    setprop ro.boot.btmacaddr 22:22:67:C6:69:73
+    setprop persist.service.bdroid.bdaddr 22:22:67:C6:69:73
 
     # Set the density to 160dpi, default 128dpi is not good
     setprop ro.sf.lcd_density 160
