@@ -116,10 +116,10 @@ on property:rpmsg.can.event=0
     stop evs_app
 
 on property:sys.boot_completed=1
-    # register the can_rpmsg on raw android.
-    write /sys/devices/platform/can_rpmsg/register 1
-    # register the can_rpmsg on android running in xen.
-    write /sys/devices/platform/passthrough/passthrough\:can_rpmsg/register  1
+    # register the vehicle_rpmsg on raw android.
+    write /sys/devices/platform/vehicle_rpmsg/register 1
+    # register the vehicle_rpmsg on android running in xen.
+    write /sys/devices/platform/passthrough/passthrough\:vehicle_rpmsg/register  1
 
 on boot
     # Trigger start evs_driver service
