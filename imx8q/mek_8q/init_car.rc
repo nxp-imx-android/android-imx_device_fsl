@@ -265,7 +265,6 @@ on late-fs
     start vendor.keymaster-3-0-${ro.boot.keystore}
     start servicemanager
     start surfaceflinger
-    start bootanim
 
     # Mount RW partitions which need run fsck
     mount_all /fstab.freescale --late
