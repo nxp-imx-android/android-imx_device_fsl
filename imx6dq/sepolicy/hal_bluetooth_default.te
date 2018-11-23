@@ -2,3 +2,4 @@ allow hal_bluetooth_default sysfs:file { write };
 allow hal_bluetooth_default bluetooth_data_file:file { write read append getattr };
 allow hal_bluetooth_default hal_bluetooth_default:unix_stream_socket { ioctl };
 set_prop(hal_bluetooth_default, vendor_bluetooth_prop)
+allow hal_bluetooth_default sysfs_rfkill:file { write };
