@@ -19,8 +19,8 @@ on init
     write /config/usb_gadget/g1/strings/0x409/product ${ro.product.model}
 
 on early-init
-    # register the can_rpmsg which will relase display module
-    write /sys/devices/platform/can_rpmsg/register 1
+    # register the vehicle_rpmsg which will relase display module
+    write /sys/devices/platform/vehicle_rpmsg/register 1
 
 on init
     insmod /lib/modules/it6263.ko
