@@ -67,9 +67,9 @@
             </devicePorts>
             <routes>
                 <route type="mix" sink="Speaker"
-                       sources="dsd output,primary output"/>
+                       sources="primary output"/>
                 <route type="mix" sink="Wired Headphones"
-                       sources="esai output,primary output"/>
+                       sources="dsd output,esai output,primary output"/>
                 <route type="mix" sink="Line-Out"
                        sources="dsd output,lpa output,primary output"/>
 
