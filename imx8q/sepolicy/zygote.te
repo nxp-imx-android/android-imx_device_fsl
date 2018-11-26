@@ -1,6 +1,9 @@
 typeattribute zygote system_writes_vendor_properties_violators;
 
 get_prop(zygote, vendor_default_prop)
+set_prop(zygote, public_vendor_default_prop)
 
 allow zygote gpu_device:chr_file { read write open ioctl getattr };
 allow zygote storage_file:dir { getattr };
+allow zygote property_socket:sock_file { write };
+allow zygote init:unix_stream_socket connectto;

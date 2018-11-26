@@ -126,6 +126,7 @@ on property:vendor.all.setup_core.ready=1
 on property:vendor.all.setup_main.ready=1
     # Trigger start adbd service
     start usbd
+    start zygote_late
 
 on property:vendor.bluetooth.rfkill_initialized=1
     # Prepare for bluetooth

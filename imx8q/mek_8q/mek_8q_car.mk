@@ -18,6 +18,7 @@ PRODUCT_COPY_FILES += \
     $(IMX_DEVICE_PATH)/init.freescale.sd.xen.rc:root/init.recovery.freescale.sd.xen.rc \
     packages/services/Car/car_product/init/init.bootstat.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.bootstat.rc \
     packages/services/Car/car_product/init/init.car.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.car.rc \
+    system/core/rootdir/init.zygote_auto.rc:root/init.zygote_auto.rc \
     device/fsl/common/security/rpmb_key_test.bin:rpmb_key_test.bin \
     device/fsl/common/tools/uuu/uuu-android-mx8qm-xen-mek-emmc.lst:uuu-android-mx8qm-xen-mek-emmc.lst
 
@@ -51,3 +52,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     gatekeeper.trusty \
     storageproxyd
+
+# Use special ro.zygote to make default init.rc didn't load default zygote rc
+PRODUCT_PRODUCT_PROPERTIES += ro.zygote=zygote_auto
