@@ -1,5 +1,6 @@
 rw.HTTP_PROXY                       u:object_r:http_proxy_prop:s0
 wc_transport.                       u:object_r:wc_prop:s0
+vendor.wc_transport.                u:object_r:wc_prop:s0
 persist.vendor.usb.config           u:object_r:vendor_usb_config_prop:s0
 vendor.usb.config                   u:object_r:vendor_usb_config_prop:s0
 vendor.powerhal.state               u:object_r:power_hal_prop:s0

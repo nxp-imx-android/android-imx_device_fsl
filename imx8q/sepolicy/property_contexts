@@ -1,13 +1,14 @@
 rw.HTTP_PROXY                       u:object_r:http_proxy_prop:s0
 wc_transport.                       u:object_r:wc_prop:s0
+vendor.wc_transport.                u:object_r:wc_prop:s0
 persist.vendor.usb.config           u:object_r:vendor_usb_config_prop:s0
 vendor.usb.config                   u:object_r:vendor_usb_config_prop:s0
 vendor.powerhal.state               u:object_r:power_hal_prop:s0
 vendor.powerhal.lowpower.max_freq   u:object_r:power_hal_prop:s0
 
 sys.all.early_init.ready            u:object_r:public_vendor_default_prop:s0
-sys.all.setup_core.ready            u:object_r:public_vendor_default_prop:s0
-sys.all.setup_main.ready            u:object_r:public_vendor_default_prop:s0
+vendor.all.setup_core.ready         u:object_r:public_vendor_default_prop:s0
+vendor.all.setup_main.ready         u:object_r:public_vendor_default_prop:s0
 sys.hwc.disable                     u:object_r:public_vendor_default_prop:s0
 hw.backlight.dev                    u:object_r:public_vendor_default_prop:s0
 TEMP                                u:object_r:public_vendor_default_prop:s0
@@ -52,6 +53,7 @@ android.car.hvac.demo               u:object_r:public_vendor_default_prop:s0
 persist.bluetooth.enablenewavrcp    u:object_r:public_vendor_default_prop:s0
 media.amphion_vpu.enable-tile       u:object_r:public_vendor_default_prop:s0
 persist.service.bdroid.bdaddr       u:object_r:public_vendor_default_prop:s0
+vendor.bluetooth.rfkill_initialized u:object_r:public_vendor_default_prop:s0
 
 ro.boot.gui_resolution              u:object_r:vendor_default_prop:s0
 ro.boot.primary_display             u:object_r:vendor_default_prop:s0

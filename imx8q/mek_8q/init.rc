@@ -93,7 +93,7 @@ on early-boot
     setprop persist.service.bdroid.bdaddr 22:22:67:C6:69:73
 
     setprop qcom.bluetooth.soc rome_uart
-    setprop wc_transport.start_hci false
+    setprop vendor.wc_transport.start_hci false
 
     # Set the density to 213 tvdpi to match CDD.
     setprop ro.sf.lcd_density 213
@@ -183,10 +183,10 @@ service bugreport /system/bin/dumpstate -d -p -B -z \
     oneshot
     keycodes 114 115 116
 
-on property:wc_transport.start_hci=true
+on property:vendor.wc_transport.start_hci=true
     start start_hci_filter
 
-on property:wc_transport.start_hci=false
+on property:vendor.wc_transport.start_hci=false
     stop start_hci_filter
 
 service start_hci_filter /vendor/bin/wcnss_filter
