@@ -70,7 +70,7 @@ PRODUCT_COPY_FILES += \
     $(IMX_DEVICE_PATH)/seccomp/mediacodec-seccomp.policy:vendor/etc/seccomp_policy/mediacodec.policy \
     $(IMX_DEVICE_PATH)/seccomp/mediaextractor-seccomp.policy:vendor/etc/seccomp_policy/mediaextractor.policy
 
-# uuu scripts, fastboot_imx_flashall scripts and fsl-sdcard-partition script
+# uuu scripts, fastboot_imx_flashall scripts, fsl-sdcard-partition script uuu_imx_android_flash scripts
 PRODUCT_COPY_FILES += \
     device/fsl/common/tools/uuu/uuu-android-mx8mm-evk-emmc.lst:uuu-android-mx8mm-evk-emmc.lst \
     device/fsl/common/tools/uuu/uuu-android-mx8mm-evk-emmc-m4.lst:uuu-android-mx8mm-evk-emmc-m4.lst \
@@ -78,7 +78,9 @@ PRODUCT_COPY_FILES += \
     device/fsl/common/tools/uuu/uuu-android-mx8mm-evk-sd-m4.lst:uuu-android-mx8mm-evk-sd-m4.lst \
     device/fsl/common/tools/fastboot_imx_flashall.bat:fastboot_imx_flashall.bat \
     device/fsl/common/tools/fastboot_imx_flashall.sh:fastboot_imx_flashall.sh \
-    device/fsl/common/tools/fsl-sdcard-partition.sh:fsl-sdcard-partition.sh
+    device/fsl/common/tools/fsl-sdcard-partition.sh:fsl-sdcard-partition.sh \
+    device/fsl/common/tools/uuu_imx_android_flash.bat:uuu_imx_android_flash.bat \
+    device/fsl/common/tools/uuu_imx_android_flash.sh:uuu_imx_android_flash.sh
 
 
 USE_XML_AUDIO_POLICY_CONF := 1
