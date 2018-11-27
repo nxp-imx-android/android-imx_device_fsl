@@ -76,6 +76,9 @@ TARGET_KERNEL_DEFCONFIG := imx_v7_android_defconfig
 # TARGET_KERNEL_ADDITION_DEFCONF := imx_v7_android_addition_defconfig
 BOARD_PREBUILT_DTBOIMAGE := out/target/product/sabresd_7d/dtbo-imx7d.img
 
+# set TARGET_BOOTLOADER_CONFIG for u-boot used by uuu
+TARGET_BOOTLOADER_CONFIG += imx7d-sabresd-uuu:mx7dsabresd_defconfig imx7d-epdc-sabresd-uuu:mx7dsabresd_defconfig
+
 BOARD_SEPOLICY_DIRS := \
        device/fsl/imx7d/sepolicy \
        $(IMX_DEVICE_PATH)/sepolicy

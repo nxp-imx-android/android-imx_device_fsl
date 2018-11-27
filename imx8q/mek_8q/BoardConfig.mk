@@ -172,6 +172,9 @@ TARGET_BOARD_DTS_CONFIG := imx8qm:fsl-imx8qm-mek-mipi-two-ov5640.dtb imx8qm-mipi
 TARGET_BOOTLOADER_CONFIG := imx8qm:imx8qm_mek_android_defconfig imx8qxp:imx8qxp_mek_android_defconfig
 endif #PRODUCT_IMX_CAR
 
+# set TARGET_BOOTLOADER_CONFIG for u-boot used by uuu
+TARGET_BOOTLOADER_CONFIG += imx8qm-mek-uuu:imx8qm_mek_android_uuu_defconfig imx8qxp-mek-uuu:imx8qxp_mek_android_uuu_defconfig
+
 ifeq ($(PRODUCT_IMX_CAR),true)
 TARGET_KERNEL_DEFCONFIG := android_car_defconfig
 include $(IMX_DEVICE_PATH)/build_id_car.mk

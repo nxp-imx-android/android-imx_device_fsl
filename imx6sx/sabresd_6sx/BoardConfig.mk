@@ -98,6 +98,9 @@ TARGET_BOARD_DTS_CONFIG := imx6sx:imx6sx-sdb.dtb
 TARGET_KERNEL_DEFCONFIG := imx_v7_android_defconfig
 # TARGET_KERNEL_ADDITION_DEFCONF := imx_v7_android_addition_defconfig
 
+# set TARGET_BOOTLOADER_CONFIG for u-boot used by uuu
+TARGET_BOOTLOADER_CONFIG += imx6sx-sabresd-uuu:mx6sxsabresd_defconfig
+
 BOARD_SEPOLICY_DIRS := \
        device/fsl/imx6sx/sepolicy \
        $(IMX_DEVICE_PATH)/sepolicy

@@ -4,14 +4,18 @@ ATF_TOOLCHAIN_ABS := $(realpath prebuilts/gcc/$(HOST_PREBUILT_TAG)/aarch64/aarch
 ATF_CROSS_COMPILE := $(ATF_TOOLCHAIN_ABS)/aarch64-linux-androidkernel-
 
 define build_imx_uboot
-	if [ "$(strip $(2))" == "imx8qm" ]; then \
+	if [ `echo $(2) | cut -d '-' -f1` == "imx8qm" ] && [ `echo $(2) | cut -d '-' -f2` != "xen" ]; then \
 		MKIMAGE_PLATFORM=`echo iMX8QM`; \
 		SCFW_PLATFORM=`echo 8qm`;  \
 		ATF_PLATFORM=`echo imx8qm`; \
 		cp  $(FSL_PROPRIETARY_PATH)/linux-firmware-imx/firmware/seco/mx8qm-ahab-container.img $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/mx8qm-ahab-container.img; \
 		cp  $(FSL_PROPRIETARY_PATH)/fsl-proprietary/uboot-firmware/imx8q/mx$$SCFW_PLATFORM-scfw-tcm.bin $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/scfw_tcm.bin; \
-		if [ "$(PRODUCT_IMX_CAR)" != "true" ]; then \
-			FLASH_TARGET=`echo flash_b0_spl_container`;  \
+		if [ "$(PRODUCT_IMX_CAR)" != "true" ] || [ `echo $(2) | rev | cut -d '-' -f1` == "uuu" ]; then \
+			if [ "$(strip $(2))" == "imx8qm" ]; then\
+				FLASH_TARGET=`echo flash_b0_spl_container`;  \
+			else \
+				FLASH_TARGET=`echo flash_b0`;  \
+			fi; \
 			cp $(FSL_PROPRIETARY_PATH)/linux-firmware-imx/firmware/hdmi/cadence/hdmitxfw.bin $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/hdmitxfw.bin; \
 			cp $(FSL_PROPRIETARY_PATH)/linux-firmware-imx/firmware/hdmi/cadence/hdmirxfw.bin $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/hdmirxfw.bin; \
 			if [ -f $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/tee.bin ]; then \
@@ -36,14 +40,18 @@ define build_imx_uboot
 		cp  $(FSL_PROPRIETARY_PATH)/fsl-proprietary/uboot-firmware/imx8q/mx$$SCFW_PLATFORM-scfw-tcm.bin $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/scfw_tcm.bin; \
 		FLASH_TARGET=`echo flash_b0_multi_cores_m4_1`;  \
 		cp  $(FSL_PROPRIETARY_PATH)/fsl-proprietary/mcu-sdk/imx8q/imx8qm_m4_1_tcm_auto.bin $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/m41_tcm.bin; \
-	elif [ "$(strip $(2))" == "imx8qxp" ]; then \
+	elif [ `echo $(2) | cut -d '-' -f1` == "imx8qxp" ]; then \
 		MKIMAGE_PLATFORM=`echo iMX8QX`; \
 		SCFW_PLATFORM=`echo 8qx`; \
 		ATF_PLATFORM=`echo imx8qxp`; \
 		cp  $(FSL_PROPRIETARY_PATH)/linux-firmware-imx/firmware/seco/mx8qx-ahab-container.img $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/mx8qx-ahab-container.img; \
 		cp  $(FSL_PROPRIETARY_PATH)/fsl-proprietary/uboot-firmware/imx8q/mx$$SCFW_PLATFORM-scfw-tcm.bin $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/scfw_tcm.bin; \
-		FLASH_TARGET=`echo flash_all_spl_container`;  \
-		if [ "$(PRODUCT_IMX_CAR)" == "true" ]; then \
+		if [ `echo $(2) | rev | cut -d '-' -f1` == "uuu" ]; then \
+			FLASH_TARGET=`echo flash_b0_all`;  \
+		else \
+			FLASH_TARGET=`echo flash_all_spl_container`;  \
+		fi; \
+		if [ "$(PRODUCT_IMX_CAR)" == "true" ] && [ `echo $(2) | rev | cut -d '-' -f1` != "uuu" ]; then \
 			cp  $(FSL_PROPRIETARY_PATH)/fsl-proprietary/mcu-sdk/imx8q/imx8qx_m4_tcm_auto.bin $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/CM4.bin; \
 			cp  $(FSL_PROPRIETARY_PATH)/fsl-proprietary/uboot-firmware/imx8q/tee-imx8qxp.bin $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/tee.bin; \
 		else \
@@ -55,14 +63,14 @@ define build_imx_uboot
 	fi; \
 	if [ "$(strip $(2))" != "imx8qm-xen" ]; then \
 		$(MAKE) -C $(IMX_PATH)/arm-trusted-firmware/ PLAT=$$ATF_PLATFORM clean; \
-		if [ "$(PRODUCT_IMX_CAR)" == "true" ] && [ "$(strip $(2))" != "imx8qm-xen-dom0" ]; then \
+		if [ "$(PRODUCT_IMX_CAR)" == "true" ] && [ "$(strip $(2))" != "imx8qm-xen-dom0" ] && [ `echo $(2) | rev | cut -d '-' -f1` != "uuu" ]; then \
 			$(MAKE) -C $(IMX_PATH)/arm-trusted-firmware/ CROSS_COMPILE="$(ATF_CROSS_COMPILE)" PLAT=$$ATF_PLATFORM bl31 SPD=trusty -B; \
 		else \
 			$(MAKE) -C $(IMX_PATH)/arm-trusted-firmware/ CROSS_COMPILE="$(ATF_CROSS_COMPILE)" PLAT=$$ATF_PLATFORM bl31 -B; \
 		fi; \
 		cp $(IMX_PATH)/arm-trusted-firmware/build/$$ATF_PLATFORM/release/bl31.bin $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/bl31.bin; \
 		cp  $(UBOOT_OUT)/u-boot.$(strip $(1)) $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/u-boot.bin; \
-		if [ "$(strip $(2))" != "imx8qm-xen-dom0" ]; then \
+		if [ "$(strip $(2))" != "imx8qm-xen-dom0" ] && [ `echo $(2) | rev | cut -d '-' -f1` != "uuu" ]; then \
 			cp  $(UBOOT_OUT)/spl/u-boot-spl.bin $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/u-boot-spl.bin; \
 		fi; \
 		cp  $(UBOOT_OUT)/tools/mkimage  $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/mkimage_uboot; \

@@ -124,6 +124,9 @@ TARGET_BOOTLOADER_CONFIG := imx8mm:imx8mm_evk_android_defconfig
 TARGET_KERNEL_DEFCONFIG := android_defconfig
 TARGET_KERNEL_ADDITION_DEFCONF := android_addition_defconfig
 
+# set TARGET_BOOTLOADER_CONFIG for u-boot used by uuu
+TARGET_BOOTLOADER_CONFIG += imx8mm-evk-uuu:imx8mm_evk_android_uuu_defconfig
+
 BOARD_SEPOLICY_DIRS := \
        device/fsl/imx8m/sepolicy \
        $(IMX_DEVICE_PATH)/sepolicy
