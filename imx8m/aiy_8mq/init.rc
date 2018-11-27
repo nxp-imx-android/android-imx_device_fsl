@@ -1,6 +1,6 @@
-import init.${ro.hardware}.usb.rc
-import init.${ro.hardware}.${ro.boot.soc_type}.rc
-import init.${ro.hardware}.${ro.boot.storage_type}.rc
+import /vendor/etc/init/hw/init.${ro.hardware}.usb.rc
+import /vendor/etc/init/hw/init.${ro.hardware}.${ro.boot.soc_type}.rc
+import /vendor/etc/init/hw/init.${ro.hardware}.${ro.boot.storage_type}.rc
 
 on early-init
     # mount the debugfs
@@ -84,7 +84,7 @@ on early-boot
     setprop wifi.interface wlan0
     setprop wifi.concurrent.interface p2p0
 
-    setprop ro.boot.btmacaddr 22:22:67:C6:69:73
+    setprop persist.service.bdroid.bdaddr 22:22:67:C6:69:73
 
     # Prepare for bluetooth
     chmod 665 /sys/class/rfkill/rfkill0/state
@@ -224,7 +224,7 @@ service hci_filter_root /vendor/bin/wcnss_filter
 
 on fs
 # mount ext4 partitions
-    mount_all /fstab.freescale
+    mount_all /vendor/etc/fstab.freescale
 
     # Adjust parameters for dm-verity device
     write /sys/block/dm-0/queue/read_ahead_kb 4096
@@ -237,7 +237,7 @@ on verity-logging
 
 on post-fs
     # Turn on swap
-    swapon_all /fstab.freescale
+    swapon_all /vendor/etc/fstab.freescale
 
     # Swap in only 1 page at a time
     write /proc/sys/vm/page-cluster 0
