@@ -14,12 +14,12 @@ PRODUCT_PACKAGE_OVERLAYS := $(IMX_DEVICE_PATH)/overlay_car packages/services/Car
 PRODUCT_COPY_FILES += \
     $(FSL_PROPRIETARY_PATH)/fsl-proprietary/mcu-sdk/imx8q/imx8qm_m4_1_tcm_auto.bin:m4_image-imx8qm.img \
     $(FSL_PROPRIETARY_PATH)/fsl-proprietary/mcu-sdk/imx8q/imx8qx_m4_tcm_auto.bin:m4_image-imx8qxp.img \
-    $(IMX_DEVICE_PATH)/init.freescale.emmc.xen.rc:root/init.freescale.emmc.xen.rc \
+    $(IMX_DEVICE_PATH)/init.freescale.emmc.xen.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.freescale.emmc.xen.rc \
     $(IMX_DEVICE_PATH)/init.freescale.emmc.xen.rc:root/init.recovery.freescale.emmc.xen.rc \
-    $(IMX_DEVICE_PATH)/init.freescale.sd.xen.rc:root/init.freescale.sd.xen.rc \
+    $(IMX_DEVICE_PATH)/init.freescale.sd.xen.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.freescale.sd.xen.rc \
     $(IMX_DEVICE_PATH)/init.freescale.sd.xen.rc:root/init.recovery.freescale.sd.xen.rc \
-    packages/services/Car/car_product/init/init.bootstat.rc:root/init.bootstat.rc \
-    packages/services/Car/car_product/init/init.car.rc:root/init.car.rc \
+    packages/services/Car/car_product/init/init.bootstat.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.bootstat.rc \
+    packages/services/Car/car_product/init/init.car.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.car.rc \
     device/fsl/common/security/rpmb_key_test.bin:rpmb_key_test.bin
 
 # ONLY devices that meet the CDD's requirements may declare these features
