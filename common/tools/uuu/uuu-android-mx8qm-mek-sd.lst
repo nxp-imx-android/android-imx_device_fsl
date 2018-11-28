@@ -1,7 +1,7 @@
-uuu_version 1.1.29
+uuu_version 1.1.81
 #uuu scripts for imx8qm revB board Android imx_pi9.0 sd card
 CFG: FB: -vid 0x1fc9 -pid 0x0129
-SDPS: boot -f uuu-u-boot-imx8qm.imx
+SDPS: boot -f u-boot-imx8qm-mek-uuu.imx
 FB: ucmd setenv fastboot_dev mmc
 FB: ucmd setenv mmcdev 1
 FB: ucmd mmc dev 1
@@ -25,5 +25,6 @@ FB: flash dtbo_b dtbo-imx8qm.img
 # erase userdata and misc partition
 FB[-t 600000]: ERASE userdata
 FB: ERASE misc
+FB[-t 100000]: ERASE fbmisc
 
 FB: done

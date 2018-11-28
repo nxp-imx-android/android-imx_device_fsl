@@ -195,10 +195,12 @@ call :uuu_load_uboot
 
 call :flash_android
 
+:: make sure device is locked for boards don't use tee
+%fastboot_tool% erase fbmisc || exit 1
+
 if %erase% == 1 (
     %fastboot_tool% erase userdata || exit 1
     %fastboot_tool% erase misc || exit 1
-    %fastboot_tool% erase fbmisc || exit 1
     if %soc_name:imx8=% == %soc_name% (
         %fastboot_tool% erase cache || exit 1
     )
@@ -223,13 +225,13 @@ goto :eof
 
 :help
 echo.
-echo Version: 1.0
-echo Last change:
+echo Version: 1.1
+echo Last change: erase fbmisc partiton even if -e option not used
 echo current suport platforms: sabresd_6dq, sabreauto_6q, sabresd_6sx, evk_7ulp, sabresd_7d
 echo                           evk_8mm, evk_8mq, mek_8q, mek_8q_car
 echo.
-echo eg: uuu_flash.bat -f imx8qm -a -e -D C:\Users\user_01\images\2018.11.10\imx_pi9.0\mek_8q\
-echo eg: uuu_flash.bat -f imx6qp -e -D C:\Users\user_01\images\2018.11.10\imx_pi9.0\sabresd_6dq\ -p sabresd
+echo eg: uuu_imx_android_flash.bat -f imx8qm -a -e -D C:\Users\user_01\images\2018.11.10\imx_pi9.0\mek_8q\
+echo eg: uuu_imx_android_flash.bat -f imx6qp -e -D C:\Users\user_01\images\2018.11.10\imx_pi9.0\sabresd_6dq\ -p sabresd
 echo.
 echo Usage: %script_name% ^<option^>
 echo.
@@ -445,7 +447,7 @@ if [%soc_name%] == [imx7ulp] (
         %fastboot_tool% stage %image_directory%%soc_name%_m4_demo.img
 
         uuu FB: ucmd sf probe
-        echo uuu_version 1.1.29 > m4.lst
+        echo uuu_version 1.1.81 > m4.lst
         echo CFG: %sdp%: -chip %chip% -vid %vid% -pid %pid% >> m4.lst
         echo FB[-t 30000]: ucmd sf erase %imx7ulp_evk_m4_sf_start_byte% %imx7ulp_evk_m4_sf_length_byte% >> m4.lst
         echo FB[-t 30000]: ucmd sf write %imx7ulp_stage_base_addr% %imx7ulp_evk_m4_sf_start_byte% %imx7ulp_evk_m4_sf_length_byte% >> m4.lst

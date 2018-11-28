@@ -1,11 +1,11 @@
-uuu_version 1.1.29
+uuu_version 1.1.81
 
 # uuu scripts for imx8mm Android maddev_pi9.0 eMMC
 
-SDP: boot -f u-boot-imx8mm.imx
+SDP: boot -f u-boot-imx8mm-evk-uuu.imx
 # This command will be run when use SPL
 SDPU: delay 1000
-SDPU: write -f u-boot-imx8mm.imx -offset 0x57c00
+SDPU: write -f u-boot-imx8mm-evk-uuu.imx -offset 0x57c00
 SDPU: jump
 # This command will be run when ROM support stream mode
 # SDPS: boot -f u-boot-imx8mm.imx
@@ -36,5 +36,6 @@ FB: flash dtbo_b dtbo-imx8mm.img
 # erase userdata and misc partition
 FB[-t 600000]: ERASE userdata
 FB: ERASE misc
+FB[-t 100000]: ERASE fbmisc
 
 FB: done
