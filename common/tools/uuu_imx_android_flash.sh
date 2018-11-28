@@ -5,13 +5,13 @@ help() {
 bn=`basename $0`
 cat << EOF
 
-Version: 1.0
-Last change:
+Version: 1.1
+Last change: erase fbmisc partiton even if -e option not used
 current suport platforms: sabresd_6dq, sabreauto_6q, sabresd_6sx, evk_7ulp, sabresd_7d
                           evk_8mm, evk_8mq, mek_8q, mek_8q_car
 
-eg: ./uuu_flash.sh -f imx8qm -a -e -D ~/nfs/179/2018.11.10/imx_pi9.0/mek_8q/
-eg: ./uuu_flash.sh -f imx6qp -e -D ~/nfs/187/maddev_pi9.0/out/target/product/sabresd_6dq/ -p sabresd
+eg: ./uuu_imx_android_flash.sh -f imx8qm -a -e -D ~/nfs/179/2018.11.10/imx_pi9.0/mek_8q/
+eg: ./uuu_imx_android_flash.sh -f imx6qp -e -D ~/nfs/187/maddev_pi9.0/out/target/product/sabresd_6dq/ -p sabresd
 
 Usage: $bn <option>
 
@@ -335,7 +335,7 @@ function flash_android
         ${fastboot_tool} stage ${image_directory}${soc_name}_m4_demo.img
 
         uuu FB: ucmd sf probe
-        echo uuu_version 1.1.29 > /tmp/m4.lst
+        echo uuu_version 1.1.81 > /tmp/m4.lst
         echo CFG: ${sdp}: -chip ${chip} -vid ${vid} -pid ${pid} >> /tmp/m4.lst
         echo FB[-t 30000]: ucmd sf erase `echo "obase=16;$((${imx7ulp_evk_m4_sf_start}*${imx7ulp_evk_sf_blksz}))" | bc` \
                 `echo "obase=16;$((${imx7ulp_evk_m4_sf_length}*${imx7ulp_evk_sf_blksz}))" | bc` >> /tmp/m4.lst
@@ -365,10 +365,11 @@ uuu_load_uboot
 
 flash_android
 
+# make sure device is locked for boards don't use tee
+${fastboot_tool} erase fbmisc
 if [ ${erase} -eq 1 ]; then
     ${fastboot_tool} erase userdata
     ${fastboot_tool} erase misc
-    ${fastboot_tool} erase fbmisc
     if [ ${soc_name#imx8} = ${soc_name} ] ; then
         ${fastboot_tool} erase cache
     fi

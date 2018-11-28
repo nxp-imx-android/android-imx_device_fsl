@@ -1,13 +1,17 @@
-uuu_version 1.1.29
+uuu_version 1.1.81
 
 # uuu scripts for imx7ulp Android maddev_pi9.0 sd
 
-SDP: boot -f u-boot-imx7ulp.imx
+SDP: boot -f u-boot-imx7ulp-evk-uuu.imx
 FB: ucmd setenv fastboot_dev mmc
 FB: ucmd setenv mmcdev 0
 FB: ucmd mmc dev 0
-FB[-t 600000]: OEM unlock
 FB[-t 600000]: flash gpt partition-table.img
+
+# force to load the partition table just flashed
+FB: ucmd setenv fastboot_dev sata
+FB: ucmd setenv fastboot_dev mmc
+
 FB: flash bootloader u-boot-imx7ulp.imx
 
 # erase environment variables of uboot
@@ -19,11 +23,17 @@ FB: flash vendor vendor.img
 FB: flash dtbo dtbo-imx7ulp.img
 FB: flash boot boot.img
 FB: flash recovery recovery-imx7ulp.img
-FB: flash m4_os imx7ulp_m4_demo.img
+
+FB: ucmd setenv fastboot_buffer 0x60800000
+FB: download -f imx7ulp_m4_demo.img
+FB: ucmd sf probe
+FB[-t 30000]: ucmd sf erase 0 0x20000
+FB[-t 30000]: ucmd sf write 0x60800000 0 0x20000
 
 # erase userdata, misc and cache partition
 FB[-t 600000]: ERASE userdata
 FB: ERASE misc
 FB[-t 100000]: ERASE cache
+FB[-t 100000]: ERASE fbmisc
 
 FB: done

@@ -1,13 +1,17 @@
-uuu_version 1.1.29
+uuu_version 1.1.81
 # uuu scripts for sabresd_6q Android imx_pi9.0 sd card
 CFG: SDP: -chip MX6D -pid 0x0061 -vid 0x15a2
-SDP: boot -f u-boot-imx6q.imx
+SDP: boot -f u-boot-imx6q-sabresd-uuu.imx
 
 FB: ucmd setenv fastboot_dev mmc
 FB: ucmd setenv mmcdev 1
 FB: ucmd mmc dev 1
-FB[-t 600000]: OEM unlock
 FB[-t 600000]: flash gpt partition-table.img
+
+# force to load the partition table just flashed
+FB: ucmd setenv fastboot_dev sata
+FB: ucmd setenv fastboot_dev mmc
+
 FB: flash bootloader u-boot-imx6q.imx
 
 # erase environment variables of uboot
@@ -24,5 +28,6 @@ FB: flash dtbo dtbo-imx6q.img
 FB[-t 600000]: ERASE userdata
 FB: ERASE misc
 FB[-t 100000]: ERASE cache
+FB[-t 100000]: ERASE fbmisc
 
 FB: done

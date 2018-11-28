@@ -116,11 +116,6 @@ PRODUCT_COPY_FILES += \
     device/fsl/common/tools/uuu_imx_android_flash.bat:uuu_imx_android_flash.bat \
     device/fsl/common/tools/uuu_imx_android_flash.sh:uuu_imx_android_flash.sh
 
-# u-boot for uuu
-PRODUCT_COPY_FILES += \
-    $(LINUX_FIRMWARE_IMX_PATH)/fsl-proprietary/uboot-firmware/imx8q/uuu-u-boot-imx8qm.imx:uuu-u-boot-imx8qm.imx \
-    $(LINUX_FIRMWARE_IMX_PATH)/fsl-proprietary/uboot-firmware/imx8q/uuu-u-boot-imx8qxp.imx:uuu-u-boot-imx8qxp.imx
-
 ifneq ($(PRODUCT_IMX_CAR),true)
 PRODUCT_COPY_FILES += \
     device/fsl/common/tools/uuu/uuu-android-mx8qxp-mek-sd.lst:uuu-android-mx8qxp-mek-sd.lst \
