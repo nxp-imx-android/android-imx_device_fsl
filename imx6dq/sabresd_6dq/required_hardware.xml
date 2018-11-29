@@ -18,5 +18,6 @@
            except the bluetooth is removed and android.software.live_wallpaper was added.
 -->
 <permissions>
+    <feature name="android.software.cant_save_state" />
     <feature name="android.hardware.camera.any" />
 </permissions>
