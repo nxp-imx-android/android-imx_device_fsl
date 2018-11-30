@@ -74,7 +74,7 @@ if %1 == -D set image_directory=%2& shift & shift & goto :parse_loop
 if %1 == -t set target_dev=%2&shift &shift & goto :parse_loop
 if %1 == -p set board=%2&shift &shift & goto :parse_loop
 echo an option you specified is not supported, please check it
-call :help & exit 1
+call :help & exit /B 1
 :parse_end
 
 
@@ -83,7 +83,7 @@ if %card_size% neq 0 set /A statisc+=1
 if %card_size% neq 7 set /A statisc+=1
 if %card_size% neq 14 set /A statisc+=1
 if %card_size% neq 28 set /A statisc+=1
-if %statisc% == 4 echo card_size is not a legal value & exit 1
+if %statisc% == 4 echo card_size is not a legal value & exit /B 1
 
 if %card_size% gtr 0 set partition_file=partition-table-%card_size%GB.img
 
@@ -172,7 +172,7 @@ if not [%soc_name:imx6q=%] == [%soc_name%] (
     goto :device_info_end
 )
 echo please check whether the soc_name you specified is correct
-call :help & exit 1
+call :help & exit /B 1
 :device_info_end
 
 :: set target_num based on target_dev
@@ -196,18 +196,18 @@ call :uuu_load_uboot
 call :flash_android
 
 :: make sure device is locked for boards don't use tee
-%fastboot_tool% erase fbmisc || exit 1
+%fastboot_tool% erase fbmisc || exit /B 1
 
 if %erase% == 1 (
-    %fastboot_tool% erase userdata || exit 1
-    %fastboot_tool% erase misc || exit 1
+    %fastboot_tool% erase userdata || exit /B 1
+    %fastboot_tool% erase misc || exit /B 1
     if %soc_name:imx8=% == %soc_name% (
-        %fastboot_tool% erase cache || exit 1
+        %fastboot_tool% erase cache || exit /B 1
     )
 )
 
 if not [%slot%] == [] if %support_dualslot% == 1 (
-    %fastboot_tool% set_active %slot:~-1% || exit 1
+    %fastboot_tool% set_active %slot:~-1% || exit /B 1
 )
 
 echo #######ALL IMAGE FILES FLASHED#######
@@ -251,7 +251,7 @@ echo  -d dev            flash dtbo, vbmeta and recovery image file with dev
 echo                        If not set, use default dtbo, vbmeta and recovery image
 echo  -e                erase user data after all image files being flashed
 echo  -D directory      the directory of of images
-echo                        No need to use this option if images and this script are in same directory
+echo                        No need to use this option if images are in current working directory
 echo  -t target_dev     emmc or sd, emmc is default target_dev, make sure target device exist
 echo  -p board          specify board for imx6dl, imx6q, imx6qp, since they are in both sabresd and sabreauto
 echo                        For imx6dl, imx6q, imx6qp, this is mandatory, other chips, no need to use this option
@@ -271,7 +271,7 @@ if [%board%] == [] (
         set board=sabresd
     ) else (
         echo board info need to be specified for %soc_name% with -p option, it can be sabresd or sabreauto
-        call :help & exit 1
+        call :help & exit /B 1
     )
 )
 goto :eof
@@ -283,18 +283,18 @@ if [%device_character%] == [epdc] goto :load_uboot_device_character
 goto :load_uboot_no_device_character
 
 :load_uboot_device_character
-uuu %sdp%: boot -f .\u-boot-%soc_name%-%device_character%-%board%-uuu.imx
+uuu %sdp%: boot -f %image_directory%u-boot-%soc_name%-%device_character%-%board%-uuu.imx
 goto :load_uboot_device_character_end
 
 :load_uboot_no_device_character
-uuu %sdp%: boot -f .\u-boot-%soc_name%-%board%-uuu.imx
+uuu %sdp%: boot -f %image_directory%u-boot-%soc_name%-%board%-uuu.imx
 goto :load_uboot_device_character_end
 
 :load_uboot_device_character_end
 
 if not [%soc_name:imx8m=%] == [%soc_name%] (
     uuu SDPU: delay 1000
-    uuu SDPU: write -f .\u-boot-%soc_name%-%board%-uuu.imx -offset 0x57c00
+    uuu SDPU: write -f %image_directory%u-boot-%soc_name%-%board%-uuu.imx -offset 0x57c00
     uuu SDPU: jump
 )
 uuu FB: ucmd setenv fastboot_dev mmc
@@ -303,11 +303,11 @@ uuu FB: ucmd mmc dev %target_num%
 
 :: erase environment variables of uboot
 if [%target_dev%] == [emmc] (
-    uuu FB: ucmd mmc dev %target_num% 0 || exit 1
+    uuu FB: ucmd mmc dev %target_num% 0 || exit /B 1
 )
 uuu FB: ucmd mmc erase %uboot_env_start% %uboot_env_len%
 if [%target_dev%] == [emmc] (
-    uuu FB: ucmd mmc partconf %target_num% 1 1 1 || exit 1
+    uuu FB: ucmd mmc partconf %target_num% 1 1 1 || exit /B 1
 )
 
 goto :eof
@@ -376,7 +376,7 @@ if not [%local_str:gpt=%] == [%local_str%] (
 
 :start_to_flash
 echo flash the file of %img_name% to the partition of %1
-%fastboot_tool% flash %1 %image_directory%%img_name% || exit 1
+%fastboot_tool% flash %1 %image_directory%%img_name% || exit /B 1
 goto :eof
 
 
@@ -417,7 +417,7 @@ call :flash_partition gpt
 uuu FB: ucmd setenv fastboot_dev sata
 uuu FB: ucmd setenv fastboot_dev mmc
 
-%fastboot_tool% getvar all 2> fastboot_var.log || exit 1
+%fastboot_tool% getvar all 2> fastboot_var.log || exit /B 1
 
 find "dtbo" fastboot_var.log > nul && set /A support_dtbo=1
 
