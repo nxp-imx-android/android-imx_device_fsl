@@ -31,13 +31,15 @@ options:
                         If not set, use default dtbo, vbmeta and image
   -e                erase user data after all image files being flashed
   -D directory      the directory of images
-                        No need to use this option if images and this script are in same directory
+                        No need to use this option if images are in current working directory
   -t target_dev     emmc or sd, emmc is default target_dev, make sure target device exist
   -p board          specify board for imx6dl, imx6q, imx6qp, since they are in both sabresd and sabreauto
                         For imx6dl, imx6q, imx6qp, this is mandatory, other chips, no need to use this option
+
 EOF
 
 }
+
 
 # parse command line
 soc_name=""
@@ -211,13 +213,13 @@ function uuu_load_uboot
 {
     uuu CFG: ${sdp}: -chip ${chip} -vid ${vid} -pid ${pid}
     if [[ ${device_character} == "ldo" ]] || [[ ${device_character} == "epdc" ]]; then
-        uuu ${sdp}: boot -f ./u-boot-${soc_name}-${device_character}-${board}-uuu.imx
+        uuu ${sdp}: boot -f ${image_directory}u-boot-${soc_name}-${device_character}-${board}-uuu.imx
     else
-        uuu ${sdp}: boot -f ./u-boot-${soc_name}-${board}-uuu.imx
+        uuu ${sdp}: boot -f ${image_directory}u-boot-${soc_name}-${board}-uuu.imx
     fi
     if [[ ${soc_name#imx8m} != ${soc_name} ]]; then
         uuu SDPU: delay 1000
-        uuu SDPU: write -f ./u-boot-${soc_name}-${board}-uuu.imx -offset 0x57c00
+        uuu SDPU: write -f ${image_directory}u-boot-${soc_name}-${board}-uuu.imx -offset 0x57c00
         uuu SDPU: jump
     fi
     uuu FB: ucmd setenv fastboot_dev mmc
