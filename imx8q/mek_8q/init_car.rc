@@ -287,6 +287,9 @@ on property:sys.boot_completed=1
     write /sys/block/dm-1/queue/read_ahead_kb 512
 
 on post-fs-data
+    # Set netd memlock rlimit to 8MB
+    setrlimit 8 8388608 8388608
+
     setprop vold.post_fs_data_done 1
     # tmp dir for opencl Compiler
     setprop TMPDIR /data/vendor/.opencl-cache
