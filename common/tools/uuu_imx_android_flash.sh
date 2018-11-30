@@ -367,8 +367,6 @@ uuu_load_uboot
 
 flash_android
 
-# make sure device is locked for boards don't use tee
-${fastboot_tool} erase fbmisc
 if [ ${erase} -eq 1 ]; then
     ${fastboot_tool} erase userdata
     ${fastboot_tool} erase misc
@@ -376,6 +374,9 @@ if [ ${erase} -eq 1 ]; then
         ${fastboot_tool} erase cache
     fi
 fi
+
+# make sure device is locked for boards don't use tee
+${fastboot_tool} erase fbmisc
 
 if [ "${slot}" != "" ] && [ ${support_dualslot} -eq 1 ]; then
     ${fastboot_tool} set_active ${slot#_}
