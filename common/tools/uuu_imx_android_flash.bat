@@ -195,9 +195,6 @@ call :uuu_load_uboot
 
 call :flash_android
 
-:: make sure device is locked for boards don't use tee
-%fastboot_tool% erase fbmisc || exit /B 1
-
 if %erase% == 1 (
     %fastboot_tool% erase userdata || exit /B 1
     %fastboot_tool% erase misc || exit /B 1
@@ -205,6 +202,9 @@ if %erase% == 1 (
         %fastboot_tool% erase cache || exit /B 1
     )
 )
+
+:: make sure device is locked for boards don't use tee
+%fastboot_tool% erase fbmisc || exit /B 1
 
 if not [%slot%] == [] if %support_dualslot% == 1 (
     %fastboot_tool% set_active %slot:~-1% || exit /B 1
