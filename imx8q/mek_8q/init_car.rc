@@ -110,7 +110,7 @@ on property:vendor.rpmsg.can.event=1 && property:vendor.evs.video.ready=1
 on property:vendor.rpmsg.can.event=0
     stop evs_app
 
-on property:sys.boot_completed=1
+on property:vendor.all.system_server.ready=1
     # register the vehicle_rpmsg on raw android.
     write /sys/devices/platform/vehicle_rpmsg/register 1
     # register the vehicle_rpmsg on android running in xen.
