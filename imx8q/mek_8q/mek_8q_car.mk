@@ -20,6 +20,7 @@ PRODUCT_COPY_FILES += \
     $(IMX_DEVICE_PATH)/init.freescale.sd.xen.rc:root/init.recovery.freescale.sd.xen.rc \
     packages/services/Car/car_product/init/init.bootstat.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.bootstat.rc \
     packages/services/Car/car_product/init/init.car.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.car.rc \
+    device/fsl/common/security/testkey_public_rsa4096.bin:testkey_public_rsa4096.bin \
     device/fsl/common/security/rpmb_key_test.bin:rpmb_key_test.bin
 
 # ONLY devices that meet the CDD's requirements may declare these features
