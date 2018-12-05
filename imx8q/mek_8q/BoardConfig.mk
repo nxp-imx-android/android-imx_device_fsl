@@ -204,6 +204,11 @@ TARGET_BOARD_RECOVERY_SBIN_SKIP := true
 endif
 
 BOARD_AVB_ENABLE := true
+ifeq ($(PRODUCT_IMX_CAR),true)
+BOARD_AVB_ALGORITHM := SHA256_RSA4096
+# The testkey_rsa4096.pem is copied from external/avb/test/data/testkey_rsa4096.pem
+BOARD_AVB_KEY_PATH := device/fsl/common/security/testkey_rsa4096.pem
+endif
 TARGET_USES_MKE2FS := true
 
 TARGET_BOARD_KERNEL_HEADERS := device/fsl/common/kernel-headers
