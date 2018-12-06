@@ -31,6 +31,7 @@ FB: flash dtbo dtbo-imx6dl.img
 FB[-t 600000]: ERASE userdata
 FB: ERASE misc
 FB[-t 100000]: ERASE cache
+FB[-t 100000]: ERASE presistdata
 FB[-t 100000]: ERASE fbmisc
 
 FB: done

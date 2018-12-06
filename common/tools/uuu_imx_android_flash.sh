@@ -376,6 +376,7 @@ if [ ${erase} -eq 1 ]; then
 fi
 
 # make sure device is locked for boards don't use tee
+${fastboot_tool} erase presistdata
 ${fastboot_tool} erase fbmisc
 
 if [ "${slot}" != "" ] && [ ${support_dualslot} -eq 1 ]; then
