@@ -25,6 +25,7 @@ FB: flash dtbo_b dtbo-imx8qm.img
 # erase userdata and misc partition
 FB[-t 600000]: ERASE userdata
 FB: ERASE misc
+FB[-t 100000]: ERASE presistdata
 FB[-t 100000]: ERASE fbmisc
 
 FB: done

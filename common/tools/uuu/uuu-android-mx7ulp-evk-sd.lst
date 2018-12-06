@@ -34,6 +34,7 @@ FB[-t 30000]: ucmd sf write 0x60800000 0 0x20000
 FB[-t 600000]: ERASE userdata
 FB: ERASE misc
 FB[-t 100000]: ERASE cache
+FB[-t 100000]: ERASE presistdata
 FB[-t 100000]: ERASE fbmisc
 
 FB: done

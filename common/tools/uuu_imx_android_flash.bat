@@ -204,6 +204,7 @@ if %erase% == 1 (
 )
 
 :: make sure device is locked for boards don't use tee
+%fastboot_tool% erase presistdata || exit /B 1
 %fastboot_tool% erase fbmisc || exit /B 1
 
 if not [%slot%] == [] if %support_dualslot% == 1 (
