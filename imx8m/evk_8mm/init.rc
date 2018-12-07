@@ -68,6 +68,9 @@ on early-boot
     setprop front_camera_name uvc
     setprop front_camera_orient 0
 
+    #Enable GPU 2D do CSC on imx8mm platform
+    setprop vendor.camera.2d.enable true
+
    # Tweak the mmc device read ahead buffer size
     write /sys/block/mmcblk1/queue/read_ahead_kb 2048
     write /sys/block/mmcblk2/queue/read_ahead_kb 2048
