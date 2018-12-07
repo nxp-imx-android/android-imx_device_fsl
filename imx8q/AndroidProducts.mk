@@ -28,4 +28,5 @@
 
 PRODUCT_MAKEFILES := \
   $(LOCAL_DIR)/mek_8q/mek_8q.mk \
-  $(LOCAL_DIR)/mek_8q/mek_8q_car.mk
+  $(LOCAL_DIR)/mek_8q/mek_8q_car.mk \
+  $(LOCAL_DIR)/mek_8q/mek_8q_car2.mk

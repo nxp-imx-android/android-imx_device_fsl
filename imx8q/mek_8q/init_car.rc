@@ -36,9 +36,6 @@ on init
     # create temp node for secure storage proxy
     mkdir /data/ss 0700 system system
 
-    # disable boot animation
-    setprop debug.sf.nobootanimation 1
-
 on early-boot
     wait_for_prop sys.all.early_init.ready 1
 

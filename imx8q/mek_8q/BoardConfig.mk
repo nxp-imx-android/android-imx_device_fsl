@@ -55,7 +55,7 @@ BOARD_WPA_SUPPLICANT_PRIVATE_LIB        := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
 BOARD_VENDOR_KERNEL_MODULES += \
                             $(KERNEL_OUT)/drivers/net/wireless/qcacld-2.0/wlan.ko
 
-ifeq ($(PRODUCT_IMX_CAR),true)
+ifeq ($(PRODUCT_IMX_CAR_M4),true)
 BOARD_VENDOR_KERNEL_MODULES += \
                             $(KERNEL_OUT)/drivers/extcon/extcon-ptn5150.ko \
                             $(KERNEL_OUT)/drivers/hid/usbhid/usbhid.ko \
@@ -163,7 +163,11 @@ endif
 
 BOARD_PREBUILT_DTBOIMAGE := out/target/product/mek_8q/dtbo-imx8qm.img
 ifeq ($(PRODUCT_IMX_CAR),true)
+ifeq ($(PRODUCT_IMX_CAR_M4),true)
 TARGET_BOARD_DTS_CONFIG := imx8qm:fsl-imx8qm-mek-car.dtb imx8qm-xen:fsl-imx8qm-mek-domu-car.dtb imx8qxp:fsl-imx8qxp-mek-car.dtb
+else
+TARGET_BOARD_DTS_CONFIG := imx8qm:fsl-imx8qm-mek-car2.dtb imx8qxp:fsl-imx8qxp-mek-car2.dtb
+endif #PRODUCT_IMX_CAR_M4
 TARGET_BOOTLOADER_CONFIG := imx8qm:imx8qm_mek_androidauto_trusty_defconfig imx8qm-xen:imx8qm_mek_androidauto_xen_defconfig imx8qxp:imx8qxp_mek_androidauto_trusty_defconfig
 else
 TARGET_BOARD_DTS_CONFIG := imx8qm:fsl-imx8qm-mek-mipi-two-ov5640.dtb imx8qm-mipi-panel:fsl-imx8qm-mek-dsi-rm67191.dtb imx8qm-hdmi:fsl-imx8qm-mek-hdmi.dtb imx8qxp:fsl-imx8qxp-mek-ov5640.dtb imx8qxp-ov5640mipi:fsl-imx8qxp-mek-mipi-ov5640.dtb
@@ -174,7 +178,11 @@ endif #PRODUCT_IMX_CAR
 TARGET_BOOTLOADER_CONFIG += imx8qm-mek-uuu:imx8qm_mek_android_uuu_defconfig imx8qxp-mek-uuu:imx8qxp_mek_android_uuu_defconfig
 
 ifeq ($(PRODUCT_IMX_CAR),true)
+ifeq ($(PRODUCT_IMX_CAR_M4),true)
 TARGET_KERNEL_DEFCONFIG := android_car_defconfig
+else
+TARGET_KERNEL_DEFCONFIG := android_car2_defconfig
+endif # PRODUCT_IMX_CAR_M4
 include $(IMX_DEVICE_PATH)/build_id_car.mk
 else
 TARGET_KERNEL_DEFCONFIG := android_defconfig
