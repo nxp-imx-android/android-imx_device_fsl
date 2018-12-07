@@ -4,6 +4,10 @@
 IMX_DEVICE_PATH := device/fsl/imx8q/mek_8q
 
 PRODUCT_IMX_CAR := true
+#with m4 build
+PRODUCT_IMX_CAR_M4 ?= true
+#without m4 build
+#PRODUCT_IMX_CAR_M4 ?= false
 
 include $(IMX_DEVICE_PATH)/mek_8q.mk
 
@@ -56,3 +60,13 @@ PRODUCT_PACKAGES += \
 
 # Use special ro.zygote to make default init.rc didn't load default zygote rc
 PRODUCT_PRODUCT_PROPERTIES += ro.zygote=zygote_auto
+ifeq ($(PRODUCT_IMX_CAR_M4),false)
+# Simulate the vehical rpmsg register event for non m4 car image
+PRODUCT_PROPERTY_OVERRIDES += \
+    vendor.rpmsg.can.register=1 \
+    vendor.evs.video.ready=1
+else
+#no bootanimation since it is handled in m4 image
+PRODUCT_PROPERTY_OVERRIDES += \
+    debug.sf.nobootanimation=1
+endif # PRODUCT_IMX_CAR_M4

@@ -30,8 +30,6 @@ on init
     # deattch the fbcon as hdmi hotplug conflict with fbcon
     write /sys/class/vtconsole/vtcon1/bind 0
 
-    # disable boot animation
-    setprop debug.sf.nobootanimation 1
 
 on early-boot
     wait_for_prop sys.all.early_init.ready 1
