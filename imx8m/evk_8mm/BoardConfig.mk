@@ -98,6 +98,11 @@ USE_ION_ALLOCATOR := true
 USE_GPU_ALLOCATOR := false
 
 BOARD_AVB_ENABLE := true
+ifeq ($(PRODUCT_IMX_TRUSTY),true)
+BOARD_AVB_ALGORITHM := SHA256_RSA4096
+# The testkey_rsa4096.pem is copied from external/avb/test/data/testkey_rsa4096.pem
+BOARD_AVB_KEY_PATH := device/fsl/common/security/testkey_rsa4096.pem
+endif
 TARGET_USES_MKE2FS := true
 
 # define frame buffer count
@@ -118,9 +123,14 @@ $(error "TARGET_USERIMAGES_USE_UBIFS and TARGET_USERIMAGES_USE_EXT4 config open 
 endif
 endif
 
-TARGET_BOARD_DTS_CONFIG ?= imx8mm:fsl-imx8mm-evk.dtb imx8mm-mipi-panel:fsl-imx8mm-evk-rm67191.dtb imx8mm-dsd:fsl-imx8mm-evk-ak4497.dtb imx8mm-m4:fsl-imx8mm-evk-m4.dtb
 BOARD_PREBUILT_DTBOIMAGE := out/target/product/evk_8mm/dtbo-imx8mm.img
+ifeq ($(PRODUCT_IMX_TRUSTY),true)
+TARGET_BOOTLOADER_CONFIG := imx8mm:imx8mm_evk_android_trusty_defconfig
+TARGET_BOARD_DTS_CONFIG ?= imx8mm:fsl-imx8mm-trusty-evk.dtb imx8mm-mipi-panel:fsl-imx8mm-evk-rm67191.dtb imx8mm-dsd:fsl-imx8mm-evk-ak4497.dtb imx8mm-m4:fsl-imx8mm-evk-m4.dtb
+else
+TARGET_BOARD_DTS_CONFIG ?= imx8mm:fsl-imx8mm-evk.dtb imx8mm-mipi-panel:fsl-imx8mm-evk-rm67191.dtb imx8mm-dsd:fsl-imx8mm-evk-ak4497.dtb imx8mm-m4:fsl-imx8mm-evk-m4.dtb
 TARGET_BOOTLOADER_CONFIG := imx8mm:imx8mm_evk_android_defconfig
+endif
 TARGET_KERNEL_DEFCONFIG := android_defconfig
 TARGET_KERNEL_ADDITION_DEFCONF := android_addition_defconfig
 
