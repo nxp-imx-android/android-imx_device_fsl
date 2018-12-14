@@ -64,3 +64,8 @@ LOCAL_MODULE_TAGS := optional
 LOCAL_REQUIRED_MODULES := $(addsuffix .vndk-sp-gen,$(VNDK_SP_LIBRARIES))
 include $(BUILD_PHONY_PACKAGE)
 endif
+
+ifdef BOARD_VNDK_VERSION
+$(info $(shell development/vndk/tools/header-checker/utils/create_reference_dumps.py -products $(TARGET_PRODUCT) -l libtinyalsa))
+$(info $(shell development/vndk/tools/header-checker/utils/create_reference_dumps.py -products $(TARGET_PRODUCT) -l libstagefright_foundation))
+endif
