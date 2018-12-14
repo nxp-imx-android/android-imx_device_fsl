@@ -3,3 +3,4 @@ allow zygote storage_file:dir { getattr };
 allow zygote cgroup:file { getattr create };
 allow zygote vendor_file:file { read open getattr execute };
 allow zygote self:capability { dac_read_search };
+set_prop(zygote, vehicle_rpmsg_prop)
