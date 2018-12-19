@@ -111,7 +111,9 @@ if not [%soc_name:imx8mq=%] == [%soc_name%] (
     set vid=0x1fc9& set pid=0x012b& set chip=MX8MQ
     set uboot_env_start=0x2000& set uboot_env_len=0x8
     set emmc_num=0& set sd_num=1
-    set board=evk
+    if [%board%] == [] (
+        set board=evk
+    )
     goto :device_info_end
 )
 if not [%soc_name:imx8mm=%] == [%soc_name%] (
@@ -226,10 +228,10 @@ goto :eof
 
 :help
 echo.
-echo Version: 1.1
-echo Last change: erase fbmisc partiton even if -e option not used
-echo current suport platforms: sabresd_6dq, sabreauto_6q, sabresd_6sx, evk_7ulp, sabresd_7d
-echo                           evk_8mm, evk_8mq, mek_8q, mek_8q_car
+echo Version: 1.2
+echo Last change: add support for aiy_imx8mq platform.
+echo currently suported platforms: sabresd_6dq, sabreauto_6q, sabresd_6sx, evk_7ulp, sabresd_7d
+echo                               evk_8mm, evk_8mq, aiy_8mq, mek_8q, mek_8q_car
 echo.
 echo eg: uuu_imx_android_flash.bat -f imx8qm -a -e -D C:\Users\user_01\images\2018.11.10\imx_pi9.0\mek_8q\
 echo eg: uuu_imx_android_flash.bat -f imx6qp -e -D C:\Users\user_01\images\2018.11.10\imx_pi9.0\sabresd_6dq\ -p sabresd
@@ -254,8 +256,10 @@ echo  -e                erase user data after all image files being flashed
 echo  -D directory      the directory of of images
 echo                        No need to use this option if images are in current working directory
 echo  -t target_dev     emmc or sd, emmc is default target_dev, make sure target device exist
-echo  -p board          specify board for imx6dl, imx6q, imx6qp, since they are in both sabresd and sabreauto
-echo                        For imx6dl, imx6q, imx6qp, this is mandatory, other chips, no need to use this option
+echo  -p board          specify board for imx6dl, imx6q, imx6qp and imx8mq, since more than one platform we maintain Android on use these chips
+echo                        For imx6dl, imx6q, imx6qp, this is mandatory, it can be followed with sabresd or sabreauto
+echo                        For imx8mq, this option is only used internally. No need for other users to use this option
+echo                        For other chips, this option doesn't work
 goto :eof
 
 :target_dev_not_support
@@ -284,7 +288,7 @@ if [%device_character%] == [epdc] goto :load_uboot_device_character
 goto :load_uboot_no_device_character
 
 :load_uboot_device_character
-uuu %sdp%: boot -f %image_directory%u-boot-%soc_name%-%device_character%-%board%-uuu.imx
+uuu %sdp%: boot -f %image_directory%u-boot-%soc_name%-%device_character%-%board%-uuu.imx || exit /B 1
 goto :load_uboot_device_character_end
 
 :load_uboot_no_device_character

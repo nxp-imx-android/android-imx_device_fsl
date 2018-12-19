@@ -5,10 +5,10 @@ help() {
 bn=`basename $0`
 cat << EOF
 
-Version: 1.1
-Last change: erase fbmisc partiton even if -e option not used
-current suport platforms: sabresd_6dq, sabreauto_6q, sabresd_6sx, evk_7ulp, sabresd_7d
-                          evk_8mm, evk_8mq, mek_8q, mek_8q_car
+Version: 1.2
+Last change: add support for aiy_imx8mq platform.
+currently suported platforms: sabresd_6dq, sabreauto_6q, sabresd_6sx, evk_7ulp, sabresd_7d
+                              evk_8mm, evk_8mq, aiy_8mq, mek_8q, mek_8q_car
 
 eg: ./uuu_imx_android_flash.sh -f imx8qm -a -e -D ~/nfs/179/2018.11.10/imx_pi9.0/mek_8q/
 eg: ./uuu_imx_android_flash.sh -f imx6qp -e -D ~/nfs/187/maddev_pi9.0/out/target/product/sabresd_6dq/ -p sabresd
@@ -33,9 +33,10 @@ options:
   -D directory      the directory of images
                         No need to use this option if images are in current working directory
   -t target_dev     emmc or sd, emmc is default target_dev, make sure target device exist
-  -p board          specify board for imx6dl, imx6q, imx6qp, since they are in both sabresd and sabreauto
-                        For imx6dl, imx6q, imx6qp, this is mandatory, other chips, no need to use this option
-
+  -p board          specify board for imx6dl, imx6q, imx6qp and imx8mq, since more than one platform we maintain Android on use these chips
+                        For imx6dl, imx6q, imx6qp, this is mandatory, it can be followed with sabresd or sabreauto
+                        For imx8mq, this option is only used internally. No need for other users to use this option
+                        For other chips, this option doesn't work
 EOF
 
 }
@@ -106,7 +107,6 @@ done
 # if card_size is not correctly set, exit.
 if [ ${card_size} -ne 0 ] && [ ${card_size} -ne 7 ] && [ ${card_size} -ne 14 ] && [ ${card_size} -ne 28 ]; then
     echo -e >&2 ${RED}card size ${card_size} is not legal${STD};
-	uuu FB: ucmd sf erase $((${imx7ulp_evk_m4_sf_start}*${imx7ulp_evk_sf_blksz})) $((${imx7ulp_evk_m4_sf_length}*${imx7ulp_evk_sf_blksz}))
     help; exit 1;
 fi
 
@@ -136,7 +136,9 @@ case ${soc_name%%-*} in
             vid=0x1fc9; pid=0x012b; chip=MX8MQ;
             uboot_env_start=0x2000; uboot_env_len=0x8;
             emmc_num=0; sd_num=1;
-            board=evk ;;
+            if [ -z "$board" ]; then
+                board=evk;
+            fi ;;
     imx8mm)
             vid=0x1fc9; pid=0x0134; chip=MX8MM;
             uboot_env_start=0x2000; uboot_env_len=0x8;
@@ -177,7 +179,7 @@ esac
 
 # test whether board info is specified for imx6dl, imx6q and imx6qp
 if [[ ${board} == "" ]]; then
-	if [[ $(echo ${device_character} | grep "ldo") != "" ]]; then
+    if [[ $(echo ${device_character} | grep "ldo") != "" ]]; then
             board=sabresd;
 
         else
@@ -299,9 +301,9 @@ function flash_android
 # for xen, no need to flash bootloader
     if [[ ${device_character} != xen ]]; then
         if [ ${soc_name#imx8} != ${soc_name} ]; then
-	        flash_partition "bootloader0"
+            flash_partition "bootloader0"
         else
-	        flash_partition "bootloader"
+            flash_partition "bootloader"
         fi
     fi
 
@@ -345,7 +347,7 @@ function flash_android
         echo FB[-t 30000]: ucmd sf write ${imx7ulp_stage_base_addr} `echo "obase=16;$((${imx7ulp_evk_m4_sf_start}*${imx7ulp_evk_sf_blksz}))" | bc` \
                 `echo "obase=16;$((${imx7ulp_evk_m4_sf_length}*${imx7ulp_evk_sf_blksz}))" | bc` >> /tmp/m4.lst
         echo FB: done >> /tmp/m4.lst
-	echo -e flash the file of ${RED}imx7ulp_m4_demo.img${STD} to the partition of ${RED}m4_os${STD}
+        echo -e flash the file of ${RED}imx7ulp_m4_demo.img${STD} to the partition of ${RED}m4_os${STD}
         uuu /tmp/m4.lst
         rm /tmp/m4.lst
     fi

@@ -120,6 +120,9 @@ BOARD_PREBUILT_DTBOIMAGE := out/target/product/aiy_8mq/dtbo-imx8mq.img
 TARGET_BOARD_DTS_CONFIG ?= imx8mq:fsl-imx8mq-phanbell.dtb
 TARGET_BOOTLOADER_CONFIG := imx8mq:imx8mq_aiy_android_defconfig
 
+# set TARGET_BOOTLOADER_CONFIG for u-boot used by uuu
+TARGET_BOOTLOADER_CONFIG += imx8mq-aiy-uuu:imx8mq_aiy_android_uuu_defconfig
+
 TARGET_KERNEL_DEFCONFIG := android_defconfig
 
 BOARD_SEPOLICY_DIRS := \
