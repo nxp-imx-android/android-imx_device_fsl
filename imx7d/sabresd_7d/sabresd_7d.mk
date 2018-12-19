@@ -91,9 +91,8 @@ PRODUCT_COPY_FILES += \
     frameworks/av/services/audiopolicy/config/r_submix_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/r_submix_audio_policy_configuration.xml \
     frameworks/av/services/audiopolicy/config/usb_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/usb_audio_policy_configuration.xml
 
-# uuu script, fastboot_imx_flashall scripts, fsl-sdcard-partition script and uuu_imx_android_flash scripts
+# fastboot_imx_flashall scripts, fsl-sdcard-partition script and uuu_imx_android_flash scripts
 PRODUCT_COPY_FILES += \
-    device/fsl/common/tools/uuu/uuu-android-mx7d-sabresd-sd.lst:uuu-android-mx7d-sabresd-sd.lst \
     device/fsl/common/tools/fastboot_imx_flashall.bat:fastboot_imx_flashall.bat \
     device/fsl/common/tools/fastboot_imx_flashall.sh:fastboot_imx_flashall.sh \
     device/fsl/common/tools/fsl-sdcard-partition.sh:fsl-sdcard-partition.sh \

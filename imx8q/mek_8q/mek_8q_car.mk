@@ -24,8 +24,7 @@ PRODUCT_COPY_FILES += \
     packages/services/Car/car_product/init/init.car.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.car.rc \
     system/core/rootdir/init.zygote_auto.rc:root/init.zygote_auto.rc \
     device/fsl/common/security/rpmb_key_test.bin:rpmb_key_test.bin \
-    device/fsl/common/security/testkey_public_rsa4096.bin:testkey_public_rsa4096.bin \
-    device/fsl/common/tools/uuu/uuu-android-mx8qm-xen-mek-emmc.lst:uuu-android-mx8qm-xen-mek-emmc.lst
+    device/fsl/common/security/testkey_public_rsa4096.bin:testkey_public_rsa4096.bin
 
 # ONLY devices that meet the CDD's requirements may declare these features
 PRODUCT_COPY_FILES += \

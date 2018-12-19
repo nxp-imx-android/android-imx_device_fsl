@@ -73,9 +73,8 @@ PRODUCT_COPY_FILES += \
     $(IMX_DEVICE_PATH)/seccomp/mediacodec-seccomp.policy:vendor/etc/seccomp_policy/mediacodec.policy \
     $(IMX_DEVICE_PATH)/seccomp/mediaextractor-seccomp.policy:vendor/etc/seccomp_policy/mediaextractor.policy
 
-# uuu scripts, fastboot_imx_flashall scripts and fsl-sdcard-partition script
+# fastboot_imx_flashall scripts and fsl-sdcard-partition script
 PRODUCT_COPY_FILES += \
-    device/fsl/common/tools/uuu/uuu-android-mx8mq-aiy-emmc.lst:uuu-android-mx8mq-aiy-emmc.lst \
     device/fsl/common/tools/fastboot_imx_flashall.bat:fastboot_imx_flashall.bat \
     device/fsl/common/tools/fastboot_imx_flashall.sh:fastboot_imx_flashall.sh \
 
