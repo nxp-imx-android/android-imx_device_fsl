@@ -170,7 +170,7 @@ TARGET_BOARD_DTS_CONFIG := imx8qm:fsl-imx8qm-mek-car2.dtb imx8qxp:fsl-imx8qxp-me
 endif #PRODUCT_IMX_CAR_M4
 TARGET_BOOTLOADER_CONFIG := imx8qm:imx8qm_mek_androidauto_trusty_defconfig imx8qm-xen:imx8qm_mek_androidauto_xen_defconfig imx8qxp:imx8qxp_mek_androidauto_trusty_defconfig
 else
-TARGET_BOARD_DTS_CONFIG := imx8qm:fsl-imx8qm-mek-mipi-two-ov5640.dtb imx8qm-mipi-panel:fsl-imx8qm-mek-dsi-rm67191.dtb imx8qm-hdmi:fsl-imx8qm-mek-hdmi.dtb imx8qxp:fsl-imx8qxp-mek-ov5640.dtb imx8qxp-ov5640mipi:fsl-imx8qxp-mek-mipi-ov5640.dtb
+TARGET_BOARD_DTS_CONFIG := imx8qm:fsl-imx8qm-mek-ov5640.dtb imx8qm-mipi-panel:fsl-imx8qm-mek-dsi-rm67191.dtb imx8qm-hdmi:fsl-imx8qm-mek-hdmi.dtb imx8qxp:fsl-imx8qxp-mek-ov5640.dtb
 TARGET_BOOTLOADER_CONFIG := imx8qm:imx8qm_mek_android_defconfig imx8qxp:imx8qxp_mek_android_defconfig
 endif #PRODUCT_IMX_CAR
 
