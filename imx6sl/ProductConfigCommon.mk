@@ -201,6 +201,12 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     ComponentRegistry.txt \
     component_register \
+    component_register_ac3 \
+    component_register_ddp \
+    component_register_ra \
+    component_register_rv \
+    component_register_ms \
+    component_register_wmv9 \
     contentpipe_register \
     core_register \
     fslomx.cfg \
@@ -299,6 +305,12 @@ PRODUCT_PACKAGES += \
     libswresample \
     libxec \
     media_codecs.xml \
+    media_codecs_ac3.xml \
+    media_codecs_ddp.xml \
+    media_codecs_ms.xml \
+    media_codecs_wmv9.xml \
+    media_codecs_ra.xml \
+    media_codecs_rv.xml \
     media_codecs_performance.xml \
     media_profiles_V1_0.xml
 
