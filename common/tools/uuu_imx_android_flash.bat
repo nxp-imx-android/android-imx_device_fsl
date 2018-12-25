@@ -47,6 +47,8 @@ set board=
 set imx7ulp_evk_m4_sf_start_byte=0
 set imx7ulp_evk_m4_sf_length_byte=0x20000
 set imx7ulp_stage_base_addr=0x60800000
+set bootloader_usbd_by_uuu=
+set bootloader_flashed_to_board=
 
 
 ::---------------------------------------------------------------------------------
@@ -189,6 +191,20 @@ if not [%soc_name:imx8q=%] == [%soc_name%] (
     set sdp=SDPS
 )
 
+:: find the names of the bootloader used by uuu and flashed to board
+if [%device_character%] == [ldo] goto :the_name_of_bootloader_with_device_character
+if [%device_character%] == [epdc] goto :the_name_of_bootloader_with_device_character
+if [%device_character%] == [ddr4] goto :the_name_of_bootloader_with_device_character
+goto :the_name_of_bootloader_without_device_character
+:the_name_of_bootloader_with_device_character
+set bootloader_usbd_by_uuu=u-boot-%soc_name%-%device_character%-%board%-uuu.imx
+set bootloader_flashed_to_board=u-boot-%soc_name%-%device_character%.imx
+goto :the_name_of_bootloader_end
+:the_name_of_bootloader_without_device_character
+set bootloader_usbd_by_uuu=u-boot-%soc_name%-%board%-uuu.imx
+set bootloader_flashed_to_board=u-boot-%soc_name%.imx
+goto :the_name_of_bootloader_end
+:the_name_of_bootloader_end
 
 ::---------------------------------------------------------------------------------
 :: Invoke function to flash android images
@@ -283,23 +299,12 @@ goto :eof
 
 :uuu_load_uboot
 uuu CFG: FB: -vid %vid% -pid %pid%
-if [%device_character%] == [ldo] goto :load_uboot_device_character
-if [%device_character%] == [epdc] goto :load_uboot_device_character
-goto :load_uboot_no_device_character
 
-:load_uboot_device_character
-uuu %sdp%: boot -f %image_directory%u-boot-%soc_name%-%device_character%-%board%-uuu.imx || exit /B 1
-goto :load_uboot_device_character_end
-
-:load_uboot_no_device_character
-uuu %sdp%: boot -f %image_directory%u-boot-%soc_name%-%board%-uuu.imx
-goto :load_uboot_device_character_end
-
-:load_uboot_device_character_end
+uuu %sdp%: boot -f %image_directory%%bootloader_usbd_by_uuu% || exit /B 1
 
 if not [%soc_name:imx8m=%] == [%soc_name%] (
     uuu SDPU: delay 1000
-    uuu SDPU: write -f %image_directory%u-boot-%soc_name%-%board%-uuu.imx -offset 0x57c00
+    uuu SDPU: write -f %image_directory%%bootloader_usbd_by_uuu% -offset 0x57c00
     uuu SDPU: jump
 )
 uuu FB: ucmd setenv fastboot_dev mmc
@@ -350,19 +355,7 @@ if not [%local_str:recovery=%] == [%local_str%] if not [%device_character%] == [
     goto :start_to_flash
 )
 if not [%local_str:bootloader=%] == [%local_str%] (
-    if [%device_character%] == [ldo] goto :uboot_device_character
-    if [%device_character%] == [epdc] goto :uboot_device_character
-    goto :uboot_no_device_character
-
-:uboot_device_character
-    set img_name=u-boot-%soc_name%-%device_character%.imx
-    goto :uboot_device_character_end
-
-:uboot_no_device_character
-    set img_name=u-boot-%soc_name%.imx
-    goto :uboot_device_character_end
-
-:uboot_device_character_end
+    set img_name=%bootloader_flashed_to_board%
     goto :start_to_flash
 )
 

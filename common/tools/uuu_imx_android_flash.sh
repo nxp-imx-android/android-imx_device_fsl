@@ -77,6 +77,8 @@ imx7ulp_evk_m4_sf_start=0
 imx7ulp_evk_m4_sf_length=256
 imx7ulp_evk_sf_blksz=512
 imx7ulp_stage_base_addr=0x60800000
+bootloader_usbd_by_uuu=""
+bootloader_flashed_to_board=""
 
 if [ $# -eq 0 ]; then
     echo -e >&2 ${RED}please provide more information with command script options${STD}
@@ -211,17 +213,23 @@ if [[ ${soc_name#imx8q} != ${soc_name} ]]; then
     sdp="SDPS"
 fi
 
+# find the names of the bootloader used by uuu and flashed to board
+if [[ ${device_character} == "ldo" ]] || [[ ${device_character} == "epdc" ]] || \
+        [[ ${device_character} == "ddr4" ]]; then
+    bootloader_usbd_by_uuu=u-boot-${soc_name}-${device_character}-${board}-uuu.imx
+    bootloader_flashed_to_board="u-boot-${soc_name}-${device_character}.imx"
+else
+    bootloader_usbd_by_uuu=u-boot-${soc_name}-${board}-uuu.imx
+    bootloader_flashed_to_board=u-boot-${soc_name}.imx
+fi
+
 function uuu_load_uboot
 {
     uuu CFG: ${sdp}: -chip ${chip} -vid ${vid} -pid ${pid}
-    if [[ ${device_character} == "ldo" ]] || [[ ${device_character} == "epdc" ]]; then
-        uuu ${sdp}: boot -f ${image_directory}u-boot-${soc_name}-${device_character}-${board}-uuu.imx
-    else
-        uuu ${sdp}: boot -f ${image_directory}u-boot-${soc_name}-${board}-uuu.imx
-    fi
+    uuu ${sdp}: boot -f ${image_directory}${bootloader_usbd_by_uuu}
     if [[ ${soc_name#imx8m} != ${soc_name} ]]; then
         uuu SDPU: delay 1000
-        uuu SDPU: write -f ${image_directory}u-boot-${soc_name}-${board}-uuu.imx -offset 0x57c00
+        uuu SDPU: write -f ${image_directory}${bootloader_usbd_by_uuu} -offset 0x57c00
         uuu SDPU: jump
     fi
     uuu FB: ucmd setenv fastboot_dev mmc
@@ -246,11 +254,7 @@ function flash_partition
     elif [ $(echo ${1} | grep "vendor") != "" ] 2>/dev/null; then
         img_name=${vendor_file}
     elif [ $(echo ${1} | grep "bootloader") != "" ] 2>/dev/null; then
-            if [[ ${device_character} == "ldo" ]] || [[ ${device_character} == "epdc" ]]; then
-                img_name="u-boot-${soc_name}-${device_character}.imx"
-            else
-                img_name="u-boot-${soc_name}.imx"
-            fi
+        img_name=${bootloader_flashed_to_board}
 
     elif [ ${support_dtbo} -eq 1 ] && [ $(echo ${1} | grep "boot") != "" ] 2>/dev/null; then
             img_name="boot.img"
