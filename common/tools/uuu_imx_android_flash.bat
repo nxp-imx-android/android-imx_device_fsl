@@ -26,7 +26,6 @@ set /A support_dtbo=0
 set /A support_recovery=0
 set /A support_dualslot=0
 set /A support_m4_os=0
-set bootloader_partition=
 set boot_partition=boot
 set recovery_partition=recovery
 set system_partition=system
@@ -404,12 +403,11 @@ goto :eof
 :: for xen mode, no need to flash bootloader
 if not [%device_character%] == [xen] (
     if not %soc_name:imx8=% == %soc_name% (
-        set bootloader_partition=bootloader0
+        call :flash_partition bootloader0
     ) else (
-        set bootloader_partition=bootloader
+        call :flash_partition bootloader
     )
 )
-call :flash_partition %bootloader_partition%
 
 call :flash_partition gpt
 
