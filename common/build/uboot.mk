@@ -106,8 +106,13 @@ UBOOT_ENV_OUT := $(PRODUCT_OUT)/uboot.env
 # Figure out which U-Boot version is being built (disregard -stable version).
 UBOOT_VERSION := $(shell $(MAKE) -j1 --no-print-directory -C $(UBOOT_IMX_PATH)/uboot-imx -s SUBLEVEL="" ubootversion)
 
+ifeq ($(PRODUCT_IMX_CAR_M4),true)
+$(UBOOT_OUT): UBOOT_M4_BIN
+	mkdir -p $@
+else
 $(UBOOT_OUT):
 	mkdir -p $@
+endif
 
 $(UBOOT_BIN): $(UBOOT_OUT)
 	$(hide) echo "Building $(UBOOT_ARCH) $(UBOOT_VERSION) U-Boot ..."
