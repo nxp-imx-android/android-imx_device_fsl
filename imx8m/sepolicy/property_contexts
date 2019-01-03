@@ -107,6 +107,7 @@ CL_NOPREPROCESS                     u:object_r:vendor_default_prop:s0
 ro.camera.req.fmq.size              u:object_r:vendor_default_prop:s0
 ro.camera.res.fmq.size              u:object_r:vendor_default_prop:s0
 ro.rfkilldisabled                   u:object_r:vendor_default_prop:s0
+ro.boot.wifivendor                  u:object_r:vendor_default_prop:s0
 
 # vendor_bluetooth_prop
 persist.bluetooth.a4wp              u:object_r:vendor_bluetooth_prop:s0

@@ -57,18 +57,31 @@ TARGET_BOOTLOADER_POSTFIX := bin
 USE_OPENGL_RENDERER := true
 TARGET_CPU_SMP := true
 
-BOARD_WLAN_DEVICE            := qcwcn
+BOARD_WLAN_DEVICE            := UNITE
 WPA_SUPPLICANT_VERSION       := VER_0_8_X
 BOARD_WPA_SUPPLICANT_DRIVER  := NL80211
 BOARD_HOSTAPD_DRIVER         := NL80211
 
+ifeq ($(BOARD_WLAN_DEVICE), UNITE)
+BOARD_HOSTAPD_PRIVATE_LIB_QCA           := lib_driver_cmd_qcwcn
+BOARD_WPA_SUPPLICANT_PRIVATE_LIB_QCA    := lib_driver_cmd_qcwcn
+BOARD_HOSTAPD_PRIVATE_LIB_BCM           := lib_driver_cmd_bcmdhd
+BOARD_WPA_SUPPLICANT_PRIVATE_LIB_BCM    := lib_driver_cmd_bcmdhd
+else ifeq ($(strip $(BOARD_WLAN_DEVICE)), $(filter $(BOARD_WLAN_DEVICE), bcmdhd qcwcn))
 BOARD_HOSTAPD_PRIVATE_LIB               := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
 BOARD_WPA_SUPPLICANT_PRIVATE_LIB        := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
+endif
 
-WIFI_HIDL_FEATURE_DUAL_INTERFACE := true
+WIFI_DRIVER_FW_PATH_PARAM := "/sys/module/brcmfmac/parameters/alternative_fw_path"
 
+# QCA qcacld wifi driver module
 BOARD_VENDOR_KERNEL_MODULES += \
-                            $(KERNEL_OUT)/drivers/net/wireless/qcacld-2.0/wlan.ko
+    $(KERNEL_OUT)/drivers/net/wireless/qcacld-2.0/wlan.ko
+
+# BCM fmac wifi driver module
+BOARD_VENDOR_KERNEL_MODULES += \
+    $(KERNEL_OUT)/drivers/net/wireless/broadcom/brcm80211/brcmfmac/brcmfmac.ko \
+    $(KERNEL_OUT)/drivers/net/wireless/broadcom/brcm80211/brcmutil/brcmutil.ko
 
 BOARD_USE_SENSOR_FUSION := true
 
@@ -77,8 +90,9 @@ TARGET_SELECT_KEY := 28
 # we don't support sparse image.
 TARGET_USERIMAGES_SPARSE_EXT_DISABLED := false
 
-# Qcom 1PJ(QCA9377) BT
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(IMX_DEVICE_PATH)/bluetooth
+
+# Qcom 1PJ(QCA9377) BT
 BOARD_HAVE_BLUETOOTH_QCOM := true
 BOARD_HAS_QCA_BT_ROME := true
 BOARD_HAVE_BLUETOOTH_BLUEZ := false
@@ -86,6 +100,9 @@ QCOM_BT_USE_SIBS := true
 ifeq ($(QCOM_BT_USE_SIBS), true)
     WCNSS_FILTER_USES_SIBS := true
 endif
+
+# BCM 1MW BT
+BOARD_HAVE_BLUETOOTH_BCM := true
 
 UBOOT_POST_PROCESS := true
 
@@ -128,7 +145,7 @@ ifeq ($(PRODUCT_IMX_TRUSTY),true)
 TARGET_BOOTLOADER_CONFIG := imx8mm:imx8mm_evk_android_trusty_defconfig
 TARGET_BOARD_DTS_CONFIG ?= imx8mm:fsl-imx8mm-trusty-evk.dtb imx8mm-mipi-panel:fsl-imx8mm-evk-rm67191.dtb imx8mm-dsd:fsl-imx8mm-evk-ak4497.dtb imx8mm-m4:fsl-imx8mm-evk-m4.dtb
 else
-TARGET_BOARD_DTS_CONFIG ?= imx8mm:fsl-imx8mm-evk.dtb imx8mm-mipi-panel:fsl-imx8mm-evk-rm67191.dtb imx8mm-dsd:fsl-imx8mm-evk-ak4497.dtb imx8mm-m4:fsl-imx8mm-evk-m4.dtb imx8mm-ddr4:fsl-imx8mm-ddr4-evk.dtb
+TARGET_BOARD_DTS_CONFIG ?= imx8mm:fsl-imx8mm-evk.dtb imx8mm-mipi-panel:fsl-imx8mm-evk-rm67191.dtb imx8mm-dsd:fsl-imx8mm-evk-ak4497.dtb imx8mm-m4:fsl-imx8mm-evk-m4.dtb imx8mm-ddr4:fsl-imx8mm-ddr4-cyw43455-evk.dtb
 TARGET_BOOTLOADER_CONFIG := imx8mm:imx8mm_evk_android_defconfig imx8mm-ddr4:imx8mm_ddr4_evk_android_defconfig
 endif
 TARGET_KERNEL_DEFCONFIG := android_defconfig
