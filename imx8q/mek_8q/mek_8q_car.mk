@@ -25,6 +25,7 @@ PRODUCT_COPY_FILES += \
     packages/services/Car/car_product/init/init.bootstat.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.bootstat.rc \
     packages/services/Car/car_product/init/init.car.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.car.rc \
     device/fsl/common/security/testkey_public_rsa4096.bin:testkey_public_rsa4096.bin \
+    system/core/rootdir/init.zygote_auto.rc:root/init.zygote_auto.rc \
     device/fsl/common/security/rpmb_key_test.bin:rpmb_key_test.bin
 
 # ONLY devices that meet the CDD's requirements may declare these features
@@ -58,6 +59,9 @@ PRODUCT_PACKAGES += \
     keystore.trusty \
     gatekeeper.trusty \
     storageproxyd
+
+# Use special ro.zygote to make default init.rc didn't load default zygote rc
+PRODUCT_PRODUCT_PROPERTIES += ro.zygote=zygote_auto
 
 ifeq ($(PRODUCT_IMX_CAR_M4),false)
 # Simulate the vehical rpmsg register event for non m4 car image
