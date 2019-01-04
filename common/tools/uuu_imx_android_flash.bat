@@ -46,8 +46,10 @@ set board=
 set imx7ulp_evk_m4_sf_start_byte=0
 set imx7ulp_evk_m4_sf_length_byte=0x20000
 set imx7ulp_stage_base_addr=0x60800000
+set imx8qm_stage_base_addr=0x98000000
 set bootloader_usbd_by_uuu=
 set bootloader_flashed_to_board=
+set yocto_image=
 
 
 ::---------------------------------------------------------------------------------
@@ -74,6 +76,7 @@ if %1 == -e set /A erase=1 & shift & goto :parse_loop
 if %1 == -D set image_directory=%2& shift & shift & goto :parse_loop
 if %1 == -t set target_dev=%2&shift &shift & goto :parse_loop
 if %1 == -p set board=%2&shift &shift & goto :parse_loop
+if %1 == -y set yocto_image=%2&shift &shift & goto :parse_loop
 echo an option you specified is not supported, please check it
 call :help & exit /B 1
 :parse_end
@@ -228,6 +231,37 @@ if not [%slot%] == [] if %support_dualslot% == 1 (
     %fastboot_tool% set_active %slot:~-1% || exit /B 1
 )
 
+:: flash yocto image along with mek_8qm auto xen images
+if not [%yocto_image%] == [] (
+    if [%soc_name%] == [imx8qm] (
+        if [%device_character%] == [xen] (
+            setlocal enabledelayedexpansion
+            set target_num=%sd_num%
+            uuu FB: ucmd setenv fastboot_dev mmc
+            uuu FB: ucmd setenv mmcdev !target_num!
+            uuu FB: ucmd mmc dev !target_num!
+            :: flash the yocto image to "all" partition of SD card
+            uuu "FB[-t 600000]:" flash -raw2sparse all %yocto_image%
+            :: replace uboot from yocto team with the one from android team
+            %fastboot_tool% flash bootloader0 %image_directory%u-boot-imx8qm-xen-dom0.imx
+
+            :: write the xen uboot from android team to FAT on SD card
+            set xen_uboot_name=u-boot-%soc_name%-%device_character%.imx
+            for /f "usebackq" %%A in ('%image_directory%!xen_uboot_name!') do set xen_uboot_size_dec=%%~zA
+            call :dec_to_hex !xen_uboot_size_dec! xen_uboot_size_hex
+            echo xen_uboot_name is !xen_uboot_name!
+            echo xen_uboot_size_dec !xen_uboot_size_dec!
+            echo xen_uboot_size_hex !xen_uboot_size_hex!
+            %fastboot_tool% stage %image_directory%!xen_uboot_name!
+            echo uuu FB: ucmd fatwrite mmc %sd_num% %imx8qm_stage_base_addr% !xen_uboot_name! 0x!xen_uboot_size_hex!
+            uuu FB: ucmd fatwrite mmc %sd_num% %imx8qm_stage_base_addr% !xen_uboot_name! 0x!xen_uboot_size_hex!
+        )
+    ) else (
+        echo -y option only applies for imx8qm xen images
+        call :help & exit /B 1
+    )
+)
+
 echo #######ALL IMAGE FILES FLASHED#######
 
 
@@ -275,6 +309,8 @@ echo  -p board          specify board for imx6dl, imx6q, imx6qp and imx8mq, sinc
 echo                        For imx6dl, imx6q, imx6qp, this is mandatory, it can be followed with sabresd or sabreauto
 echo                        For imx8mq, this option is only used internally. No need for other users to use this option
 echo                        For other chips, this option doesn't work
+echo -y yocto_image     flash yocto image together with imx8qm auto xen images. The parameter follows "-y" option should be a full path name
+echo                    including the name of yocto sdcard image, this parameter could be a relative path or an absolute path
 goto :eof
 
 :target_dev_not_support
@@ -478,3 +514,24 @@ if not [%slot%] == [] (
 del fastboot_var.log
 
 goto :eof
+
+:dec_to_hex
+set base_num=0123456789abcdef
+(for /f "usebackq" %%A in ('%1') do call :post_dec_to_hex %%A) > temp_hex.txt
+set /P %2=<temp_hex.txt
+del temp_hex.txt
+goto :eof
+:post_dec_to_hex
+set dec=%1
+set hex=
+setlocal enabledelayedexpansion
+:division_modular_loop
+set /a mod = dec %% 16,dec /= 16
+set hex=!base_num:~%mod%,1!!hex!
+if not [!dec!] == [0] (
+    goto :division_modular_loop
+)
+echo !hex!
+goto :eof
+
+

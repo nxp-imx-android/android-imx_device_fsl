@@ -37,6 +37,8 @@ options:
                         For imx6dl, imx6q, imx6qp, this is mandatory, it can be followed with sabresd or sabreauto
                         For imx8mq, this option is only used internally. No need for other users to use this option
                         For other chips, this option doesn't work
+  -y yocto_image    flash yocto image together with imx8qm auto xen images. The parameter follows "-y" option should be a full path name
+                    including the name of yocto sdcard image, this parameter could be a relative path or an absolute path
 EOF
 
 }
@@ -77,8 +79,10 @@ imx7ulp_evk_m4_sf_start=0
 imx7ulp_evk_m4_sf_length=256
 imx7ulp_evk_sf_blksz=512
 imx7ulp_stage_base_addr=0x60800000
+imx8qm_stage_base_addr=0x98000000
 bootloader_usbd_by_uuu=""
 bootloader_flashed_to_board=""
+yocto_image=""
 
 if [ $# -eq 0 ]; then
     echo -e >&2 ${RED}please provide more information with command script options${STD}
@@ -98,6 +102,7 @@ while [ $# -gt 0 ]; do
         -e) erase=1 ;;
         -D) image_directory=$2; shift;;
         -t) target_dev=$2; shift;;
+        -y) yocto_image=$2; shift;;
 
         -p) board=$2; shift;;
         *)  echo -e >&2 ${RED}an option you specified is not supported, please check it${STD}
@@ -387,6 +392,28 @@ ${fastboot_tool} erase fbmisc
 
 if [ "${slot}" != "" ] && [ ${support_dualslot} -eq 1 ]; then
     ${fastboot_tool} set_active ${slot#_}
+fi
+
+# flash yocto image along with mek_8qm auto xen images
+if [[ ${yocto_image} != "" ]]; then
+    if [ ${soc_name} != "imx8qm" ] || [ ${device_character} != "xen" ]; then
+        echo -e >&2 ${RED}-y option only applies for imx8qm xen images${STD}
+        help; exit 1;
+    fi
+    target_num=${sd_num}
+    uuu FB: ucmd setenv fastboot_dev mmc
+    uuu FB: ucmd setenv mmcdev ${target_num}
+    uuu FB: ucmd mmc dev ${target_num}
+    # flash the yocto image to "all" partition of SD card
+    uuu "FB[-t 600000]:" flash -raw2sparse all ${yocto_image}
+    # replace uboot from yocto team with the one from android team
+    xen_uboot_size_dec=`wc -c ${image_directory}u-boot-${soc_name}-${device_character}.imx | cut -d ' ' -f1`
+    ${fastboot_tool} flash bootloader0 ${image_directory}u-boot-imx8qm-xen-dom0.imx
+
+    # write the xen uboot from android team to FAT on SD card
+    ${fastboot_tool} stage ${image_directory}u-boot-${soc_name}-${device_character}.imx
+    xen_uboot_size_hex=`echo "obase=16;${xen_uboot_size_dec}" | bc`
+    uuu FB: ucmd fatwrite mmc ${sd_num} ${imx8qm_stage_base_addr} u-boot-${soc_name}-${device_character}.imx 0x${xen_uboot_size_hex}
 fi
 
 echo
