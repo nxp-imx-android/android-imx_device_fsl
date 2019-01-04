@@ -15,7 +15,7 @@ define build_M4_image
 	$(MAKE) -C $(UBOOT_M4_OUT)/$2
 endef
 
-ifeq ($(PRODUCT_IMX_CAR_M4),true)
+ifeq ($(PRODUCT_IMX_CAR_M4_BUILD),true)
 ifeq ($(ARMGCC_DIR),)
 $(error please install arm-none-eabi-gcc toolchain and set the installed path to ARMGCC_DIR)
 endif
@@ -36,7 +36,7 @@ UBOOT_M4_BIN: $(UBOOT_M4_OUT)
 	$(call build_M4_image,$(MCU_SDK_IMX8QX_DEMO_PATH),MIMX8QX,release,$(MCU_SDK_IMX8QX_CMAKE_FILE))
 else
 UBOOT_M4_BIN:
-endif # PRODUCT_IMX_CAR_M4
+endif # PRODUCT_IMX_CAR_M4_BUILD
 
 define build_imx_uboot
 	if [ `echo $(2) | cut -d '-' -f1` == "imx8qm" ] && [ `echo $(2) | cut -d '-' -f2` != "xen" ]; then \
