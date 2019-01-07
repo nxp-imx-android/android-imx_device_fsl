@@ -102,6 +102,8 @@ on early-boot
 
     setprop persist.bluetooth.enablenewavrcp false
 
+    start vendor.wifi_hal_legacy
+
 on property:vendor.rpmsg.can.event=1 && property:vendor.evs.video.ready=1
     start evs_app
 
