@@ -189,11 +189,11 @@ PRODUCT_PACKAGES += \
 
 # BCM bluetooth for UNITE mode
 PRODUCT_PACKAGES += \
-    bcm-libbt-vendor
+    libbt-vendor-unite-bcm
 
 # QCA bluetooth for UNITE mode
 PRODUCT_PACKAGES += \
-    qca-libbt-vendor
+    libbt-vendor-unite-qca
 
 # BCM 1MW Wifi Firmware
 PRODUCT_COPY_FILES += \
