@@ -19,6 +19,11 @@ PRODUCT_FULL_TREBLE_OVERRIDE := true
 #Enable this to include trusty support
 #PRODUCT_IMX_TRUSTY := true
 
+# Include keystore attestation keys and certificates.
+ifeq ($(PRODUCT_IMX_TRUSTY),true)
+-include $(IMX_SECURITY_PATH)/attestation/imx_attestation.mk
+endif
+
 # Copy device related config and binary to board
 PRODUCT_COPY_FILES += \
     $(FSL_PROPRIETARY_PATH)/fsl-proprietary/gpu-viv/lib/egl/egl.cfg:$(TARGET_COPY_OUT_VENDOR)/lib/egl/egl.cfg \
