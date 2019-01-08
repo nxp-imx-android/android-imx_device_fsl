@@ -17,6 +17,7 @@ IMX_MCU_SDK_PATH := vendor/nxp
 FSL_RESTRICTED_CODEC_PATH := vendor/nxp-private
 GPU_VIV6_PATH := vendor/nxp-private
 RESTRICTED_APP_PATH := vendor/nxp-private
+IMX_SECURITY_PATH := vendor/nxp-private/security
 
 KERNEL_IMX_PATH := vendor/nxp-opensource
 UBOOT_IMX_PATH := vendor/nxp-opensource

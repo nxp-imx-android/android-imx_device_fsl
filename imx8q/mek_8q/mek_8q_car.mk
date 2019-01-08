@@ -12,6 +12,8 @@ PRODUCT_IMX_CAR_M4 ?= true
 #PRODUCT_IMX_CAR_M4 ?= false
 
 include $(IMX_DEVICE_PATH)/mek_8q.mk
+# Include keystore attestation keys and certificates.
+-include $(IMX_SECURITY_PATH)/attestation/imx_attestation.mk
 
 # Overrides
 PRODUCT_NAME := mek_8q_car
