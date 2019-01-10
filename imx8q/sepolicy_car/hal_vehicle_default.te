@@ -1,0 +1,1 @@
+allow hal_vehicle_default self:netlink_socket { write create bind read };
