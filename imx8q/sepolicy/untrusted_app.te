@@ -1,0 +1,1 @@
+allow untrusted_app untrusted_app:icmp_socket  { create setopt write getattr read getopt };
