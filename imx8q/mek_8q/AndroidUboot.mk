@@ -8,6 +8,7 @@ MCU_SDK_IMX8QX_DEMO_PATH := $(IMX_MCU_SDK_PATH)/mcu-sdk-auto/SDK_MEK-MIMX8QX/boa
 MCU_SDK_IMX8QX_CMAKE_FILE := ../../../../../tools/cmake_toolchain_files/armgcc.cmake
 
 UBOOT_M4_OUT := $(TARGET_OUT_INTERMEDIATES)/MCU_OBJ
+UBOOT_M4_BUILD_TYPE := ddr_release
 
 define build_M4_image
 	mkdir -p $(UBOOT_M4_OUT)/$2; \
@@ -32,8 +33,8 @@ UBOOT_M4_BIN: $(UBOOT_M4_OUT)
 		echo "please upgrade cmake version to 3.13.0 or newer"; \
 		exit 1; \
 	fi; \
-	$(call build_M4_image,$(MCU_SDK_IMX8QM_DEMO_PATH),MIMX8QM,ddr_release,$(MCU_SDK_IMX8QM_CMAKE_FILE)); \
-	$(call build_M4_image,$(MCU_SDK_IMX8QX_DEMO_PATH),MIMX8QX,ddr_release,$(MCU_SDK_IMX8QX_CMAKE_FILE))
+	$(call build_M4_image,$(MCU_SDK_IMX8QM_DEMO_PATH),MIMX8QM,$(UBOOT_M4_BUILD_TYPE),$(MCU_SDK_IMX8QM_CMAKE_FILE)); \
+	$(call build_M4_image,$(MCU_SDK_IMX8QX_DEMO_PATH),MIMX8QX,$(UBOOT_M4_BUILD_TYPE),$(MCU_SDK_IMX8QX_CMAKE_FILE))
 else
 UBOOT_M4_BIN:
 endif # PRODUCT_IMX_CAR_M4_BUILD
@@ -59,7 +60,7 @@ define build_imx_uboot
 		else \
 			if [ "$(PRODUCT_IMX_CAR_M4)" == "true" ] ; then \
 				FLASH_TARGET=`echo flash_b0_spl_container_m4_1_trusty`;  \
-				cp  $(UBOOT_M4_OUT)/MIMX8QM/release/m4_image.bin $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/m41_tcm.bin; \
+				cp  $(UBOOT_M4_OUT)/MIMX8QM/$(UBOOT_M4_BUILD_TYPE)/m4_image.bin $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/m41_tcm.bin; \
 			else \
 				FLASH_TARGET=`echo flash_b0_spl_container_trusty`;  \
 			fi; \
@@ -78,7 +79,7 @@ define build_imx_uboot
 		cp  $(FSL_PROPRIETARY_PATH)/linux-firmware-imx/firmware/seco/mx8qm-ahab-container.img $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/mx8qm-ahab-container.img; \
 		cp  $(FSL_PROPRIETARY_PATH)/fsl-proprietary/uboot-firmware/imx8q/mx$$SCFW_PLATFORM-scfw-tcm.bin $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/scfw_tcm.bin; \
 		FLASH_TARGET=`echo flash_b0_multi_cores_m4_1`;  \
-		cp  $(UBOOT_M4_OUT)/MIMX8QM/release/m4_image.bin $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/m41_tcm.bin; \
+		cp  $(UBOOT_M4_OUT)/MIMX8QM/$(UBOOT_M4_BUILD_TYPE)/m4_image.bin $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/m41_tcm.bin; \
 	elif [ `echo $(2) | cut -d '-' -f1` == "imx8qxp" ]; then \
 		MKIMAGE_PLATFORM=`echo iMX8QX`; \
 		SCFW_PLATFORM=`echo 8qx`; \
@@ -92,7 +93,7 @@ define build_imx_uboot
 		fi; \
 		if [ "$(PRODUCT_IMX_CAR)" == "true" ] && [ `echo $(2) | rev | cut -d '-' -f1` != "uuu" ]; then \
 		    if [ "$(PRODUCT_IMX_CAR_M4)" == "true" ] ; then \
-				cp  $(UBOOT_M4_OUT)/MIMX8QX/release/rear_view_camera.bin $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/CM4.bin; \
+				cp  $(UBOOT_M4_OUT)/MIMX8QX/$(UBOOT_M4_BUILD_TYPE)/rear_view_camera.bin $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/CM4.bin; \
 			else \
 				cp  $(FSL_PROPRIETARY_PATH)/fsl-proprietary/mcu-sdk/imx8q/imx8qx_m4_default.bin $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/CM4.bin; \
 			fi; \
