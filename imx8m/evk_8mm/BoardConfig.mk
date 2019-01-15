@@ -137,8 +137,8 @@ endif
 KERNEL_NAME := Image
 BOARD_KERNEL_CMDLINE := init=/init androidboot.console=ttymxc1 androidboot.hardware=freescale cma=$(CMASIZE) androidboot.primary_display=imx-drm firmware_class.path=/vendor/firmware transparent_hugepage=never
 
-# Defaultly evk_8mm use QCOM qca9377 wifi module, if use BCM 1MW module, set androidboot.wifivendor=bcm
-BOARD_KERNEL_CMDLINE += androidboot.wifivendor=qca
+# Defaultly evk_8mm use BCM 1MW wifi module, if use QCOM 1PJ module, set androidboot.wifivendor=qca
+BOARD_KERNEL_CMDLINE += androidboot.wifivendor=bcm
 
 ifeq ($(TARGET_USERIMAGES_USE_UBIFS),true)
 ifeq ($(TARGET_USERIMAGES_USE_EXT4),true)
@@ -151,7 +151,7 @@ ifeq ($(PRODUCT_IMX_TRUSTY),true)
 TARGET_BOOTLOADER_CONFIG := imx8mm:imx8mm_evk_android_trusty_defconfig
 TARGET_BOARD_DTS_CONFIG ?= imx8mm:fsl-imx8mm-trusty-evk.dtb imx8mm-mipi-panel:fsl-imx8mm-evk-rm67191.dtb imx8mm-dsd:fsl-imx8mm-evk-ak4497.dtb imx8mm-m4:fsl-imx8mm-evk-m4.dtb
 else
-TARGET_BOARD_DTS_CONFIG ?= imx8mm:fsl-imx8mm-evk.dtb imx8mm-mipi-panel:fsl-imx8mm-evk-rm67191.dtb imx8mm-dsd:fsl-imx8mm-evk-ak4497.dtb imx8mm-m4:fsl-imx8mm-evk-m4.dtb imx8mm-ddr4:fsl-imx8mm-ddr4-cyw43455-evk.dtb
+TARGET_BOARD_DTS_CONFIG ?= imx8mm:fsl-imx8mm-evk.dtb imx8mm-mipi-panel:fsl-imx8mm-evk-rm67191.dtb imx8mm-dsd:fsl-imx8mm-evk-ak4497.dtb imx8mm-m4:fsl-imx8mm-evk-m4.dtb imx8mm-lpddr4:fsl-imx8mm-ddr4-qca9377-evk.dtb
 TARGET_BOOTLOADER_CONFIG := imx8mm:imx8mm_evk_android_defconfig imx8mm-ddr4:imx8mm_ddr4_evk_android_defconfig
 endif
 TARGET_KERNEL_DEFCONFIG := android_defconfig
