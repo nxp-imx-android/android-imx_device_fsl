@@ -32,8 +32,8 @@ UBOOT_M4_BIN: $(UBOOT_M4_OUT)
 		echo "please upgrade cmake version to 3.13.0 or newer"; \
 		exit 1; \
 	fi; \
-	$(call build_M4_image,$(MCU_SDK_IMX8QM_DEMO_PATH),MIMX8QM,release,$(MCU_SDK_IMX8QM_CMAKE_FILE)); \
-	$(call build_M4_image,$(MCU_SDK_IMX8QX_DEMO_PATH),MIMX8QX,release,$(MCU_SDK_IMX8QX_CMAKE_FILE))
+	$(call build_M4_image,$(MCU_SDK_IMX8QM_DEMO_PATH),MIMX8QM,ddr_release,$(MCU_SDK_IMX8QM_CMAKE_FILE)); \
+	$(call build_M4_image,$(MCU_SDK_IMX8QX_DEMO_PATH),MIMX8QX,ddr_release,$(MCU_SDK_IMX8QX_CMAKE_FILE))
 else
 UBOOT_M4_BIN:
 endif # PRODUCT_IMX_CAR_M4_BUILD
