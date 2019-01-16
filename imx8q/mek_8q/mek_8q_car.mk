@@ -73,3 +73,5 @@ else
 PRODUCT_PROPERTY_OVERRIDES += \
     debug.sf.nobootanimation=1
 endif # PRODUCT_IMX_CAR_M4
+
+export ROLLBACK_INDEX_IN_CONTAINER := 0
