@@ -11,6 +11,7 @@ PRODUCT_MANUFACTURER := freescale
 # Android infrastructures
 PRODUCT_PACKAGES += \
     CactusPlayer \
+    ExtractorPkg \
     Camera \
     CubeLiveWallpapers \
     Email \
@@ -370,6 +371,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
 #this makes imx6 wifionly devices
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.radio.noril=yes
+
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.mediacomponents.package=com.nxp.extractorpkg
 
 # Freescale multimedia parser related prop setting
 # Define fsl avi/aac/asf/mkv/flv/flac format support

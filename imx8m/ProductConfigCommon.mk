@@ -12,6 +12,7 @@ PRODUCT_MANUFACTURER := freescale
 # Android infrastructures
 PRODUCT_PACKAGES += \
     CactusPlayer \
+    ExtractorPkg \
     FSLOta \
     charger_res_images \
     ethernet \
@@ -313,6 +314,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # wifionly device
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.radio.noril=yes
+
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.mediacomponents.package=com.nxp.extractorpkg
 
 # Freescale multimedia parser related prop setting
 # Define fsl avi/aac/asf/mkv/flv/flac format support

@@ -101,6 +101,7 @@ ro.FSL_FLAC_PARSER                  u:object_r:vendor_default_prop:s0
 ro.FSL_FLV_PARSER                   u:object_r:vendor_default_prop:s0
 ro.FSL_MKV_PARSER                   u:object_r:vendor_default_prop:s0
 ro.FSL_MPG2_PARSER                  u:object_r:vendor_default_prop:s0
+ro.mediacomponents.package          u:object_r:vendor_default_prop:s0
 wifi.concurrent.interface           u:object_r:vendor_default_prop:s0
 AQROOT                              u:object_r:vendor_default_prop:s0
 CL_NOPREPROCESS                     u:object_r:vendor_default_prop:s0
