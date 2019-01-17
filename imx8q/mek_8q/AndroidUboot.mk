@@ -59,7 +59,7 @@ define build_imx_uboot
 		else \
 			if [ "$(PRODUCT_IMX_CAR_M4)" == "true" ] ; then \
 				FLASH_TARGET=`echo flash_b0_spl_container_m4_1_trusty`;  \
-				cp  $(UBOOT_M4_OUT)/MIMX8QM/$(UBOOT_M4_BUILD_TYPE)/m4_image.bin $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/m41_tcm.bin; \
+				cp  $(UBOOT_M4_OUT)/MIMX8QM/$(UBOOT_M4_BUILD_TYPE)/m4_image.bin $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/CM41.bin; \
 			else \
 				FLASH_TARGET=`echo flash_b0_spl_container_trusty`;  \
 			fi; \
