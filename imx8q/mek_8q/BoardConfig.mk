@@ -150,9 +150,9 @@ KERNEL_NAME := Image
 endif
 
 ifeq ($(PRODUCT_IMX_CAR),true)
-BOARD_KERNEL_CMDLINE := init=/init consoleblank=0 androidboot.hardware=freescale androidboot.fbTileSupport=enable cma=800M@0x960M-0xe00M galcore.contiguousSize=33554432 androidboot.primary_display=imx-drm firmware_class.path=/vendor/firmware transparent_hugepage=never swiotlb=49152 video=HDMI-A-2:d
+BOARD_KERNEL_CMDLINE := init=/init consoleblank=0 androidboot.hardware=freescale androidboot.fbTileSupport=enable cma=576M@0x960M-0xe00M galcore.contiguousSize=33554432 androidboot.primary_display=imx-drm firmware_class.path=/vendor/firmware transparent_hugepage=never video=HDMI-A-2:d
 else
-BOARD_KERNEL_CMDLINE := init=/init androidboot.console=ttyLP0 consoleblank=0 androidboot.hardware=freescale androidboot.fbTileSupport=enable cma=800M@0x960M-0xe00M androidboot.primary_display=imx-drm firmware_class.path=/vendor/firmware transparent_hugepage=never swiotlb=49152
+BOARD_KERNEL_CMDLINE := init=/init androidboot.console=ttyLP0 consoleblank=0 androidboot.hardware=freescale androidboot.fbTileSupport=enable cma=800M@0x960M-0xe00M androidboot.primary_display=imx-drm firmware_class.path=/vendor/firmware transparent_hugepage=never
 endif
 
 ifeq ($(TARGET_USERIMAGES_USE_UBIFS),true)
