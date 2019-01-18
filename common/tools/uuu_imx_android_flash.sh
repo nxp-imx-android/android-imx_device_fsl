@@ -5,10 +5,10 @@ help() {
 bn=`basename $0`
 cat << EOF
 
-Version: 1.1
-Last change: erase fbmisc partiton even if -e option not used
-current suport platforms: sabresd_6dq, sabreauto_6q, sabresd_6sx, evk_7ulp, sabresd_7d
-                          evk_8mm, evk_8mq, mek_8q, mek_8q_car
+Version: 1.2
+Last change: add support for aiy_imx8mq platform.
+currently suported platforms: sabresd_6dq, sabreauto_6q, sabresd_6sx, evk_7ulp, sabresd_7d
+                              evk_8mm, evk_8mq, aiy_8mq, mek_8q, mek_8q_car
 
 eg: ./uuu_imx_android_flash.sh -f imx8qm -a -e -D ~/nfs/179/2018.11.10/imx_pi9.0/mek_8q/
 eg: ./uuu_imx_android_flash.sh -f imx6qp -e -D ~/nfs/187/maddev_pi9.0/out/target/product/sabresd_6dq/ -p sabresd
@@ -33,9 +33,14 @@ options:
   -D directory      the directory of images
                         No need to use this option if images are in current working directory
   -t target_dev     emmc or sd, emmc is default target_dev, make sure target device exist
-  -p board          specify board for imx6dl, imx6q, imx6qp, since they are in both sabresd and sabreauto
-                        For imx6dl, imx6q, imx6qp, this is mandatory, other chips, no need to use this option
-
+  -p board          specify board for imx6dl, imx6q, imx6qp and imx8mq, since more than one platform we maintain Android on use these chips
+                        For imx6dl, imx6q, imx6qp, this is mandatory, it can be followed with sabresd or sabreauto
+                        For imx8mq, this option is only used internally. No need for other users to use this option
+                        For other chips, this option doesn't work
+  -y yocto_image    flash yocto image together with imx8qm auto xen images. The parameter follows "-y" option should be a full path name
+                        including the name of yocto sdcard image, this parameter could be a relative path or an absolute path
+  -i                with this option used, after uboot for uuu loaded and executed to fastboot mode with target device chosen, this script will stop
+                        This option is for users to manually flash the images to partitions they want to
 EOF
 
 }
@@ -76,6 +81,13 @@ imx7ulp_evk_m4_sf_start=0
 imx7ulp_evk_m4_sf_length=256
 imx7ulp_evk_sf_blksz=512
 imx7ulp_stage_base_addr=0x60800000
+imx8qm_stage_base_addr=0x98000000
+bootloader_usbd_by_uuu=""
+bootloader_flashed_to_board=""
+yocto_image=""
+intervene=0
+support_dual_bootloader=0
+dual_bootloader_partition=""
 
 if [ $# -eq 0 ]; then
     echo -e >&2 ${RED}please provide more information with command script options${STD}
@@ -95,8 +107,9 @@ while [ $# -gt 0 ]; do
         -e) erase=1 ;;
         -D) image_directory=$2; shift;;
         -t) target_dev=$2; shift;;
-
+        -y) yocto_image=$2; shift;;
         -p) board=$2; shift;;
+        -i) intervene=1 ;;
         *)  echo -e >&2 ${RED}an option you specified is not supported, please check it${STD}
             help; exit;;
     esac
@@ -106,7 +119,6 @@ done
 # if card_size is not correctly set, exit.
 if [ ${card_size} -ne 0 ] && [ ${card_size} -ne 7 ] && [ ${card_size} -ne 14 ] && [ ${card_size} -ne 28 ]; then
     echo -e >&2 ${RED}card size ${card_size} is not legal${STD};
-	uuu FB: ucmd sf erase $((${imx7ulp_evk_m4_sf_start}*${imx7ulp_evk_sf_blksz})) $((${imx7ulp_evk_m4_sf_length}*${imx7ulp_evk_sf_blksz}))
     help; exit 1;
 fi
 
@@ -136,7 +148,9 @@ case ${soc_name%%-*} in
             vid=0x1fc9; pid=0x012b; chip=MX8MQ;
             uboot_env_start=0x2000; uboot_env_len=0x8;
             emmc_num=0; sd_num=1;
-            board=evk ;;
+            if [ -z "$board" ]; then
+                board=evk;
+            fi ;;
     imx8mm)
             vid=0x1fc9; pid=0x0134; chip=MX8MM;
             uboot_env_start=0x2000; uboot_env_len=0x8;
@@ -177,7 +191,7 @@ esac
 
 # test whether board info is specified for imx6dl, imx6q and imx6qp
 if [[ ${board} == "" ]]; then
-	if [[ $(echo ${device_character} | grep "ldo") != "" ]]; then
+    if [[ $(echo ${device_character} | grep "ldo") != "" ]]; then
             board=sabresd;
 
         else
@@ -209,17 +223,23 @@ if [[ ${soc_name#imx8q} != ${soc_name} ]]; then
     sdp="SDPS"
 fi
 
+# find the names of the bootloader used by uuu and flashed to board
+if [[ ${device_character} == "ldo" ]] || [[ ${device_character} == "epdc" ]] || \
+        [[ ${device_character} == "ddr4" ]]; then
+    bootloader_usbd_by_uuu=u-boot-${soc_name}-${device_character}-${board}-uuu.imx
+    bootloader_flashed_to_board="u-boot-${soc_name}-${device_character}.imx"
+else
+    bootloader_usbd_by_uuu=u-boot-${soc_name}-${board}-uuu.imx
+    bootloader_flashed_to_board=u-boot-${soc_name}.imx
+fi
+
 function uuu_load_uboot
 {
     uuu CFG: ${sdp}: -chip ${chip} -vid ${vid} -pid ${pid}
-    if [[ ${device_character} == "ldo" ]] || [[ ${device_character} == "epdc" ]]; then
-        uuu ${sdp}: boot -f ${image_directory}u-boot-${soc_name}-${device_character}-${board}-uuu.imx
-    else
-        uuu ${sdp}: boot -f ${image_directory}u-boot-${soc_name}-${board}-uuu.imx
-    fi
+    uuu ${sdp}: boot -f ${image_directory}${bootloader_usbd_by_uuu}
     if [[ ${soc_name#imx8m} != ${soc_name} ]]; then
         uuu SDPU: delay 1000
-        uuu SDPU: write -f ${image_directory}u-boot-${soc_name}-${board}-uuu.imx -offset 0x57c00
+        uuu SDPU: write -f ${image_directory}${bootloader_usbd_by_uuu} -offset 0x57c00
         uuu SDPU: jump
     fi
     uuu FB: ucmd setenv fastboot_dev mmc
@@ -235,20 +255,22 @@ function uuu_load_uboot
     if [[ ${target_dev} = "emmc" ]]; then
         uuu FB: ucmd mmc partconf ${target_num} 1 1 1
     fi
+
+    if [[ ${intervene} -eq 1 ]]; then
+        exit 0
+    fi
 }
 
 function flash_partition
 {
-    if [ $(echo ${1} | grep "system") != "" ] 2>/dev/null; then
+    if [ $(echo ${1} | grep "bootloader_") != "" ] 2>/dev/null; then
+        img_name=${uboot_proper_to_be_flashed}
+    elif [ $(echo ${1} | grep "system") != "" ] 2>/dev/null; then
         img_name=${systemimage_file}
     elif [ $(echo ${1} | grep "vendor") != "" ] 2>/dev/null; then
         img_name=${vendor_file}
     elif [ $(echo ${1} | grep "bootloader") != "" ] 2>/dev/null; then
-            if [[ ${device_character} == "ldo" ]] || [[ ${device_character} == "epdc" ]]; then
-                img_name="u-boot-${soc_name}-${device_character}.imx"
-            else
-                img_name="u-boot-${soc_name}.imx"
-            fi
+        img_name=${bootloader_flashed_to_board}
 
     elif [ ${support_dtbo} -eq 1 ] && [ $(echo ${1} | grep "boot") != "" ] 2>/dev/null; then
             img_name="boot.img"
@@ -268,6 +290,9 @@ function flash_partition
 
 function flash_userpartitions
 {
+    if [ ${support_dual_bootloader} -eq 1 ]; then
+        flash_partition ${dual_bootloader_partition}
+    fi
     if [ ${support_dtbo} -eq 1 ]; then
         flash_partition ${dtbo_partition}
     fi
@@ -291,20 +316,13 @@ function flash_partition_name
     vendor_partition="vendor"${1}
     vbmeta_partition="vbmeta"${1}
     dtbo_partition="dtbo"${1}
-
+    if [ ${support_dual_bootloader} -eq 1 ]; then
+        dual_bootloader_partition=bootloader${1}
+    fi
 }
 
 function flash_android
 {
-# for xen, no need to flash bootloader
-    if [[ ${device_character} != xen ]]; then
-        if [ ${soc_name#imx8} != ${soc_name} ]; then
-	        flash_partition "bootloader0"
-        else
-	        flash_partition "bootloader"
-        fi
-    fi
-
     flash_partition "gpt"
 
     # force to load the gpt just flashed, since for imx6 and imx7, we use uboot from BSP team,
@@ -313,6 +331,7 @@ function flash_android
     uuu FB: ucmd setenv fastboot_dev mmc
 
     ${fastboot_tool} getvar all 2>/tmp/fastboot_var.log
+    grep -q "bootloader_a" /tmp/fastboot_var.log && support_dual_bootloader=1
     grep -q "dtbo" /tmp/fastboot_var.log && support_dtbo=1
     grep -q "recovery" /tmp/fastboot_var.log && support_recovery=1
     # use boot_b to check whether current gpt support a/b slot
@@ -320,6 +339,22 @@ function flash_android
 
     # since imx7ulp uboot from bsp team is used for uuu, m4 os partiton for imx7ulp_evd doesn't exist here
     grep -q "m4_os" /tmp/fastboot_var.log && support_m4_os=1
+
+    # if dual bootloader is supported, the name of the bootloader flashed to the board need to be updated
+    if [ ${support_dual_bootloader} -eq 1 ]; then
+        bootloader_flashed_to_board=spl-${soc_name}.bin
+        uboot_proper_to_be_flashed=bootloader-${soc_name}.img
+    fi
+
+    # for xen, no need to flash bootloader
+    if [[ ${device_character} != xen ]]; then
+        if [ ${soc_name#imx8} != ${soc_name} ]; then
+            flash_partition "bootloader0"
+        else
+            flash_partition "bootloader"
+        fi
+    fi
+
 
     # if a platform doesn't support dual slot but a slot is selected, ignore it.
     if [ ${support_dualslot} -eq 0 ] && [ ${slot} != "" ]; then
@@ -345,7 +380,7 @@ function flash_android
         echo FB[-t 30000]: ucmd sf write ${imx7ulp_stage_base_addr} `echo "obase=16;$((${imx7ulp_evk_m4_sf_start}*${imx7ulp_evk_sf_blksz}))" | bc` \
                 `echo "obase=16;$((${imx7ulp_evk_m4_sf_length}*${imx7ulp_evk_sf_blksz}))" | bc` >> /tmp/m4.lst
         echo FB: done >> /tmp/m4.lst
-	echo -e flash the file of ${RED}imx7ulp_m4_demo.img${STD} to the partition of ${RED}m4_os${STD}
+        echo -e flash the file of ${RED}imx7ulp_m4_demo.img${STD} to the partition of ${RED}m4_os${STD}
         uuu /tmp/m4.lst
         rm /tmp/m4.lst
     fi
@@ -381,6 +416,28 @@ ${fastboot_tool} erase fbmisc
 
 if [ "${slot}" != "" ] && [ ${support_dualslot} -eq 1 ]; then
     ${fastboot_tool} set_active ${slot#_}
+fi
+
+# flash yocto image along with mek_8qm auto xen images
+if [[ ${yocto_image} != "" ]]; then
+    if [ ${soc_name} != "imx8qm" ] || [ ${device_character} != "xen" ]; then
+        echo -e >&2 ${RED}-y option only applies for imx8qm xen images${STD}
+        help; exit 1;
+    fi
+    target_num=${sd_num}
+    uuu FB: ucmd setenv fastboot_dev mmc
+    uuu FB: ucmd setenv mmcdev ${target_num}
+    uuu FB: ucmd mmc dev ${target_num}
+    # flash the yocto image to "all" partition of SD card
+    uuu "FB[-t 600000]:" flash -raw2sparse all ${yocto_image}
+    # replace uboot from yocto team with the one from android team
+    xen_uboot_size_dec=`wc -c ${image_directory}u-boot-${soc_name}-${device_character}.imx | cut -d ' ' -f1`
+    ${fastboot_tool} flash bootloader0 ${image_directory}u-boot-imx8qm-xen-dom0.imx
+
+    # write the xen uboot from android team to FAT on SD card
+    ${fastboot_tool} stage ${image_directory}u-boot-${soc_name}-${device_character}.imx
+    xen_uboot_size_hex=`echo "obase=16;${xen_uboot_size_dec}" | bc`
+    uuu FB: ucmd fatwrite mmc ${sd_num} ${imx8qm_stage_base_addr} u-boot-${soc_name}-${device_character}.imx 0x${xen_uboot_size_hex}
 fi
 
 echo

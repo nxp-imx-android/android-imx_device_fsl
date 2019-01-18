@@ -46,6 +46,14 @@ set board=
 set imx7ulp_evk_m4_sf_start_byte=0
 set imx7ulp_evk_m4_sf_length_byte=0x20000
 set imx7ulp_stage_base_addr=0x60800000
+set imx8qm_stage_base_addr=0x98000000
+set bootloader_usbd_by_uuu=
+set bootloader_flashed_to_board=
+set yocto_image=
+set /A error_level=0
+set /A intervene=0
+set /A support_dual_bootloader=0
+set dual_bootloader_partition=
 
 
 ::---------------------------------------------------------------------------------
@@ -72,8 +80,10 @@ if %1 == -e set /A erase=1 & shift & goto :parse_loop
 if %1 == -D set image_directory=%2& shift & shift & goto :parse_loop
 if %1 == -t set target_dev=%2&shift &shift & goto :parse_loop
 if %1 == -p set board=%2&shift &shift & goto :parse_loop
+if %1 == -y set yocto_image=%2&shift &shift & goto :parse_loop
+if %1 == -i set /A intervene=1 & shift & goto :parse_loop
 echo an option you specified is not supported, please check it
-call :help & exit /B 1
+call :help & set /A error_level=1 && goto :exit
 :parse_end
 
 
@@ -82,7 +92,7 @@ if %card_size% neq 0 set /A statisc+=1
 if %card_size% neq 7 set /A statisc+=1
 if %card_size% neq 14 set /A statisc+=1
 if %card_size% neq 28 set /A statisc+=1
-if %statisc% == 4 echo card_size is not a legal value & exit /B 1
+if %statisc% == 4 echo card_size is not a legal value & set /A error_level=1 && goto :exit
 
 if %card_size% gtr 0 set partition_file=partition-table-%card_size%GB.img
 
@@ -110,7 +120,9 @@ if not [%soc_name:imx8mq=%] == [%soc_name%] (
     set vid=0x1fc9& set pid=0x012b& set chip=MX8MQ
     set uboot_env_start=0x2000& set uboot_env_len=0x8
     set emmc_num=0& set sd_num=1
-    set board=evk
+    if [%board%] == [] (
+        set board=evk
+    )
     goto :device_info_end
 )
 if not [%soc_name:imx8mm=%] == [%soc_name%] (
@@ -171,7 +183,7 @@ if not [%soc_name:imx6q=%] == [%soc_name%] (
     goto :device_info_end
 )
 echo please check whether the soc_name you specified is correct
-call :help & exit /B 1
+call :help & set /A error_level=1 && goto :exit
 :device_info_end
 
 :: set target_num based on target_dev
@@ -186,6 +198,20 @@ if not [%soc_name:imx8q=%] == [%soc_name%] (
     set sdp=SDPS
 )
 
+:: find the names of the bootloader used by uuu and flashed to board
+if [%device_character%] == [ldo] goto :the_name_of_bootloader_with_device_character
+if [%device_character%] == [epdc] goto :the_name_of_bootloader_with_device_character
+if [%device_character%] == [ddr4] goto :the_name_of_bootloader_with_device_character
+goto :the_name_of_bootloader_without_device_character
+:the_name_of_bootloader_with_device_character
+set bootloader_usbd_by_uuu=u-boot-%soc_name%-%device_character%-%board%-uuu.imx
+set bootloader_flashed_to_board=u-boot-%soc_name%-%device_character%.imx
+goto :the_name_of_bootloader_end
+:the_name_of_bootloader_without_device_character
+set bootloader_usbd_by_uuu=u-boot-%soc_name%-%board%-uuu.imx
+set bootloader_flashed_to_board=u-boot-%soc_name%.imx
+goto :the_name_of_bootloader_end
+:the_name_of_bootloader_end
 
 ::---------------------------------------------------------------------------------
 :: Invoke function to flash android images
@@ -195,19 +221,50 @@ call :uuu_load_uboot
 call :flash_android
 
 if %erase% == 1 (
-    %fastboot_tool% erase userdata || exit /B 1
-    %fastboot_tool% erase misc || exit /B 1
+    %fastboot_tool% erase userdata || set /A error_level=1 && goto :exit
+    %fastboot_tool% erase misc || set /A error_level=1 && goto :exit
     if %soc_name:imx8=% == %soc_name% (
-        %fastboot_tool% erase cache || exit /B 1
+        %fastboot_tool% erase cache || set /A error_level=1 && goto :exit
     )
 )
 
 :: make sure device is locked for boards don't use tee
-%fastboot_tool% erase presistdata || exit /B 1
-%fastboot_tool% erase fbmisc || exit /B 1
+%fastboot_tool% erase presistdata || set /A error_level=1 && goto :exit
+%fastboot_tool% erase fbmisc || set /A error_level=1 && goto :exit
 
 if not [%slot%] == [] if %support_dualslot% == 1 (
-    %fastboot_tool% set_active %slot:~-1% || exit /B 1
+    %fastboot_tool% set_active %slot:~-1% || set /A error_level=1 && goto :exit
+)
+
+:: flash yocto image along with mek_8qm auto xen images
+if not [%yocto_image%] == [] (
+    if [%soc_name%] == [imx8qm] (
+        if [%device_character%] == [xen] (
+            setlocal enabledelayedexpansion
+            set target_num=%sd_num%
+            uuu FB: ucmd setenv fastboot_dev mmc
+            uuu FB: ucmd setenv mmcdev !target_num!
+            uuu FB: ucmd mmc dev !target_num!
+            :: flash the yocto image to "all" partition of SD card
+            uuu "FB[-t 600000]:" flash -raw2sparse all %yocto_image%
+            :: replace uboot from yocto team with the one from android team
+            %fastboot_tool% flash bootloader0 %image_directory%u-boot-imx8qm-xen-dom0.imx
+
+            :: write the xen uboot from android team to FAT on SD card
+            set xen_uboot_name=u-boot-%soc_name%-%device_character%.imx
+            for /f "usebackq" %%A in ('%image_directory%!xen_uboot_name!') do set xen_uboot_size_dec=%%~zA
+            call :dec_to_hex !xen_uboot_size_dec! xen_uboot_size_hex
+            echo xen_uboot_name is !xen_uboot_name!
+            echo xen_uboot_size_dec !xen_uboot_size_dec!
+            echo xen_uboot_size_hex !xen_uboot_size_hex!
+            %fastboot_tool% stage %image_directory%!xen_uboot_name!
+            echo uuu FB: ucmd fatwrite mmc %sd_num% %imx8qm_stage_base_addr% !xen_uboot_name! 0x!xen_uboot_size_hex!
+            uuu FB: ucmd fatwrite mmc %sd_num% %imx8qm_stage_base_addr% !xen_uboot_name! 0x!xen_uboot_size_hex!
+        )
+    ) else (
+        echo -y option only applies for imx8qm xen images
+        call :help & exit set /A error_level=1 && goto :exit
+    )
 )
 
 echo #######ALL IMAGE FILES FLASHED#######
@@ -225,10 +282,10 @@ goto :eof
 
 :help
 echo.
-echo Version: 1.1
-echo Last change: erase fbmisc partiton even if -e option not used
-echo current suport platforms: sabresd_6dq, sabreauto_6q, sabresd_6sx, evk_7ulp, sabresd_7d
-echo                           evk_8mm, evk_8mq, mek_8q, mek_8q_car
+echo Version: 1.2
+echo Last change: add support for aiy_imx8mq platform.
+echo currently suported platforms: sabresd_6dq, sabreauto_6q, sabresd_6sx, evk_7ulp, sabresd_7d
+echo                               evk_8mm, evk_8mq, aiy_8mq, mek_8q, mek_8q_car
 echo.
 echo eg: uuu_imx_android_flash.bat -f imx8qm -a -e -D C:\Users\user_01\images\2018.11.10\imx_pi9.0\mek_8q\
 echo eg: uuu_imx_android_flash.bat -f imx6qp -e -D C:\Users\user_01\images\2018.11.10\imx_pi9.0\sabresd_6dq\ -p sabresd
@@ -253,8 +310,12 @@ echo  -e                erase user data after all image files being flashed
 echo  -D directory      the directory of of images
 echo                        No need to use this option if images are in current working directory
 echo  -t target_dev     emmc or sd, emmc is default target_dev, make sure target device exist
-echo  -p board          specify board for imx6dl, imx6q, imx6qp, since they are in both sabresd and sabreauto
-echo                        For imx6dl, imx6q, imx6qp, this is mandatory, other chips, no need to use this option
+echo  -p board          specify board for imx6dl, imx6q, imx6qp and imx8mq, since more than one platform we maintain Android on use these chips
+echo                        For imx6dl, imx6q, imx6qp, this is mandatory, it can be followed with sabresd or sabreauto
+echo                        For imx8mq, this option is only used internally. No need for other users to use this option
+echo                        For other chips, this option doesn't work
+echo -y yocto_image     flash yocto image together with imx8qm auto xen images. The parameter follows "-y" option should be a full path name
+echo                    including the name of yocto sdcard image, this parameter could be a relative path or an absolute path
 goto :eof
 
 :target_dev_not_support
@@ -271,48 +332,43 @@ if [%board%] == [] (
         set board=sabresd
     ) else (
         echo board info need to be specified for %soc_name% with -p option, it can be sabresd or sabreauto
-        call :help & exit /B 1
+        call :help & set /A error_level=1 && goto :exit
     )
 )
 goto :eof
 
 :uuu_load_uboot
-uuu CFG: FB: -vid %vid% -pid %pid%
-if [%device_character%] == [ldo] goto :load_uboot_device_character
-if [%device_character%] == [epdc] goto :load_uboot_device_character
-goto :load_uboot_no_device_character
+uuu CFG: %sdp%: -chip %chip% -vid %vid% -pid %pid%
 
-:load_uboot_device_character
-uuu %sdp%: boot -f %image_directory%u-boot-%soc_name%-%device_character%-%board%-uuu.imx
-goto :load_uboot_device_character_end
-
-:load_uboot_no_device_character
-uuu %sdp%: boot -f %image_directory%u-boot-%soc_name%-%board%-uuu.imx
-goto :load_uboot_device_character_end
-
-:load_uboot_device_character_end
+uuu %sdp%: boot -f %image_directory%%bootloader_usbd_by_uuu% || set /A error_level=1 && goto :exit
 
 if not [%soc_name:imx8m=%] == [%soc_name%] (
     uuu SDPU: delay 1000
-    uuu SDPU: write -f %image_directory%u-boot-%soc_name%-%board%-uuu.imx -offset 0x57c00
+    uuu SDPU: write -f %image_directory%%bootloader_usbd_by_uuu% -offset 0x57c00
     uuu SDPU: jump
 )
+
 uuu FB: ucmd setenv fastboot_dev mmc
 uuu FB: ucmd setenv mmcdev %target_num%
 uuu FB: ucmd mmc dev %target_num%
 
 :: erase environment variables of uboot
 if [%target_dev%] == [emmc] (
-    uuu FB: ucmd mmc dev %target_num% 0 || exit /B 1
+    uuu FB: ucmd mmc dev %target_num% 0 || set /A error_level=1 && goto :exit
 )
 uuu FB: ucmd mmc erase %uboot_env_start% %uboot_env_len%
 if [%target_dev%] == [emmc] (
-    uuu FB: ucmd mmc partconf %target_num% 1 1 1 || exit /B 1
+    uuu FB: ucmd mmc partconf %target_num% 1 1 1 || set /A error_level=1 && goto :exit
+)
+
+if %intervene% == 1 (
+    set /A error_level=0 && goto :exit
 )
 
 goto :eof
 
 :flash_partition
+set partition_to_be_flashed=%1
 :: if there is slot information, delete it.
 set local_str=%1
 set local_str=%local_str:_a=%
@@ -320,67 +376,61 @@ set local_str=%local_str:_b=%
 
 set img_name=%local_str%-%soc_name%.img
 
-if not [%local_str:system=%] == [%local_str%] (
+if not [%partition_to_be_flashed:bootloader_=%] == [%partition_to_be_flashed%] (
+    set img_name=%uboot_proper_to_be_flashed%
+    goto :start_to_flash
+)
+
+if not [%partition_to_be_flashed:system=%] == [%partition_to_be_flashed%] (
     set img_name=%systemimage_file%
     goto :start_to_flash
 )
-if not [%local_str:vendor=%] == [%local_str%] (
+if not [%partition_to_be_flashed:vendor=%] == [%partition_to_be_flashed%] (
     set img_name=%vendor_file%
     goto :start_to_flash
 )
-if not [%local_str:m4_os=%] == [%local_str%] (
+if not [%partition_to_be_flashed:m4_os=%] == [%partition_to_be_flashed%] (
     set img_name=%soc_name%_m4_demo.img
     goto :start_to_flash
 )
-if not [%local_str:vbmeta=%] == [%local_str%] if not [%device_character%] == [] (
+if not [%partition_to_be_flashed:vbmeta=%] == [%partition_to_be_flashed%] if not [%device_character%] == [] (
     set img_name=%local_str%-%soc_name%-%device_character%.img
     goto :start_to_flash
 )
-if not [%local_str:dtbo=%] == [%local_str%] if not [%device_character%] == [] (
+if not [%partition_to_be_flashed:dtbo=%] == [%partition_to_be_flashed%] if not [%device_character%] == [] (
     set img_name=%local_str%-%soc_name%-%device_character%.img
     goto :start_to_flash
 )
-if not [%local_str:recovery=%] == [%local_str%] if not [%device_character%] == [] (
+if not [%partition_to_be_flashed:recovery=%] == [%partition_to_be_flashed%] if not [%device_character%] == [] (
     set img_name=%local_str%-%soc_name%-%device_character%.img
     goto :start_to_flash
 )
-if not [%local_str:bootloader=%] == [%local_str%] (
-    if [%device_character%] == [ldo] goto :uboot_device_character
-    if [%device_character%] == [epdc] goto :uboot_device_character
-    goto :uboot_no_device_character
-
-:uboot_device_character
-    set img_name=u-boot-%soc_name%-%device_character%.imx
-    goto :uboot_device_character_end
-
-:uboot_no_device_character
-    set img_name=u-boot-%soc_name%.imx
-    goto :uboot_device_character_end
-
-:uboot_device_character_end
+if not [%partition_to_be_flashed:bootloader=%] == [%partition_to_be_flashed%] (
+    set img_name=%bootloader_flashed_to_board%
     goto :start_to_flash
 )
 
 
 if %support_dtbo% == 1 (
-    if not [%local_str:boot=%] == [%local_str%] (
+    if not [%partition_to_be_flashed:boot=%] == [%partition_to_be_flashed%] (
         set img_name=%bootimage%
         goto :start_to_flash
     )
 )
 
-if not [%local_str:gpt=%] == [%local_str%] (
+if not [%partition_to_be_flashed:gpt=%] == [%partition_to_be_flashed%] (
     set img_name=%partition_file%
     goto :start_to_flash
 )
 
 :start_to_flash
-echo flash the file of %img_name% to the partition of %1
-%fastboot_tool% flash %1 %image_directory%%img_name% || exit /B 1
+echo flash the file of %img_name% to the partition of %partition_to_be_flashed%
+%fastboot_tool% flash %1 %image_directory%%img_name% || set /A error_level=1 && goto :exit
 goto :eof
 
 
 :flash_userpartitions
+if %support_dual_bootloader% == 1 call :flash_partition %dual_bootloader_partition%
 if %support_dtbo% == 1 call :flash_partition %dtbo_partition%
 if %support_recovery% == 1 call :flash_partition %recovery_partition%
 call :flash_partition %boot_partition%
@@ -397,18 +447,10 @@ set system_partition=system%1
 set vendor_partition=vendor%1
 set vbmeta_partition=vbmeta%1
 set dtbo_partition=dtbo%1
+if %support_dual_bootloader% == 1 set dual_bootloader_partition=bootloader%1
 goto :eof
 
 :flash_android
-:: for xen mode, no need to flash bootloader
-if not [%device_character%] == [xen] (
-    if not %soc_name:imx8=% == %soc_name% (
-        call :flash_partition bootloader0
-    ) else (
-        call :flash_partition bootloader
-    )
-)
-
 call :flash_partition gpt
 
 :: force to load the gpt just flashed, since for imx6 and imx7, we use uboot from BSP team,
@@ -416,7 +458,9 @@ call :flash_partition gpt
 uuu FB: ucmd setenv fastboot_dev sata
 uuu FB: ucmd setenv fastboot_dev mmc
 
-%fastboot_tool% getvar all 2> fastboot_var.log || exit /B 1
+%fastboot_tool% getvar all 2> fastboot_var.log || set /A error_level=1 && goto :exit
+
+find "bootloader_a" fastboot_var.log > nul && set /A support_dual_bootloader=1
 
 find "dtbo" fastboot_var.log > nul && set /A support_dtbo=1
 
@@ -428,6 +472,20 @@ find "boot_b" fastboot_var.log > nul && set /A support_dualslot=1
 :: since imx7ulp uboot from bsp team is used for uuu, m4 os partiton for imx7ulp_evd doesn't exist here
 find "m4_os" fastboot_var.log > nul && set /A support_m4_os=1
 
+:: if dual bootloader is supported, the name of the bootloader flashed to the board need to be updated
+if %support_dual_bootloader% == 1 (
+    set bootloader_flashed_to_board=spl-%soc_name%.bin
+    set uboot_proper_to_be_flashed=bootloader-%soc_name%.img
+)
+
+:: for xen mode, no need to flash bootloader
+if not [%device_character%] == [xen] (
+    if not %soc_name:imx8=% == %soc_name% (
+        call :flash_partition bootloader0
+    ) else (
+        call :flash_partition bootloader
+    )
+)
 
 if %support_dualslot% == 0 (
     if not [%slot%] == [] (
@@ -435,7 +493,6 @@ if %support_dualslot% == 0 (
         set slot=
     )
 )
-
 
 if %flash_m4% == 1 if %support_m4_os% == 1 call :flash_partition %m4_os_partition%
 
@@ -481,3 +538,25 @@ if not [%slot%] == [] (
 del fastboot_var.log
 
 goto :eof
+
+:dec_to_hex
+set base_num=0123456789abcdef
+(for /f "usebackq" %%A in ('%1') do call :post_dec_to_hex %%A) > temp_hex.txt
+set /P %2=<temp_hex.txt
+del temp_hex.txt
+goto :eof
+:post_dec_to_hex
+set dec=%1
+set hex=
+setlocal enabledelayedexpansion
+:division_modular_loop
+set /a mod = dec %% 16,dec /= 16
+set hex=!base_num:~%mod%,1!!hex!
+if not [!dec!] == [0] (
+    goto :division_modular_loop
+)
+echo !hex!
+goto :eof
+
+:exit
+exit
