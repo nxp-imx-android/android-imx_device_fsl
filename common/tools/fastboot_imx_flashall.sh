@@ -30,7 +30,7 @@ options:
   -e                erase user data after all image files being flashed
   -l                lock the device after all image files being flashed
   -D directory      the directory of images
-                        No need to use this option if images and this script are in same directory
+                        No need to use this option if images are in current working directory
   -s ser_num        the serial number of board
                         If only one board connected to computer, no need to use this option
 EOF
@@ -49,6 +49,10 @@ support_dtbo=0
 support_recovery=0
 support_dualslot=0
 support_m4_os=0
+support_dual_bootloader=0
+dual_bootloader_partition=""
+bootloader_flashed_to_board=""
+uboot_proper_to_be_flashed=""
 boot_partition="boot"
 recovery_partition="recovery"
 system_partition="system"
@@ -62,6 +66,8 @@ erase=0
 image_directory=""
 ser_num=""
 fastboot_tool="fastboot"
+RED='\033[0;31m'
+STD='\033[0;0m'
 
 while [ $# -gt 0 ]; do
     case $1 in
@@ -101,28 +107,36 @@ fi
 
 function flash_partition
 {
-    if [ $(echo ${1} | grep "system") != "" ] 2>/dev/null; then
+    if [ ${support_dual_bootloader} -eq 1 ] && [ $(echo ${1} | grep "bootloader_") != "" ]; then
+        img_name=${uboot_proper_to_be_flashed}
+    elif [ $(echo ${1} | grep "system") != "" ] 2>/dev/null; then
         img_name=${systemimage_file}
     elif [ $(echo ${1} | grep "vendor") != "" ] 2>/dev/null; then
         img_name=${vendor_file}
+    elif [ $(echo ${1} | grep "bootloader") != "" ] 2>/dev/null; then
+         img_name=${bootloader_flashed_to_board}
     elif [ ${support_dtbo} -eq 1 ] && [ $(echo ${1} | grep "boot") != "" ] 2>/dev/null; then
         img_name="boot.img"
     elif [ $(echo ${1} | grep "m4_os") != "" ] 2>/dev/null; then
         img_name="${soc_name}_m4_demo.img"
     elif [ $(echo ${1} | grep -E "dtbo|vbmeta|recovery") != "" -a ${device_character} != "" ] 2>/dev/null; then
         img_name="${1%_*}-${soc_name}-${device_character}.img"
-    elif [ $(echo ${1} | grep "bootloader") != "" ] 2>/dev/null; then
-        img_name="u-boot-${soc_name}.imx"
     elif [ $(echo ${1} | grep "gpt") != "" ] 2>/dev/null; then
         img_name=${partition_file}
     else
         img_name="${1%_*}-${soc_name}.img"
     fi
+
+    echo -e flash the file of ${RED}${img_name}${STD} to the partition of ${RED}${1}${STD}
     ${fastboot_tool} flash ${1} "${image_directory}${img_name}"
 }
 
 function flash_userpartitions
 {
+    if [ ${support_dual_bootloader} -eq 1 ]; then
+        flash_partition ${dual_bootloader_partition}
+    fi
+
     if [ ${support_dtbo} -eq 1 ]; then
         flash_partition ${dtbo_partition}
     fi
@@ -146,26 +160,39 @@ function flash_partition_name
     vendor_partition="vendor"${1}
     vbmeta_partition="vbmeta"${1}
     dtbo_partition="dtbo"${1}
-
+    if [ ${support_dual_bootloader} -eq 1 ]; then
+        dual_bootloader_partition="bootloader"${1}
+    fi
 }
 
 function flash_android
 {
-    if [ ${soc_name#imx8} != ${soc_name} ]; then
-        flash_partition "bootloader0"
-    else
-        flash_partition "bootloader"
-    fi
-
-    ${fastboot_tool} reboot bootloader
-    sleep 5
-
     flash_partition "gpt"
-    ${fastboot_tool} getvar all 2>/tmp/fastboot_var.log  && grep -q "dtbo" /tmp/fastboot_var.log && support_dtbo=1
+
+    ${fastboot_tool} getvar all 2>/tmp/fastboot_var.log
+    grep -q "bootloader_a" /tmp/fastboot_var.log && support_dual_bootloader=1
+    grep -q "dtbo" /tmp/fastboot_var.log && support_dtbo=1
     grep -q "recovery" /tmp/fastboot_var.log && support_recovery=1
     # use boot_b to check whether current gpt support a/b slot
     grep -q "boot_b" /tmp/fastboot_var.log && support_dualslot=1
     grep -q "m4_os" /tmp/fastboot_var.log && support_m4_os=1
+
+    if [ ${support_dual_bootloader} -eq 1 ]; then
+        bootloader_flashed_to_board="spl-${soc_name}.bin"
+        uboot_proper_to_be_flashed="bootloader-${soc_name}.img"
+    else
+	if [ ${soc_name} == "imx8mm" ] && [ $(echo ${device_character} | grep "ddr4") != "" ]; then
+            bootloader_flashed_to_board="u-boot-${soc_name}-ddr4.imx"
+        else
+            bootloader_flashed_to_board="u-boot-${soc_name}.imx"
+        fi
+    fi
+
+    if [ ${soc_name#imx8} != ${soc_name} ]; then
+         flash_partition "bootloader0"
+    else
+         flash_partition "bootloader"
+    fi
 
     # if a platform doesn't support dual slot but a slot is selected, ignore it.
     if [ ${support_dualslot} -eq 0 ] && [ ${slot} != "" ]; then
