@@ -47,7 +47,7 @@ on early-boot
     # Enable Tethering in the Settings
     setprop ro.tether.denied false
 
-    setprop sys.hwc.disable     1
+    setprop sys.hwc.disable     0
     setprop vendor.2d.composition 0
     setprop hwc.stretch.filter  1
 
