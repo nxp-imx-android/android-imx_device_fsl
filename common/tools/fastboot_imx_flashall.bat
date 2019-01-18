@@ -25,6 +25,10 @@ set /A support_dtbo=0
 set /A support_recovery=0
 set /A support_dualslot=0
 set /A support_m4_os=0
+set /A support_dual_bootloader=0
+set dual_bootloader_partition=
+set bootloader_flashed_to_board=
+set uboot_proper_to_be_flashed=
 set bootloader_partition=bootloader
 set boot_partition=boot
 set recovery_partition=recovery
@@ -133,13 +137,14 @@ echo                        If not set, use default dtbo, vbmeta and recovery im
 echo  -e                erase user data after all image files being flashed
 echo  -l                lock the device after all image files being flashed
 echo  -D directory      the directory of of images
-echo                        No need to use this option if images and this script are in same directory
+echo                        No need to use this option if images are in current working directory
 echo  -s ser_num        the serial number of board
 echo                        If only one board connected to computer, no need to use this option
 goto :eof
 
 
 :flash_partition
+set partition_to_be_flashed=%1
 :: if there is slot information, delete it.
 set local_str=%1
 set local_str=%local_str:_a=%
@@ -147,28 +152,61 @@ set local_str=%local_str:_b=%
 
 set img_name=%local_str%-%soc_name%.img
 
-if not [%local_str:system=%] == [%local_str%] set img_name=%systemimage_file%
-if not [%local_str:vendor=%] == [%local_str%] set img_name=%vendor_file%
-if %support_dtbo% == 1 if not [%local_str:boot=%] == [%local_str%] set img_name=%bootimage%
-if not [%local_str:m4_os=%] == [%local_str%] set img_name=%soc_name%_m4_demo.img
-if not [%local_str:vbmeta=%] == [%local_str%] if not [%device_character%] == [] (
-    set img_name=%local_str%-%soc_name%-%device_character%.img
+if not [%partition_to_be_flashed:bootloader_=%] == [%partition_to_be_flashed%] (
+    set img_name=%uboot_proper_to_be_flashed%
+    goto :start_to_flash
 )
-if not [%local_str:dtbo=%] == [%local_str%] if not [%device_character%] == [] (
-    set img_name=%local_str%-%soc_name%-%device_character%.img
+
+if not [%partition_to_be_flashed:system=%] == [%partition_to_be_flashed%] (
+    set img_name=%systemimage_file%
+    goto :start_to_flash
 )
-if not [%local_str:recovery=%] == [%local_str%] if not [%device_character%] == [] (
-    set img_name=%local_str%-%soc_name%-%device_character%.img
+if not [%partition_to_be_flashed:vendor=%] == [%partition_to_be_flashed%] (
+    set img_name=%vendor_file%
+    goto :start_to_flash
 )
-if not [%local_str:bootloader=%] == [%local_str%] set img_name=u-boot-%soc_name%.imx
-if not [%local_str:gpt=%] == [%local_str%] set img_name=%partition_file%
+if not [%partition_to_be_flashed:m4_os=%] == [%partition_to_be_flashed%] (
+    set img_name=%soc_name%_m4_demo.img
+    goto :start_to_flash
+)
+if not [%partition_to_be_flashed:vbmeta=%] == [%partition_to_be_flashed%] if not [%device_character%] == [] (
+    set img_name=%local_str%-%soc_name%-%device_character%.img
+    goto :start_to_flash
+)
+if not [%partition_to_be_flashed:dtbo=%] == [%partition_to_be_flashed%] if not [%device_character%] == [] (
+    set img_name=%local_str%-%soc_name%-%device_character%.img
+    goto :start_to_flash
+)
+if not [%partition_to_be_flashed:recovery=%] == [%partition_to_be_flashed%] if not [%device_character%] == [] (
+    set img_name=%local_str%-%soc_name%-%device_character%.img
+    goto :start_to_flash
+)
+if not [%partition_to_be_flashed:bootloader=%] == [%partition_to_be_flashed%] (
+    set img_name=%bootloader_flashed_to_board%
+    goto :start_to_flash
+)
 
 
+if %support_dtbo% == 1 (
+    if not [%partition_to_be_flashed:boot=%] == [%partition_to_be_flashed%] (
+        set img_name=%bootimage%
+        goto :start_to_flash
+    )
+)
+
+if not [%partition_to_be_flashed:gpt=%] == [%partition_to_be_flashed%] (
+    set img_name=%partition_file%
+    goto :start_to_flash
+)
+
+:start_to_flash
+echo flash the file of %img_name% to the partition of %partition_to_be_flashed%
 %fastboot_tool% flash %1 %image_directory%%img_name%
 goto :eof
 
 
 :flash_userpartitions
+if %support_dual_bootloader% == 1 call :flash_partition %dual_bootloader_partition%
 if %support_dtbo% == 1 call :flash_partition %dtbo_partition%
 if %support_recovery% == 1 call :flash_partition %recovery_partition%
 call :flash_partition %boot_partition%
@@ -185,15 +223,17 @@ set system_partition=system%1
 set vendor_partition=vendor%1
 set vbmeta_partition=vbmeta%1
 set dtbo_partition=dtbo%1
+if %support_dual_bootloader% == 1 (
+    set dual_bootloader_partition=bootloader%1
+)
 goto :eof
 
 :flash_android
-if not %soc_name:imx8=% == %soc_name% set bootloader_partition=bootloader0
-call :flash_partition %bootloader_partition%
-
 call :flash_partition gpt
 
-%fastboot_tool% getvar all 2> fastboot_var.log && find "dtbo" fastboot_var.log > nul && set /A support_dtbo=1
+%fastboot_tool% getvar all 2> fastboot_var.log
+find "bootloader_a" fastboot_var.log > nul && set /A support_dual_bootloader=1
+find "dtbo" fastboot_var.log > nul && set /A support_dtbo=1
 
 find "recovery" fastboot_var.log > nul && set /A support_recovery=1
 
@@ -202,6 +242,20 @@ find "boot_b" fastboot_var.log > nul && set /A support_dualslot=1
 
 find "m4_os" fastboot_var.log > nul && set /A support_m4_os=1
 
+if %support_dual_bootloader% == 1 (
+    set bootloader_flashed_to_board=spl-%soc_name%.bin
+    set uboot_proper_to_be_flashed=bootloader-%soc_name%.img
+) else (
+    set bootloader_flashed_to_board=u-boot-%soc_name%.imx
+    if [%soc_name%] == [imx8mm] (
+        if [%device_character%] == [ddr4] (
+            set bootloader_flashed_to_board=u-boot-%soc_name%-ddr4.imx
+        )
+    )
+)
+
+if not %soc_name:imx8=% == %soc_name% set bootloader_partition=bootloader0
+call :flash_partition %bootloader_partition%
 
 if %support_dualslot% == 0 set slot=
 
