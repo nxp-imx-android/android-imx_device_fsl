@@ -38,7 +38,9 @@ options:
                         For imx8mq, this option is only used internally. No need for other users to use this option
                         For other chips, this option doesn't work
   -y yocto_image    flash yocto image together with imx8qm auto xen images. The parameter follows "-y" option should be a full path name
-                    including the name of yocto sdcard image, this parameter could be a relative path or an absolute path
+                        including the name of yocto sdcard image, this parameter could be a relative path or an absolute path
+  -i                with this option used, after uboot for uuu loaded and executed to fastboot mode with target device chosen, this script will stop
+                        This option is for users to manually flash the images to partitions they want to
 EOF
 
 }
@@ -83,6 +85,9 @@ imx8qm_stage_base_addr=0x98000000
 bootloader_usbd_by_uuu=""
 bootloader_flashed_to_board=""
 yocto_image=""
+intervene=0
+support_dual_bootloader=0
+dual_bootloader_partition=""
 
 if [ $# -eq 0 ]; then
     echo -e >&2 ${RED}please provide more information with command script options${STD}
@@ -103,8 +108,8 @@ while [ $# -gt 0 ]; do
         -D) image_directory=$2; shift;;
         -t) target_dev=$2; shift;;
         -y) yocto_image=$2; shift;;
-
         -p) board=$2; shift;;
+        -i) intervene=1 ;;
         *)  echo -e >&2 ${RED}an option you specified is not supported, please check it${STD}
             help; exit;;
     esac
@@ -250,11 +255,17 @@ function uuu_load_uboot
     if [[ ${target_dev} = "emmc" ]]; then
         uuu FB: ucmd mmc partconf ${target_num} 1 1 1
     fi
+
+    if [[ ${intervene} -eq 1 ]]; then
+        exit 0
+    fi
 }
 
 function flash_partition
 {
-    if [ $(echo ${1} | grep "system") != "" ] 2>/dev/null; then
+    if [ $(echo ${1} | grep "bootloader_") != "" ] 2>/dev/null; then
+        img_name=${uboot_proper_to_be_flashed}
+    elif [ $(echo ${1} | grep "system") != "" ] 2>/dev/null; then
         img_name=${systemimage_file}
     elif [ $(echo ${1} | grep "vendor") != "" ] 2>/dev/null; then
         img_name=${vendor_file}
@@ -279,6 +290,9 @@ function flash_partition
 
 function flash_userpartitions
 {
+    if [ ${support_dual_bootloader} -eq 1 ]; then
+        flash_partition ${dual_bootloader_partition}
+    fi
     if [ ${support_dtbo} -eq 1 ]; then
         flash_partition ${dtbo_partition}
     fi
@@ -302,20 +316,13 @@ function flash_partition_name
     vendor_partition="vendor"${1}
     vbmeta_partition="vbmeta"${1}
     dtbo_partition="dtbo"${1}
-
+    if [ ${support_dual_bootloader} -eq 1 ]; then
+        dual_bootloader_partition=bootloader${1}
+    fi
 }
 
 function flash_android
 {
-# for xen, no need to flash bootloader
-    if [[ ${device_character} != xen ]]; then
-        if [ ${soc_name#imx8} != ${soc_name} ]; then
-            flash_partition "bootloader0"
-        else
-            flash_partition "bootloader"
-        fi
-    fi
-
     flash_partition "gpt"
 
     # force to load the gpt just flashed, since for imx6 and imx7, we use uboot from BSP team,
@@ -324,6 +331,7 @@ function flash_android
     uuu FB: ucmd setenv fastboot_dev mmc
 
     ${fastboot_tool} getvar all 2>/tmp/fastboot_var.log
+    grep -q "bootloader_a" /tmp/fastboot_var.log && support_dual_bootloader=1
     grep -q "dtbo" /tmp/fastboot_var.log && support_dtbo=1
     grep -q "recovery" /tmp/fastboot_var.log && support_recovery=1
     # use boot_b to check whether current gpt support a/b slot
@@ -331,6 +339,22 @@ function flash_android
 
     # since imx7ulp uboot from bsp team is used for uuu, m4 os partiton for imx7ulp_evd doesn't exist here
     grep -q "m4_os" /tmp/fastboot_var.log && support_m4_os=1
+
+    # if dual bootloader is supported, the name of the bootloader flashed to the board need to be updated
+    if [ ${support_dual_bootloader} -eq 1 ]; then
+        bootloader_flashed_to_board=spl-${soc_name}.bin
+        uboot_proper_to_be_flashed=bootloader-${soc_name}.img
+    fi
+
+    # for xen, no need to flash bootloader
+    if [[ ${device_character} != xen ]]; then
+        if [ ${soc_name#imx8} != ${soc_name} ]; then
+            flash_partition "bootloader0"
+        else
+            flash_partition "bootloader"
+        fi
+    fi
+
 
     # if a platform doesn't support dual slot but a slot is selected, ignore it.
     if [ ${support_dualslot} -eq 0 ] && [ ${slot} != "" ]; then
