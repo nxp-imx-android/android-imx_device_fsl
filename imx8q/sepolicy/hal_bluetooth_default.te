@@ -8,6 +8,7 @@ allow hal_bluetooth_default sysfs_rfkill:file  { write };
 # vendor.wc_transport.start_hci and friends
 set_prop(hal_bluetooth_default, wc_prop)
 set_prop(hal_bluetooth_default, vendor_bluetooth_prop)
+set_prop(hal_bluetooth_default, public_vendor_default_prop)
 
 # talk to system_server to set priority
 allow hal_bluetooth_default fwk_scheduler_hwservice:hwservice_manager {find};
