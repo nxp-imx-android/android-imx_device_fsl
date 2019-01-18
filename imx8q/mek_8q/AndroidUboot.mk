@@ -87,7 +87,7 @@ define build_imx_uboot
 		cp  $(FSL_PROPRIETARY_PATH)/linux-firmware-imx/firmware/seco/mx8qx-ahab-container.img $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/mx8qx-ahab-container.img; \
 		cp  $(FSL_PROPRIETARY_PATH)/fsl-proprietary/uboot-firmware/imx8q/mx$$SCFW_PLATFORM-scfw-tcm.bin $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/scfw_tcm.bin; \
 		if [ `echo $(2) | rev | cut -d '-' -f1` == "uuu" ]; then \
-			FLASH_TARGET=`echo flash_b0_all`;  \
+			FLASH_TARGET=`echo flash_b0_all_ddr`;  \
 		else \
 			FLASH_TARGET=`echo flash_all_spl_container`;  \
 		fi; \
