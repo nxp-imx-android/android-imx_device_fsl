@@ -59,18 +59,45 @@ TARGET_BOOTLOADER_POSTFIX := bin
 USE_OPENGL_RENDERER := true
 TARGET_CPU_SMP := true
 
-BOARD_WLAN_DEVICE            := qcwcn
+BOARD_WLAN_DEVICE            := UNITE
 WPA_SUPPLICANT_VERSION       := VER_0_8_X
 BOARD_WPA_SUPPLICANT_DRIVER  := NL80211
 BOARD_HOSTAPD_DRIVER         := NL80211
 
+ifeq ($(BOARD_WLAN_DEVICE), UNITE)
+BOARD_HOSTAPD_PRIVATE_LIB_QCA           := lib_driver_cmd_qcwcn
+BOARD_WPA_SUPPLICANT_PRIVATE_LIB_QCA    := lib_driver_cmd_qcwcn
+BOARD_HOSTAPD_PRIVATE_LIB_BCM           := lib_driver_cmd_bcmdhd
+BOARD_WPA_SUPPLICANT_PRIVATE_LIB_BCM    := lib_driver_cmd_bcmdhd
+else ifeq ($(strip $(BOARD_WLAN_DEVICE)), $(filter $(BOARD_WLAN_DEVICE), bcmdhd qcwcn))
 BOARD_HOSTAPD_PRIVATE_LIB               := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
 BOARD_WPA_SUPPLICANT_PRIVATE_LIB        := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
+endif
 
-WIFI_HIDL_FEATURE_DUAL_INTERFACE := true
+WIFI_DRIVER_FW_PATH_PARAM := "/sys/module/brcmfmac/parameters/alternative_fw_path"
 
+# QCA qcacld wifi driver module
 BOARD_VENDOR_KERNEL_MODULES += \
-        $(KERNEL_OUT)/drivers/net/wireless/qcacld-2.0/wlan.ko
+    $(KERNEL_OUT)/drivers/net/wireless/qcacld-2.0/wlan.ko
+
+# BCM fmac wifi driver module
+BOARD_VENDOR_KERNEL_MODULES += \
+    $(KERNEL_OUT)/drivers/net/wireless/broadcom/brcm80211/brcmfmac/brcmfmac.ko \
+    $(KERNEL_OUT)/drivers/net/wireless/broadcom/brcm80211/brcmutil/brcmutil.ko
+
+BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(IMX_DEVICE_PATH)/bluetooth
+
+# BCM 1CX BT
+BOARD_HAVE_BLUETOOTH_BCM := true
+
+# Qcom 1CQ(QCA6174) BT
+BOARD_HAVE_BLUETOOTH_QCOM := true
+BOARD_HAS_QCA_BT_ROME := true
+BOARD_HAVE_BLUETOOTH_BLUEZ := false
+QCOM_BT_USE_SIBS := true
+ifeq ($(QCOM_BT_USE_SIBS), true)
+    WCNSS_FILTER_USES_SIBS := true
+endif
 
 BOARD_USE_SENSOR_FUSION := true
 
@@ -109,15 +136,8 @@ endif
 KERNEL_NAME := Image
 BOARD_KERNEL_CMDLINE := init=/init androidboot.gui_resolution=1080p androidboot.console=ttymxc0 androidboot.hardware=freescale androidboot.fbTileSupport=enable cma=$(CMASIZE) androidboot.primary_display=imx-drm firmware_class.path=/vendor/firmware transparent_hugepage=never
 
-# Qcom 1CQ(QCA6174) BT
-BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(IMX_DEVICE_PATH)/bluetooth
-BOARD_HAVE_BLUETOOTH_QCOM := true
-BOARD_HAS_QCA_BT_ROME := true
-BOARD_HAVE_BLUETOOTH_BLUEZ := false
-QCOM_BT_USE_SIBS := true
-ifeq ($(QCOM_BT_USE_SIBS), true)
-    WCNSS_FILTER_USES_SIBS := true
-endif
+# Defaultly evk_8mq use BCM 1CX BCM4356 wifi module, if use QCOM qca9377 module, set androidboot.wifivendor=qca
+BOARD_KERNEL_CMDLINE += androidboot.wifivendor=bcm
 
 ifeq ($(TARGET_USERIMAGES_USE_UBIFS),true)
 ifeq ($(TARGET_USERIMAGES_USE_EXT4),true)
