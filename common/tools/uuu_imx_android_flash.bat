@@ -82,7 +82,7 @@ if %1 == -t set target_dev=%2&shift &shift & goto :parse_loop
 if %1 == -p set board=%2&shift &shift & goto :parse_loop
 if %1 == -y set yocto_image=%2&shift &shift & goto :parse_loop
 if %1 == -i set /A intervene=1 & shift & goto :parse_loop
-echo an option you specified is not supported, please check it
+echo unknown option "%1", please check it.
 call :help & set /A error_level=1 && goto :exit
 :parse_end
 
@@ -216,9 +216,9 @@ goto :the_name_of_bootloader_end
 ::---------------------------------------------------------------------------------
 :: Invoke function to flash android images
 ::---------------------------------------------------------------------------------
-call :uuu_load_uboot
+call :uuu_load_uboot || set /A error_level=1 && goto :exit
 
-call :flash_android
+call :flash_android || set /A error_level=1 && goto :exit
 
 if %erase% == 1 (
     %fastboot_tool% erase userdata || set /A error_level=1 && goto :exit
@@ -362,7 +362,8 @@ if [%target_dev%] == [emmc] (
 )
 
 if %intervene% == 1 (
-    set /A error_level=0 && goto :exit
+:: in fact, it's not an error, but to align the behaviour of cmd and powershell, a non-zero error value is used.
+    set /A error_level=1 && goto :exit
 )
 
 goto :eof
@@ -430,13 +431,13 @@ goto :eof
 
 
 :flash_userpartitions
-if %support_dual_bootloader% == 1 call :flash_partition %dual_bootloader_partition%
-if %support_dtbo% == 1 call :flash_partition %dtbo_partition%
-if %support_recovery% == 1 call :flash_partition %recovery_partition%
-call :flash_partition %boot_partition%
-call :flash_partition %system_partition%
-call :flash_partition %vendor_partition%
-call :flash_partition %vbmeta_partition%
+if %support_dual_bootloader% == 1 call :flash_partition %dual_bootloader_partition% || set /A error_level=1 && goto :exit
+if %support_dtbo% == 1 call :flash_partition %dtbo_partition% || set /A error_level=1 && goto :exit
+if %support_recovery% == 1 call :flash_partition %recovery_partition% || set /A error_level=1 && goto :exit
+call :flash_partition %boot_partition% || set /A error_level=1 && goto :exit
+call :flash_partition %system_partition% || set /A error_level=1 && goto :exit
+call :flash_partition %vendor_partition% || set /A error_level=1 && goto :exit
+call :flash_partition %vbmeta_partition% || set /A error_level=1 && goto :exit
 goto :eof
 
 
@@ -451,7 +452,7 @@ if %support_dual_bootloader% == 1 set dual_bootloader_partition=bootloader%1
 goto :eof
 
 :flash_android
-call :flash_partition gpt
+call :flash_partition gpt || set /A error_level=1 && goto :exit
 
 :: force to load the gpt just flashed, since for imx6 and imx7, we use uboot from BSP team,
 :: so partition table is not automatically loaded after gpt partition is flashed.
@@ -481,9 +482,9 @@ if %support_dual_bootloader% == 1 (
 :: for xen mode, no need to flash bootloader
 if not [%device_character%] == [xen] (
     if not %soc_name:imx8=% == %soc_name% (
-        call :flash_partition bootloader0
+        call :flash_partition bootloader0 || set /A error_level=1 && goto :exit
     ) else (
-        call :flash_partition bootloader
+        call :flash_partition bootloader || set /A error_level=1 && goto :exit
     )
 )
 
@@ -519,19 +520,19 @@ if [%soc_name%] == [imx7ulp] (
 if [%slot%] == [] (
     if %support_dualslot% == 1 (
 :: flash image to both a and b slot
-        call :flash_partition_name _a
-        call :flash_userpartitions
+        call :flash_partition_name _a || set /A error_level=1 && goto :exit
+        call :flash_userpartitions || set /A error_level=1 && goto :exit
 
-        call :flash_partition_name _b
-        call :flash_userpartitions
+        call :flash_partition_name _b || set /A error_level=1 && goto :exit
+        call :flash_userpartitions || set /A error_level=1 && goto :exit
     ) else (
-        call :flash_partition_name
-        call :flash_userpartitions
+        call :flash_partition_name || set /A error_level=1 && goto :exit
+        call :flash_userpartitions || set /A error_level=1 && goto :exit
     )
 )
 if not [%slot%] == [] (
-    call :flash_partition_name %slot%
-    call :flash_userpartitions
+    call :flash_partition_name %slot% || set /A error_level=1 && goto :exit
+    call :flash_userpartitions || set /A error_level=1 && goto :exit
 )
 
 
@@ -559,4 +560,4 @@ echo !hex!
 goto :eof
 
 :exit
-exit
+exit /B %error_level%
