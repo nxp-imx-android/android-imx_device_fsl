@@ -97,7 +97,7 @@ if [ ${card_size} -gt 0 ]; then
 fi
 
 # if directory is specified, make sure there is a slash at the end
-if [[ ${image_directory} != "" ]]; then
+if [[ "${image_directory}" != "" ]]; then
     image_directory="${image_directory%/}/"
 fi
 
@@ -107,21 +107,21 @@ fi
 
 function flash_partition
 {
-    if [ ${support_dual_bootloader} -eq 1 ] && [ $(echo ${1} | grep "bootloader_") != "" ]; then
+    if [ ${support_dual_bootloader} -eq 1 ] && [ "$(echo ${1} | grep "bootloader_")" != "" ]; then
         img_name=${uboot_proper_to_be_flashed}
-    elif [ $(echo ${1} | grep "system") != "" ] 2>/dev/null; then
+    elif [ "$(echo ${1} | grep "system")" != "" ]; then
         img_name=${systemimage_file}
-    elif [ $(echo ${1} | grep "vendor") != "" ] 2>/dev/null; then
+    elif [ "$(echo ${1} | grep "vendor")" != "" ]; then
         img_name=${vendor_file}
-    elif [ $(echo ${1} | grep "bootloader") != "" ] 2>/dev/null; then
+    elif [ "$(echo ${1} | grep "bootloader")" != "" ]; then
          img_name=${bootloader_flashed_to_board}
-    elif [ ${support_dtbo} -eq 1 ] && [ $(echo ${1} | grep "boot") != "" ] 2>/dev/null; then
+    elif [ ${support_dtbo} -eq 1 ] && [ "$(echo ${1} | grep "boot")" != "" ]; then
         img_name="boot.img"
-    elif [ $(echo ${1} | grep "m4_os") != "" ] 2>/dev/null; then
+    elif [ "$(echo ${1} | grep "m4_os")" != "" ]; then
         img_name="${soc_name}_m4_demo.img"
-    elif [ $(echo ${1} | grep -E "dtbo|vbmeta|recovery") != "" -a ${device_character} != "" ] 2>/dev/null; then
+    elif [ "$(echo ${1} | grep -E "dtbo|vbmeta|recovery")" != "" -a "${device_character}" != "" ]; then
         img_name="${1%_*}-${soc_name}-${device_character}.img"
-    elif [ $(echo ${1} | grep "gpt") != "" ] 2>/dev/null; then
+    elif [ "$(echo ${1} | grep "gpt")" != "" ]; then
         img_name=${partition_file}
     else
         img_name="${1%_*}-${soc_name}.img"
@@ -181,7 +181,7 @@ function flash_android
         bootloader_flashed_to_board="spl-${soc_name}.bin"
         uboot_proper_to_be_flashed="bootloader-${soc_name}.img"
     else
-	if [ ${soc_name} == "imx8mm" ] && [ $(echo ${device_character} | grep "ddr4") != "" ]; then
+	if [ ${soc_name} == "imx8mm" ] && [ "$(echo ${device_character} | grep "ddr4")" != "" ]; then
             bootloader_flashed_to_board="u-boot-${soc_name}-ddr4.imx"
         else
             bootloader_flashed_to_board="u-boot-${soc_name}.imx"
@@ -195,11 +195,11 @@ function flash_android
     fi
 
     # if a platform doesn't support dual slot but a slot is selected, ignore it.
-    if [ ${support_dualslot} -eq 0 ] && [ ${slot} != "" ]; then
+    if [ ${support_dualslot} -eq 0 ] && [ "${slot}" != "" ]; then
         slot=""
     fi
 
-    if [ ${flash_m4} = 1 -a ${support_m4_os} = 1 ]; then
+    if [ ${flash_m4} -eq 1 -a ${support_m4_os} -eq 1 ]; then
         flash_partition ${m4_os_partition}
     fi
 

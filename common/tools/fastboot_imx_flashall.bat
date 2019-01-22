@@ -44,6 +44,7 @@ set /A erase=0
 set image_directory=
 set ser_num=
 set fastboot_tool=fastboot
+set /A error_level=0
 
 
 ::---------------------------------------------------------------------------------
@@ -87,7 +88,7 @@ if not [%ser_num%] == [] set fastboot_tool=fastboot -s %ser_num%
 ::---------------------------------------------------------------------------------
 :: Invoke function to flash android images
 ::---------------------------------------------------------------------------------
-call :flash_android
+call :flash_android || set /A error_level=1 && goto :exit
 
 if %erase% == 1 (
     %fastboot_tool% erase userdata
@@ -201,18 +202,18 @@ if not [%partition_to_be_flashed:gpt=%] == [%partition_to_be_flashed%] (
 
 :start_to_flash
 echo flash the file of %img_name% to the partition of %partition_to_be_flashed%
-%fastboot_tool% flash %1 %image_directory%%img_name%
+%fastboot_tool% flash %1 %image_directory%%img_name% || set /A error_level=1 && goto :exit
 goto :eof
 
 
 :flash_userpartitions
-if %support_dual_bootloader% == 1 call :flash_partition %dual_bootloader_partition%
-if %support_dtbo% == 1 call :flash_partition %dtbo_partition%
-if %support_recovery% == 1 call :flash_partition %recovery_partition%
-call :flash_partition %boot_partition%
-call :flash_partition %system_partition%
-call :flash_partition %vendor_partition%
-call :flash_partition %vbmeta_partition%
+if %support_dual_bootloader% == 1 call :flash_partition %dual_bootloader_partition% || set /A error_level=1 && goto :exit
+if %support_dtbo% == 1 call :flash_partition %dtbo_partition% || set /A error_level=1 && goto :exit
+if %support_recovery% == 1 call :flash_partition %recovery_partition% || set /A error_level=1 && goto :exit
+call :flash_partition %boot_partition% || set /A error_level=1 && goto :exit
+call :flash_partition %system_partition% || set /A error_level=1 && goto :exit
+call :flash_partition %vendor_partition% || set /A error_level=1 && goto :exit
+call :flash_partition %vbmeta_partition% || set /A error_level=1 && goto :exit
 goto :eof
 
 
@@ -229,7 +230,7 @@ if %support_dual_bootloader% == 1 (
 goto :eof
 
 :flash_android
-call :flash_partition gpt
+call :flash_partition gpt || set /A error_level=1 && goto :exit
 
 %fastboot_tool% getvar all 2> fastboot_var.log
 find "bootloader_a" fastboot_var.log > nul && set /A support_dual_bootloader=1
@@ -255,33 +256,36 @@ if %support_dual_bootloader% == 1 (
 )
 
 if not %soc_name:imx8=% == %soc_name% set bootloader_partition=bootloader0
-call :flash_partition %bootloader_partition%
+call :flash_partition %bootloader_partition% || set /A error_level=1 && goto :exit
 
 if %support_dualslot% == 0 set slot=
 
 
-if %flash_m4% == 1 if %support_m4_os% == 1 call :flash_partition %m4_os_partition%
+if %flash_m4% == 1 if %support_m4_os% == 1 call :flash_partition %m4_os_partition% || set /A error_level=1 && goto :exit
 
 
 if [%slot%] == [] if %support_dualslot% == 1 (
 :: flash image to both a and b slot
-    call :flash_partition_name _a
-    call :flash_userpartitions
+    call :flash_partition_name _a || set /A error_level=1 && goto :exit
+    call :flash_userpartitions || set /A error_level=1 && goto :exit
 
-    call :flash_partition_name _b
-    call :flash_userpartitions
+    call :flash_partition_name _b || set /A error_level=1 && goto :exit
+    call :flash_userpartitions || set /A error_level=1 && goto :exit
 )
 if not [%slot%] == []  if %support_dualslot% == 1 (
-    call :flash_partition_name %slot%
-    call :flash_userpartitions
+    call :flash_partition_name %slot% || set /A error_level=1 && goto :exit
+    call :flash_userpartitions || set /A error_level=1 && goto :exit
     %fastboot_tool% set_active %slot:~-1%
 )
 
 if %support_dualslot% == 0 (
-    call :flash_partition_name %slot%
-    call :flash_userpartitions
+    call :flash_partition_name %slot% || set /A error_level=1 && goto :exit
+    call :flash_userpartitions || set /A error_level=1 && goto :exit
 )
 
 del fastboot_var.log
 
 goto :eof
+
+:exit
+exit /B %error_level%
