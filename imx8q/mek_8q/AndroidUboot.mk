@@ -89,7 +89,7 @@ define build_imx_uboot
 		if [ `echo $(2) | rev | cut -d '-' -f1` == "uuu" ]; then \
 			FLASH_TARGET=`echo flash_b0_all_ddr`;  \
 		else \
-			FLASH_TARGET=`echo flash_all_spl_container`;  \
+			FLASH_TARGET=`echo flash_all_spl_container_ddr`;  \
 		fi; \
 		if [ "$(PRODUCT_IMX_CAR)" == "true" ] && [ `echo $(2) | rev | cut -d '-' -f1` != "uuu" ]; then \
 		    if [ "$(PRODUCT_IMX_CAR_M4)" == "true" ] ; then \
