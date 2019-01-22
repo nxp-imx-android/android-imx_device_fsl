@@ -27,6 +27,7 @@
 #
 /vendor/lib(64)?/hw/gralloc\.imx8\.so       u:object_r:same_process_hal_file:s0
 /vendor/lib(64)?/libfsldisplay\.so          u:object_r:same_process_hal_file:s0
+/vendor/lib(64)?/nxp.hardware.display@1.0\.so       u:object_r:same_process_hal_file:s0
 /vendor/lib(64)?/libedid\.so                u:object_r:same_process_hal_file:s0
 /vendor/lib(64)?/libdrm_android\.so         u:object_r:same_process_hal_file:s0
 

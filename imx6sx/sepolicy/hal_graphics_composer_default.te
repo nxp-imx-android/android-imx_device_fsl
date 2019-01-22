@@ -4,3 +4,4 @@ allow hal_graphics_composer_default self:netlink_kobject_uevent_socket create_so
 allow hal_graphics_composer_default gpu_device:dir { search read open };
 allow hal_graphics_composer_default sysfs:dir { read open };
 allow hal_graphics_composer_default sysfs:file { read open getattr };
+allow hal_graphics_composer_default ion_device:chr_file { write };
