@@ -76,6 +76,8 @@ endif
 
 WIFI_DRIVER_FW_PATH_PARAM := "/sys/module/brcmfmac/parameters/alternative_fw_path"
 
+WIFI_HIDL_FEATURE_DUAL_INTERFACE := true
+
 # QCA qcacld wifi driver module
 BOARD_VENDOR_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/net/wireless/qcacld-2.0/wlan.ko
