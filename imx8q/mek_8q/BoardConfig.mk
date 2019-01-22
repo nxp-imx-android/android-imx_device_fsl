@@ -172,6 +172,8 @@ endif
 
 BOARD_PREBUILT_DTBOIMAGE := out/target/product/mek_8q/dtbo-imx8qm.img
 ifeq ($(PRODUCT_IMX_CAR),true)
+AB_OTA_PARTITIONS += bootloader
+BOARD_OTA_BOOTLOADERIMAGE := out/target/product/mek_8q/bootloader-imx8qm.img
 ifeq ($(PRODUCT_IMX_CAR_M4),true)
 TARGET_BOARD_DTS_CONFIG := imx8qm:fsl-imx8qm-mek-car.dtb imx8qm-xen:fsl-imx8qm-mek-domu-car.dtb imx8qxp:fsl-imx8qxp-mek-car.dtb
 else
@@ -208,6 +210,7 @@ BOARD_SEPOLICY_DIRS += \
      packages/services/Car/car_product/sepolicy \
      packages/services/Car/evs/sepolicy \
      device/fsl/imx8q/sepolicy_car \
+     $(IMX_DEVICE_PATH)/sepolicy_car \
      device/generic/car/common/sepolicy
 endif
 

@@ -1,0 +1,5 @@
+#emmc boot
+/dev/block/platform/5b010000\.usdhc/by-name/bootloader_[ab]  u:object_r:bootloader_block_device:s0
+
+#emmc boot on xen
+/dev/block/platform/passthrough/5b010000\.usdhc/by-name/bootloader_[ab]  u:object_r:bootloader_block_device:s0
