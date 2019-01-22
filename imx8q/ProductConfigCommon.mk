@@ -129,7 +129,8 @@ endif
 # display
 PRODUCT_PACKAGES += \
     libdrm_android \
-    libfsldisplay
+    libfsldisplay \
+    nxp.hardware.display@1.0
 
 # drm
 PRODUCT_PACKAGES += \

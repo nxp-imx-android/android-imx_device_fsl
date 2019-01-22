@@ -93,7 +93,8 @@ PRODUCT_PACKAGES += \
 # display libs
 PRODUCT_PACKAGES += \
     libdrm_android \
-    libfsldisplay
+    libfsldisplay \
+    nxp.hardware.display@1.0
 
 # Vivante libdrm support
 PRODUCT_PACKAGES += \
