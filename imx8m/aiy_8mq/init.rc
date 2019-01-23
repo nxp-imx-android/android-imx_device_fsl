@@ -201,6 +201,9 @@ service bugreport /system/bin/dumpstate -d -p -B -z \
     oneshot
     keycodes 114 115 116
 
+on boot
+    start audioserver
+
 on property:vendor.wc_transport.start_hci=true
     start start_hci_filter
 

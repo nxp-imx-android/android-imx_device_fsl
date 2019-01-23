@@ -220,6 +220,9 @@ service bugreport /system/bin/dumpstate -d -p -B -z \
     oneshot
     keycodes 114 115 116
 
+on boot
+    start audioserver
+
 on property:ro.boot.wifivendor=qca
     setprop wifi.concurrent.interface p2p0
     start vendor.wifi_hal_legacy_qca
