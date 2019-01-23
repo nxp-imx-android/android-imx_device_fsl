@@ -37,8 +37,10 @@ ifeq ($(PRODUCT_IMX_CAR),true)
 DEVICE_MANIFEST_FILE := $(IMX_DEVICE_PATH)/manifest_car.xml
 else
 DEVICE_MANIFEST_FILE := $(IMX_DEVICE_PATH)/manifest.xml
-DEVICE_MATRIX_FILE := $(IMX_DEVICE_PATH)/compatibility_matrix.xml
 endif
+
+# Vendor compatibility matrix
+DEVICE_MATRIX_FILE := $(IMX_DEVICE_PATH)/compatibility_matrix.xml
 
 TARGET_BOOTLOADER_BOARD_NAME := MEK
 
