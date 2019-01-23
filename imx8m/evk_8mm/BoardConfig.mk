@@ -149,9 +149,9 @@ endif
 BOARD_PREBUILT_DTBOIMAGE := out/target/product/evk_8mm/dtbo-imx8mm.img
 ifeq ($(PRODUCT_IMX_TRUSTY),true)
 TARGET_BOOTLOADER_CONFIG := imx8mm:imx8mm_evk_android_trusty_defconfig
-TARGET_BOARD_DTS_CONFIG ?= imx8mm:fsl-imx8mm-trusty-evk.dtb imx8mm-mipi-panel:fsl-imx8mm-evk-rm67191.dtb imx8mm-dsd:fsl-imx8mm-evk-ak4497.dtb imx8mm-m4:fsl-imx8mm-evk-m4.dtb
+TARGET_BOARD_DTS_CONFIG ?= imx8mm:fsl-imx8mm-trusty-evk.dtb imx8mm-mipi-panel:fsl-imx8mm-evk-rm67191.dtb imx8mm-m4:fsl-imx8mm-evk-m4.dtb
 else
-TARGET_BOARD_DTS_CONFIG ?= imx8mm:fsl-imx8mm-ddr4-evk.dtb imx8mm-lpddr4:fsl-imx8mm-evk.dtb imx8mm-mipi-panel:fsl-imx8mm-evk-rm67191.dtb imx8mm-dsd:fsl-imx8mm-evk-ak4497.dtb imx8mm-m4:fsl-imx8mm-evk-m4.dtb
+TARGET_BOARD_DTS_CONFIG ?= imx8mm:fsl-imx8mm-ddr4-evk.dtb imx8mm-lpddr4:fsl-imx8mm-evk.dtb imx8mm-mipi-panel:fsl-imx8mm-evk-rm67191.dtb imx8mm-m4:fsl-imx8mm-evk-m4.dtb
 TARGET_BOOTLOADER_CONFIG := imx8mm:imx8mm_evk_android_defconfig imx8mm-ddr4:imx8mm_ddr4_evk_android_defconfig
 endif
 TARGET_KERNEL_DEFCONFIG := android_defconfig

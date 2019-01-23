@@ -148,7 +148,7 @@ endif
 endif
 
 BOARD_PREBUILT_DTBOIMAGE := out/target/product/evk_8mq/dtbo-imx8mq.img
-TARGET_BOARD_DTS_CONFIG ?= imx8mq:fsl-imx8mq-evk.dtb imx8mq-mipi:fsl-imx8mq-evk-lcdif-adv7535.dtb imx8mq-dual:fsl-imx8mq-evk-dual-display.dtb imx8mq-mipi-panel:fsl-imx8mq-evk-dcss-rm67191.dtb imx8mq-dsd:fsl-imx8mq-evk-ak4497.dtb imx8mq-b3:fsl-imx8mq-evk-b3.dtb imx8mq-mipi-b3:fsl-imx8mq-evk-lcdif-adv7535-b3.dtb imx8mq-mipi-panel-b3:fsl-imx8mq-evk-dcss-rm67191-b3.dtb
+TARGET_BOARD_DTS_CONFIG ?= imx8mq:fsl-imx8mq-evk.dtb imx8mq-mipi:fsl-imx8mq-evk-lcdif-adv7535.dtb imx8mq-dual:fsl-imx8mq-evk-dual-display.dtb imx8mq-mipi-panel:fsl-imx8mq-evk-dcss-rm67191.dtb imx8mq-b3:fsl-imx8mq-evk-b3.dtb imx8mq-mipi-b3:fsl-imx8mq-evk-lcdif-adv7535-b3.dtb imx8mq-mipi-panel-b3:fsl-imx8mq-evk-dcss-rm67191-b3.dtb
 TARGET_BOOTLOADER_CONFIG := imx8mq:imx8mq_evk_android_defconfig
 
 TARGET_KERNEL_DEFCONFIG := android_defconfig
