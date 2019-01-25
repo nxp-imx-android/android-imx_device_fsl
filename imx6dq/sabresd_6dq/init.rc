@@ -125,6 +125,9 @@ on early-boot
 
 on boot
     start audioserver
+    start mediadrm
+    start media
+    start drm
 
 on charger
     # Enable Power modes and set the CPU Freq Sampling rates

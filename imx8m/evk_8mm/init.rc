@@ -222,6 +222,9 @@ service bugreport /system/bin/dumpstate -d -p -B -z \
 
 on boot
     start audioserver
+    start mediadrm
+    start media
+    start drm
 
 on property:ro.boot.wifivendor=qca
     setprop wifi.concurrent.interface p2p0

@@ -134,6 +134,9 @@ on charger
 
 on boot
     start audioserver
+    start mediadrm
+    start media
+    start drm
 
 
 on property:sys.boot_completed=1

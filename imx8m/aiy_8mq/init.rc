@@ -203,6 +203,9 @@ service bugreport /system/bin/dumpstate -d -p -B -z \
 
 on boot
     start audioserver
+    start mediadrm
+    start media
+    start drm
 
 on property:vendor.wc_transport.start_hci=true
     start start_hci_filter

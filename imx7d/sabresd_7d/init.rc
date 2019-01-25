@@ -132,6 +132,9 @@ on early-boot
 
 on boot
     start audioserver
+    start mediadrm
+    start media
+    start drm
 
 on property:sys.boot_completed=1
     # Set default CPU frequency governor

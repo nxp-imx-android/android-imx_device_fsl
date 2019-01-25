@@ -110,6 +110,9 @@ on property:vendor.rpmsg.can.event=0
 
 on property:vendor.all.system_server.start=1
     start audioserver
+    start mediadrm
+    start media
+    start drm
 
 on property:vendor.all.system_server.ready=1
     # register the vehicle_rpmsg on raw android.
