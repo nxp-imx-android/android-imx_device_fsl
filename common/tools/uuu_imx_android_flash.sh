@@ -238,9 +238,28 @@ function uuu_load_uboot
     uuu CFG: ${sdp}: -chip ${chip} -vid ${vid} -pid ${pid}
     uuu ${sdp}: boot -f ${image_directory}${bootloader_usbd_by_uuu}
     if [[ ${soc_name#imx8m} != ${soc_name} ]]; then
-        uuu SDPU: delay 1000
-        uuu SDPU: write -f ${image_directory}${bootloader_usbd_by_uuu} -offset 0x57c00
-        uuu SDPU: jump
+        # we may flash images built before 2019/01/09, so SDPU and SDPV both need to be supported
+        # and this script won't parse the uboot image, and we can't use both SDPU and SDPV in uuu
+        # shell command mode, while in uuu script we can
+
+        echo uuu_version 1.2.61 > /tmp/spl_stage.lst
+        # for images need SDPU
+        echo SDPU: delay 1000 >> /tmp/spl_stage.lst
+        echo SDPU: write -f ${bootloader_usbd_by_uuu} -offset 0x57c00 >> /tmp/spl_stage.lst
+        echo SDPU: jump >> /tmp/spl_stage.lst
+        # for images need SDPV
+        echo SDPV: delay 1000 >> /tmp/spl_stage.lst
+        echo SDPV: write -f ${bootloader_usbd_by_uuu} -skipspl >> /tmp/spl_stage.lst
+        echo SDPV: jump >> /tmp/spl_stage.lst
+        echo FB: done >> /tmp/spl_stage.lst
+
+        # when invoke uuu with uuu script, images will be referred from the directory in which there is the uuu script
+        # to avoid complex process on path, just copy the uboot image to /tmp directory
+        cp ${image_directory}${bootloader_usbd_by_uuu} /tmp/
+        uuu /tmp/spl_stage.lst
+        rm /tmp/spl_stage.lst
+        rm /tmp/${bootloader_usbd_by_uuu}
+
     fi
     uuu FB: ucmd setenv fastboot_dev mmc
     uuu FB: ucmd setenv mmcdev ${target_num}
@@ -372,7 +391,7 @@ function flash_android
         ${fastboot_tool} stage ${image_directory}${soc_name}_m4_demo.img
 
         uuu FB: ucmd sf probe
-        echo uuu_version 1.1.81 > /tmp/m4.lst
+        echo uuu_version 1.2.61 > /tmp/m4.lst
         echo CFG: ${sdp}: -chip ${chip} -vid ${vid} -pid ${pid} >> /tmp/m4.lst
         echo FB[-t 30000]: ucmd sf erase `echo "obase=16;$((${imx7ulp_evk_m4_sf_start}*${imx7ulp_evk_sf_blksz}))" | bc` \
                 `echo "obase=16;$((${imx7ulp_evk_m4_sf_length}*${imx7ulp_evk_sf_blksz}))" | bc` >> /tmp/m4.lst
