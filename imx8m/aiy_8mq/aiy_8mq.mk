@@ -77,6 +77,8 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     device/fsl/common/tools/fastboot_imx_flashall.bat:fastboot_imx_flashall.bat \
     device/fsl/common/tools/fastboot_imx_flashall.sh:fastboot_imx_flashall.sh \
+    device/fsl/common/tools/uuu_imx_android_flash.bat:uuu_imx_android_flash.bat \
+    device/fsl/common/tools/uuu_imx_android_flash.sh:uuu_imx_android_flash.sh
 
 USE_XML_AUDIO_POLICY_CONF := 1
 
