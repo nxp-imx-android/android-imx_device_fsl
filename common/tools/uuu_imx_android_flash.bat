@@ -1,5 +1,3 @@
-:: This script is used for flashing i.MX android images whit fastboot.
-
 :: Do not output the command
 @echo off
 
@@ -342,10 +340,32 @@ uuu CFG: %sdp%: -chip %chip% -vid %vid% -pid %pid%
 
 uuu %sdp%: boot -f %image_directory%%bootloader_usbd_by_uuu% || set /A error_level=1 && goto :exit
 
+
+
 if not [%soc_name:imx8m=%] == [%soc_name%] (
-    uuu SDPU: delay 1000
-    uuu SDPU: write -f %image_directory%%bootloader_usbd_by_uuu% -offset 0x57c00
-    uuu SDPU: jump
+rem we may flash images built before 2019/01/09, so SDPU and SDPV both need to be supported
+rem and this script won't parse the uboot image, and we can't use both SDPU and SDPV in uuu
+rem shell command mode, while in uuu script we can
+rem
+rem when invoke uuu with uuu script, images will be referred from the directory in which there is the uuu script
+rem to avoid complex process on path, just copy the uboot image to current working directory, So users should have
+rem write permission in current working directory. Change the name when copy file 'cause images may in current directory
+    copy %image_directory%%bootloader_usbd_by_uuu% uuu_bootloader_temp.imx
+
+    echo uuu_version 1.2.61 > spl_stage.lst
+    :: for images need SDPU
+    echo SDPU: delay 1000 >> spl_stage.lst
+    echo SDPU: write -f uuu_bootloader_temp.imx -offset 0x57c00 >> spl_stage.lst
+    echo SDPU: jump >> spl_stage.lst
+    :: for images need SDPV
+    echo SDPV: delay 1000 >> spl_stage.lst
+    echo SDPV: write -f uuu_bootloader_temp.imx -skipspl >> spl_stage.lst
+    echo SDPV: jump >> spl_stage.lst
+    echo FB: done >> spl_stage.lst
+
+    uuu spl_stage.lst
+    del spl_stage.lst
+    del uuu_bootloader_temp.imx
 )
 
 uuu FB: ucmd setenv fastboot_dev mmc
@@ -504,7 +524,7 @@ if [%soc_name%] == [imx7ulp] (
         %fastboot_tool% stage %image_directory%%soc_name%_m4_demo.img
 
         uuu FB: ucmd sf probe
-        echo uuu_version 1.1.81 > m4.lst
+        echo uuu_version 1.2.61 > m4.lst
         echo CFG: %sdp%: -chip %chip% -vid %vid% -pid %pid% >> m4.lst
         echo FB[-t 30000]: ucmd sf erase %imx7ulp_evk_m4_sf_start_byte% %imx7ulp_evk_m4_sf_length_byte% >> m4.lst
         echo FB[-t 30000]: ucmd sf write %imx7ulp_stage_base_addr% %imx7ulp_evk_m4_sf_start_byte% %imx7ulp_evk_m4_sf_length_byte% >> m4.lst
