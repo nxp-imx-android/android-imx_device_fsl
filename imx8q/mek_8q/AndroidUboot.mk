@@ -113,6 +113,7 @@ define build_imx_uboot
 		else \
 			cp $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/boot-spl-container.img $(PRODUCT_OUT)/spl-$(strip $(2)).bin; \
 			cp $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/u-boot-atf-container.img $(PRODUCT_OUT)/bootloader-$(strip $(2)).img; \
+			rm $(PRODUCT_OUT)/u-boot-$(strip $(2)).imx; \
 		fi; \
 	fi;
 endef
