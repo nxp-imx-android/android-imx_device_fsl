@@ -122,8 +122,9 @@ $(KERNEL_CONFIG_REQUIRED): $(KERNEL_CONFIG_REQUIRED_SRC) | $(KERNEL_OUT)
 	$(hide) cat $^ > $@
 
 # Merge the final target kernel config.
-$(KERNEL_CONFIG): $(KERNEL_CONFIG_SRC) | $(KERNEL_OUT)
+$(KERNEL_CONFIG): $(KERNEL_CONFIG_SRC) $(TARGET_KERNEL_SRC) | $(KERNEL_OUT)
 	$(hide) echo Merging KERNEL config
+	rm -f $(KERNEL_CONFIG)
 	$(KERNEL_MERGE_CONFIG) $(TARGET_KERNEL_SRC) $(realpath $(KERNEL_OUT)) \
 	$(KERNEL_ARCH) $(KERNEL_CROSS_COMPILE) $^
 
