@@ -34,6 +34,7 @@ VIV_NO_Y_INVERT                     u:object_r:public_vendor_default_prop:s0
 VIV_PROFILE                         u:object_r:public_vendor_default_prop:s0
 VIV_TRACE                           u:object_r:public_vendor_default_prop:s0
 VIV_VX_PROFILE                      u:object_r:public_vendor_default_prop:s0
+VIVANTE_SDK_DIR                     u:object_r:public_vendor_default_prop:s0
 VP_DISABLE_PROB                     u:object_r:public_vendor_default_prop:s0
 VS100COMNTOOLS                      u:object_r:public_vendor_default_prop:s0
 VS80COMNTOOLS                       u:object_r:public_vendor_default_prop:s0
