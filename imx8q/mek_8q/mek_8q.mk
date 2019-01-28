@@ -195,6 +195,8 @@ PRODUCT_PACKAGES += \
         libLLVM_viv \
         libOpenCL \
         libopencl-2d \
+        libOpenVX \
+        libOpenVXU \
         gatekeeper.imx8
 
 PRODUCT_PACKAGES += \
@@ -212,7 +214,7 @@ PRODUCT_PACKAGES += \
 
 # Neural Network HAL
 PRODUCT_PACKAGES += \
-    android.hardware.neuralnetworks@1.0-service-imx-nn
+    android.hardware.neuralnetworks@1.1-service-ovx-driver
 
 # imx8 sensor HAL libs.
 PRODUCT_PACKAGES += \
