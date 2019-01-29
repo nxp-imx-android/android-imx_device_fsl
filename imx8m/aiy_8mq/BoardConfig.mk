@@ -100,6 +100,18 @@ NUM_FRAMEBUFFER_SURFACE_BUFFERS := 5
 KERNEL_NAME := Image
 BOARD_KERNEL_CMDLINE := init=/init androidboot.gui_resolution=1080p androidboot.console=ttymxc0 androidboot.hardware=freescale androidboot.fbTileSupport=enable androidboot.primary_display=imx-drm firmware_class.path=/vendor/firmware transparent_hugepage=never
 
+# Qcom 1CQ(QCA6174) WiFi
+BOARD_WLAN_DEVICE            := qcwcn
+WPA_SUPPLICANT_VERSION       := VER_0_8_X
+BOARD_WPA_SUPPLICANT_DRIVER  := NL80211
+BOARD_HOSTAPD_DRIVER         := NL80211
+BOARD_HOSTAPD_PRIVATE_LIB_QCA           := lib_driver_cmd_qcwcn
+BOARD_WPA_SUPPLICANT_PRIVATE_LIB_QCA    := lib_driver_cmd_qcwcn
+
+WIFI_HIDL_FEATURE_DUAL_INTERFACE := true
+
+BOARD_VENDOR_KERNEL_MODULES += \
+                            $(KERNEL_OUT)/drivers/net/wireless/qcacld-2.0/wlan.ko
 # Qcom 1CQ(QCA6174) BT
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(IMX_DEVICE_PATH)/bluetooth
 BOARD_HAVE_BLUETOOTH_QCOM := true
