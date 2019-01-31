@@ -298,6 +298,8 @@ PRODUCT_PACKAGES += \
     lib_dsp_bsac_dec \
     lib_dsp_codec_wrap \
     lib_dsp_mp3_dec \
+    lib_dsp_mp3_dec_ext \
+    lib_dsp_codec_wrap_ext \
     lib_dsp_wrap_arm12_android \
     lib_omx_ac3_dec_v2_arm11_elinux \
     lib_omx_ra_dec_v2_arm11_elinux \
