@@ -35,7 +35,7 @@ set /A flash_m4=0
 set /A statisc=0
 set /A erase=0
 set image_directory=
-set fastboot_tool=fastboot
+
 set target_dev=emmc
 set sdp=SDP
 set /A uboot_env_start=0
@@ -52,6 +52,8 @@ set /A error_level=0
 set /A intervene=0
 set /A support_dual_bootloader=0
 set dual_bootloader_partition=
+set /A daemon_mode=0
+
 
 
 ::---------------------------------------------------------------------------------
@@ -80,10 +82,18 @@ if %1 == -t set target_dev=%2&shift &shift & goto :parse_loop
 if %1 == -p set board=%2&shift &shift & goto :parse_loop
 if %1 == -y set yocto_image=%2&shift &shift & goto :parse_loop
 if %1 == -i set /A intervene=1 & shift & goto :parse_loop
+if %1 == -daemon set /A daemon_mode=1 & shift & goto :parse_loop
 echo unknown option "%1", please check it.
 call :help & set /A error_level=1 && goto :exit
 :parse_end
 
+
+:: -i option should not be used together with -daemon
+if [%intervene%] equ [1] (
+    if [%daemon_mode%] equ [1] (
+        echo -daemon mode will be igonred
+    )
+)
 
 :: If sdcard size is not correctly set, exit
 if %card_size% neq 0 set /A statisc+=1
@@ -99,12 +109,15 @@ if not [%image_directory%] == [] if not %image_directory:~-1% == \ (
     set image_directory=%image_directory%\
 )
 
+
+
 :: get device and board specific parameter, for now, this step can't make sure the soc_name is definitely correct
 if not [%soc_name:imx8qm=%] == [%soc_name%] (
     set vid=0x1fc9& set pid=0x0129& set chip=MX8QM
     set uboot_env_start=0x2000& set uboot_env_len=0x10
     set emmc_num=0& set sd_num=1
     set board=mek
+    set /A support_dualslot=1
     goto :device_info_end
 )
 if not [%soc_name:imx8qxp=%] == [%soc_name%] (
@@ -112,12 +125,14 @@ if not [%soc_name:imx8qxp=%] == [%soc_name%] (
     set uboot_env_start=0x2000& set uboot_env_len=0x10
     set emmc_num=0& set sd_num=1
     set board=mek
+    set /A support_dualslot=1
     goto :device_info_end
 )
 if not [%soc_name:imx8mq=%] == [%soc_name%] (
     set vid=0x1fc9& set pid=0x012b& set chip=MX8MQ
     set uboot_env_start=0x2000& set uboot_env_len=0x8
     set emmc_num=0& set sd_num=1
+    set /A support_dualslot=1
     if [%board%] == [] (
         set board=evk
     )
@@ -127,6 +142,7 @@ if not [%soc_name:imx8mm=%] == [%soc_name%] (
     set vid=0x1fc9& set pid=00x0134& set chip=MX8MM
     set uboot_env_start=0x2000& set uboot_env_len=0x8
     set emmc_num=1& set sd_num=0
+    set /A support_dualslot=1
     set board=evk
     goto :device_info_end
 )
@@ -184,6 +200,16 @@ echo please check whether the soc_name you specified is correct
 call :help & set /A error_level=1 && goto :exit
 :device_info_end
 
+
+:: judge whether dtbo, recovery and dual bootloader are supported based on files in specified or current directory
+:: to align behaviour in cmd and powershell, a temporary file is used instead of pipe
+cmd /c dir /b %image_directory% > dir_temp.txt
+find "dtbo-%soc_name%" dir_temp.txt > nul && set /A support_dtbo=1
+find "spl-%soc_name%" dir_temp.txt > nul && set /A support_dual_bootloader=1
+find "recovery-%soc_name%" dir_temp.txt > nul && set /A support_recovery=1
+del dir_temp.txt
+
+
 :: set target_num based on target_dev
 if [%target_dev%] == [emmc] (
     set target_num=%emmc_num%
@@ -219,19 +245,19 @@ call :uuu_load_uboot || set /A error_level=1 && goto :exit
 call :flash_android || set /A error_level=1 && goto :exit
 
 if %erase% == 1 (
-    %fastboot_tool% erase userdata || set /A error_level=1 && goto :exit
-    %fastboot_tool% erase misc || set /A error_level=1 && goto :exit
+    echo FB[-t 600000]: erase userdata>> uuu.lst
     if %soc_name:imx8=% == %soc_name% (
-        %fastboot_tool% erase cache || set /A error_level=1 && goto :exit
+        echo FB[-t 600000]: erase cache>> uuu.lst
     )
 )
+echo FB[-t 600000]: erase misc>> uuu.lst
 
 :: make sure device is locked for boards don't use tee
-%fastboot_tool% erase presistdata || set /A error_level=1 && goto :exit
-%fastboot_tool% erase fbmisc || set /A error_level=1 && goto :exit
+echo FB[-t 600000]: erase presistdata>> uuu.lst
+echo FB[-t 600000]: erase fbmisc>> uuu.lst
 
 if not [%slot%] == [] if %support_dualslot% == 1 (
-    %fastboot_tool% set_active %slot:~-1% || set /A error_level=1 && goto :exit
+    echo FB: set_active %slot:~-1%>> uuu.lst
 )
 
 :: flash yocto image along with mek_8qm auto xen images
@@ -240,24 +266,35 @@ if not [%yocto_image%] == [] (
         if [%device_character%] == [xen] (
             setlocal enabledelayedexpansion
             set target_num=%sd_num%
-            uuu FB: ucmd setenv fastboot_dev mmc
-            uuu FB: ucmd setenv mmcdev !target_num!
-            uuu FB: ucmd mmc dev !target_num!
+            echo FB: ucmd setenv fastboot_dev mmc >> uuu.lst
+            echo FB: ucmd setenv mmcdev !target_num! >> uuu.lst
+            echo FB: ucmd mmc dev !target_num! >> uuu.lst
             :: flash the yocto image to "all" partition of SD card
-            uuu "FB[-t 600000]:" flash -raw2sparse all %yocto_image%
+            echo generate lines to flash %yocto_image% to the partition of all
+            if exist yocto_image_with_xen_support.link (
+                del yocto_image_with_xen_support.link
+            )
+            cmd /c mklink yocto_image_with_xen_support.link %yocto_image% > nul
+            echo FB[-t 600000]: flash -raw2sparse all yocto_image_with_xen_support.link >> uuu.lst
             :: replace uboot from yocto team with the one from android team
-            %fastboot_tool% flash bootloader0 %image_directory%u-boot-imx8qm-xen-dom0.imx
-
+            echo generate lines to flash u-boot-imx8qm-xen-dom0.imx to the partition of bootloader0
+            if exist u-boot-imx8qm-xen-dom0.imx.link (
+                del u-boot-imx8qm-xen-dom0.imx.link
+            )
+            cmd /c mklink u-boot-imx8qm-xen-dom0.imx.link %image_directory%u-boot-imx8qm-xen-dom0.imx > nul
+            echo FB: flash bootloader0 u-boot-imx8qm-xen-dom0.imx.link >> uuu.lst
             :: write the xen uboot from android team to FAT on SD card
             set xen_uboot_name=u-boot-%soc_name%-%device_character%.imx
             for /f "usebackq" %%A in ('%image_directory%!xen_uboot_name!') do set xen_uboot_size_dec=%%~zA
             call :dec_to_hex !xen_uboot_size_dec! xen_uboot_size_hex
-            echo xen_uboot_name is !xen_uboot_name!
-            echo xen_uboot_size_dec !xen_uboot_size_dec!
-            echo xen_uboot_size_hex !xen_uboot_size_hex!
-            %fastboot_tool% stage %image_directory%!xen_uboot_name!
-            echo uuu FB: ucmd fatwrite mmc %sd_num% %imx8qm_stage_base_addr% !xen_uboot_name! 0x!xen_uboot_size_hex!
-            uuu FB: ucmd fatwrite mmc %sd_num% %imx8qm_stage_base_addr% !xen_uboot_name! 0x!xen_uboot_size_hex!
+            echo generate lines to write u-boot-%soc_name%-%device_character%.imx to FAT on SD card
+            if exist !xen_uboot_name!.link (
+                del !xen_uboot_name!.link
+            )
+            cmd /c mklink !xen_uboot_name!.link %image_directory%!xen_uboot_name! > nul
+            echo FB: ucmd setenv fastboot_buffer %imx8qm_stage_base_addr% >> uuu.lst
+            echo FB: download -f !xen_uboot_name!.link >> uuu.lst
+            echo FB: ucmd fatwrite mmc %sd_num% %imx8qm_stage_base_addr% !xen_uboot_name! 0x!xen_uboot_size_hex! >> uuu.lst
         )
     ) else (
         echo -y option only applies for imx8qm xen images
@@ -265,7 +302,17 @@ if not [%yocto_image%] == [] (
     )
 )
 
-echo #######ALL IMAGE FILES FLASHED#######
+echo FB: done >> uuu.lst
+
+echo uuu script generated, start to invoke uuu with the generated uuu script
+
+if %daemon_mode% equ 1 (
+    uuu -d uuu.lst
+) else (
+    uuu uuu.lst
+    del *.link
+    del uuu.lst
+)
 
 
 ::---------------------------------------------------------------------------------
@@ -280,8 +327,8 @@ goto :eof
 
 :help
 echo.
-echo Version: 1.2
-echo Last change: add support for aiy_imx8mq platform.
+echo Version: 1.3
+echo Last change: generate uuu script first and then use the generated uuu script to flash images
 echo currently suported platforms: sabresd_6dq, sabreauto_6q, sabresd_6sx, evk_7ulp, sabresd_7d
 echo                               evk_8mm, evk_8mq, aiy_8mq, mek_8q, mek_8q_car
 echo.
@@ -313,7 +360,10 @@ echo                        For imx6dl, imx6q, imx6qp, this is mandatory, it can
 echo                        For imx8mq, this option is only used internally. No need for other users to use this option
 echo                        For other chips, this option doesn't work
 echo -y yocto_image     flash yocto image together with imx8qm auto xen images. The parameter follows "-y" option should be a full path name
-echo                    including the name of yocto sdcard image, this parameter could be a relative path or an absolute path
+echo                        including the name of yocto sdcard image, this parameter could be a relative path or an absolute path
+echo -i                 with this option used, after uboot for uuu loaded and executed to fastboot mode with target device chosen, this script will stop
+echo                        This option is for users to manually flash the images to partitions they want to
+echo -daemon            after uuu script generated, uuu will be invoked with daemon mode. It is used for flash multi boards
 goto :eof
 
 :target_dev_not_support
@@ -336,53 +386,44 @@ if [%board%] == [] (
 goto :eof
 
 :uuu_load_uboot
-uuu CFG: %sdp%: -chip %chip% -vid %vid% -pid %pid%
+echo uuu_version 1.2.68 > uuu.lst
 
-uuu %sdp%: boot -f %image_directory%%bootloader_usbd_by_uuu% || set /A error_level=1 && goto :exit
+if exist %bootloader_usbd_by_uuu%.link (
+    del %bootloader_usbd_by_uuu%.link
+)
+cmd /c mklink %bootloader_usbd_by_uuu%.link %image_directory%%bootloader_usbd_by_uuu% > nul
+echo %sdp%: boot -f %bootloader_usbd_by_uuu%.link >> uuu.lst
 
 
 
 if not [%soc_name:imx8m=%] == [%soc_name%] (
-rem we may flash images built before 2019/01/09, so SDPU and SDPV both need to be supported
-rem and this script won't parse the uboot image, and we can't use both SDPU and SDPV in uuu
-rem shell command mode, while in uuu script we can
-rem
-rem when invoke uuu with uuu script, images will be referred from the directory in which there is the uuu script
-rem to avoid complex process on path, just copy the uboot image to current working directory, So users should have
-rem write permission in current working directory. Change the name when copy file 'cause images may in current directory
-    copy %image_directory%%bootloader_usbd_by_uuu% uuu_bootloader_temp.imx
-
-    echo uuu_version 1.2.61 > spl_stage.lst
     :: for images need SDPU
-    echo SDPU: delay 1000 >> spl_stage.lst
-    echo SDPU: write -f uuu_bootloader_temp.imx -offset 0x57c00 >> spl_stage.lst
-    echo SDPU: jump >> spl_stage.lst
+    echo SDPU: delay 1000 >> uuu.lst
+    echo SDPU: write -f %bootloader_usbd_by_uuu%.link -offset 0x57c00 >> uuu.lst
+    echo SDPU: jump >> uuu.lst
     :: for images need SDPV
-    echo SDPV: delay 1000 >> spl_stage.lst
-    echo SDPV: write -f uuu_bootloader_temp.imx -skipspl >> spl_stage.lst
-    echo SDPV: jump >> spl_stage.lst
-    echo FB: done >> spl_stage.lst
-
-    uuu spl_stage.lst
-    del spl_stage.lst
-    del uuu_bootloader_temp.imx
+    echo SDPV: delay 1000 >> uuu.lst
+    echo SDPV: write -f %bootloader_usbd_by_uuu%.link -skipspl >> uuu.lst
+    echo SDPV: jump >> uuu.lst
 )
 
-uuu FB: ucmd setenv fastboot_dev mmc
-uuu FB: ucmd setenv mmcdev %target_num%
-uuu FB: ucmd mmc dev %target_num%
+echo FB: ucmd setenv fastboot_dev mmc >> uuu.lst
+echo FB: ucmd setenv mmcdev %target_num% >> uuu.lst
+echo FB: ucmd mmc dev %target_num% >> uuu.lst
 
 :: erase environment variables of uboot
 if [%target_dev%] == [emmc] (
-    uuu FB: ucmd mmc dev %target_num% 0 || set /A error_level=1 && goto :exit
+    echo FB: ucmd mmc dev %target_num% 0 >> uuu.lst
 )
-uuu FB: ucmd mmc erase %uboot_env_start% %uboot_env_len%
+echo FB: ucmd mmc erase %uboot_env_start% %uboot_env_len% >> uuu.lst
 if [%target_dev%] == [emmc] (
-    uuu FB: ucmd mmc partconf %target_num% 1 1 1 || set /A error_level=1 && goto :exit
+    echo FB: ucmd mmc partconf %target_num% 1 1 1 >> uuu.lst
 )
 
 if %intervene% == 1 (
 :: in fact, it's not an error, but to align the behaviour of cmd and powershell, a non-zero error value is used.
+    echo FB: done >> uuu.lst
+    uuu uuu.lst
     set /A error_level=1 && goto :exit
 )
 
@@ -445,8 +486,12 @@ if not [%partition_to_be_flashed:gpt=%] == [%partition_to_be_flashed%] (
 )
 
 :start_to_flash
-echo flash the file of %img_name% to the partition of %partition_to_be_flashed%
-%fastboot_tool% flash %1 %image_directory%%img_name% || set /A error_level=1 && goto :exit
+echo generate lines to flash %img_name% to the partition of %1
+if exist %img_name%.link (
+    del %img_name%.link
+)
+cmd /c mklink %img_name%.link %image_directory%%img_name% > nul
+echo FB: flash %1 %img_name%.link >> uuu.lst
 goto :eof
 
 
@@ -476,22 +521,9 @@ call :flash_partition gpt || set /A error_level=1 && goto :exit
 
 :: force to load the gpt just flashed, since for imx6 and imx7, we use uboot from BSP team,
 :: so partition table is not automatically loaded after gpt partition is flashed.
-uuu FB: ucmd setenv fastboot_dev sata
-uuu FB: ucmd setenv fastboot_dev mmc
+echo FB: ucmd setenv fastboot_dev sata >> uuu.lst
+echo FB: ucmd setenv fastboot_dev mmc >> uuu.lst
 
-%fastboot_tool% getvar all 2> fastboot_var.log || set /A error_level=1 && goto :exit
-
-find "bootloader_a" fastboot_var.log > nul && set /A support_dual_bootloader=1
-
-find "dtbo" fastboot_var.log > nul && set /A support_dtbo=1
-
-find "recovery" fastboot_var.log > nul && set /A support_recovery=1
-
-::use boot_b to check whether current gpt support a/b slot
-find "boot_b" fastboot_var.log > nul && set /A support_dualslot=1
-
-:: since imx7ulp uboot from bsp team is used for uuu, m4 os partiton for imx7ulp_evd doesn't exist here
-find "m4_os" fastboot_var.log > nul && set /A support_m4_os=1
 
 :: if dual bootloader is supported, the name of the bootloader flashed to the board need to be updated
 if %support_dual_bootloader% == 1 (
@@ -515,27 +547,24 @@ if %support_dualslot% == 0 (
     )
 )
 
-if %flash_m4% == 1 if %support_m4_os% == 1 call :flash_partition %m4_os_partition%
-
-::since imx7ulp use uboot for uuu from BSP team, if m4 need to be flashed, flash it here.
+::since imx7ulp use uboot for uuu from BSP team, there is no hardcoded m4_os partition. If m4 need to be flashed, flash it here.
 if [%soc_name%] == [imx7ulp] (
     if [%flash_m4%] == [1] (
         :: download m4 image to sdram
-        %fastboot_tool% stage %image_directory%%soc_name%_m4_demo.img
-
-        uuu FB: ucmd sf probe
-        echo uuu_version 1.2.61 > m4.lst
-        echo CFG: %sdp%: -chip %chip% -vid %vid% -pid %pid% >> m4.lst
-        echo FB[-t 30000]: ucmd sf erase %imx7ulp_evk_m4_sf_start_byte% %imx7ulp_evk_m4_sf_length_byte% >> m4.lst
-        echo FB[-t 30000]: ucmd sf write %imx7ulp_stage_base_addr% %imx7ulp_evk_m4_sf_start_byte% %imx7ulp_evk_m4_sf_length_byte% >> m4.lst
-        echo FB: done >> m4.lst
-        :: write the image to spi nor-flash
-        echo flash the file of imx7ulp_m4_demo.img to the partition of m4_os
-        uuu m4.lst
-        del m4.lst
+        if exist %soc_name%_m4_demo.img.link (
+            del %soc_name%_m4_demo.img.link
+        )
+        cmd /c mklink %soc_name%_m4_demo.img.link %image_directory%%soc_name%_m4_demo.img > nul
+        echo generate lines to flash %soc_name%_m4_demo.img to the partition of m4_os
+        echo FB: ucmd setenv fastboot_buffer %imx7ulp_stage_base_addr% >> uuu.lst
+        echo FB: download -f %soc_name%_m4_demo.img.link >> uuu.lst
+        echo FB: ucmd sf probe >> uuu.lst
+        echo FB[-t 30000]: ucmd sf erase %imx7ulp_evk_m4_sf_start_byte% %imx7ulp_evk_m4_sf_length_byte% >> uuu.lst
+        echo FB[-t 30000]: ucmd sf write %imx7ulp_stage_base_addr% %imx7ulp_evk_m4_sf_start_byte% %imx7ulp_evk_m4_sf_length_byte% >> uuu.lst
     )
+) else (
+    if %flash_m4% == 1 call :flash_partition %m4_os_partition%
 )
-
 
 if [%slot%] == [] (
     if %support_dualslot% == 1 (
@@ -554,9 +583,6 @@ if not [%slot%] == [] (
     call :flash_partition_name %slot% || set /A error_level=1 && goto :exit
     call :flash_userpartitions || set /A error_level=1 && goto :exit
 )
-
-
-del fastboot_var.log
 
 goto :eof
 
