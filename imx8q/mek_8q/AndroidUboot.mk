@@ -83,7 +83,7 @@ define build_imx_uboot
 	elif [ `echo $(2) | cut -d '-' -f1` == "imx8qxp" ]; then \
 		MKIMAGE_PLATFORM=`echo iMX8QX`; \
 		SCFW_PLATFORM=`echo 8qx`; \
-		ATF_PLATFORM=`echo imx8qxp`; \
+		ATF_PLATFORM=`echo imx8qx`; \
 		cp  $(FSL_PROPRIETARY_PATH)/linux-firmware-imx/firmware/seco/mx8qx-ahab-container.img $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/mx8qx-ahab-container.img; \
 		cp  $(FSL_PROPRIETARY_PATH)/fsl-proprietary/uboot-firmware/imx8q/mx$$SCFW_PLATFORM-scfw-tcm.bin $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/scfw_tcm.bin; \
 		if [ `echo $(2) | rev | cut -d '-' -f1` == "uuu" ]; then \
