@@ -30,8 +30,6 @@ on init
     insmod /lib/modules/imx8_prg.ko
     insmod /lib/modules/imx8_dprc.ko
     insmod /lib/modules/imx-dpu-core.ko
-    insmod /lib/modules/nwl-dsi.ko
-    insmod /lib/modules/nwl_dsi-imx.ko
     insmod /lib/modules/imx-dpu-crtc.ko
     insmod /lib/modules/imx-dpu-blit.ko
     insmod /lib/modules/imx-dpu-render.ko
