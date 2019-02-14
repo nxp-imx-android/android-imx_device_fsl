@@ -88,8 +88,6 @@ BOARD_VENDOR_KERNEL_MODULES += \
                             $(KERNEL_OUT)/drivers/gpu/drm/imx/dpu/imx-dpu-render.ko \
                             $(KERNEL_OUT)/drivers/gpu/imx/dpu/imx-dpu-core.ko \
                             $(KERNEL_OUT)/drivers/gpu/drm/imx/dpu/imx-dpu-crtc.ko \
-                            $(KERNEL_OUT)/drivers/gpu/drm/bridge/nwl-dsi.ko \
-                            $(KERNEL_OUT)/drivers/gpu/drm/imx/nwl_dsi-imx.ko \
                             $(KERNEL_OUT)/drivers/media/platform/imx8/max9286_gmsl.ko \
                             $(KERNEL_OUT)/drivers/media/platform/imx8/mxc-mipi-csi2.ko \
                             $(KERNEL_OUT)/drivers/media/platform/imx8/mxc-media-dev.ko \
@@ -103,9 +101,7 @@ BOARD_RECOVERY_KERNEL_MODULES += \
                             $(KERNEL_OUT)/drivers/gpu/imx/dpu-blit/imx-dpu-blit.ko \
                             $(KERNEL_OUT)/drivers/gpu/drm/imx/dpu/imx-dpu-render.ko \
                             $(KERNEL_OUT)/drivers/gpu/imx/dpu/imx-dpu-core.ko \
-                            $(KERNEL_OUT)/drivers/gpu/drm/imx/dpu/imx-dpu-crtc.ko \
-                            $(KERNEL_OUT)/drivers/gpu/drm/bridge/nwl-dsi.ko \
-                            $(KERNEL_OUT)/drivers/gpu/drm/imx/nwl_dsi-imx.ko
+                            $(KERNEL_OUT)/drivers/gpu/drm/imx/dpu/imx-dpu-crtc.ko
 endif
 
 # Qcom 1CQ(QCA6174) BT
