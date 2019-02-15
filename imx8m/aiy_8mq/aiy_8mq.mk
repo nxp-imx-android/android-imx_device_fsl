@@ -145,6 +145,13 @@ PRODUCT_COPY_FILES += \
     vendor/nxp/qca-wifi-bt/1CQ_QCA6174A_LEA_2.0/lib/firmware/qca6174/utf30.bin:vendor/firmware/utf30.bin \
     vendor/nxp/qca-wifi-bt/1CQ_QCA6174A_LEA_2.0/lib/firmware/wlan/qca6174/qcom_cfg.ini:vendor/firmware/wlan/qcom_cfg.ini
 
+
+# Qcom Bluetooth Firmware
+PRODUCT_COPY_FILES += \
+    vendor/nxp/qca-wifi-bt/1CQ_QCA6174A_LEA_2.0/lib/firmware/nvm_tlv_3.2.bin:vendor/firmware/nvm_tlv_3.2.bin \
+    vendor/nxp/qca-wifi-bt/1CQ_QCA6174A_LEA_2.0/lib/firmware/rampatch_tlv_3.2.tlv:vendor/firmware/rampatch_tlv_3.2.tlv \
+    vendor/nxp/qca-wifi-bt/qca_proprietary/Android_HAL/wcnss_filter_aiy_8mq:vendor/bin/wcnss_filter
+
 # Neural Network HAL
 PRODUCT_PACKAGES += \
     android.hardware.neuralnetworks@1.0-service-imx-nn
