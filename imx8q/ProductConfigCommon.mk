@@ -119,10 +119,8 @@ ifeq ($(PRODUCT_IMX_CAR),true)
 PRODUCT_PACKAGES += \
     android.hardware.automotive.evs@1.0-EvsEnumeratorHw
 
-ifeq ($(PRODUCT_IMX_CAR_M4),true)
 PRODUCT_PACKAGES += \
     evs_can_service
-endif
 endif
 
 # display
