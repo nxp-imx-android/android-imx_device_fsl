@@ -76,9 +76,6 @@ on early-boot
 
     setprop persist.service.bdroid.bdaddr 22:22:67:C6:69:73
 
-    setprop qcom.bluetooth.soc rome_uart
-    setprop vendor.wc_transport.start_hci false
-
     # Set OpenGLES version
     setprop ro.opengles.version 131072
 
@@ -192,30 +189,6 @@ service bugreport /system/bin/dumpstate -d -p -B -z \
     disabled
     oneshot
     keycodes 114 115 116
-
-on property:vendor.wc_transport.start_hci=true
-    start start_hci_filter
-
-on property:vendor.wc_transport.start_hci=false
-    stop start_hci_filter
-
-service start_hci_filter /vendor/bin/wcnss_filter
-    class late_start
-    user bluetooth
-    group bluetooth diag
-    disabled
-
-on property:vendor.wc_transport.start_root=true
-    start hci_filter_root
-
-on property:vendor.wc_transport.start_root=false
-    stop hci_filter_root
-
-service hci_filter_root /vendor/bin/wcnss_filter
-    class late_start
-    user bluetooth
-    group bluetooth diag system
-    disabled
 
 on fs
 # mount ext4 partitions

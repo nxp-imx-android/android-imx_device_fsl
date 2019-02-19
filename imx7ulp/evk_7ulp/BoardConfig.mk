@@ -43,6 +43,9 @@ BOARD_VENDOR_KERNEL_MODULES += \
 
 WIFI_DRIVER_FW_PATH_PARAM := "/sys/module/brcmfmac/parameters/alternative_fw_path"
 
+# BCM 1DX BT
+BOARD_HAVE_BLUETOOTH_BCM := true
+
 #for sensors, need to define sensor type here
 BOARD_USE_SENSOR_FUSION := true
 BOARD_USE_SENSOR_PEDOMETER :=true
@@ -52,16 +55,6 @@ BOARD_USE_LEGACY_SENSOR :=false
 TARGET_SELECT_KEY := 28
 # we don't support sparse image.
 TARGET_USERIMAGES_SPARSE_EXT_DISABLED := false
-
-# Qcom 1PJ(QCA9377) BT
-BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(IMX_DEVICE_PATH)/bluetooth
-BOARD_HAVE_BLUETOOTH_QCOM := true
-BOARD_HAS_QCA_BT_ROME := true
-BOARD_HAVE_BLUETOOTH_BLUEZ := false
-QCOM_BT_USE_SIBS := true
-ifeq ($(QCOM_BT_USE_SIBS), true)
-    WCNSS_FILTER_USES_SIBS := true
-endif
 
 USE_ION_ALLOCATOR := true
 USE_GPU_ALLOCATOR := false
