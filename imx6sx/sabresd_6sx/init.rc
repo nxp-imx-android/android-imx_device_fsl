@@ -115,6 +115,12 @@ on early-boot
     # enlarge media max memory size to 3G.
     setprop ro.media.maxmem 3221225471
 
+on boot
+    start audioserver
+    start mediadrm
+    start media
+    start drm
+
 on charger
     # Enable Power modes and set the CPU Freq Sampling rates
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor "powersave"

@@ -109,6 +109,12 @@ on property:vendor.rpmsg.can.event=1 && property:vendor.evs.video.ready=1
 on property:vendor.rpmsg.can.event=0
     stop evs_app
 
+on property:vendor.all.system_server.start=1
+    start audioserver
+    start mediadrm
+    start media
+    start drm
+
 on boot
     # Trigger start evs_driver service
     start evs_driver
