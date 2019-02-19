@@ -1,3 +1,4 @@
 vendor.rpmsg.can.event      u:object_r:evs_prop:s0
 vendor.rpmsg.can.register   u:object_r:evs_prop:s0
 vendor.evs.video.ready      u:object_r:evs_prop:s0
+vendor.all.system_server.ready      u:object_r:public_vendor_default_prop:s0

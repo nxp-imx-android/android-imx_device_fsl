@@ -17,4 +17,4 @@ allow init-insmod-sh vendor_file:system module_load;
 
 allow init-insmod-sh debug_prop:property_service { set  };
 allow init-insmod-sh wc_prop:property_service { set  };
-set_prop(init-insmod-sh, vehicle_rpmsg_prop)
+set_prop(init-insmod-sh, public_vendor_default_prop)

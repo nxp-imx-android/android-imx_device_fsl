@@ -1,1 +1,1 @@
-get_prop(system_app, vehicle_rpmsg_prop);
+get_prop(system_app, public_vendor_default_prop);
