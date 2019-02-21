@@ -1,6 +1,8 @@
 :: Do not output the command
 @echo off
 
+echo This script is validated with uuu 1.2.68 version, please align with this version.
+
 ::---------------------------------------------------------------------------------
 ::Variables
 ::---------------------------------------------------------------------------------
@@ -95,6 +97,11 @@ if [%intervene%] equ [1] (
     )
 )
 
+:: if directory is specified, and the last character is not backslash, add one backslash
+if not [%image_directory%] == [] if not %image_directory:~-1% == \ (
+    set image_directory=%image_directory%\
+)
+
 :: If sdcard size is not correctly set, exit
 if %card_size% neq 0 set /A statisc+=1
 if %card_size% neq 7 set /A statisc+=1
@@ -104,12 +111,37 @@ if %statisc% == 4 echo card_size is not a legal value & set /A error_level=1 && 
 
 if %card_size% gtr 0 set partition_file=partition-table-%card_size%GB.img
 
-:: if directory is specified, and the last character is not backslash, add one backslash
-if not [%image_directory%] == [] if not %image_directory:~-1% == \ (
-    set image_directory=%image_directory%\
+
+:: dump the partition table image file into text file and check whether some partition names are in it
+if exist partition-table_1.txt (
+    del partition-table_1.txt
+)
+certutil -encodehex %image_directory%%partition_file% partition-table_1.txt > nul
+:: get the last column, it's ASCII character of the values in partition table file. none-printable value displays as a dot
+if exist partition-table_2.txt (
+    del partition-table_2.txt
+)
+:: put all the lines in a file into one line
+for /f "tokens=17 delims= " %%I in (partition-table_1.txt) do echo %%I>> partition-table_2.txt
+if exist partition-table_3.txt (
+    del partition-table_3.txt
+)
+for /f "delims=" %%J in (partition-table_2.txt) do (
+	set /p="%%J"<nul>>partition-table_3.txt 2>nul
 )
 
+:: check whether there is "bootloader_b" in partition file
+find "b.o.o.t.l.o.a.d.e.r._.b." partition-table_3.txt > nul && set /A support_dual_bootloader=1 && echo dual bootloader is supported
+:: check whether there is "dtbo" in partition file
+find "d.t.b.o." partition-table_3.txt > nul && set /A support_dtbo=1 && echo dtbo is supported
+:: check whether there is "recovery" in partition file
+find "r.e.c.o.v.e.r.y." partition-table_3.txt > nul && set /A support_recovery=1 && echo recovery is supported
+:: check whether there is "boot_b" in partition file
+find "b.o.o.t._.b." partition-table_3.txt > nul && set /A support_dualslot=1 && echo dual slot is supported
 
+del partition-table_1.txt
+del partition-table_2.txt
+del partition-table_3.txt
 
 :: get device and board specific parameter, for now, this step can't make sure the soc_name is definitely correct
 if not [%soc_name:imx8qm=%] == [%soc_name%] (
@@ -117,7 +149,6 @@ if not [%soc_name:imx8qm=%] == [%soc_name%] (
     set uboot_env_start=0x2000& set uboot_env_len=0x10
     set emmc_num=0& set sd_num=1
     set board=mek
-    set /A support_dualslot=1
     goto :device_info_end
 )
 if not [%soc_name:imx8qxp=%] == [%soc_name%] (
@@ -125,14 +156,12 @@ if not [%soc_name:imx8qxp=%] == [%soc_name%] (
     set uboot_env_start=0x2000& set uboot_env_len=0x10
     set emmc_num=0& set sd_num=1
     set board=mek
-    set /A support_dualslot=1
     goto :device_info_end
 )
 if not [%soc_name:imx8mq=%] == [%soc_name%] (
     set vid=0x1fc9& set pid=0x012b& set chip=MX8MQ
     set uboot_env_start=0x2000& set uboot_env_len=0x8
     set emmc_num=0& set sd_num=1
-    set /A support_dualslot=1
     if [%board%] == [] (
         set board=evk
     )
@@ -142,7 +171,6 @@ if not [%soc_name:imx8mm=%] == [%soc_name%] (
     set vid=0x1fc9& set pid=00x0134& set chip=MX8MM
     set uboot_env_start=0x2000& set uboot_env_len=0x8
     set emmc_num=1& set sd_num=0
-    set /A support_dualslot=1
     set board=evk
     goto :device_info_end
 )
@@ -200,16 +228,6 @@ echo please check whether the soc_name you specified is correct
 call :help & set /A error_level=1 && goto :exit
 :device_info_end
 
-
-:: judge whether dtbo, recovery and dual bootloader are supported based on files in specified or current directory
-:: to align behaviour in cmd and powershell, a temporary file is used instead of pipe
-cmd /c dir /b %image_directory% > dir_temp.txt
-find "dtbo-%soc_name%" dir_temp.txt > nul && set /A support_dtbo=1
-find "spl-%soc_name%" dir_temp.txt > nul && set /A support_dual_bootloader=1
-find "recovery-%soc_name%" dir_temp.txt > nul && set /A support_recovery=1
-del dir_temp.txt
-
-
 :: set target_num based on target_dev
 if [%target_dev%] == [emmc] (
     set target_num=%emmc_num%
@@ -243,22 +261,6 @@ goto :the_name_of_bootloader_end
 call :uuu_load_uboot || set /A error_level=1 && goto :exit
 
 call :flash_android || set /A error_level=1 && goto :exit
-
-if %erase% == 1 (
-    echo FB[-t 600000]: erase userdata>> uuu.lst
-    if %soc_name:imx8=% == %soc_name% (
-        echo FB[-t 600000]: erase cache>> uuu.lst
-    )
-)
-echo FB[-t 600000]: erase misc>> uuu.lst
-
-:: make sure device is locked for boards don't use tee
-echo FB[-t 600000]: erase presistdata>> uuu.lst
-echo FB[-t 600000]: erase fbmisc>> uuu.lst
-
-if not [%slot%] == [] if %support_dualslot% == 1 (
-    echo FB: set_active %slot:~-1%>> uuu.lst
-)
 
 :: flash yocto image along with mek_8qm auto xen images
 if not [%yocto_image%] == [] (
@@ -300,6 +302,23 @@ if not [%yocto_image%] == [] (
         echo -y option only applies for imx8qm xen images
         call :help & exit set /A error_level=1 && goto :exit
     )
+)
+
+echo FB[-t 600000]: erase misc>> uuu.lst
+
+:: make sure device is locked for boards don't use tee
+echo FB[-t 600000]: erase presistdata>> uuu.lst
+echo FB[-t 600000]: erase fbmisc>> uuu.lst
+
+if not [%slot%] == [] if %support_dualslot% == 1 (
+    echo FB: set_active %slot:~-1%>> uuu.lst
+)
+
+if %erase% == 1 (
+    if %support_recovery% == 1 (
+        echo FB[-t 600000]: erase cache>> uuu.lst
+    )
+    echo FB[-t 600000]: erase userdata>> uuu.lst
 )
 
 echo FB: done >> uuu.lst
