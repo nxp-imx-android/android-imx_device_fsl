@@ -93,6 +93,8 @@ sym_link_directory=""
 yocto_image_sym_link=""
 daemon_mode=0
 
+echo -e This script is validated with ${RED}uuu 1.2.68${STD} version, please align with this version.
+
 if [ $# -eq 0 ]; then
     echo -e >&2 ${RED}please provide more information with command script options${STD}
     help
@@ -126,6 +128,11 @@ if [ ${intervene} -eq 1 ] && [ ${daemon_mode} -eq 1 ]; then
     echo -daemon mode will be igonred
 fi
 
+# for specified directory, make sure there is a slash at the end
+if [[ "${image_directory}" != "" ]]; then
+     image_directory="${image_directory%/}/";
+fi
+
 # if card_size is not correctly set, exit.
 if [ ${card_size} -ne 0 ] && [ ${card_size} -ne 7 ] && [ ${card_size} -ne 14 ] && [ ${card_size} -ne 28 ]; then
     echo -e >&2 ${RED}card size ${card_size} is not legal${STD};
@@ -137,11 +144,25 @@ if [ ${card_size} -gt 0 ]; then
     partition_file="partition-table-${card_size}GB.img";
 fi
 
-# for specified directory, make sure there is a slash at the end
-if [[ "${image_directory}" != "" ]]; then
-    image_directory="${image_directory%/}/";
-fi
+# dump the partition table image file into text file and check whether some partition names are in it
+hexdump -C -v ${image_directory}${partition_file} > /tmp/partition-table_1.txt
+# get the 2nd to 17th colunmns, it's hex value in text mode for partition table file
+awk '{for(i=2;i<=17;i++) printf $i" "; print ""}' /tmp/partition-table_1.txt > /tmp/partition-table_2.txt
+# put all the lines in a file into one line
+sed ':a;N;$!ba;s/\n//g' /tmp/partition-table_2.txt > /tmp/partition-table_3.txt
 
+# check whether there is "bootloader_b" in partition file
+grep "62 00 6f 00 6f 00 74 00 6c 00 6f 00 61 00 64 00 65 00 72 00 5f 00 62 00" /tmp/partition-table_3.txt > /dev/null \
+        && support_dual_bootloader=1 && echo dual bootloader is supported
+# check whether there is "dtbo" in partition file
+grep "64 00 74 00 62 00 6f 00" /tmp/partition-table_3.txt > /dev/null \
+        && support_dtbo=1 && echo dtbo is supported
+# check whether there is "recovery" in partition file
+grep "72 00 65 00 63 00 6f 00 76 00 65 00 72 00 79 00" /tmp/partition-table_3.txt > /dev/null \
+        && support_recovery=1 && echo recovery is supported
+# check whether there is "boot_b" in partition file
+grep "62 00 6f 00 6f 00 74 00 5f 00 61 00" /tmp/partition-table_3.txt > /dev/null \
+        && support_dualslot=1 && echo dual slot is supported
 
 # for conditions that the path specified is current working directory or no path specified
 if [[ "${image_directory}" == "" ]] || [[ "${image_directory}" == "./" ]]; then
@@ -174,19 +195,16 @@ case ${soc_name%%-*} in
             vid=0x1fc9; pid=0x0129; chip=MX8QM;
             uboot_env_start=0x2000; uboot_env_len=0x10;
             emmc_num=0; sd_num=1;
-            support_dualslot=1;
             board=mek ;;
     imx8qxp)
             vid=0x1fc9; pid=0x012f; chip=MX8QXP;
             uboot_env_start=0x2000; uboot_env_len=0x10;
             emmc_num=0; sd_num=1;
-            support_dualslot=1;
             board=mek ;;
     imx8mq)
             vid=0x1fc9; pid=0x012b; chip=MX8MQ;
             uboot_env_start=0x2000; uboot_env_len=0x8;
             emmc_num=0; sd_num=1;
-            support_dualslot=1;
             if [ -z "$board" ]; then
                 board=evk;
             fi ;;
@@ -194,7 +212,6 @@ case ${soc_name%%-*} in
             vid=0x1fc9; pid=0x0134; chip=MX8MM;
             uboot_env_start=0x2000; uboot_env_len=0x8;
             emmc_num=1; sd_num=0;
-            support_dualslot=1;
             board=evk ;;
     imx7ulp)
             vid=0x1fc9; pid=0x0126; chip=MX7ULP;
@@ -244,24 +261,10 @@ fi
 if [ ${soc_name#imx7} != ${soc_name} ] || [ ${soc_name#imx6} != ${soc_name} -a ${board} = "sabreauto" ] \
     || [ ${soc_name#imx6} != ${soc_name} -a ${soc_name} = "imx6sx" ]; then
     if [ ${target_dev} = "emmc" ]; then
-        echo -e >&2 ${RED}${soc_name}-${board} does not support emmc as target device, \
-                change target device automatically${STD};
+        echo -e >&2 ${soc_name}-${board} does not support emmc as target device, \
+                change target device automatically;
         target_dev=sd;
     fi
-fi
-
-# judge whether dtbo, recovery and dual bootloader are supported based on files in specified or current directory
-if [ "$(ls ${image_directory} | grep "dtbo-${soc_name%%-*}")" != "" ]; then
-    echo dtbo is supported;
-    support_dtbo=1;
-fi
-if [ "$(ls ${image_directory} | grep "spl-${soc_name%%-*}")" != "" ]; then
-    echo dual bootloader is supported
-    support_dual_bootloader=1;
-fi
-if [ "$(ls ${image_directory} | grep "recovery-${soc_name%%-*}")" != "" ]; then
-    echo recovery is supported
-    support_recovery=1
 fi
 
 # set target_num based on target_dev
@@ -455,22 +458,6 @@ uuu_load_uboot
 
 flash_android
 
-if [ ${erase} -eq 1 ]; then
-    echo FB[-t 600000]: erase userdata >> /tmp/uuu.lst
-    if [ ${soc_name#imx8} = ${soc_name} ] ; then
-        echo FB[-t 600000]: erase cache >> /tmp/uuu.lst
-    fi
-fi
-echo FB[-t 600000]: erase misc >> /tmp/uuu.lst
-
-# make sure device is locked for boards don't use tee
-echo FB[-t 600000]: erase presistdata >> /tmp/uuu.lst
-echo FB[-t 600000]: erase fbmisc >> /tmp/uuu.lst
-
-if [ "${slot}" != "" ] && [ ${support_dualslot} -eq 1 ]; then
-    echo FB: set_active ${slot#_} >> /tmp/uuu.lst
-fi
-
 # flash yocto image along with mek_8qm auto xen images
 if [[ "${yocto_image}" != "" ]]; then
     if [ ${soc_name} != "imx8qm" ] || [ "${device_character}" != "xen" ]; then
@@ -501,6 +488,23 @@ if [[ "${yocto_image}" != "" ]]; then
     echo FB: ucmd setenv fastboot_buffer ${imx8qm_stage_base_addr} >> /tmp/uuu.lst
     echo FB: download -f u-boot-${soc_name}-${device_character}.imx >> /tmp/uuu.lst
     echo FB: ucmd fatwrite mmc ${sd_num} ${imx8qm_stage_base_addr} u-boot-${soc_name}-${device_character}.imx 0x${xen_uboot_size_hex} >> /tmp/uuu.lst
+fi
+
+echo FB[-t 600000]: erase misc >> /tmp/uuu.lst
+
+# make sure device is locked for boards don't use tee
+echo FB[-t 600000]: erase presistdata >> /tmp/uuu.lst
+echo FB[-t 600000]: erase fbmisc >> /tmp/uuu.lst
+
+if [ "${slot}" != "" ] && [ ${support_dualslot} -eq 1 ]; then
+    echo FB: set_active ${slot#_} >> /tmp/uuu.lst
+fi
+
+if [ ${erase} -eq 1 ]; then
+    if [ ${support_recovery} -eq 1 ]; then
+        echo FB[-t 600000]: erase cache >> /tmp/uuu.lst
+    fi
+    echo FB[-t 600000]: erase userdata >> /tmp/uuu.lst
 fi
 
 echo FB: done >> /tmp/uuu.lst
