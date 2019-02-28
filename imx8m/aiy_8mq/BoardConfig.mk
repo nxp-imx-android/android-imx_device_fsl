@@ -92,6 +92,9 @@ USE_ION_ALLOCATOR := true
 USE_GPU_ALLOCATOR := false
 
 BOARD_AVB_ENABLE := true
+BOARD_AVB_ALGORITHM := SHA256_RSA4096
+# The testkey_rsa4096.pem is copied from external/avb/test/data/testkey_rsa4096.pem
+BOARD_AVB_KEY_PATH := device/fsl/common/security/testkey_rsa4096.pem
 TARGET_USES_MKE2FS := true
 
 # define frame buffer count
@@ -130,7 +133,7 @@ endif
 
 BOARD_PREBUILT_DTBOIMAGE := out/target/product/aiy_8mq/dtbo-imx8mq.img
 TARGET_BOARD_DTS_CONFIG ?= imx8mq:fsl-imx8mq-phanbell.dtb
-TARGET_BOOTLOADER_CONFIG := imx8mq:imx8mq_aiy_android_defconfig
+TARGET_BOOTLOADER_CONFIG := imx8mq:imx8mq_aiy_android_trusty_defconfig
 
 # set TARGET_BOOTLOADER_CONFIG for u-boot used by uuu
 TARGET_BOOTLOADER_CONFIG += imx8mq-aiy-uuu:imx8mq_aiy_android_uuu_defconfig

@@ -9,6 +9,11 @@ on early-init
 on early-init
     start early_init_sh
 
+    # Due keymaster start very early so set prop here
+    # Also gatekeeper share same role for keymaster
+    setprop ro.hardware.keystore ${ro.boot.keystore}
+    setprop ro.hardware.gatekeeper ${ro.boot.keystore}
+
 on init
     start watchdogd
 
@@ -256,6 +261,8 @@ on post-fs
 
 on post-fs-data
     setprop vold.post_fs_data_done 1
+    # create temp node for secure storage proxy
+    mkdir /data/vendor/ss 0700 system system
 
     # tmp dir for opencl Compiler
     setprop TMPDIR /data/vendor/.opencl-cache
@@ -277,3 +284,9 @@ service early_init_sh /vendor/bin/init.insmod.sh /vendor/etc/early.init.cfg sys.
     group root system
     disabled
     oneshot
+
+on property:sys.boot_completed=1 && property:ro.hardware.gatekeeper=trusty
+    start storageproxyd
+
+service storageproxyd /vendor/bin/storageproxyd -p /data/vendor/ss -r /dev/block/mmcblk0rpmb -d /dev/trusty-ipc-dev0
+   group system
