@@ -39,10 +39,6 @@
                              samplingRates="48000"
                              channelMasks="AUDIO_CHANNEL_OUT_STEREO"/>
                 </mixPort>
-                <mixPort name="esai output" role="source" flags="AUDIO_OUTPUT_FLAG_DIRECT">
-                    <profile name="" format="AUDIO_FORMAT_PCM_16_BIT"
-                             samplingRates="48000" channelMasks="AUDIO_CHANNEL_OUT_5POINT1,AUDIO_CHANNEL_OUT_7POINT1"/>
-                </mixPort>
                 <mixPort name="primary input" role="sink">
                     <profile name="" format="AUDIO_FORMAT_PCM_16_BIT"
                              samplingRates="8000,11025,16000,22050,24000,32000,44100,48000"
@@ -71,7 +67,7 @@
             </devicePorts>
             <!-- route declaration, i.e. list all available sources for a given sink -->
             <routes>
-                <route type="mix" sink="bus0_media_out" sources="esai output,mixport_bus0_media_out"/>
+                <route type="mix" sink="bus0_media_out" sources="mixport_bus0_media_out"/>
                 <route type="mix" sink="bus1_system_sound_out" sources="mixport_bus1_system_sound_out"/>
                 <route type="mix" sink="primary input" sources="Built-In Mic"/>
             </routes>
