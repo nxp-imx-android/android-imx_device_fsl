@@ -29,7 +29,7 @@ on early-boot
     write /sys/bus/platform/drivers/galcore/gpu3DMinClock 3
 
     # Set light sensor sysfs path
-    setprop ro.hardware.lightsensor "/sys/class/i2c-dev/i2c-2/device/2-0044/"
+    setprop ro.hardware.lightsensor "/sys/class/i2c-dev/i2c-4/device/4-0044/"
 
 on property:sys.boot_completed=1
     # Set default CPU frequency governor
