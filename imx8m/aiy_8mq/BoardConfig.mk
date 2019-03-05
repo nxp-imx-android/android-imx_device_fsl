@@ -139,6 +139,7 @@ TARGET_BOOTLOADER_CONFIG := imx8mq:imx8mq_aiy_android_trusty_defconfig
 TARGET_BOOTLOADER_CONFIG += imx8mq-aiy-uuu:imx8mq_aiy_android_uuu_defconfig
 
 TARGET_KERNEL_DEFCONFIG := android_defconfig
+TARGET_KERNEL_ADDITION_DEFCONF := android_addition_defconfig
 
 BOARD_SEPOLICY_DIRS := \
        device/fsl/imx8m/sepolicy \
