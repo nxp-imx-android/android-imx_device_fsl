@@ -83,7 +83,7 @@ IMX_CAMERA_HAL_V1 := true
 TARGET_VSYNC_DIRECT_REFRESH := true
 
 KERNEL_NAME := zImage
-BOARD_KERNEL_CMDLINE := console=ttymxc0,115200 init=/init androidboot.console=ttymxc0 consoleblank=0 androidboot.hardware=freescale 
+BOARD_KERNEL_CMDLINE := console=ttymxc0,115200 init=/init androidboot.console=ttymxc0 consoleblank=0 androidboot.hardware=freescale rootwait
 TARGET_BOOTLOADER_CONFIG := imx6sl:imx6slevkandroid_defconfig
 TARGET_BOARD_DTS_CONFIG := imx6sl:imx6sl-evk-csi.dtb
 TARGET_KERNEL_DEFCONFIG := imx_v7_android_defconfig

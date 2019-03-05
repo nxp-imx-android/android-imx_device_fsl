@@ -101,7 +101,7 @@ TARGET_USES_MKE2FS := true
 NUM_FRAMEBUFFER_SURFACE_BUFFERS := 5
 
 KERNEL_NAME := Image
-BOARD_KERNEL_CMDLINE := init=/init androidboot.gui_resolution=1080p androidboot.console=ttymxc0 androidboot.hardware=freescale androidboot.fbTileSupport=enable androidboot.primary_display=imx-drm firmware_class.path=/vendor/firmware transparent_hugepage=never
+BOARD_KERNEL_CMDLINE := init=/init androidboot.gui_resolution=1080p androidboot.console=ttymxc0 androidboot.hardware=freescale androidboot.fbTileSupport=enable androidboot.primary_display=imx-drm firmware_class.path=/vendor/firmware transparent_hugepage=never rootwait
 
 # Qcom 1CQ(QCA6174) WiFi
 BOARD_WLAN_DEVICE            := qcwcn
