@@ -132,6 +132,7 @@ endif
 endif
 
 BOARD_PREBUILT_DTBOIMAGE := out/target/product/aiy_8mq/dtbo-imx8mq.img
+# imx8mq phanbell
 TARGET_BOARD_DTS_CONFIG ?= imx8mq:fsl-imx8mq-phanbell.dtb
 TARGET_BOOTLOADER_CONFIG := imx8mq:imx8mq_aiy_android_trusty_defconfig
 

@@ -79,9 +79,11 @@ TARGET_VSYNC_DIRECT_REFRESH := true
 
 BOARD_PREBUILT_DTBOIMAGE := out/target/product/sabreauto_6sx/dtbo-imx6sx.img
 ifeq ($(TARGET_USERIMAGES_USE_UBIFS),true)
+# imx6sx with nand flash boot
 TARGET_BOARD_DTS_CONFIG := imx6sx-nand:imx6sx-sabreauto.dtb
 TARGET_BOOTLOADER_CONFIG := imx6sx-nand:mx6sxsabreautoandroid_nand_config 
 else
+# imx6sx with sd card boot
 TARGET_BOARD_DTS_CONFIG := imx6sx:imx6sx-sabreauto.dtb
 TARGET_BOOTLOADER_CONFIG := imx6sx:imx6sxsabreautoandroid_defconfig
 endif

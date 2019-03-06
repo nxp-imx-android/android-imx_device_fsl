@@ -94,6 +94,7 @@ TARGET_VSYNC_DIRECT_REFRESH := true
 
 BOARD_PREBUILT_DTBOIMAGE := out/target/product/sabresd_6sx/dtbo-imx6sx.img
 TARGET_BOOTLOADER_CONFIG := imx6sx:imx6sxsabresdandroid_defconfig
+# imx6sx default dts
 TARGET_BOARD_DTS_CONFIG := imx6sx:imx6sx-sdb.dtb
 TARGET_KERNEL_DEFCONFIG := imx_v7_android_defconfig
 # TARGET_KERNEL_ADDITION_DEFCONF := imx_v7_android_addition_defconfig

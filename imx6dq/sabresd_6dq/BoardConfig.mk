@@ -112,7 +112,16 @@ IMX6_CONSUMER_IR_HAL := false
 
 BOARD_PREBUILT_DTBOIMAGE := out/target/product/sabresd_6dq/dtbo-imx6q.img
 TARGET_BOOTLOADER_CONFIG := imx6q:imx6qsabresdandroid_defconfig imx6dl:imx6dlsabresdandroid_defconfig imx6q-ldo:imx6qsabresdandroid_defconfig imx6qp:imx6qpsabresdandroid_defconfig imx6qp-ldo:imx6qpsabresdandroid_defconfig
-TARGET_BOARD_DTS_CONFIG := imx6q:imx6q-sabresd.dtb imx6dl:imx6dl-sabresd.dtb imx6q-ldo:imx6q-sabresd-ldo.dtb imx6qp:imx6qp-sabresd.dtb imx6qp-ldo:imx6qp-sabresd-ldo.dtb
+# imx6q default dts
+TARGET_BOARD_DTS_CONFIG := imx6q:imx6q-sabresd.dtb
+# imx6dl default dts
+TARGET_BOARD_DTS_CONFIG += imx6dl:imx6dl-sabresd.dtb
+# imx6q 1.2GHz board
+TARGET_BOARD_DTS_CONFIG += imx6q-ldo:imx6q-sabresd-ldo.dtb
+# imx6qp default dts
+TARGET_BOARD_DTS_CONFIG += imx6qp:imx6qp-sabresd.dtb
+# imx6qp 1.2GHz board
+TARGET_BOARD_DTS_CONFIG += imx6qp-ldo:imx6qp-sabresd-ldo.dtb
 TARGET_KERNEL_DEFCONFIG := imx_v7_android_defconfig
 # TARGET_KERNEL_ADDITION_DEFCONF := imx_v7_android_addition_defconfig
 

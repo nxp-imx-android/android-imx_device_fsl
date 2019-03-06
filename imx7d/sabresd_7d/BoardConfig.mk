@@ -71,7 +71,10 @@ TARGET_VSYNC_DIRECT_REFRESH := true
 KERNEL_NAME := zImage
 BOARD_KERNEL_CMDLINE := console=ttymxc0,115200 init=/init androidboot.console=ttymxc0 consoleblank=0 androidboot.hardware=freescale cma=320M rootwait
 TARGET_BOOTLOADER_CONFIG := imx7d:imx7dsabresdandroid_defconfig imx7d-epdc:imx7dsabresdandroid_defconfig
-TARGET_BOARD_DTS_CONFIG := imx7d:imx7d-sdb.dtb imx7d-epdc:imx7d-sdb-epdc.dtb
+# imx7d with HDMI or LCD display
+TARGET_BOARD_DTS_CONFIG := imx7d:imx7d-sdb.dtb
+# imx7d with epdc display
+TARGET_BOARD_DTS_CONFIG := imx7d-epdc:imx7d-sdb-epdc.dtb
 TARGET_KERNEL_DEFCONFIG := imx_v7_android_defconfig
 # TARGET_KERNEL_ADDITION_DEFCONF := imx_v7_android_addition_defconfig
 BOARD_PREBUILT_DTBOIMAGE := out/target/product/sabresd_7d/dtbo-imx7d.img
