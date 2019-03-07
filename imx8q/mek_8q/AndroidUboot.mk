@@ -47,7 +47,7 @@ define build_imx_uboot
 		cp  $(FSL_PROPRIETARY_PATH)/linux-firmware-imx/firmware/seco/mx8qm-ahab-container.img $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/mx8qm-ahab-container.img; \
 		if [ "$(PRODUCT_IMX_CAR)" != "true" ] || [ `echo $(2) | rev | cut -d '-' -f1` == "uuu" ]; then \
 			if [ "$(strip $(2))" == "imx8qm" ]; then\
-				FLASH_TARGET=`echo flash_b0_spl_container`;  \
+				FLASH_TARGET=`echo flash_b0_spl_container_android`;  \
 			else \
 				FLASH_TARGET=`echo flash_b0`;  \
 			fi; \
@@ -103,7 +103,9 @@ define build_imx_uboot
 	if [ "$(strip $(2))" != "imx8qm-xen" ]; then \
 		$(MAKE) -C $(IMX_PATH)/arm-trusted-firmware/ PLAT=$$ATF_PLATFORM clean; \
 		if [ "$(PRODUCT_IMX_CAR)" == "true" ] && [ `echo $(2) | rev | cut -d '-' -f1` != "uuu" ]; then \
-			$(MAKE) -C $(IMX_PATH)/arm-trusted-firmware/ CROSS_COMPILE="$(ATF_CROSS_COMPILE)" PLAT=$$ATF_PLATFORM bl31 SPD=trusty -B 1>/dev/null || exit 1; \
+			$(MAKE) -C $(IMX_PATH)/arm-trusted-firmware/ CROSS_COMPILE="$(ATF_CROSS_COMPILE)" PLAT=$$ATF_PLATFORM bl31 SPL_IN_DRAM=1 SPD=trusty -B 1>/dev/null || exit 1; \
+		elif [ `echo $(2) | rev | cut -d '-' -f1` != "uuu" ]; then \
+			$(MAKE) -C $(IMX_PATH)/arm-trusted-firmware/ CROSS_COMPILE="$(ATF_CROSS_COMPILE)" PLAT=$$ATF_PLATFORM bl31 SPL_IN_DRAM=1 -B 1>/dev/null || exit 1; \
 		else \
 			$(MAKE) -C $(IMX_PATH)/arm-trusted-firmware/ CROSS_COMPILE="$(ATF_CROSS_COMPILE)" PLAT=$$ATF_PLATFORM bl31 -B 1>/dev/null || exit 1; \
 		fi; \
@@ -117,7 +119,7 @@ define build_imx_uboot
 			cp $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/flash.bin $(PRODUCT_OUT)/u-boot-$(strip $(2)).imx; \
 		else \
 			cp $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/boot-spl-container.img $(PRODUCT_OUT)/spl-$(strip $(2)).bin; \
-			cp $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/u-boot-atf-container.img $(PRODUCT_OUT)/bootloader-$(strip $(2)).img; \
+			cp $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/u-boot-atf-container-android.img $(PRODUCT_OUT)/bootloader-$(strip $(2)).img; \
 			rm $(PRODUCT_OUT)/u-boot-$(strip $(2)).imx; \
 		fi; \
 	fi;
