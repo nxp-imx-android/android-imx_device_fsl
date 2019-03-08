@@ -488,6 +488,11 @@ if [[ "${yocto_image}" != "" ]]; then
     echo FB: ucmd setenv fastboot_buffer ${imx8qm_stage_base_addr} >> /tmp/uuu.lst
     echo FB: download -f u-boot-${soc_name}-${device_character}.imx >> /tmp/uuu.lst
     echo FB: ucmd fatwrite mmc ${sd_num} ${imx8qm_stage_base_addr} u-boot-${soc_name}-${device_character}.imx 0x${xen_uboot_size_hex} >> /tmp/uuu.lst
+
+    target_num=${emmc_num}
+    echo FB: ucmd setenv fastboot_dev mmc >> /tmp/uuu.lst
+    echo FB: ucmd setenv mmcdev ${target_num} >> /tmp/uuu.lst
+    echo FB: ucmd mmc dev ${target_num} >> /tmp/uuu.lst
 fi
 
 echo FB[-t 600000]: erase misc >> /tmp/uuu.lst
