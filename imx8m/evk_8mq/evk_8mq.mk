@@ -208,9 +208,9 @@ PRODUCT_COPY_FILES += \
 
 # BCM 1CX Wifi Firmware
 PRODUCT_COPY_FILES += \
-    external/cyw-fmac-fw/brcmfmac4356-pcie.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/brcm/brcmfmac4356-pcie.bin \
-    external/cyw-fmac-fw/brcmfmac4356-pcie.1CX.clm_blob:$(TARGET_COPY_OUT_VENDOR)/firmware/brcm/brcmfmac4356-pcie.clm_blob \
-    external/cyw-fmac-nvram/brcmfmac4356-pcie.1CX.txt:$(TARGET_COPY_OUT_VENDOR)/firmware/brcm/brcmfmac4356-pcie.txt
+    external/cyw-wifi-bt/cyw-wifi-bt/1CX_CYW4356/brcmfmac4356-pcie.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/brcm/brcmfmac4356-pcie.bin \
+    external/cyw-wifi-bt/cyw-wifi-bt/1CX_CYW4356/brcmfmac4356-pcie.clm_blob:$(TARGET_COPY_OUT_VENDOR)/firmware/brcm/brcmfmac4356-pcie.clm_blob \
+    external/cyw-wifi-bt/cyw-wifi-bt/1CX_CYW4356/brcmfmac4356-pcie.txt:$(TARGET_COPY_OUT_VENDOR)/firmware/brcm/brcmfmac4356-pcie.txt
 
 # Keymaster HAL
 PRODUCT_PACKAGES += \

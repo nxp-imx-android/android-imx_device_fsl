@@ -204,9 +204,9 @@ PRODUCT_PACKAGES += \
 
 # BCM 1MW Wifi Firmware
 PRODUCT_COPY_FILES += \
-    external/cyw-fmac-fw/brcmfmac43455-sdio.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/brcm/brcmfmac43455-sdio.bin \
-    external/cyw-fmac-fw/brcmfmac43455-sdio.1MW.clm_blob:$(TARGET_COPY_OUT_VENDOR)/firmware/brcm/brcmfmac43455-sdio.clm_blob \
-    external/cyw-fmac-nvram/brcmfmac43455-sdio.1MW.txt:$(TARGET_COPY_OUT_VENDOR)/firmware/brcm/brcmfmac43455-sdio.txt
+    external/cyw-wifi-bt/cyw-wifi-bt/1MW_CYW43455/brcmfmac43455-sdio.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/brcm/brcmfmac43455-sdio.bin \
+    external/cyw-wifi-bt/cyw-wifi-bt/1MW_CYW43455/brcmfmac43455-sdio.clm_blob:$(TARGET_COPY_OUT_VENDOR)/firmware/brcm/brcmfmac43455-sdio.clm_blob \
+    external/cyw-wifi-bt/cyw-wifi-bt/1MW_CYW43455/brcmfmac43455-sdio.txt:$(TARGET_COPY_OUT_VENDOR)/firmware/brcm/brcmfmac43455-sdio.txt
 
 # Keymaster HAL
 ifeq ($(PRODUCT_IMX_TRUSTY),true)
