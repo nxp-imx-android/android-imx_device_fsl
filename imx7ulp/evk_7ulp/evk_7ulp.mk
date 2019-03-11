@@ -161,7 +161,7 @@ PRODUCT_PACKAGES += \
 
 # BCM 1CX Bluetooth Firmware
 PRODUCT_COPY_FILES += \
-    external/cyw-bt-patch/CYW43430A1.1DX.hcd:$(TARGET_COPY_OUT_VENDOR)/firmware/brcm/CYW43430A1.1DX.hcd
+    external/cyw-wifi-bt/cyw-wifi-bt/1DX_CYW43430/BCM43430A1.1DX.hcd:$(TARGET_COPY_OUT_VENDOR)/firmware/brcm/CYW43430A1.1DX.hcd
 
 # WiFi HAL
 PRODUCT_PACKAGES += \

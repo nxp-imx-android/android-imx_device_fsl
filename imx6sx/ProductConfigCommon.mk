@@ -122,33 +122,11 @@ PRODUCT_PACKAGES += \
     hostapd_cli
 
 
-# Broadcom firmwares
-PRODUCT_PACKAGES += \
-    Type_ZP.hcd \
-    bcmdhd.cal \
-    bt_vendor.conf \
-    fw_bcmdhd.bin \
-    fw_bcmdhd_apsta.bin
+# Copy bluetooth firmware to board
+PRODUCT_COPY_FILES += \
+    external/cyw-wifi-bt/cyw-wifi-bt/ZP_CYW4339/BCM4335C0.ZP.hcd:vendor/firmware/bcm/Type_ZP.hcd \
+    bt_vendor.conf
 
-# Broadcom BCM4339 extended binary
-PRODUCT_PACKAGES += \
-    1bw_fw_bcmdhd.bin \
-    1bw_fw_bcmdhd_mfgtest.bin \
-    1dx_fw_bcmdhd.bin \
-    1dx_fw_bcmdhd_mfgtest.bin \
-    BCM43341B0.1BW.hcd \
-    BCM43430A1.1DX.hcd \
-    bcmdhd.1BW.OOB.cal \
-    bcmdhd.1BW.SDIO.cal \
-    bcmdhd.1DX.OOB.cal \
-    bcmdhd.1DX.SDIO.cal \
-    bcmdhd.SN8000.OOB.cal \
-    bcmdhd.SN8000.SDIO.cal \
-    sn_fw_bcmdhd.bin \
-    sn_fw_bcmdhd_apsta.bin \
-    sn_fw_bcmdhd_mfgtest.bin \
-    wl
- 
 # FUSE based emulated sdcard daemon
 PRODUCT_PACKAGES += \
     sdcard
@@ -342,17 +320,6 @@ PRODUCT_COPY_FILES +=	\
     $(FSL_PROPRIETARY_PATH)/fsl-proprietary/media-profile/media_codecs_google_telephony.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_telephony.xml \
     $(FSL_PROPRIETARY_PATH)/fsl-proprietary/media-profile/media_codecs_google_video.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_video.xml \
     $(FSL_PROPRIETARY_PATH)/fsl-proprietary/media-profile/media_profiles_720p.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_profiles_720p.xml \
-    $(IMX_FIRMWARE_PATH)/imx-firmware/brcm/1BW_BCM43340/BCM43341B0.1BW.hcd:vendor/firmware/bcm/1BW_BCM43340/BCM43341B0.1BW.hcd \
-    $(IMX_FIRMWARE_PATH)/imx-firmware/brcm/1BW_BCM43340/fw_bcmdhd.bin:vendor/firmware/bcm/1BW_BCM43340/fw_bcmdhd.bin \
-    $(IMX_FIRMWARE_PATH)/imx-firmware/brcm/1BW_BCM43340/fw_bcmdhd.bin:vendor/firmware/bcm/1BW_BCM43340/fw_bcmdhd_apsta.bin \
-    $(IMX_FIRMWARE_PATH)/imx-firmware/brcm/1DX_BCM4343W/BCM43430A1.1DX.hcd:vendor/firmware/bcm/1DX_BCM4343W/BCM43430A1.1DX.hcd \
-    $(IMX_FIRMWARE_PATH)/imx-firmware/brcm/1DX_BCM4343W/fw_bcmdhd.bin:vendor/firmware/bcm/1DX_BCM4343W/fw_bcmdhd.bin \
-    $(IMX_FIRMWARE_PATH)/imx-firmware/brcm/1DX_BCM4343W/fw_bcmdhd.bin:vendor/firmware/bcm/1DX_BCM4343W/fw_bcmdhd_apsta.bin \
-    $(IMX_FIRMWARE_PATH)/imx-firmware/brcm/SN8000_BCM43362/fw_bcmdhd.bin:vendor/firmware/bcm/SN8000_BCM43362/fw_bcmdhd.bin \
-    $(IMX_FIRMWARE_PATH)/imx-firmware/brcm/SN8000_BCM43362/fw_bcmdhd.bin:vendor/firmware/bcm/SN8000_BCM43362/fw_bcmdhd_apsta.bin \
-    $(IMX_FIRMWARE_PATH)/imx-firmware/brcm/ZP_BCM4339/BCM4335C0.ZP.hcd:vendor/firmware/bcm/Type_ZP.hcd \
-    $(IMX_FIRMWARE_PATH)/imx-firmware/brcm/ZP_BCM4339/fw_bcmdhd.bin:vendor/firmware/bcm/fw_bcmdhd.bin \
-    $(IMX_FIRMWARE_PATH)/imx-firmware/brcm/ZP_BCM4339/fw_bcmdhd.bin:vendor/firmware/bcm/fw_bcmdhd_apsta.bin \
     $(LINUX_FIRMWARE_IMX_PATH)/linux-firmware-imx/firmware/sdma/sdma-imx6q.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/imx/sdma/sdma-imx6q.bin \
     device/fsl/common/input/Dell_Dell_USB_Entry_Keyboard.idc:$(TARGET_COPY_OUT_VENDOR)/usr/idc/Dell_Dell_USB_Entry_Keyboard.idc \
     device/fsl/common/input/Dell_Dell_USB_Keyboard.idc:$(TARGET_COPY_OUT_VENDOR)/usr/idc/Dell_Dell_USB_Keyboard.idc \

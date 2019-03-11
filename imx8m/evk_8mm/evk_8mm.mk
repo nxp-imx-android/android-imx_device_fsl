@@ -166,7 +166,7 @@ PRODUCT_PACKAGES += \
 
 # BCM 1MW Bluetooth Firmware
 PRODUCT_COPY_FILES += \
-    external/cyw-bt-patch/CYW4345C0.1MW.hcd:$(TARGET_COPY_OUT_VENDOR)/firmware/brcm/CYW4345C0.1MW.hcd
+    external/cyw-wifi-bt/cyw-wifi-bt/1MW_CYW43455/BCM4345C0.1MW.hcd:$(TARGET_COPY_OUT_VENDOR)/firmware/brcm/CYW4345C0.1MW.hcd
 
 # WiFi HAL
 PRODUCT_PACKAGES += \
