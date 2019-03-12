@@ -77,6 +77,9 @@ define build_imx_uboot
 		cp  $(FSL_PROPRIETARY_PATH)/linux-firmware-imx/firmware/seco/mx8qm-ahab-container.img $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/mx8qm-ahab-container.img; \
 		FLASH_TARGET=`echo flash_b0_spl_container_m4_1`;  \
 		cp  $(UBOOT_M4_OUT)/MIMX8QM/$(UBOOT_M4_BUILD_TYPE)/m4_image.bin $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/m4_1_image.bin; \
+	elif [ "$(strip $(2))" == "imx8qm-xen" ]; then \
+		MKIMAGE_PLATFORM=`echo iMX8QM`; \
+		FLASH_TARGET=`echo flash_b0_xen_uboot`;  \
 	elif [ `echo $(2) | cut -d '-' -f1` == "imx8qxp" ]; then \
 		MKIMAGE_PLATFORM=`echo iMX8QX`; \
 		SCFW_PLATFORM=`echo 8qx`; \
@@ -132,6 +135,14 @@ define build_imx_uboot
 			cp $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/u-boot-atf-container.img $(PRODUCT_OUT)/bootloader-$(strip $(2)).img; \
 			rm $(PRODUCT_OUT)/u-boot-$(strip $(2)).imx; \
 		fi; \
+	else \
+		cp $(UBOOT_OUT)/u-boot.$(strip $(1)) $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/u-boot.bin; \
+		cp $(UBOOT_OUT)/spl/u-boot-spl.bin $(PRODUCT_OUT)/spl-$(strip $(2)).bin; \
+		cp $(UBOOT_OUT)/tools/mkimage  $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/mkimage_uboot; \
+		$(MAKE) -C $(IMX_MKIMAGE_PATH)/imx-mkimage/ clean; \
+		$(MAKE) -C $(IMX_MKIMAGE_PATH)/imx-mkimage/ SOC=$$MKIMAGE_PLATFORM $$FLASH_TARGET 1>/dev/null || exit 1; \
+		cp $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/u-boot-xen-container.img $(PRODUCT_OUT)/bootloader-$(strip $(2)).img; \
+		rm $(PRODUCT_OUT)/u-boot-$(strip $(2)).imx; \
 	fi;
 endef
 
