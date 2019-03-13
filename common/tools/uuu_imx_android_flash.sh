@@ -400,10 +400,14 @@ function flash_android
     # if dual bootloader is supported, the name of the bootloader flashed to the board need to be updated
     if [ ${support_dual_bootloader} -eq 1 ]; then
         bootloader_flashed_to_board=spl-${soc_name}.bin
-        uboot_proper_to_be_flashed=bootloader-${soc_name}.img
+        if [[ "${soc_name}" = imx8qm ]] && [[ "${device_character}" = xen ]]; then
+            uboot_proper_to_be_flashed=bootloader-${soc_name}-${device_character}.img
+        else
+            uboot_proper_to_be_flashed=bootloader-${soc_name}.img
+        fi
     fi
 
-    # for xen, no need to flash bootloader
+    # for xen, no need to flash spl
     if [[ "${device_character}" != xen ]]; then
         if [ ${soc_name#imx8} != ${soc_name} ]; then
             flash_partition "bootloader0"
@@ -451,7 +455,6 @@ function flash_android
         flash_partition_name ${slot}
         flash_userpartitions
     fi
-    # flash the yocto image to "all" partition of SD card
 }
 
 uuu_load_uboot
@@ -474,20 +477,20 @@ if [[ "${yocto_image}" != "" ]]; then
     ln -s ${yocto_image_sym_link} /tmp/`basename ${yocto_image}`
     echo FB[-t 600000]: flash -raw2sparse all `basename ${yocto_image}` >> /tmp/uuu.lst
     # replace uboot from yocto team with the one from android team
-    echo -e generate lines to flash ${RED}u-boot-imx8qm-xen-dom0.imx${STD} to the partition of ${RED}bootloader0${STD}
+    echo -e generate lines to flash ${RED}u-boot-imx8qm-xen-dom0.imx${STD} to the partition of ${RED}bootloader0${STD} on SD card
     rm -f /tmp/u-boot-imx8qm-xen-dom0.imx
     ln -s ${sym_link_directory}u-boot-imx8qm-xen-dom0.imx /tmp/u-boot-imx8qm-xen-dom0.imx
     echo FB: flash bootloader0 u-boot-imx8qm-xen-dom0.imx >> /tmp/uuu.lst
 
-    xen_uboot_size_dec=`wc -c ${image_directory}u-boot-${soc_name}-${device_character}.imx | cut -d ' ' -f1`
+    xen_uboot_size_dec=`wc -c ${image_directory}spl-${soc_name}-${device_character}.bin | cut -d ' ' -f1`
     xen_uboot_size_hex=`echo "obase=16;${xen_uboot_size_dec}" | bc`
-    # write the xen uboot from android team to FAT on SD card
-    echo -e generate lines to write ${RED}u-boot-${soc_name}-${device_character}.imx${STD} to ${RED}FAT${STD}
-    rm -f /tmp/u-boot-${soc_name}-${device_character}.imx
-    ln -s ${sym_link_directory}u-boot-${soc_name}-${device_character}.imx /tmp/u-boot-${soc_name}-${device_character}.imx
+    # write the xen spl from android team to FAT on SD card
+    echo -e generate lines to write ${RED}spl-${soc_name}-${device_character}.bin${STD} to ${RED}FAT${STD}
+    rm -f /tmp/spl-${soc_name}-${device_character}.bin
+    ln -s ${sym_link_directory}spl-${soc_name}-${device_character}.bin /tmp/spl-${soc_name}-${device_character}.bin
     echo FB: ucmd setenv fastboot_buffer ${imx8qm_stage_base_addr} >> /tmp/uuu.lst
-    echo FB: download -f u-boot-${soc_name}-${device_character}.imx >> /tmp/uuu.lst
-    echo FB: ucmd fatwrite mmc ${sd_num} ${imx8qm_stage_base_addr} u-boot-${soc_name}-${device_character}.imx 0x${xen_uboot_size_hex} >> /tmp/uuu.lst
+    echo FB: download -f spl-${soc_name}-${device_character}.bin >> /tmp/uuu.lst
+    echo FB: ucmd fatwrite mmc ${sd_num} ${imx8qm_stage_base_addr} spl-${soc_name}-${device_character}.bin 0x${xen_uboot_size_hex} >> /tmp/uuu.lst
 
     target_num=${emmc_num}
     echo FB: ucmd setenv fastboot_dev mmc >> /tmp/uuu.lst
