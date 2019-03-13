@@ -279,17 +279,18 @@ if not [%yocto_image%] == [] (
             cmd /c mklink yocto_image_with_xen_support.link %yocto_image% > nul
             echo FB[-t 600000]: flash -raw2sparse all yocto_image_with_xen_support.link >> uuu.lst
             :: replace uboot from yocto team with the one from android team
-            echo generate lines to flash u-boot-imx8qm-xen-dom0.imx to the partition of bootloader0
+            echo generate lines to flash u-boot-imx8qm-xen-dom0.imx to the partition of bootloader0 on SD card
             if exist u-boot-imx8qm-xen-dom0.imx.link (
                 del u-boot-imx8qm-xen-dom0.imx.link
             )
             cmd /c mklink u-boot-imx8qm-xen-dom0.imx.link %image_directory%u-boot-imx8qm-xen-dom0.imx > nul
             echo FB: flash bootloader0 u-boot-imx8qm-xen-dom0.imx.link >> uuu.lst
-            :: write the xen uboot from android team to FAT on SD card
-            set xen_uboot_name=u-boot-%soc_name%-%device_character%.imx
+            :: write the xen spl from android team to FAT on SD card
+            set xen_uboot_name=spl-%soc_name%-%device_character%.bin
             for /f "usebackq" %%A in ('%image_directory%!xen_uboot_name!') do set xen_uboot_size_dec=%%~zA
+            :: directly pass the name of variable, just like pointer in C program
             call :dec_to_hex !xen_uboot_size_dec! xen_uboot_size_hex
-            echo generate lines to write u-boot-%soc_name%-%device_character%.imx to FAT on SD card
+            echo generate lines to write spl-%soc_name%-%device_character%.bin to FAT on SD card
             if exist !xen_uboot_name!.link (
                 del !xen_uboot_name!.link
             )
@@ -552,10 +553,16 @@ echo FB: ucmd setenv fastboot_dev mmc >> uuu.lst
 :: if dual bootloader is supported, the name of the bootloader flashed to the board need to be updated
 if %support_dual_bootloader% == 1 (
     set bootloader_flashed_to_board=spl-%soc_name%.bin
-    set uboot_proper_to_be_flashed=bootloader-%soc_name%.img
+    if [%device_character%] == [xen] (
+        if [%soc_name%] == [imx8qm] (
+            set uboot_proper_to_be_flashed=bootloader-%soc_name%-%device_character%.img
+        )
+    ) else (
+        set uboot_proper_to_be_flashed=bootloader-%soc_name%.img
+    )
 )
 
-:: for xen mode, no need to flash bootloader
+:: for xen mode, no need to flash spl
 if not [%device_character%] == [xen] (
     if not %soc_name:imx8=% == %soc_name% (
         call :flash_partition bootloader0 || set /A error_level=1 && goto :exit
