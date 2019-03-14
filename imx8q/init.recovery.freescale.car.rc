@@ -22,7 +22,8 @@ on early-init
     # register the vehicle_rpmsg_m4 which will relase display module
     write /sys/devices/platform/vehicle_rpmsg_m4/register 1
 
-on init
+on late-init
+    wait /dev/dri/card1 1
     insmod /lib/modules/it6263.ko
     insmod /lib/modules/imx8_pc.ko
     insmod /lib/modules/imx8_prg.ko
