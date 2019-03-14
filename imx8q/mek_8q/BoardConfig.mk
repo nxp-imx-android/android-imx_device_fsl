@@ -185,10 +185,10 @@ TARGET_BOOTLOADER_CONFIG += imx8qm-mek-uuu:imx8qm_mek_android_uuu_defconfig imx8
 ifeq ($(PRODUCT_IMX_CAR),true)
 ifeq ($(PRODUCT_IMX_CAR_M4),true)
 TARGET_KERNEL_DEFCONFIG := android_car_defconfig
-TARGET_KERNEL_ADDITION_DEFCONF := android_addition_defconfig
 else
 TARGET_KERNEL_DEFCONFIG := android_car2_defconfig
 endif # PRODUCT_IMX_CAR_M4
+TARGET_KERNEL_ADDITION_DEFCONF := android_addition_defconfig
 include $(IMX_DEVICE_PATH)/build_id_car.mk
 else
 TARGET_KERNEL_DEFCONFIG := android_defconfig
