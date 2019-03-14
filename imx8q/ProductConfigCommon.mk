@@ -201,7 +201,6 @@ PRODUCT_PACKAGES += \
     lib_nb_amr_dec_v2_arm9_elinux \
     lib_nb_amr_enc_v2_arm11_elinux \
     lib_ogg_parser_arm11_elinux.3.0 \
-    lib_oggvorbis_dec_v2_arm11_elinux \
     lib_omx_aac_dec_v2_arm11_elinux \
     lib_omx_aac_enc_v2_arm11_elinux \
     lib_omx_aac_parser_v2_arm11_elinux \
@@ -250,13 +249,11 @@ PRODUCT_PACKAGES += \
     lib_omx_tunneled_decoder_arm11_elinux \
     lib_omx_udps_pipe_arm11_elinux \
     lib_omx_utils_v2_arm11_elinux \
-    lib_omx_vorbis_dec_v2_arm11_elinux \
     lib_omx_vpu_dec_v2_arm11_elinux \
     lib_omx_vpu_enc_v2_arm11_elinux \
     lib_omx_vpu_v2_arm11_elinux \
     lib_omx_wav_parser_v2_arm11_elinux \
     lib_peq_v2_arm11_elinux \
-    lib_vorbisd_wrap_arm11_elinux_android \
     lib_vpu_wrapper \
     lib_wav_parser_arm11_elinux \
     lib_wav_parser_arm11_elinux.3.0 \
