@@ -162,12 +162,13 @@ TARGET_BOARD_DTS_CONFIG += imx8mq-b3:fsl-imx8mq-evk-b3.dtb
 TARGET_BOARD_DTS_CONFIG += imx8mq-mipi-b3:fsl-imx8mq-evk-lcdif-adv7535-b3.dtb
 # imx8mq rev. B3 board with MIPI panel display
 TARGET_BOARD_DTS_CONFIG += imx8mq-mipi-panel-b3:fsl-imx8mq-evk-dcss-rm67191-b3.dtb
+# u-boot target for imx8mq_evk
 TARGET_BOOTLOADER_CONFIG := imx8mq:imx8mq_evk_android_defconfig
 
 TARGET_KERNEL_DEFCONFIG := android_defconfig
 # TARGET_KERNEL_ADDITION_DEFCONF ?= android_addition_defconfig
 
-# set TARGET_BOOTLOADER_CONFIG for u-boot used by uuu
+# u-boot target used by uuu for imx8mq_evk
 TARGET_BOOTLOADER_CONFIG += imx8mq-evk-uuu:imx8mq_evk_android_uuu_defconfig
 
 BOARD_SEPOLICY_DIRS := \

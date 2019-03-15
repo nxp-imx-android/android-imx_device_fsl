@@ -148,13 +148,17 @@ endif
 
 BOARD_PREBUILT_DTBOIMAGE := out/target/product/evk_8mm/dtbo-imx8mm.img
 ifeq ($(PRODUCT_IMX_TRUSTY),true)
+# u-boot target for imx8mm_evk with trusty os related features supported
 TARGET_BOOTLOADER_CONFIG := imx8mm:imx8mm_evk_android_trusty_defconfig
 # imx8mm with MIPI-HDMI display, QCA wifi and support trusty
 TARGET_BOARD_DTS_CONFIG ?= imx8mm:fsl-imx8mm-trusty-evk.dtb
 else
 # imx8mm with MIPI-HDMI display and QCA wifi
 TARGET_BOARD_DTS_CONFIG ?= imx8mm:fsl-imx8mm-evk.dtb
-TARGET_BOOTLOADER_CONFIG := imx8mm:imx8mm_evk_android_defconfig imx8mm-ddr4:imx8mm_ddr4_evk_android_defconfig
+# u-boot target for imx8mm_evk with LPDDR4 on board
+TARGET_BOOTLOADER_CONFIG := imx8mm:imx8mm_evk_android_defconfig
+# u-boot target for imx8mm_evk with DDR4 on board
+TARGET_BOOTLOADER_CONFIG += imx8mm-ddr4:imx8mm_ddr4_evk_android_defconfig
 endif
 # imx8mm with MIPI panel display and QCA wifi
 TARGET_BOARD_DTS_CONFIG += imx8mm-mipi-panel:fsl-imx8mm-evk-rm67191.dtb
@@ -163,10 +167,13 @@ TARGET_BOARD_DTS_CONFIG += imx8mm-m4:fsl-imx8mm-evk-m4.dtb
 # imx8mm with MIPI-HDMI display with BCM wifi
 TARGET_BOARD_DTS_CONFIG += imx8mm-ddr4:fsl-imx8mm-ddr4-evk.dtb
 TARGET_KERNEL_DEFCONFIG := android_defconfig
+
 TARGET_KERNEL_ADDITION_DEFCONF := android_addition_defconfig
 
-# set TARGET_BOOTLOADER_CONFIG for u-boot used by uuu
-TARGET_BOOTLOADER_CONFIG += imx8mm-evk-uuu:imx8mm_evk_android_uuu_defconfig imx8mm-ddr4-evk-uuu:imx8mm_ddr4_evk_android_uuu_defconfig
+# u-boot target used by uuu for imx8mm_evk with LPDDR4 on board
+TARGET_BOOTLOADER_CONFIG += imx8mm-evk-uuu:imx8mm_evk_android_uuu_defconfig
+# u-boot target used by uuu for imx8mm_evk with DDR4 on board
+TARGET_BOOTLOADER_CONFIG += imx8mm-ddr4-evk-uuu:imx8mm_ddr4_evk_android_uuu_defconfig
 
 BOARD_SEPOLICY_DIRS := \
        device/fsl/imx8m/sepolicy \

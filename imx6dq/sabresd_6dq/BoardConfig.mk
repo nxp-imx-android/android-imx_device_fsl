@@ -111,7 +111,18 @@ IMX_CAMERA_HAL_V3 := true
 IMX6_CONSUMER_IR_HAL := false
 
 BOARD_PREBUILT_DTBOIMAGE := out/target/product/sabresd_6dq/dtbo-imx6q.img
-TARGET_BOOTLOADER_CONFIG := imx6q:imx6qsabresdandroid_defconfig imx6dl:imx6dlsabresdandroid_defconfig imx6q-ldo:imx6qsabresdandroid_defconfig imx6qp:imx6qpsabresdandroid_defconfig imx6qp-ldo:imx6qpsabresdandroid_defconfig
+
+# u-boot target for imx6q_sabresd 800MHz/10000MHz board
+TARGET_BOOTLOADER_CONFIG := imx6q:imx6qsabresdandroid_defconfig
+# u-boot target for imx6dl_sabresd board
+TARGET_BOOTLOADER_CONFIG += imx6dl:imx6dlsabresdandroid_defconfig
+# u-boot target for imx6q_sabresd 1.2GHz board
+TARGET_BOOTLOADER_CONFIG += imx6q-ldo:imx6qsabresdandroid_defconfig
+# u-boot target for imx6qp_sabresd 800MHz/10000MHz board
+TARGET_BOOTLOADER_CONFIG += imx6qp:imx6qpsabresdandroid_defconfig
+# u-boot target for imx6qp_sabresd 1.2GHz board
+TARGET_BOOTLOADER_CONFIG += imx6qp-ldo:imx6qpsabresdandroid_defconfig
+
 # imx6q default dts
 TARGET_BOARD_DTS_CONFIG := imx6q:imx6q-sabresd.dtb
 # imx6dl default dts
@@ -125,8 +136,16 @@ TARGET_BOARD_DTS_CONFIG += imx6qp-ldo:imx6qp-sabresd-ldo.dtb
 TARGET_KERNEL_DEFCONFIG := imx_v7_android_defconfig
 # TARGET_KERNEL_ADDITION_DEFCONF := imx_v7_android_addition_defconfig
 
-# set TARGET_BOOTLOADER_CONFIG for u-boot used by uuu
-TARGET_BOOTLOADER_CONFIG += imx6q-sabresd-uuu:mx6qsabresd_defconfig imx6dl-sabresd-uuu:mx6dlsabresd_defconfig imx6q-ldo-sabresd-uuu:mx6qsabresd_defconfig imx6qp-sabresd-uuu:mx6qpsabresd_defconfig imx6qp-ldo-sabresd-uuu:mx6qpsabresd_defconfig
+# u-boot target used by uuu for imx6q_sabresd 800MHz/10000MHz board
+TARGET_BOOTLOADER_CONFIG += imx6q-sabresd-uuu:mx6qsabresd_defconfig
+# u-boot target used by uuu for imx6dl_sabresd board
+TARGET_BOOTLOADER_CONFIG += imx6dl-sabresd-uuu:mx6dlsabresd_defconfig
+# u-boot target used by uuu for imx6q_sabresd 1.2GHz board
+TARGET_BOOTLOADER_CONFIG += imx6q-ldo-sabresd-uuu:mx6qsabresd_defconfig
+# u-boot target used by uuu for imx6qp_sabresd 800MHz/10000MHz board
+TARGET_BOOTLOADER_CONFIG += imx6qp-sabresd-uuu:mx6qpsabresd_defconfig
+# u-boot target used by uuu for imx6qp_sabresd 1.2GHz board
+TARGET_BOOTLOADER_CONFIG += imx6qp-ldo-sabresd-uuu:mx6qpsabresd_defconfig
 
 BOARD_SEPOLICY_DIRS := \
        device/fsl/imx6dq/sepolicy \

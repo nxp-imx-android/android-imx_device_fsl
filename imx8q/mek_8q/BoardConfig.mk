@@ -185,7 +185,15 @@ TARGET_BOARD_DTS_CONFIG := imx8qm:fsl-imx8qm-mek-car2.dtb
 # imx8qxp auto android without m4 image
 TARGET_BOARD_DTS_CONFIG += imx8qxp:fsl-imx8qxp-mek-car2.dtb
 endif #PRODUCT_IMX_CAR_M4
-TARGET_BOOTLOADER_CONFIG := imx8qm:imx8qm_mek_androidauto_trusty_defconfig imx8qm-xen:imx8qm_mek_androidauto_xen_dual_defconfig imx8qm-xen-dom0:imx8qm_mek_spl_defconfig imx8qxp:imx8qxp_mek_androidauto_trusty_defconfig
+
+# u-boot target for imx8qm_mek auto android
+TARGET_BOOTLOADER_CONFIG := imx8qm:imx8qm_mek_androidauto_trusty_defconfig
+# u-boot target for imx8qm_mek auto android virtualization
+TARGET_BOOTLOADER_CONFIG += imx8qm-xen:imx8qm_mek_androidauto_xen_dual_defconfig
+# u-boot target for imx8qm_mek linux which has virtualization enabled
+TARGET_BOOTLOADER_CONFIG += imx8qm-xen-dom0:imx8qm_mek_spl_defconfig
+# u-boot target for imx8qxp_mek auto android
+TARGET_BOOTLOADER_CONFIG += imx8qxp:imx8qxp_mek_androidauto_trusty_defconfig
 else
 # imx8qm standard android; MIPI-HDMI display
 TARGET_BOARD_DTS_CONFIG := imx8qm:fsl-imx8qm-mek-ov5640.dtb
@@ -195,11 +203,17 @@ TARGET_BOARD_DTS_CONFIG += imx8qm-mipi-panel:fsl-imx8qm-mek-dsi-rm67191.dtb
 TARGET_BOARD_DTS_CONFIG += imx8qm-hdmi:fsl-imx8qm-mek-hdmi.dtb
 # imx8qxp standard android; MIPI-HDMI display
 TARGET_BOARD_DTS_CONFIG += imx8qxp:fsl-imx8qxp-mek-ov5640.dtb
-TARGET_BOOTLOADER_CONFIG := imx8qm:imx8qm_mek_android_defconfig imx8qxp:imx8qxp_mek_android_defconfig
+
+# u-boot target for imx8qm_mek standard android
+TARGET_BOOTLOADER_CONFIG := imx8qm:imx8qm_mek_android_defconfig
+# u-boot target for imx8qxp_mek standard android
+TARGET_BOOTLOADER_CONFIG += imx8qxp:imx8qxp_mek_android_defconfig
 endif #PRODUCT_IMX_CAR
 
-# set TARGET_BOOTLOADER_CONFIG for u-boot used by uuu
-TARGET_BOOTLOADER_CONFIG += imx8qm-mek-uuu:imx8qm_mek_android_uuu_defconfig imx8qxp-mek-uuu:imx8qxp_mek_android_uuu_defconfig
+# u-boot target used by uuu for imx8qm_mek
+TARGET_BOOTLOADER_CONFIG += imx8qm-mek-uuu:imx8qm_mek_android_uuu_defconfig
+# u-boot target used by uuu for imx8qxp_mek
+TARGET_BOOTLOADER_CONFIG += imx8qxp-mek-uuu:imx8qxp_mek_android_uuu_defconfig
 
 ifeq ($(PRODUCT_IMX_CAR),true)
 ifeq ($(PRODUCT_IMX_CAR_M4),true)

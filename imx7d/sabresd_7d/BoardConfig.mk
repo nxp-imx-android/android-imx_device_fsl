@@ -70,7 +70,10 @@ TARGET_VSYNC_DIRECT_REFRESH := true
 
 KERNEL_NAME := zImage
 BOARD_KERNEL_CMDLINE := console=ttymxc0,115200 init=/init androidboot.console=ttymxc0 consoleblank=0 androidboot.hardware=freescale cma=320M rootwait
-TARGET_BOOTLOADER_CONFIG := imx7d:imx7dsabresdandroid_defconfig imx7d-epdc:imx7dsabresdandroid_defconfig
+# u-boot target for imx7d_sabresd with HDMI or LCD display
+TARGET_BOOTLOADER_CONFIG := imx7d:imx7dsabresdandroid_defconfig
+# u-boot target for imx7d_sabresd with epdc display
+TARGET_BOOTLOADER_CONFIG += imx7d-epdc:imx7dsabresdandroid_defconfig
 # imx7d with HDMI or LCD display
 TARGET_BOARD_DTS_CONFIG := imx7d:imx7d-sdb.dtb
 # imx7d with epdc display
@@ -79,8 +82,10 @@ TARGET_KERNEL_DEFCONFIG := imx_v7_android_defconfig
 # TARGET_KERNEL_ADDITION_DEFCONF := imx_v7_android_addition_defconfig
 BOARD_PREBUILT_DTBOIMAGE := out/target/product/sabresd_7d/dtbo-imx7d.img
 
-# set TARGET_BOOTLOADER_CONFIG for u-boot used by uuu
-TARGET_BOOTLOADER_CONFIG += imx7d-sabresd-uuu:mx7dsabresd_defconfig imx7d-epdc-sabresd-uuu:mx7dsabresd_defconfig
+# u-boot target used by uuu for imx7d_sabresd with HDMI or LCD display
+TARGET_BOOTLOADER_CONFIG += imx7d-sabresd-uuu:mx7dsabresd_defconfig
+# u-boot target used by uuu for imx7d_sabresd with epdc display
+TARGET_BOOTLOADER_CONFIG += imx7d-epdc-sabresd-uuu:mx7dsabresd_defconfig
 
 BOARD_SEPOLICY_DIRS := \
        device/fsl/imx7d/sepolicy \

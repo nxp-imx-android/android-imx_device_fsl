@@ -90,7 +90,13 @@ TARGET_BOARD_DTS_CONFIG := imx6q-nand:imx6q-sabreauto-gpmi-weim.dtb
 TARGET_BOARD_DTS_CONFIG += imx6dl-nand:imx6dl-sabreauto-gpmi-weim.dtb
 # imx6qp with nand flash boot
 TARGET_BOARD_DTS_CONFIG += imx6qp-nand:imx6qp-sabreauto-gpmi-weim.dtb
-TARGET_BOOTLOADER_CONFIG := imx6q-nand:mx6qsabreautoandroid_nand_config imx6dl-nand:mx6dlsabreautoandroid_nand_config  imx6qp-nand:mx6qpsabreautoandroid_nand_config
+
+# u-boot target for imx6q_sabreauto with nand flash boot
+TARGET_BOOTLOADER_CONFIG := imx6q-nand:mx6qsabreautoandroid_nand_config
+# u-boot target for imx6dl_sabreauto with nand flash boot
+TARGET_BOOTLOADER_CONFIG += imx6dl-nand:mx6dlsabreautoandroid_nand_config
+# u-boot target for imx6qp_sabreauto with nad flash boot
+TARGET_BOOTLOADER_CONFIG += imx6qp-nand:mx6qpsabreautoandroid_nand_config
 else 
 # imx6q with sd card boot
 TARGET_BOARD_DTS_CONFIG := imx6q:imx6q-sabreauto.dtb
@@ -98,11 +104,21 @@ TARGET_BOARD_DTS_CONFIG := imx6q:imx6q-sabreauto.dtb
 TARGET_BOARD_DTS_CONFIG += imx6dl:imx6dl-sabreauto.dtb
 # imx6qp with sd card boot
 TARGET_BOARD_DTS_CONFIG += imx6qp:imx6qp-sabreauto.dtb
-TARGET_BOOTLOADER_CONFIG := imx6q:imx6qsabreautoandroid_defconfig imx6dl:imx6dlsabreautoandroid_defconfig imx6qp:imx6qpsabreautoandroid_defconfig
-endif
 
-# set TARGET_BOOTLOADER_CONFIG for u-boot used by uuu
-TARGET_BOOTLOADER_CONFIG += imx6q-sabreauto-uuu:mx6qsabreauto_defconfig imx6dl-sabreauto-uuu:mx6dlsabreauto_defconfig imx6qp-sabreauto-uuu:mx6qpsabreauto_defconfig
+# u-boot target for imx6q_sabreauto with sd card flash boot
+TARGET_BOOTLOADER_CONFIG := imx6q:imx6qsabreautoandroid_defconfig
+# u-boot target for imx6dl_sabreauto with sd card flash boot
+TARGET_BOOTLOADER_CONFIG += imx6dl:imx6dlsabreautoandroid_defconfig
+# u-boot target for imx6qp_sabreauto with sd card flash boot
+TARGET_BOOTLOADER_CONFIG += imx6qp:imx6qpsabreautoandroid_defconfig
+
+# u-boot target used by uuu for imx6q_sabreauto with sd card flash boot
+TARGET_BOOTLOADER_CONFIG += imx6q-sabreauto-uuu:mx6qsabreauto_defconfig
+# u-boot target used by uuu for imx6dl_sabreauto with sd card flash boot
+TARGET_BOOTLOADER_CONFIG += imx6dl-sabreauto-uuu:mx6dlsabreauto_defconfig
+# u-boot target used by uuu for imx6qp_sabreauto with sd card flash boot
+TARGET_BOOTLOADER_CONFIG += imx6qp-sabreauto-uuu:mx6qpsabreauto_defconfig
+endif
 
 TARGET_KERNEL_DEFCONFIG := imx_v7_android_defconfig
 # TARGET_KERNEL_ADDITION_DEFCONF := imx_v7_android_addition_defconfig
