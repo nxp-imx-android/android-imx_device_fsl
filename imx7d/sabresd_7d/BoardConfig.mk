@@ -4,7 +4,6 @@
 
 IMX_DEVICE_PATH := device/fsl/imx7d/sabresd_7d
 
-include $(IMX_DEVICE_PATH)/build_id.mk
 include device/fsl/imx7d/BoardConfigCommon.mk
 include $(LINUX_FIRMWARE_IMX_PATH)/linux-firmware-imx/firmware/epdc/fsl-epdc.mk
 ifeq ($(PREBUILT_FSL_IMX_CODEC),true)

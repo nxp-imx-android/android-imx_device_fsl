@@ -4,11 +4,6 @@
 
 IMX_DEVICE_PATH := device/fsl/imx6dq/sabresd_6dq
 
-ifeq ($(PRODUCT_IMX_CAR),true)
-include $(IMX_DEVICE_PATH)/build_id_car.mk
-else
-include $(IMX_DEVICE_PATH)/build_id.mk
-endif # PRODUCT_IMX_CAR
 include device/fsl/imx6dq/BoardConfigCommon.mk
 ifeq ($(PREBUILT_FSL_IMX_CODEC),true)
 -include $(FSL_CODEC_PATH)/fsl-codec/fsl-codec.mk
