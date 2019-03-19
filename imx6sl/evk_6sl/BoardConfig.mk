@@ -27,7 +27,6 @@ TARGET_CPU_SMP := false
 
 IMX_DEVICE_PATH := device/fsl/imx6sl/evk_6sl
 
-include $(IMX_DEVICE_PATH)/build_id.mk
 include device/fsl/imx6sl/BoardConfigCommon.mk
 ifeq ($(PREBUILT_FSL_IMX_CODEC),true)
 -include $(FSL_CODEC_PATH)/fsl-codec/fsl-codec.mk
