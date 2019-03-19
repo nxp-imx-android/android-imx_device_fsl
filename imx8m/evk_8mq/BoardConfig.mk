@@ -59,19 +59,18 @@ TARGET_BOOTLOADER_POSTFIX := bin
 USE_OPENGL_RENDERER := true
 TARGET_CPU_SMP := true
 
-BOARD_WLAN_DEVICE            := UNITE
+BOARD_WLAN_DEVICE_UNITE      := UNITE
 WPA_SUPPLICANT_VERSION       := VER_0_8_X
 BOARD_WPA_SUPPLICANT_DRIVER  := NL80211
 BOARD_HOSTAPD_DRIVER         := NL80211
 
-ifeq ($(BOARD_WLAN_DEVICE), UNITE)
+# In UNITE mode,Use default macro for bcmdhd and use unite macro for qcom
+ifeq ($(BOARD_WLAN_DEVICE_UNITE), UNITE)
+BOARD_WLAN_DEVICE            := bcmdhd
 BOARD_HOSTAPD_PRIVATE_LIB_QCA           := lib_driver_cmd_qcwcn
 BOARD_WPA_SUPPLICANT_PRIVATE_LIB_QCA    := lib_driver_cmd_qcwcn
 BOARD_HOSTAPD_PRIVATE_LIB_BCM           := lib_driver_cmd_bcmdhd
 BOARD_WPA_SUPPLICANT_PRIVATE_LIB_BCM    := lib_driver_cmd_bcmdhd
-else ifeq ($(strip $(BOARD_WLAN_DEVICE)), $(filter $(BOARD_WLAN_DEVICE), bcmdhd qcwcn))
-BOARD_HOSTAPD_PRIVATE_LIB               := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
-BOARD_WPA_SUPPLICANT_PRIVATE_LIB        := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
 endif
 
 WIFI_DRIVER_FW_PATH_PARAM := "/sys/module/brcmfmac/parameters/alternative_fw_path"
