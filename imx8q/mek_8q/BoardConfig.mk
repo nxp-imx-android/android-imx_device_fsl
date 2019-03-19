@@ -228,10 +228,8 @@ TARGET_KERNEL_DEFCONFIG := android_car_defconfig
 else
 TARGET_KERNEL_DEFCONFIG := android_car2_defconfig
 endif # PRODUCT_IMX_CAR_M4
-include $(IMX_DEVICE_PATH)/build_id_car.mk
 else
 TARGET_KERNEL_DEFCONFIG := android_defconfig
-include $(IMX_DEVICE_PATH)/build_id.mk
 endif # PRODUCT_IMX_CAR
 # TARGET_KERNEL_ADDITION_DEFCONF := android_addition_defconfig
 

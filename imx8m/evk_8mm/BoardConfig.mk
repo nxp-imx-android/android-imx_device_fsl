@@ -28,7 +28,6 @@ ENABLE_CFI=false
 
 IMX_DEVICE_PATH := device/fsl/imx8m/evk_8mm
 
-include $(IMX_DEVICE_PATH)/build_id.mk
 include device/fsl/imx8m/BoardConfigCommon.mk
 ifeq ($(PREBUILT_FSL_IMX_CODEC),true)
 -include $(FSL_CODEC_PATH)/fsl-codec/fsl-codec.mk
