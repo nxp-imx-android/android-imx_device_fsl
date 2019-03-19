@@ -68,7 +68,7 @@ PRODUCT_PRODUCT_PROPERTIES += ro.zygote=zygote_auto
 ifeq ($(PRODUCT_IMX_CAR_M4),false)
 # Simulate the vehical rpmsg register event for non m4 car image
 PRODUCT_PROPERTY_OVERRIDES += \
-    vendor.rpmsg.can.register=1 \
+    vendor.vehicle.register=1 \
     vendor.evs.video.ready=1
 else
 #no bootanimation since it is handled in m4 image
