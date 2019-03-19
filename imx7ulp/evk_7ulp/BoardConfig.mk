@@ -4,7 +4,6 @@
 
 IMX_DEVICE_PATH := device/fsl/imx7ulp/evk_7ulp
 
-include $(IMX_DEVICE_PATH)/build_id.mk
 include device/fsl/imx7ulp/BoardConfigCommon.mk
 ifeq ($(PREBUILT_FSL_IMX_CODEC),true)
 -include $(FSL_CODEC_PATH)/fsl-codec/fsl-codec.mk
