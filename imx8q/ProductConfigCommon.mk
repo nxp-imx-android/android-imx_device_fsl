@@ -121,7 +121,7 @@ PRODUCT_PACKAGES += \
     android.hardware.automotive.evs@1.0-EvsEnumeratorHw
 
 PRODUCT_PACKAGES += \
-    evs_can_service
+    evs_service
 endif
 
 # display

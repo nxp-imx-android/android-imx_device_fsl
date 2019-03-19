@@ -1,0 +1,10 @@
+type evs_service, domain;
+
+# allow init to launch processes in this context
+type evs_service_exec, exec_type, vendor_file_type, file_type;
+init_daemon_domain(evs_service)
+
+allow evs_service self:netlink_kobject_uevent_socket { create setopt bind read };
+allow evs_service property_socket:sock_file { write };
+allow evs_service init:unix_stream_socket { connectto };
+allow evs_service evs_prop:property_service { set };

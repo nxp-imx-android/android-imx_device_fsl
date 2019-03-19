@@ -102,10 +102,10 @@ on early-boot
 
     start vendor.wifi_hal_legacy
 
-on property:vendor.rpmsg.can.event=1 && property:vendor.evs.video.ready=1
+on property:vendor.vehicle.event=1 && property:vendor.evs.video.ready=1
     start evs_app
 
-on property:vendor.rpmsg.can.event=0
+on property:vendor.vehicle.event=0
     stop evs_app
 
 on property:vendor.all.system_server.start=1
