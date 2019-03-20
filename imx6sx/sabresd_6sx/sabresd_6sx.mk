@@ -146,8 +146,8 @@ PRODUCT_PACKAGES += \
 
 # Copy wifi firmware to board
 PRODUCT_COPY_FILES += \
-    external/cyw-wifi-bt/cyw-wifi-bt/ZP_CYW4339/brcmfmac4339-sdio.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/brcm/brcmfmac4339-sdio.bin \
-    external/cyw-wifi-bt/cyw-wifi-bt/ZP_CYW4339/brcmfmac4339-sdio.txt:$(TARGET_COPY_OUT_VENDOR)/firmware/brcm/brcmfmac4339-sdio.txt
+    vendor/nxp/imx-firmware/cyw-wifi-bt/ZP_CYW4339/brcmfmac4339-sdio.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/brcm/brcmfmac4339-sdio.bin \
+    vendor/nxp/imx-firmware/cyw-wifi-bt/ZP_CYW4339/brcmfmac4339-sdio.txt:$(TARGET_COPY_OUT_VENDOR)/firmware/brcm/brcmfmac4339-sdio.txt
 
 # Keymaster HAL
 PRODUCT_PACKAGES += \

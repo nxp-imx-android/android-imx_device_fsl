@@ -166,7 +166,7 @@ PRODUCT_PACKAGES += \
 
 # BCM 1MW Bluetooth Firmware
 PRODUCT_COPY_FILES += \
-    external/cyw-wifi-bt/cyw-wifi-bt/1MW_CYW43455/BCM4345C0.1MW.hcd:$(TARGET_COPY_OUT_VENDOR)/firmware/brcm/CYW4345C0.1MW.hcd
+    vendor/nxp/imx-firmware/cyw-wifi-bt/1MW_CYW43455/BCM4345C0.1MW.hcd:$(TARGET_COPY_OUT_VENDOR)/firmware/brcm/CYW4345C0.1MW.hcd
 
 # WiFi HAL
 PRODUCT_PACKAGES += \
@@ -204,9 +204,9 @@ PRODUCT_PACKAGES += \
 
 # BCM 1MW Wifi Firmware
 PRODUCT_COPY_FILES += \
-    external/cyw-wifi-bt/cyw-wifi-bt/1MW_CYW43455/brcmfmac43455-sdio.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/brcm/brcmfmac43455-sdio.bin \
-    external/cyw-wifi-bt/cyw-wifi-bt/1MW_CYW43455/brcmfmac43455-sdio.clm_blob:$(TARGET_COPY_OUT_VENDOR)/firmware/brcm/brcmfmac43455-sdio.clm_blob \
-    external/cyw-wifi-bt/cyw-wifi-bt/1MW_CYW43455/brcmfmac43455-sdio.txt:$(TARGET_COPY_OUT_VENDOR)/firmware/brcm/brcmfmac43455-sdio.txt
+    vendor/nxp/imx-firmware/cyw-wifi-bt/1MW_CYW43455/brcmfmac43455-sdio.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/brcm/brcmfmac43455-sdio.bin \
+    vendor/nxp/imx-firmware/cyw-wifi-bt/1MW_CYW43455/brcmfmac43455-sdio.clm_blob:$(TARGET_COPY_OUT_VENDOR)/firmware/brcm/brcmfmac43455-sdio.clm_blob \
+    vendor/nxp/imx-firmware/cyw-wifi-bt/1MW_CYW43455/brcmfmac43455-sdio.txt:$(TARGET_COPY_OUT_VENDOR)/firmware/brcm/brcmfmac43455-sdio.txt
 
 # Keymaster HAL
 ifeq ($(PRODUCT_IMX_TRUSTY),true)

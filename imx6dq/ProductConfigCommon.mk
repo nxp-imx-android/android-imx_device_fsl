@@ -129,12 +129,12 @@ PRODUCT_PACKAGES += \
 # Copy wifi firmware to board
 PRODUCT_COPY_FILES += \
     $(FSL_PROPRIETARY_PATH)/fsl-proprietary/media-profile/media_codecs_google_audio.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_audio.xml \
-    external/cyw-wifi-bt/cyw-wifi-bt/ZP_CYW4339/brcmfmac4339-sdio.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/brcm/brcmfmac4339-sdio.bin \
-    external/cyw-wifi-bt/cyw-wifi-bt/ZP_CYW4339/brcmfmac4339-sdio.txt:$(TARGET_COPY_OUT_VENDOR)/firmware/brcm/brcmfmac4339-sdio.txt
+    vendor/nxp/imx-firmware/cyw-wifi-bt/ZP_CYW4339/brcmfmac4339-sdio.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/brcm/brcmfmac4339-sdio.bin \
+    vendor/nxp/imx-firmware/cyw-wifi-bt/ZP_CYW4339/brcmfmac4339-sdio.txt:$(TARGET_COPY_OUT_VENDOR)/firmware/brcm/brcmfmac4339-sdio.txt
 
 # Copy bluetooth firmware to board
 PRODUCT_COPY_FILES += \
-    external/cyw-wifi-bt/cyw-wifi-bt/ZP_CYW4339/BCM4335C0.ZP.hcd:vendor/firmware/bcm/Type_ZP.hcd \
+    vendor/nxp/imx-firmware/cyw-wifi-bt/ZP_CYW4339/BCM4335C0.ZP.hcd:vendor/firmware/bcm/Type_ZP.hcd \
 
 PRODUCT_PACKAGES += \
     bt_vendor.conf

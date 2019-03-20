@@ -161,7 +161,7 @@ PRODUCT_PACKAGES += \
 
 # BCM 1CX Bluetooth Firmware
 PRODUCT_COPY_FILES += \
-    external/cyw-wifi-bt/cyw-wifi-bt/1DX_CYW43430/BCM43430A1.1DX.hcd:$(TARGET_COPY_OUT_VENDOR)/firmware/brcm/CYW43430A1.1DX.hcd
+    vendor/nxp/imx-firmware/cyw-wifi-bt/1DX_CYW43430/BCM43430A1.1DX.hcd:$(TARGET_COPY_OUT_VENDOR)/firmware/brcm/CYW43430A1.1DX.hcd
 
 # WiFi HAL
 PRODUCT_PACKAGES += \
@@ -171,9 +171,9 @@ PRODUCT_PACKAGES += \
 
 # BCM 1CX Wifi Firmware
 PRODUCT_COPY_FILES += \
-    external/cyw-wifi-bt/cyw-wifi-bt/1DX_CYW43430/brcmfmac43430-sdio.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/brcm/brcmfmac43430-sdio.bin \
-    external/cyw-wifi-bt/cyw-wifi-bt/1DX_CYW43430/brcmfmac43430-sdio.clm_blob:$(TARGET_COPY_OUT_VENDOR)/firmware/brcm/brcmfmac43430-sdio.clm_blob \
-    external/cyw-wifi-bt/cyw-wifi-bt/1DX_CYW43430/brcmfmac43430-sdio.txt:$(TARGET_COPY_OUT_VENDOR)/firmware/brcm/brcmfmac43430-sdio.txt
+    vendor/nxp/imx-firmware/cyw-wifi-bt/1DX_CYW43430/brcmfmac43430-sdio.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/brcm/brcmfmac43430-sdio.bin \
+    vendor/nxp/imx-firmware/cyw-wifi-bt/1DX_CYW43430/brcmfmac43430-sdio.clm_blob:$(TARGET_COPY_OUT_VENDOR)/firmware/brcm/brcmfmac43430-sdio.clm_blob \
+    vendor/nxp/imx-firmware/cyw-wifi-bt/1DX_CYW43430/brcmfmac43430-sdio.txt:$(TARGET_COPY_OUT_VENDOR)/firmware/brcm/brcmfmac43430-sdio.txt
 
 # Keymaster HAL
 PRODUCT_PACKAGES += \
