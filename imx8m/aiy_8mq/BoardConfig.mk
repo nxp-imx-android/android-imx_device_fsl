@@ -98,7 +98,7 @@ BOARD_AVB_KEY_PATH := device/fsl/common/security/testkey_rsa4096.pem
 TARGET_USES_MKE2FS := true
 
 # define frame buffer count
-NUM_FRAMEBUFFER_SURFACE_BUFFERS := 5
+NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
 
 KERNEL_NAME := Image
 BOARD_KERNEL_CMDLINE := init=/init androidboot.gui_resolution=1080p androidboot.console=ttymxc0 androidboot.hardware=freescale cma=1280M androidboot.fbTileSupport=enable androidboot.primary_display=imx-drm firmware_class.path=/vendor/firmware transparent_hugepage=never
