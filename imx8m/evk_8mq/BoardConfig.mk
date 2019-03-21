@@ -135,7 +135,7 @@ CMASIZE=1280M
 endif
 
 KERNEL_NAME := Image
-BOARD_KERNEL_CMDLINE := init=/init androidboot.gui_resolution=1080p androidboot.console=ttymxc0 androidboot.hardware=freescale androidboot.fbTileSupport=enable cma=$(CMASIZE) androidboot.primary_display=imx-drm firmware_class.path=/vendor/firmware transparent_hugepage=never rootwait
+BOARD_KERNEL_CMDLINE := init=/init androidboot.gui_resolution=1080p androidboot.console=ttymxc0 androidboot.hardware=freescale androidboot.fbTileSupport=enable cma=$(CMASIZE) androidboot.primary_display=imx-drm firmware_class.path=/vendor/firmware transparent_hugepage=never
 
 # Defaultly evk_8mq use BCM 1CX BCM4356 wifi module, if use QCOM qca9377 module, set androidboot.wifivendor=qca
 BOARD_KERNEL_CMDLINE += androidboot.wifivendor=bcm
