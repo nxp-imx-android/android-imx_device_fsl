@@ -136,6 +136,9 @@ endif
 KERNEL_NAME := Image
 BOARD_KERNEL_CMDLINE := init=/init androidboot.console=ttymxc1 androidboot.hardware=freescale cma=$(CMASIZE) androidboot.primary_display=imx-drm firmware_class.path=/vendor/firmware transparent_hugepage=never
 
+# Default wificountrycode
+BOARD_KERNEL_CMDLINE += androidboot.wificountrycode=CN
+
 # Defaultly evk_8mm use QCA 1PJ wifi module, if use BCM 1MW module, set androidboot.wifivendor=bcm
 BOARD_KERNEL_CMDLINE += androidboot.wifivendor=qca
 

@@ -103,6 +103,9 @@ NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
 KERNEL_NAME := Image
 BOARD_KERNEL_CMDLINE := init=/init androidboot.gui_resolution=1080p androidboot.console=ttymxc0 androidboot.hardware=freescale cma=1280M androidboot.fbTileSupport=enable androidboot.primary_display=imx-drm firmware_class.path=/vendor/firmware transparent_hugepage=never
 
+# Default wificountrycode
+BOARD_KERNEL_CMDLINE += androidboot.wificountrycode=CN
+
 # Qcom 1CQ(QCA6174) WiFi
 BOARD_WLAN_DEVICE            := qcwcn
 WPA_SUPPLICANT_VERSION       := VER_0_8_X
