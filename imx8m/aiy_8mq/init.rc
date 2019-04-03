@@ -7,6 +7,9 @@ on early-init
     mount debugfs none /sys/kernel/debug/ mode=0755
 
 on early-init
+    # Set the host name which used in console
+    export HOSTNAME aiy_8mq
+
     start early_init_sh
 
     # Due keymaster start very early so set prop here
