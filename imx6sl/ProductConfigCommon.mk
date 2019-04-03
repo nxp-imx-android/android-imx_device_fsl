@@ -197,7 +197,8 @@ PRODUCT_PACKAGES += \
 
 # gpu debug tool
 PRODUCT_PACKAGES += \
-    gmem_info
+    gmem_info \
+    gpu-top
 
 # Omx related libs, please align to device/fsl/proprietary/omx/fsl-omx.mk
 PRODUCT_PACKAGES += \
