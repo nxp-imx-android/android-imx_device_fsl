@@ -67,7 +67,7 @@ on early-boot
 
     # Prepare for wifi
     setprop wifi.interface wlan0
-    setprop wifi.direct.interface p2p-dev-wlan
+    setprop wifi.direct.interface p2p-dev-wlan0
 
     # Prepare for bluetooth
     chmod 665 /sys/class/rfkill/rfkill0/state
