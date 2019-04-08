@@ -86,7 +86,7 @@ enum v4l2_colorspace {
   V4L2_COLORSPACE_470_SYSTEM_BG = 6,
   V4L2_COLORSPACE_JPEG = 7,
   V4L2_COLORSPACE_SRGB = 8,
-  V4L2_COLORSPACE_ADOBERGB = 9,
+  V4L2_COLORSPACE_OPRGB = 9,
   V4L2_COLORSPACE_BT2020 = 10,
   V4L2_COLORSPACE_RAW = 11,
   V4L2_COLORSPACE_DCI_P3 = 12,
@@ -96,13 +96,13 @@ enum v4l2_xfer_func {
   V4L2_XFER_FUNC_DEFAULT = 0,
   V4L2_XFER_FUNC_709 = 1,
   V4L2_XFER_FUNC_SRGB = 2,
-  V4L2_XFER_FUNC_ADOBERGB = 3,
+  V4L2_XFER_FUNC_OPRGB = 3,
   V4L2_XFER_FUNC_SMPTE240M = 4,
   V4L2_XFER_FUNC_NONE = 5,
   V4L2_XFER_FUNC_DCI_P3 = 6,
   V4L2_XFER_FUNC_SMPTE2084 = 7,
 };
-#define V4L2_MAP_XFER_FUNC_DEFAULT(colsp) ((colsp) == V4L2_COLORSPACE_ADOBERGB ? V4L2_XFER_FUNC_ADOBERGB : ((colsp) == V4L2_COLORSPACE_SMPTE240M ? V4L2_XFER_FUNC_SMPTE240M : ((colsp) == V4L2_COLORSPACE_DCI_P3 ? V4L2_XFER_FUNC_DCI_P3 : ((colsp) == V4L2_COLORSPACE_RAW ? V4L2_XFER_FUNC_NONE : ((colsp) == V4L2_COLORSPACE_SRGB || (colsp) == V4L2_COLORSPACE_JPEG ? V4L2_XFER_FUNC_SRGB : V4L2_XFER_FUNC_709)))))
+#define V4L2_MAP_XFER_FUNC_DEFAULT(colsp) ((colsp) == V4L2_COLORSPACE_OPRGB ? V4L2_XFER_FUNC_OPRGB : ((colsp) == V4L2_COLORSPACE_SMPTE240M ? V4L2_XFER_FUNC_SMPTE240M : ((colsp) == V4L2_COLORSPACE_DCI_P3 ? V4L2_XFER_FUNC_DCI_P3 : ((colsp) == V4L2_COLORSPACE_RAW ? V4L2_XFER_FUNC_NONE : ((colsp) == V4L2_COLORSPACE_SRGB || (colsp) == V4L2_COLORSPACE_JPEG ? V4L2_XFER_FUNC_SRGB : V4L2_XFER_FUNC_709)))))
 enum v4l2_ycbcr_encoding {
   V4L2_YCBCR_ENC_DEFAULT = 0,
   V4L2_YCBCR_ENC_601 = 1,
@@ -125,6 +125,8 @@ enum v4l2_quantization {
   V4L2_QUANTIZATION_LIM_RANGE = 2,
 };
 #define V4L2_MAP_QUANTIZATION_DEFAULT(is_rgb_or_hsv,colsp,ycbcr_enc) (((is_rgb_or_hsv) && (colsp) == V4L2_COLORSPACE_BT2020) ? V4L2_QUANTIZATION_LIM_RANGE : (((is_rgb_or_hsv) || (colsp) == V4L2_COLORSPACE_JPEG) ? V4L2_QUANTIZATION_FULL_RANGE : V4L2_QUANTIZATION_LIM_RANGE))
+#define V4L2_COLORSPACE_ADOBERGB V4L2_COLORSPACE_OPRGB
+#define V4L2_XFER_FUNC_ADOBERGB V4L2_XFER_FUNC_OPRGB
 enum v4l2_priority {
   V4L2_PRIORITY_UNSET = 0,
   V4L2_PRIORITY_BACKGROUND = 1,
@@ -209,7 +211,6 @@ struct v4l2_pix_format {
 #define V4L2_PIX_FMT_XRGB555X v4l2_fourcc_be('X', 'R', '1', '5')
 #define V4L2_PIX_FMT_RGB565X v4l2_fourcc('R', 'G', 'B', 'R')
 #define V4L2_PIX_FMT_BGR666 v4l2_fourcc('B', 'G', 'R', 'H')
-#define V4L2_PIX_FMT_RGB666 v4l2_fourcc('R', 'G', 'B', 'H')
 #define V4L2_PIX_FMT_BGR24 v4l2_fourcc('B', 'G', 'R', '3')
 #define V4L2_PIX_FMT_RGB24 v4l2_fourcc('R', 'G', 'B', '3')
 #define V4L2_PIX_FMT_BGR32 v4l2_fourcc('B', 'G', 'R', '4')
@@ -227,6 +228,7 @@ struct v4l2_pix_format {
 #define V4L2_PIX_FMT_Y16 v4l2_fourcc('Y', '1', '6', ' ')
 #define V4L2_PIX_FMT_Y16_BE v4l2_fourcc_be('Y', '1', '6', ' ')
 #define V4L2_PIX_FMT_Y10BPACK v4l2_fourcc('Y', '1', '0', 'B')
+#define V4L2_PIX_FMT_Y10P v4l2_fourcc('Y', '1', '0', 'P')
 #define V4L2_PIX_FMT_PAL8 v4l2_fourcc('P', 'A', 'L', '8')
 #define V4L2_PIX_FMT_UV8 v4l2_fourcc('U', 'V', '8', ' ')
 #define V4L2_PIX_FMT_YUYV v4l2_fourcc('Y', 'U', 'Y', 'V')
@@ -294,6 +296,10 @@ struct v4l2_pix_format {
 #define V4L2_PIX_FMT_SGBRG12P v4l2_fourcc('p', 'G', 'C', 'C')
 #define V4L2_PIX_FMT_SGRBG12P v4l2_fourcc('p', 'g', 'C', 'C')
 #define V4L2_PIX_FMT_SRGGB12P v4l2_fourcc('p', 'R', 'C', 'C')
+#define V4L2_PIX_FMT_SBGGR14P v4l2_fourcc('p', 'B', 'E', 'E')
+#define V4L2_PIX_FMT_SGBRG14P v4l2_fourcc('p', 'G', 'E', 'E')
+#define V4L2_PIX_FMT_SGRBG14P v4l2_fourcc('p', 'g', 'E', 'E')
+#define V4L2_PIX_FMT_SRGGB14P v4l2_fourcc('p', 'R', 'E', 'E')
 #define V4L2_PIX_FMT_SBGGR16 v4l2_fourcc('B', 'Y', 'R', '2')
 #define V4L2_PIX_FMT_SGBRG16 v4l2_fourcc('G', 'B', '1', '6')
 #define V4L2_PIX_FMT_SGRBG16 v4l2_fourcc('G', 'R', '1', '6')
@@ -316,6 +322,8 @@ struct v4l2_pix_format {
 #define V4L2_PIX_FMT_VC1_ANNEX_L v4l2_fourcc('V', 'C', '1', 'L')
 #define V4L2_PIX_FMT_VP8 v4l2_fourcc('V', 'P', '8', '0')
 #define V4L2_PIX_FMT_VP9 v4l2_fourcc('V', 'P', '9', '0')
+#define V4L2_PIX_FMT_HEVC v4l2_fourcc('H', 'E', 'V', 'C')
+#define V4L2_PIX_FMT_FWHT v4l2_fourcc('F', 'W', 'H', 'T')
 #define V4L2_PIX_FMT_CPIA1 v4l2_fourcc('C', 'P', 'I', 'A')
 #define V4L2_PIX_FMT_WNVA v4l2_fourcc('W', 'N', 'V', 'A')
 #define V4L2_PIX_FMT_SN9C10X v4l2_fourcc('S', '9', '1', '0')
@@ -347,6 +355,10 @@ struct v4l2_pix_format {
 #define V4L2_PIX_FMT_Z16 v4l2_fourcc('Z', '1', '6', ' ')
 #define V4L2_PIX_FMT_MT21C v4l2_fourcc('M', 'T', '2', '1')
 #define V4L2_PIX_FMT_INZI v4l2_fourcc('I', 'N', 'Z', 'I')
+#define V4L2_PIX_FMT_IPU3_SBGGR10 v4l2_fourcc('i', 'p', '3', 'b')
+#define V4L2_PIX_FMT_IPU3_SGBRG10 v4l2_fourcc('i', 'p', '3', 'g')
+#define V4L2_PIX_FMT_IPU3_SGRBG10 v4l2_fourcc('i', 'p', '3', 'G')
+#define V4L2_PIX_FMT_IPU3_SRGGB10 v4l2_fourcc('i', 'p', '3', 'r')
 #define V4L2_SDR_FMT_CU8 v4l2_fourcc('C', 'U', '0', '8')
 #define V4L2_SDR_FMT_CU16LE v4l2_fourcc('C', 'U', '1', '6')
 #define V4L2_SDR_FMT_CS8 v4l2_fourcc('C', 'S', '0', '8')
@@ -361,6 +373,7 @@ struct v4l2_pix_format {
 #define V4L2_TCH_FMT_TU08 v4l2_fourcc('T', 'U', '0', '8')
 #define V4L2_META_FMT_VSP1_HGO v4l2_fourcc('V', 'S', 'P', 'H')
 #define V4L2_META_FMT_VSP1_HGT v4l2_fourcc('V', 'S', 'P', 'T')
+#define V4L2_META_FMT_UVC v4l2_fourcc('U', 'V', 'C', 'H')
 #define V4L2_PIX_FMT_PRIV_MAGIC 0xfeedcafe
 #define V4L2_PIX_FMT_FLAG_PREMUL_ALPHA 0x00000001
 struct v4l2_fmtdesc {
@@ -1272,7 +1285,6 @@ struct v4l2_create_buffers {
   __u32 reserved[8];
 };
 #define VIDIOC_QUERYCAP _IOR('V', 0, struct v4l2_capability)
-#define VIDIOC_RESERVED _IO('V', 1)
 #define VIDIOC_ENUM_FMT _IOWR('V', 2, struct v4l2_fmtdesc)
 #define VIDIOC_G_FMT _IOWR('V', 4, struct v4l2_format)
 #define VIDIOC_S_FMT _IOWR('V', 5, struct v4l2_format)

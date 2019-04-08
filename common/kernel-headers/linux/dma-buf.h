@@ -23,7 +23,7 @@ struct dma_buf_sync {
   __u64 flags;
 };
 struct dma_buf_phys {
-  __u64 phys;
+  unsigned long phys;
 };
 #define DMA_BUF_SYNC_READ (1 << 0)
 #define DMA_BUF_SYNC_WRITE (2 << 0)
