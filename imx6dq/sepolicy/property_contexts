@@ -9,6 +9,7 @@ sys.all.boot_completed.ready        u:object_r:public_vendor_default_prop:s0
 sys.all.post_boot_completed.ready   u:object_r:public_vendor_default_prop:s0
 sys.hwc.disable                     u:object_r:public_vendor_default_prop:s0
 vendor.2d.composition               u:object_r:public_vendor_default_prop:s0
+debug.hwui.renderer                 u:object_r:public_vendor_default_prop:s0
 vendor.all.system_server.ready      u:object_r:public_vendor_default_prop:s0
 hw.backlight.dev                    u:object_r:public_vendor_default_prop:s0
 TEMP                                u:object_r:public_vendor_default_prop:s0
