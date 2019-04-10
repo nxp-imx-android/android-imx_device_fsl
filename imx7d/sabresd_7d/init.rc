@@ -234,9 +234,6 @@ on post-fs
     # Swap in only 1 page at a time
     write /proc/sys/vm/page-cluster 0
 
-    # This may have been created by the recovery system with the wrong context.
-    restorecon /cache/recovery
-
 on post-fs-data
     setprop vold.post_fs_data_done 1
 
