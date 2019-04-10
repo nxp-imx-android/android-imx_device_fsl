@@ -72,6 +72,7 @@ back_camera_name                    u:object_r:vendor_default_prop:s0
 back_camera_orient                  u:object_r:vendor_default_prop:s0
 front_camera_name                   u:object_r:vendor_default_prop:s0
 front_camera_orient                 u:object_r:vendor_default_prop:s0
+media.settings.xml                  u:object_r:vendor_default_prop:s0
 vendor.audio.lpa.hold_second        u:object_r:vendor_default_prop:s0
 vendor.audio.lpa.period_ms          u:object_r:vendor_default_prop:s0
 qcom.bluetooth.soc                  u:object_r:vendor_default_prop:s0
