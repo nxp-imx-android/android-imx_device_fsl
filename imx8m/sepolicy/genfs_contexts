@@ -7,3 +7,4 @@ genfscon sysfs /devices/platform/30370000.snvs/30370000.snvs:snvs-rtc-lp/rtc/rtc
 genfscon sysfs /devices/platform/sound-ak4458/extcon/extcon2      u:object_r:sysfs_extcon:s0
 genfscon sysfs /devices/platform/sound-rpmsg/extcon/extcon2       u:object_r:sysfs_extcon:s0
 genfscon sysfs /devices/platform/32c00000.hdmi/extcon/extcon0     u:object_r:sysfs_extcon:s0
+genfscon sysfs /devices/platform/30a40000.i2c/i2c-2/2-003d/extcon/extcon1     u:object_r:sysfs_extcon:s0
