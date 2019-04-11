@@ -95,4 +95,5 @@ TARGET_BOARD_KERNEL_HEADERS := device/fsl/common/kernel-headers
 #Enable AVB
 BOARD_AVB_ENABLE := true
 TARGET_USES_MKE2FS := true
-
+BOARD_INCLUDE_RECOVERY_DTBO := true
+BOARD_USES_FULL_RECOVERY_IMAGE := true
