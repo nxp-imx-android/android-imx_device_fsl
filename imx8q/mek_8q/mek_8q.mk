@@ -197,6 +197,12 @@ PRODUCT_PACKAGES += \
         libopencl-2d \
         libOpenVX \
         libOpenVXU \
+        libNNVXCBinary-evis \
+        libNNVXCBinary-lite \
+        libOvx12VXCBinary-evis \
+        libOvx12VXCBinary-lite \
+        libNNGPUBinary-evis \
+        libNNGPUBinary-lite \
         gatekeeper.imx8
 
 PRODUCT_PACKAGES += \
