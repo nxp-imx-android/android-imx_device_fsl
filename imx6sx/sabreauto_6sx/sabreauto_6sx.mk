@@ -5,6 +5,7 @@ IMX_DEVICE_PATH := device/fsl/imx6sx/sabreauto_6sx
 
 -include device/fsl/common/imx_path/ImxPathConfig.mk
 $(call inherit-product, device/fsl/imx6sx/ProductConfigCommon.mk)
+$(call inherit-product, build/target/product/go_defaults.mk)
 
 ifneq ($(wildcard $(IMX_DEVICE_PATH)/fstab_nand.freescale),)
 $(shell touch $(IMX_DEVICE_PATH)/fstab_nand.freescale)
