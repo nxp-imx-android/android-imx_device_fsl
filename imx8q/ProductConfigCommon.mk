@@ -274,6 +274,8 @@ PRODUCT_PACKAGES += \
     libswresample \
     libxec \
     media_codecs.xml \
+    media_codecs_8qm.xml \
+    media_codecs_8qxp.xml \
     media_codecs_ac3.xml \
     media_codecs_ddp.xml \
     media_codecs_ms.xml \
