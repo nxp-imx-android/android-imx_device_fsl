@@ -69,12 +69,11 @@ on early-boot
     setprop ro.audio.usb.period_us 20000
 
     # Wifi firmware reload path
-    chown wifi wifi /sys/module/bcmdhd/parameters/firmware_path
-    chown wifi wifi /sys/module/bcmdhd/parameters/nvram_path
+    chown wifi wifi /sys/module/brcmfmac/parameters/alternative_fw_path
 
     # Prepare for wifi
     setprop wifi.interface wlan0
-    setprop wifi.concurrent.interface p2p0
+    setprop wifi.direct.interface p2p-dev-wlan0
 
     setprop qcom.bluetooth.soc rome_uart
 
