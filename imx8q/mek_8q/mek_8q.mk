@@ -37,7 +37,7 @@ PRODUCT_COPY_FILES += \
     $(IMX_DEVICE_PATH)/privapp-permissions-imx.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/privapp-permissions-imx.xml \
     device/fsl/common/init/init.insmod.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.insmod.sh \
     device/fsl/common/wifi/p2p_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/p2p_supplicant_overlay.conf \
-    device/fsl/common/wifi/wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf
+    device/fsl/common/wifi/bcm_wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf
 
 
 ifeq ($(PRODUCT_IMX_CAR),true)
@@ -232,13 +232,17 @@ PRODUCT_PACKAGES += \
     wifilogd \
     wificond
 
-# Qcom WiFi Firmware
+# BCM 1CX Wifi Firmware
 PRODUCT_COPY_FILES += \
-    vendor/nxp/qca-wifi-bt/1CQ_QCA6174A_LEA_2.0/lib/firmware/qca6174/bdwlan30.bin:vendor/firmware/bdwlan30.bin \
-    vendor/nxp/qca-wifi-bt/1CQ_QCA6174A_LEA_2.0/lib/firmware/qca6174/otp30.bin:vendor/firmware/otp30.bin \
-    vendor/nxp/qca-wifi-bt/1CQ_QCA6174A_LEA_2.0/lib/firmware/qca6174/qwlan30.bin:vendor/firmware/qwlan30.bin \
-    vendor/nxp/qca-wifi-bt/1CQ_QCA6174A_LEA_2.0/lib/firmware/qca6174/utf30.bin:vendor/firmware/utf30.bin \
-    vendor/nxp/qca-wifi-bt/1CQ_QCA6174A_LEA_2.0/lib/firmware/wlan/qca6174/qcom_cfg.ini:vendor/firmware/wlan/qcom_cfg.ini
+    vendor/nxp/imx-firmware/cyw-wifi-bt/1CX_CYW4356/brcmfmac4356-pcie.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/brcm/brcmfmac4356-pcie.bin \
+    vendor/nxp/imx-firmware/cyw-wifi-bt/1CX_CYW4356/brcmfmac4356-pcie.clm_blob:$(TARGET_COPY_OUT_VENDOR)/firmware/brcm/brcmfmac4356-pcie.clm_blob \
+    vendor/nxp/imx-firmware/cyw-wifi-bt/1CX_CYW4356/brcmfmac4356-pcie.txt:$(TARGET_COPY_OUT_VENDOR)/firmware/brcm/brcmfmac4356-pcie.txt
+
+# BCM 1FD Wifi Firmware
+PRODUCT_COPY_FILES += \
+    vendor/nxp/imx-firmware/cyw-wifi-bt/1FD_CYW4359/brcmfmac4359-pcie.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/brcm/brcmfmac4359-pcie.bin \
+    vendor/nxp/imx-firmware/cyw-wifi-bt/1FD_CYW4359/brcmfmac4359-pcie.clm_blob:$(TARGET_COPY_OUT_VENDOR)/firmware/brcm/brcmfmac4359-pcie.clm_blob \
+    vendor/nxp/imx-firmware/cyw-wifi-bt/1FD_CYW4359/brcmfmac4359-pcie.txt:$(TARGET_COPY_OUT_VENDOR)/firmware/brcm/brcmfmac4359-pcie.txt
 
 # Qcom Bluetooth Firmware
 PRODUCT_COPY_FILES += \
