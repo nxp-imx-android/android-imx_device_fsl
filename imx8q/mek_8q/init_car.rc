@@ -75,8 +75,6 @@ on early-boot
     setprop wifi.interface wlan0
     setprop wifi.direct.interface p2p-dev-wlan0
 
-    setprop qcom.bluetooth.soc rome_uart
-
     # Set the density to 213 tvdpi to match CDD.
     setprop ro.sf.lcd_density 213
 
@@ -202,30 +200,6 @@ service bugreport /system/bin/dumpstate -d -p -B -z \
     disabled
     oneshot
     keycodes 114 115 116
-
-on property:vendor.wc_transport.start_hci=true
-    start start_hci_filter
-
-on property:vendor.wc_transport.start_hci=false
-    stop start_hci_filter
-
-service start_hci_filter /vendor/bin/wcnss_filter
-    class late_start
-    user bluetooth
-    group bluetooth diag
-    disabled
-
-on property:vendor.wc_transport.start_root=true
-    start hci_filter_root
-
-on property:vendor.wc_transport.start_root=false
-    stop hci_filter_root
-
-service hci_filter_root /vendor/bin/wcnss_filter
-    class late_start
-    user bluetooth
-    group bluetooth diag system
-    disabled
 
 service early_init_sh /vendor/bin/init.insmod.sh /vendor/etc/early.init.cfg sys.all.early_init.ready
     class main

@@ -63,8 +63,9 @@ BOARD_VENDOR_KERNEL_MODULES += \
 
 WIFI_DRIVER_FW_PATH_PARAM := "/sys/module/brcmfmac/parameters/alternative_fw_path"
 
-BOARD_VENDOR_KERNEL_MODULES += \
-                            $(KERNEL_OUT)/drivers/net/wireless/qcacld-2.0/wlan.ko
+BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(IMX_DEVICE_PATH)/bluetooth
+# BCM BLUETOOTH
+BOARD_HAVE_BLUETOOTH_BCM := true
 
 ifeq ($(PRODUCT_IMX_CAR_M4),true)
 BOARD_VENDOR_KERNEL_MODULES += \
@@ -106,16 +107,6 @@ BOARD_RECOVERY_KERNEL_MODULES += \
                             $(KERNEL_OUT)/drivers/gpu/drm/imx/dpu/imx-dpu-render.ko \
                             $(KERNEL_OUT)/drivers/gpu/imx/dpu/imx-dpu-core.ko \
                             $(KERNEL_OUT)/drivers/gpu/drm/imx/dpu/imx-dpu-crtc.ko
-endif
-
-# Qcom 1CQ(QCA6174) BT
-BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(IMX_DEVICE_PATH)/bluetooth
-BOARD_HAVE_BLUETOOTH_QCOM := true
-BOARD_HAS_QCA_BT_ROME := true
-BOARD_HAVE_BLUETOOTH_BLUEZ := false
-QCOM_BT_USE_SIBS := true
-ifeq ($(QCOM_BT_USE_SIBS), true)
-    WCNSS_FILTER_USES_SIBS := true
 endif
 
 # sensor configs
