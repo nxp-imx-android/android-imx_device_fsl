@@ -232,23 +232,35 @@ PRODUCT_PACKAGES += \
     wifilogd \
     wificond
 
-# BCM 1CX Wifi Firmware
-PRODUCT_COPY_FILES += \
-    vendor/nxp/imx-firmware/cyw-wifi-bt/1CX_CYW4356/brcmfmac4356-pcie.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/brcm/brcmfmac4356-pcie.bin \
-    vendor/nxp/imx-firmware/cyw-wifi-bt/1CX_CYW4356/brcmfmac4356-pcie.clm_blob:$(TARGET_COPY_OUT_VENDOR)/firmware/brcm/brcmfmac4356-pcie.clm_blob \
-    vendor/nxp/imx-firmware/cyw-wifi-bt/1CX_CYW4356/brcmfmac4356-pcie.txt:$(TARGET_COPY_OUT_VENDOR)/firmware/brcm/brcmfmac4356-pcie.txt
-
+# BCM Wifi Firmware
+ifeq ($(PRODUCT_IMX_CAR),true)
 # BCM 1FD Wifi Firmware
 PRODUCT_COPY_FILES += \
     vendor/nxp/imx-firmware/cyw-wifi-bt/1FD_CYW4359/brcmfmac4359-pcie.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/brcm/brcmfmac4359-pcie.bin \
     vendor/nxp/imx-firmware/cyw-wifi-bt/1FD_CYW4359/brcmfmac4359-pcie.clm_blob:$(TARGET_COPY_OUT_VENDOR)/firmware/brcm/brcmfmac4359-pcie.clm_blob \
     vendor/nxp/imx-firmware/cyw-wifi-bt/1FD_CYW4359/brcmfmac4359-pcie.txt:$(TARGET_COPY_OUT_VENDOR)/firmware/brcm/brcmfmac4359-pcie.txt
-
-# Qcom Bluetooth Firmware
+else
+# BCM 1CX Wifi Firmware
 PRODUCT_COPY_FILES += \
-    vendor/nxp/qca-wifi-bt/1CQ_QCA6174A_LEA_2.0/lib/firmware/nvm_tlv_3.2.bin:vendor/firmware/nvm_tlv_3.2.bin \
-    vendor/nxp/qca-wifi-bt/1CQ_QCA6174A_LEA_2.0/lib/firmware/rampatch_tlv_3.2.tlv:vendor/firmware/rampatch_tlv_3.2.tlv \
-    vendor/nxp/qca-wifi-bt/qca_proprietary/Android_HAL/wcnss_filter_mek_8q:vendor/bin/wcnss_filter
+    vendor/nxp/imx-firmware/cyw-wifi-bt/1CX_CYW4356/brcmfmac4356-pcie.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/brcm/brcmfmac4356-pcie.bin \
+    vendor/nxp/imx-firmware/cyw-wifi-bt/1CX_CYW4356/brcmfmac4356-pcie.clm_blob:$(TARGET_COPY_OUT_VENDOR)/firmware/brcm/brcmfmac4356-pcie.clm_blob \
+    vendor/nxp/imx-firmware/cyw-wifi-bt/1CX_CYW4356/brcmfmac4356-pcie.txt:$(TARGET_COPY_OUT_VENDOR)/firmware/brcm/brcmfmac4356-pcie.txt
+endif
+
+# BCM Bluetooth vendor config
+PRODUCT_PACKAGES += \
+    bt_vendor.conf
+
+# BCM Bluetooth Firmware
+ifeq ($(PRODUCT_IMX_CAR),true)
+# BCM 1FD Bluetooth Firmware
+PRODUCT_COPY_FILES += \
+    vendor/nxp/imx-firmware/cyw-wifi-bt/1FD_CYW4359/BCM4349B1_002.002.014.0077.0083.hcd:$(TARGET_COPY_OUT_VENDOR)/firmware/brcm/BCM4349B1_1FD.hcd
+else
+# BCM 1CX Bluetooth Firmware
+PRODUCT_COPY_FILES += \
+    vendor/nxp/imx-firmware/cyw-wifi-bt/1CX_CYW4356/BCM4354A2.1CX.hcd:$(TARGET_COPY_OUT_VENDOR)/firmware/brcm/CYW4354A2.1CX.hcd
+endif
 
 # AudioControl service
 ifeq ($(PRODUCT_IMX_CAR),true)
