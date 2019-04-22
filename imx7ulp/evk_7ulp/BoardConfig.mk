@@ -71,9 +71,9 @@ BOARD_KERNEL_CMDLINE := init=/init androidboot.console=ttyLP0 consoleblank=0 and
 # u-boot target for imx7ulp_evk
 TARGET_BOOTLOADER_CONFIG := imx7ulp:imx7ulp_evk_android_defconfig
 # imx7ulp with HDMI display
-TARGET_BOARD_DTS_CONFIG := imx7ulp:imx7ulp-evk.dtb
+TARGET_BOARD_DTS_CONFIG := imx7ulp:imx7ulp-evkb.dtb
 # imx7ulp with MIPI panel display
-TARGET_BOARD_DTS_CONFIG += imx7ulp-mipi:imx7ulp-evk-mipi.dtb
+TARGET_BOARD_DTS_CONFIG += imx7ulp-mipi:imx7ulp-evkb-rm68200-wxga.dtb
 TARGET_KERNEL_DEFCONFIG := imx_v7_android_defconfig
 # TARGET_KERNEL_ADDITION_DEFCONF := imx_v7_android_addition_defconfig
 BOARD_PREBUILT_DTBOIMAGE := out/target/product/evk_7ulp/dtbo-imx7ulp.img
