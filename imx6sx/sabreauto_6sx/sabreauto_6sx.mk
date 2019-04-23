@@ -155,3 +155,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.frp.pst=/dev/block/by-name/presistdata
 endif
 PRODUCT_COMPATIBLE_PROPERTY_OVERRIDE := true
+
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.crypto.fde_algorithm=adiantum \
+    ro.crypto.fde_sector_size=4096 \
+    ro.crypto.volume.contents_mode=adiantum \
+    ro.crypto.volume.filenames_mode=adiantum
