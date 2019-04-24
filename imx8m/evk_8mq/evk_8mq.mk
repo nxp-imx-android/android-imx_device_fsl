@@ -105,6 +105,9 @@ PRODUCT_COPY_FILES += \
 # GPU openCL SDK header file
 -include $(FSL_PROPRIETARY_PATH)/fsl-proprietary/include/CL/cl_sdk.mk
 
+# GPU openCL icdloader config file
+-include $(FSL_PROPRIETARY_PATH)/fsl-proprietary/gpu-viv/icdloader/icdloader.mk
+
 # HWC2 HAL
 PRODUCT_PACKAGES += \
     android.hardware.graphics.composer@2.1-impl \
