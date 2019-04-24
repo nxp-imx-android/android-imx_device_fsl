@@ -38,9 +38,6 @@ on early-boot
     # Set the host name which used in console
     export HOSTNAME evk_7ulp
 
-    # enable opengl hardware UI at default
-    setprop debug.hwui.renderer opengl
-
     # Set permission for IIM node
     symlink /dev/mxs_viim /dev/mxc_mem
 
