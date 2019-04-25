@@ -28,6 +28,7 @@ PRODUCT_COPY_FILES += \
     $(IMX_DEVICE_PATH)/init.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.freescale.rc \
     $(IMX_DEVICE_PATH)/required_hardware.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/required_hardware.xml \
     $(IMX_DEVICE_PATH)/ueventd.freescale.rc:$(TARGET_COPY_OUT_VENDOR)/ueventd.rc \
+    $(IMX_DEVICE_PATH)/privapp-permissions-imx.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/privapp-permissions-imx.xml \
     device/fsl/common/input/20b8000_kpp.idc:$(TARGET_COPY_OUT_VENDOR)/usr/idc/20b8000_kpp.idc \
     device/fsl/common/input/20b8000_kpp.kl:$(TARGET_COPY_OUT_VENDOR)/usr/keylayout/20b8000_kpp.kl \
     device/fsl/common/input/imx-keypad.idc:$(TARGET_COPY_OUT_VENDOR)/usr/idc/imx-keypad.idc \
