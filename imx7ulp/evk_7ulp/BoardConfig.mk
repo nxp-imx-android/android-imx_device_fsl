@@ -67,7 +67,7 @@ IMX_CAMERA_HAL_V1 := true
 TARGET_VSYNC_DIRECT_REFRESH := true
 
 KERNEL_NAME := zImage
-BOARD_KERNEL_CMDLINE := init=/init androidboot.console=ttyLP0 consoleblank=0 androidboot.hardware=freescale vmalloc=128M cma=448M
+BOARD_KERNEL_CMDLINE := init=/init androidboot.console=ttyLP0 consoleblank=0 androidboot.hardware=freescale vmalloc=128M cma=320M
 # u-boot target for imx7ulp_evk
 TARGET_BOOTLOADER_CONFIG := imx7ulp:imx7ulp_evk_android_defconfig
 # imx7ulp with HDMI display
