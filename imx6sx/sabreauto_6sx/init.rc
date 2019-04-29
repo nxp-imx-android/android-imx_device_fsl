@@ -36,9 +36,6 @@ on early-boot
     # Set permission for IIM node
     symlink /dev/mxs_viim /dev/mxc_mem
 
-    # Config lowmemorykiller options
-    setprop ro.lmk.use_minfree_levels true
-
     # Enable Tethering in the Settings
     setprop ro.tether.denied false
 
