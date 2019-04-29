@@ -542,13 +542,6 @@ if %support_dual_bootloader% == 1 set dual_bootloader_partition=bootloader%1
 goto :eof
 
 :flash_android
-call :flash_partition gpt || set /A error_level=1 && goto :exit
-
-:: force to load the gpt just flashed, since for imx6 and imx7, we use uboot from BSP team,
-:: so partition table is not automatically loaded after gpt partition is flashed.
-echo FB: ucmd setenv fastboot_dev sata >> uuu.lst
-echo FB: ucmd setenv fastboot_dev mmc >> uuu.lst
-
 
 :: if dual bootloader is supported, the name of the bootloader flashed to the board need to be updated
 if %support_dual_bootloader% == 1 (
@@ -570,6 +563,12 @@ if not [%device_character%] == [xen] (
         call :flash_partition bootloader || set /A error_level=1 && goto :exit
     )
 )
+
+call :flash_partition gpt || set /A error_level=1 && goto :exit
+:: force to load the gpt just flashed, since for imx6 and imx7, we use uboot from BSP team,
+:: so partition table is not automatically loaded after gpt partition is flashed.
+echo FB: ucmd setenv fastboot_dev sata >> uuu.lst
+echo FB: ucmd setenv fastboot_dev mmc >> uuu.lst
 
 if %support_dualslot% == 0 (
     if not [%slot%] == [] (
