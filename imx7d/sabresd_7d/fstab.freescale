@@ -14,5 +14,5 @@
 /dev/block/by-name/recovery    /recovery    emmc    defaults                                                                         defaults
 /dev/block/by-name/misc        /misc        emmc    defaults                                                                         defaults
 /dev/block/by-name/bootloader  /bootloader  emmc    defaults                                                                         defaults
-/dev/block/zram0 none swap defaults zramsize=314572800
+/dev/block/zram0 none swap defaults zramsize=536870912
 
