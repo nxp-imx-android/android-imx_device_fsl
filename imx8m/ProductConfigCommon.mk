@@ -1,4 +1,6 @@
+ifneq ($(IMX8_BUILD_32BIT_ROOTFS),true)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
+endif
 $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/generic.mk)
 ifeq ($(PRODUCT_IMX_CAR),true)

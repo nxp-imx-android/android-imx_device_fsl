@@ -51,7 +51,6 @@ endif
 TARGET_UBOOT_BUILD_TARGET ?= u-boot.imx
 
 # Check target arch.
-UBOOT_TOOLCHAIN_ABS := $(realpath $(TARGET_TOOLCHAIN_ROOT)/bin)
 TARGET_UBOOT_ARCH := $(strip $(TARGET_UBOOT_ARCH))
 UBOOT_ARCH := $(TARGET_UBOOT_ARCH)
 UBOOT_CC_WRAPPER := $(CC_WRAPPER)
@@ -59,11 +58,18 @@ UBOOT_AFLAGS :=
 UBOOT_DTC_ABS := $(realpath prebuilts/misc/linux-x86/dtc/dtc)
 
 ifeq ($(TARGET_UBOOT_ARCH), arm)
+UBOOT_TOOLCHAIN_ABS := $(realpath prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9/bin)
+else ifeq ($(TARGET_UBOOT_ARCH), arm64)
+UBOOT_TOOLCHAIN_ABS := $(realpath prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9/bin)
+else
+$(error U-boot arch not supported at present)
+endif
+
+ifeq ($(TARGET_UBOOT_ARCH), arm)
 UBOOT_CROSS_COMPILE := $(UBOOT_TOOLCHAIN_ABS)/arm-linux-androidkernel-
 UBOOT_SRC_ARCH := arm
 UBOOT_CFLAGS :=
 else ifeq ($(TARGET_UBOOT_ARCH), arm64)
-UBOOT_TOOLCHAIN_ABS := $(realpath prebuilts/gcc/$(HOST_PREBUILT_TAG)/aarch64/aarch64-linux-android-4.9/bin)
 UBOOT_CROSS_COMPILE := $(UBOOT_TOOLCHAIN_ABS)/aarch64-linux-androidkernel-
 UBOOT_SRC_ARCH := arm64
 UBOOT_CFLAGS :=

@@ -43,7 +43,6 @@ $(error TARGET_KERNEL_ARCH not defined)
 endif
 
 # Check target arch.
-KERNEL_TOOLCHAIN_ABS := $(realpath $(TARGET_TOOLCHAIN_ROOT)/bin)
 TARGET_KERNEL_ARCH := $(strip $(TARGET_KERNEL_ARCH))
 KERNEL_ARCH := $(TARGET_KERNEL_ARCH)
 KERNEL_CC_WRAPPER := $(CC_WRAPPER)
@@ -51,14 +50,19 @@ KERNEL_AFLAGS :=
 TARGET_KERNEL_SRC := $(KERNEL_IMX_PATH)/kernel_imx
 
 ifeq ($(TARGET_KERNEL_ARCH), arm)
+KERNEL_TOOLCHAIN_ABS := $(realpath prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9/bin)
+else ifeq ($(TARGET_KERNEL_ARCH), arm64)
+KERNEL_TOOLCHAIN_ABS := $(realpath prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9/bin)
+else
+$(error kernel arch not supported at present)
+endif
+
+ifeq ($(TARGET_KERNEL_ARCH), arm)
 KERNEL_CROSS_COMPILE := $(KERNEL_TOOLCHAIN_ABS)/arm-linux-androidkernel-
 KERNEL_SRC_ARCH := arm
 KERNEL_CFLAGS :=
 KERNEL_NAME := zImage
 else ifeq ($(TARGET_KERNEL_ARCH), arm64)
-# Override the toolchain for arm64 and make it explict. This allows
-# for a 64bit kernel and 32bit userspace. Currently this is arm64 only.
-KERNEL_TOOLCHAIN_ABS := $(realpath prebuilts/gcc/$(HOST_PREBUILT_TAG)/aarch64/aarch64-linux-android-4.9/bin)
 KERNEL_CROSS_COMPILE := $(KERNEL_TOOLCHAIN_ABS)/aarch64-linux-androidkernel-
 KERNEL_SRC_ARCH := arm64
 KERNEL_CFLAGS :=

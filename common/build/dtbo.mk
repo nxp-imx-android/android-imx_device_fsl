@@ -12,12 +12,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-KERNEL_TOOLCHAIN_ABS := $(realpath $(TARGET_TOOLCHAIN_ROOT)/bin)
 TARGET_KERNEL_ARCH := $(strip $(TARGET_KERNEL_ARCH))
 TARGET_KERNEL_SRC := $(KERNEL_IMX_PATH)/kernel_imx
 KERNEL_CC_WRAPPER := $(CC_WRAPPER)
 KERNEL_AFLAGS :=
 KERNEL_CFLAGS :=
+
+ifeq ($(TARGET_KERNEL_ARCH), arm)
+KERNEL_TOOLCHAIN_ABS := $(realpath prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9/bin)
+else ifeq ($(TARGET_KERNEL_ARCH), arm64)
+KERNEL_TOOLCHAIN_ABS := $(realpath prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9/bin)
+else
+$(error kernel arch not supported at present)
+endif
 
 ifeq ($(TARGET_KERNEL_ARCH), arm)
 KERNEL_CROSS_COMPILE := $(KERNEL_TOOLCHAIN_ABS)/arm-linux-androidkernel-

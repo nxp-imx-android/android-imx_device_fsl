@@ -20,6 +20,9 @@ PRODUCT_DEVICE := mek_8q
 
 PRODUCT_FULL_TREBLE_OVERRIDE := true
 
+#Enable this to choose 32 bit user space build
+#IMX8_BUILD_32BIT_ROOTFS := true
+
 # Copy device related config and binary to board
 PRODUCT_COPY_FILES += \
     $(FSL_PROPRIETARY_PATH)/fsl-proprietary/gpu-viv/lib/egl/egl.cfg:$(TARGET_COPY_OUT_VENDOR)/lib/egl/egl.cfg \

@@ -19,6 +19,9 @@ PRODUCT_FULL_TREBLE_OVERRIDE := true
 #Enable this to include trusty support
 #PRODUCT_IMX_TRUSTY := true
 
+#Enable this to choose 32 bit user space build
+#IMX8_BUILD_32BIT_ROOTFS := true
+
 # Include keystore attestation keys and certificates.
 ifeq ($(PRODUCT_IMX_TRUSTY),true)
 -include $(IMX_SECURITY_PATH)/attestation/imx_attestation.mk
