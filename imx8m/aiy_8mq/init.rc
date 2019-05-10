@@ -48,9 +48,6 @@ on late-fs
     start vendor.keymaster-3-0-${ro.boot.keystore}
 
 on early-boot
-    # enable opengl hardware UI at default
-    setprop debug.hwui.renderer opengl
-
     # Config lowmemorykiller options
     setprop ro.lmk.use_minfree_levels true
 
