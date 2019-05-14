@@ -256,7 +256,6 @@ PRODUCT_PACKAGES += \
     libstagefrighthw \
     libswresample \
     libxec \
-    media_codecs.xml \
     media_codecs_ac3.xml \
     media_codecs_ddp.xml \
     media_codecs_ms.xml \
@@ -265,6 +264,11 @@ PRODUCT_PACKAGES += \
     media_codecs_rv.xml \
     media_codecs_performance.xml \
     media_profiles_V1_0.xml
+
+ifneq ($(LOW_MEMORY),true)
+PRODUCT_PACKAGES += \
+    media_codecs.xml
+endif
 
 # Omx excluded libs
 PRODUCT_PACKAGES += \

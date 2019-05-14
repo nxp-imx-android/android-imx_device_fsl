@@ -22,9 +22,17 @@ PRODUCT_FULL_TREBLE_OVERRIDE := true
 #Enable this to choose 32 bit user space build
 #IMX8_BUILD_32BIT_ROOTFS := true
 
+#Enable this to config 1GB ddr on evk_imx8mm
+#LOW_MEMORY := true
+
 # Include keystore attestation keys and certificates.
 ifeq ($(PRODUCT_IMX_TRUSTY),true)
 -include $(IMX_SECURITY_PATH)/attestation/imx_attestation.mk
+endif
+
+# Include Android Go config for low memory device.
+ifeq ($(LOW_MEMORY),true)
+$(call inherit-product, build/target/product/go_defaults.mk)
 endif
 
 # Copy device related config and binary to board
@@ -101,6 +109,11 @@ PRODUCT_COPY_FILES += \
     device/fsl/common/tools/uuu_imx_android_flash.bat:uuu_imx_android_flash.bat \
     device/fsl/common/tools/uuu_imx_android_flash.sh:uuu_imx_android_flash.sh
 
+# Copy media_codecs.xml for 1GB evk_imx8mm board
+ifeq ($(LOW_MEMORY),true)
+PRODUCT_COPY_FILES += \
+    $(FSL_PROPRIETARY_PATH)/fsl-proprietary/media-profile/imx8mm/media_codecs_no_vpu.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs.xml
+endif
 
 USE_XML_AUDIO_POLICY_CONF := 1
 

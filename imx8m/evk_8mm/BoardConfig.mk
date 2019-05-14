@@ -140,7 +140,11 @@ CMASIZE=800M
 endif
 
 KERNEL_NAME := Image
+ifeq ($(LOW_MEMORY),true)
+BOARD_KERNEL_CMDLINE := init=/init androidboot.console=ttymxc1 androidboot.hardware=freescale cma=320M@0x400M-0xb80M androidboot.primary_display=imx-drm firmware_class.path=/vendor/firmware transparent_hugepage=never loop.max_part=7 androidboot.displaymode=720p galcore.contiguousSize=33554432
+else
 BOARD_KERNEL_CMDLINE := init=/init androidboot.console=ttymxc1 androidboot.hardware=freescale cma=$(CMASIZE)@0x400M-0xb80M androidboot.primary_display=imx-drm firmware_class.path=/vendor/firmware transparent_hugepage=never loop.max_part=7
+endif
 
 # Default wificountrycode
 BOARD_KERNEL_CMDLINE += androidboot.wificountrycode=CN
@@ -164,7 +168,11 @@ else
 # imx8mm with MIPI-HDMI display and QCA wifi
 TARGET_BOARD_DTS_CONFIG ?= imx8mm:fsl-imx8mm-evk.dtb
 # u-boot target for imx8mm_evk with LPDDR4 on board
+ifeq ($(LOW_MEMORY),true)
+TARGET_BOOTLOADER_CONFIG := imx8mm:imx8mm_evk_1g_ddr_android_defconfig
+else
 TARGET_BOOTLOADER_CONFIG := imx8mm:imx8mm_evk_android_defconfig
+endif
 # u-boot target for imx8mm_evk with DDR4 on board
 TARGET_BOOTLOADER_CONFIG += imx8mm-ddr4:imx8mm_ddr4_evk_android_defconfig
 endif
