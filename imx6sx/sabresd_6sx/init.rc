@@ -1,5 +1,4 @@
 import /vendor/etc/init/hw/init.${ro.hardware}.usb.rc
-import /vendor/etc/init/hw/init.${ro.hardware}.${ro.boot.storage_type}.rc
 
 on early-init
     # mount the debugfs
