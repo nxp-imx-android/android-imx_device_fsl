@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2009 The Android Open Source Project
+<!-- Copyright (C) 2010 The Android Open Source Project
+     Copyright 2019 NXP
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -14,10 +15,49 @@
      limitations under the License.
 -->
 
-<!-- XXX: This file is a clone of :frameworks/native/data/etc/tablet_core_hardware.xml file,
-           except the bluetooth is removed and android.software.live_wallpaper was added.
+<!-- These are the hardware components that all handheld devices
+     must include. Devices with optional hardware must also include extra
+     hardware files, per the comments below.
+
+     Handheld devices include phones, mobile Internet devices (MIDs),
+     Personal Media Players (PMPs), small tablets (7" or less), and similar
+     devices.
+-->
+
+<!-- This file is a clone of of :frameworks/native/data/etc/tablet_core_hardware.xml file,
+	 except below features are removed since sabresd_6dq is configured as go device.
+     android.software.picture_in_picture
+     android.software.activities_on_secondary_displays
+     android.software.managed_users
 -->
 <permissions>
+    <!-- This is Android and fully CTS compatible.  Basically this is for CTS tests to use. -->
+    <feature name="android.software.cts" />
+
+    <feature name="android.hardware.audio.output" />
+    <feature name="android.hardware.location" />
+    <feature name="android.hardware.location.network" />
+    <feature name="android.hardware.sensor.compass" />
+    <feature name="android.hardware.sensor.accelerometer" />
+    <feature name="android.hardware.bluetooth" />
+    <feature name="android.hardware.touchscreen" />
+    <feature name="android.hardware.touchscreen.multitouch" />
+    <feature name="android.hardware.touchscreen.multitouch.distinct" />
+    <feature name="android.hardware.microphone" />
+    <feature name="android.hardware.screen.portrait" />
+    <feature name="android.hardware.screen.landscape" />
+
+    <!-- basic system services -->
+    <feature name="android.software.app_widgets" />
+    <feature name="android.software.voice_recognizers" />
+    <feature name="android.software.backup" />
+    <feature name="android.software.home_screen" />
+    <feature name="android.software.input_methods" />
+    <feature name="android.software.print" />
+    <feature name="android.software.companion_device_setup" />
+    <feature name="android.software.autofill" />
     <feature name="android.software.cant_save_state" />
-    <feature name="android.hardware.camera.any" />
+
+    <!-- Feature to specify if the device supports adding device admins. -->
+    <feature name="android.software.device_admin" />
 </permissions>
