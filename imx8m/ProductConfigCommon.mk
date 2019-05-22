@@ -230,7 +230,6 @@ PRODUCT_PACKAGES += \
     lib_omx_res_mgr_v2_arm11_elinux \
     lib_omx_rtps_pipe_arm11_elinux \
     lib_omx_shared_fd_pipe_arm11_elinux \
-    lib_omx_soft_hevc_dec_arm11_elinux \
     lib_omx_sorenson_dec_v2_arm11_elinux \
     lib_omx_streaming_parser_arm11_elinux \
     lib_omx_surface_render_arm11_elinux \
