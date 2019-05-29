@@ -8,7 +8,7 @@ cat << EOF
 Version: 1.3
 Last change: generate uuu script first and then use the generated uuu script to flash images
 currently suported platforms: sabresd_6dq, sabreauto_6q, sabresd_6sx, evk_7ulp, sabresd_7d
-                              evk_8mm, evk_8mq, aiy_8mq, mek_8q, mek_8q_car
+                              evk_8mm, evk_8mq, evk_8mn, aiy_8mq, mek_8q, mek_8q_car
 
 eg: ./uuu_imx_android_flash.sh -f imx8qm -a -e -D ~/nfs/179/2018.11.10/imx_pi9.0/mek_8q/
 eg: ./uuu_imx_android_flash.sh -f imx6qp -e -D ~/nfs/187/maddev_pi9.0/out/target/product/sabresd_6dq/ -p sabresd
@@ -213,6 +213,11 @@ case ${soc_name%%-*} in
             uboot_env_start=0x2000; uboot_env_len=0x8;
             emmc_num=1; sd_num=0;
             board=evk ;;
+    imx8mn)
+            vid=0x1fc9; pid=0x0134; chip=MX8MN;
+            uboot_env_start=0x2000; uboot_env_len=0x8;
+            emmc_num=1; sd_num=0;
+            board=evk ;;
     imx7ulp)
             vid=0x1fc9; pid=0x0126; chip=MX7ULP;
             uboot_env_start=0x700; uboot_env_len=0x10;
@@ -275,7 +280,7 @@ else
 fi
 
 # set sdp command name based on soc_name
-if [[ ${soc_name#imx8q} != ${soc_name} ]]; then
+if [[ ${soc_name#imx8q} != ${soc_name} ]] || [[ ${soc_name} == "imx8mn" ]]; then
     sdp="SDPS"
 fi
 
@@ -291,7 +296,7 @@ fi
 
 function uuu_load_uboot
 {
-    echo uuu_version 1.2.68 > /tmp/uuu.lst
+    echo uuu_version 1.2.135 > /tmp/uuu.lst
     rm -f /tmp/${bootloader_usbd_by_uuu}
     ln -s ${sym_link_directory}${bootloader_usbd_by_uuu} /tmp/${bootloader_usbd_by_uuu}
     echo ${sdp}: boot -f ${bootloader_usbd_by_uuu} >> /tmp/uuu.lst
