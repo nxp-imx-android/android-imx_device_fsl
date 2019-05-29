@@ -8,3 +8,5 @@ add_lunch_combo evk_8mm_drm-user
 add_lunch_combo evk_8mm_drm-userdebug
 add_lunch_combo aiy_8mq-user
 add_lunch_combo aiy_8mq-userdebug
+add_lunch_combo evk_8mn-user
+add_lunch_combo evk_8mn-userdebug
