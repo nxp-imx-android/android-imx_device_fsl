@@ -174,6 +174,13 @@ if not [%soc_name:imx8mm=%] == [%soc_name%] (
     set board=evk
     goto :device_info_end
 )
+if not [%soc_name:imx8mn=%] == [%soc_name%] (
+    set vid=0x1fc9& set pid=00x013e& set chip=MX8MN
+    set uboot_env_start=0x2000& set uboot_env_len=0x8
+    set emmc_num=1& set sd_num=0
+    set board=evk
+    goto :device_info_end
+)
 if not [%soc_name:imx7ulp=%] == [%soc_name%] (
     set vid=0x1fc9& set pid=0x0126& set chip=MX7ULP
     set uboot_env_start=0x700& set uboot_env_len=0x10
@@ -235,10 +242,12 @@ if [%target_dev%] == [emmc] (
     set target_num=%sd_num%
 )
 
-:: set sdp command name based on soc_name
-if not [%soc_name:imx8q=%] == [%soc_name%] (
-    set sdp=SDPS
-)
+:: set sdp command name based on soc_name, now imx8q and imx8mn need to
+:: use SDPS.
+if not [%soc_name:imx8q=%] == [%soc_name%] goto :sdp_name
+if [%soc_name%] == [imx8mn] goto :sdp_name
+:sdp_name
+set sdp=SDPS
 
 :: find the names of the bootloader used by uuu and flashed to board
 if [%device_character%] == [ldo] goto :the_name_of_bootloader_with_device_character
@@ -355,7 +364,7 @@ echo.
 echo Version: 1.3
 echo Last change: generate uuu script first and then use the generated uuu script to flash images
 echo currently suported platforms: sabresd_6dq, sabreauto_6q, sabresd_6sx, evk_7ulp, sabresd_7d
-echo                               evk_8mm, evk_8mq, aiy_8mq, mek_8q, mek_8q_car
+echo                               evk_8mm, evk_8mq, evk_8mn, aiy_8mq, mek_8q, mek_8q_car
 echo.
 echo eg: uuu_imx_android_flash.bat -f imx8qm -a -e -D C:\Users\user_01\images\2018.11.10\imx_pi9.0\mek_8q\
 echo eg: uuu_imx_android_flash.bat -f imx6qp -e -D C:\Users\user_01\images\2018.11.10\imx_pi9.0\sabresd_6dq\ -p sabresd
@@ -411,7 +420,7 @@ if [%board%] == [] (
 goto :eof
 
 :uuu_load_uboot
-echo uuu_version 1.2.68 > uuu.lst
+echo uuu_version 1.2.135 > uuu.lst
 
 if exist %bootloader_usbd_by_uuu%.link (
     del %bootloader_usbd_by_uuu%.link
