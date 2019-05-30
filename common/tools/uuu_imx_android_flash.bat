@@ -244,10 +244,12 @@ if [%target_dev%] == [emmc] (
 
 :: set sdp command name based on soc_name, now imx8q and imx8mn need to
 :: use SDPS.
-if not [%soc_name:imx8q=%] == [%soc_name%] goto :sdp_name
-if [%soc_name%] == [imx8mn] goto :sdp_name
-:sdp_name
+if not [%soc_name:imx8q=%] == [%soc_name%] goto :with_sdps
+if [%soc_name%] == [imx8mn] goto :with_sdps
+goto :without_sdps
+:with_sdps
 set sdp=SDPS
+:without_sdps
 
 :: find the names of the bootloader used by uuu and flashed to board
 if [%device_character%] == [ldo] goto :the_name_of_bootloader_with_device_character
