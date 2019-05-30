@@ -3,9 +3,8 @@
 #
 
 BOARD_SOC_TYPE := IMX8MN
-BOARD_HAVE_VPU := true
-BOARD_VPU_TYPE := hantro
-HAVE_FSL_IMX_GPU2D := true
+BOARD_HAVE_VPU := false
+HAVE_FSL_IMX_GPU2D := false
 HAVE_FSL_IMX_GPU3D := true
 HAVE_FSL_IMX_IPU := false
 HAVE_FSL_IMX_PXP := false
