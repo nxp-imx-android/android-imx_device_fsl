@@ -93,7 +93,7 @@ sym_link_directory=""
 yocto_image_sym_link=""
 daemon_mode=0
 
-echo -e This script is validated with ${RED}uuu 1.2.91${STD} version, please align with this version.
+echo -e This script is validated with ${RED}uuu 1.2.135${STD} version, please align with this version.
 
 if [ $# -eq 0 ]; then
     echo -e >&2 ${RED}please provide more information with command script options${STD}
