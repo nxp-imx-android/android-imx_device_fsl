@@ -272,3 +272,6 @@ PRODUCT_PACKAGES += \
     gatekeeper.trusty \
     storageproxyd
 endif
+
+# Included GMS package
+$(call inherit-product-if-exists, vendor/partner_gms/products/gms.mk)
