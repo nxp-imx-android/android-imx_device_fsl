@@ -166,11 +166,6 @@ PRODUCT_PACKAGES += \
     android.hardware.bluetooth@1.0-impl \
     android.hardware.bluetooth@1.0-service
 
-# Qcom 1PJ Bluetooth Firmware
-PRODUCT_COPY_FILES += \
-    vendor/nxp/qca-wifi-bt/1PJ_QCA9377-3_LEA_2.0/lib/firmware/qca/tfbtnv11.bin:vendor/firmware/nvm_tlv_3.2.bin \
-    vendor/nxp/qca-wifi-bt/1PJ_QCA9377-3_LEA_2.0/lib/firmware/qca/tfbtfw11.tlv:vendor/firmware/rampatch_tlv_3.2.tlv \
-
 # BCM Bluetooth vendor config
 PRODUCT_PACKAGES += \
     bt_vendor.conf
@@ -184,14 +179,6 @@ PRODUCT_PACKAGES += \
     android.hardware.wifi@1.0-service \
     wifilogd \
     wificond
-
-# BCM bluetooth for UNITE mode
-PRODUCT_PACKAGES += \
-    libbt-vendor-unite-bcm
-
-# QCA bluetooth for UNITE mode
-PRODUCT_PACKAGES += \
-    libbt-vendor-unite-qca
 
 # BCM 1MW Wifi Firmware
 PRODUCT_COPY_FILES += \
