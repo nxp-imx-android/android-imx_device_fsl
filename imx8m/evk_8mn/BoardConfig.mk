@@ -62,28 +62,14 @@ TARGET_BOOTLOADER_POSTFIX := bin
 USE_OPENGL_RENDERER := true
 TARGET_CPU_SMP := true
 
-BOARD_WLAN_DEVICE_UNITE      := UNITE
+BOARD_WLAN_DEVICE            := bcmdhd
 WPA_SUPPLICANT_VERSION       := VER_0_8_X
 BOARD_WPA_SUPPLICANT_DRIVER  := NL80211
 BOARD_HOSTAPD_DRIVER         := NL80211
-
-# In UNITE mode,Use default macro for bcmdhd and use unite macro for qcom
-ifeq ($(BOARD_WLAN_DEVICE_UNITE), UNITE)
-BOARD_WLAN_DEVICE            := bcmdhd
-BOARD_HOSTAPD_PRIVATE_LIB_QCA           := lib_driver_cmd_qcwcn
-BOARD_WPA_SUPPLICANT_PRIVATE_LIB_QCA    := lib_driver_cmd_qcwcn
-BOARD_HOSTAPD_PRIVATE_LIB_BCM           := lib_driver_cmd_bcmdhd
-BOARD_WPA_SUPPLICANT_PRIVATE_LIB_BCM    := lib_driver_cmd_bcmdhd
-endif
+BOARD_HOSTAPD_PRIVATE_LIB               := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
+BOARD_WPA_SUPPLICANT_PRIVATE_LIB        := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
 
 WIFI_DRIVER_FW_PATH_PARAM := "/sys/module/brcmfmac/parameters/alternative_fw_path"
-
-# QCA wifi support dual interface
-WIFI_HIDL_FEATURE_DUAL_INTERFACE := true
-
-# QCA qcacld wifi driver module
-BOARD_VENDOR_KERNEL_MODULES += \
-    $(KERNEL_OUT)/drivers/net/wireless/qcacld-2.0/wlan.ko
 
 # BCM fmac wifi driver module
 BOARD_VENDOR_KERNEL_MODULES += \
@@ -144,9 +130,6 @@ endif
 # Default wificountrycode
 BOARD_KERNEL_CMDLINE += androidboot.wificountrycode=CN
 
-# Defaultly evk_8mn use QCA 1PJ wifi module, if use BCM 1MW module, set androidboot.wifivendor=bcm
-BOARD_KERNEL_CMDLINE += androidboot.wifivendor=qca
-
 ifeq ($(TARGET_USERIMAGES_USE_UBIFS),true)
 ifeq ($(TARGET_USERIMAGES_USE_EXT4),true)
 $(error "TARGET_USERIMAGES_USE_UBIFS and TARGET_USERIMAGES_USE_EXT4 config open in same time, please only choose one target file system image")
@@ -157,10 +140,10 @@ BOARD_PREBUILT_DTBOIMAGE := out/target/product/evk_8mn/dtbo-imx8mn.img
 ifeq ($(PRODUCT_IMX_TRUSTY),true)
 # u-boot target for imx8mn_evk with trusty os related features supported
 TARGET_BOOTLOADER_CONFIG := imx8mn:imx8mn_evk_android_trusty_defconfig
-# imx8mn with MIPI-HDMI display, QCA wifi and support trusty
+# imx8mn with MIPI-HDMI display, BCM wifi and support trusty
 TARGET_BOARD_DTS_CONFIG ?= imx8mn:fsl-imx8mn-trusty-evk.dtb
 else
-# imx8mn with MIPI-HDMI display and QCA wifi
+# imx8mn with MIPI-HDMI display and BCM wifi
 TARGET_BOARD_DTS_CONFIG ?= imx8mn:fsl-imx8mn-ddr4-evk.dtb
 # u-boot target for imx8mn_evk with LPDDR4 on board
 ifeq ($(LOW_MEMORY),true)
