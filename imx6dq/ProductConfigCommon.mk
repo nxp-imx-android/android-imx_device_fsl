@@ -299,7 +299,8 @@ PRODUCT_PACKAGES += \
     media_codecs_ra.xml \
     media_codecs_rv.xml \
     media_codecs_performance.xml \
-    media_profiles_V1_0.xml
+    media_profiles_V1_0.xml \
+    media_codecs_google_video.xml
 
 # Omx excluded libs
 PRODUCT_PACKAGES += \
@@ -327,7 +328,6 @@ PRODUCT_AAPT_CONFIG := normal mdpi
 PRODUCT_COPY_FILES +=	\
     $(FSL_PROPRIETARY_PATH)/fsl-proprietary/media-profile/media_codecs_google_audio.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_audio.xml \
     $(FSL_PROPRIETARY_PATH)/fsl-proprietary/media-profile/media_codecs_google_telephony.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_telephony.xml \
-    $(FSL_PROPRIETARY_PATH)/fsl-proprietary/media-profile/imx6dq/media_codecs_google_video.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_video.xml \
     $(FSL_PROPRIETARY_PATH)/fsl-proprietary/media-profile/media_profiles_720p.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_profiles_720p.xml \
     $(LINUX_FIRMWARE_IMX_PATH)/linux-firmware-imx/firmware/sdma/sdma-imx6q.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/imx/sdma/sdma-imx6q.bin \
     device/fsl/common/input/Dell_Dell_USB_Entry_Keyboard.idc:$(TARGET_COPY_OUT_VENDOR)/usr/idc/Dell_Dell_USB_Entry_Keyboard.idc \
