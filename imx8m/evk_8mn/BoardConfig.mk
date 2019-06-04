@@ -136,6 +136,8 @@ TARGET_BOARD_DTS_CONFIG ?= imx8mn:fsl-imx8mn-trusty-evk.dtb
 else
 # imx8mn with MIPI-HDMI display and BCM wifi
 TARGET_BOARD_DTS_CONFIG ?= imx8mn:fsl-imx8mn-ddr4-evk.dtb
+# imx8mn with MIPI panel display and BCM wifi
+TARGET_BOARD_DTS_CONFIG += imx8mn-mipi-panel:fsl-imx8mn-ddr4-evk-rm67191.dtb
 # u-boot target for imx8mn_evk with LPDDR4 on board
 ifeq ($(LOW_MEMORY),true)
 TARGET_BOOTLOADER_CONFIG := imx8mn:imx8mn_evk_1g_ddr_android_defconfig
