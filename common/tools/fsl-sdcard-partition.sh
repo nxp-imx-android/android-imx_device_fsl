@@ -5,8 +5,9 @@ help() {
 bn=`basename $0`
 cat << EOF
 
-Version: 1.3
-Last change: remove the limitation that this script must be executed with current directory containing the images
+Version: 1.4
+Last change: add support imx8mn chips
+V1.3 change: remove the limitation that this script must be executed with current directory containing the images
              remove the limitation that non-default images need to change file names before executing this script
              correct help info and remove the content not used for current stage.
 
@@ -25,7 +26,7 @@ options:
                            ├────────────────────────────┼───────────────┤
                            │ imx8mm/imx8mq              │      33k      │
                            ├────────────────────────────┼───────────────┤
-                           │ imx8qm/imx8qxp             │      32k      │
+                           │ imx8qm/imx8qxp/imx8mn      │      32k      │
                            └────────────────────────────┴───────────────┘
   -a                only flash image to slot_a
   -b                only flash image to slot_b
@@ -97,8 +98,8 @@ if [ ${card_size} -ne 0 ] && [ ${card_size} -ne 7 ] && [ ${card_size} -ne 14 ] &
     help; exit 1;
 fi
 
-# imx8qxp RevB0 chips and imx8qm RevB0 chips, bootloader offset is 32KB on SD card
-if [ "${soc_name}" = "imx8qxp" -o "${soc_name}" = "imx8qm" ]; then
+# imx8qxp RevB0 chips, imx8qm RevB0 chips and imx8mn chips, bootloader offset is 32KB on SD card
+if [ "${soc_name}" = "imx8qxp" -o "${soc_name}" = "imx8qm" -o "${soc_name}" = "imx8mn" ]; then
     bootloader_offset=32
 fi
 
