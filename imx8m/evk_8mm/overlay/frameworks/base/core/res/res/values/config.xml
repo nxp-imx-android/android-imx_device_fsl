@@ -24,6 +24,9 @@
     <!--For Android we support eth0 now -->
     <string translatable="false" name="config_ethernet_iface_regex">eth0</string>
 
+    <!-- Package name for the device provisioning package. -->
+    <string name="config_deviceProvisioningPackage">com.google.android.apps.work.oobconfig</string>
+
     <!-- List of regexpressions describing the interface (if any) that represent tetherable
          USB interfaces.  If the device doesn't want to support tething over USB this should
          be empty.  An example would be "usb.*" -->
