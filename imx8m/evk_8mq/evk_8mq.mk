@@ -101,6 +101,9 @@ PRODUCT_COPY_FILES += \
 # GPU openCL SDK header file
 -include $(FSL_PROPRIETARY_PATH)/fsl-proprietary/include/CL/cl_sdk.mk
 
+# GPU openVX SDK header file
+-include $(FSL_PROPRIETARY_PATH)/fsl-proprietary/include/nnxc_kernels/nnxc_kernels.mk
+
 # GPU openCL icdloader config file
 -include $(FSL_PROPRIETARY_PATH)/fsl-proprietary/gpu-viv/icdloader/icdloader.mk
 
@@ -136,6 +139,14 @@ PRODUCT_PACKAGES += \
         libLLVM_viv \
         libOpenCL \
         libopencl-2d \
+        libOpenVX \
+        libOpenVXU \
+        libNNVXCBinary-evis \
+        libNNVXCBinary-lite \
+        libOvx12VXCBinary-evis \
+        libOvx12VXCBinary-lite \
+        libNNGPUBinary-evis \
+        libNNGPUBinary-lite \
         gatekeeper.imx8
 
 PRODUCT_PACKAGES += \
@@ -151,7 +162,7 @@ PRODUCT_PACKAGES += \
 
 # Neural Network HAL
 PRODUCT_PACKAGES += \
-    android.hardware.neuralnetworks@1.0-service-imx-nn
+    android.hardware.neuralnetworks@1.1-service-ovx-driver
 
 # Usb HAL
 PRODUCT_PACKAGES += \
