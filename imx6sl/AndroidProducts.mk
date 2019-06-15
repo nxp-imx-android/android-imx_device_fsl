@@ -28,3 +28,7 @@
 
 PRODUCT_MAKEFILES := \
   $(LOCAL_DIR)/evk_6sl/evk_6sl.mk
+
+COMMON_LUNCH_CHOICES := \
+  evk_6sl-user \
+  evk_6sl-userdebug
