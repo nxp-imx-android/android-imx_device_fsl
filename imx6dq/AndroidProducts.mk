@@ -30,3 +30,12 @@ PRODUCT_MAKEFILES := \
   $(LOCAL_DIR)/sabreauto_6q/sabreauto_6q.mk \
   $(LOCAL_DIR)/sabresd_6dq/sabresd_6dq.mk \
   $(LOCAL_DIR)/sabresd_6dq/sabresd_6dq_car.mk
+
+
+COMMON_LUNCH_CHOICES := \
+  sabresd_6dq-user \
+  sabresd_6dq-userdebug \
+  sabresd_6dq_car-user \
+  sabresd_6dq_car-userdebug \
+  sabreauto_6q-user \
+  sabreauto_6q-userdebug

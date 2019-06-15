@@ -1,6 +1,0 @@
-add_lunch_combo mek_8q-user
-add_lunch_combo mek_8q-userdebug
-add_lunch_combo mek_8q_car-user
-add_lunch_combo mek_8q_car-userdebug
-add_lunch_combo mek_8q_car2-user
-add_lunch_combo mek_8q_car2-userdebug
