@@ -1,2 +1,0 @@
-add_lunch_combo evk_6sl-user
-add_lunch_combo evk_6sl-userdebug

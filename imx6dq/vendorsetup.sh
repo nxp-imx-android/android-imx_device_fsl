@@ -1,6 +1,0 @@
-add_lunch_combo sabresd_6dq-user
-add_lunch_combo sabresd_6dq-userdebug
-add_lunch_combo sabresd_6dq_car-user
-add_lunch_combo sabresd_6dq_car-userdebug
-add_lunch_combo sabreauto_6q-user
-add_lunch_combo sabreauto_6q-userdebug

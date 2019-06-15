@@ -34,3 +34,16 @@ PRODUCT_MAKEFILES := \
   $(LOCAL_DIR)/aiy_8mq/aiy_8mq.mk \
   $(LOCAL_DIR)/evk_8mn/evk_8mn.mk
 
+COMMON_LUNCH_CHOICES := \
+  evk_8mq-user \
+  evk_8mq-userdebug \
+  evk_8mq_drm-user \
+  evk_8mq_drm-userdebug \
+  evk_8mm-user \
+  evk_8mm-userdebug \
+  evk_8mm_drm-user \
+  evk_8mm_drm-userdebug \
+  aiy_8mq-user \
+  aiy_8mq-userdebug \
+  evk_8mn-user \
+  evk_8mn-userdebug
