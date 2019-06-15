@@ -1,2 +1,0 @@
-genfscon sysfs /devices/soc0/soc/2100000.aips-bus/219c000.usdhc/mmc_host/mmc3/mmc3:e624/block/mmcblk3 u:object_r:sysfs_block_devices:s0
-genfscon sysfs /devices/platform/bt_rfkill/rfkill/rfkill0 u:object_r:sysfs_rfkill:s0
