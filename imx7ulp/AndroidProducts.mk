@@ -28,3 +28,7 @@
 
 PRODUCT_MAKEFILES := \
   $(LOCAL_DIR)/evk_7ulp/evk_7ulp.mk
+
+COMMON_LUNCH_CHOICES := \
+  evk_7ulp-user \
+  evk_7ulp-userdebug
