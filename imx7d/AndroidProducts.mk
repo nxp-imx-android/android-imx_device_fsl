@@ -28,3 +28,7 @@
 
 PRODUCT_MAKEFILES := \
   $(LOCAL_DIR)/sabresd_7d/sabresd_7d.mk
+
+COMMON_LUNCH_CHOICES := \
+  sabresd_7d-user \
+  sabresd_7d-userdebug

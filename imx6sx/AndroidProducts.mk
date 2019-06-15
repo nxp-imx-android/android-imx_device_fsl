@@ -28,3 +28,7 @@
 
 PRODUCT_MAKEFILES := \
   $(LOCAL_DIR)/sabresd_6sx/sabresd_6sx.mk
+
+COMMON_LUNCH_CHOICES := \
+  sabresd_6sx-user \
+  sabresd_6sx-userdebug
