@@ -19,6 +19,7 @@ endif
 # Overrides
 PRODUCT_NAME := evk_7ulp
 PRODUCT_DEVICE := evk_7ulp
+PRODUCT_MODEL := EVK_MX7ULP
 
 PRODUCT_FULL_TREBLE_OVERRIDE := true
 
