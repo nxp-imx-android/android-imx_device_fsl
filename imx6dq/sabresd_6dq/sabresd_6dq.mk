@@ -19,6 +19,7 @@ endif
 # Overrides
 PRODUCT_NAME := sabresd_6dq
 PRODUCT_DEVICE := sabresd_6dq
+PRODUCT_MODEL := SABRESD-MX6DQ
 
 PRODUCT_FULL_TREBLE_OVERRIDE := true
 
