@@ -19,6 +19,7 @@ endif
 # Overrides
 PRODUCT_NAME := sabresd_7d
 PRODUCT_DEVICE := sabresd_7d
+PRODUCT_MODEL := SABRESD_MX7D
 
 # Copy device related config and binary to board
 PRODUCT_COPY_FILES += \
