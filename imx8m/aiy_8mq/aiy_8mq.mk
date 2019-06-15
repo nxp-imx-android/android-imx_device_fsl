@@ -17,6 +17,7 @@ endif
 # Overrides
 PRODUCT_NAME := aiy_8mq
 PRODUCT_DEVICE := aiy_8mq
+PRODUCT_MODEL := AIY_8MQ
 
 PRODUCT_FULL_TREBLE_OVERRIDE := true
 

@@ -18,6 +18,7 @@ endif
 # Overrides
 PRODUCT_NAME := evk_6sl
 PRODUCT_DEVICE := evk_6sl
+PRODUCT_MODEL := EVK_MX6SL
 
 # Copy device related config and binary to board
 PRODUCT_COPY_FILES += \

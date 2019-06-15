@@ -17,6 +17,7 @@ endif
 # Overrides
 PRODUCT_NAME := evk_8mq
 PRODUCT_DEVICE := evk_8mq
+PRODUCT_MODEL := EVK_8MQ
 
 PRODUCT_FULL_TREBLE_OVERRIDE := true
 
