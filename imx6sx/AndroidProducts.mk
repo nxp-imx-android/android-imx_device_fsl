@@ -27,5 +27,4 @@
 # Copied from build/target/product/AndroidProducts.mk
 
 PRODUCT_MAKEFILES := \
-  $(LOCAL_DIR)/sabresd_6sx/sabresd_6sx.mk \
-  $(LOCAL_DIR)/sabreauto_6sx/sabreauto_6sx.mk
+  $(LOCAL_DIR)/sabresd_6sx/sabresd_6sx.mk
