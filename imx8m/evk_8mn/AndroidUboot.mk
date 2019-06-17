@@ -10,7 +10,10 @@ define build_imx_uboot
 	cp $(UBOOT_OUT)/tools/mkimage  $(IMX_MKIMAGE_PATH)/imx-mkimage/iMX8M/mkimage_uboot; \
 	cp $(FSL_PROPRIETARY_PATH)/fsl-proprietary/uboot-firmware/imx8m/signed_hdmi_imx8m.bin  $(IMX_MKIMAGE_PATH)/imx-mkimage/iMX8M/.; \
 	cp $(UBOOT_OUT)/arch/arm/dts/fsl-imx8mn-ddr4-evk.dtb $(IMX_MKIMAGE_PATH)/imx-mkimage/iMX8M/.; \
-	cp $(FSL_PROPRIETARY_PATH)/fsl-proprietary/uboot-firmware/imx8m/ddr4_* $(IMX_MKIMAGE_PATH)/imx-mkimage/iMX8M/.; \
+	cp $(FSL_PROPRIETARY_PATH)/fsl-proprietary/uboot-firmware/imx8m/ddr4_dmem_1d_201810.bin $(IMX_MKIMAGE_PATH)/imx-mkimage/iMX8M/.; \
+	cp $(FSL_PROPRIETARY_PATH)/fsl-proprietary/uboot-firmware/imx8m/ddr4_dmem_2d_201810.bin $(IMX_MKIMAGE_PATH)/imx-mkimage/iMX8M/.; \
+	cp $(FSL_PROPRIETARY_PATH)/fsl-proprietary/uboot-firmware/imx8m/ddr4_imem_1d_201810.bin $(IMX_MKIMAGE_PATH)/imx-mkimage/iMX8M/.; \
+	cp $(FSL_PROPRIETARY_PATH)/fsl-proprietary/uboot-firmware/imx8m/ddr4_imem_2d_201810.bin $(IMX_MKIMAGE_PATH)/imx-mkimage/iMX8M/.; \
 	$(MAKE) -C $(IMX_PATH)/arm-trusted-firmware/ PLAT=`echo $(2) | cut -d '-' -f1` clean; \
 	if [ "$(PRODUCT_IMX_TRUSTY)" == "true" ] && [ `echo $(2) | rev | cut -d '-' -f1` != "uuu" ]; then \
 		cp $(FSL_PROPRIETARY_PATH)/fsl-proprietary/uboot-firmware/imx8m/tee-imx8mn.bin $(IMX_MKIMAGE_PATH)/imx-mkimage/iMX8M/tee.bin; \
