@@ -78,6 +78,7 @@ BOARD_VENDOR_KERNEL_MODULES += \
                             $(KERNEL_OUT)/drivers/usb/chipidea/ci_hdrc.ko \
                             $(KERNEL_OUT)/drivers/usb/chipidea/ci_hdrc_imx.ko \
                             $(KERNEL_OUT)/drivers/usb/chipidea/usbmisc_imx.ko \
+                            $(KERNEL_OUT)/drivers/usb/common/ulpi.ko \
                             $(KERNEL_OUT)/drivers/usb/core/usbcore.ko \
                             $(KERNEL_OUT)/drivers/usb/host/xhci-hcd.ko \
                             $(KERNEL_OUT)/drivers/usb/host/ehci-hcd.ko \
