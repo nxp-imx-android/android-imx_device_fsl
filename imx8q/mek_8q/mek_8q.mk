@@ -315,6 +315,13 @@ PRODUCT_PACKAGES += \
     lib_omx_v4l2_dec_arm11_elinux \
     lib_omx_v4l2_enc_arm11_elinux
 
+ifneq ($(PRODUCT_IMX_CAR),true)
+# Tensorflow lite camera demo
+PRODUCT_PACKAGES += \
+                    tflitecamerademo
+endif
+
+
 # Add oem unlocking option in settings.
 PRODUCT_PROPERTY_OVERRIDES += ro.frp.pst=/dev/block/by-name/presistdata
 PRODUCT_COMPATIBLE_PROPERTY_OVERRIDE := true
