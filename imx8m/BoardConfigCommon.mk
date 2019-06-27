@@ -82,7 +82,7 @@ BOARD_GPU_LIBDRM := libdrm_imx
 # TARGET_KERNEL_2G := true
 
 AB_OTA_UPDATER := true
-AB_OTA_PARTITIONS := dtbo boot system vendor vbmeta
+AB_OTA_PARTITIONS := dtbo boot system vendor vbmeta product
 BOARD_BUILD_SYSTEM_ROOT_IMAGE := true
 TARGET_NO_RECOVERY := true
 BOARD_USES_RECOVERY_AS_BOOT := true
@@ -100,6 +100,12 @@ BOARD_FLASH_BLOCK_SIZE := 4096
 TARGET_RECOVERY_UI_LIB := librecovery_ui_imx
 
 BOARD_VNDK_VERSION := current
+
+# product.img
+BOARD_USES_PRODUCTIMAGE := true
+BOARD_PRODUCTIMAGE_PARTITION_SIZE := 536870912
+BOARD_PRODUCTIMAGE_FILE_SYSTEM_TYPE := ext4
+TARGET_COPY_OUT_PRODUCT := product
 
 -include $(FSL_RESTRICTED_CODEC_PATH)/fsl-restricted-codec/fsl_ms_codec/BoardConfig.mk
 -include $(FSL_RESTRICTED_CODEC_PATH)/fsl-restricted-codec/fsl_real_dec/BoardConfig.mk

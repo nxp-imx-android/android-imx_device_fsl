@@ -66,6 +66,12 @@
             "type_guid": "2578eab2-a534-43e2-92c0-fed1b01c5d1d"
         },
         {
+            "label": "product",
+            "size": "512 MiB",
+            "guid": "auto",
+            "type_guid": "c1dedb9a-a0d3-42e4-b74d-0acf96833624"
+        },
+        {
             "label": "userdata",
             "grow": true,
             "guid": "auto",
