@@ -84,13 +84,13 @@ $(IMX_INSTALLED_VBMETAIMAGE_TARGET): $(PRODUCT_OUT)/vbmeta.img $(BOARD_PREBUILT_
 		RECOVERY_IMG=`echo $(PRODUCT_OUT)/recovery-$${DTS_PLATFORM}.img`; \
 		$(if $(filter true, $(BOARD_USES_RECOVERY_AS_BOOT)), \
 			$(AVBTOOL) make_vbmeta_image \
-				$(INTERNAL_AVB_SIGNING_ARGS) \
+				--algorithm $(BOARD_AVB_ALGORITHM) --key $(BOARD_AVB_KEY_PATH)  \
 				$(BOARD_AVB_MAKE_VBMETA_IMAGE_ARGS) \
 				--include_descriptors_from_image $(PRODUCT_OUT)/vbmeta.img \
 				--include_descriptors_from_image $$DTBO_IMG \
 				--output $$VBMETA_IMG, \
 			$(AVBTOOL) make_vbmeta_image \
-				$(INTERNAL_AVB_SIGNING_ARGS) \
+				--algorithm $(BOARD_AVB_ALGORITHM) --key $(BOARD_AVB_KEY_PATH) \
 				$(BOARD_AVB_MAKE_VBMETA_IMAGE_ARGS) \
 				--include_descriptors_from_image $(PRODUCT_OUT)/vbmeta.img \
 				--include_descriptors_from_image $$DTBO_IMG \
