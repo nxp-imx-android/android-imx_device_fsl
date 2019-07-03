@@ -5,11 +5,9 @@ help() {
 bn=`basename $0`
 cat << EOF
 
-Version: 1.4
-Last change: add support imx8mn chips
-V1.3 change: remove the limitation that this script must be executed with current directory containing the images
-             remove the limitation that non-default images need to change file names before executing this script
-             correct help info and remove the content not used for current stage.
+Version: 1.5
+Last change: support flash product.img
+V1.4 change: add support imx8mn chips
 
 Usage: $bn <option> device_node
 
@@ -58,6 +56,7 @@ not_partition=0
 slot=""
 systemimage_file="system.img"
 vendor_file="vendor.img"
+product_file="product.img"
 partition_file="partition-table.img"
 g_sizes=0
 support_dtbo=0
@@ -170,6 +169,8 @@ function flash_partition
                 img_name=${systemimage_file}
             elif [ "$(echo ${1} | grep "vendor")" != "" ]; then
                 img_name=${vendor_file}
+            elif [ "$(echo ${1} | grep "product")" != "" ]; then
+                img_name=${product_file}
             elif [ ${support_dtbo} -eq 1 ] && [ $(echo ${1} | grep "boot") != "" ] 2>/dev/null; then
                 img_name="boot.img"
             elif [ "$(echo ${1} | grep -E "dtbo|vbmeta|recovery")" != "" -a "${device_character}" != "" ]; then
@@ -184,7 +185,7 @@ function flash_partition
             fi
             echo "flash_partition: ${img_name} ---> ${node}${num}"
 
-            if [ "$(echo ${1} | grep "system")" != "" ] || [ "$(echo ${1} | grep "vendor")" != "" ]; then
+            if [ "$(echo ${1} | grep "system")" != "" ] || [ "$(echo ${1} | grep "vendor")" != "" ] || [ "$(echo ${1} | grep "product")" != "" ]; then
                 simg2img ${image_directory}${img_name} ${node}${num}
             else
                 dd if=${image_directory}${img_name} of=${node}${num} bs=10M conv=fsync
@@ -222,6 +223,7 @@ function flash_android
     recovery_partition="recovery"${slot}
     system_partition="system"${slot}
     vendor_partition="vendor"${slot}
+    product_partition="product"${slot}
     vbmeta_partition="vbmeta"${slot}
     dtbo_partition="dtbo"${slot}
     gdisk -l ${node} 2>/dev/null | grep -q "dtbo" && support_dtbo=1
@@ -240,6 +242,7 @@ function flash_android
     flash_partition ${recovery_partition}  || exit 1
     flash_partition ${system_partition} || exit 1
     flash_partition ${vendor_partition} || exit 1
+    flash_partition ${product_partition} || exit 1
     flash_partition ${vbmeta_partition} || exit 1
     echo "erase_partition: uboot : ${node}"
     echo "flash_partition: ${bootloader_file} ---> ${node}"
