@@ -5,8 +5,8 @@ help() {
 bn=`basename $0`
 cat << EOF
 
-Version: 1.3
-Last change: generate uuu script first and then use the generated uuu script to flash images
+Version: 1.4
+Last change: support flash product.img
 currently suported platforms: sabresd_6dq, sabreauto_6q, sabresd_6sx, evk_7ulp, sabresd_7d
                               evk_8mm, evk_8mq, evk_8mn, aiy_8mq, mek_8q, mek_8q_car
 
@@ -55,6 +55,7 @@ card_size=0
 slot=""
 systemimage_file="system.img"
 vendor_file="vendor.img"
+product_file="product.img"
 partition_file="partition-table.img"
 support_dtbo=0
 support_recovery=0
@@ -65,6 +66,7 @@ boot_partition="boot"
 recovery_partition="recovery"
 system_partition="system"
 vendor_partition="vendor"
+product_partition="product"
 vbmeta_partition="vbmeta"
 dtbo_partition="dtbo"
 mcu_os_partition="mcu_os"
@@ -364,6 +366,8 @@ function flash_partition
         img_name=${systemimage_file}
     elif [ "$(echo ${1} | grep "vendor")" != "" ]; then
         img_name=${vendor_file}
+    elif [ "$(echo ${1} | grep "product")" != "" ]; then
+        img_name=${product_file}
     elif [ "$(echo ${1} | grep "bootloader")" != "" ]; then
         img_name=${bootloader_flashed_to_board}
 
@@ -402,6 +406,7 @@ function flash_userpartitions
 
     flash_partition ${system_partition}
     flash_partition ${vendor_partition}
+    flash_partition ${product_partition}
     flash_partition ${vbmeta_partition}
 }
 
@@ -411,6 +416,7 @@ function flash_partition_name
     recovery_partition="recovery"${1}
     system_partition="system"${1}
     vendor_partition="vendor"${1}
+    product_partition="product"${1}
     vbmeta_partition="vbmeta"${1}
     dtbo_partition="dtbo"${1}
     if [ ${support_dual_bootloader} -eq 1 ]; then
