@@ -21,6 +21,7 @@ set slot=
 set bootimage=boot.img
 set systemimage_file=system.img
 set vendor_file=vendor.img
+set product_file=product.img
 set partition_file=partition-table.img
 set /A support_dtbo=0
 set /A support_recovery=0
@@ -31,6 +32,7 @@ set boot_partition=boot
 set recovery_partition=recovery
 set system_partition=system
 set vendor_partition=vendor
+set product_partition=product
 set vbmeta_partition=vbmeta
 set dtbo_partition=dtbo
 set mcu_os_partition=mcu_os
@@ -507,6 +509,10 @@ if not [%partition_to_be_flashed:vendor=%] == [%partition_to_be_flashed%] (
     set img_name=%vendor_file%
     goto :start_to_flash
 )
+if not [%partition_to_be_flashed:product=%] == [%partition_to_be_flashed%] (
+    set img_name=%product_file%
+    goto :start_to_flash
+)
 if not [%partition_to_be_flashed:mcu_os=%] == [%partition_to_be_flashed%] (
     set img_name=%soc_name%_mcu_demo.img
     goto :start_to_flash
@@ -558,6 +564,7 @@ if %support_recovery% == 1 call :flash_partition %recovery_partition% || set /A 
 call :flash_partition %boot_partition% || set /A error_level=1 && goto :exit
 call :flash_partition %system_partition% || set /A error_level=1 && goto :exit
 call :flash_partition %vendor_partition% || set /A error_level=1 && goto :exit
+call :flash_partition %product_partition% || set /A error_level=1 && goto :exit
 call :flash_partition %vbmeta_partition% || set /A error_level=1 && goto :exit
 goto :eof
 
@@ -567,6 +574,7 @@ set boot_partition=boot%1
 set recovery_partition=recovery%1
 set system_partition=system%1
 set vendor_partition=vendor%1
+set product_partition=product%1
 set vbmeta_partition=vbmeta%1
 set dtbo_partition=dtbo%1
 if %support_dual_bootloader% == 1 set dual_bootloader_partition=bootloader%1
