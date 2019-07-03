@@ -6,7 +6,7 @@ bn=`basename $0`
 cat << EOF
 
 Version: 1.3
-Last change: adapt to the new partition name for Cortex-M core.
+Last change: support flash product image
 
 eg: sudo ./fastboot_imx_flashall.sh -f imx8mm -a -D ~/nfs/179/2018.10.03/imx_pi9.0/evk_8mm/
 eg: sudo ./fastboot_imx_flashall.sh -f imx7ulp -D ~/nfs/179/2018.10.03/imx_pi9.0/evk_7ulp/
@@ -45,6 +45,7 @@ card_size=0
 slot=""
 systemimage_file="system.img"
 vendor_file="vendor.img"
+product_file="product.img"
 partition_file="partition-table.img"
 support_dtbo=0
 support_recovery=0
@@ -59,6 +60,7 @@ boot_partition="boot"
 recovery_partition="recovery"
 system_partition="system"
 vendor_partition="vendor"
+product_partition="product"
 vbmeta_partition="vbmeta"
 dtbo_partition="dtbo"
 mcu_os_partition="mcu_os"
@@ -122,6 +124,8 @@ function flash_partition
         img_name=${systemimage_file}
     elif [ "$(echo ${1} | grep "vendor")" != "" ]; then
         img_name=${vendor_file}
+    elif [ "$(echo ${1} | grep "product")" != "" ]; then
+        img_name=${product_file}
     elif [ "$(echo ${1} | grep "bootloader")" != "" ]; then
          img_name=${bootloader_flashed_to_board}
     elif [ ${support_dtbo} -eq 1 ] && [ "$(echo ${1} | grep "boot")" != "" ]; then
@@ -158,6 +162,7 @@ function flash_userpartitions
 
     flash_partition ${system_partition}
     flash_partition ${vendor_partition}
+    flash_partition ${product_partition}
     flash_partition ${vbmeta_partition}
 }
 
@@ -167,6 +172,7 @@ function flash_partition_name
     recovery_partition="recovery"${1}
     system_partition="system"${1}
     vendor_partition="vendor"${1}
+    product_partition="product"${1}
     vbmeta_partition="vbmeta"${1}
     dtbo_partition="dtbo"${1}
 }
