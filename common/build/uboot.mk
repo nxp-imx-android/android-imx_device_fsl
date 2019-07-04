@@ -145,6 +145,7 @@ $(UBOOT_BIN): $(UBOOTENVSH) $(UBOOT_OUT)
 		fi; \
 		install -D $(PRODUCT_OUT)/u-boot-$$UBOOT_PLATFORM.imx $(UBOOT_BIN); \
 	done
+	rm $(UBOOT_BIN)
 
 .PHONY: bootloader
 
