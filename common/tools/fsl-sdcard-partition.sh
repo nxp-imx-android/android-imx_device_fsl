@@ -38,7 +38,7 @@ options:
                     Make sure the corresponding file exist for your platform.
   -d dev            flash android image file with "dev" in there names.
   -D directory      specify the directory which contains the images to be flashed.
-  -m                flash m4 image
+  -m                flash mcu image
   -o force_offset   force set uboot offset
 EOF
 
@@ -52,7 +52,7 @@ force_offset=""
 cal_only=0
 card_size=0
 bootloader_offset=1
-m4_image_offset=5120
+mcu_image_offset=5120
 vaild_gpt_size=17
 not_partition=0
 slot=""
@@ -61,7 +61,7 @@ vendor_file="vendor.img"
 partition_file="partition-table.img"
 g_sizes=0
 support_dtbo=0
-flash_m4=0
+flash_mcu=0
 RED='\033[0;31m'
 STD='\033[0;0m'
 
@@ -79,7 +79,7 @@ while [ "$moreoptions" = 1 -a $# -gt 0 ]; do
         -np) not_partition=1 ;;
         -a) slot="_a" ;;
         -b) slot="_b" ;;
-        -m) flash_m4=1 ;;
+        -m) flash_mcu=1 ;;
         -o) force_offset=$2; shift;;
         -d) device_character=$2; shift;;
         -D) image_directory=$2; shift;;
@@ -249,14 +249,14 @@ function flash_android
     echo "the bootloader partition size: ${count_bootloader}"
     dd if=/dev/zero of=${node} bs=1k seek=${bootloader_offset} conv=fsync count=${count_bootloader}
     dd if=${image_directory}${bootloader_file} of=${node} bs=1k seek=${bootloader_offset} conv=fsync
-    if [ "${flash_m4}" -eq "1" ] ; then
+    if [ "${flash_mcu}" -eq "1" ] ; then
         if [ "${soc_name}" = "imx7ulp" ]; then
             echo -e >&2 "${RED}Caution:${STD}"
-            echo -e >&2 "        m4 image for imx7ulp_evk is in SPI flash on board, not in SD card, use uboot commands to flash it."
+            echo -e >&2 "        mcu image for imx7ulp_evk is in SPI flash on board, not in SD card, use uboot commands to flash it."
         else
-            m4_image=${soc_name#*-}"_m4_demo.img"
-            echo "flash_partition: ${m4_image} ---> ${node}"
-            dd if=${image_directory}${m4_image} of=${node} bs=1k seek=${m4_image_offset} conv=fsync
+            mcu_image=${soc_name#*-}"_mcu_demo.img"
+            echo "flash_partition: ${mcu_image} ---> ${node}"
+            dd if=${image_directory}${mcu_image} of=${node} bs=1k seek=${mcu_image_offset} conv=fsync
         fi
     fi
 }

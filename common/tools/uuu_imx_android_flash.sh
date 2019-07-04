@@ -26,7 +26,7 @@ options:
                         If set to 14, use partition-table-14GB.img for 16GB SD card
                         If set to 28, use partition-table-28GB.img for 32GB SD card
                     Make sure the corresponding file exist for your platform
-  -m                flash m4 image
+  -m                flash mcu image
   -d dev            flash dtbo, vbmeta and recovery image file with dev
                         If not set, use default dtbo, vbmeta and image
   -e                erase user data after all image files being flashed
@@ -58,16 +58,16 @@ partition_file="partition-table.img"
 support_dtbo=0
 support_recovery=0
 support_dualslot=0
-support_m4_os=0
+support_mcu_os=0
 boot_partition="boot"
 recovery_partition="recovery"
 system_partition="system"
 vendor_partition="vendor"
 vbmeta_partition="vbmeta"
 dtbo_partition="dtbo"
-m4_os_partition="m4_os"
+mcu_os_partition="mcu_os"
 
-flash_m4=0
+flash_mcu=0
 erase=0
 image_directory=""
 target_dev="emmc"
@@ -109,7 +109,7 @@ while [ $# -gt 0 ]; do
         -d) device_character=$2; shift;;
         -a) slot="_a" ;;
         -b) slot="_b" ;;
-        -m) flash_m4=1 ;;
+        -m) flash_mcu=1 ;;
         -e) erase=1 ;;
         -D) image_directory=$2; shift;;
         -t) target_dev=$2; shift;;
@@ -344,8 +344,8 @@ function flash_partition
 
     elif [ ${support_dtbo} -eq 1 ] && [ "$(echo ${1} | grep "boot")" != "" ]; then
             img_name="boot.img"
-    elif [ "$(echo ${1} | grep "m4_os")" != "" ]; then
-        img_name="${soc_name}_m4_demo.img"
+    elif [ "$(echo ${1} | grep "mcu_os")" != "" ]; then
+        img_name="${soc_name}_mcu_demo.img"
     elif [ "$(echo ${1} | grep -E "dtbo|vbmeta|recovery")" != "" -a "${device_character}" != "" ]; then
         img_name="${1%_*}-${soc_name}-${device_character}.img"
     elif [ "$(echo ${1} | grep "gpt")" != "" ]; then
@@ -426,8 +426,8 @@ function flash_android
         slot=""
     fi
 
-    # since imx7ulp use uboot for uuu from BSP team,there is no hardcoded m4_os partition. If m4 need to be flashed, flash it here.
-    if [[ ${soc_name} == imx7ulp ]] && [[ ${flash_m4} -eq 1 ]]; then
+    # since imx7ulp use uboot for uuu from BSP team,there is no hardcoded mcu_os partition. If m4 need to be flashed, flash it here.
+    if [[ ${soc_name} == imx7ulp ]] && [[ ${flash_mcu} -eq 1 ]]; then
         # download m4 image to dram
         rm -f /tmp/${soc_name}_m4_demo.img
         ln -s ${sym_link_directory}${soc_name}_m4_demo.img /tmp/${soc_name}_m4_demo.img
@@ -442,8 +442,8 @@ function flash_android
         echo FB[-t 30000]: ucmd sf write ${imx7ulp_stage_base_addr} `echo "obase=16;$((${imx7ulp_evk_m4_sf_start}*${imx7ulp_evk_sf_blksz}))" | bc` \
                 `echo "obase=16;$((${imx7ulp_evk_m4_sf_length}*${imx7ulp_evk_sf_blksz}))" | bc` >> /tmp/uuu.lst
     else
-        if [[ ${flash_m4} -eq 1 ]]; then
-            flash_partition ${m4_os_partition}
+        if [[ ${flash_mcu} -eq 1 ]]; then
+            flash_partition ${mcu_os_partition}
         fi
     fi
 
