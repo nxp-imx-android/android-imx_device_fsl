@@ -25,15 +25,15 @@ set partition_file=partition-table.img
 set /A support_dtbo=0
 set /A support_recovery=0
 set /A support_dualslot=0
-set /A support_m4_os=0
+set /A support_mcu_os=0
 set boot_partition=boot
 set recovery_partition=recovery
 set system_partition=system
 set vendor_partition=vendor
 set vbmeta_partition=vbmeta
 set dtbo_partition=dtbo
-set m4_os_partition=m4_os
-set /A flash_m4=0
+set mcu_os_partition=mcu_os
+set /A flash_mcu=0
 set /A statisc=0
 set /A erase=0
 set image_directory=
@@ -77,7 +77,7 @@ if %1 == -c set /A card_size=%2& shift & shift & goto :parse_loop
 if %1 == -d set device_character=%2& shift & shift & goto :parse_loop
 if %1 == -a set slot=_a& shift & goto :parse_loop
 if %1 == -b set slot=_b& shift & goto :parse_loop
-if %1 == -m set /A flash_m4=1 & shift & goto :parse_loop
+if %1 == -m set /A flash_mcu=1 & shift & goto :parse_loop
 if %1 == -e set /A erase=1 & shift & goto :parse_loop
 if %1 == -D set image_directory=%2& shift & shift & goto :parse_loop
 if %1 == -t set target_dev=%2&shift &shift & goto :parse_loop
@@ -384,7 +384,7 @@ echo                        If set to  7, use partition-table-7GB.img  for  8GB 
 echo                        If set to 14, use partition-table-14GB.img for 16GB SD card
 echo                        If set to 28, use partition-table-28GB.img for 32GB SD card
 echo                    Make sure the corresponding file exist for your platform
-echo  -m                flash m4 image
+echo  -m                flash mcu image
 echo  -d dev            flash dtbo, vbmeta and recovery image file with dev
 echo                        If not set, use default dtbo, vbmeta and recovery image
 echo  -e                erase user data after all image files being flashed
@@ -487,8 +487,8 @@ if not [%partition_to_be_flashed:vendor=%] == [%partition_to_be_flashed%] (
     set img_name=%vendor_file%
     goto :start_to_flash
 )
-if not [%partition_to_be_flashed:m4_os=%] == [%partition_to_be_flashed%] (
-    set img_name=%soc_name%_m4_demo.img
+if not [%partition_to_be_flashed:mcu_os=%] == [%partition_to_be_flashed%] (
+    set img_name=%soc_name%_mcu_demo.img
     goto :start_to_flash
 )
 if not [%partition_to_be_flashed:vbmeta=%] == [%partition_to_be_flashed%] if not [%device_character%] == [] (
@@ -588,7 +588,7 @@ if %support_dualslot% == 0 (
     )
 )
 
-::since imx7ulp use uboot for uuu from BSP team, there is no hardcoded m4_os partition. If m4 need to be flashed, flash it here.
+::since imx7ulp use uboot for uuu from BSP team, there is no hardcoded mcu_os partition. If m4 need to be flashed, flash it here.
 if [%soc_name%] == [imx7ulp] (
     if [%flash_m4%] == [1] (
         :: download m4 image to sdram
@@ -604,7 +604,7 @@ if [%soc_name%] == [imx7ulp] (
         echo FB[-t 30000]: ucmd sf write %imx7ulp_stage_base_addr% %imx7ulp_evk_m4_sf_start_byte% %imx7ulp_evk_m4_sf_length_byte% >> uuu.lst
     )
 ) else (
-    if %flash_m4% == 1 call :flash_partition %m4_os_partition%
+    if %flash_mcu% == 1 call :flash_partition %mcu_os_partition%
 )
 
 if [%slot%] == [] (
