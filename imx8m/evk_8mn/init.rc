@@ -234,6 +234,10 @@ on post-fs-data
     # create temp node for secure storage proxy
     mkdir /data/vendor/ss 0700 system system
 
+    # tmp dir for opencl Compiler
+    setprop TMPDIR /data/vendor/.opencl-cache
+    mkdir /data/vendor/.opencl-cache 0771 camera camera
+
 on zygote-start
     # Create the directories used by the Wireless subsystem
     mkdir /data/misc/wifi 0770 wifi wifi
