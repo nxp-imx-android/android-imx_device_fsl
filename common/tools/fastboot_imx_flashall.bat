@@ -24,7 +24,7 @@ set partition_file=partition-table.img
 set /A support_dtbo=0
 set /A support_recovery=0
 set /A support_dualslot=0
-set /A support_m4_os=0
+set /A support_mcu_os=0
 set /A support_dual_bootloader=0
 set dual_bootloader_partition=
 set bootloader_flashed_to_board=
@@ -36,8 +36,8 @@ set system_partition=system
 set vendor_partition=vendor
 set vbmeta_partition=vbmeta
 set dtbo_partition=dtbo
-set m4_os_partition=m4_os
-set /A flash_m4=0
+set mcu_os_partition=mcu_os
+set /A flash_mcu=0
 set /A statisc=0
 set /A lock=0
 set /A erase=0
@@ -51,7 +51,11 @@ set /A error_level=0
 ::Parse command line
 ::---------------------------------------------------------------------------------
 :: If no option provied when executing this script, show help message and exit.
-if [%1] == [] call :help goto :eof
+if [%1] == [] (
+    echo please provide more information with command script options
+    call :help
+	set /A error_level=1 && goto :exit
+)
 
 :parse_loop
 if [%1] == [] goto :parse_end
@@ -61,7 +65,7 @@ if %1 == -c set /A card_size=%2& shift & shift & goto :parse_loop
 if %1 == -d set device_character=%2& shift & shift & goto :parse_loop
 if %1 == -a set slot=_a& shift & goto :parse_loop
 if %1 == -b set slot=_b& shift & goto :parse_loop
-if %1 == -m set /A flash_m4=1 & shift & goto :parse_loop
+if %1 == -m set /A flash_mcu=1 & shift & goto :parse_loop
 if %1 == -l set /A lock=1 & shift & goto :parse_loop
 if %1 == -e set /A erase=1 & shift & goto :parse_loop
 if %1 == -D set image_directory=%2& shift & shift & goto :parse_loop
@@ -91,11 +95,11 @@ if not [%ser_num%] == [] set fastboot_tool=fastboot -s %ser_num%
 call :flash_android || set /A error_level=1 && goto :exit
 
 if %erase% == 1 (
-    %fastboot_tool% erase userdata
-    %fastboot_tool% erase misc
-    if %soc_name:imx8=% == %soc_name% (
+    if %support_dualslot% == 0 (
         %fastboot_tool% erase cache
     )
+	%fastboot_tool% erase misc
+    %fastboot_tool% erase userdata
 )
 if %lock% == 1 %fastboot_tool% oem lock
 
@@ -113,8 +117,8 @@ goto :eof
 ::----------------------------------------------------------------------------------
 
 :help
-echo Version: 1.2
-echo Last change: Add -s option. fix errors when -D option not specified. handle situations that illegal options provided.
+echo Version: 1.3
+echo Last change: adapt to the new partition name for Cortex-M core.
 echo.
 echo eg: fastboot_imx_flashall.bat -f imx8mm -a -D C:\Users\user_01\Android\images\2018.10.07\evk_8mm
 echo eg: fastboot_imx_flashall.bat -f imx7ulp -D C:\Users\user_01\Android\images\2018.10.07\evk_7ulp
@@ -132,7 +136,7 @@ echo                        If set to  7, use partition-table-7GB.img  for  8GB 
 echo                        If set to 14, use partition-table-14GB.img for 16GB SD card
 echo                        If set to 28, use partition-table-28GB.img for 32GB SD card
 echo                    Make sure the corresponding file exist for your platform
-echo  -m                flash m4 image
+echo  -m                flash mcu image
 echo  -d dev            flash dtbo, vbmeta and recovery image file with dev
 echo                        If not set, use default dtbo, vbmeta and recovery image
 echo  -e                erase user data after all image files being flashed
@@ -166,8 +170,12 @@ if not [%partition_to_be_flashed:vendor=%] == [%partition_to_be_flashed%] (
     set img_name=%vendor_file%
     goto :start_to_flash
 )
-if not [%partition_to_be_flashed:m4_os=%] == [%partition_to_be_flashed%] (
-    set img_name=%soc_name%_m4_demo.img
+if not [%partition_to_be_flashed:mcu_os=%] == [%partition_to_be_flashed%] (
+    if [%soc_name%] == [imx7ulp] (
+        set img_name=%soc_name%_m4_demo.img
+    ) else (
+        set img_name=%soc_name%_mcu_demo.img
+    )
     goto :start_to_flash
 )
 if not [%partition_to_be_flashed:vbmeta=%] == [%partition_to_be_flashed%] if not [%device_character%] == [] (
@@ -207,7 +215,6 @@ goto :eof
 
 
 :flash_userpartitions
-if %support_dual_bootloader% == 1 call :flash_partition %dual_bootloader_partition% || set /A error_level=1 && goto :exit
 if %support_dtbo% == 1 call :flash_partition %dtbo_partition% || set /A error_level=1 && goto :exit
 if %support_recovery% == 1 call :flash_partition %recovery_partition% || set /A error_level=1 && goto :exit
 call :flash_partition %boot_partition% || set /A error_level=1 && goto :exit
@@ -224,9 +231,6 @@ set system_partition=system%1
 set vendor_partition=vendor%1
 set vbmeta_partition=vbmeta%1
 set dtbo_partition=dtbo%1
-if %support_dual_bootloader% == 1 (
-    set dual_bootloader_partition=bootloader%1
-)
 goto :eof
 
 :flash_android
@@ -240,9 +244,11 @@ find "recovery" fastboot_var.log > nul && set /A support_recovery=1
 
 ::use boot_b to check whether current gpt support a/b slot
 find "boot_b" fastboot_var.log > nul && set /A support_dualslot=1
+del fastboot_var.log
 
-find "m4_os" fastboot_var.log > nul && set /A support_m4_os=1
+:: some partitions are hard-coded in uboot, flash the uboot first and then reboot to check these partitions
 
+:: this part handles dual bootloader conditions, mainly for Android Auto on 8qxp_mek and 8qm_mek for now
 if %support_dual_bootloader% == 1 (
     set bootloader_flashed_to_board=spl-%soc_name%.bin
     set uboot_proper_to_be_flashed=bootloader-%soc_name%.img
@@ -255,15 +261,36 @@ if %support_dual_bootloader% == 1 (
     )
 )
 
-if not %soc_name:imx8=% == %soc_name% set bootloader_partition=bootloader0
+:: in the source code, if AB slot feature is supported, uboot partition name is bootloader0
+if %support_dualslot% == 1 set bootloader_partition=bootloader0
 call :flash_partition %bootloader_partition% || set /A error_level=1 && goto :exit
 
 if %support_dualslot% == 0 set slot=
 
 
-if %flash_m4% == 1 if %support_m4_os% == 1 call :flash_partition %m4_os_partition% || set /A error_level=1 && goto :exit
+:: if dual-bootloader feature is supported, we need to flash the u-boot proper then reboot to get hard-coded partition info
+if %support_dual_bootloader% == 1 (
+    if [%slot%] == [] (
+        call :flash_partition bootloader%slot% || set /A error_level=1 && goto :exit
+		%fastboot_tool% set_active %slot:~-1%
+    ) else (
+        call :flash_partition bootloader_a || set /A error_level=1 && goto :exit
+        call :flash_partition bootloader_b || set /A error_level=1 && goto :exit
+		%fastboot_tool% set_active a
+    )
+)
+:: full uboot is flashed to the board and active slot is set, reboot to u-boot fastboot boot command
+%fastboot_tool% reboot bootloader
+:: pause for about 5 second
+ping localhost -n 6 >nul
 
+%fastboot_tool% getvar all 2> fastboot_var.log
+find "mcu_os" fastboot_var.log > nul && set /A support_mcu_os=1
 
+:: mcu_os is not supported will cause ERRORLEVEL to be a non-zero value, clear it here to avoid unexpected quit
+cd .
+
+if %flash_mcu% == 1 if %support_mcu_os% == 1 call :flash_partition %mcu_os_partition% || set /A error_level=1 && goto :exit
 if [%slot%] == [] if %support_dualslot% == 1 (
 :: flash image to both a and b slot
     call :flash_partition_name _a || set /A error_level=1 && goto :exit
@@ -277,7 +304,6 @@ if not [%slot%] == []  if %support_dualslot% == 1 (
     call :flash_userpartitions || set /A error_level=1 && goto :exit
     %fastboot_tool% set_active %slot:~-1%
 )
-
 if %support_dualslot% == 0 (
     call :flash_partition_name %slot% || set /A error_level=1 && goto :exit
     call :flash_userpartitions || set /A error_level=1 && goto :exit
