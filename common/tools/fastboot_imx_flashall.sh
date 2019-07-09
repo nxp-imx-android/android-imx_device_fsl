@@ -5,8 +5,8 @@ help() {
 bn=`basename $0`
 cat << EOF
 
-Version: 1.2
-Last change: Add -s option. fix errors when -D option not specified.
+Version: 1.3
+Last change: adapt to the new partition name for Cortex-M core.
 
 eg: sudo ./fastboot_imx_flashall.sh -f imx8mm -a -D ~/nfs/179/2018.10.03/imx_pi9.0/evk_8mm/
 eg: sudo ./fastboot_imx_flashall.sh -f imx7ulp -D ~/nfs/179/2018.10.03/imx_pi9.0/evk_7ulp/
@@ -24,7 +24,7 @@ options:
                         If set to 14, use partition-table-14GB.img for 16GB SD card
                         If set to 28, use partition-table-28GB.img for 32GB SD card
                     Make sure the corresponding file exist for your platform
-  -m                flash m4 image
+  -m                flash mcu image
   -d dev            flash dtbo, vbmeta and recovery image file with dev
                         If not set, use default dtbo, vbmeta and image
   -e                erase user data after all image files being flashed
@@ -48,7 +48,7 @@ partition_file="partition-table.img"
 support_dtbo=0
 support_recovery=0
 support_dualslot=0
-support_m4_os=0
+support_mcu_os=0
 support_dual_bootloader=0
 dual_bootloader_partition=""
 bootloader_flashed_to_board=""
@@ -59,8 +59,8 @@ system_partition="system"
 vendor_partition="vendor"
 vbmeta_partition="vbmeta"
 dtbo_partition="dtbo"
-m4_os_partition="m4_os"
-flash_m4=0
+mcu_os_partition="mcu_os"
+flash_mcu=0
 lock=0
 erase=0
 image_directory=""
@@ -68,7 +68,12 @@ ser_num=""
 fastboot_tool="fastboot"
 RED='\033[0;31m'
 STD='\033[0;0m'
+GREEN='\033[0;32m'
 
+if [ $# -eq 0 ]; then
+    echo -e ${RED}no parameter specified, will directly exit after displaying help message${STD}
+    help; exit 1;
+fi
 while [ $# -gt 0 ]; do
     case $1 in
         -h) help; exit ;;
@@ -77,7 +82,7 @@ while [ $# -gt 0 ]; do
         -d) device_character=$2; shift;;
         -a) slot="_a" ;;
         -b) slot="_b" ;;
-        -m) flash_m4=1 ;;
+        -m) flash_mcu=1 ;;
         -e) erase=1 ;;
         -l) lock=1 ;;
         -D) image_directory=$2; shift;;
@@ -117,8 +122,12 @@ function flash_partition
          img_name=${bootloader_flashed_to_board}
     elif [ ${support_dtbo} -eq 1 ] && [ "$(echo ${1} | grep "boot")" != "" ]; then
         img_name="boot.img"
-    elif [ "$(echo ${1} | grep "m4_os")" != "" ]; then
-        img_name="${soc_name}_m4_demo.img"
+	elif [ "$(echo ${1} | grep `echo ${mcu_os_partition}`)" != "" ]; then
+        if [ "${soc_name}" = "imx7ulp" ]; then
+            img_name="${soc_name}_m4_demo.img"
+        else
+            img_name="${soc_name}_mcu_demo.img"
+        fi
     elif [ "$(echo ${1} | grep -E "dtbo|vbmeta|recovery")" != "" -a "${device_character}" != "" ]; then
         img_name="${1%_*}-${soc_name}-${device_character}.img"
     elif [ "$(echo ${1} | grep "gpt")" != "" ]; then
@@ -127,16 +136,12 @@ function flash_partition
         img_name="${1%_*}-${soc_name}.img"
     fi
 
-    echo -e flash the file of ${RED}${img_name}${STD} to the partition of ${RED}${1}${STD}
+    echo -e flash the file of ${GREEN}${img_name}${STD} to the partition of ${GREEN}${1}${STD}
     ${fastboot_tool} flash ${1} "${image_directory}${img_name}"
 }
 
 function flash_userpartitions
 {
-    if [ ${support_dual_bootloader} -eq 1 ]; then
-        flash_partition ${dual_bootloader_partition}
-    fi
-
     if [ ${support_dtbo} -eq 1 ]; then
         flash_partition ${dtbo_partition}
     fi
@@ -160,13 +165,12 @@ function flash_partition_name
     vendor_partition="vendor"${1}
     vbmeta_partition="vbmeta"${1}
     dtbo_partition="dtbo"${1}
-    if [ ${support_dual_bootloader} -eq 1 ]; then
-        dual_bootloader_partition="bootloader"${1}
-    fi
 }
 
 function flash_android
 {
+    # a precondition: the location of gpt partition and the partition for uboot or spl(in dual bootloader condition)
+    # should be the same for the u-boot just boot up the board and the on to be flashed to the board
     flash_partition "gpt"
 
     ${fastboot_tool} getvar all 2>/tmp/fastboot_var.log
@@ -175,20 +179,23 @@ function flash_android
     grep -q "recovery" /tmp/fastboot_var.log && support_recovery=1
     # use boot_b to check whether current gpt support a/b slot
     grep -q "boot_b" /tmp/fastboot_var.log && support_dualslot=1
-    grep -q "m4_os" /tmp/fastboot_var.log && support_m4_os=1
 
+    # some partitions are hard-coded in uboot, flash the uboot first and then reboot to check these partitions
+
+    # mainly for Android Auto on 8qxp_mek and 8qm_mek
     if [ ${support_dual_bootloader} -eq 1 ]; then
         bootloader_flashed_to_board="spl-${soc_name}.bin"
         uboot_proper_to_be_flashed="bootloader-${soc_name}.img"
     else
-	if [ ${soc_name} == "imx8mm" ] && [ "$(echo ${device_character} | grep "ddr4")" != "" ]; then
+    if [ ${soc_name} == "imx8mm" ] && [ "$(echo ${device_character} | grep "ddr4")" != "" ]; then
             bootloader_flashed_to_board="u-boot-${soc_name}-ddr4.imx"
         else
             bootloader_flashed_to_board="u-boot-${soc_name}.imx"
         fi
     fi
 
-    if [ ${soc_name#imx8} != ${soc_name} ]; then
+    # in the source code, if AB slot feature is supported, uboot partition name is bootloader0, otherwise it's bootloader
+    if [ ${support_dualslot} -eq 1 ]; then
          flash_partition "bootloader0"
     else
          flash_partition "bootloader"
@@ -199,8 +206,31 @@ function flash_android
         slot=""
     fi
 
-    if [ ${flash_m4} -eq 1 -a ${support_m4_os} -eq 1 ]; then
-        flash_partition ${m4_os_partition}
+
+    #if dual-bootloader feature is supported, we need to flash the u-boot proper then reboot to get hard-coded partition info
+    if [ ${support_dual_bootloader} -eq 1 ]; then
+        if [ "${slot}" != "" ]; then
+            dual_bootloader_partition="bootloader"${slot}
+            flash_partition ${dual_bootloader_partition}
+            ${fastboot_tool} set_active ${slot#_}
+        else
+            dual_bootloader_partition="bootloader_a"
+            flash_partition ${dual_bootloader_partition}
+            dual_bootloader_partition="bootloader_b"
+            flash_partition ${dual_bootloader_partition}
+            ${fastboot_tool} set_active a
+        fi
+    fi
+
+    # full uboot is flashed to the board and active slot is set, reboot to u-boot fastboot boot command
+    ${fastboot_tool} reboot bootloader
+    sleep 5
+
+    ${fastboot_tool} getvar all 2>/tmp/fastboot_var.log
+    grep -q `echo ${mcu_os_partition}` /tmp/fastboot_var.log && support_mcu_os=1
+
+    if [ ${flash_mcu} -eq 1 -a ${support_mcu_os} -eq 1 ]; then
+        flash_partition ${mcu_os_partition}
     fi
 
     if [ "${slot}" = "" ] && [ ${support_dualslot} -eq 1 ]; then
@@ -222,11 +252,11 @@ function flash_android
 flash_android
 
 if [ ${erase} -eq 1 ]; then
-    ${fastboot_tool} erase userdata
-    ${fastboot_tool} erase misc
-    if [ ${soc_name#imx8} = ${soc_name} ] ; then
+    if [ ${support_dualslot} -eq 0 ] ; then
         ${fastboot_tool} erase cache
     fi
+    ${fastboot_tool} erase misc
+    ${fastboot_tool} erase userdata
 fi
 
 if [ ${lock} -eq 1 ]; then
