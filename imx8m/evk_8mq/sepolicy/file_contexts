@@ -34,9 +34,3 @@
 
 #Neural Network HAL service
 /vendor/bin/hw/android\.hardware\.neuralnetworks@1\.0-service-imx-nn          u:object_r:hal_neuralnetworks_imx_exec:s0
-
-# Wifi binary for UNITE
-/(vendor|system/vendor)/bin/hw/bcm_hostapd          u:object_r:hal_wifi_hostapd_default_exec:s0
-/(vendor|system/vendor)/bin/hw/bcm_wpa_supplicant   u:object_r:hal_wifi_supplicant_default_exec:s0
-/(vendor|system/vendor)/bin/hw/qca_hostapd          u:object_r:hal_wifi_hostapd_default_exec:s0
-/(vendor|system/vendor)/bin/hw/qca_wpa_supplicant   u:object_r:hal_wifi_supplicant_default_exec:s0
