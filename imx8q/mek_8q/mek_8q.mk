@@ -293,6 +293,8 @@ PRODUCT_COMPATIBLE_PROPERTY_OVERRIDE := true
 
 BOARD_VNDK_VERSION := current
 
+ifneq ($(PRODUCT_IMX_CAR),true)
 # Included GMS package
 $(call inherit-product-if-exists, vendor/partner_gms/products/gms.mk)
+endif
 
