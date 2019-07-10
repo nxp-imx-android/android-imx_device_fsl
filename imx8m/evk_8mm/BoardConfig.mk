@@ -168,6 +168,8 @@ endif
 # u-boot target for imx8mm_evk with DDR4 on board
 TARGET_BOOTLOADER_CONFIG += imx8mm-ddr4:imx8mm_ddr4_evk_android_defconfig
 TARGET_BOOTLOADER_CONFIG += imx8mm-trusty:imx8mm_evk_android_trusty_defconfig
+TARGET_BOOTLOADER_CONFIG += imx8mm-trusty-4g:imx8mm_evk_4g_android_trusty_defconfig
+TARGET_BOOTLOADER_CONFIG += imx8mm-4g:imx8mm_evk_4g_android_defconfig
 # imx8mm with MIPI panel display and QCA wifi
 TARGET_BOARD_DTS_CONFIG += imx8mm-mipi-panel:fsl-imx8mm-evk-rm67191.dtb
 # imx8mm with MIPI-HDMI display, QCA wifi and m4 image to support LPA
@@ -180,6 +182,8 @@ TARGET_KERNEL_ADDITION_DEFCONF := android_addition_defconfig
 
 # u-boot target used by uuu for imx8mm_evk with LPDDR4 on board
 TARGET_BOOTLOADER_CONFIG += imx8mm-evk-uuu:imx8mm_evk_android_uuu_defconfig
+TARGET_BOOTLOADER_CONFIG += imx8mm-4g-evk-uuu:imx8mm_evk_4g_android_uuu_defconfig
+TARGET_BOOTLOADER_CONFIG += imx8mm-trusty-4g-evk-uuu:imx8mm_evk_4g_android_uuu_defconfig
 # u-boot target used by uuu for imx8mm_evk with DDR4 on board
 TARGET_BOOTLOADER_CONFIG += imx8mm-ddr4-evk-uuu:imx8mm_ddr4_evk_android_uuu_defconfig
 
