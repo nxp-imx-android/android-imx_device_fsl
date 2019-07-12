@@ -21,6 +21,7 @@ PRODUCT_MODEL := MEK-MX8Q
 
 PRODUCT_FULL_TREBLE_OVERRIDE := true
 
+SOONG_CONFIG_IMXPLUGIN_IMX_CAR = false
 #Enable this to choose 32 bit user space build
 #IMX8_BUILD_32BIT_ROOTFS := true
 
