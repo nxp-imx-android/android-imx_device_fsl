@@ -266,3 +266,6 @@ TARGET_BOARD_KERNEL_HEADERS := device/fsl/common/kernel-headers
 ifeq ($(PRODUCT_IMX_CAR),true)
 BOARD_HAVE_IMX_EVS := true
 endif
+
+# define board type
+BOARD_TYPE := MEK
