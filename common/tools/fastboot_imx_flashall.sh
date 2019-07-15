@@ -33,6 +33,7 @@ options:
                         No need to use this option if images are in current working directory
   -s ser_num        the serial number of board
                         If only one board connected to computer, no need to use this option
+  -tos              flash the uboot with trusty enabled for i.MX 8M Mini EVK and i.MX8M Nano EVK
 EOF
 
 }
@@ -50,6 +51,7 @@ support_recovery=0
 support_dualslot=0
 support_mcu_os=0
 support_dual_bootloader=0
+support_trusty=0
 dual_bootloader_partition=""
 bootloader_flashed_to_board=""
 uboot_proper_to_be_flashed=""
@@ -87,7 +89,9 @@ while [ $# -gt 0 ]; do
         -l) lock=1 ;;
         -D) image_directory=$2; shift;;
         -s) ser_num=$2; shift;;
-        *)  help; exit;;
+        -tos) support_trusty=1 ;;
+        *)  echo -e ${RED}$1${STD} is not an illegal option
+            help; exit;;
     esac
     shift
 done
@@ -122,7 +126,7 @@ function flash_partition
          img_name=${bootloader_flashed_to_board}
     elif [ ${support_dtbo} -eq 1 ] && [ "$(echo ${1} | grep "boot")" != "" ]; then
         img_name="boot.img"
-	elif [ "$(echo ${1} | grep `echo ${mcu_os_partition}`)" != "" ]; then
+    elif [ "$(echo ${1} | grep `echo ${mcu_os_partition}`)" != "" ]; then
         if [ "${soc_name}" = "imx7ulp" ]; then
             img_name="${soc_name}_m4_demo.img"
         else
@@ -182,16 +186,30 @@ function flash_android
 
     # some partitions are hard-coded in uboot, flash the uboot first and then reboot to check these partitions
 
+    # default u-boot image name first, no dual bootloader support, no special requirement different from default
+    bootloader_flashed_to_board="u-boot-${soc_name}.imx"
+
     # mainly for Android Auto on 8qxp_mek and 8qm_mek
     if [ ${support_dual_bootloader} -eq 1 ]; then
         bootloader_flashed_to_board="spl-${soc_name}.bin"
         uboot_proper_to_be_flashed="bootloader-${soc_name}.img"
-    else
+    fi
+
+    # i.MX 8M Mini EVK and i.MX 8M Nano EVK dose not support dual bootloader for now, and has some special requirement
     if [ ${soc_name} == "imx8mm" ] && [ "$(echo ${device_character} | grep "ddr4")" != "" ]; then
-            bootloader_flashed_to_board="u-boot-${soc_name}-ddr4.imx"
+        # i.MX8M Mini EVK with DDR4 on board does not support eMMC, trusty is not supported.
+        bootloader_flashed_to_board="u-boot-${soc_name}-ddr4.imx"
+    else
+        # 4GB LPDDR4 version not supported in this script
+        if [ ${support_trusty} -eq 1 ]; then
+            bootloader_flashed_to_board="u-boot-${soc_name}-trusty.imx"
         else
             bootloader_flashed_to_board="u-boot-${soc_name}.imx"
         fi
+    fi
+
+    if [  ${soc_name} == "imx8mn" ] && [ ${support_trusty} -eq 1 ]; then
+        bootloader_flashed_to_board="u-boot-${soc_name}-trusty.imx"
     fi
 
     # in the source code, if AB slot feature is supported, uboot partition name is bootloader0, otherwise it's bootloader
