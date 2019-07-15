@@ -26,6 +26,7 @@ set /A support_recovery=0
 set /A support_dualslot=0
 set /A support_mcu_os=0
 set /A support_dual_bootloader=0
+set /A support_trusty=0
 set dual_bootloader_partition=
 set bootloader_flashed_to_board=
 set uboot_proper_to_be_flashed=
@@ -54,7 +55,7 @@ set /A error_level=0
 if [%1] == [] (
     echo please provide more information with command script options
     call :help
-	set /A error_level=1 && goto :exit
+    set /A error_level=1 && goto :exit
 )
 
 :parse_loop
@@ -70,6 +71,8 @@ if %1 == -l set /A lock=1 & shift & goto :parse_loop
 if %1 == -e set /A erase=1 & shift & goto :parse_loop
 if %1 == -D set image_directory=%2& shift & shift & goto :parse_loop
 if %1 == -s set ser_num=%2&shift &shift & goto :parse_loop
+if %1 == -tos set /A support_trusty=1 & shift & goto :parse_loop
+echo %1 is an illegal option
 call :help & goto :eof
 :parse_end
 
@@ -98,7 +101,7 @@ if %erase% == 1 (
     if %support_dualslot% == 0 (
         %fastboot_tool% erase cache
     )
-	%fastboot_tool% erase misc
+    %fastboot_tool% erase misc
     %fastboot_tool% erase userdata
 )
 if %lock% == 1 %fastboot_tool% oem lock
@@ -145,6 +148,7 @@ echo  -D directory      the directory of of images
 echo                        No need to use this option if images are in current working directory
 echo  -s ser_num        the serial number of board
 echo                        If only one board connected to computer, no need to use this option
+echo  -tos              flash the uboot with trusty enabled for i.MX 8M Mini EVK and i.MX8M Nano EVK
 goto :eof
 
 
@@ -248,16 +252,29 @@ del fastboot_var.log
 
 :: some partitions are hard-coded in uboot, flash the uboot first and then reboot to check these partitions
 
+:: default u-boot image name first, no dual bootloader support, no special requirement different from default
+set bootloader_flashed_to_board=u-boot-%soc_name%.imx
+
 :: this part handles dual bootloader conditions, mainly for Android Auto on 8qxp_mek and 8qm_mek for now
 if %support_dual_bootloader% == 1 (
     set bootloader_flashed_to_board=spl-%soc_name%.bin
     set uboot_proper_to_be_flashed=bootloader-%soc_name%.img
-) else (
-    set bootloader_flashed_to_board=u-boot-%soc_name%.imx
-    if [%soc_name%] == [imx8mm] (
-        if [%device_character%] == [ddr4] (
-            set bootloader_flashed_to_board=u-boot-%soc_name%-ddr4.imx
+)
+:: i.MX 8M Mini EVK and i.MX 8M Nano EVK does not support dual bootloader for now, and has some special requirement
+if [%soc_name%] == [imx8mm] (
+    if [%device_character%] == [ddr4] (
+:: i.MX8M Mini EVK with DDR4 on board does not support eMMC, trusty is not supported.
+        set bootloader_flashed_to_board=u-boot-%soc_name%-ddr4.imx
+    ) else (
+        if %support_trusty% == 1 (
+            set bootloader_flashed_to_board=u-boot-%soc_name%-trusty.imx
         )
+    )
+)
+
+if [%soc_name%] == [imx8mn] (
+    if %support_trusty% == 1 (
+        set bootloader_flashed_to_board=u-boot-%soc_name%-trusty.imx
     )
 )
 
@@ -272,11 +289,11 @@ if %support_dualslot% == 0 set slot=
 if %support_dual_bootloader% == 1 (
     if [%slot%] == [] (
         call :flash_partition bootloader%slot% || set /A error_level=1 && goto :exit
-		%fastboot_tool% set_active %slot:~-1%
+        %fastboot_tool% set_active %slot:~-1%
     ) else (
         call :flash_partition bootloader_a || set /A error_level=1 && goto :exit
         call :flash_partition bootloader_b || set /A error_level=1 && goto :exit
-		%fastboot_tool% set_active a
+        %fastboot_tool% set_active a
     )
 )
 :: full uboot is flashed to the board and active slot is set, reboot to u-boot fastboot boot command
