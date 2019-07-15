@@ -26,6 +26,7 @@ set /A support_dtbo=0
 set /A support_recovery=0
 set /A support_dualslot=0
 set /A support_mcu_os=0
+set /A support_trusty=0
 set boot_partition=boot
 set recovery_partition=recovery
 set system_partition=system
@@ -62,7 +63,7 @@ set /A daemon_mode=0
 :: Parse command line, since there is no syntax like "switch case" in bat file, 
 :: the way to process the command line is a bit redundant, still, it can work.
 ::---------------------------------------------------------------------------------
-:: If no option provied when executing this script, show help message and exit.
+:: If no option provided when executing this script, show help message and exit.
 if [%1] == [] (
     echo please provide more information with command script options
     call :help
@@ -85,10 +86,17 @@ if %1 == -p set board=%2&shift &shift & goto :parse_loop
 if %1 == -y set yocto_image=%2&shift &shift & goto :parse_loop
 if %1 == -i set /A intervene=1 & shift & goto :parse_loop
 if %1 == -daemon set /A daemon_mode=1 & shift & goto :parse_loop
+if %1 == -tos set /A support_trusty=1 & shift & goto :parse_loop
 echo unknown option "%1", please check it.
 call :help & set /A error_level=1 && goto :exit
 :parse_end
 
+:: i.MX8M Mini EVK and i.MX8M Nano EVK can't boot from SD card with trusty support
+if [%target_dev%] == [sd] (
+    if [%support_trusty%] equ [1] (
+        call :help & set /A error_level=1 && goto :exit
+    )
+)
 
 :: -i option should not be used together with -daemon
 if [%intervene%] equ [1] (
@@ -251,20 +259,31 @@ goto :without_sdps
 set sdp=SDPS
 :without_sdps
 
-:: find the names of the bootloader used by uuu and flashed to board
-if [%device_character%] == [ldo] goto :the_name_of_bootloader_with_device_character
-if [%device_character%] == [epdc] goto :the_name_of_bootloader_with_device_character
-if [%device_character%] == [ddr4] goto :the_name_of_bootloader_with_device_character
-goto :the_name_of_bootloader_without_device_character
-:the_name_of_bootloader_with_device_character
-set bootloader_usbd_by_uuu=u-boot-%soc_name%-%device_character%-%board%-uuu.imx
-set bootloader_flashed_to_board=u-boot-%soc_name%-%device_character%.imx
-goto :the_name_of_bootloader_end
-:the_name_of_bootloader_without_device_character
+:: default bootloader image name
 set bootloader_usbd_by_uuu=u-boot-%soc_name%-%board%-uuu.imx
 set bootloader_flashed_to_board=u-boot-%soc_name%.imx
-goto :the_name_of_bootloader_end
-:the_name_of_bootloader_end
+
+:: find the names of the bootloader used by uuu and flashed to board
+if [%soc_name%] == [imx8mm] (
+    if [%device_character%] == [ddr4] (
+        set bootloader_usbd_by_uuu=u-boot-%soc_name%-ddr4-%board%-uuu.imx
+        set bootloader_flashed_to_board=u-boot-%soc_name%-ddr4.imx
+    ) else (
+        if [%support_trusty%] equ [1] (
+            set bootloader_usbd_by_uuu=u-boot-%soc_name%-%board%-uuu.imx
+            set bootloader_flashed_to_board=u-boot-%soc_name%-trusty.imx
+        ) else (
+            set bootloader_usbd_by_uuu=u-boot-%soc_name%-%board%-uuu.imx
+            set bootloader_flashed_to_board=u-boot-%soc_name%.imx
+        )
+    )
+)
+
+if [%soc_name%] == [imx8mn] (
+    if [%support_trusty%] equ [1] (
+        set bootloader_flashed_to_board=u-boot-%soc_name%-trusty.imx
+    )
+)
 
 ::---------------------------------------------------------------------------------
 :: Invoke function to flash android images
@@ -400,6 +419,7 @@ echo                        including the name of yocto sdcard image, this param
 echo -i                 with this option used, after uboot for uuu loaded and executed to fastboot mode with target device chosen, this script will stop
 echo                        This option is for users to manually flash the images to partitions they want to
 echo -daemon            after uuu script generated, uuu will be invoked with daemon mode. It is used for flash multi boards
+echo -tos               flash the uboot with trusty enabled for i.MX 8M Mini EVK and i.MX8M Nano EVK
 goto :eof
 
 :target_dev_not_support
