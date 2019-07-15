@@ -42,6 +42,7 @@ options:
   -i                with this option used, after uboot for uuu loaded and executed to fastboot mode with target device chosen, this script will stop
                         This option is for users to manually flash the images to partitions they want to
   -daemon           after uuu script generated, uuu will be invoked with daemon mode. It is used for flash multi boards
+  -tos              flash the uboot with trusty enabled for i.MX 8M Mini EVK and i.MX8M Nano EVK
 EOF
 
 }
@@ -59,6 +60,7 @@ support_dtbo=0
 support_recovery=0
 support_dualslot=0
 support_mcu_os=0
+support_trusty=0
 boot_partition="boot"
 recovery_partition="recovery"
 system_partition="system"
@@ -117,11 +119,18 @@ while [ $# -gt 0 ]; do
         -p) board=$2; shift;;
         -i) intervene=1 ;;
         -daemon) daemon_mode=1 ;;
+        -tos) support_trusty=1 ;;
         *)  echo -e >&2 ${RED}an option you specified is not supported, please check it${STD}
             help; exit;;
     esac
     shift
 done
+
+# i.MX8M Mini EVK and i.MX8M Nano EVK can't boot from SD card with trusty support
+if [ "${target_dev}" = "sd" ] && [ ${support_trusty} -eq 1 ]; then
+    echo -e >&2 ${RED}can not boot up from SD with trusty enabled${STD};
+    help; exit 1;
+fi
 
 # -i option should not be used together with -daemon
 if [ ${intervene} -eq 1 ] && [ ${daemon_mode} -eq 1 ]; then
@@ -284,14 +293,30 @@ if [[ ${soc_name#imx8q} != ${soc_name} ]] || [[ ${soc_name} == "imx8mn" ]]; then
     sdp="SDPS"
 fi
 
+# default bootloader image name
+bootloader_usbd_by_uuu=u-boot-${soc_name}-${board}-uuu.imx
+bootloader_flashed_to_board="u-boot-${soc_name}.imx"
+
 # find the names of the bootloader used by uuu and flashed to board
-if [[ "${device_character}" == "ldo" ]] || [[ "${device_character}" == "epdc" ]] || \
-        [[ "${device_character}" == "ddr4" ]]; then
-    bootloader_usbd_by_uuu=u-boot-${soc_name}-${device_character}-${board}-uuu.imx
-    bootloader_flashed_to_board="u-boot-${soc_name}-${device_character}.imx"
-else
-    bootloader_usbd_by_uuu=u-boot-${soc_name}-${board}-uuu.imx
-    bootloader_flashed_to_board=u-boot-${soc_name}.imx
+# the uboot images for ldo for imx6 and epdc for imx7 devices are identical with the default ones
+if [ "${soc_name}" = imx8mm ]; then
+    if [ "${device_character}" == "ddr4" ]; then
+        bootloader_usbd_by_uuu=u-boot-${soc_name}-ddr4-${board}-uuu.imx
+        bootloader_flashed_to_board="u-boot-${soc_name}-ddr4.imx"
+    else
+        # 4GB LPDDR4 version not supported
+        if [ ${support_trusty} -eq 1 ]; then
+            bootloader_usbd_by_uuu=u-boot-${soc_name}-${board}-uuu.imx
+            bootloader_flashed_to_board=u-boot-${soc_name}-trusty.imx
+        else
+            bootloader_usbd_by_uuu=u-boot-${soc_name}-${board}-uuu.imx
+            bootloader_flashed_to_board="u-boot-${soc_name}.imx"
+        fi
+    fi
+fi
+
+if [  ${soc_name} == "imx8mn" ] && [ ${support_trusty} -eq 1 ]; then
+    bootloader_flashed_to_board="u-boot-${soc_name}-trusty.imx"
 fi
 
 function uuu_load_uboot
@@ -396,6 +421,7 @@ function flash_partition_name
 function flash_android
 {
     # if dual bootloader is supported, the name of the bootloader flashed to the board need to be updated
+    # this is currently for i.MX 8QuadMax MEK and i.MX 8QuadXPlus MEK
     if [ ${support_dual_bootloader} -eq 1 ]; then
         bootloader_flashed_to_board=spl-${soc_name}.bin
         if [[ "${soc_name}" = imx8qm ]] && [[ "${device_character}" = xen ]]; then
