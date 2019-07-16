@@ -21,12 +21,10 @@ confs=( )
 KERNEL_PATH=${args[0]}
 OUTPUT=${args[1]}
 TARGET_ARCH=${args[2]}
-TARGET_CROSS_COMPILE=${args[3]}
 
 unset "args[0]"
 unset "args[1]"
 unset "args[2]"
-unset "args[3]"
 
 curdir=$(pwd)
 
@@ -44,4 +42,4 @@ done > $OUTPUT/config.list
 
 cd $KERNEL_PATH
 
-ARCH=$TARGET_ARCH CROSS_COMPILE=$TARGET_CROSS_COMPILE ./scripts/kconfig/merge_config.sh -O $OUTPUT ${confs[*]}
+ARCH=$TARGET_ARCH ./scripts/kconfig/merge_config.sh -O $OUTPUT ${confs[*]}

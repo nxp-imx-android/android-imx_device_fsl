@@ -15,8 +15,8 @@
 TARGET_KERNEL_ARCH := $(strip $(TARGET_KERNEL_ARCH))
 TARGET_KERNEL_SRC := $(KERNEL_IMX_PATH)/kernel_imx
 KERNEL_CC_WRAPPER := $(CC_WRAPPER)
-KERNEL_AFLAGS :=
-KERNEL_CFLAGS :=
+KERNEL_AFLAGS ?=
+KERNEL_CFLAGS ?=
 
 ifeq ($(TARGET_KERNEL_ARCH), arm)
 KERNEL_TOOLCHAIN_ABS := $(realpath prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9/bin)
@@ -48,9 +48,12 @@ $(foreach dts_config,$(TARGET_BOARD_DTS_CONFIG), \
     $(eval DTS_SRC += $(addprefix $(DTS_PATH),$(shell echo ${dts_config} | cut -d':' -f2 | sed 's/dtb/dts/g' ))))
 
 define build_dtb
+	PATH=$$(cd prebuilts/clang/host/linux-x86/clang-r349610/bin; pwd):$$(cd prebuilts/misc/linux-x86/lz4; pwd):$$PATH \
+	$(CLANG_TRIPLE) \
 	CCACHE_NODIRECT="true" $(MAKE) -C $(TARGET_KERNEL_SRC) \
 	O=$(realpath $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ) \
 	ARCH=$(KERNEL_ARCH) \
+	$(CLANG_TO_COMPILE) \
 	CROSS_COMPILE="$(KERNEL_CROSS_COMPILE_WRAPPER)" \
 	KCFLAGS="$(KERNEL_CFLAGS)" \
 	KAFLAGS="$(KERNEL_AFLAGS)" \

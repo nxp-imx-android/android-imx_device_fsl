@@ -58,11 +58,17 @@ $(error kernel arch not supported at present)
 endif
 
 ifeq ($(TARGET_KERNEL_ARCH), arm)
+CLANG_TRIPLE :=
+CLANG_TO_COMPILE :=
+CLANG_TOOL_CHAIN_ABS :=
 KERNEL_CROSS_COMPILE := $(KERNEL_TOOLCHAIN_ABS)/arm-linux-androidkernel-
 KERNEL_SRC_ARCH := arm
 KERNEL_CFLAGS :=
 KERNEL_NAME := zImage
 else ifeq ($(TARGET_KERNEL_ARCH), arm64)
+CLANG_TRIPLE := CLANG_TRIPLE=aarch64-linux-gnu-
+CLANG_TO_COMPILE := CC=clang
+CLANG_TOOL_CHAIN_ABS := $(realpath prebuilts/clang/host/linux-x86/clang-r349610/bin)
 KERNEL_CROSS_COMPILE := $(KERNEL_TOOLCHAIN_ABS)/aarch64-linux-androidkernel-
 KERNEL_SRC_ARCH := arm64
 KERNEL_CFLAGS :=
@@ -80,10 +86,21 @@ endif
 # Use ccache if requested by USE_CCACHE variable
 KERNEL_CROSS_COMPILE_WRAPPER := $(realpath $(KERNEL_CC_WRAPPER)) $(KERNEL_CROSS_COMPILE)
 
+ifeq ($(CLANG_TO_COMPILE),)
 KERNEL_GCC_NOANDROID_CHK := $(shell (echo "int main() {return 0;}" | $(KERNEL_CROSS_COMPILE)gcc -E -mno-android - > /dev/null 2>&1 ; echo $$?))
+else
+KERNEL_GCC_NOANDROID_CHK := $(shell (echo "int main() {return 0;}" | $(CLANG_TOOL_CHAIN_ABS)clang --target=$(CLANG_TRIPLE:%-=%) \
+  -E -mno-android - > /dev/null 2>&1 ; echo $$?))
+endif
+
 ifeq ($(strip $(KERNEL_GCC_NOANDROID_CHK)),0)
 KERNEL_CFLAGS += -mno-android
 KERNEL_AFLAGS += -mno-android
+endif
+
+# options are used to eliminate compilation errors with GPU and qca wifi driver when use clang
+ifneq ($(CLANG_TO_COMPILE),)
+KERNEL_CFLAGS := -Wno-self-assign -Wno-empty-body -Wno-incompatible-pointer-types
 endif
 
 # Set the output for the kernel build products.
@@ -130,15 +147,17 @@ $(KERNEL_CONFIG): $(KERNEL_CONFIG_SRC) $(TARGET_KERNEL_SRC) | $(KERNEL_OUT)
 	$(hide) echo Merging KERNEL config
 	rm -f $(KERNEL_CONFIG)
 	$(KERNEL_MERGE_CONFIG) $(TARGET_KERNEL_SRC) $(realpath $(KERNEL_OUT)) \
-	$(KERNEL_ARCH) $(KERNEL_CROSS_COMPILE) $^
+	$(KERNEL_ARCH) $^
 
 # Disable CCACHE_DIRECT so that header location changes are noticed.
 define build_kernel
-	PATH=$$(cd prebuilts/misc/linux-x86/lz4; pwd):$$PATH \
+	PATH=$$(cd prebuilts/clang/host/linux-x86/clang-r349610/bin; pwd):$$(cd prebuilts/misc/linux-x86/lz4; pwd):$$PATH \
+		$(CLANG_TRIPLE) \
 		CCACHE_NODIRECT="true" $(MAKE) -C $(TARGET_KERNEL_SRC) \
 		O=$(realpath $(KERNEL_OUT)) \
 		ARCH=$(KERNEL_ARCH) \
 		CROSS_COMPILE="$(KERNEL_CROSS_COMPILE_WRAPPER)" \
+		$(CLANG_TO_COMPILE) \
 		KCFLAGS="$(KERNEL_CFLAGS)" \
 		KAFLAGS="$(KERNEL_AFLAGS)" \
 		$(1)
