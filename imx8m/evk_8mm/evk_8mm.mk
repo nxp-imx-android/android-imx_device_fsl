@@ -263,5 +263,15 @@ PRODUCT_PACKAGES += \
     gatekeeper.trusty \
     storageproxyd
 
+#DRM Widevine 1.1 L3 support
+PRODUCT_PACKAGES += \
+    android.hardware.drm@1.0-impl \
+    android.hardware.drm@1.0-service \
+    android.hardware.drm@1.1-service.widevine \
+    android.hardware.drm@1.1-service.clearkey \
+    libwvdrmcryptoplugin \
+    libwvhidl \
+    libwvdrmengine \
+
 # Included GMS package
 $(call inherit-product-if-exists, vendor/partner_gms/products/gms.mk)
