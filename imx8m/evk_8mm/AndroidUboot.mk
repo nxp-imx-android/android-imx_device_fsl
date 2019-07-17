@@ -17,13 +17,9 @@ define build_imx_uboot
 		cp $(FSL_PROPRIETARY_PATH)/fsl-proprietary/uboot-firmware/imx8m/lpddr4_pmu_train_* $(IMX_MKIMAGE_PATH)/imx-mkimage/iMX8M/.; \
 	fi; \
 	$(MAKE) -C $(IMX_PATH)/arm-trusted-firmware/ PLAT=`echo $(2) | cut -d '-' -f1` clean; \
-	if [ `echo $(2) | cut -d '-' -f2` == "trusty" ] && [ `echo $(2) | rev | cut -d '-' -f1` != "uuu" ]; then \
+	if [ `echo $(2) | cut -d '-' -f2` == "trusty" ]; then \
 		cp $(FSL_PROPRIETARY_PATH)/fsl-proprietary/uboot-firmware/imx8m/tee-imx8mm.bin $(IMX_MKIMAGE_PATH)/imx-mkimage/iMX8M/tee.bin; \
-		if [ `echo $(2) | cut -d '-' -f3` == "4g" ]; then \
-			$(MAKE) -C $(IMX_PATH)/arm-trusted-firmware/ CROSS_COMPILE="$(ATF_CROSS_COMPILE)" PLAT=`echo $(2) | cut -d '-' -f1` bl31 -B USE_4G_DRAM=1 SPD=trusty 1>/dev/null || exit 1; \
-		else \
-			$(MAKE) -C $(IMX_PATH)/arm-trusted-firmware/ CROSS_COMPILE="$(ATF_CROSS_COMPILE)" PLAT=`echo $(2) | cut -d '-' -f1` bl31 -B SPD=trusty 1>/dev/null || exit 1; \
-		fi; \
+		$(MAKE) -C $(IMX_PATH)/arm-trusted-firmware/ CROSS_COMPILE="$(ATF_CROSS_COMPILE)" PLAT=`echo $(2) | cut -d '-' -f1` bl31 -B SPD=trusty 1>/dev/null || exit 1; \
 	else \
 		if [ -f $(IMX_MKIMAGE_PATH)/imx-mkimage/iMX8M/tee.bin ] ; then \
 			rm -rf $(IMX_MKIMAGE_PATH)/imx-mkimage/iMX8M/tee.bin; \
@@ -35,11 +31,7 @@ define build_imx_uboot
 	if [ `echo $(2) | cut -d '-' -f2` == "ddr4" ]; then \
 		$(MAKE) -C $(IMX_MKIMAGE_PATH)/imx-mkimage/ SOC=iMX8MM  flash_ddr4_evk 1>/dev/null || exit 1; \
 	else \
-		if [ `echo $(2) | cut -d '-' -f3` == "4g" ]; then \
-			$(MAKE) -C $(IMX_MKIMAGE_PATH)/imx-mkimage/ SOC=iMX8MM TEE_LOAD_ADDR=0xfe000000 flash_spl_uboot 1>/dev/null || exit 1; \
-		else \
-			$(MAKE) -C $(IMX_MKIMAGE_PATH)/imx-mkimage/ SOC=iMX8MM  flash_spl_uboot 1>/dev/null || exit 1; \
-		fi; \
+		$(MAKE) -C $(IMX_MKIMAGE_PATH)/imx-mkimage/ SOC=iMX8MM  flash_spl_uboot 1>/dev/null || exit 1; \
 	fi; \
 	cp $(IMX_MKIMAGE_PATH)/imx-mkimage/iMX8M/flash.bin $(PRODUCT_OUT)/u-boot-$(strip $(2)).imx;
 endef
