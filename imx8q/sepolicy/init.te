@@ -13,7 +13,6 @@ allow init block_device:chr_file  { getattr ioctl };
 allow init userdata_block_device:blk_file { open read write ioctl getattr };
 allow init ram_device:blk_file { write };
 allow init sysfs:file { create };
-allow init sysfs_rfkill:file { open write setattr };
 allow init sysfs_block_devices:file { open write setattr };
 allow init boot_block_device:lnk_file { relabelto };
 allow init vbmeta_block_device:lnk_file { relabelto };
