@@ -81,8 +81,5 @@ else
 BOARD_AVB_ROLLBACK_INDEX := 0
 endif
 
-ifneq ($(BOOTLOADER_RBINDEX),)
-export ROLLBACK_INDEX_IN_CONTAINER := $(BOOTLOADER_RBINDEX)
-else
-export ROLLBACK_INDEX_IN_CONTAINER := 0
-endif
+# define rollback index in container
+# BOOTLOADER_RBINDEX := 2
