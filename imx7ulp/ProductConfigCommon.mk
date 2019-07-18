@@ -305,7 +305,6 @@ PRODUCT_COPY_FILES += \
     device/fsl/imx7ulp/etc/init.usb.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.freescale.usb.rc \
     device/fsl/imx7ulp/etc/ota.conf:$(TARGET_COPY_OUT_VENDOR)/etc/ota.conf \
     device/fsl/imx7ulp/init.recovery.freescale.rc:root/init.recovery.freescale.rc \
-    system/core/rootdir/init.rc:root/init.rc
 
 # we have enough storage space to hold precise GC data
 PRODUCT_TAGS += dalvik.gc.type-precise
