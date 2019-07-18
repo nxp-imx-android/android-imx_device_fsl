@@ -124,8 +124,3 @@ ro.bluetooth.emb_wp_mode            u:object_r:vendor_bluetooth_prop:s0
 ro.bluetooth.wipower                u:object_r:vendor_bluetooth_prop:s0
 unified_bt_logging                  u:object_r:vendor_bluetooth_prop:s0
 persist.BT3_2.version               u:object_r:vendor_bluetooth_prop:s0
-
-ro.lmk.upgrade_pressure             u:object_r:exported_config_prop:s0 exact int
-ro.lmk.critical_upgrade             u:object_r:exported_config_prop:s0 exact bool
-ro.lmk.downgrade_pressure           u:object_r:exported_config_prop:s0 exact int
-ro.lmk.kill_heaviest_task           u:object_r:exported_config_prop:s0 exact bool
