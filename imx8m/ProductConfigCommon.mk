@@ -53,11 +53,13 @@ PRODUCT_PACKAGES += \
     android.hardware.boot@1.0-impl \
     android.hardware.boot@1.0-service \
     bootctrl.avb \
-    brillo_update_payload \
     update_engine \
     update_engine_client \
     update_engine_sideload \
     update_verifier
+
+PRODUCT_HOST_PACKAGES += \
+    brillo_update_payload
 
 # audio
 PRODUCT_PACKAGES += \
@@ -313,7 +315,6 @@ PRODUCT_COPY_FILES += \
     frameworks/av/services/audiopolicy/config/default_volume_tables.xml:$(TARGET_COPY_OUT_VENDOR)/etc/default_volume_tables.xml \
     frameworks/av/services/audiopolicy/config/r_submix_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/r_submix_audio_policy_configuration.xml \
     frameworks/av/services/audiopolicy/config/usb_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/usb_audio_policy_configuration.xml \
-    system/core/rootdir/init.rc:root/init.rc
 
 PRODUCT_PROPERTY_OVERRIDES += \
     pm.dexopt.boot=quicken \
