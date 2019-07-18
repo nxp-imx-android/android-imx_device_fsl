@@ -21,15 +21,15 @@
 #include <string.h>
 
 #include "common.h"
-#include "device.h"
-#include "screen_ui.h"
+#include "recovery_ui/device.h"
+#include "recovery_ui/screen_ui.h"
 
 const char* HEADERS[] = { "Volume up/down to move highlight;",
                           "power button to select.",
                           "",
                           NULL };
 
-const char* ITEMS[] = { "reboot system now",
+const std::vector<std::string> ITEMS{ "reboot system now",
                         "apply update from ADB",
                         "wipe data/factory reset",
                         "wipe cache partition",
@@ -82,7 +82,7 @@ class ImxDevice : public Device {
     }
 
     const char* const* GetMenuHeaders() { return HEADERS; }
-    const char* const* GetMenuItems() { return ITEMS; }
+    const std::vector<std::string>& GetMenuItems() { return ITEMS; }
 
 };
 
