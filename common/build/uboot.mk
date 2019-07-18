@@ -112,16 +112,21 @@ UBOOT_ENV_OUT := $(PRODUCT_OUT)/uboot.env
 # Figure out which U-Boot version is being built (disregard -stable version).
 UBOOT_VERSION := $(shell $(MAKE) -j1 --no-print-directory -C $(UBOOT_IMX_PATH)/uboot-imx -s SUBLEVEL="" ubootversion)
 
-ifeq ($(PRODUCT_IMX_CAR_M4_BUILD),true)
-$(UBOOT_OUT): UBOOT_M4_BIN
-	mkdir -p $@
-else
 $(UBOOT_OUT):
 	mkdir -p $@
-endif
 
-$(UBOOT_BIN): $(UBOOT_OUT)
+UBOOTENVSH := $(intermediates)/ubootenv.sh
+$(UBOOTENVSH):
+	rm -rf $@
+	if [ -n "$BOOTLOADER_RBINDEX" ]; then \
+		echo 'export ROLLBACK_INDEX_IN_CONTAINER=$(BOOTLOADER_RBINDEX)' > $@; \
+	else \
+		echo 'export ROLLBACK_INDEX_IN_CONTAINER=0' > $@; \
+	fi
+
+$(UBOOT_BIN): $(UBOOTENVSH) $(UBOOT_OUT)
 	$(hide) echo "Building $(UBOOT_ARCH) $(UBOOT_VERSION) U-Boot ..."
+	$(call build_m4_image)
 	for ubootplat in $(TARGET_BOOTLOADER_CONFIG); do \
 		UBOOT_PLATFORM=`echo $$ubootplat | cut -d':' -f1`; \
 		UBOOT_CONFIG=`echo $$ubootplat | cut -d':' -f2`; \
@@ -131,6 +136,7 @@ $(UBOOT_BIN): $(UBOOT_OUT)
 		install -D $(UBOOT_OUT)/u-boot$(TARGET_DTB_POSTFIX).$(TARGET_BOOTLOADER_POSTFIX) $(PRODUCT_OUT)/u-boot-$$UBOOT_PLATFORM.imx; \
 		if [ $(UBOOT_POST_PROCESS) = true ]; then \
 			echo "build post process" ; \
+			source $(UBOOTENVSH); \
 		    $(call build_imx_uboot, $(TARGET_BOOTLOADER_POSTFIX), $$UBOOT_PLATFORM) \
 		fi; \
 		if [ $(PRODUCT_IMX_DRM) = true ]; then \
@@ -140,7 +146,7 @@ $(UBOOT_BIN): $(UBOOT_OUT)
 		install -D $(PRODUCT_OUT)/u-boot-$$UBOOT_PLATFORM.imx $(UBOOT_BIN); \
 	done
 
-.PHONY: $(UBOOT_BIN)
+.PHONY: bootloader
 
 bootloader: $(UBOOT_BIN)
 

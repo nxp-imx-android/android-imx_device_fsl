@@ -163,7 +163,6 @@ $(KERNEL_HEADERS_INSTALL): $(KERNEL_BIN)
 # If the kernel generates VDSO files, generate breakpad symbol files for them.
 # VDSO libraries are mapped as linux-gate.so, so rename the symbol file to
 # match as well as the filename in the first line of the .sym file.
-.PHONY: $(KERNEL_BIN).vdso
 $(KERNEL_BIN).vdso: $(KERNEL_BIN) $(BREAKPAD_DUMP_SYMS)
 ifeq ($(BREAKPAD_GENERATE_SYMBOLS),true)
 	$(hide) echo "BREAKPAD: Generating kernel VDSO symbol files."
@@ -186,5 +185,3 @@ ALL_DEFAULT_INSTALLED_MODULES += $(KERNEL_MODULES_INSTALL)
 # Produces the actual kernel image!
 $(PRODUCT_OUT)/kernel: $(KERNEL_IMAGE) $(KERNEL_DEPS) | $(ACP)
 	$(ACP) -fp $< $@
-
-KERNEL_OUT/usr: $(PRODUCT_OUT)/kernel
