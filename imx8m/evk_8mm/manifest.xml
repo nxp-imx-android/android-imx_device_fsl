@@ -110,6 +110,8 @@
        <interface>
            <name>ISupplicant</name>
            <instance>default</instance>
+           <instance>default_qca</instance>
+           <instance>default_bcm</instance>
        </interface>
     </hal>
     <hal format="hidl">
