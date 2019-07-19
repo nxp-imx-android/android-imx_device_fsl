@@ -74,7 +74,7 @@
 
 /vendor/bin/hw/android\.hardware\.health@2\.0-service.imx          u:object_r:hal_health_default_exec:s0
 # mmc rpmb
-/dev/block/mmcblk0rpmb      u:object_r:mmc_rpmb_block_device:s0
+/dev/mmcblk0rpmb      u:object_r:mmc_rpmb_char_device:s0
 
 # secure os storage
 /vendor/bin/storageproxyd   u:object_r:tee_exec:s0
