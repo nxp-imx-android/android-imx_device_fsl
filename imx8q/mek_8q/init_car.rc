@@ -284,6 +284,6 @@ on zygote-start
 on property:sys.boot_completed=1 && property:ro.hardware.gatekeeper=trusty
     start storageproxyd
 
-service storageproxyd /vendor/bin/storageproxyd -p /data/vendor/ss -r /dev/block/mmcblk0rpmb -d /dev/trusty-ipc-dev0
+service storageproxyd /vendor/bin/storageproxyd -p /data/vendor/ss -r /dev/mmcblk0rpmb -d /dev/trusty-ipc-dev0
    group system
 
