@@ -306,5 +306,5 @@ service early_init_sh /vendor/bin/init.insmod.sh /vendor/etc/early.init.cfg sys.
 on property:sys.boot_completed=1 && property:vendor.storageproxyd=trusty
     start storageproxyd
 
-service storageproxyd /vendor/bin/storageproxyd -p /data/vendor/ss -r /dev/block/mmcblk2rpmb -d /dev/trusty-ipc-dev0
+service storageproxyd /vendor/bin/storageproxyd -p /data/vendor/ss -r /dev/mmcblk2rpmb -d /dev/trusty-ipc-dev0
    group system
