@@ -10,7 +10,6 @@ PRODUCT_IMX_CAR_M4_BUILD := true
 PRODUCT_IMX_CAR_M4 ?= true
 #without m4 when build uboot
 #PRODUCT_IMX_CAR_M4 ?= false
-SOONG_CONFIG_IMXPLUGIN_IMX_CAR = true
 
 include $(IMX_DEVICE_PATH)/mek_8q.mk
 # Include keystore attestation keys and certificates.
