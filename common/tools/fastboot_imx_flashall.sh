@@ -202,15 +202,17 @@ function flash_android
     fi
 
     # i.MX 8M Mini EVK and i.MX 8M Nano EVK dose not support dual bootloader for now, and has some special requirement
-    if [ ${soc_name} == "imx8mm" ] && [ "$(echo ${device_character} | grep "ddr4")" != "" ]; then
-        # i.MX8M Mini EVK with DDR4 on board does not support eMMC, trusty is not supported.
-        bootloader_flashed_to_board="u-boot-${soc_name}-ddr4.imx"
-    else
-        # 4GB LPDDR4 version not supported in this script
-        if [ ${support_trusty} -eq 1 ]; then
-            bootloader_flashed_to_board="u-boot-${soc_name}-trusty.imx"
+    if [ ${soc_name} == "imx8mm" ]; then
+        if [ "$(echo ${device_character} | grep "ddr4")" != "" ]; then
+            # i.MX8M Mini EVK with DDR4 on board does not support eMMC, trusty is not supported.
+            bootloader_flashed_to_board="u-boot-${soc_name}-ddr4.imx"
         else
-            bootloader_flashed_to_board="u-boot-${soc_name}.imx"
+            # 4GB LPDDR4 version not supported in this script
+            if [ ${support_trusty} -eq 1 ]; then
+                bootloader_flashed_to_board="u-boot-${soc_name}-trusty.imx"
+            else
+                bootloader_flashed_to_board="u-boot-${soc_name}.imx"
+            fi
         fi
     fi
 
