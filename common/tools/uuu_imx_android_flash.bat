@@ -180,14 +180,14 @@ if not [%soc_name:imx8mq=%] == [%soc_name%] (
 if not [%soc_name:imx8mm=%] == [%soc_name%] (
     set vid=0x1fc9& set pid=00x0134& set chip=MX8MM
     set uboot_env_start=0x2000& set uboot_env_len=0x8
-    set emmc_num=1& set sd_num=0
+    set emmc_num=2& set sd_num=1
     set board=evk
     goto :device_info_end
 )
 if not [%soc_name:imx8mn=%] == [%soc_name%] (
     set vid=0x1fc9& set pid=00x013e& set chip=MX8MN
     set uboot_env_start=0x2000& set uboot_env_len=0x8
-    set emmc_num=1& set sd_num=0
+    set emmc_num=2& set sd_num=1
     set board=evk
     goto :device_info_end
 )
