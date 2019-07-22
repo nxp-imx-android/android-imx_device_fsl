@@ -17,9 +17,6 @@ PRODUCT_MODEL := EVK_8MM
 
 PRODUCT_FULL_TREBLE_OVERRIDE := true
 
-#Enable this to include trusty support
-#PRODUCT_IMX_TRUSTY := true
-
 #Enable this to choose 32 bit user space build
 #IMX8_BUILD_32BIT_ROOTFS := true
 
@@ -27,9 +24,7 @@ PRODUCT_FULL_TREBLE_OVERRIDE := true
 #LOW_MEMORY := true
 
 # Include keystore attestation keys and certificates.
-ifeq ($(PRODUCT_IMX_TRUSTY),true)
 -include $(IMX_SECURITY_PATH)/attestation/imx_attestation.mk
-endif
 
 # Include Android Go config for low memory device.
 ifeq ($(LOW_MEMORY),true)
@@ -60,11 +55,9 @@ PRODUCT_COPY_FILES += \
     device/fsl/common/wifi/wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/qca_wpa_supplicant_overlay.conf \
     device/fsl/common/wifi/bcm_wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/bcm_wpa_supplicant_overlay.conf
 
-ifeq ($(PRODUCT_IMX_TRUSTY),true)
 PRODUCT_COPY_FILES += \
     device/fsl/common/security/rpmb_key_test.bin:rpmb_key_test.bin \
     device/fsl/common/security/testkey_public_rsa4096.bin:testkey_public_rsa4096.bin
-endif
 
 # ONLY devices that meet the CDD's requirements may declare these features
 PRODUCT_COPY_FILES += \
@@ -222,10 +215,9 @@ PRODUCT_COPY_FILES += \
     vendor/nxp/imx-firmware/cyw-wifi-bt/1MW_CYW43455/brcmfmac43455-sdio.txt:$(TARGET_COPY_OUT_VENDOR)/firmware/brcm/brcmfmac43455-sdio.txt
 
 # Keymaster HAL
-ifeq ($(PRODUCT_IMX_TRUSTY),true)
 PRODUCT_PACKAGES += \
     android.hardware.keymaster@3.0-service.trusty
-endif
+
 PRODUCT_PACKAGES += \
     android.hardware.keymaster@3.0-impl \
     android.hardware.keymaster@3.0-service
@@ -264,11 +256,9 @@ PRODUCT_PROPERTY_OVERRIDES += ro.frp.pst=/dev/block/by-name/presistdata
 PRODUCT_COMPATIBLE_PROPERTY_OVERRIDE := true
 
 # Add Trusty OS backed gatekeeper and secure storage proxy
-ifeq ($(PRODUCT_IMX_TRUSTY),true)
 PRODUCT_PACKAGES += \
     gatekeeper.trusty \
     storageproxyd
-endif
 
 #DRM Widevine 1.1 L3 support
 PRODUCT_PACKAGES += \

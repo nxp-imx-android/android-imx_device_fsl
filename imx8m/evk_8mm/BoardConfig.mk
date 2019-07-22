@@ -122,11 +122,9 @@ USE_ION_ALLOCATOR := true
 USE_GPU_ALLOCATOR := false
 
 BOARD_AVB_ENABLE := true
-ifeq ($(PRODUCT_IMX_TRUSTY),true)
 BOARD_AVB_ALGORITHM := SHA256_RSA4096
 # The testkey_rsa4096.pem is copied from external/avb/test/data/testkey_rsa4096.pem
 BOARD_AVB_KEY_PATH := device/fsl/common/security/testkey_rsa4096.pem
-endif
 TARGET_USES_MKE2FS := true
 
 # define frame buffer count
@@ -158,14 +156,8 @@ endif
 endif
 
 BOARD_PREBUILT_DTBOIMAGE := out/target/product/evk_8mm/dtbo-imx8mm.img
-ifeq ($(PRODUCT_IMX_TRUSTY),true)
-# u-boot target for imx8mm_evk with trusty os related features supported
-TARGET_BOOTLOADER_CONFIG := imx8mm:imx8mm_evk_android_trusty_defconfig
-# imx8mm with MIPI-HDMI display, QCA wifi and support trusty
+# imx8mm with MIPI-HDMI display and QCA wifi and Trusty support
 TARGET_BOARD_DTS_CONFIG ?= imx8mm:fsl-imx8mm-trusty-evk.dtb
-else
-# imx8mm with MIPI-HDMI display and QCA wifi
-TARGET_BOARD_DTS_CONFIG ?= imx8mm:fsl-imx8mm-evk.dtb
 # u-boot target for imx8mm_evk with LPDDR4 on board
 ifeq ($(LOW_MEMORY),true)
 TARGET_BOOTLOADER_CONFIG := imx8mm:imx8mm_evk_1g_ddr_android_defconfig
@@ -174,7 +166,7 @@ TARGET_BOOTLOADER_CONFIG := imx8mm:imx8mm_evk_android_defconfig
 endif
 # u-boot target for imx8mm_evk with DDR4 on board
 TARGET_BOOTLOADER_CONFIG += imx8mm-ddr4:imx8mm_ddr4_evk_android_defconfig
-endif
+TARGET_BOOTLOADER_CONFIG += imx8mm-trusty:imx8mm_evk_android_trusty_defconfig
 # imx8mm with MIPI panel display and QCA wifi
 TARGET_BOARD_DTS_CONFIG += imx8mm-mipi-panel:fsl-imx8mm-evk-rm67191.dtb
 # imx8mm with MIPI-HDMI display, QCA wifi and m4 image to support LPA
