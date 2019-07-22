@@ -192,10 +192,6 @@ TARGET_BOOTLOADER_CONFIG := imx8qm:imx8qm_mek_androidauto2_trusty_defconfig
 TARGET_BOOTLOADER_CONFIG += imx8qxp:imx8qxp_mek_androidauto2_trusty_defconfig
 endif #PRODUCT_IMX_CAR_M4
 
-# u-boot target for imx8qm_mek auto android virtualization
-TARGET_BOOTLOADER_CONFIG += imx8qm-xen:imx8qm_mek_androidauto_xen_dual_defconfig
-# u-boot target for imx8qm_mek linux which has virtualization enabled
-TARGET_BOOTLOADER_CONFIG += imx8qm-xen-dom0:imx8qm_mek_spl_defconfig
 else
 # imx8qm standard android; MIPI-HDMI display
 TARGET_BOARD_DTS_CONFIG := imx8qm:fsl-imx8qm-mek-ov5640.dtb
