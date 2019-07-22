@@ -222,12 +222,12 @@ case ${soc_name%%-*} in
     imx8mm)
             vid=0x1fc9; pid=0x0134; chip=MX8MM;
             uboot_env_start=0x2000; uboot_env_len=0x8;
-            emmc_num=1; sd_num=0;
+            emmc_num=2; sd_num=1;
             board=evk ;;
     imx8mn)
             vid=0x1fc9; pid=0x0134; chip=MX8MN;
             uboot_env_start=0x2000; uboot_env_len=0x8;
-            emmc_num=1; sd_num=0;
+            emmc_num=2; sd_num=1;
             board=evk ;;
     imx7ulp)
             vid=0x1fc9; pid=0x0126; chip=MX7ULP;
