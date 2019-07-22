@@ -105,11 +105,9 @@ USE_ION_ALLOCATOR := true
 USE_GPU_ALLOCATOR := false
 
 BOARD_AVB_ENABLE := true
-ifeq ($(PRODUCT_IMX_TRUSTY),true)
 BOARD_AVB_ALGORITHM := SHA256_RSA4096
 # The testkey_rsa4096.pem is copied from external/avb/test/data/testkey_rsa4096.pem
 BOARD_AVB_KEY_PATH := device/fsl/common/security/testkey_rsa4096.pem
-endif
 TARGET_USES_MKE2FS := true
 
 # define frame buffer count
@@ -134,28 +132,19 @@ endif
 endif
 
 BOARD_PREBUILT_DTBOIMAGE := out/target/product/evk_8mn/dtbo-imx8mn.img
-ifeq ($(PRODUCT_IMX_TRUSTY),true)
-# u-boot target for imx8mn_evk with trusty os related features supported
-TARGET_BOOTLOADER_CONFIG := imx8mn:imx8mn_evk_android_trusty_defconfig
+
+# u-boot target for stand config and Trusty OS config
+TARGET_BOOTLOADER_CONFIG := imx8mn:imx8mn_ddr4_evk_android_defconfig
+TARGET_BOOTLOADER_CONFIG += imx8mn-trusty:imx8mn_ddr4_evk_android_trusty_defconfig
+# u-boot target used by uuu for imx8mn_evk
+TARGET_BOOTLOADER_CONFIG += imx8mn-evk-uuu:imx8mn_ddr4_evk_android_uuu_defconfig
 # imx8mn with MIPI-HDMI display, BCM wifi and support trusty
-TARGET_BOARD_DTS_CONFIG ?= imx8mn:fsl-imx8mn-trusty-evk.dtb
-else
-# imx8mn with MIPI-HDMI display and BCM wifi
-TARGET_BOARD_DTS_CONFIG ?= imx8mn:fsl-imx8mn-ddr4-evk.dtb
+TARGET_BOARD_DTS_CONFIG := imx8mn:fsl-imx8mn-ddr4-evk-trusty.dtb
 # imx8mn with MIPI panel display and BCM wifi
 TARGET_BOARD_DTS_CONFIG += imx8mn-mipi-panel:fsl-imx8mn-ddr4-evk-rm67191.dtb
 # imx8mn with MIPI-HDMI display and BCM wifi and M7 image
 TARGET_BOARD_DTS_CONFIG += imx8mn-rpmsg:fsl-imx8mn-ddr4-evk-rpmsg.dtb
-# u-boot target for imx8mn_evk with LPDDR4 on board
-ifeq ($(LOW_MEMORY),true)
-TARGET_BOOTLOADER_CONFIG := imx8mn:imx8mn_evk_1g_ddr_android_defconfig
-else
-TARGET_BOOTLOADER_CONFIG := imx8mn:imx8mn_ddr4_evk_android_defconfig
-endif
-endif
 
-# u-boot target used by uuu for imx8mn_evk
-TARGET_BOOTLOADER_CONFIG += imx8mn-evk-uuu:imx8mn_ddr4_evk_android_uuu_defconfig
 
 TARGET_KERNEL_DEFCONFIG := android_defconfig
 
