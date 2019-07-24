@@ -11,6 +11,10 @@ on init
     chown root system /sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies
 
 on early-boot
+    # For mek_8qxp, when swap used about 400M, upgrade the level.
+    setprop ro.lmk.upgrade_pressure 87
+    setprop ro.lmk.downgrade_pressure 95
+    setprop ro.lmk.critical_upgrade true
 
     # Set OpenGLES version
     setprop ro.opengles.version 196609
