@@ -22,6 +22,11 @@ on init
 
 on early-boot
 
+    # For mek_8qm, when swap used about 400M, upgrade the level.
+    setprop ro.lmk.upgrade_pressure 93
+    setprop ro.lmk.downgrade_pressure 99
+    setprop ro.lmk.critical_upgrade true
+
     # Set OpenGLES version
     setprop ro.opengles.version 196610
 
