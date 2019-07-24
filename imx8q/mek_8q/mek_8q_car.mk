@@ -22,7 +22,7 @@ PRODUCT_PACKAGE_OVERLAYS := $(IMX_DEVICE_PATH)/overlay_car packages/services/Car
 PRODUCT_COPY_FILES += \
     packages/services/Car/car_product/init/init.bootstat.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.bootstat.rc \
     packages/services/Car/car_product/init/init.car.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.car.rc \
-    system/core/rootdir/init.zygote_auto.rc:root/init.zygote_auto.rc \
+    $(IMX_DEVICE_PATH)/init.zygote_auto.rc:root/init.zygote_auto.rc \
     device/fsl/common/security/rpmb_key_test.bin:rpmb_key_test.bin \
     device/fsl/common/security/testkey_public_rsa4096.bin:testkey_public_rsa4096.bin
 
