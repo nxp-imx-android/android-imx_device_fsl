@@ -115,6 +115,9 @@ endif
 KERNEL_NAME := Image
 BOARD_KERNEL_CMDLINE := init=/init androidboot.gui_resolution=1080p androidboot.console=ttymxc0 androidboot.hardware=freescale androidboot.fbTileSupport=enable cma=$(CMASIZE) androidboot.primary_display=imx-drm firmware_class.path=/vendor/firmware transparent_hugepage=never loop.max_part=7
 
+# Set the density to 213 tvdpi to match CDD.
+BOARD_KERNEL_CMDLINE += androidboot.lcd_density=213
+
 # Default wificountrycode
 BOARD_KERNEL_CMDLINE += androidboot.wificountrycode=CN
 
