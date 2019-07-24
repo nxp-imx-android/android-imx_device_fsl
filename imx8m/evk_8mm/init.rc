@@ -45,8 +45,10 @@ on late-fs
     start vendor.keymaster-3-0-${ro.boot.keystore}
 
 on early-boot
-    # Config lowmemorykiller options
-    setprop ro.lmk.use_minfree_levels true
+    # For evk_8mm, when swap used about 400M, upgrade the level.
+    setprop ro.lmk.upgrade_pressure 80
+    setprop ro.lmk.downgrade_pressure 95
+    setprop ro.lmk.critical_upgrade true
 
     # Set the host name which used in console
     export HOSTNAME evk_8mm
