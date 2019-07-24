@@ -66,6 +66,10 @@ TARGET_VSYNC_DIRECT_REFRESH := true
 
 KERNEL_NAME := zImage
 BOARD_KERNEL_CMDLINE := init=/init androidboot.console=ttyLP0 consoleblank=0 androidboot.hardware=freescale vmalloc=128M cma=320M loop.max_part=7
+
+# Set the density to 120dpi for 640x480 lcd panel
+BOARD_KERNEL_CMDLINE += androidboot.lcd_density=120
+
 # u-boot target for imx7ulp_evk
 TARGET_BOOTLOADER_CONFIG := imx7ulp:imx7ulp_evk_android_defconfig
 # imx7ulp with HDMI display
