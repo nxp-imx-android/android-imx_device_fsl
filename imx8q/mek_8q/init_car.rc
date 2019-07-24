@@ -74,8 +74,8 @@ on early-boot
     setprop wifi.interface wlan0
     setprop wifi.direct.interface p2p-dev-wlan0
 
-    # Set the density to 213 tvdpi to match CDD.
-    setprop ro.sf.lcd_density 213
+    # Use ro.boot.lcd_density to override ro.sf.lcd_density
+    setprop ro.sf.lcd_density ${ro.boot.lcd_density}
 
     # Set tracefs permission to 755
     chmod 0755 /sys/kernel/debug/tracing

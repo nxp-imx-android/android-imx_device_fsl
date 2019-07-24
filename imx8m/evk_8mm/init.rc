@@ -99,8 +99,8 @@ on early-boot
     setprop qcom.bluetooth.soc rome_uart
     setprop vendor.wc_transport.start_hci false
 
-    # Set the density to 213 tvdpi to match CDD.
-    setprop ro.sf.lcd_density 213
+    # Use ro.boot.lcd_density to override ro.sf.lcd_density
+    setprop ro.sf.lcd_density ${ro.boot.lcd_density}
 
     # prepare for ril
     setprop ro.ril.wake_lock_timeout 300
