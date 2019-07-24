@@ -96,8 +96,8 @@ on early-boot
 
     setprop persist.service.bdroid.bdaddr 22:22:67:C6:69:73
 
-    # Set the density to 213 tvdpi to match CDD.
-    setprop ro.sf.lcd_density 213
+    # Use ro.boot.lcd_density to override ro.sf.lcd_density
+    setprop ro.sf.lcd_density ${ro.boot.lcd_density}
 
     # prepare for ril
     setprop ro.ril.wake_lock_timeout 300
