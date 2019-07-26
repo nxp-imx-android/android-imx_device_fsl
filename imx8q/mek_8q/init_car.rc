@@ -287,3 +287,5 @@ on property:sys.boot_completed=1 && property:ro.hardware.gatekeeper=trusty
 service storageproxyd /vendor/bin/storageproxyd -p /data/vendor/ss -r /dev/mmcblk0rpmb -d /dev/trusty-ipc-dev0
    group system
 
+on property:ro.boot.vendor.sysrq=1
+    write /proc/sys/kernel/sysrq 1
