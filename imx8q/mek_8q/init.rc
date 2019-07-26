@@ -236,3 +236,6 @@ service early_init_sh /vendor/bin/init.insmod.sh /vendor/etc/early.init.cfg sys.
     group root system
     disabled
     oneshot
+
+on property:ro.boot.vendor.sysrq=1
+    write /proc/sys/kernel/sysrq 1
