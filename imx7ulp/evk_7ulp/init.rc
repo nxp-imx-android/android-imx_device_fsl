@@ -109,6 +109,9 @@ on early-boot
 
     start vendor.wifi_hal_legacy
 
+    # avoid USB crash
+    setprop persist.adb.nonblocking_ffs 0
+
 on boot
     start audioserver
     start mediadrm
