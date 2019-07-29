@@ -48,7 +48,10 @@ ADDITION_BPT_PARTITION = partition-table-13GB:device/fsl/common/partition/device
 else
 BOARD_BPT_INPUT_FILES += device/fsl/common/partition/device-partitions-13GB-ab.bpt
 ADDITION_BPT_PARTITION = partition-table-7GB:device/fsl/common/partition/device-partitions-7GB-ab.bpt \
-                         partition-table-28GB:device/fsl/common/partition/device-partitions-28GB-ab.bpt
+                         partition-table-28GB:device/fsl/common/partition/device-partitions-28GB-ab.bpt \
+                         partition-table-dual:device/fsl/common/partition/device-partitions-13GB-ab-dual-bootloader.bpt \
+                         partition-table-7GB-dual:device/fsl/common/partition/device-partitions-7GB-ab-dual-bootloader.bpt \
+                         partition-table-28GB-dual:device/fsl/common/partition/device-partitions-28GB-ab-dual-bootloader.bpt
 endif
 
 
@@ -138,7 +141,9 @@ BOARD_PREBUILT_DTBOIMAGE := out/target/product/evk_8mn/dtbo-imx8mn.img
 
 # u-boot target for stand config and Trusty OS config
 TARGET_BOOTLOADER_CONFIG := imx8mn:imx8mn_ddr4_evk_android_defconfig
+TARGET_BOOTLOADER_CONFIG += imx8mn-dual:imx8mn_ddr4_evk_android_dual_defconfig
 TARGET_BOOTLOADER_CONFIG += imx8mn-trusty:imx8mn_ddr4_evk_android_trusty_defconfig
+TARGET_BOOTLOADER_CONFIG += imx8mn-trusty-dual:imx8mn_ddr4_evk_android_trusty_dual_defconfig
 # u-boot target used by uuu for imx8mn_evk
 TARGET_BOOTLOADER_CONFIG += imx8mn-evk-uuu:imx8mn_ddr4_evk_android_uuu_defconfig
 # imx8mn with MIPI-HDMI display, BCM wifi and support trusty
@@ -158,3 +163,9 @@ BOARD_SEPOLICY_DIRS := \
        $(IMX_DEVICE_PATH)/sepolicy
 
 TARGET_BOARD_KERNEL_HEADERS := device/fsl/common/kernel-headers
+
+ifneq ($(BOOTLOADER_RBINDEX),)
+export ROLLBACK_INDEX_IN_FIT := $(BOOTLOADER_RBINDEX)
+else
+export ROLLBACK_INDEX_IN_FIT := 0
+endif
