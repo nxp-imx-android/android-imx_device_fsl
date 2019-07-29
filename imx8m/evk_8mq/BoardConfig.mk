@@ -43,7 +43,10 @@ TARGET_RECOVERY_FSTAB = $(IMX_DEVICE_PATH)/fstab.freescale
 # Support gpt
 BOARD_BPT_INPUT_FILES += device/fsl/common/partition/device-partitions-13GB-ab.bpt
 ADDITION_BPT_PARTITION = partition-table-7GB:device/fsl/common/partition/device-partitions-7GB-ab.bpt \
-                         partition-table-28GB:device/fsl/common/partition/device-partitions-28GB-ab.bpt
+                         partition-table-28GB:device/fsl/common/partition/device-partitions-28GB-ab.bpt \
+                         partition-table-dual:device/fsl/common/partition/device-partitions-13GB-ab-dual-bootloader.bpt \
+                         partition-table-7GB-dual:device/fsl/common/partition/device-partitions-7GB-ab-dual-bootloader.bpt \
+                         partition-table-28GB-dual:device/fsl/common/partition/device-partitions-28GB-ab-dual-bootloader.bpt
 
 
 # Vendor Interface manifest and compatibility
@@ -144,6 +147,7 @@ TARGET_BOARD_DTS_CONFIG += imx8mq-mipi-b3:fsl-imx8mq-evk-lcdif-adv7535-b3.dtb
 TARGET_BOARD_DTS_CONFIG += imx8mq-mipi-panel-b3:fsl-imx8mq-evk-dcss-rm67191-b3.dtb
 # u-boot target for imx8mq_evk
 TARGET_BOOTLOADER_CONFIG := imx8mq:imx8mq_evk_android_defconfig
+TARGET_BOOTLOADER_CONFIG += imx8mq-dual:imx8mq_evk_android_dual_defconfig
 
 TARGET_KERNEL_DEFCONFIG := android_defconfig
 # TARGET_KERNEL_ADDITION_DEFCONF ?= android_addition_defconfig
@@ -161,3 +165,9 @@ BOARD_SEPOLICY_DIRS += \
 endif
 
 TARGET_BOARD_KERNEL_HEADERS := device/fsl/common/kernel-headers
+
+ifneq ($(BOOTLOADER_RBINDEX),)
+export ROLLBACK_INDEX_IN_FIT := $(BOOTLOADER_RBINDEX)
+else
+export ROLLBACK_INDEX_IN_FIT := 0
+endif

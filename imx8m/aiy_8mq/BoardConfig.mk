@@ -42,7 +42,9 @@ TARGET_RECOVERY_FSTAB = $(IMX_DEVICE_PATH)/fstab.freescale
 
 # Support gpt
 BOARD_BPT_INPUT_FILES += device/fsl/common/partition/device-partitions-13GB-ab.bpt
-ADDITION_BPT_PARTITION = partition-table-7GB:device/fsl/common/partition/device-partitions-7GB-ab.bpt
+ADDITION_BPT_PARTITION = partition-table-7GB:device/fsl/common/partition/device-partitions-7GB-ab.bpt \
+                         partition-table-dual:device/fsl/common/partition/device-partitions-13GB-ab-dual-bootloader.bpt \
+                         partition-table-7GB-dual:device/fsl/common/partition/device-partitions-7GB-ab-dual-bootloader.bpt
 
 # Vendor Interface manifest and compatibility
 DEVICE_MANIFEST_FILE := $(IMX_DEVICE_PATH)/manifest.xml
@@ -138,7 +140,8 @@ BOARD_PREBUILT_DTBOIMAGE := out/target/product/aiy_8mq/dtbo-imx8mq.img
 TARGET_BOARD_DTS_CONFIG ?= imx8mq:fsl-imx8mq-phanbell.dtb
 
 # u-boot target for imx8mq_aiy android with trusty os related features supported
-TARGET_BOOTLOADER_CONFIG := imx8mq:imx8mq_aiy_android_trusty_defconfig
+TARGET_BOOTLOADER_CONFIG := imx8mq-trusty:imx8mq_aiy_android_trusty_defconfig
+TARGET_BOOTLOADER_CONFIG += imx8mq-trusty-dual:imx8mq_aiy_android_trusty_dual_defconfig
 
 # u-boot target used by uuu for imx8qm_mek
 TARGET_BOOTLOADER_CONFIG += imx8mq-aiy-uuu:imx8mq_aiy_android_uuu_defconfig
@@ -151,3 +154,9 @@ BOARD_SEPOLICY_DIRS := \
        $(IMX_DEVICE_PATH)/sepolicy
 
 TARGET_BOARD_KERNEL_HEADERS := device/fsl/common/kernel-headers
+
+ifneq ($(BOOTLOADER_RBINDEX),)
+export ROLLBACK_INDEX_IN_FIT := $(BOOTLOADER_RBINDEX)
+else
+export ROLLBACK_INDEX_IN_FIT := 0
+endif
