@@ -46,7 +46,10 @@ ADDITION_BPT_PARTITION = partition-table-13GB:device/fsl/common/partition/device
 else
 BOARD_BPT_INPUT_FILES += device/fsl/common/partition/device-partitions-13GB-ab.bpt
 ADDITION_BPT_PARTITION = partition-table-7GB:device/fsl/common/partition/device-partitions-7GB-ab.bpt \
-                         partition-table-28GB:device/fsl/common/partition/device-partitions-28GB-ab.bpt
+                         partition-table-28GB:device/fsl/common/partition/device-partitions-28GB-ab.bpt \
+                         partition-table-dual:device/fsl/common/partition/device-partitions-13GB-ab-dual-bootloader.bpt \
+                         partition-table-7GB-dual:device/fsl/common/partition/device-partitions-7GB-ab-dual-bootloader.bpt \
+                         partition-table-28GB-dual:device/fsl/common/partition/device-partitions-28GB-ab-dual-bootloader.bpt
 endif
 
 
@@ -166,10 +169,12 @@ ifeq ($(LOW_MEMORY),true)
 TARGET_BOOTLOADER_CONFIG := imx8mm:imx8mm_evk_1g_ddr_android_defconfig
 else
 TARGET_BOOTLOADER_CONFIG := imx8mm:imx8mm_evk_android_defconfig
+TARGET_BOOTLOADER_CONFIG += imx8mm-dual:imx8mm_evk_android_dual_defconfig
 endif
 # u-boot target for imx8mm_evk with DDR4 on board
 TARGET_BOOTLOADER_CONFIG += imx8mm-ddr4:imx8mm_ddr4_evk_android_defconfig
 TARGET_BOOTLOADER_CONFIG += imx8mm-trusty:imx8mm_evk_android_trusty_defconfig
+TARGET_BOOTLOADER_CONFIG += imx8mm-trusty-dual:imx8mm_evk_android_trusty_dual_defconfig
 TARGET_BOOTLOADER_CONFIG += imx8mm-trusty-4g:imx8mm_evk_4g_android_trusty_defconfig
 TARGET_BOOTLOADER_CONFIG += imx8mm-4g:imx8mm_evk_4g_android_defconfig
 # imx8mm with MIPI panel display and QCA wifi
@@ -185,7 +190,6 @@ TARGET_KERNEL_ADDITION_DEFCONF := android_addition_defconfig
 # u-boot target used by uuu for imx8mm_evk with LPDDR4 on board
 TARGET_BOOTLOADER_CONFIG += imx8mm-evk-uuu:imx8mm_evk_android_uuu_defconfig
 TARGET_BOOTLOADER_CONFIG += imx8mm-4g-evk-uuu:imx8mm_evk_4g_android_uuu_defconfig
-TARGET_BOOTLOADER_CONFIG += imx8mm-trusty-4g-evk-uuu:imx8mm_evk_4g_android_uuu_defconfig
 # u-boot target used by uuu for imx8mm_evk with DDR4 on board
 TARGET_BOOTLOADER_CONFIG += imx8mm-ddr4-evk-uuu:imx8mm_ddr4_evk_android_uuu_defconfig
 
@@ -199,3 +203,9 @@ BOARD_SEPOLICY_DIRS += \
 endif
 
 TARGET_BOARD_KERNEL_HEADERS := device/fsl/common/kernel-headers
+
+ifneq ($(BOOTLOADER_RBINDEX),)
+export ROLLBACK_INDEX_IN_FIT := $(BOOTLOADER_RBINDEX)
+else
+export ROLLBACK_INDEX_IN_FIT := 0
+endif
