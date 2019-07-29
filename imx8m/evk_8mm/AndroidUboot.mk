@@ -33,15 +33,24 @@ define build_imx_uboot
 	cp $(IMX_PATH)/arm-trusted-firmware/build/`echo $(2) | cut -d '-' -f1`/release/bl31.bin $(IMX_MKIMAGE_PATH)/imx-mkimage/iMX8M/bl31.bin; \
 	$(MAKE) -C $(IMX_MKIMAGE_PATH)/imx-mkimage/ clean; \
 	if [ `echo $(2) | cut -d '-' -f2` == "ddr4" ]; then \
-		$(MAKE) -C $(IMX_MKIMAGE_PATH)/imx-mkimage/ SOC=iMX8MM  flash_ddr4_evk 1>/dev/null || exit 1; \
+		$(MAKE) -C $(IMX_MKIMAGE_PATH)/imx-mkimage/ SOC=iMX8MM  flash_ddr4_evk || exit 1; \
+		$(MAKE) -C $(IMX_MKIMAGE_PATH)/imx-mkimage/ SOC=iMX8MM print_fit_hab_ddr4 || exit 1; \
+	elif [ `echo $(2) | cut -d '-' -f2` == "4g" ] || [ `echo $(2) | cut -d '-' -f3` == "4g" ] || [ `echo $(2) | rev | cut -d '-' -f1` == "uuu" ]; then \
+		$(MAKE) -C $(IMX_MKIMAGE_PATH)/imx-mkimage/ SOC=iMX8MM TEE_LOAD_ADDR=0xfe000000 flash_spl_uboot || exit 1; \
+		$(MAKE) -C $(IMX_MKIMAGE_PATH)/imx-mkimage/ SOC=iMX8MM print_fit_hab || exit 1; \
+	elif [ `echo $(2) | rev | cut -d '-' -f1 | rev` != "dual" ]; then \
+		$(MAKE) -C $(IMX_MKIMAGE_PATH)/imx-mkimage/ SOC=iMX8MM flash_spl_uboot || exit 1; \
+		$(MAKE) -C $(IMX_MKIMAGE_PATH)/imx-mkimage/ SOC=iMX8MM print_fit_hab || exit 1; \
 	else \
-		if [ `echo $(2) | cut -d '-' -f3` == "4g" ]; then \
-			$(MAKE) -C $(IMX_MKIMAGE_PATH)/imx-mkimage/ SOC=iMX8MM TEE_LOAD_ADDR=0xfe000000 flash_spl_uboot 1>/dev/null || exit 1; \
-		else \
-			$(MAKE) -C $(IMX_MKIMAGE_PATH)/imx-mkimage/ SOC=iMX8MM  flash_spl_uboot 1>/dev/null || exit 1; \
-		fi; \
+		$(MAKE) -C $(IMX_MKIMAGE_PATH)/imx-mkimage/ SOC=iMX8MM flash_evk_no_hdmi_dual_bootloader || exit 1; \
+		$(MAKE) -C $(IMX_MKIMAGE_PATH)/imx-mkimage/ SOC=iMX8MM PRINT_FIT_HAB_OFFSET=0x0 print_fit_hab || exit 1; \
 	fi; \
-	cp $(IMX_MKIMAGE_PATH)/imx-mkimage/iMX8M/flash.bin $(PRODUCT_OUT)/u-boot-$(strip $(2)).imx;
+	if [ `echo $(2) | rev | cut -d '-' -f1 | rev` != "dual" ]; then \
+		cp $(IMX_MKIMAGE_PATH)/imx-mkimage/iMX8M/flash.bin $(PRODUCT_OUT)/u-boot-$(strip $(2)).imx; \
+	else \
+		cp $(IMX_MKIMAGE_PATH)/imx-mkimage/iMX8M/flash.bin $(PRODUCT_OUT)/spl-$(strip $(2)).bin; \
+		cp $(IMX_MKIMAGE_PATH)/imx-mkimage/iMX8M/u-boot-ivt.itb $(PRODUCT_OUT)/bootloader-$(strip $(2)).img; \
+	fi;
 endef
 
 
