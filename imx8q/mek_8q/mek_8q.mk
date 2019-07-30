@@ -226,7 +226,7 @@ PRODUCT_PACKAGES += \
 
 # Neural Network HAL
 PRODUCT_PACKAGES += \
-    android.hardware.neuralnetworks@1.1-service-ovx-driver
+    android.hardware.neuralnetworks@1.2-service-ovx-driver
 
 # imx8 sensor HAL libs.
 PRODUCT_PACKAGES += \
