@@ -105,6 +105,9 @@ USE_GPU_ALLOCATOR := false
 
 BOARD_AVB_ENABLE := true
 TARGET_USES_MKE2FS := true
+BOARD_AVB_ALGORITHM := SHA256_RSA4096
+# The testkey_rsa4096.pem is copied from external/avb/test/data/testkey_rsa4096.pem
+BOARD_AVB_KEY_PATH := device/fsl/common/security/testkey_rsa4096.pem
 
 # define frame buffer count
 NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
@@ -132,7 +135,7 @@ endif
 
 BOARD_PREBUILT_DTBOIMAGE := out/target/product/evk_8mq/dtbo-imx8mq.img
 # imx8mq with HDMI display
-TARGET_BOARD_DTS_CONFIG ?= imx8mq:fsl-imx8mq-evk.dtb
+TARGET_BOARD_DTS_CONFIG ?= imx8mq:fsl-imx8mq-trusty-evk.dtb
 # imx8mq with MIPI-HDMI display
 TARGET_BOARD_DTS_CONFIG += imx8mq-mipi:fsl-imx8mq-evk-lcdif-adv7535.dtb
 # imx8mq with HDMI and MIPI-HDMI display
@@ -148,6 +151,8 @@ TARGET_BOARD_DTS_CONFIG += imx8mq-mipi-panel-b3:fsl-imx8mq-evk-dcss-rm67191-b3.d
 # u-boot target for imx8mq_evk
 TARGET_BOOTLOADER_CONFIG := imx8mq:imx8mq_evk_android_defconfig
 TARGET_BOOTLOADER_CONFIG += imx8mq-dual:imx8mq_evk_android_dual_defconfig
+TARGET_BOOTLOADER_CONFIG += imx8mq-trusty:imx8mq_evk_android_trusty_defconfig
+TARGET_BOOTLOADER_CONFIG += imx8mq-trusty-dual:imx8mq_evk_android_trusty_dual_defconfig
 
 TARGET_KERNEL_DEFCONFIG := android_defconfig
 # TARGET_KERNEL_ADDITION_DEFCONF ?= android_addition_defconfig
