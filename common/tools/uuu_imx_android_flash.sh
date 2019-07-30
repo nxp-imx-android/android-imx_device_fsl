@@ -5,8 +5,8 @@ help() {
 bn=`basename $0`
 cat << EOF
 
-Version: 1.4
-Last change: support flash product.img
+Version: 1.5
+Last change: Add parameters '-dboot' to enable dual bootloader flash for imx8m platforms
 currently suported platforms: sabresd_6dq, sabreauto_6q, sabresd_6sx, evk_7ulp, sabresd_7d
                               evk_8mm, evk_8mq, evk_8mn, aiy_8mq, mek_8q, mek_8q_car
 
@@ -43,6 +43,7 @@ options:
                         This option is for users to manually flash the images to partitions they want to
   -daemon           after uuu script generated, uuu will be invoked with daemon mode. It is used for flash multi boards
   -tos              flash the uboot with trusty enabled for i.MX 8M Mini EVK and i.MX8M Nano EVK
+  -dboot            support dual bootloader flash for i.MX 8M platforms
 EOF
 
 }
@@ -122,6 +123,7 @@ while [ $# -gt 0 ]; do
         -i) intervene=1 ;;
         -daemon) daemon_mode=1 ;;
         -tos) support_trusty=1 ;;
+        -dboot) support_dual_bootloader=1 ;;
         *)  echo -e >&2 ${RED}an option you specified is not supported, please check it${STD}
             help; exit;;
     esac
@@ -150,9 +152,19 @@ if [ ${card_size} -ne 0 ] && [ ${card_size} -ne 7 ] && [ ${card_size} -ne 14 ] &
     help; exit 1;
 fi
 
-
-if [ ${card_size} -gt 0 ]; then
-    partition_file="partition-table-${card_size}GB.img";
+# dual bootloader support will use different gpt, this is only for imx8m
+if [ ${support_dual_bootloader} -eq 1 ] && [[ ${soc_name#imx8m} != ${soc_name} ]]; then
+    if [ ${card_size} -gt 0 ]; then
+        partition_file="partition-table-${card_size}GB-dual.img";
+    else
+        partition_file="partition-table-dual.img";
+    fi
+else
+    if [ ${card_size} -gt 0 ]; then
+        partition_file="partition-table-${card_size}GB.img";
+    else
+        partition_file="partition-table.img";
+    fi
 fi
 
 # dump the partition table image file into text file and check whether some partition names are in it
@@ -317,8 +329,10 @@ if [ "${soc_name}" = imx8mm ]; then
     fi
 fi
 
-if [  ${soc_name} == "imx8mn" ] && [ ${support_trusty} -eq 1 ]; then
-    bootloader_flashed_to_board="u-boot-${soc_name}-trusty.imx"
+if [  ${soc_name} == "imx8mn" ] || [  ${soc_name} == "imx8mq" ]; then
+    if [ ${support_trusty} -eq 1 ]; then
+        bootloader_flashed_to_board="u-boot-${soc_name}-trusty.imx"
+    fi
 fi
 
 function uuu_load_uboot
@@ -427,13 +441,22 @@ function flash_partition_name
 function flash_android
 {
     # if dual bootloader is supported, the name of the bootloader flashed to the board need to be updated
-    # this is currently for i.MX 8QuadMax MEK and i.MX 8QuadXPlus MEK
     if [ ${support_dual_bootloader} -eq 1 ]; then
-        bootloader_flashed_to_board=spl-${soc_name}.bin
-        if [[ "${soc_name}" = imx8qm ]] && [[ "${device_character}" = xen ]]; then
-            uboot_proper_to_be_flashed=bootloader-${soc_name}-${device_character}.img
+        if [[ ${soc_name#imx8m} != ${soc_name} ]]; then
+            if [ ${support_trusty} -eq 1 ]; then
+                bootloader_flashed_to_board=spl-${soc_name}-trusty-dual.bin
+		uboot_proper_to_be_flashed=bootloader-${soc_name}-trusty-dual.img
+            else
+                bootloader_flashed_to_board=spl-${soc_name}-dual.bin
+                uboot_proper_to_be_flashed=bootloader-${soc_name}-dual.img
+            fi
         else
-            uboot_proper_to_be_flashed=bootloader-${soc_name}.img
+            bootloader_flashed_to_board=spl-${soc_name}.bin
+            if [[ "${soc_name}" = imx8qm ]] && [[ "${device_character}" = xen ]]; then
+                uboot_proper_to_be_flashed=bootloader-${soc_name}-${device_character}.img
+            else
+                uboot_proper_to_be_flashed=bootloader-${soc_name}.img
+            fi
         fi
     fi
 
