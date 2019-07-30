@@ -89,6 +89,7 @@ if %1 == -y set yocto_image=%2&shift &shift & goto :parse_loop
 if %1 == -i set /A intervene=1 & shift & goto :parse_loop
 if %1 == -daemon set /A daemon_mode=1 & shift & goto :parse_loop
 if %1 == -tos set /A support_trusty=1 & shift & goto :parse_loop
+if %1 == -dboot set /A support_dual_bootloader=1 & shift & goto :parse_loop
 echo unknown option "%1", please check it.
 call :help & set /A error_level=1 && goto :exit
 :parse_end
@@ -119,7 +120,19 @@ if %card_size% neq 14 set /A statisc+=1
 if %card_size% neq 28 set /A statisc+=1
 if %statisc% == 4 echo card_size is not a legal value & set /A error_level=1 && goto :exit
 
-if %card_size% gtr 0 set partition_file=partition-table-%card_size%GB.img
+if [%support_dual_bootloader%] equ [1] (
+    if not [%soc_name:imx8m=%] == [%soc_name%] (
+        if %card_size% == 0 (
+            set partition_file=partition-table-dual.img
+        )else (
+            set partition_file=partition-table-%card_size%GB-dual.img
+        )
+    )else (
+        if %card_size% gtr 0 set partition_file=partition-table-%card_size%GB.img
+    )
+)else (
+    if %card_size% gtr 0 set partition_file=partition-table-%card_size%GB.img
+)
 
 
 :: dump the partition table image file into text file and check whether some partition names are in it
@@ -287,6 +300,12 @@ if [%soc_name%] == [imx8mn] (
     )
 )
 
+if [%soc_name%] == [imx8mq] (
+    if [%support_trusty%] equ [1] (
+        set bootloader_flashed_to_board=u-boot-%soc_name%-trusty.imx
+    )
+)
+
 ::---------------------------------------------------------------------------------
 :: Invoke function to flash android images
 ::---------------------------------------------------------------------------------
@@ -384,8 +403,8 @@ goto :eof
 
 :help
 echo.
-echo Version: 1.3
-echo Last change: generate uuu script first and then use the generated uuu script to flash images
+echo Version: 1.5
+echo Last change: Add parameters '-dboot' to enable dual bootloader flash for imx8m platforms
 echo currently suported platforms: sabresd_6dq, sabreauto_6q, sabresd_6sx, evk_7ulp, sabresd_7d
 echo                               evk_8mm, evk_8mq, evk_8mn, aiy_8mq, mek_8q, mek_8q_car
 echo.
@@ -422,6 +441,7 @@ echo -i                 with this option used, after uboot for uuu loaded and ex
 echo                        This option is for users to manually flash the images to partitions they want to
 echo -daemon            after uuu script generated, uuu will be invoked with daemon mode. It is used for flash multi boards
 echo -tos               flash the uboot with trusty enabled for i.MX 8M Mini EVK and i.MX8M Nano EVK
+echo -dboot             support dual bootloader flash for i.MX 8M platforms
 goto :eof
 
 :target_dev_not_support
@@ -584,13 +604,23 @@ goto :eof
 
 :: if dual bootloader is supported, the name of the bootloader flashed to the board need to be updated
 if %support_dual_bootloader% == 1 (
-    set bootloader_flashed_to_board=spl-%soc_name%.bin
-    if [%device_character%] == [xen] (
-        if [%soc_name%] == [imx8qm] (
-            set uboot_proper_to_be_flashed=bootloader-%soc_name%-%device_character%.img
+    if not [%soc_name:imx8m=%] == [%soc_name%] (
+        if [%support_trusty%] equ [1] (
+            set bootloader_flashed_to_board=spl-%soc_name%-trusty-dual.bin
+            set uboot_proper_to_be_flashed=bootloader-%soc_name%-trusty-dual.img
+        ) else (
+            set bootloader_flashed_to_board=spl-%soc_name%-dual.bin
+            set uboot_proper_to_be_flashed=bootloader-%soc_name%-dual.img
         )
     ) else (
-        set uboot_proper_to_be_flashed=bootloader-%soc_name%.img
+        set bootloader_flashed_to_board=spl-%soc_name%.bin
+        if [%device_character%] == [xen] (
+            if [%soc_name%] == [imx8qm] (
+                set uboot_proper_to_be_flashed=bootloader-%soc_name%-%device_character%.img
+            )
+        ) else (
+            set uboot_proper_to_be_flashed=bootloader-%soc_name%.img
+        )
     )
 )
 
