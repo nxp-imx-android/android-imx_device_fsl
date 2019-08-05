@@ -330,6 +330,8 @@ PRODUCT_DEFAULT_DEV_CERTIFICATE := \
     device/fsl/common/security/testkey
 
 PRODUCT_AAPT_CONFIG := normal mdpi
+# default shipping android version or8.0
+PRODUCT_SHIPPING_API_LEVEL := 26
 
 # In userdebug, add minidebug info the the boot image and the system server to support
 # diagnosing native crashes.
