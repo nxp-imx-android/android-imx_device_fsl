@@ -309,7 +309,6 @@ PRODUCT_COPY_FILES += \
     device/fsl/imx7d/etc/init.usb.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.freescale.usb.rc \
     device/fsl/imx7d/etc/ota.conf:$(TARGET_COPY_OUT_VENDOR)/etc/ota.conf \
     device/fsl/imx7d/init.recovery.freescale.rc:root/init.recovery.freescale.rc \
-    system/core/rootdir/init.rc:root/init.rc
 
 # we have enough storage space to hold precise GC data
 PRODUCT_TAGS += dalvik.gc.type-precise
@@ -335,6 +334,8 @@ PRODUCT_DEFAULT_DEV_CERTIFICATE := \
     device/fsl/common/security/testkey
 
 PRODUCT_AAPT_CONFIG := normal mdpi
+# default shipping android version or8.0
+PRODUCT_SHIPPING_API_LEVEL := 26
 
 # In userdebug, add minidebug info the the boot image and the system server to support
 # diagnosing native crashes.
