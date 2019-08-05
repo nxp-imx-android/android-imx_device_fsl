@@ -5,5 +5,4 @@ get_prop(surfaceflinger, vendor_default_prop)
 allow surfaceflinger debug_prop:property_service { set };
 allow surfaceflinger ashmem_device:chr_file {execute};
 allow surfaceflinger self:process execmem;
-allow surfaceflinger vendor_file:file { read getattr };
 allow surfaceflinger gpu_device:dir { read };
