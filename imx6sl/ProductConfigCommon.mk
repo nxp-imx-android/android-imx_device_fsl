@@ -335,6 +335,8 @@ PRODUCT_PACKAGES += \
     lib_wma10d_wrap_arm12_elinux_android
 
 PRODUCT_AAPT_CONFIG := normal mdpi
+# default shipping android version or8.0
+PRODUCT_SHIPPING_API_LEVEL := 26
 
 # Copy soc related config and binary to board
 PRODUCT_COPY_FILES +=	\
@@ -362,7 +364,6 @@ PRODUCT_COPY_FILES +=	\
     device/fsl/imx6sl/etc/init.usb.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.freescale.usb.rc \
     device/fsl/imx6sl/etc/ota.conf:$(TARGET_COPY_OUT_VENDOR)/etc/ota.conf \
     device/fsl/imx6sl/init.recovery.freescale.rc:root/init.recovery.freescale.rc \
-    system/core/rootdir/init.rc:root/init.rc
 
 #this must be set before including tablet-7in-hdpi-1024-dalvik-heap.mk
 PRODUCT_PROPERTY_OVERRIDES += \

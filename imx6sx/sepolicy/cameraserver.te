@@ -9,5 +9,3 @@ allow cameraserver self:netlink_kobject_uevent_socket { create setopt bind read 
 allow cameraserver tmpfs:dir { search };
 allow cameraserver pxp_device:chr_file { read write open ioctl };
 allow cameraserver rootfs:lnk_file { getattr };
-allow cameraserver mediacodec_tmpfs:file { write read open setattr };
-allow cameraserver vendor_file:file { read getattr };
