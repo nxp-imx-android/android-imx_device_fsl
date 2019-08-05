@@ -12,4 +12,5 @@ allow hal_usb_impl sysfs_usb_device:file rw_file_perms;
 allow hal_usb_impl configfs:file create_file_perms;
 allow hal_usb_impl configfs:dir create_dir_perms;
 
+wakelock_use(hal_usb_impl)
 set_prop(hal_usb_impl, vendor_usb_config_prop)
