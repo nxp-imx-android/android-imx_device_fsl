@@ -25,14 +25,20 @@ TARGET_BOOTLOADER_BOARD_NAME := EVK
 TARGET_BOOTLOADER_POSTFIX := imx
 TARGET_DTB_POSTFIX := -dtb
 
-BOARD_WLAN_DEVICE            := bcmdhd
+BOARD_WLAN_DEVICE_UNITE      := UNITE
 WPA_SUPPLICANT_VERSION       := VER_0_8_X
 
 BOARD_WPA_SUPPLICANT_DRIVER  := NL80211
 BOARD_HOSTAPD_DRIVER         := NL80211
 
-BOARD_HOSTAPD_PRIVATE_LIB               := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
-BOARD_WPA_SUPPLICANT_PRIVATE_LIB        := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
+# In UNITE mode,Use default macro for bcmdhd and use unite macro for qcom
+ifeq ($(BOARD_WLAN_DEVICE_UNITE), UNITE)
+BOARD_WLAN_DEVICE            := bcmdhd
+BOARD_HOSTAPD_PRIVATE_LIB_QCA           := lib_driver_cmd_qcwcn
+BOARD_WPA_SUPPLICANT_PRIVATE_LIB_QCA    := lib_driver_cmd_qcwcn
+BOARD_HOSTAPD_PRIVATE_LIB_BCM           := lib_driver_cmd_bcmdhd
+BOARD_WPA_SUPPLICANT_PRIVATE_LIB_BCM    := lib_driver_cmd_bcmdhd
+endif
 
 # BCM fmac wifi driver module
 BOARD_VENDOR_KERNEL_MODULES += \
@@ -41,8 +47,25 @@ BOARD_VENDOR_KERNEL_MODULES += \
 
 WIFI_DRIVER_FW_PATH_PARAM := "/sys/module/brcmfmac/parameters/alternative_fw_path"
 
+BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(IMX_DEVICE_PATH)/bluetooth
+
 # BCM 1DX BT
 BOARD_HAVE_BLUETOOTH_BCM := true
+
+# QCA qcacld wifi driver module
+BOARD_VENDOR_KERNEL_MODULES += \
+    $(KERNEL_OUT)/drivers/net/wireless/qcacld-2.0/wlan.ko
+
+WIFI_HIDL_FEATURE_DUAL_INTERFACE := true
+
+# Qcom BT
+BOARD_HAVE_BLUETOOTH_QCOM := true
+BOARD_HAS_QCA_BT_ROME := true
+BOARD_HAVE_BLUETOOTH_BLUEZ := false
+QCOM_BT_USE_SIBS := true
+ifeq ($(QCOM_BT_USE_SIBS), true)
+    WCNSS_FILTER_USES_SIBS := true
+endif
 
 #for sensors, need to define sensor type here
 BOARD_USE_SENSOR_FUSION := true
@@ -69,13 +92,15 @@ BOARD_KERNEL_CMDLINE := init=/init androidboot.console=ttyLP0 consoleblank=0 and
 
 # Set the density to 120dpi for 640x480 lcd panel
 BOARD_KERNEL_CMDLINE += androidboot.lcd_density=120
+#evk_7ulp evkb use BCM 1DX BCM43430 wifi module, if use evk board which used QCOM qca9377 module, please set androidboot.wifivendor=qca
+BOARD_KERNEL_CMDLINE += androidboot.wifivendor=bcm
 
 # u-boot target for imx7ulp_evk
 TARGET_BOOTLOADER_CONFIG := imx7ulp:imx7ulp_evk_android_defconfig
 # imx7ulp with HDMI display
-TARGET_BOARD_DTS_CONFIG := imx7ulp:imx7ulp-evkb.dtb
+TARGET_BOARD_DTS_CONFIG := imx7ulp:imx7ulp-evkb.dtb imx7ulp-evk:imx7ulp-evk.dtb
 # imx7ulp with MIPI panel display
-TARGET_BOARD_DTS_CONFIG += imx7ulp-mipi:imx7ulp-evkb-rm68200-wxga.dtb
+TARGET_BOARD_DTS_CONFIG += imx7ulp-mipi:imx7ulp-evkb-rm68200-wxga.dtb imx7ulp-evk-mipi:imx7ulp-evk-mipi.dtb
 TARGET_KERNEL_DEFCONFIG := imx_v7_android_defconfig
 # TARGET_KERNEL_ADDITION_DEFCONF := imx_v7_android_addition_defconfig
 BOARD_PREBUILT_DTBOIMAGE := out/target/product/evk_7ulp/dtbo-imx7ulp.img
