@@ -272,3 +272,13 @@ PRODUCT_PACKAGES += \
 
 # Included GMS package
 $(call inherit-product-if-exists, vendor/partner_gms/products/gms.mk)
+
+# Specify rollback index for bootloader and for AVB
+ifneq ($(AVB_RBINDEX),)
+BOARD_AVB_ROLLBACK_INDEX := $(AVB_RBINDEX)
+else
+BOARD_AVB_ROLLBACK_INDEX := 0
+endif
+
+# define bootloader rollback index
+BOOTLOADER_RBINDEX ?= 0

@@ -78,4 +78,4 @@ BOARD_AVB_ROLLBACK_INDEX := 0
 endif
 
 # define rollback index in container
-# BOOTLOADER_RBINDEX := 2
+BOOTLOADER_RBINDEX ?= 0
