@@ -170,9 +170,3 @@ BOARD_SEPOLICY_DIRS += \
 endif
 
 TARGET_BOARD_KERNEL_HEADERS := device/fsl/common/kernel-headers
-
-ifneq ($(BOOTLOADER_RBINDEX),)
-export ROLLBACK_INDEX_IN_FIT := $(BOOTLOADER_RBINDEX)
-else
-export ROLLBACK_INDEX_IN_FIT := 0
-endif
