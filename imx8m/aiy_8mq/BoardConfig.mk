@@ -24,6 +24,11 @@ ENABLE_CFI=false
 # enable opencl 2d.
 TARGET_OPENCL_2D := true
 
+SOONG_CONFIG_IMXPLUGIN += TARGET_OPENCL_2D
+
+SOONG_CONFIG_IMXPLUGIN_TARGET_OPENCL_2D = true
+SOONG_CONFIG_IMXPLUGIN_BOARD_SOC_TYPE = IMX8MQ
+
 #
 # Product-specific compile-time definitions.
 #
