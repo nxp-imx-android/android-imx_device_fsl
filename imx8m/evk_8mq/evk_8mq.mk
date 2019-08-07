@@ -247,3 +247,13 @@ PRODUCT_COMPATIBLE_PROPERTY_OVERRIDE := true
 # Tensorflow lite camera demo
 PRODUCT_PACKAGES += \
                     tflitecamerademo
+
+# Specify rollback index for bootloader and for AVB
+ifneq ($(AVB_RBINDEX),)
+BOARD_AVB_ROLLBACK_INDEX := $(AVB_RBINDEX)
+else
+BOARD_AVB_ROLLBACK_INDEX := 0
+endif
+
+# define bootloader rollback index
+BOOTLOADER_RBINDEX ?= 0
