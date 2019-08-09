@@ -15,7 +15,7 @@ PRODUCT_MANUFACTURER := freescale
 PRODUCT_PACKAGES += \
     CactusPlayer \
     ExtractorPkg \
-    FSLOta \
+    SystemUpdaterSample \
     charger_res_images \
     ethernet \
     libGLES_android \
