@@ -32,8 +32,7 @@ const char* HEADERS[] = { "Volume up/down to move highlight;",
 const std::vector<std::string> ITEMS{ "reboot system now",
                         "apply update from ADB",
                         "wipe data/factory reset",
-                        "wipe cache partition",
-                        NULL };
+                        "wipe cache partition",};
 
 class ImxUI : public ScreenRecoveryUI {
   public:
