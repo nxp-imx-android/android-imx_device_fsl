@@ -5,5 +5,4 @@ genfscon sysfs /devices/virtual/power_supply/usb                  u:object_r:sys
 genfscon sysfs /devices/virtual/power_supply/battery              u:object_r:sysfs_batteryinfo:s0
 genfscon sysfs /devices/platform/rtc/rtc/rtc0/hctosys             u:object_r:sysfs_rtc:s0
 genfscon sysfs /devices/platform/sound/extcon                     u:object_r:sysfs_extcon:s0
-genfscon sysfs /devices/platform/sound/extcon                     u:object_r:sysfs_extcon:s0
 genfscon sysfs /devices/platform/56268000.hdmi/extcon             u:object_r:sysfs_extcon:s0
