@@ -182,8 +182,12 @@ TARGET_BOARD_DTS_CONFIG += imx8qm-xen:fsl-imx8qm-mek-domu-car.dtb
 TARGET_BOARD_DTS_CONFIG += imx8qxp:fsl-imx8qxp-mek-car.dtb
 # u-boot target for imx8qm_mek auto android
 TARGET_BOOTLOADER_CONFIG := imx8qm:imx8qm_mek_androidauto_trusty_defconfig
+# imx8qm auto android with secure unlock feature enabled
+TARGET_BOOTLOADER_CONFIG += imx8qm-secure-unlock:imx8qm_mek_androidauto_trusty_secure_unlock_defconfig
 # u-boot target for imx8qxp_mek auto android
 TARGET_BOOTLOADER_CONFIG += imx8qxp:imx8qxp_mek_androidauto_trusty_defconfig
+# imx8qxp auto android with secure unlock feature enabled
+TARGET_BOOTLOADER_CONFIG += imx8qxp-secure-unlock:imx8qxp_mek_androidauto_trusty_secure_unlock_defconfig
 else
 # imx8qm auto android without m4 image
 TARGET_BOARD_DTS_CONFIG := imx8qm:fsl-imx8qm-mek-car2.dtb
