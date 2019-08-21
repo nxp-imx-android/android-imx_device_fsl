@@ -213,8 +213,12 @@ TARGET_BOARD_DTS_CONFIG += imx8qxp:fsl-imx8qxp-mek-ov5640.dtb
 
 # u-boot target for imx8qm_mek standard android
 TARGET_BOOTLOADER_CONFIG := imx8qm:imx8qm_mek_android_defconfig
+# u-boot target for imx8qm_mek standard android with trusty support
+TARGET_BOOTLOADER_CONFIG += imx8qm-trusty:imx8qm_mek_android_trusty_defconfig
 # u-boot target for imx8qxp_mek standard android
 TARGET_BOOTLOADER_CONFIG += imx8qxp:imx8qxp_mek_android_defconfig
+# u-boot target for imx8qxp_mek standard android
+TARGET_BOOTLOADER_CONFIG += imx8qxp-trusty:imx8qxp_mek_android_trusty_defconfig
 endif #PRODUCT_IMX_CAR
 
 # u-boot target used by uuu for imx8qm_mek
@@ -254,11 +258,11 @@ TARGET_BOARD_RECOVERY_SBIN_SKIP := true
 endif
 
 BOARD_AVB_ENABLE := true
-ifeq ($(PRODUCT_IMX_CAR),true)
+
 BOARD_AVB_ALGORITHM := SHA256_RSA4096
 # The testkey_rsa4096.pem is copied from external/avb/test/data/testkey_rsa4096.pem
 BOARD_AVB_KEY_PATH := device/fsl/common/security/testkey_rsa4096.pem
-endif
+
 TARGET_USES_MKE2FS := true
 
 TARGET_BOARD_KERNEL_HEADERS := device/fsl/common/kernel-headers

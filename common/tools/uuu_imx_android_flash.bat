@@ -279,7 +279,7 @@ if [%soc_name%] == [imx8mm] (
     )
 )
 
-if [%soc_name%] == [imx8mn] (
+if [%soc_name%] != [imx8mm] (
     if [%support_trusty%] equ [1] (
         set bootloader_flashed_to_board=u-boot-%soc_name%-trusty.imx
     )
@@ -419,7 +419,8 @@ echo                        including the name of yocto sdcard image, this param
 echo -i                 with this option used, after uboot for uuu loaded and executed to fastboot mode with target device chosen, this script will stop
 echo                        This option is for users to manually flash the images to partitions they want to
 echo -daemon            after uuu script generated, uuu will be invoked with daemon mode. It is used for flash multi boards
-echo -tos               flash the uboot with trusty enabled for i.MX 8M Mini EVK and i.MX8M Nano EVK
+echo -tos               flash the uboot with trusty enabled for i.MX 8M Mini EVK, i.MX8M Nano EVK, i.MX8QuadMax/i.MX8QuadXPlus MEK
+echo                        The platforms listed have both uboot images with trusty enabled and not enabled. the enabled ones have "trusty" in their names
 goto :eof
 
 :target_dev_not_support
