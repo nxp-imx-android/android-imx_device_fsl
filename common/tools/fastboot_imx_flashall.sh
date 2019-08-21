@@ -33,7 +33,8 @@ options:
                         No need to use this option if images are in current working directory
   -s ser_num        the serial number of board
                         If only one board connected to computer, no need to use this option
-  -tos              flash the uboot with trusty enabled for i.MX 8M Mini EVK and i.MX8M Nano EVK
+  -tos              flash the uboot with trusty enabled for i.MX 8M Mini EVK, i.MX8M Nano EVK, i.MX8QuadMax/i.MX8QuadXPlus MEK
+                        The platforms listed have both uboot images with trusty enabled and not enabled. the enabled ones have "trusty" in their names
 EOF
 
 }
@@ -210,7 +211,7 @@ function flash_android
         fi
     fi
 
-    if [  ${soc_name} == "imx8mn" ] && [ ${support_trusty} -eq 1 ]; then
+    if [  ${soc_name} != "imx8mm" ] && [ ${support_trusty} -eq 1 ]; then
         bootloader_flashed_to_board="u-boot-${soc_name}-trusty.imx"
     fi
 
