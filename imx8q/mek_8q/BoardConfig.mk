@@ -87,28 +87,11 @@ BOARD_VENDOR_KERNEL_MODULES += \
                             $(KERNEL_OUT)/drivers/scsi/sd_mod.ko \
                             $(KERNEL_OUT)/drivers/bluetooth/mx8_bt_rfkill.ko \
                             $(KERNEL_OUT)/drivers/hid/hid-multitouch.ko \
-                            $(KERNEL_OUT)/drivers/gpu/drm/bridge/it6263.ko \
-                            $(KERNEL_OUT)/drivers/gpu/imx/imx8_prg.ko \
-                            $(KERNEL_OUT)/drivers/gpu/imx/imx8_dprc.ko \
-                            $(KERNEL_OUT)/drivers/gpu/imx/imx8_pc.ko \
-                            $(KERNEL_OUT)/drivers/gpu/imx/dpu-blit/imx-dpu-blit.ko \
-                            $(KERNEL_OUT)/drivers/gpu/drm/imx/dpu/imx-dpu-render.ko \
-                            $(KERNEL_OUT)/drivers/gpu/imx/dpu/imx-dpu-core.ko \
-                            $(KERNEL_OUT)/drivers/gpu/drm/imx/dpu/imx-dpu-crtc.ko \
                             $(KERNEL_OUT)/drivers/media/platform/imx8/max9286_gmsl.ko \
                             $(KERNEL_OUT)/drivers/media/platform/imx8/mxc-mipi-csi2.ko \
                             $(KERNEL_OUT)/drivers/media/platform/imx8/mxc-media-dev.ko \
                             $(KERNEL_OUT)/drivers/media/platform/imx8/mxc-capture.ko \
 
-BOARD_RECOVERY_KERNEL_MODULES += \
-                            $(KERNEL_OUT)/drivers/gpu/drm/bridge/it6263.ko \
-                            $(KERNEL_OUT)/drivers/gpu/imx/imx8_prg.ko \
-                            $(KERNEL_OUT)/drivers/gpu/imx/imx8_dprc.ko \
-                            $(KERNEL_OUT)/drivers/gpu/imx/imx8_pc.ko \
-                            $(KERNEL_OUT)/drivers/gpu/imx/dpu-blit/imx-dpu-blit.ko \
-                            $(KERNEL_OUT)/drivers/gpu/drm/imx/dpu/imx-dpu-render.ko \
-                            $(KERNEL_OUT)/drivers/gpu/imx/dpu/imx-dpu-core.ko \
-                            $(KERNEL_OUT)/drivers/gpu/drm/imx/dpu/imx-dpu-crtc.ko
 endif
 
 # sensor configs
