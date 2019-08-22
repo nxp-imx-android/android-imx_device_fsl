@@ -129,7 +129,7 @@ define build_imx_uboot
 		fi; \
 		cp  $(UBOOT_OUT)/tools/mkimage  $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/mkimage_uboot; \
 		$(MAKE) -C $(IMX_MKIMAGE_PATH)/imx-mkimage/ clean; \
-		$(MAKE) -C $(IMX_MKIMAGE_PATH)/imx-mkimage/ SOC=$$MKIMAGE_PLATFORM $$FLASH_TARGET 1>/dev/null || exit 1; \
+		$(MAKE) -C $(IMX_MKIMAGE_PATH)/imx-mkimage/ SOC=$$MKIMAGE_PLATFORM $$FLASH_TARGET || exit 1; \
 		if [ "$(PRODUCT_IMX_CAR)" != "true" ] || [ `echo $(2) | rev | cut -d '-' -f1` == "uuu" ] || [ "$(strip $(2))" == "imx8qm-xen-dom0" ]; then \
 			cp $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/flash.bin $(PRODUCT_OUT)/u-boot-$(strip $(2)).imx; \
 		else \
@@ -142,7 +142,7 @@ define build_imx_uboot
 		cp $(UBOOT_OUT)/spl/u-boot-spl.bin $(PRODUCT_OUT)/spl-$(strip $(2)).bin; \
 		cp $(UBOOT_OUT)/tools/mkimage  $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/mkimage_uboot; \
 		$(MAKE) -C $(IMX_MKIMAGE_PATH)/imx-mkimage/ clean; \
-		$(MAKE) -C $(IMX_MKIMAGE_PATH)/imx-mkimage/ SOC=$$MKIMAGE_PLATFORM $$FLASH_TARGET 1>/dev/null || exit 1; \
+		$(MAKE) -C $(IMX_MKIMAGE_PATH)/imx-mkimage/ SOC=$$MKIMAGE_PLATFORM $$FLASH_TARGET || exit 1; \
 		cp $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/u-boot-xen-container.img $(PRODUCT_OUT)/bootloader-$(strip $(2)).img; \
 		rm $(PRODUCT_OUT)/u-boot-$(strip $(2)).imx; \
 	fi;
