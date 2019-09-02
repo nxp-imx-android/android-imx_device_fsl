@@ -238,3 +238,6 @@ PRODUCT_COMPATIBLE_PROPERTY_OVERRIDE := true
 PRODUCT_PACKAGES += \
     gatekeeper.trusty \
     storageproxyd
+
+# Included GMS package
+$(call inherit-product-if-exists, vendor/partner_gms/products/gms.mk)
