@@ -148,7 +148,7 @@ TARGET_BOARD_DTS_CONFIG ?= imx8mq:fsl-imx8mq-phanbell.dtb
 
 # u-boot target for imx8mq_aiy android with trusty os related features supported
 TARGET_BOOTLOADER_CONFIG := imx8mq-trusty:imx8mq_aiy_android_trusty_defconfig
-TARGET_BOOTLOADER_CONFIG := imx8mq-trusty-secure-unlock:imx8mq_aiy_android_trusty_secure_unlock_defconfig
+TARGET_BOOTLOADER_CONFIG += imx8mq-trusty-secure-unlock:imx8mq_aiy_android_trusty_secure_unlock_defconfig
 TARGET_BOOTLOADER_CONFIG += imx8mq-trusty-dual:imx8mq_aiy_android_trusty_dual_defconfig
 
 # u-boot target used by uuu for imx8qm_mek

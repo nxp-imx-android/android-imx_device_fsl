@@ -24,8 +24,13 @@ PRODUCT_FULL_TREBLE_OVERRIDE := true
 #Enable this to choose 32 bit user space build
 #IMX8_BUILD_32BIT_ROOTFS := true
 
+#Enable this to include trusty support
+PRODUCT_IMX_TRUSTY := true
+
 # Include keystore attestation keys and certificates.
+ifeq ($(PRODUCT_IMX_TRUSTY),true)
 -include $(IMX_SECURITY_PATH)/attestation/imx_attestation.mk
+endif
 
 # Copy device related config and binary to board
 PRODUCT_COPY_FILES += \
@@ -47,9 +52,11 @@ PRODUCT_COPY_FILES += \
     device/fsl/common/wifi/p2p_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/p2p_supplicant_overlay.conf \
     device/fsl/common/wifi/bcm_wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf
 
+ifeq ($(PRODUCT_IMX_TRUSTY),true)
 PRODUCT_COPY_FILES += \
     device/fsl/common/security/rpmb_key_test.bin:rpmb_key_test.bin \
     device/fsl/common/security/testkey_public_rsa4096.bin:testkey_public_rsa4096.bin
+endif
 
 # ONLY devices that meet the CDD's requirements may declare these features
 PRODUCT_COPY_FILES += \
@@ -201,8 +208,10 @@ PRODUCT_COPY_FILES += \
     vendor/nxp/imx-firmware/cyw-wifi-bt/1CX_CYW4356/brcmfmac4356-pcie.txt:$(TARGET_COPY_OUT_VENDOR)/firmware/brcm/brcmfmac4356-pcie.txt
 
 # hardware backed keymaster service
+ifeq ($(PRODUCT_IMX_TRUSTY),true)
 PRODUCT_PACKAGES += \
     android.hardware.keymaster@3.0-service.trusty
+endif
 
 # Keymaster HAL
 PRODUCT_PACKAGES += \
@@ -221,9 +230,11 @@ PRODUCT_PACKAGES += \
     android.hardware.gatekeeper@1.0-service
 
 # Add Trusty OS backed gatekeeper and secure storage proxy
+ifeq ($(PRODUCT_IMX_TRUSTY),true)
 PRODUCT_PACKAGES += \
     gatekeeper.trusty \
     storageproxyd
+endif
 
 ifneq ($(BUILD_TARGET_FS),ubifs)
 PRODUCT_PROPERTY_OVERRIDES += \
