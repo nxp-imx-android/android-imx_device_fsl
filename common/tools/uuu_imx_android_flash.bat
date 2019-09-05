@@ -279,7 +279,7 @@ if [%soc_name%] == [imx8mm] (
     )
 )
 
-if [%soc_name%] != [imx8mm] (
+if not [%soc_name%] == [imx8mm] (
     if [%support_trusty%] equ [1] (
         set bootloader_flashed_to_board=u-boot-%soc_name%-trusty.imx
     )
