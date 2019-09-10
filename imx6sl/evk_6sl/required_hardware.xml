@@ -27,4 +27,5 @@
     <feature name="android.hardware.location.network" />
     <feature name="android.software.companion_device_setup" />
     <feature name="android.software.autofill" />
+    <feature name="android.software.secure_lock_screen" />
 </permissions>
