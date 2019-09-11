@@ -380,10 +380,14 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.product.first_api_level=28
 
 PRODUCT_PACKAGES += \
-    libvpu-malone \
-    lib_omx_v4l2_common_arm11_elinux \
-    lib_omx_v4l2_dec_arm11_elinux \
-    lib_omx_v4l2_enc_arm11_elinux
+   android.hardware.media.c2@1.0-service \
+    libsfplugin_ccodec \
+    lib_imx_c2_componentbase.so \
+    lib_imx_c2_videodec_base.so \
+    lib_imx_c2_videodec_common.so \
+    lib_imx_v4l2_dev.so \
+    lib_imx_c2_v4l2_dec.so 
+
 
 ifneq ($(PRODUCT_IMX_CAR),true)
 # Tensorflow lite camera demo
