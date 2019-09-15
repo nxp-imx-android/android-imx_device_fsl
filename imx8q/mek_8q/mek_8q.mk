@@ -339,3 +339,13 @@ ifneq ($(PRODUCT_IMX_CAR),true)
 $(call inherit-product-if-exists, vendor/partner_gms/products/gms.mk)
 endif
 
+
+#DRM Widevine 1.1 L3 support
+PRODUCT_PACKAGES += \
+    android.hardware.drm@1.0-impl \
+    android.hardware.drm@1.0-service \
+    android.hardware.drm@1.1-service.widevine \
+    android.hardware.drm@1.2-service.clearkey \
+    libwvdrmcryptoplugin \
+    libwvhidl \
+    libwvdrmengine \
