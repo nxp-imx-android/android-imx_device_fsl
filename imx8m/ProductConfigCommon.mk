@@ -374,3 +374,5 @@ include frameworks/native/build/tablet-10in-xhdpi-2048-dalvik-heap.mk
 
 -include $(FSL_RESTRICTED_CODEC_PATH)/fsl-restricted-codec/fsl_real_dec/fsl_real_dec.mk
 -include $(FSL_RESTRICTED_CODEC_PATH)/fsl-restricted-codec/fsl_ms_codec/fsl_ms_codec.mk
+
+PREBUILT_FSL_IMX_CODEC := true

@@ -31,9 +31,6 @@ SOONG_CONFIG_IMXPLUGIN_BOARD_HAVE_VPU = false
 IMX_DEVICE_PATH := device/fsl/imx8m/evk_8mn
 
 include device/fsl/imx8m/BoardConfigCommon.mk
-ifeq ($(PREBUILT_FSL_IMX_CODEC),true)
--include $(FSL_CODEC_PATH)/fsl-codec/fsl-codec.mk
-endif
 
 BUILD_TARGET_FS ?= ext4
 TARGET_USERIMAGES_USE_EXT4 := true
