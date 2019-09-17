@@ -239,9 +239,10 @@ PRODUCT_PACKAGES += \
     android.hardware.configstore@1.1-service \
     configstore@1.1.policy
 
-# Neural Network HAL
+# Neural Network HAL and Lib
 PRODUCT_PACKAGES += \
-    android.hardware.neuralnetworks@1.2-service-ovx-driver
+    libovxlib \
+    android.hardware.neuralnetworks@1.1-service-vsi-npu-server
 
 # imx8 sensor HAL libs.
 PRODUCT_PACKAGES += \
