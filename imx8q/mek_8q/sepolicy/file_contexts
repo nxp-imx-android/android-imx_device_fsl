@@ -58,6 +58,4 @@
 /dev/sda[0-8]*                  u:object_r:fuse:s0
 
 #Neural Network HAL service
-/vendor/bin/hw/android\.hardware\.neuralnetworks@1\.1-service-ovx-driver          u:object_r:hal_neuralnetworks_imx_exec:s0
-/vendor/bin/hw/android\.hardware\.neuralnetworks@1\.2-service-ovx-driver          u:object_r:hal_neuralnetworks_imx_exec:s0
-
+/vendor/bin/hw/android\.hardware\.neuralnetworks@1\.1-service-vsi-npu-server      u:object_r:hal_neuralnetworks_imx_exec:s0
