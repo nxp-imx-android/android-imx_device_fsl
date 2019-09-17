@@ -7,6 +7,7 @@ IMX_DEVICE_PATH := device/fsl/imx8q/mek_8q
 include $(IMX_DEVICE_PATH)/SharedBoardConfig.mk
 
 -include device/fsl/common/imx_path/ImxPathConfig.mk
+
 ifneq ($(IMX8_BUILD_32BIT_ROOTFS),true)
 ifeq ($(PRODUCT_IMX_CAR),true)
 $(call inherit-product, $(IMX_DEVICE_PATH)/core_64_bit_car.mk)
@@ -15,6 +16,8 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
 endif # PRODUCT_IMX_CAR
 endif # IMX8_BUILD_32BIT_ROOTFS
 $(call inherit-product, device/fsl/imx8q/ProductConfigCommon.mk)
+
+include device/fsl/imx8q/ProductConfigCommon.mk
 
 ifneq ($(wildcard $(IMX_DEVICE_PATH)/fstab_nand.freescale),)
 $(shell touch $(IMX_DEVICE_PATH)/fstab_nand.freescale)
@@ -386,7 +389,10 @@ PRODUCT_PACKAGES += \
     lib_imx_c2_videodec_base.so \
     lib_imx_c2_videodec_common.so \
     lib_imx_v4l2_dev.so \
-    lib_imx_c2_v4l2_dec.so 
+    lib_imx_c2_v4l2_dec.so \
+    lib_c2_imx_audio_dec_common.so \
+    lib_c2_imx_aac_dec.so \
+    lib_c2_imx_store.so
 
 
 ifneq ($(PRODUCT_IMX_CAR),true)
@@ -449,3 +455,9 @@ endif
 #in OpenMAX repo
 IMX-DEFAULT-G2D-LIB := libg2d-dpu
 
+ifeq ($(PREBUILT_FSL_IMX_CODEC),true)
+-include $(FSL_CODEC_PATH)/fsl-codec/fsl-codec.mk
+-include $(FSL_RESTRICTED_CODEC_PATH)/fsl-restricted-codec/imx_dsp_aacp_dec/imx_dsp_aacp_dec.mk
+-include $(FSL_RESTRICTED_CODEC_PATH)/fsl-restricted-codec/imx_dsp_codec/imx_dsp_codec.mk
+-include $(FSL_RESTRICTED_CODEC_PATH)/fsl-restricted-codec/imx_dsp/imx_dsp.mk
+endif
