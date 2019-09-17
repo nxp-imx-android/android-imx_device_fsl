@@ -7,7 +7,7 @@ IMX_DEVICE_PATH := device/fsl/imx8m/evk_8mm
 include $(IMX_DEVICE_PATH)/SharedBoardConfig.mk
 
 -include device/fsl/common/imx_path/ImxPathConfig.mk
-$(call inherit-product, device/fsl/imx8m/ProductConfigCommon.mk)
+include device/fsl/imx8m/ProductConfigCommon.mk
 
 ifneq ($(wildcard $(IMX_DEVICE_PATH)/fstab.freescale),)
 $(shell touch $(IMX_DEVICE_PATH)/fstab.freescale)
@@ -298,3 +298,7 @@ PRODUCT_PACKAGES += \
 endif
 
 IMX-DEFAULT-G2D-LIB := libg2d-viv
+
+ifeq ($(PREBUILT_FSL_IMX_CODEC),true)
+-include $(FSL_CODEC_PATH)/fsl-codec/fsl-codec.mk
+endif

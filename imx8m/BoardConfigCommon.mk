@@ -78,7 +78,6 @@ ifeq ($(HOST_OS),linux)
    endif
 endif
 
-PREBUILT_FSL_IMX_CODEC := true
 PREBUILT_FSL_IMX_OMX := false
 PREBUILT_FSL_IMX_GPU := true
 SOONG_CONFIG_IMXPLUGIN_PREBUILT_FSL_IMX_GPU = true
