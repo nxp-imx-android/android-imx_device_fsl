@@ -2,7 +2,6 @@
 # SoC-specific compile-time definitions.
 #
 
-BOARD_SOC_TYPE := IMX8Q
 BOARD_HAVE_VPU := true
 BOARD_VPU_TYPE := malone
 FSL_VPU_OMX_ONLY := true
@@ -111,7 +110,6 @@ ifeq ($(HOST_OS),linux)
    endif
 endif
 
-PREBUILT_FSL_IMX_CODEC := true
 PREBUILT_FSL_IMX_OMX := false
 PREBUILT_FSL_IMX_GPU := true
 SOONG_CONFIG_IMXPLUGIN_PREBUILT_FSL_IMX_GPU = true

@@ -10,12 +10,6 @@ ifeq ($(PRODUCT_IMX_CAR),true)
 endif
 
 include device/fsl/imx8q/BoardConfigCommon.mk
-ifeq ($(PREBUILT_FSL_IMX_CODEC),true)
--include $(FSL_CODEC_PATH)/fsl-codec/fsl-codec.mk
--include $(FSL_RESTRICTED_CODEC_PATH)/fsl-restricted-codec/imx_dsp_aacp_dec/imx_dsp_aacp_dec.mk
--include $(FSL_RESTRICTED_CODEC_PATH)/fsl-restricted-codec/imx_dsp_codec/imx_dsp_codec.mk
--include $(FSL_RESTRICTED_CODEC_PATH)/fsl-restricted-codec/imx_dsp/imx_dsp.mk
-endif
 
 BUILD_TARGET_FS ?= ext4
 TARGET_USERIMAGES_USE_EXT4 := true
