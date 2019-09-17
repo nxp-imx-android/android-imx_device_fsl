@@ -175,7 +175,7 @@ PRODUCT_PACKAGES += \
 
 # Neural Network HAL
 PRODUCT_PACKAGES += \
-    android.hardware.neuralnetworks@1.2-service-ovx-driver
+    android.hardware.neuralnetworks@1.1-service-vsi-npu-server
 
 # Usb HAL
 PRODUCT_PACKAGES += \
