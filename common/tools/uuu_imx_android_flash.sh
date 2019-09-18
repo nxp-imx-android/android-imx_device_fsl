@@ -42,7 +42,8 @@ options:
   -i                with this option used, after uboot for uuu loaded and executed to fastboot mode with target device chosen, this script will stop
                         This option is for users to manually flash the images to partitions they want to
   -daemon           after uuu script generated, uuu will be invoked with daemon mode. It is used for flash multi boards
-  -tos              flash the uboot with trusty enabled for i.MX 8M Mini EVK and i.MX8M Nano EVK
+  -tos              flash the uboot with trusty enabled for i.MX 8M Mini EVK, i.MX8M Nano EVK, i.MX8QuadMax/i.MX8QuadXPlus MEK
+                        The platforms listed have both uboot images with trusty enabled and not enabled. the enabled ones have "trusty" in their names
   -dboot            support dual bootloader flash for i.MX 8M platforms
 EOF
 
@@ -329,7 +330,7 @@ if [ "${soc_name}" = imx8mm ]; then
     fi
 fi
 
-if [  ${soc_name} == "imx8mn" ] || [  ${soc_name} == "imx8mq" ]; then
+if [  ${soc_name} != "imx8mm" ] || [  ${soc_name} == "imx8mq" ]; then
     if [ ${support_trusty} -eq 1 ]; then
         bootloader_flashed_to_board="u-boot-${soc_name}-trusty.imx"
     fi
