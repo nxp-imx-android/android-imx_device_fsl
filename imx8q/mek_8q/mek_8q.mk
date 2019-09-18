@@ -31,6 +31,14 @@ endif
 #Enable this to choose 32 bit user space build
 #IMX8_BUILD_32BIT_ROOTFS := true
 
+#Enable this to include trusty support
+PRODUCT_IMX_TRUSTY := true
+
+# Include keystore attestation keys and certificates.
+ifeq ($(PRODUCT_IMX_TRUSTY),true)
+-include $(IMX_SECURITY_PATH)/attestation/imx_attestation.mk
+endif
+
 # Copy device related config and binary to board
 PRODUCT_COPY_FILES += \
     $(FSL_PROPRIETARY_PATH)/fsl-proprietary/gpu-viv/lib/egl/egl.cfg:$(TARGET_COPY_OUT_VENDOR)/lib/egl/egl.cfg \
@@ -46,6 +54,12 @@ PRODUCT_COPY_FILES += \
     device/fsl/common/wifi/p2p_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/p2p_supplicant_overlay.conf \
     device/fsl/common/wifi/bcm_wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf
 
+# Copy rpmb test key and AVB test public key
+ifeq ($(PRODUCT_IMX_TRUSTY),true)
+PRODUCT_COPY_FILES += \
+    device/fsl/common/security/rpmb_key_test.bin:rpmb_key_test.bin \
+    device/fsl/common/security/testkey_public_rsa4096.bin:testkey_public_rsa4096.bin
+endif
 
 ifeq ($(PRODUCT_IMX_CAR),true)
 PRODUCT_COPY_FILES += \
@@ -284,11 +298,12 @@ PRODUCT_PACKAGES += \
     android.hardware.automotive.audiocontrol@1.0-service
 endif
 
-# Keymaster HAL
-ifeq ($(PRODUCT_IMX_CAR),true)
+# hardware backed keymaster service
+ifeq ($(PRODUCT_IMX_TRUSTY),true)
 PRODUCT_PACKAGES += \
     android.hardware.keymaster@3.0-service.trusty
 endif
+# Keymaster HAL
 PRODUCT_PACKAGES += \
     android.hardware.keymaster@3.0-impl \
     android.hardware.keymaster@3.0-service
@@ -303,6 +318,13 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.gatekeeper@1.0-impl \
     android.hardware.gatekeeper@1.0-service
+
+# Add Trusty OS backed gatekeeper and secure storage proxy
+ifeq ($(PRODUCT_IMX_TRUSTY),true)
+RODUCT_PACKAGES += \
+    gatekeeper.trusty \
+    storageproxyd
+endif
 
 ifneq ($(BUILD_TARGET_FS),ubifs)
 PRODUCT_PROPERTY_OVERRIDES += \
