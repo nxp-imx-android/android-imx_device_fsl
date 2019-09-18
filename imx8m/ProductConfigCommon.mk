@@ -273,7 +273,9 @@ PRODUCT_PACKAGES += \
     media_codecs_rv.xml \
     media_codecs_performance.xml \
     media_profiles_V1_0.xml \
-    media_codecs_google_video.xml
+    media_codecs_google_video.xml \
+    media_codecs_c2.xml \
+    media_codecs_performance_c2.xml
 
 ifneq ($(LOW_MEMORY),true)
 PRODUCT_PACKAGES += \
@@ -345,6 +347,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.FSL_MKV_PARSER=1 \
     ro.FSL_FLAC_PARSER=1 \
     ro.FSL_MPG2_PARSER=1
+
+# Set c2 codec in default
+PRODUCT_PROPERTY_OVERRIDES += debug.stagefright.ccodec=1
+PRODUCT_PROPERTY_OVERRIDES += debug.stagefright.omx_default_rank=512
 
 # we have enough storage space to hold precise GC data
 PRODUCT_TAGS += dalvik.gc.type-precise
