@@ -150,7 +150,8 @@ echo  -D directory      the directory of of images
 echo                        No need to use this option if images are in current working directory
 echo  -s ser_num        the serial number of board
 echo                        If only one board connected to computer, no need to use this option
-echo  -tos              flash the uboot with trusty enabled for i.MX 8M Mini EVK and i.MX8M Nano EVK
+echo  -tos              flash the uboot with trusty enabled for i.MX 8M Mini EVK, i.MX8M Nano EVK, i.MX8QuadMax/i.MX8QuadXPlus MEK
+echo                       The platforms listed have both uboot images with trusty enabled and not enabled. the enabled ones have "trusty" in their names
 goto :eof
 
 
@@ -280,7 +281,7 @@ if [%soc_name%] == [imx8mm] (
     )
 )
 
-if [%soc_name%] == [imx8mn] (
+if not [%soc_name%] == [imx8mm] (
     if %support_trusty% == 1 (
         set bootloader_flashed_to_board=u-boot-%soc_name%-trusty.imx
     )
