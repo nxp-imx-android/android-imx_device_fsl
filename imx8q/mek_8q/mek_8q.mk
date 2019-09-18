@@ -173,8 +173,7 @@ PRODUCT_COPY_FILES += \
 
 # HWC2 HAL
 PRODUCT_PACKAGES += \
-    android.hardware.graphics.composer@2.1-impl \
-    android.hardware.graphics.composer@2.1-service
+    android.hardware.graphics.composer@2.3-service
 
 # Gralloc HAL
 PRODUCT_PACKAGES += \
