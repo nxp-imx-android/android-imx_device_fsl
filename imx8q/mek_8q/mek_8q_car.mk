@@ -12,8 +12,6 @@ PRODUCT_IMX_CAR_M4 ?= true
 #PRODUCT_IMX_CAR_M4 ?= false
 
 include $(IMX_DEVICE_PATH)/mek_8q.mk
-# Include keystore attestation keys and certificates.
--include $(IMX_SECURITY_PATH)/attestation/imx_attestation.mk
 
 # Overrides
 PRODUCT_NAME := mek_8q_car
@@ -22,9 +20,7 @@ PRODUCT_PACKAGE_OVERLAYS := $(IMX_DEVICE_PATH)/overlay_car packages/services/Car
 PRODUCT_COPY_FILES += \
     packages/services/Car/car_product/init/init.bootstat.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.bootstat.rc \
     packages/services/Car/car_product/init/init.car.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.car.rc \
-    $(IMX_DEVICE_PATH)/init.zygote_auto.rc:root/init.zygote_auto.rc \
-    device/fsl/common/security/rpmb_key_test.bin:rpmb_key_test.bin \
-    device/fsl/common/security/testkey_public_rsa4096.bin:testkey_public_rsa4096.bin
+    $(IMX_DEVICE_PATH)/init.zygote_auto.rc:root/init.zygote_auto.rc
 
 # ONLY devices that meet the CDD's requirements may declare these features
 PRODUCT_COPY_FILES += \
@@ -51,11 +47,6 @@ PRODUCT_PACKAGES += \
     libion \
     vehicle.default \
     android.hardware.automotive.vehicle@2.0-service
-
-# Add Trusty OS backed gatekeeper and secure storage proxy
-PRODUCT_PACKAGES += \
-    gatekeeper.trusty \
-    storageproxyd
 
 # Use special ro.zygote to make default init.rc didn't load default zygote rc
 PRODUCT_PRODUCT_PROPERTIES += ro.zygote=zygote_auto
