@@ -250,6 +250,20 @@ PRODUCT_PACKAGES += \
     libcodec_enc \
     DirectAudioPlayer
 
+PRODUCT_PACKAGES += \
+    android.hardware.media.c2@1.0-service \
+    libsfplugin_ccodec \
+    lib_imx_c2_componentbase \
+    lib_imx_c2_videodec \
+    lib_imx_c2_videodec_core \
+    lib_imx_c2_videodec_common \
+    lib_imx_c2_videoenc_common \
+    lib_imx_c2_videoenc_core \
+    lib_imx_c2_videoenc \
+    lib_imx_c2_process \
+    lib_imx_ts_manager \
+    lib_c2_imx_store
+
 # Add oem unlocking option in settings.
 PRODUCT_PROPERTY_OVERRIDES += ro.frp.pst=/dev/block/by-name/presistdata
 PRODUCT_COMPATIBLE_PROPERTY_OVERRIDE := true
