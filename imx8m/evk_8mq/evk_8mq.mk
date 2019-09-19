@@ -172,6 +172,12 @@ PRODUCT_PACKAGES += \
     android.hardware.configstore@1.1-service \
     configstore@1.1.policy
 
+# Thermal HAL
+PRODUCT_PACKAGES += \
+    android.hardware.thermal@2.0-service.imx
+PRODUCT_COPY_FILES += \
+    device/fsl/imx8m/evk_8mq/thermal_info_config.json:$(TARGET_COPY_OUT_VENDOR)/etc/thermal_info_config.json
+
 # Neural Network HAL
 PRODUCT_PACKAGES += \
     android.hardware.neuralnetworks@1.1-service-vsi-npu-server
