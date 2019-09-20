@@ -158,7 +158,7 @@ endif
 # u-boot target used by uuu for imx8mn_evk
 TARGET_BOOTLOADER_CONFIG += imx8mn-evk-uuu:imx8mn_ddr4_evk_android_uuu_defconfig
 # imx8mn with MIPI-HDMI display, BCM wifi and support trusty
-TARGET_BOARD_DTS_CONFIG := imx8mn:fsl-imx8mn-ddr4-evk-trusty.dtb
+TARGET_BOARD_DTS_CONFIG := imx8mn:fsl-imx8mn-ddr4-evk.dtb
 # imx8mn with MIPI panel display and BCM wifi
 TARGET_BOARD_DTS_CONFIG += imx8mn-mipi-panel:fsl-imx8mn-ddr4-evk-rm67191.dtb
 # imx8mn with MIPI-HDMI display and BCM wifi and M7 image
