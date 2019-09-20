@@ -24,12 +24,10 @@ endif # PRODUCT_IMX_CAR
 # Support gpt
 ifeq ($(PRODUCT_IMX_CAR),true)
 BOARD_BPT_INPUT_FILES += device/fsl/common/partition/device-partitions-13GB-ab-dual-bootloader.bpt
-ADDITION_BPT_PARTITION = partition-table-7GB:device/fsl/common/partition/device-partitions-7GB-ab-dual-bootloader.bpt \
-                         partition-table-28GB:device/fsl/common/partition/device-partitions-28GB-ab-dual-bootloader.bpt
+ADDITION_BPT_PARTITION = partition-table-28GB:device/fsl/common/partition/device-partitions-28GB-ab-dual-bootloader.bpt
 else
 BOARD_BPT_INPUT_FILES += device/fsl/common/partition/device-partitions-13GB-ab.bpt
-ADDITION_BPT_PARTITION = partition-table-7GB:device/fsl/common/partition/device-partitions-7GB-ab.bpt \
-                         partition-table-28GB:device/fsl/common/partition/device-partitions-28GB-ab.bpt
+ADDITION_BPT_PARTITION = partition-table-28GB:device/fsl/common/partition/device-partitions-28GB-ab.bpt
 endif
 
 # Vendor Interface Manifest
