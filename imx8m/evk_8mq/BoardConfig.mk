@@ -144,7 +144,7 @@ endif
 
 BOARD_PREBUILT_DTBOIMAGE := out/target/product/evk_8mq/dtbo-imx8mq.img
 # imx8mq with HDMI display
-TARGET_BOARD_DTS_CONFIG ?= imx8mq:fsl-imx8mq-trusty-evk.dtb
+TARGET_BOARD_DTS_CONFIG ?= imx8mq:fsl-imx8mq-evk.dtb
 # imx8mq with MIPI-HDMI display
 TARGET_BOARD_DTS_CONFIG += imx8mq-mipi:fsl-imx8mq-evk-lcdif-adv7535.dtb
 # imx8mq with HDMI and MIPI-HDMI display
