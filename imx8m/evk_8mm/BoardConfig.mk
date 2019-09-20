@@ -172,7 +172,7 @@ endif
 
 BOARD_PREBUILT_DTBOIMAGE := out/target/product/evk_8mm/dtbo-imx8mm.img
 # imx8mm with MIPI-HDMI display and QCA wifi and Trusty support
-TARGET_BOARD_DTS_CONFIG ?= imx8mm:fsl-imx8mm-trusty-evk.dtb
+TARGET_BOARD_DTS_CONFIG ?= imx8mm:fsl-imx8mm-evk.dtb
 # u-boot target for imx8mm_evk with LPDDR4 on board
 ifeq ($(LOW_MEMORY),true)
 TARGET_BOOTLOADER_CONFIG := imx8mm:imx8mm_evk_1g_ddr_android_defconfig
