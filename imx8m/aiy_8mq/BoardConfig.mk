@@ -51,9 +51,7 @@ TARGET_RECOVERY_FSTAB = $(IMX_DEVICE_PATH)/fstab.freescale
 
 # Support gpt
 BOARD_BPT_INPUT_FILES += device/fsl/common/partition/device-partitions-13GB-ab.bpt
-ADDITION_BPT_PARTITION = partition-table-7GB:device/fsl/common/partition/device-partitions-7GB-ab.bpt \
-                         partition-table-dual:device/fsl/common/partition/device-partitions-13GB-ab-dual-bootloader.bpt \
-                         partition-table-7GB-dual:device/fsl/common/partition/device-partitions-7GB-ab-dual-bootloader.bpt
+ADDITION_BPT_PARTITION = partition-table-dual:device/fsl/common/partition/device-partitions-13GB-ab-dual-bootloader.bpt
 
 # Vendor Interface manifest and compatibility
 DEVICE_MANIFEST_FILE := $(IMX_DEVICE_PATH)/manifest.xml

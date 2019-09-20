@@ -29,7 +29,7 @@
         {
             "ab": true,
             "label": "system",
-            "size": "2560 MiB",
+            "size": "1792 MiB",
             "guid": "auto",
             "type_guid": "0f2778c4-5cc1-4300-8670-6c88b7e57ed6"
         },
@@ -61,7 +61,7 @@
         {
             "ab": true,
             "label": "product",
-            "size": "512 MiB",
+            "size": "1536 MiB",
             "guid": "auto",
             "type_guid": "c1dedb9a-a0d3-42e4-b74d-0acf96833624"
         },
