@@ -322,7 +322,7 @@ PRODUCT_PACKAGES += \
 
 # Add Trusty OS backed gatekeeper and secure storage proxy
 ifeq ($(PRODUCT_IMX_TRUSTY),true)
-RODUCT_PACKAGES += \
+PRODUCT_PACKAGES += \
     gatekeeper.trusty \
     storageproxyd
 endif
