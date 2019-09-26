@@ -202,6 +202,10 @@ PRODUCT_PACKAGES += \
     gatekeeper.trusty \
     storageproxyd
 
+#Dumpstate HAL 1.0 support
+PRODUCT_PACKAGES += \
+    android.hardware.dumpstate@1.0-service.imx
+
 ifneq ($(BUILD_TARGET_FS),ubifs)
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.internel.storage_size=/sys/block/mmcblk0/size \
