@@ -279,6 +279,10 @@ PRODUCT_PACKAGES += \
     libwvhidl \
     libwvdrmengine \
 
+#Dumpstate HAL 1.0 support
+PRODUCT_PACKAGES += \
+    android.hardware.dumpstate@1.0-service.imx
+
 # Included GMS package
 $(call inherit-product-if-exists, vendor/partner_gms/products/gms.mk)
 
