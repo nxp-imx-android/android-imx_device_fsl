@@ -8,3 +8,4 @@ genfscon sysfs /devices/platform/sound-ak4458/extcon              u:object_r:sys
 genfscon sysfs /devices/platform/sound-rpmsg/extcon               u:object_r:sysfs_extcon:s0
 genfscon sysfs /devices/platform/32c00000.hdmi/extcon             u:object_r:sysfs_extcon:s0
 genfscon sysfs /devices/platform/30a40000.i2c/i2c-2/2-003d/extcon u:object_r:sysfs_extcon:s0
+genfscon debugfs /dma_buf u:object_r:debugfs_dma:s0

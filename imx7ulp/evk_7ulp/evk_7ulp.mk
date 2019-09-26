@@ -228,6 +228,10 @@ PRODUCT_PACKAGES += \
     android.hardware.gatekeeper@1.0-impl \
     android.hardware.gatekeeper@1.0-service
 
+#Dumpstate HAL 1.0 support
+PRODUCT_PACKAGES += \
+    android.hardware.dumpstate@1.0-service.imx
+
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.internel.storage_size=/sys/block/mmcblk0/size
 PRODUCT_COMPATIBLE_PROPERTY_OVERRIDE := true
