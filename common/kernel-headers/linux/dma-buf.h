@@ -33,5 +33,5 @@ struct dma_buf_phys {
 #define DMA_BUF_SYNC_VALID_FLAGS_MASK (DMA_BUF_SYNC_RW | DMA_BUF_SYNC_END)
 #define DMA_BUF_BASE 'b'
 #define DMA_BUF_IOCTL_SYNC _IOW(DMA_BUF_BASE, 0, struct dma_buf_sync)
-#define DMA_BUF_IOCTL_PHYS _IOW(DMA_BUF_BASE, 1, struct dma_buf_phys)
+#define DMA_BUF_IOCTL_PHYS _IOW(DMA_BUF_BASE, 10, struct dma_buf_phys)
 #endif
