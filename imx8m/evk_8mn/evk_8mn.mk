@@ -245,6 +245,10 @@ PRODUCT_PACKAGES += \
     storageproxyd
 endif
 
+#Dumpstate HAL 1.0 support
+PRODUCT_PACKAGES += \
+    android.hardware.dumpstate@1.0-service.imx
+
 # Specify rollback index for bootloader and for AVB
 ifneq ($(AVB_RBINDEX),)
 BOARD_AVB_ROLLBACK_INDEX := $(AVB_RBINDEX)
