@@ -16,6 +16,8 @@ PRODUCT_PACKAGES += \
     CactusPlayer \
     ExtractorPkg \
     SystemUpdaterSample \
+    MultiDisplay \
+    MultiClientInputMethod \
     charger_res_images \
     libGLES_android \
     libRS \
