@@ -11,8 +11,8 @@ imx_kernel_header_path="device/fsl/common/kernel-headers/linux/"
 
 function prepare_work
 {
-mkdir -p imx_kernel/common
-cp -r vendor/nxp-opensource/kernel_imx/* imx_kernel/common/.
+mkdir -p external/imx_kernel/linux-stable
+cp -r vendor/nxp-opensource/kernel_imx/* external/imx_kernel/linux-stable/.
 }
 
 function clean_work
@@ -25,12 +25,12 @@ cd bionic
 git checkout .
 git clean -df
 cd ../
-rm imx_kernel -rf
+rm external/imx_kernel -rf
 }
 
 prepare_work
 
-${bionic_uapi_tool_path}/generate_uapi_headers.sh --use-kernel-dir imx_kernel
+${bionic_uapi_tool_path}/generate_uapi_headers.sh --use-kernel-dir external/imx_kernel
 ${bionic_uapi_tool_path}/update_all.py
 
 for file in $(ls ${imx_kernel_header_path})
