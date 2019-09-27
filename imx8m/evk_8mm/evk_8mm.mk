@@ -156,6 +156,12 @@ PRODUCT_PACKAGES += \
     android.hardware.configstore@1.1-service \
     configstore@1.1.policy
 
+# Thermal HAL
+PRODUCT_PACKAGES += \
+    android.hardware.thermal@2.0-service.imx
+PRODUCT_COPY_FILES += \
+    device/fsl/imx8m/evk_8mm/thermal_info_config_imx8mm.json:$(TARGET_COPY_OUT_VENDOR)/etc/thermal_info_config_imx8mm.json
+
 # Usb HAL
 PRODUCT_PACKAGES += \
     android.hardware.usb@1.1-service.imx

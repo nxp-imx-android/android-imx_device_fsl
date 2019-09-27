@@ -238,6 +238,13 @@ PRODUCT_PACKAGES += \
     android.hardware.configstore@1.1-service \
     configstore@1.1.policy
 
+# Thermal HAL
+PRODUCT_PACKAGES += \
+    android.hardware.thermal@2.0-service.imx
+PRODUCT_COPY_FILES += \
+    device/fsl/imx8q/mek_8q/thermal_info_config_imx8qxp.json:$(TARGET_COPY_OUT_VENDOR)/etc/thermal_info_config_imx8qxp.json \
+    device/fsl/imx8q/mek_8q/thermal_info_config_imx8qm.json:$(TARGET_COPY_OUT_VENDOR)/etc/thermal_info_config_imx8qm.json
+
 # Neural Network HAL and Lib
 PRODUCT_PACKAGES += \
     libovxlib \
