@@ -161,6 +161,12 @@ PRODUCT_COPY_FILES += \
     vendor/nxp/qca-wifi-bt/1CQ_QCA6174A_LEA_2.0/lib/firmware/rampatch_tlv_3.2.tlv:vendor/firmware/rampatch_tlv_3.2.tlv \
     vendor/nxp/qca-wifi-bt/qca_proprietary/Android_HAL/wcnss_filter_aiy_8mq:vendor/bin/wcnss_filter
 
+# Thermal HAL
+PRODUCT_PACKAGES += \
+    android.hardware.thermal@2.0-service.imx
+PRODUCT_COPY_FILES += \
+    device/fsl/imx8m/aiy_8mq/thermal_info_config_imx8mq.json:$(TARGET_COPY_OUT_VENDOR)/etc/thermal_info_config_imx8mq.json
+
 # Neural Network HAL
 PRODUCT_PACKAGES += \
     android.hardware.neuralnetworks@1.0-service-imx-nn

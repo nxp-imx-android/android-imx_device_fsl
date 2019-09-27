@@ -14,3 +14,6 @@
 
 /sys/devices/virtual/thermal/thermal_zone* trip_point_0_temp 0660 system system
 /sys/devices/virtual/thermal/thermal_zone* trip_point_1_temp 0660 system system
+
+/sys/devices/virtual/thermal/thermal_zone* trip_point_0_hyst 0660 system system
+/sys/devices/virtual/thermal/thermal_zone* trip_point_1_hyst 0660 system system
