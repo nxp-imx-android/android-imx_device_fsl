@@ -67,16 +67,27 @@ TARGET_BOOTLOADER_POSTFIX := bin
 USE_OPENGL_RENDERER := true
 TARGET_CPU_SMP := true
 
-BOARD_WLAN_DEVICE            := bcmdhd
+BOARD_WLAN_DEVICE_UNITE      := UNITE
 WPA_SUPPLICANT_VERSION       := VER_0_8_X
 BOARD_WPA_SUPPLICANT_DRIVER  := NL80211
 BOARD_HOSTAPD_DRIVER         := NL80211
-BOARD_HOSTAPD_PRIVATE_LIB           := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
-BOARD_WPA_SUPPLICANT_PRIVATE_LIB    := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
+
+# In UNITE mode,Use default macro for bcmdhd and use unite macro for qcom
+ifeq ($(BOARD_WLAN_DEVICE_UNITE), UNITE)
+BOARD_WLAN_DEVICE            := bcmdhd
+BOARD_HOSTAPD_PRIVATE_LIB_QCA           := lib_driver_cmd_qcwcn
+BOARD_WPA_SUPPLICANT_PRIVATE_LIB_QCA    := lib_driver_cmd_qcwcn
+BOARD_HOSTAPD_PRIVATE_LIB_BCM           := lib_driver_cmd_bcmdhd
+BOARD_WPA_SUPPLICANT_PRIVATE_LIB_BCM    := lib_driver_cmd_bcmdhd
+endif
 
 WIFI_DRIVER_FW_PATH_PARAM := "/sys/module/brcmfmac/parameters/alternative_fw_path"
 
-#WIFI_HIDL_FEATURE_DUAL_INTERFACE := true
+WIFI_HIDL_FEATURE_DUAL_INTERFACE := true
+
+# QCA qcacld wifi driver module
+BOARD_VENDOR_KERNEL_MODULES += \
+    $(KERNEL_OUT)/drivers/net/wireless/qcacld-2.0/wlan.ko
 
 # BCM fmac wifi driver module
 BOARD_VENDOR_KERNEL_MODULES += \
@@ -87,6 +98,15 @@ BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(IMX_DEVICE_PATH)/bluetooth
 
 # BCM 1CX BT
 BOARD_HAVE_BLUETOOTH_BCM := true
+
+# Qcom 1CQ(QCA6174) BT
+BOARD_HAVE_BLUETOOTH_QCOM := true
+BOARD_HAS_QCA_BT_ROME := true
+BOARD_HAVE_BLUETOOTH_BLUEZ := false
+QCOM_BT_USE_SIBS := true
+ifeq ($(QCOM_BT_USE_SIBS), true)
+    WCNSS_FILTER_USES_SIBS := true
+endif
 
 BOARD_USE_SENSOR_FUSION := true
 
@@ -133,6 +153,9 @@ BOARD_KERNEL_CMDLINE += androidboot.lcd_density=213
 
 # Default wificountrycode
 BOARD_KERNEL_CMDLINE += androidboot.wificountrycode=CN
+
+# Defaultly evk_8mq use BCM 1CX BCM4356 wifi module, if use QCOM qca9377 module, set androidboot.wifivendor=qca
+BOARD_KERNEL_CMDLINE += androidboot.wifivendor=bcm
 
 ifeq ($(TARGET_USERIMAGES_USE_UBIFS),true)
 ifeq ($(TARGET_USERIMAGES_USE_EXT4),true)
