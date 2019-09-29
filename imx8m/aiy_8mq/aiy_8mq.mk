@@ -250,3 +250,9 @@ endif
 
 # define bootloader rollback index
 BOOTLOADER_RBINDEX ?= 0
+
+ifneq (,$(filter userdebug eng,$(TARGET_BUILD_VARIANT)))
+$(call inherit-product, $(SRC_TARGET_DIR)/product/gsi_keys.mk)
+PRODUCT_PACKAGES += \
+    adb_debug.prop
+endif
