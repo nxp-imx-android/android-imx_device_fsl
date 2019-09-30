@@ -8,6 +8,7 @@ vendor.powerhal.lowpower.max_freq   u:object_r:power_hal_prop:s0
 
 ro.boot.vendor.sysrq                u:object_r:public_vendor_default_prop:s0
 sys.all.early_init.ready            u:object_r:public_vendor_default_prop:s0
+vendor.all.car                      u:object_r:public_vendor_default_prop:s0
 vendor.all.setup_core.ready         u:object_r:public_vendor_default_prop:s0
 vendor.all.setup_main.ready         u:object_r:public_vendor_default_prop:s0
 vendor.all.zygote_auto.ready        u:object_r:public_vendor_default_prop:s0
