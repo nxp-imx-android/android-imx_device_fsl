@@ -11,6 +11,7 @@ on early-init
     # Also gatekeeper share same role for keymaster
     setprop ro.hardware.keystore ${ro.boot.keystore}
     setprop ro.hardware.gatekeeper ${ro.boot.keystore}
+    setprop vendor.all.car true
 
 on init
     start watchdogd
