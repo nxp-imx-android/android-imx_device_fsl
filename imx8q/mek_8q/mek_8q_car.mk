@@ -20,7 +20,6 @@ PRODUCT_PACKAGE_OVERLAYS := $(IMX_DEVICE_PATH)/overlay_car packages/services/Car
 PRODUCT_COPY_FILES += \
     packages/services/Car/car_product/init/init.bootstat.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.bootstat.rc \
     packages/services/Car/car_product/init/init.car.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.car.rc \
-    $(IMX_DEVICE_PATH)/init.zygote_auto.rc:root/init.zygote_auto.rc
 
 # ONLY devices that meet the CDD's requirements may declare these features
 PRODUCT_COPY_FILES += \
@@ -48,8 +47,6 @@ PRODUCT_PACKAGES += \
     vehicle.default \
     android.hardware.automotive.vehicle@2.0-service
 
-# Use special ro.zygote to make default init.rc didn't load default zygote rc
-PRODUCT_PRODUCT_PROPERTIES += ro.zygote=zygote_auto
 ifeq ($(PRODUCT_IMX_CAR_M4),false)
 # Simulate the vehical rpmsg register event for non m4 car image
 PRODUCT_PROPERTY_OVERRIDES += \
