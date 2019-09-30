@@ -7,3 +7,4 @@ type sysfs_usb_device, sysfs_type, fs_type;
 type sysfs_block_devices, sysfs_type, fs_type;
 type diag_device, dev_type, mlstrustedobject;
 type mmc_rpmb_char_device, dev_type;
+type latency_device, dev_type;
