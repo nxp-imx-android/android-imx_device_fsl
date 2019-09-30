@@ -154,6 +154,10 @@ PRODUCT_COPY_FILES += \
     device/fsl/common/tools/uuu_imx_android_flash.bat:uuu_imx_android_flash.bat \
     device/fsl/common/tools/uuu_imx_android_flash.sh:uuu_imx_android_flash.sh
 
+PRODUCT_COPY_FILES += \
+     device/fsl/imx8q/mek_8q/powerhint_imx8qxp.json:$(TARGET_COPY_OUT_VENDOR)/etc/powerhint_imx8qxp.json \
+     device/fsl/imx8q/mek_8q/powerhint_imx8qm.json:$(TARGET_COPY_OUT_VENDOR)/etc/powerhint_imx8qm.json
+
 ifneq ($(PRODUCT_IMX_CAR),true)
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.screen.portrait.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.screen.portrait.xml \
@@ -231,8 +235,7 @@ PRODUCT_PACKAGES += \
     android.hardware.audio.effect@5.0-impl:32 \
     android.hardware.sensors@1.0-impl \
     android.hardware.sensors@1.0-service \
-    android.hardware.power@1.0-impl \
-    android.hardware.power@1.0-service \
+    android.hardware.power@1.3-service.imx \
     android.hardware.light@2.0-impl \
     android.hardware.light@2.0-service \
     android.hardware.configstore@1.1-service \
