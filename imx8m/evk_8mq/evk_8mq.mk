@@ -283,6 +283,12 @@ endif
 PRODUCT_PACKAGES += \
     android.hardware.dumpstate@1.0-service.imx
 
+ifeq ($(PRODUCT_IMX_TRUSTY),true)
+#Oemlock HAL 1.0 support
+PRODUCT_PACKAGES += \
+    android.hardware.oemlock@1.0-service.imx
+endif
+
 ifneq ($(BUILD_TARGET_FS),ubifs)
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.internel.storage_size=/sys/block/mmcblk0/size \
