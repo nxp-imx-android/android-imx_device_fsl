@@ -234,6 +234,7 @@ on late-fs
     start vendor.keymaster-3-0-${ro.boot.keystore}
     start servicemanager
     start surfaceflinger
+    start vendor.oemlock-1-0
 
     # Mount RW partitions which need run fsck
     mount_all /vendor/etc/fstab.freescale --late

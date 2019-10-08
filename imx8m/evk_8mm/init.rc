@@ -56,6 +56,9 @@ on late-fs
     start vendor.keymaster-3-0-${ro.boot.keystore}
     setprop vendor.powerhal.init 1
 
+on late-fs && property:vendor.storageproxyd=trusty
+    start vendor.oemlock-1-0
+
 on early-boot
     # For evk_8mm, when swap used about 400M, upgrade the level.
     setprop ro.lmk.upgrade_pressure 80
