@@ -180,8 +180,9 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     device/fsl/imx8m/evk_8mq/thermal_info_config.json:$(TARGET_COPY_OUT_VENDOR)/etc/thermal_info_config.json
 
-# Neural Network HAL
+# Neural Network HAL and lib
 PRODUCT_PACKAGES += \
+    libovxlib \
     android.hardware.neuralnetworks@1.1-service-vsi-npu-server
 
 # Usb HAL
