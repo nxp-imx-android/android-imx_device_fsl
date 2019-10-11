@@ -135,7 +135,6 @@ define build_imx_uboot
 		else \
 			cp $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/boot-spl-container.img $(PRODUCT_OUT)/spl-$(strip $(2)).bin; \
 			cp $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/u-boot-atf-container.img $(PRODUCT_OUT)/bootloader-$(strip $(2)).img; \
-			rm $(PRODUCT_OUT)/u-boot-$(strip $(2)).imx; \
 		fi; \
 	else \
 		cp $(UBOOT_OUT)/u-boot.$(strip $(1)) $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/u-boot.bin; \
@@ -144,7 +143,6 @@ define build_imx_uboot
 		$(MAKE) -C $(IMX_MKIMAGE_PATH)/imx-mkimage/ clean; \
 		$(MAKE) -C $(IMX_MKIMAGE_PATH)/imx-mkimage/ SOC=$$MKIMAGE_PLATFORM $$FLASH_TARGET || exit 1; \
 		cp $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/u-boot-xen-container.img $(PRODUCT_OUT)/bootloader-$(strip $(2)).img; \
-		rm $(PRODUCT_OUT)/u-boot-$(strip $(2)).imx; \
 	fi;
 endef
 
