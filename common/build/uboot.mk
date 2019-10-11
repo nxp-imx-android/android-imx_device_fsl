@@ -135,12 +135,13 @@ $(UBOOT_BIN): $(UBOOTENVSH) $(UBOOT_OUT)
 		$(MAKE) -C $(UBOOT_IMX_PATH)/uboot-imx/ CROSS_COMPILE="$(UBOOT_CROSS_COMPILE_WRAPPER)" O=$(realpath $(UBOOT_OUT)) mrproper; \
 		$(MAKE) -C $(UBOOT_IMX_PATH)/uboot-imx/ CROSS_COMPILE="$(UBOOT_CROSS_COMPILE_WRAPPER)" O=$(realpath $(UBOOT_OUT)) $$UBOOT_CONFIG; \
 		$(MAKE) -s -C $(UBOOT_IMX_PATH)/uboot-imx/ CROSS_COMPILE="$(UBOOT_CROSS_COMPILE_WRAPPER)" O=$(realpath $(UBOOT_OUT)) 1>/dev/null || exit 1; \
-		install -D $(UBOOT_OUT)/u-boot$(TARGET_DTB_POSTFIX).$(TARGET_BOOTLOADER_POSTFIX) $(PRODUCT_OUT)/u-boot-$$UBOOT_PLATFORM.imx; \
 		if [ $(UBOOT_POST_PROCESS) = true ]; then \
 			echo "build post process" ; \
 			source $(UBOOTENVSH); \
 		    $(call build_imx_uboot, $(TARGET_BOOTLOADER_POSTFIX), $$UBOOT_PLATFORM) \
 		    echo "===================Finish building `echo $$ubootplat | cut -d':' -f2` ==================="; \
+		else \
+			install -D $(UBOOT_OUT)/u-boot$(TARGET_DTB_POSTFIX).$(TARGET_BOOTLOADER_POSTFIX) $(PRODUCT_OUT)/u-boot-$$UBOOT_PLATFORM.imx; \
 		fi; \
 		if [ $(PRODUCT_IMX_DRM) = true ]; then \
 		    echo "build post process with tee" ; \
