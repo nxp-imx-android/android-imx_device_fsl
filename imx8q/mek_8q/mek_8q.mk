@@ -305,7 +305,7 @@ endif
 # AudioControl service
 ifeq ($(PRODUCT_IMX_CAR),true)
 PRODUCT_PACKAGES += \
-    android.hardware.automotive.audiocontrol@1.0-service
+    android.hardware.automotive.audiocontrol@1.0-service.imx
 endif
 
 # hardware backed keymaster service
