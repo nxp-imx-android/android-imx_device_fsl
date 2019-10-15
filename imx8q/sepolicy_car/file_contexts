@@ -1,1 +1,2 @@
 /vendor/bin/evs_service                 u:object_r:evs_service_exec:s0
+/vendor/bin/hw/android\.hardware\.automotive\.audiocontrol@1\.0-service.imx  u:object_r:hal_audiocontrol_default_exec:s0
