@@ -252,9 +252,22 @@ PRODUCT_PACKAGES += \
 # Thermal HAL
 PRODUCT_PACKAGES += \
     android.hardware.thermal@2.0-service.imx
+
+ifneq ($(PRODUCT_IMX_CAR),true)
 PRODUCT_COPY_FILES += \
     device/fsl/imx8q/mek_8q/thermal_info_config_imx8qxp.json:$(TARGET_COPY_OUT_VENDOR)/etc/thermal_info_config_imx8qxp.json \
     device/fsl/imx8q/mek_8q/thermal_info_config_imx8qm.json:$(TARGET_COPY_OUT_VENDOR)/etc/thermal_info_config_imx8qm.json
+else
+ifneq ($(PRODUCT_IMX_CAR_M4),true)
+PRODUCT_COPY_FILES += \
+    device/fsl/imx8q/mek_8q/thermal_info_config_imx8qxp_car2.json:$(TARGET_COPY_OUT_VENDOR)/etc/thermal_info_config_imx8qxp.json \
+    device/fsl/imx8q/mek_8q/thermal_info_config_imx8qm_car2.json:$(TARGET_COPY_OUT_VENDOR)/etc/thermal_info_config_imx8qm.json
+else
+PRODUCT_COPY_FILES += \
+    device/fsl/imx8q/mek_8q/thermal_info_config_imx8qxp.json:$(TARGET_COPY_OUT_VENDOR)/etc/thermal_info_config_imx8qxp.json \
+    device/fsl/imx8q/mek_8q/thermal_info_config_imx8qm.json:$(TARGET_COPY_OUT_VENDOR)/etc/thermal_info_config_imx8qm.json
+endif
+endif
 
 # Neural Network HAL and Lib
 PRODUCT_PACKAGES += \
