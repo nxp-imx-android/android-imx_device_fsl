@@ -272,7 +272,8 @@ endif
 # Neural Network HAL and Lib
 PRODUCT_PACKAGES += \
     libovxlib \
-    android.hardware.neuralnetworks@1.1-service-vsi-npu-server
+    libnnrt \
+    android.hardware.neuralnetworks@1.2-service-vsi-npu-server
 
 # imx8 sensor HAL libs.
 PRODUCT_PACKAGES += \
