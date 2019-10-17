@@ -222,6 +222,9 @@ PRODUCT_PACKAGES += \
     android.hardware.keymaster@3.0-service.trusty
 endif
 
+PRODUCT_COPY_FILES += \
+    device/fsl/imx8m/evk_8mq/camera_config_imx8mq.json:$(TARGET_COPY_OUT_VENDOR)/etc/config/camera_config_imx8mq.json
+
 # Keymaster HAL
 PRODUCT_PACKAGES += \
     android.hardware.keymaster@3.0-impl \
