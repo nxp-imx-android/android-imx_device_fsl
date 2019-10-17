@@ -68,6 +68,10 @@ PRODUCT_COPY_FILES += \
     device/fsl/common/security/testkey_public_rsa4096.bin:testkey_public_rsa4096.bin
 endif
 
+PRODUCT_COPY_FILES += \
+    device/fsl/imx8q/mek_8q/camera_config_imx8qm.json:$(TARGET_COPY_OUT_VENDOR)/etc/config/camera_config_imx8qm.json \
+    device/fsl/imx8q/mek_8q/camera_config_imx8qxp.json:$(TARGET_COPY_OUT_VENDOR)/etc/config/camera_config_imx8qxp.json
+
 ifeq ($(PRODUCT_IMX_CAR),true)
 PRODUCT_COPY_FILES += \
     $(IMX_DEVICE_PATH)/audio_policy_configuration_car.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_configuration.xml \
