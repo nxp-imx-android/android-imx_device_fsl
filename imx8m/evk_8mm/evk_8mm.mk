@@ -65,6 +65,9 @@ PRODUCT_COPY_FILES += \
     device/fsl/common/security/testkey_public_rsa4096.bin:testkey_public_rsa4096.bin
 endif
 
+PRODUCT_COPY_FILES += \
+    device/fsl/imx8m/evk_8mm/camera_config_imx8mm.json:$(TARGET_COPY_OUT_VENDOR)/etc/config/camera_config_imx8mm.json
+
 # ONLY devices that meet the CDD's requirements may declare these features
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.audio.output.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.audio.output.xml \
