@@ -65,7 +65,7 @@ BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(IMX_DEVICE_PATH)/bluetooth
 # BCM BLUETOOTH
 BOARD_HAVE_BLUETOOTH_BCM := true
 
-ifeq ($(PRODUCT_IMX_CAR_M4),true)
+ifeq ($(PRODUCT_IMX_CAR),true)
 BOARD_VENDOR_KERNEL_MODULES += \
                             $(KERNEL_OUT)/drivers/extcon/extcon-ptn5150.ko \
                             $(KERNEL_OUT)/drivers/hid/usbhid/usbhid.ko \
@@ -84,12 +84,15 @@ BOARD_VENDOR_KERNEL_MODULES += \
                             $(KERNEL_OUT)/drivers/usb/typec/typec.ko \
                             $(KERNEL_OUT)/drivers/scsi/sd_mod.ko \
                             $(KERNEL_OUT)/drivers/bluetooth/mx8_bt_rfkill.ko \
-                            $(KERNEL_OUT)/drivers/hid/hid-multitouch.ko \
+                            $(KERNEL_OUT)/drivers/hid/hid-multitouch.ko
+
+ifeq ($(PRODUCT_IMX_CAR_M4),true)
+BOARD_VENDOR_KERNEL_MODULES += \
                             $(KERNEL_OUT)/drivers/media/platform/imx8/max9286_gmsl.ko \
                             $(KERNEL_OUT)/drivers/media/platform/imx8/mxc-mipi-csi2.ko \
                             $(KERNEL_OUT)/drivers/media/platform/imx8/mxc-media-dev.ko \
-                            $(KERNEL_OUT)/drivers/media/platform/imx8/mxc-capture.ko \
-
+                            $(KERNEL_OUT)/drivers/media/platform/imx8/mxc-capture.ko
+endif
 endif
 
 # sensor configs
