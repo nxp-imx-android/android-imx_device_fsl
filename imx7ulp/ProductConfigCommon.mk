@@ -116,8 +116,11 @@ PRODUCT_PACKAGES += \
     wpa_supplicant \
     wpa_supplicant \
     wpa_supplicant.conf \
-	hostapd 				\
-	hostapd_cli
+    hostapd \
+    hostapd_cli
+
+PRODUCT_PACKAGES += \
+    netutils-wrapper-1.0
 
 # memtrack
 PRODUCT_PACKAGES += \
