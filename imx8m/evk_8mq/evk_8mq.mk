@@ -185,7 +185,8 @@ PRODUCT_COPY_FILES += \
 # Neural Network HAL and lib
 PRODUCT_PACKAGES += \
     libovxlib \
-    android.hardware.neuralnetworks@1.1-service-vsi-npu-server
+    libnnrt \
+    android.hardware.neuralnetworks@1.2-service-vsi-npu-server
 
 # Usb HAL
 PRODUCT_PACKAGES += \
