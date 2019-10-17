@@ -86,6 +86,9 @@ PRODUCT_PACKAGES += \
     wpa_supplicant \
     wpa_supplicant.conf
 
+PRODUCT_PACKAGES += \
+    netutils-wrapper-1.0
+
 # sensor
 PRODUCT_PACKAGES += \
     fsl_sensor_fusion \
