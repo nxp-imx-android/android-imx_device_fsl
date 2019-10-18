@@ -49,9 +49,7 @@ PRODUCT_COPY_FILES += \
     $(LINUX_FIRMWARE_IMX_PATH)/linux-firmware-imx/firmware/sdma/sdma-imx7d.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/imx/sdma/sdma-imx7d.bin \
     device/fsl/common/init/init.insmod.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.insmod.sh \
     device/fsl/common/wifi/p2p_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/p2p_supplicant_overlay.conf \
-    device/fsl/common/wifi/bcm_wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf \
-    device/fsl/common/wifi/wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/qca_wpa_supplicant_overlay.conf \
-    device/fsl/common/wifi/bcm_wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/bcm_wpa_supplicant_overlay.conf
+    device/fsl/common/wifi/bcm_wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf
 
 ifeq ($(PRODUCT_IMX_TRUSTY),true)
 PRODUCT_COPY_FILES += \
@@ -202,40 +200,6 @@ PRODUCT_PACKAGES += \
     android.hardware.wifi@1.0-service \
     wifilogd \
     wificond
-
-# BCM bluetooth for UNITE mode
-PRODUCT_PACKAGES += \
-    libbt-vendor-unite-bcm
-
-# QCA bluetooth for UNITE mode
-PRODUCT_PACKAGES += \
-    libbt-vendor-unite-qca
-
-# BCM wifi supplicant for UNITE mode
-PRODUCT_PACKAGES += \
-    bcm_hostapd \
-    bcm_wpa_supplicant \
-    android.hardware.wifi@1.0-service.bcm
-
-# QCA wifi supplicant for UNITE mode
-PRODUCT_PACKAGES += \
-    qca_hostapd \
-    qca_wpa_supplicant \
-    android.hardware.wifi@1.0-service.qca
-
-# Qcom WiFi Firmware
-PRODUCT_COPY_FILES += \
-    vendor/nxp/qca-wifi-bt/1CQ_QCA6174A_LEA_2.0/lib/firmware/qca6174/bdwlan30.bin:vendor/firmware/bdwlan30.bin \
-    vendor/nxp/qca-wifi-bt/1CQ_QCA6174A_LEA_2.0/lib/firmware/qca6174/otp30.bin:vendor/firmware/otp30.bin \
-    vendor/nxp/qca-wifi-bt/1CQ_QCA6174A_LEA_2.0/lib/firmware/qca6174/qwlan30.bin:vendor/firmware/qwlan30.bin \
-    vendor/nxp/qca-wifi-bt/1CQ_QCA6174A_LEA_2.0/lib/firmware/qca6174/utf30.bin:vendor/firmware/utf30.bin \
-    vendor/nxp/qca-wifi-bt/1CQ_QCA6174A_LEA_2.0/lib/firmware/wlan/qca6174/qcom_cfg.ini:vendor/firmware/wlan/qcom_cfg.ini
-
-# Qcom Bluetooth Firmware
-PRODUCT_COPY_FILES += \
-    vendor/nxp/qca-wifi-bt/1CQ_QCA6174A_LEA_2.0/lib/firmware/nvm_tlv_3.2.bin:vendor/firmware/nvm_tlv_3.2.bin \
-    vendor/nxp/qca-wifi-bt/1CQ_QCA6174A_LEA_2.0/lib/firmware/rampatch_tlv_3.2.tlv:vendor/firmware/rampatch_tlv_3.2.tlv \
-    vendor/nxp/qca-wifi-bt/qca_proprietary/Android_HAL/wcnss_filter_8mq:vendor/bin/wcnss_filter
 
 # BCM Bluetooth vendor config
 PRODUCT_PACKAGES += \
