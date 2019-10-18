@@ -11,6 +11,7 @@ on early-init
     # Also gatekeeper share same role for keymaster
     setprop ro.hardware.keystore ${ro.boot.keystore}
     setprop ro.hardware.gatekeeper ${ro.boot.keystore}
+    setprop vendor.storageproxyd ${ro.boot.keystore}
     setprop vendor.all.car true
 
 on init
@@ -282,7 +283,7 @@ on zygote-start
     mkdir /data/misc/dhcp 0770 dhcp dhcp
     chown dhcp dhcp /data/misc/dhcp
 
-on property:sys.boot_completed=1 && property:ro.hardware.gatekeeper=trusty
+on property:sys.boot_completed=1 && property:vendor.storageproxyd=trusty
     start storageproxyd
 
 service storageproxyd /vendor/bin/storageproxyd -p /data/vendor/ss -r /dev/mmcblk0rpmb -d /dev/trusty-ipc-dev0
