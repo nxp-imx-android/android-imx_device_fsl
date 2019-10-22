@@ -172,10 +172,14 @@ TARGET_BOOTLOADER_CONFIG += imx8qxp-secure-unlock:imx8qxp_mek_androidauto_trusty
 else
 # imx8qm auto android without m4 image
 TARGET_BOARD_DTS_CONFIG := imx8qm:fsl-imx8qm-mek-car2.dtb
+# imx8qm auto android without m4 image for multi-display
+TARGET_BOARD_DTS_CONFIG += imx8qm-md:fsl-imx8qm-mek-car2-md.dtb
 # imx8qxp auto android without m4 image
 TARGET_BOARD_DTS_CONFIG += imx8qxp:fsl-imx8qxp-mek-car2.dtb
 # u-boot target for imx8qm_mek auto android
 TARGET_BOOTLOADER_CONFIG := imx8qm:imx8qm_mek_androidauto2_trusty_defconfig
+# u-boot target for imx8qm_mek auto android with multi-display
+TARGET_BOOTLOADER_CONFIG += imx8qm-md:imx8qm_mek_androidauto2_trusty_md_defconfig
 # u-boot target for imx8qxp_mek auto android
 TARGET_BOOTLOADER_CONFIG += imx8qxp:imx8qxp_mek_androidauto2_trusty_defconfig
 endif #PRODUCT_IMX_CAR_M4
@@ -215,6 +219,7 @@ ifeq ($(PRODUCT_IMX_CAR_M4),true)
 TARGET_KERNEL_DEFCONFIG := android_car_defconfig
 else
 TARGET_KERNEL_DEFCONFIG := android_car2_defconfig
+TARGET_KERNEL_ADDITION_DEFCONF := android_addition_defconfig
 endif # PRODUCT_IMX_CAR_M4
 else
 TARGET_KERNEL_DEFCONFIG := android_defconfig
