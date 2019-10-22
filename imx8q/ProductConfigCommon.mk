@@ -13,7 +13,6 @@ PRODUCT_PACKAGES += \
     CactusPlayer \
     ExtractorPkg \
     SystemUpdaterSample \
-    MultiDisplay \
     MultiClientInputMethod \
     charger_res_images \
     libGLES_android \
@@ -24,6 +23,14 @@ PRODUCT_PACKAGES += \
     verity_warning_images \
     vndk-sp
 
+
+ifneq ($(PRODUCT_IMX_CAR),true)
+PRODUCT_PACKAGES += \
+    MultiDisplay
+else
+PRODUCT_PACKAGES += \
+    MultiDisplaySecondaryHomeTestLauncher
+endif
 
 ifneq ($(PRODUCT_IMX_CAR),true)
 PRODUCT_PACKAGES += \
