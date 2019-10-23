@@ -44,6 +44,7 @@ define build_imx_uboot
 		MKIMAGE_PLATFORM=`echo iMX8QM`; \
 		SCFW_PLATFORM=`echo 8qm`;  \
 		ATF_PLATFORM=`echo imx8qm`; \
+		REV=`echo B0`;  \
 		if [ `echo $(2) | rev | cut -d '-' -f1` == "uuu" ]; then \
 			FLASH_TARGET=`echo flash_b0`;  \
 		else \
@@ -74,16 +75,23 @@ define build_imx_uboot
 		MKIMAGE_PLATFORM=`echo iMX8QM`; \
 		SCFW_PLATFORM=`echo 8qm`;  \
 		ATF_PLATFORM=`echo imx8qm`; \
+		REV=`echo B0`;  \
 		cp  $(FSL_PROPRIETARY_PATH)/imx-seco/firmware/seco/mx8qm*ahab-container.img $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/; \
 		FLASH_TARGET=`echo flash_b0_spl_container_m4_1`;  \
 		cp  $(UBOOT_M4_OUT)/MIMX8QM/$(UBOOT_M4_BUILD_TYPE)/m4_image.bin $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/m4_1_image.bin; \
 	elif [ "$(strip $(2))" == "imx8qm-xen" ]; then \
 		MKIMAGE_PLATFORM=`echo iMX8QM`; \
 		FLASH_TARGET=`echo flash_b0_xen_uboot`;  \
+		REV=`echo B0`;  \
 	elif [ `echo $(2) | cut -d '-' -f1` == "imx8qxp" ]; then \
 		MKIMAGE_PLATFORM=`echo iMX8QX`; \
 		SCFW_PLATFORM=`echo 8qx`; \
 		ATF_PLATFORM=`echo imx8qx`; \
+		if [ `echo $(2) | cut -d '-' -f2` == "c0" ] || [ `echo $(2) | cut -d '-' -f3` == "c0" ]; then \
+			REV=`echo C0`;  \
+		else \
+			REV=`echo B0`;  \
+		fi; \
 		if [ `echo $(2) | rev | cut -d '-' -f1` == "uuu" ]; then \
 			FLASH_TARGET=`echo flash`;  \
 		else \
@@ -127,7 +135,7 @@ define build_imx_uboot
 		fi; \
 		cp  $(UBOOT_OUT)/tools/mkimage  $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/mkimage_uboot; \
 		$(MAKE) -C $(IMX_MKIMAGE_PATH)/imx-mkimage/ clean; \
-		$(MAKE) -C $(IMX_MKIMAGE_PATH)/imx-mkimage/ SOC=$$MKIMAGE_PLATFORM $$FLASH_TARGET 1>/dev/null || exit 1; \
+		$(MAKE) -C $(IMX_MKIMAGE_PATH)/imx-mkimage/ SOC=$$MKIMAGE_PLATFORM REV=$$REV $$FLASH_TARGET || exit 1; \
 		if [ "$(PRODUCT_IMX_CAR)" != "true" ] || [ `echo $(2) | rev | cut -d '-' -f1` == "uuu" ] || [ "$(strip $(2))" == "imx8qm-xen-dom0" ]; then \
 			cp $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/flash.bin $(PRODUCT_OUT)/u-boot-$(strip $(2)).imx; \
 		else \
