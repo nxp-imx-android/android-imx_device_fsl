@@ -30,6 +30,7 @@ ifneq ($(TARGET_PREBUILT_KERNEL),)
 $(error TARGET_PREBUILT_KERNEL defined but Brillo kernels build from source)
 endif
 
+
 ifeq ($(KERNEL_IMX_PATH),)
 $(error KERNEL_IMX_PATH not defined)
 endif
@@ -50,26 +51,29 @@ KERNEL_AFLAGS :=
 TARGET_KERNEL_SRC := $(KERNEL_IMX_PATH)/kernel_imx
 
 ifeq ($(TARGET_KERNEL_ARCH), arm)
-KERNEL_TOOLCHAIN_ABS := $(realpath prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9/bin)
-else ifeq ($(TARGET_KERNEL_ARCH), arm64)
-KERNEL_TOOLCHAIN_ABS := $(realpath prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9/bin)
+ifneq ($(AARCH32_GCC_CROSS_COMPILE),)
+KERNEL_CROSS_COMPILE := $(strip $(AARCH32_GCC_CROSS_COMPILE))
+KERNEL_CFLAGS := -Wno-self-assign -Wno-empty-body -Wno-incompatible-pointer-types
 else
-$(error kernel arch not supported at present)
+KERNEL_TOOLCHAIN_ABS := $(realpath prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9/bin)
+KERNEL_CROSS_COMPILE := $(KERNEL_TOOLCHAIN_ABS)/arm-linux-androidkernel-
+KERNEL_CFLAGS :=
 endif
-
-ifeq ($(TARGET_KERNEL_ARCH), arm)
 CLANG_TRIPLE :=
 CLANG_TO_COMPILE :=
 CLANG_TOOL_CHAIN_ABS :=
-KERNEL_CROSS_COMPILE := $(KERNEL_TOOLCHAIN_ABS)/arm-linux-androidkernel-
 KERNEL_SRC_ARCH := arm
-KERNEL_CFLAGS :=
 KERNEL_NAME := zImage
 else ifeq ($(TARGET_KERNEL_ARCH), arm64)
+ifneq ($(AARCH64_GCC_CROSS_COMPILE),)
+KERNEL_CROSS_COMPILE := $(strip $(AARCH64_GCC_CROSS_COMPILE))
+else
+KERNEL_TOOLCHAIN_ABS := $(realpath prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9/bin)
+KERNEL_CROSS_COMPILE := $(KERNEL_TOOLCHAIN_ABS)/aarch64-linux-androidkernel-
+endif
 CLANG_TRIPLE := CLANG_TRIPLE=aarch64-linux-gnu-
 CLANG_TO_COMPILE := CC=clang
 CLANG_TOOL_CHAIN_ABS := $(realpath prebuilts/clang/host/linux-x86/clang-r349610/bin)
-KERNEL_CROSS_COMPILE := $(KERNEL_TOOLCHAIN_ABS)/aarch64-linux-androidkernel-
 KERNEL_SRC_ARCH := arm64
 KERNEL_CFLAGS :=
 KERNEL_NAME ?= Image.gz
