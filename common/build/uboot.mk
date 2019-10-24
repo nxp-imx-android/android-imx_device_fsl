@@ -57,37 +57,30 @@ UBOOT_CC_WRAPPER := $(CC_WRAPPER)
 UBOOT_AFLAGS :=
 UBOOT_DTC_ABS := $(realpath prebuilts/misc/linux-x86/dtc/dtc)
 
+
 ifeq ($(TARGET_UBOOT_ARCH), arm)
+ifneq ($(AARCH32_GCC_CROSS_COMPILE),)
+UBOOT_CROSS_COMPILE := $(strip $(AARCH32_GCC_CROSS_COMPILE))
+else
 UBOOT_TOOLCHAIN_ABS := $(realpath prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9/bin)
+UBOOT_CROSS_COMPILE := $(UBOOT_TOOLCHAIN_ABS)/arm-linux-androidkernel-
+endif
+UBOOT_SRC_ARCH := arm
+UBOOT_CFLAGS :=
+
 else ifeq ($(TARGET_UBOOT_ARCH), arm64)
+ifneq ($(AARCH64_GCC_CROSS_COMPILE),)
+UBOOT_CROSS_COMPILE := $(strip $(AARCH64_GCC_CROSS_COMPILE))
+else
 UBOOT_TOOLCHAIN_ABS := $(realpath prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9/bin)
+UBOOT_CROSS_COMPILE := $(UBOOT_TOOLCHAIN_ABS)/aarch64-linux-androidkernel-
+endif
+UBOOT_SRC_ARCH := arm64
+UBOOT_CFLAGS :=
 else
 $(error U-boot arch not supported at present)
 endif
 
-ifeq ($(TARGET_UBOOT_ARCH), arm)
-UBOOT_CROSS_COMPILE := $(UBOOT_TOOLCHAIN_ABS)/arm-linux-androidkernel-
-UBOOT_SRC_ARCH := arm
-UBOOT_CFLAGS :=
-else ifeq ($(TARGET_UBOOT_ARCH), arm64)
-UBOOT_CROSS_COMPILE := $(UBOOT_TOOLCHAIN_ABS)/aarch64-linux-androidkernel-
-UBOOT_SRC_ARCH := arm64
-UBOOT_CFLAGS :=
-else ifeq ($(TARGET_UBOOT_ARCH), i386)
-UBOOT_CROSS_COMPILE := $(UBOOT_TOOLCHAIN_ABS)/x86_64-linux-androidkernel-
-UBOOT_SRC_ARCH := x86
-UBOOT_CFLAGS := -mstack-protector-guard=tls
-else ifeq ($(TARGET_UBOOT_ARCH), x86_64)
-UBOOT_CROSS_COMPILE := $(UBOOT_TOOLCHAIN_ABS)/x86_64-linux-androidkernel-
-UBOOT_SRC_ARCH := x86
-UBOOT_CFLAGS := -mstack-protector-guard=tls
-else ifeq ($(TARGET_UBOOT_ARCH), mips)
-UBOOT_CROSS_COMPILE := $(UBOOT_TOOLCHAIN_ABS)/mips64el-linux-androidkernel-
-UBOOT_SRC_ARCH := mips
-UBOOT_CFLAGS :=
-else
-$(error U-Boot arch not supported at present)
-endif
 
 # Allow caller to override toolchain.
 TARGET_UBOOT_CROSS_COMPILE_PREFIX := $(strip $(TARGET_UBOOT_CROSS_COMPILE_PREFIX))

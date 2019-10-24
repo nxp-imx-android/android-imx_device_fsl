@@ -1,7 +1,12 @@
 # uboot.imx in android combine scfw.bin and uboot.bin
 MAKE += SHELL=/bin/bash
+
+ifneq ($(AARCH64_GCC_CROSS_COMPILE),)
+ATF_CROSS_COMPILE := $(strip $(AARCH64_GCC_CROSS_COMPILE))
+else
 ATF_TOOLCHAIN_ABS := $(realpath prebuilts/gcc/$(HOST_PREBUILT_TAG)/aarch64/aarch64-linux-android-4.9/bin)
 ATF_CROSS_COMPILE := $(ATF_TOOLCHAIN_ABS)/aarch64-linux-androidkernel-
+endif
 
 define build_imx_uboot
 	$(hide) echo Building i.MX U-Boot with firmware; \
