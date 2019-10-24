@@ -106,7 +106,7 @@ define build_imx_uboot
 	else \
 		cp  $(FSL_PROPRIETARY_PATH)/fsl-proprietary/uboot-firmware/imx8q/mx$$SCFW_PLATFORM-scfw-tcm.bin $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/scfw_tcm.bin; \
 	fi; \
-	if [ "$(PRODUCT_IMX_CAR)" == "true" -a  `echo $(2) | rev | cut -d '-' -f1` != "uuu", -o `echo $(2) | cut -d '-' -f2` == "trusty" ]; then \
+	if [ "$(PRODUCT_IMX_CAR)" == "true" -a  `echo $(2) | rev | cut -d '-' -f1` != "uuu" -o `echo $(2) | cut -d '-' -f2` == "trusty" ]; then \
 		cp  $(FSL_PROPRIETARY_PATH)/fsl-proprietary/uboot-firmware/imx8q_car/tee-imx$$SCFW_PLATFORM.bin $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/tee.bin; \
 	else \
 		if [ -f $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/tee.bin ]; then \
@@ -115,7 +115,7 @@ define build_imx_uboot
 	fi; \
 	if [ "$(strip $(2))" != "imx8qm-xen" ]; then \
 		$(MAKE) -C $(IMX_PATH)/arm-trusted-firmware/ PLAT=$$ATF_PLATFORM clean; \
-		if [ "$(PRODUCT_IMX_CAR)" == "true" -a "$(strip $(2))" != "imx8qm-xen-dom0" -a `echo $(2) | rev | cut -d '-' -f1` != "uuu", -o `echo $(2) | cut -d '-' -f2` == "trusty" ]; then \
+		if [ "$(PRODUCT_IMX_CAR)" == "true" -a "$(strip $(2))" != "imx8qm-xen-dom0" -a `echo $(2) | rev | cut -d '-' -f1` != "uuu" -o `echo $(2) | cut -d '-' -f2` == "trusty" ]; then \
 			$(MAKE) -C $(IMX_PATH)/arm-trusted-firmware/ CROSS_COMPILE="$(ATF_CROSS_COMPILE)" PLAT=$$ATF_PLATFORM bl31 SPD=trusty -B 1>/dev/null || exit 1; \
 		else \
 			$(MAKE) -C $(IMX_PATH)/arm-trusted-firmware/ CROSS_COMPILE="$(ATF_CROSS_COMPILE)" PLAT=$$ATF_PLATFORM bl31 -B 1>/dev/null || exit 1; \
