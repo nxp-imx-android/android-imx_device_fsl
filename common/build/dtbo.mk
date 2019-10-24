@@ -19,19 +19,21 @@ KERNEL_AFLAGS ?=
 KERNEL_CFLAGS ?=
 
 ifeq ($(TARGET_KERNEL_ARCH), arm)
-KERNEL_TOOLCHAIN_ABS := $(realpath prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9/bin)
-else ifeq ($(TARGET_KERNEL_ARCH), arm64)
-KERNEL_TOOLCHAIN_ABS := $(realpath prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9/bin)
+ifneq ($(AARCH32_GCC_CROSS_COMPILE),)
+KERNEL_CROSS_COMPILE := $(strip $(AARCH32_GCC_CROSS_COMPILE))
 else
-$(error kernel arch not supported at present)
-endif
-
-ifeq ($(TARGET_KERNEL_ARCH), arm)
+KERNEL_TOOLCHAIN_ABS := $(realpath prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9/bin)
 KERNEL_CROSS_COMPILE := $(KERNEL_TOOLCHAIN_ABS)/arm-linux-androidkernel-
+endif
 KERNEL_SRC_ARCH := arm
 DTS_ADDITIONAL_PATH :=
 else ifeq ($(TARGET_KERNEL_ARCH), arm64)
+ifneq ($(AARCH64_GCC_CROSS_COMPILE),)
+KERNEL_CROSS_COMPILE := $(strip $(AARCH64_GCC_CROSS_COMPILE))
+else
+KERNEL_TOOLCHAIN_ABS := $(realpath prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9/bin)
 KERNEL_CROSS_COMPILE := $(KERNEL_TOOLCHAIN_ABS)/aarch64-linux-androidkernel-
+endif
 KERNEL_SRC_ARCH := arm64
 DTS_ADDITIONAL_PATH := freescale
 else
