@@ -3,6 +3,9 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/generic.mk)
 ifeq ($(PRODUCT_IMX_CAR),true)
 $(call inherit-product, packages/services/Car/car_product/build/car.mk)
 endif
+ifneq ($(PRODUCT_IMX_CAR),true)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/updatable_apex.mk)
+endif
 $(call inherit-product, $(TOPDIR)frameworks/base/data/sounds/AllAudio.mk)
 # overrides
 PRODUCT_BRAND := Android
