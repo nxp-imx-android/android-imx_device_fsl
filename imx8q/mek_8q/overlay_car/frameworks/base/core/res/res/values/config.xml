@@ -24,4 +24,12 @@
     <!-- This device built for android auto is "voice capable".. -->
     <bool name="config_voice_capable">true</bool>
 
+    <!-- Declare cluster as private display while all others remain public -->
+    <integer-array translatable="false"
+        name="config_localPrivateDisplayPorts">1</integer-array>
+    <!-- Lock secondary launcher and do not allow user change -->
+    <bool name="config_useSystemProvidedLauncherForSecondary">true</bool>
+    <string name="config_secondaryHomeComponent" translatable="false">
+        com.android.example/com.android.example.SecondaryDisplayFixedLauncher</string>
+
 </resources>
