@@ -7,6 +7,7 @@ genfscon sysfs /devices/platform/rtc/rtc/rtc0/hctosys             u:object_r:sys
 genfscon sysfs /devices/platform/sound/extcon                     u:object_r:sysfs_extcon:s0
 genfscon sysfs /devices/platform/56268000.hdmi/extcon             u:object_r:sysfs_extcon:s0
 genfscon debugfs /dma_buf u:object_r:debugfs_dma:s0
+genfscon debugfs /sync/sw_sync u:object_r:debugfs_sw_sync:s0
 
 #mek_8q ethernet
 genfscon sysfs /devices/platform/5b040000.ethernet/net  u:object_r:sysfs_net:s0
