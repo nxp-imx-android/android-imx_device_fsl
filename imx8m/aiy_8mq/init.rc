@@ -115,6 +115,10 @@ on early-boot
     # Set tracefs permission to 755
     chmod 0755 /sys/kernel/debug/tracing
 
+    # Set sw_sync group to graphics and set permission to 664
+    chown root graphics /sys/kernel/debug/sync/sw_sync
+    chmod 0664 /sys/kernel/debug/sync/sw_sync
+
     # Default backlight device
     setprop hw.backlight.dev "backlight"
     # Chmod/chown FSL specific sys entry
