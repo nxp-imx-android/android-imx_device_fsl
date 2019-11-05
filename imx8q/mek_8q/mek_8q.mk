@@ -427,3 +427,10 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/gsi_keys.mk)
 PRODUCT_PACKAGES += \
     adb_debug.prop
 endif
+
+# Specify rollback index for bootloader and for AVB
+ifneq ($(AVB_RBINDEX),)
+BOARD_AVB_ROLLBACK_INDEX := $(AVB_RBINDEX)
+else
+BOARD_AVB_ROLLBACK_INDEX := 0
+endif
