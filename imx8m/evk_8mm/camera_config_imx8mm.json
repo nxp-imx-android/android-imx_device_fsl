@@ -4,6 +4,8 @@
   ],
 
   "hal_version": "3",
+  "cam_preview_csc_hw": "GPU_2D",
+  "cam_recording_csc_hw": "GPU_2D",
 
   "ov5640_metadata": [
     {
