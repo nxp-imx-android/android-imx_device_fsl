@@ -153,6 +153,18 @@ VIV_VX_DEBUG_LEVEL                        u:object_r:public_vendor_default_prop:
 VIV_VX_OPS_DUMP_PATH                      u:object_r:public_vendor_default_prop:s0
 VIV_VX_ENABLE_MEM_OPTIMIZATION            u:object_r:public_vendor_default_prop:s0
 VX_EXTENSION_LIBS                         u:object_r:public_vendor_default_prop:s0
+VIV_VX_ENABLE_NN_TRANSPOSE                u:object_r:public_vendor_default_prop:s0
+VIV_VX_ENABLE_NNTP_PARALLEL               u:object_r:public_vendor_default_prop:s0
+VIV_VX_TP_CORE_COUNT                      u:object_r:public_vendor_default_prop:s0
+VIV_VX_64BITS_BIAS_NN                     u:object_r:public_vendor_default_prop:s0
+VIV_VX_ENABLE_CONTIGOUS_MEM_FOR_KERNEL    u:object_r:public_vendor_default_prop:s0
+VIV_VX_DISABLE_TP_NN_EVIS                 u:object_r:public_vendor_default_prop:s0
+ENABLE_TRACE_MEMORY                       u:object_r:public_vendor_default_prop:s0
+VIV_VX_IN_IMAGE_NON_ZERO_RATIO_CONFIG     u:object_r:public_vendor_default_prop:s0
+VIV_VX_SKIP_SHADER                        u:object_r:public_vendor_default_prop:s0
+VIV_FAST_MODE                             u:object_r:public_vendor_default_prop:s0
+VIV_VX_TPLITE_CORE_COUNT                  u:object_r:public_vendor_default_prop:s0
+DILATION_MODE                             u:object_r:public_vendor_default_prop:s0
 
 vendor.audio.lpa.enable             u:object_r:public_vendor_default_prop:s0
 gralloc.drm.device                  u:object_r:public_vendor_default_prop:s0
