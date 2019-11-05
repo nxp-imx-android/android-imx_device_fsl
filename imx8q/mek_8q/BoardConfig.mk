@@ -68,7 +68,6 @@ BOARD_HAVE_BLUETOOTH_BCM := true
 ifeq ($(PRODUCT_IMX_CAR),true)
 BOARD_VENDOR_KERNEL_MODULES += \
                             $(KERNEL_OUT)/drivers/extcon/extcon-ptn5150.ko \
-                            $(KERNEL_OUT)/drivers/hid/usbhid/usbhid.ko \
                             $(KERNEL_OUT)/drivers/usb/roles/roles.ko \
                             $(KERNEL_OUT)/drivers/usb/typec/tcpci.ko \
                             $(KERNEL_OUT)/drivers/usb/typec/tcpm.ko \
@@ -77,7 +76,6 @@ BOARD_VENDOR_KERNEL_MODULES += \
                             $(KERNEL_OUT)/drivers/usb/chipidea/ci_hdrc_imx.ko \
                             $(KERNEL_OUT)/drivers/usb/chipidea/usbmisc_imx.ko \
                             $(KERNEL_OUT)/drivers/usb/common/ulpi.ko \
-                            $(KERNEL_OUT)/drivers/usb/core/usbcore.ko \
                             $(KERNEL_OUT)/drivers/usb/host/xhci-hcd.ko \
                             $(KERNEL_OUT)/drivers/usb/host/ehci-hcd.ko \
                             $(KERNEL_OUT)/drivers/usb/storage/usb-storage.ko \
