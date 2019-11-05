@@ -4,6 +4,8 @@
   ],
 
   "hal_version": "3",
+  "cam_preview_csc_hw": "GPU_3D",
+  "cam_recording_csc_hw": "GPU_3D",
 
   "ov5640_metadata": [
     {
