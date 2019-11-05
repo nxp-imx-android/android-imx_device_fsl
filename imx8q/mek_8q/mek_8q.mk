@@ -246,8 +246,6 @@ PRODUCT_PACKAGES += \
     android.hardware.audio@5.0-impl:32 \
     android.hardware.audio@2.0-service \
     android.hardware.audio.effect@5.0-impl:32 \
-    android.hardware.sensors@1.0-impl \
-    android.hardware.sensors@1.0-service \
     android.hardware.power@1.3-service.imx \
     android.hardware.light@2.0-impl \
     android.hardware.light@2.0-service \
@@ -393,6 +391,12 @@ ifneq ($(PRODUCT_IMX_CAR),true)
 # Tensorflow lite camera demo
 PRODUCT_PACKAGES += \
                     tflitecamerademo
+endif
+
+ifneq ($(PRODUCT_IMX_CAR),true)
+PRODUCT_PACKAGES += \
+    android.hardware.sensors@1.0-impl \
+    android.hardware.sensors@1.0-service
 endif
 
 
