@@ -118,12 +118,12 @@ $(UBOOT_OUT):
 UBOOTENVSH := $(intermediates)/ubootenv.sh
 $(UBOOTENVSH):
 	rm -rf $@
-	if [ -n "$BOOTLOADER_RBINDEX" ]; then \
-		echo 'export ROLLBACK_INDEX_IN_CONTAINER=$(BOOTLOADER_RBINDEX)' > $@; \
-		echo 'export ROLLBACK_INDEX_IN_FIT=$(BOOTLOADER_RBINDEX)' > $@; \
+	if [ -n "$(BOOTLOADER_RBINDEX)" ]; then \
+		echo 'export ROLLBACK_INDEX_IN_CONTAINER=$(BOOTLOADER_RBINDEX)' >> $@; \
+		echo 'export ROLLBACK_INDEX_IN_FIT=$(BOOTLOADER_RBINDEX)' >> $@; \
 	else \
-		echo 'export ROLLBACK_INDEX_IN_CONTAINER=0' > $@; \
-		echo 'export ROLLBACK_INDEX_IN_FIT=0' > $@; \
+		echo 'export ROLLBACK_INDEX_IN_CONTAINER=' >> $@; \
+		echo 'export ROLLBACK_INDEX_IN_FIT=' >> $@; \
 	fi
 
 $(UBOOT_BIN): $(UBOOTENVSH) $(UBOOT_OUT)
