@@ -390,9 +390,14 @@ PRODUCT_PACKAGES += \
     lib_imx_c2_videodec_common.so \
     lib_imx_v4l2_dev.so \
     lib_imx_c2_v4l2_dec.so \
+    lib_c2_imx_store.so \
     lib_c2_imx_audio_dec_common.so \
     lib_c2_imx_aac_dec.so \
-    lib_c2_imx_store.so
+    lib_c2_imx_ac3_dec.so \
+    lib_c2_imx_ddp_dec.so \
+    lib_c2_imx_mp3_dec.so \
+    lib_c2_imx_ra_dec.so \
+    lib_c2_imx_wma_dec.so
 
 
 ifneq ($(PRODUCT_IMX_CAR),true)
