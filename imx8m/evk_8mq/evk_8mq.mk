@@ -278,7 +278,14 @@ PRODUCT_PACKAGES += \
     lib_imx_ts_manager \
     lib_imx_c2_videodec \
     lib_imx_c2_videodec_core \
-    lib_c2_imx_store
+    lib_c2_imx_store \
+    lib_c2_imx_audio_dec_common.so \
+    lib_c2_imx_aac_dec.so \
+    lib_c2_imx_ac3_dec.so \
+    lib_c2_imx_ddp_dec.so \
+    lib_c2_imx_mp3_dec.so \
+    lib_c2_imx_ra_dec.so \
+    lib_c2_imx_wma_dec.so
 
 
 # Add oem unlocking option in settings.
