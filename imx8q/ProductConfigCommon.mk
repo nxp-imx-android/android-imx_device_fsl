@@ -381,9 +381,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.FSL_MPG2_PARSER=1
 
 # Set c2 codec in default
-PRODUCT_PROPERTY_OVERRIDES += debug.stagefright.ccodec=1
-PRODUCT_PROPERTY_OVERRIDES += debug.stagefright.omx_default_rank=512
-
+PRODUCT_PROPERTY_OVERRIDES += \
+    debug.stagefright.ccodec=4  \
+    debug.stagefright.omx_default_rank=0x200 \
+    debug.stagefright.c2-poolmask=0x70000
 
 # we have enough storage space to hold precise GC data
 PRODUCT_TAGS += dalvik.gc.type-precise
