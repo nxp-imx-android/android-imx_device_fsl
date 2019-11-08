@@ -4,11 +4,14 @@
   ],
 
   "hal_version": "3",
-  "cam_preview_csc_hw": "GPU_3D",
-  "cam_recording_csc_hw": "GPU_3D",
+  "cam_blit_copy": "GPU_3D",
+  "cam_blit_csc": "GPU_3D",
 
-  "ov5640_metadata": [
+  "camera_metadata": [
     {
+      "camera_type": "back",
+      "camera_name": "imx8_ov5640",
+      "orientation": "0",
       "buffer_type": "dma",
       "ActiveArrayWidth": "2592",
       "ActiveArrayHeight": "1944",
@@ -20,10 +23,11 @@
       "MaxJpegSize": "8388608",
       "MinFrameDuration": "33331760",
       "MaxFrameDuration": "300000000"
-    }
-  ],
-  "uvc_metadata": [
+    },
     {
+      "camera_type": "front",
+      "camera_name": "uvc",
+      "orientation": "0",
       "buffer_type": "dma",
       "ActiveArrayWidth": "1920",
       "ActiveArrayHeight": "1080",
