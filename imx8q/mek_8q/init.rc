@@ -81,15 +81,7 @@ on early-boot
     setprop media.fsl_codec.flag 7
     setprop media.amphion_vpu.enable-tile 0
 
-    #Define the config for dual camera
-    #For landscape mode, orient is 0
-    #For portrait mode, orient is 90
-    #the android before honycomb are all in portrait mode
     setprop camera.disable_zsl_mode 1
-    setprop back_camera_name imx8_ov5640_mipi,max9286_mipi,imx8_ov5640
-    setprop back_camera_orient 0
-    setprop front_camera_name imx8_ov5640,imx8_ov5640_mipi,uvc
-    setprop front_camera_orient 0
 
    # Tweak the mmc device read ahead buffer size
     write /sys/block/mmcblk0/queue/read_ahead_kb 2048
