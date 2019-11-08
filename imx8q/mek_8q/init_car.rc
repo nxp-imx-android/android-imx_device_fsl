@@ -56,15 +56,7 @@ on early-boot
     setprop rw.VIDEO_RENDER_NAME video_render.surface
     setprop media.fsl_codec.flag 7
 
-    #Define the config for dual camera
-    #For landscape mode, orient is 0
-    #For portrait mode, orient is 90
-    #the android before honycomb are all in portrait mode
     setprop camera.disable_zsl_mode 1
-    setprop back_camera_name max9286_mipi
-    setprop back_camera_orient 0
-    setprop front_camera_name uvc,adv7180_decoder
-    setprop front_camera_orient 0
 
     # Set period_us for usb audio
     setprop ro.audio.usb.period_us 20000
