@@ -158,6 +158,8 @@ BOARD_OTA_BOOTLOADERIMAGE := out/target/product/mek_8q/bootloader-imx8qm.img
 ifeq ($(PRODUCT_IMX_CAR_M4),true)
 # imx8qm auto android
 TARGET_BOARD_DTS_CONFIG := imx8qm:fsl-imx8qm-mek-car.dtb
+# imx8qm auto android with multi-display
+TARGET_BOARD_DTS_CONFIG += imx8qm-md:fsl-imx8qm-mek-car-md.dtb
 # imx8qm auto android virtualization
 TARGET_BOARD_DTS_CONFIG += imx8qm-xen:fsl-imx8qm-mek-domu-car.dtb
 # imx8qxp auto android
@@ -220,8 +222,8 @@ ifeq ($(PRODUCT_IMX_CAR_M4),true)
 TARGET_KERNEL_DEFCONFIG := android_car_defconfig
 else
 TARGET_KERNEL_DEFCONFIG := android_car2_defconfig
-TARGET_KERNEL_ADDITION_DEFCONF := android_addition_defconfig
 endif # PRODUCT_IMX_CAR_M4
+TARGET_KERNEL_ADDITION_DEFCONF := android_addition_defconfig
 else
 TARGET_KERNEL_DEFCONFIG := android_defconfig
 endif # PRODUCT_IMX_CAR
