@@ -165,7 +165,7 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     android.hardware.thermal@2.0-service.imx
 PRODUCT_COPY_FILES += \
-    device/fsl/imx8m/aiy_8mq/thermal_info_config_imx8mq.json:$(TARGET_COPY_OUT_VENDOR)/etc/thermal_info_config_imx8mq.json
+    device/fsl/imx8m/aiy_8mq/thermal_info_config_imx8mq.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/thermal_info_config_imx8mq.json
 
 # Neural Network HAL
 PRODUCT_PACKAGES += \
