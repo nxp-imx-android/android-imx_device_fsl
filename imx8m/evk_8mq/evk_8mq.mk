@@ -93,7 +93,7 @@ PRODUCT_COPY_FILES += \
     $(IMX_DEVICE_PATH)/seccomp/mediaextractor-seccomp.policy:vendor/etc/seccomp_policy/mediaextractor.policy
 
 PRODUCT_COPY_FILES += \
-    device/fsl/imx8m/evk_8mq/powerhint_imx8mq.json:$(TARGET_COPY_OUT_VENDOR)/etc/powerhint_imx8mq.json
+    device/fsl/imx8m/evk_8mq/powerhint_imx8mq.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/powerhint_imx8mq.json
 
 # fastboot_imx_flashall scripts, fsl-sdcard-partition script and uuu_imx_android_flash scripts
 PRODUCT_COPY_FILES += \
@@ -179,7 +179,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.thermal@2.0-service.imx
 PRODUCT_COPY_FILES += \
-    device/fsl/imx8m/evk_8mq/thermal_info_config_imx8mq.json:$(TARGET_COPY_OUT_VENDOR)/etc/thermal_info_config_imx8mq.json
+    device/fsl/imx8m/evk_8mq/thermal_info_config_imx8mq.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/thermal_info_config_imx8mq.json
 
 # Neural Network HAL and lib
 PRODUCT_PACKAGES += \
@@ -223,7 +223,7 @@ PRODUCT_PACKAGES += \
 endif
 
 PRODUCT_COPY_FILES += \
-    device/fsl/imx8m/evk_8mq/camera_config_imx8mq.json:$(TARGET_COPY_OUT_VENDOR)/etc/config/camera_config_imx8mq.json
+    device/fsl/imx8m/evk_8mq/camera_config_imx8mq.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/camera_config_imx8mq.json
 
 # Keymaster HAL
 PRODUCT_PACKAGES += \
