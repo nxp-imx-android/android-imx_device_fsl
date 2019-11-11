@@ -80,6 +80,7 @@ on early-boot
     setprop rw.VIDEO_RENDER_NAME video_render.surface
     setprop media.fsl_codec.flag 7
     setprop media.amphion_vpu.enable-tile 0
+    setprop debug.stagefright.ccodec 0
 
     setprop camera.disable_zsl_mode 1
 
