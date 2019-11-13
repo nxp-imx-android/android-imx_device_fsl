@@ -1,7 +1,7 @@
 :: Do not output the command
 @echo off
 
-echo This script is validated with uuu 1.2.135 version, please align with this version.
+echo This script is validated with uuu 1.3.74 version, please align with this version.
 
 ::---------------------------------------------------------------------------------
 ::Variables
@@ -465,7 +465,7 @@ if [%board%] == [] (
 goto :eof
 
 :uuu_load_uboot
-echo uuu_version 1.2.135 > uuu.lst
+echo uuu_version 1.3.74 > uuu.lst
 
 if exist %bootloader_usbd_by_uuu%.link (
     del %bootloader_usbd_by_uuu%.link
