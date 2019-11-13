@@ -461,6 +461,9 @@ endif
 IMX-DEFAULT-G2D-LIB := libg2d-dpu
 
 ifeq ($(PREBUILT_FSL_IMX_CODEC),true)
+ifneq ($(IMX8_BUILD_32BIT_ROOTFS),true)
+INSTALL_64BIT_LIBRARY := true
+endif
 -include $(FSL_CODEC_PATH)/fsl-codec/fsl-codec.mk
 -include $(FSL_RESTRICTED_CODEC_PATH)/fsl-restricted-codec/imx_dsp_aacp_dec/imx_dsp_aacp_dec.mk
 -include $(FSL_RESTRICTED_CODEC_PATH)/fsl-restricted-codec/imx_dsp_codec/imx_dsp_codec.mk
