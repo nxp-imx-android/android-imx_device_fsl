@@ -99,7 +99,7 @@ sym_link_directory=""
 yocto_image_sym_link=""
 daemon_mode=0
 
-echo -e This script is validated with ${RED}uuu 1.2.135${STD} version, please align with this version.
+echo -e This script is validated with ${RED}uuu 1.3.74${STD} version, please align with this version.
 
 if [ $# -eq 0 ]; then
     echo -e >&2 ${RED}please provide more information with command script options${STD}
@@ -338,7 +338,7 @@ fi
 
 function uuu_load_uboot
 {
-    echo uuu_version 1.2.135 > /tmp/uuu.lst
+    echo uuu_version 1.3.74 > /tmp/uuu.lst
     rm -f /tmp/${bootloader_usbd_by_uuu}
     ln -s ${sym_link_directory}${bootloader_usbd_by_uuu} /tmp/${bootloader_usbd_by_uuu}
     echo ${sdp}: boot -f ${bootloader_usbd_by_uuu} >> /tmp/uuu.lst
