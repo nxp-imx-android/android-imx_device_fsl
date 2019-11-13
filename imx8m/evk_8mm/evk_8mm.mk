@@ -255,10 +255,10 @@ PRODUCT_PACKAGES += \
     libsfplugin_ccodec \
     lib_imx_c2_componentbase \
     lib_imx_c2_videodec \
-    lib_imx_c2_videodec_core \
+    lib_imx_c2_vpuwrapper_dec \
     lib_imx_c2_videodec_common \
     lib_imx_c2_videoenc_common \
-    lib_imx_c2_videoenc_core \
+    lib_imx_c2_vpuwrapper_enc \
     lib_imx_c2_videoenc \
     lib_imx_c2_process \
     lib_imx_ts_manager \

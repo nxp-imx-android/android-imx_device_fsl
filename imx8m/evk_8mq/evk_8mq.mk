@@ -277,7 +277,7 @@ PRODUCT_PACKAGES += \
     lib_imx_c2_videodec_common \
     lib_imx_ts_manager \
     lib_imx_c2_videodec \
-    lib_imx_c2_videodec_core \
+    lib_imx_c2_vpuwrapper_dec \
     lib_c2_imx_store \
     lib_c2_imx_audio_dec_common.so \
     lib_c2_imx_aac_dec.so \
