@@ -144,9 +144,6 @@ on early-boot
 
     start vendor.wifi_hal_legacy
 
-    # avoid USB crash
-    setprop persist.adb.nonblocking_ffs 0
-
 service wpa_supplicant /vendor/bin/hw/wpa_supplicant \
     -O/data/vendor/wifi/wpa/sockets -puse_p2p_group_interface=1 \
     -g@android:wpa_wlan0
