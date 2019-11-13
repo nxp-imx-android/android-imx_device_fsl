@@ -287,7 +287,7 @@ PRODUCT_PACKAGES += \
     libavcodec \
     libavutil \
     libfsl_jpeg_enc_arm11_elinux \
-    libfslextractor \
+    libimxextractor \
     libfslxec \
     libstagefrighthw \
     libswresample \
