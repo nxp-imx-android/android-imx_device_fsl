@@ -109,9 +109,6 @@ on early-boot
     # enlarge media max memory size to 3G.
     setprop ro.media.maxmem 3221225471
 
-    # avoid USB crash
-    setprop persist.adb.nonblocking_ffs 0
-
 on boot
     start audioserver
     start mediadrm
