@@ -14,7 +14,8 @@ set script_first_argument=%script_first_argument:"=%
 set script_name=%script_first_argument:~-25%
 
 set soc_name=
-set device_character=
+set uboot_feature=
+set dtb_feature=
 set /A card_size=0
 set slot=
 set bootimage=boot.img
@@ -27,7 +28,6 @@ set /A support_recovery=0
 set /A support_dualslot=0
 set /A support_mcu_os=0
 set /A support_dual_bootloader=0
-set /A support_trusty=0
 set dual_bootloader_partition=
 set bootloader_flashed_to_board=
 set uboot_proper_to_be_flashed=
@@ -65,7 +65,8 @@ if [%1] == [] goto :parse_end
 if %1 == -h call :help & goto :eof
 if %1 == -f set soc_name=%2& shift & shift & goto :parse_loop
 if %1 == -c set /A card_size=%2& shift & shift & goto :parse_loop
-if %1 == -d set device_character=%2& shift & shift & goto :parse_loop
+if %1 == -u set uboot_feature=-%2& shift & shift & goto :parse_loop
+if %1 == -d set dtb_feature=%2& shift & shift & goto :parse_loop
 if %1 == -a set slot=_a& shift & goto :parse_loop
 if %1 == -b set slot=_b& shift & goto :parse_loop
 if %1 == -m set /A flash_mcu=1 & shift & goto :parse_loop
@@ -78,6 +79,13 @@ echo %1 is an illegal option
 call :help & goto :eof
 :parse_end
 
+:: avoid substring judgement error
+set uboot_feature_test=A%uboot_feature%
+
+:: Process of the uboot_feature parameter
+if not [%uboot_feature_test:dual=%] == [%uboot_feature_test%] set /A support_dual_bootloader=1
+
+
 :: If sdcard size is not correctly set, exit
 if %card_size% neq 0 set /A statisc+=1
 if %card_size% neq 7 set /A statisc+=1
@@ -85,7 +93,21 @@ if %card_size% neq 14 set /A statisc+=1
 if %card_size% neq 28 set /A statisc+=1
 if %statisc% == 4 echo card_size is not a legal value & goto :eof
 
-if %card_size% gtr 0 set partition_file=partition-table-%card_size%GB.img
+:: Android Automative by default support dual bootloader, no "dual" in its partition table name
+if [%support_dual_bootloader%] == [1] (
+    if %card_size% gtr 0 (
+        set partition_file=partition-table-%card_size%GB-dual.img
+    ) else (
+        set partition_file=partition-table-dual.img
+    )
+) else (
+    if %card_size% gtr 0 (
+        set partition_file=partition-table-%card_size%GB.img
+    ) else (
+        set partition_file=partition-table.img
+    )
+)
+
 
 :: if directory is specified, and the last character is not backslash, add one backslash
 if not [%image_directory%] == [] if not %image_directory:~-1% == \ (
@@ -122,11 +144,11 @@ goto :eof
 ::----------------------------------------------------------------------------------
 
 :help
-echo Version: 1.3
-echo Last change: adapt to the new partition name for Cortex-M core.
+echo Version: 1.4
+echo Last change: add "-u" option to specify which uboot or spl&bootloader image to flash
 echo.
-echo eg: fastboot_imx_flashall.bat -f imx8mm -a -D C:\Users\user_01\Android\images\2018.10.07\evk_8mm
-echo eg: fastboot_imx_flashall.bat -f imx7ulp -D C:\Users\user_01\Android\images\2018.10.07\evk_7ulp
+echo eg: fastboot_imx_flashall.bat -f imx8mm -a -D C:\Users\user_01\android10\evk_8mm
+echo eg: fastboot_imx_flashall.bat -f imx7ulp -D C:\Users\user_01\android10\evk_7ulp
 echo.
 echo Usage: %script_name% ^<option^>
 echo.
@@ -142,16 +164,20 @@ echo                        If set to 14, use partition-table-14GB.img for 16GB 
 echo                        If set to 28, use partition-table-28GB.img for 32GB SD card
 echo                    Make sure the corresponding file exist for your platform
 echo  -m                flash mcu image
-echo  -d dev            flash dtbo, vbmeta and recovery image file with dev
-echo                        If not set, use default dtbo, vbmeta and recovery image
+echo  -u uboot_feature  flash uboot or spl&bootloader image with "uboot_feature" in their names
+echo                        For Standard Android:
+echo                            If the parameter after "-u" option contains the string of "dual", then spl&bootloader image will be flashed,
+echo                            otherwise uboot image will be flashed
+echo                        For Android Automative:
+echo                            only dual bootloader feature is supported, by default spl&bootloader image will be flashed
+echo  -d dtb_feature    flash dtbo, vbmeta and recovery image file with "dtb_feature" in their names
+echo                        If not set, default dtbo, vbmeta and recovery image will be flashed
 echo  -e                erase user data after all image files being flashed
 echo  -l                lock the device after all image files being flashed
 echo  -D directory      the directory of of images
 echo                        No need to use this option if images are in current working directory
 echo  -s ser_num        the serial number of board
 echo                        If only one board connected to computer, no need to use this option
-echo  -tos              flash the uboot with trusty enabled for i.MX 8M Mini EVK, i.MX8M Nano EVK, i.MX8QuadMax/i.MX8QuadXPlus MEK
-echo                       The platforms listed have both uboot images with trusty enabled and not enabled. the enabled ones have "trusty" in their names
 goto :eof
 
 
@@ -189,16 +215,16 @@ if not [%partition_to_be_flashed:mcu_os=%] == [%partition_to_be_flashed%] (
     )
     goto :start_to_flash
 )
-if not [%partition_to_be_flashed:vbmeta=%] == [%partition_to_be_flashed%] if not [%device_character%] == [] (
-    set img_name=%local_str%-%soc_name%-%device_character%.img
+if not [%partition_to_be_flashed:vbmeta=%] == [%partition_to_be_flashed%] if not [%dtb_feature%] == [] (
+    set img_name=%local_str%-%soc_name%-%dtb_feature%.img
     goto :start_to_flash
 )
-if not [%partition_to_be_flashed:dtbo=%] == [%partition_to_be_flashed%] if not [%device_character%] == [] (
-    set img_name=%local_str%-%soc_name%-%device_character%.img
+if not [%partition_to_be_flashed:dtbo=%] == [%partition_to_be_flashed%] if not [%dtb_feature%] == [] (
+    set img_name=%local_str%-%soc_name%-%dtb_feature%.img
     goto :start_to_flash
 )
-if not [%partition_to_be_flashed:recovery=%] == [%partition_to_be_flashed%] if not [%device_character%] == [] (
-    set img_name=%local_str%-%soc_name%-%device_character%.img
+if not [%partition_to_be_flashed:recovery=%] == [%partition_to_be_flashed%] if not [%dtb_feature%] == [] (
+    set img_name=%local_str%-%soc_name%-%dtb_feature%.img
     goto :start_to_flash
 )
 if not [%partition_to_be_flashed:bootloader=%] == [%partition_to_be_flashed%] (
@@ -261,31 +287,14 @@ del fastboot_var.log
 
 :: some partitions are hard-coded in uboot, flash the uboot first and then reboot to check these partitions
 
-:: default u-boot image name first, no dual bootloader support, no special requirement different from default
-set bootloader_flashed_to_board=u-boot-%soc_name%.imx
-
-:: this part handles dual bootloader conditions, mainly for Android Auto on 8qxp_mek and 8qm_mek for now
+:: uboot or spl&bootloader
 if %support_dual_bootloader% == 1 (
-    set bootloader_flashed_to_board=spl-%soc_name%.bin
-    set uboot_proper_to_be_flashed=bootloader-%soc_name%.img
-)
-:: i.MX 8M Mini EVK and i.MX 8M Nano EVK does not support dual bootloader for now, and has some special requirement
-if [%soc_name%] == [imx8mm] (
-    if [%device_character%] == [ddr4] (
-:: i.MX8M Mini EVK with DDR4 on board does not support eMMC, trusty is not supported.
-        set bootloader_flashed_to_board=u-boot-%soc_name%-ddr4.imx
-    ) else (
-        if %support_trusty% == 1 (
-            set bootloader_flashed_to_board=u-boot-%soc_name%-trusty.imx
-        )
-    )
+    set bootloader_flashed_to_board=spl-%soc_name%%uboot_feature%.bin
+    set uboot_proper_to_be_flashed=bootloader-%soc_name%%uboot_feature%.img
+) else (
+    set bootloader_flashed_to_board=u-boot-%soc_name%%uboot_feature%.imx
 )
 
-if not [%soc_name%] == [imx8mm] (
-    if %support_trusty% == 1 (
-        set bootloader_flashed_to_board=u-boot-%soc_name%-trusty.imx
-    )
-)
 
 :: in the source code, if AB slot feature is supported, uboot partition name is bootloader0
 if %support_dualslot% == 1 set bootloader_partition=bootloader0
