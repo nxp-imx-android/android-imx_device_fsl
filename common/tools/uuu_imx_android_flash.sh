@@ -5,13 +5,12 @@ help() {
 bn=`basename $0`
 cat << EOF
 
-Version: 1.5
-Last change: Add parameters '-dboot' to enable dual bootloader flash for imx8m platforms
+Version: 1.6
+Last change: remove "-tos" and "-dboot" option, add "-u" option to specify which uboot or spl&bootloader image to flash
 currently suported platforms: sabresd_6dq, sabreauto_6q, sabresd_6sx, evk_7ulp, sabresd_7d
                               evk_8mm, evk_8mq, evk_8mn, aiy_8mq, mek_8q, mek_8q_car
 
-eg: ./uuu_imx_android_flash.sh -f imx8qm -a -e -D ~/nfs/179/2018.11.10/imx_pi9.0/mek_8q/
-eg: ./uuu_imx_android_flash.sh -f imx6qp -e -D ~/nfs/187/maddev_pi9.0/out/target/product/sabresd_6dq/ -p sabresd
+eg: ./uuu_imx_android_flash.sh -f imx8qm -a -e -D ~/android10/mek_8q/
 
 Usage: $bn <option>
 
@@ -27,8 +26,14 @@ options:
                         If set to 28, use partition-table-28GB.img for 32GB SD card
                     Make sure the corresponding file exist for your platform
   -m                flash mcu image
-  -d dev            flash dtbo, vbmeta and recovery image file with dev
-                        If not set, use default dtbo, vbmeta and image
+  -u uboot_feature  flash uboot or spl&bootloader image with "uboot_feature" in their names
+                        For Standard Android:
+                            If the parameter after "-u" option contains the string of "dual", then spl&bootloader image will be flashed,
+                            otherwise uboot image will be flashed
+                        For Android Automative:
+                            only dual bootloader feature is supported, by default spl&bootloader image will be flashed
+  -d dtb_feature    flash dtbo, vbmeta and recovery image file with "dtb_feature" in their names
+                        If not set, default dtbo, vbmeta and recovery image will be flashed
   -e                erase user data after all image files being flashed
   -D directory      the directory of images
                         No need to use this option if images are in current working directory
@@ -42,9 +47,7 @@ options:
   -i                with this option used, after uboot for uuu loaded and executed to fastboot mode with target device chosen, this script will stop
                         This option is for users to manually flash the images to partitions they want to
   -daemon           after uuu script generated, uuu will be invoked with daemon mode. It is used for flash multi boards
-  -tos              flash the uboot with trusty enabled for i.MX 8M Mini EVK, i.MX8M Nano EVK, i.MX8QuadMax/i.MX8QuadXPlus MEK
-                        The platforms listed have both uboot images with trusty enabled and not enabled. the enabled ones have "trusty" in their names
-  -dboot            support dual bootloader flash for i.MX 8M platforms
+  -dryrun           only generate the uuu script under /tmp direcbory but not flash images
 EOF
 
 }
@@ -52,7 +55,8 @@ EOF
 
 # parse command line
 soc_name=""
-device_character=""
+uboot_feature=""
+dtb_feature=""
 card_size=0
 slot=""
 systemimage_file="system.img"
@@ -88,7 +92,7 @@ imx7ulp_evk_m4_sf_length=256
 imx7ulp_evk_sf_blksz=512
 imx7ulp_stage_base_addr=0x60800000
 imx8qm_stage_base_addr=0x98000000
-bootloader_usbd_by_uuu=""
+bootloader_used_by_uuu=""
 bootloader_flashed_to_board=""
 yocto_image=""
 intervene=0
@@ -98,6 +102,7 @@ current_working_directory=""
 sym_link_directory=""
 yocto_image_sym_link=""
 daemon_mode=0
+dryrun=0
 
 echo -e This script is validated with ${RED}uuu 1.3.74${STD} version, please align with this version.
 
@@ -112,7 +117,8 @@ while [ $# -gt 0 ]; do
         -h) help; exit ;;
         -f) soc_name=$2; shift;;
         -c) card_size=$2; shift;;
-        -d) device_character=$2; shift;;
+        -u) uboot_feature=-$2; shift;;
+        -d) dtb_feature=$2; shift;;
         -a) slot="_a" ;;
         -b) slot="_b" ;;
         -m) flash_mcu=1 ;;
@@ -123,15 +129,23 @@ while [ $# -gt 0 ]; do
         -p) board=$2; shift;;
         -i) intervene=1 ;;
         -daemon) daemon_mode=1 ;;
-        -tos) support_trusty=1 ;;
-        -dboot) support_dual_bootloader=1 ;;
-        *)  echo -e >&2 ${RED}an option you specified is not supported, please check it${STD}
+        -dryrun) dryrun=1 ;;
+        *)  echo -e >&2 ${RED}the option \"${1}\"  you specified is not supported, please check it${STD}
             help; exit;;
     esac
     shift
 done
 
-# i.MX8M Mini EVK and i.MX8M Nano EVK can't boot from SD card with trusty support
+# Process of the uboot_feature parameter
+if [[ "${uboot_feature}" = *"trusty"* ]] || [[ "${uboot_feature}" = *"secure"* ]]; then
+    support_trusty=1;
+fi
+if [[ "${uboot_feature}" = *"dual"* ]]; then
+    support_dual_bootloader=1;
+fi
+
+
+# TrustyOS can't boot from SD card
 if [ "${target_dev}" = "sd" ] && [ ${support_trusty} -eq 1 ]; then
     echo -e >&2 ${RED}can not boot up from SD with trusty enabled${STD};
     help; exit 1;
@@ -146,6 +160,32 @@ fi
 if [[ "${image_directory}" != "" ]]; then
      image_directory="${image_directory%/}/";
 fi
+
+# for conditions that the path specified is current working directory or no path specified
+if [[ "${image_directory}" == "" ]] || [[ "${image_directory}" == "./" ]]; then
+    sym_link_directory=`pwd`;
+    sym_link_directory="${sym_link_directory%/}/";
+# for conditions that absolute path is specified
+elif [[ "${image_directory#/}" != "${image_directory}" ]] || [[ "${image_directory#~}" != "${image_directory}" ]]; then
+    sym_link_directory=${image_directory};
+# for other relative path specified
+else
+    sym_link_directory=`pwd`;
+    sym_link_directory="${sym_link_directory%/}/";
+    sym_link_directory=${sym_link_directory}${image_directory}
+fi
+
+# if absolute path is used
+if [[ "${yocto_image#/}" != "${yocto_image}" ]] || [[ "${yocto_image#~}" != "${yocto_image}" ]]; then
+    yocto_image_sym_link=${yocto_image}
+# if other relative path is used
+else
+    yocto_image_sym_link=`pwd`;
+    yocto_image_sym_link="${yocto_image_sym_link%/}/";
+    yocto_image_sym_link=${yocto_image_sym_link}${yocto_image}
+fi
+
+
 
 # if card_size is not correctly set, exit.
 if [ ${card_size} -ne 0 ] && [ ${card_size} -ne 7 ] && [ ${card_size} -ne 14 ] && [ ${card_size} -ne 28 ]; then
@@ -188,30 +228,6 @@ grep "72 00 65 00 63 00 6f 00 76 00 65 00 72 00 79 00" /tmp/partition-table_3.tx
 grep "62 00 6f 00 6f 00 74 00 5f 00 61 00" /tmp/partition-table_3.txt > /dev/null \
         && support_dualslot=1 && echo dual slot is supported
 
-# for conditions that the path specified is current working directory or no path specified
-if [[ "${image_directory}" == "" ]] || [[ "${image_directory}" == "./" ]]; then
-    sym_link_directory=`pwd`;
-    sym_link_directory="${sym_link_directory%/}/";
-# for conditions that absolute path is specified
-elif [[ "${image_directory#/}" != "${image_directory}" ]] || [[ "${image_directory#~}" != "${image_directory}" ]]; then
-    sym_link_directory=${image_directory};
-# for other relative path specified
-else
-    sym_link_directory=`pwd`;
-    sym_link_directory="${sym_link_directory%/}/";
-    sym_link_directory=${sym_link_directory}${image_directory}
-fi
-
-
-# if absolute path is used
-if [[ "${yocto_image#/}" != "${yocto_image}" ]] || [[ "${yocto_image#~}" != "${yocto_image}" ]]; then
-    yocto_image_sym_link=${yocto_image}
-# if other relative path is used
-else
-    yocto_image_sym_link=`pwd`;
-    yocto_image_sym_link="${yocto_image_sym_link%/}/";
-    yocto_image_sym_link=${yocto_image_sym_link}${yocto_image}
-fi
 
 # get device and board specific parameter
 case ${soc_name%%-*} in
@@ -277,7 +293,7 @@ esac
 
 # test whether board info is specified for imx6dl, imx6q and imx6qp
 if [[ "${board}" == "" ]]; then
-    if [[ "$(echo ${device_character} | grep "ldo")" != "" ]]; then
+    if [[ "$(echo ${dtb_feature} | grep "ldo")" != "" ]]; then
             board=sabresd;
 
         else
@@ -309,47 +325,33 @@ if [[ ${soc_name#imx8q} != ${soc_name} ]] || [[ ${soc_name} == "imx8mn" ]]; then
 fi
 
 # default bootloader image name
-bootloader_usbd_by_uuu=u-boot-${soc_name}-${board}-uuu.imx
-bootloader_flashed_to_board="u-boot-${soc_name}.imx"
+bootloader_used_by_uuu=u-boot-${soc_name}-${board}-uuu.imx
+bootloader_flashed_to_board="u-boot-${soc_name}${uboot_feature}.imx"
 
-# find the names of the bootloader used by uuu and flashed to board
-# the uboot images for ldo for imx6 and epdc for imx7 devices are identical with the default ones
+# find the names of the bootloader used by uuu
 if [ "${soc_name}" = imx8mm ]; then
-    if [ "${device_character}" == "ddr4" ]; then
-        bootloader_usbd_by_uuu=u-boot-${soc_name}-ddr4-${board}-uuu.imx
-        bootloader_flashed_to_board="u-boot-${soc_name}-ddr4.imx"
-    else
-        # 4GB LPDDR4 version not supported
-        if [ ${support_trusty} -eq 1 ]; then
-            bootloader_usbd_by_uuu=u-boot-${soc_name}-${board}-uuu.imx
-            bootloader_flashed_to_board=u-boot-${soc_name}-trusty.imx
-        else
-            bootloader_usbd_by_uuu=u-boot-${soc_name}-${board}-uuu.imx
-            bootloader_flashed_to_board="u-boot-${soc_name}.imx"
-        fi
-    fi
-fi
-
-if [  ${soc_name} != "imx8mm" ] || [  ${soc_name} == "imx8mq" ]; then
-    if [ ${support_trusty} -eq 1 ]; then
-        bootloader_flashed_to_board="u-boot-${soc_name}-trusty.imx"
+    if [[ "${uboot_feature}" = *"ddr4"* ]]; then
+        bootloader_used_by_uuu=u-boot-${soc_name}-ddr4-${board}-uuu.imx
+	elif [[ "${uboot_feature}" = *"4g"* ]]; then
+        bootloader_used_by_uuu=u-boot-${soc_name}-4g-${board}-uuu.imx
     fi
 fi
 
 function uuu_load_uboot
 {
     echo uuu_version 1.3.74 > /tmp/uuu.lst
-    rm -f /tmp/${bootloader_usbd_by_uuu}
-    ln -s ${sym_link_directory}${bootloader_usbd_by_uuu} /tmp/${bootloader_usbd_by_uuu}
-    echo ${sdp}: boot -f ${bootloader_usbd_by_uuu} >> /tmp/uuu.lst
+    rm -f /tmp/${bootloader_used_by_uuu}
+    ln -s ${sym_link_directory}${bootloader_used_by_uuu} /tmp/${bootloader_used_by_uuu}
+    echo ${sdp}: boot -f ${bootloader_used_by_uuu} >> /tmp/uuu.lst
+    # for uboot by uuu which enabled SPL
     if [[ ${soc_name#imx8m} != ${soc_name} ]]; then
         # for images need SDPU
         echo SDPU: delay 1000 >> /tmp/uuu.lst
-        echo SDPU: write -f ${bootloader_usbd_by_uuu} -offset 0x57c00 >> /tmp/uuu.lst
+        echo SDPU: write -f ${bootloader_used_by_uuu} -offset 0x57c00 >> /tmp/uuu.lst
         echo SDPU: jump >> /tmp/uuu.lst
         # for images need SDPV
         echo SDPV: delay 1000 >> /tmp/uuu.lst
-        echo SDPV: write -f ${bootloader_usbd_by_uuu} -skipspl >> /tmp/uuu.lst
+        echo SDPV: write -f ${bootloader_used_by_uuu} -skipspl >> /tmp/uuu.lst
         echo SDPV: jump >> /tmp/uuu.lst
     fi
     echo FB: ucmd setenv fastboot_dev mmc >> /tmp/uuu.lst
@@ -390,8 +392,8 @@ function flash_partition
             img_name="boot.img"
     elif [ "$(echo ${1} | grep "mcu_os")" != "" ]; then
         img_name="${soc_name}_mcu_demo.img"
-    elif [ "$(echo ${1} | grep -E "dtbo|vbmeta|recovery")" != "" -a "${device_character}" != "" ]; then
-        img_name="${1%_*}-${soc_name}-${device_character}.img"
+    elif [ "$(echo ${1} | grep -E "dtbo|vbmeta|recovery")" != "" -a "${dtb_feature}" != "" ]; then
+        img_name="${1%_*}-${soc_name}-${dtb_feature}.img"
     elif [ "$(echo ${1} | grep "gpt")" != "" ]; then
         img_name=${partition_file}
     else
@@ -443,27 +445,17 @@ function flash_android
 {
     # if dual bootloader is supported, the name of the bootloader flashed to the board need to be updated
     if [ ${support_dual_bootloader} -eq 1 ]; then
-        if [[ ${soc_name#imx8m} != ${soc_name} ]]; then
-            if [ ${support_trusty} -eq 1 ]; then
-                bootloader_flashed_to_board=spl-${soc_name}-trusty-dual.bin
-		uboot_proper_to_be_flashed=bootloader-${soc_name}-trusty-dual.img
-            else
-                bootloader_flashed_to_board=spl-${soc_name}-dual.bin
-                uboot_proper_to_be_flashed=bootloader-${soc_name}-dual.img
-            fi
-        else
-            bootloader_flashed_to_board=spl-${soc_name}.bin
-            if [[ "${soc_name}" = imx8qm ]] && [[ "${device_character}" = xen ]]; then
-                uboot_proper_to_be_flashed=bootloader-${soc_name}-${device_character}.img
-            else
-                uboot_proper_to_be_flashed=bootloader-${soc_name}.img
-            fi
+        bootloader_flashed_to_board=spl-${soc_name}${uboot_feature}.bin
+        uboot_proper_to_be_flashed=bootloader-${soc_name}${uboot_feature}.img
+        # specially handle xen related condition
+        if [[ "${soc_name}" = imx8qm ]] && [[ "${dtb_feature}" = xen ]]; then
+            uboot_proper_to_be_flashed=bootloader-${soc_name}-${dtb_feature}.img
         fi
-    fi
+	fi
 
     # for xen, no need to flash spl
-    if [[ "${device_character}" != xen ]]; then
-        if [ ${soc_name#imx8} != ${soc_name} ]; then
+    if [[ "${dtb_feature}" != xen ]]; then
+        if [ ${support_dualslot} -eq 1 ]; then
             flash_partition "bootloader0"
         else
             flash_partition "bootloader"
@@ -522,7 +514,7 @@ flash_android
 
 # flash yocto image along with mek_8qm auto xen images
 if [[ "${yocto_image}" != "" ]]; then
-    if [ ${soc_name} != "imx8qm" ] || [ "${device_character}" != "xen" ]; then
+    if [ ${soc_name} != "imx8qm" ] || [ "${dtb_feature}" != "xen" ]; then
         echo -e >&2 ${RED}-y option only applies for imx8qm xen images${STD}
         help; exit 1;
     fi
@@ -541,15 +533,15 @@ if [[ "${yocto_image}" != "" ]]; then
     ln -s ${sym_link_directory}u-boot-imx8qm-xen-dom0.imx /tmp/u-boot-imx8qm-xen-dom0.imx
     echo FB: flash bootloader0 u-boot-imx8qm-xen-dom0.imx >> /tmp/uuu.lst
 
-    xen_uboot_size_dec=`wc -c ${image_directory}spl-${soc_name}-${device_character}.bin | cut -d ' ' -f1`
+    xen_uboot_size_dec=`wc -c ${image_directory}spl-${soc_name}-${dtb_feature}.bin | cut -d ' ' -f1`
     xen_uboot_size_hex=`echo "obase=16;${xen_uboot_size_dec}" | bc`
     # write the xen spl from android team to FAT on SD card
-    echo -e generate lines to write ${RED}spl-${soc_name}-${device_character}.bin${STD} to ${RED}FAT${STD}
-    rm -f /tmp/spl-${soc_name}-${device_character}.bin
-    ln -s ${sym_link_directory}spl-${soc_name}-${device_character}.bin /tmp/spl-${soc_name}-${device_character}.bin
+    echo -e generate lines to write ${RED}spl-${soc_name}-${dtb_feature}.bin${STD} to ${RED}FAT${STD}
+    rm -f /tmp/spl-${soc_name}-${dtb_feature}.bin
+    ln -s ${sym_link_directory}spl-${soc_name}-${dtb_feature}.bin /tmp/spl-${soc_name}-${dtb_feature}.bin
     echo FB: ucmd setenv fastboot_buffer ${imx8qm_stage_base_addr} >> /tmp/uuu.lst
-    echo FB: download -f spl-${soc_name}-${device_character}.bin >> /tmp/uuu.lst
-    echo FB: ucmd fatwrite mmc ${sd_num} ${imx8qm_stage_base_addr} spl-${soc_name}-${device_character}.bin 0x${xen_uboot_size_hex} >> /tmp/uuu.lst
+    echo FB: download -f spl-${soc_name}-${dtb_feature}.bin >> /tmp/uuu.lst
+    echo FB: ucmd fatwrite mmc ${sd_num} ${imx8qm_stage_base_addr} spl-${soc_name}-${dtb_feature}.bin 0x${xen_uboot_size_hex} >> /tmp/uuu.lst
 
     target_num=${emmc_num}
     echo FB: ucmd setenv fastboot_dev mmc >> /tmp/uuu.lst
@@ -575,6 +567,10 @@ if [ ${erase} -eq 1 ]; then
 fi
 
 echo FB: done >> /tmp/uuu.lst
+
+if [ ${dryrun} -eq 1 ]; then
+    exit
+fi
 
 echo "uuu script generated, start to invoke uuu with the generated uuu script"
 if [ ${daemon_mode} -eq 1 ]; then

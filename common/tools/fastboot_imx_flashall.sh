@@ -5,11 +5,11 @@ help() {
 bn=`basename $0`
 cat << EOF
 
-Version: 1.3
-Last change: support flash product image
+Version: 1.4
+Last change: add "-u" option to specify which uboot or spl&bootloader image to flash
 
-eg: sudo ./fastboot_imx_flashall.sh -f imx8mm -a -D ~/nfs/179/2018.10.03/imx_pi9.0/evk_8mm/
-eg: sudo ./fastboot_imx_flashall.sh -f imx7ulp -D ~/nfs/179/2018.10.03/imx_pi9.0/evk_7ulp/
+eg: sudo ./fastboot_imx_flashall.sh -f imx8mm -a -D ~/android10/evk_8mm/
+eg: sudo ./fastboot_imx_flashall.sh -f imx7ulp -D ~/android10/evk_7ulp/
 
 Usage: $bn <option>
 
@@ -25,23 +25,28 @@ options:
                         If set to 28, use partition-table-28GB.img for 32GB SD card
                     Make sure the corresponding file exist for your platform
   -m                flash mcu image
-  -d dev            flash dtbo, vbmeta and recovery image file with dev
-                        If not set, use default dtbo, vbmeta and image
+  -u uboot_feature  flash uboot or spl&bootloader image with "uboot_feature" in their names
+                        For Standard Android:
+                            If the parameter after "-u" option contains the string of "dual", then spl&bootloader image will be flashed,
+                            otherwise uboot image will be flashed
+                        For Android Automative:
+                            only dual bootloader feature is supported, by default spl&bootloader image will be flashed
+  -d dtb_feature    flash dtbo, vbmeta and recovery image file with "dtb_feature" in their names
+                        If not set, default dtbo, vbmeta and recovery image will be flashed
   -e                erase user data after all image files being flashed
   -l                lock the device after all image files being flashed
   -D directory      the directory of images
                         No need to use this option if images are in current working directory
   -s ser_num        the serial number of board
                         If only one board connected to computer, no need to use this option
-  -tos             flash the uboot with trusty enabled for i.MX 8M Mini EVK, i.MX8M Nano EVK, i.MX8QuadMax/i.MX8QuadXPlus MEK
-                        The platforms listed have both uboot images with trusty enabled and not enabled. the enabled ones have "trusty" in their names
 EOF
 
 }
 
 # parse command line
 soc_name=""
-device_character=""
+uboot_feature=""
+dtb_feature=""
 card_size=0
 slot=""
 systemimage_file="system.img"
@@ -53,7 +58,6 @@ support_recovery=0
 support_dualslot=0
 support_mcu_os=0
 support_dual_bootloader=0
-support_trusty=0
 dual_bootloader_partition=""
 bootloader_flashed_to_board=""
 uboot_proper_to_be_flashed=""
@@ -84,7 +88,8 @@ while [ $# -gt 0 ]; do
         -h) help; exit ;;
         -f) soc_name=$2; shift;;
         -c) card_size=$2; shift;;
-        -d) device_character=$2; shift;;
+        -u) uboot_feature=-$2; shift;;
+        -d) dtb_feature=$2; shift;;
         -a) slot="_a" ;;
         -b) slot="_b" ;;
         -m) flash_mcu=1 ;;
@@ -92,20 +97,36 @@ while [ $# -gt 0 ]; do
         -l) lock=1 ;;
         -D) image_directory=$2; shift;;
         -s) ser_num=$2; shift;;
-        -tos) support_trusty=1 ;;
         *)  echo -e ${RED}$1${STD} is not an illegal option
             help; exit;;
     esac
     shift
 done
 
+# Process of the uboot_feature parameter
+if [[ "${uboot_feature}" = *"dual"* ]]; then
+    support_dual_bootloader=1;
+fi
+
 # if card_size is not correctly set, exit.
 if [ ${card_size} -ne 0 ] && [ ${card_size} -ne 7 ] && [ ${card_size} -ne 14 ] && [ ${card_size} -ne 28 ]; then
     help; exit 1;
 fi
 
-if [ ${card_size} -gt 0 ]; then
-    partition_file="partition-table-${card_size}GB.img"
+# Android Automative by default support dual bootloader, no "dual" in its partition table name
+if [ ${support_dual_bootloader} -eq 1 ]; then
+    if [ ${card_size} -gt 0 ]; then
+        partition_file="partition-table-${card_size}GB-dual.img";
+
+    else
+        partition_file="partition-table-dual.img";
+    fi
+else
+	if [ ${card_size} -gt 0 ]; then
+        partition_file="partition-table-${card_size}GB.img";
+    else
+        partition_file="partition-table.img";
+    fi
 fi
 
 # if directory is specified, make sure there is a slash at the end
@@ -137,8 +158,8 @@ function flash_partition
         else
             img_name="${soc_name}_mcu_demo.img"
         fi
-    elif [ "$(echo ${1} | grep -E "dtbo|vbmeta|recovery")" != "" -a "${device_character}" != "" ]; then
-        img_name="${1%_*}-${soc_name}-${device_character}.img"
+    elif [ "$(echo ${1} | grep -E "dtbo|vbmeta|recovery")" != "" -a "${dtb_feature}" != "" ]; then
+        img_name="${1%_*}-${soc_name}-${dtb_feature}.img"
     elif [ "$(echo ${1} | grep "gpt")" != "" ]; then
         img_name=${partition_file}
     else
@@ -193,32 +214,12 @@ function flash_android
 
     # some partitions are hard-coded in uboot, flash the uboot first and then reboot to check these partitions
 
-    # default u-boot image name first, no dual bootloader support, no special requirement different from default
-    bootloader_flashed_to_board="u-boot-${soc_name}.imx"
-
-    # mainly for Android Auto on 8qxp_mek and 8qm_mek
+    # uboot or spl&bootloader
     if [ ${support_dual_bootloader} -eq 1 ]; then
-        bootloader_flashed_to_board="spl-${soc_name}.bin"
-        uboot_proper_to_be_flashed="bootloader-${soc_name}.img"
-    fi
-
-    # i.MX 8M Mini EVK and i.MX 8M Nano EVK dose not support dual bootloader for now, and has some special requirement
-    if [ ${soc_name} == "imx8mm" ]; then
-        if [ "$(echo ${device_character} | grep "ddr4")" != "" ]; then
-            # i.MX8M Mini EVK with DDR4 on board does not support eMMC, trusty is not supported.
-            bootloader_flashed_to_board="u-boot-${soc_name}-ddr4.imx"
-        else
-            # 4GB LPDDR4 version not supported in this script
-            if [ ${support_trusty} -eq 1 ]; then
-                bootloader_flashed_to_board="u-boot-${soc_name}-trusty.imx"
-            else
-                bootloader_flashed_to_board="u-boot-${soc_name}.imx"
-            fi
-        fi
-    fi
-
-    if [  ${soc_name} != "imx8mm" ] && [ ${support_trusty} -eq 1 ]; then
-        bootloader_flashed_to_board="u-boot-${soc_name}-trusty.imx"
+        bootloader_flashed_to_board="spl-${soc_name}${uboot_feature}.bin"
+        uboot_proper_to_be_flashed="bootloader-${soc_name}${uboot_feature}.img"
+    else
+        bootloader_flashed_to_board="u-boot-${soc_name}${uboot_feature}.imx"
     fi
 
     # in the source code, if AB slot feature is supported, uboot partition name is bootloader0, otherwise it's bootloader
@@ -294,3 +295,4 @@ echo
 echo ">>>>>>>>>>>>>> Flashing successfully completed <<<<<<<<<<<<<<"
 
 exit 0
+
