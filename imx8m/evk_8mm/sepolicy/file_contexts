@@ -32,12 +32,6 @@
 /dev/FreescaleGyroscope         u:object_r:sensors_device:s0
 /dev/sda[0-8]*                  u:object_r:fuse:s0
 
-# Wifi binary for UNITE
-/(vendor|system/vendor)/bin/hw/bcm_hostapd          u:object_r:hal_wifi_hostapd_default_exec:s0
-/(vendor|system/vendor)/bin/hw/bcm_wpa_supplicant   u:object_r:hal_wifi_supplicant_default_exec:s0
-/(vendor|system/vendor)/bin/hw/qca_hostapd          u:object_r:hal_wifi_hostapd_default_exec:s0
-/(vendor|system/vendor)/bin/hw/qca_wpa_supplicant   u:object_r:hal_wifi_supplicant_default_exec:s0
-
 #Thermal HAL service
 /vendor/bin/hw/android\.hardware\.thermal@2\.0-service.imx         u:object_r:hal_thermal_default_exec:s0
 
