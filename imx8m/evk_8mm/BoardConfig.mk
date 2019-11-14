@@ -65,33 +65,39 @@ TARGET_BOOTLOADER_POSTFIX := bin
 USE_OPENGL_RENDERER := true
 TARGET_CPU_SMP := true
 
-BOARD_WLAN_DEVICE_UNITE      := UNITE
-WPA_SUPPLICANT_VERSION       := VER_0_8_X
-BOARD_WPA_SUPPLICANT_DRIVER  := NL80211
-BOARD_HOSTAPD_DRIVER         := NL80211
-
-# In UNITE mode,Use default macro for bcmdhd and use unite macro for qcom
-ifeq ($(BOARD_WLAN_DEVICE_UNITE), UNITE)
+# LPDDR4 board use qcom wifi and for DDR4 board use cypress wifi
+ifeq ($(PRODUCT_8MM_DDR4), true)
 BOARD_WLAN_DEVICE            := bcmdhd
-BOARD_HOSTAPD_PRIVATE_LIB_QCA           := lib_driver_cmd_qcwcn
-BOARD_WPA_SUPPLICANT_PRIVATE_LIB_QCA    := lib_driver_cmd_qcwcn
-BOARD_HOSTAPD_PRIVATE_LIB_BCM           := lib_driver_cmd_bcmdhd
-BOARD_WPA_SUPPLICANT_PRIVATE_LIB_BCM    := lib_driver_cmd_bcmdhd
-endif
-
-WIFI_DRIVER_FW_PATH_PARAM := "/sys/module/brcmfmac/parameters/alternative_fw_path"
-
-# QCA wifi support dual interface
-WIFI_HIDL_FEATURE_DUAL_INTERFACE := true
-
-# QCA qcacld wifi driver module
-BOARD_VENDOR_KERNEL_MODULES += \
-    $(KERNEL_OUT)/drivers/net/wireless/qcacld-2.0/wlan.ko
-
 # BCM fmac wifi driver module
 BOARD_VENDOR_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/net/wireless/broadcom/brcm80211/brcmfmac/brcmfmac.ko \
     $(KERNEL_OUT)/drivers/net/wireless/broadcom/brcm80211/brcmutil/brcmutil.ko
+WIFI_DRIVER_FW_PATH_PARAM := "/sys/module/brcmfmac/parameters/alternative_fw_path"
+# BCM 1MW BT
+BOARD_HAVE_BLUETOOTH_BCM := true
+else
+BOARD_WLAN_DEVICE            := qcwcn
+# QCA wifi support dual interface
+WIFI_HIDL_FEATURE_DUAL_INTERFACE := true
+# QCA qcacld wifi driver module
+BOARD_VENDOR_KERNEL_MODULES += \
+    $(KERNEL_OUT)/drivers/net/wireless/qcacld-2.0/wlan.ko
+# Qcom 1PJ(QCA9377) BT
+BOARD_HAVE_BLUETOOTH_QCOM := true
+BOARD_HAS_QCA_BT_ROME := true
+BOARD_HAVE_BLUETOOTH_BLUEZ := false
+QCOM_BT_USE_SIBS := true
+ifeq ($(QCOM_BT_USE_SIBS), true)
+    WCNSS_FILTER_USES_SIBS := true
+endif
+endif
+
+# common wifi configs
+WPA_SUPPLICANT_VERSION       := VER_0_8_X
+BOARD_WPA_SUPPLICANT_DRIVER  := NL80211
+BOARD_HOSTAPD_DRIVER         := NL80211
+BOARD_HOSTAPD_PRIVATE_LIB               := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
+BOARD_WPA_SUPPLICANT_PRIVATE_LIB        := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
 
 BOARD_USE_SENSOR_FUSION := true
 
@@ -101,18 +107,6 @@ TARGET_SELECT_KEY := 28
 TARGET_USERIMAGES_SPARSE_EXT_DISABLED := false
 
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(IMX_DEVICE_PATH)/bluetooth
-
-# Qcom 1PJ(QCA9377) BT
-BOARD_HAVE_BLUETOOTH_QCOM := true
-BOARD_HAS_QCA_BT_ROME := true
-BOARD_HAVE_BLUETOOTH_BLUEZ := false
-QCOM_BT_USE_SIBS := true
-ifeq ($(QCOM_BT_USE_SIBS), true)
-    WCNSS_FILTER_USES_SIBS := true
-endif
-
-# BCM 1MW BT
-BOARD_HAVE_BLUETOOTH_BCM := true
 
 UBOOT_POST_PROCESS := true
 
@@ -152,9 +146,6 @@ BOARD_KERNEL_CMDLINE += androidboot.lcd_density=213
 # Default wificountrycode
 BOARD_KERNEL_CMDLINE += androidboot.wificountrycode=CN
 
-# Defaultly evk_8mm use QCA 1PJ wifi module, if use BCM 1MW module, set androidboot.wifivendor=bcm
-BOARD_KERNEL_CMDLINE += androidboot.wifivendor=qca
-
 ifeq ($(TARGET_USERIMAGES_USE_UBIFS),true)
 ifeq ($(TARGET_USERIMAGES_USE_EXT4),true)
 $(error "TARGET_USERIMAGES_USE_UBIFS and TARGET_USERIMAGES_USE_EXT4 config open in same time, please only choose one target file system image")
@@ -162,8 +153,24 @@ endif
 endif
 
 BOARD_PREBUILT_DTBOIMAGE := out/target/product/evk_8mm/dtbo-imx8mm.img
-# imx8mm with MIPI-HDMI display and QCA wifi and Trusty support
+
+ifeq ($(PRODUCT_8MM_DDR4), true)
+# dts target for imx8mm_evk with DDR4 on board
+TARGET_BOARD_DTS_CONFIG ?= imx8mm:fsl-imx8mm-ddr4-evk.dtb
+else
+# dts target for imx8mm_evk with LPDDR4 on board
+# imx8mm with MIPI-HDMI display and QCA wifi
 TARGET_BOARD_DTS_CONFIG ?= imx8mm:fsl-imx8mm-evk.dtb
+# imx8mm with MIPI panel display and QCA wifi
+TARGET_BOARD_DTS_CONFIG += imx8mm-mipi-panel:fsl-imx8mm-evk-rm67191.dtb
+# imx8mm with MIPI-HDMI display, QCA wifi and m4 image to support LPA
+TARGET_BOARD_DTS_CONFIG += imx8mm-m4:fsl-imx8mm-evk-m4.dtb
+endif
+
+ifeq ($(PRODUCT_8MM_DDR4), true)
+# u-boot target for imx8mm_evk with DDR4 on board
+TARGET_BOOTLOADER_CONFIG := imx8mm-ddr4:imx8mm_ddr4_evk_android_defconfig
+else
 # u-boot target for imx8mm_evk with LPDDR4 on board
 ifeq ($(LOW_MEMORY),true)
 TARGET_BOOTLOADER_CONFIG := imx8mm:imx8mm_evk_1g_ddr_android_defconfig
@@ -171,8 +178,6 @@ else
 TARGET_BOOTLOADER_CONFIG := imx8mm:imx8mm_evk_android_defconfig
 TARGET_BOOTLOADER_CONFIG += imx8mm-dual:imx8mm_evk_android_dual_defconfig
 endif
-# u-boot target for imx8mm_evk with DDR4 on board
-TARGET_BOOTLOADER_CONFIG += imx8mm-ddr4:imx8mm_ddr4_evk_android_defconfig
 TARGET_BOOTLOADER_CONFIG += imx8mm-4g:imx8mm_evk_4g_android_defconfig
 ifeq ($(PRODUCT_IMX_TRUSTY),true)
 TARGET_BOOTLOADER_CONFIG += imx8mm-trusty:imx8mm_evk_android_trusty_defconfig
@@ -180,21 +185,20 @@ TARGET_BOOTLOADER_CONFIG += imx8mm-trusty-secure-unlock:imx8mm_evk_android_trust
 TARGET_BOOTLOADER_CONFIG += imx8mm-trusty-dual:imx8mm_evk_android_trusty_dual_defconfig
 TARGET_BOOTLOADER_CONFIG += imx8mm-trusty-4g:imx8mm_evk_4g_android_trusty_defconfig
 endif
-# imx8mm with MIPI panel display and QCA wifi
-TARGET_BOARD_DTS_CONFIG += imx8mm-mipi-panel:fsl-imx8mm-evk-rm67191.dtb
-# imx8mm with MIPI-HDMI display, QCA wifi and m4 image to support LPA
-TARGET_BOARD_DTS_CONFIG += imx8mm-m4:fsl-imx8mm-evk-m4.dtb
-# imx8mm with MIPI-HDMI display with BCM wifi
-TARGET_BOARD_DTS_CONFIG += imx8mm-ddr4:fsl-imx8mm-ddr4-evk.dtb
-TARGET_KERNEL_DEFCONFIG := android_defconfig
+endif
 
+# imx8mm kernel defconfig
+TARGET_KERNEL_DEFCONFIG := android_defconfig
 TARGET_KERNEL_ADDITION_DEFCONF := android_addition_defconfig
 
+ifeq ($(PRODUCT_8MM_DDR4), true)
+# u-boot target used by uuu for imx8mm_evk with DDR4 on board
+TARGET_BOOTLOADER_CONFIG += imx8mm-ddr4-evk-uuu:imx8mm_ddr4_evk_android_uuu_defconfig
+else
 # u-boot target used by uuu for imx8mm_evk with LPDDR4 on board
 TARGET_BOOTLOADER_CONFIG += imx8mm-evk-uuu:imx8mm_evk_android_uuu_defconfig
 TARGET_BOOTLOADER_CONFIG += imx8mm-4g-evk-uuu:imx8mm_evk_4g_android_uuu_defconfig
-# u-boot target used by uuu for imx8mm_evk with DDR4 on board
-TARGET_BOOTLOADER_CONFIG += imx8mm-ddr4-evk-uuu:imx8mm_ddr4_evk_android_uuu_defconfig
+endif
 
 BOARD_SEPOLICY_DIRS := \
        device/fsl/imx8m/sepolicy \

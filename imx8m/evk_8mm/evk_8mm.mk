@@ -53,11 +53,20 @@ PRODUCT_COPY_FILES += \
     $(IMX_DEVICE_PATH)/required_hardware.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/required_hardware.xml \
     $(IMX_DEVICE_PATH)/ueventd.freescale.rc:$(TARGET_COPY_OUT_VENDOR)/ueventd.rc \
     $(LINUX_FIRMWARE_IMX_PATH)/linux-firmware-imx/firmware/sdma/sdma-imx7d.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/imx/sdma/sdma-imx7d.bin \
-    device/fsl/common/init/init.insmod.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.insmod.sh \
     device/fsl/common/wifi/p2p_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/p2p_supplicant_overlay.conf \
-    device/fsl/common/wifi/wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf \
-    device/fsl/common/wifi/wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/qca_wpa_supplicant_overlay.conf \
-    device/fsl/common/wifi/bcm_wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/bcm_wpa_supplicant_overlay.conf
+    device/fsl/common/init/init.insmod.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.insmod.sh
+
+ifeq ($(PRODUCT_8MM_DDR4), true)
+#DDR4 board, bcm wifi supplicant overlay
+PRODUCT_COPY_FILES += \
+    $(IMX_DEVICE_PATH)/init.imx8mm.ddr4.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.freescale.additional.rc \
+    device/fsl/common/wifi/bcm_wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf
+else
+#LPDDR4 board, qcom wifi supplicant overlay
+PRODUCT_COPY_FILES += \
+    $(IMX_DEVICE_PATH)/init.imx8mm.lpddr4.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.freescale.additional.rc \
+    device/fsl/common/wifi/wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf
+endif
 
 ifeq ($(PRODUCT_IMX_TRUSTY),true)
 PRODUCT_COPY_FILES += \
@@ -176,59 +185,37 @@ PRODUCT_PACKAGES += \
     android.hardware.bluetooth@1.0-impl \
     android.hardware.bluetooth@1.0-service
 
-# Qcom 1PJ Bluetooth Firmware
-PRODUCT_COPY_FILES += \
-    vendor/nxp/qca-wifi-bt/1PJ_QCA9377-3_LEA_2.0/lib/firmware/qca/tfbtnv11.bin:vendor/firmware/nvm_tlv_3.2.bin \
-    vendor/nxp/qca-wifi-bt/1PJ_QCA9377-3_LEA_2.0/lib/firmware/qca/tfbtfw11.tlv:vendor/firmware/rampatch_tlv_3.2.tlv \
-    vendor/nxp/qca-wifi-bt/qca_proprietary/Android_HAL/wcnss_filter_8mm:vendor/bin/wcnss_filter
-
-# BCM Bluetooth vendor config
-PRODUCT_PACKAGES += \
-    bt_vendor.conf
-
-# BCM 1MW Bluetooth Firmware
-PRODUCT_COPY_FILES += \
-    vendor/nxp/imx-firmware/cyw-wifi-bt/1MW_CYW43455/BCM4345C0.1MW.hcd:$(TARGET_COPY_OUT_VENDOR)/firmware/brcm/CYW4345C0.1MW.hcd
-
 # WiFi HAL
 PRODUCT_PACKAGES += \
     android.hardware.wifi@1.0-service \
     wifilogd \
     wificond
 
+ifeq ($(PRODUCT_8MM_DDR4), true)
+# BCM Bluetooth vendor config
+PRODUCT_PACKAGES += \
+    bt_vendor.conf
+# BCM 1MW Bluetooth Firmware
+PRODUCT_COPY_FILES += \
+    vendor/nxp/imx-firmware/cyw-wifi-bt/1MW_CYW43455/BCM4345C0.1MW.hcd:$(TARGET_COPY_OUT_VENDOR)/firmware/brcm/CYW4345C0.1MW.hcd
+# BCM 1MW Wifi Firmware
+PRODUCT_COPY_FILES += \
+    vendor/nxp/imx-firmware/cyw-wifi-bt/1MW_CYW43455/brcmfmac43455-sdio.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/brcm/brcmfmac43455-sdio.bin \
+    vendor/nxp/imx-firmware/cyw-wifi-bt/1MW_CYW43455/brcmfmac43455-sdio.clm_blob:$(TARGET_COPY_OUT_VENDOR)/firmware/brcm/brcmfmac43455-sdio.clm_blob \
+    vendor/nxp/imx-firmware/cyw-wifi-bt/1MW_CYW43455/brcmfmac43455-sdio.txt:$(TARGET_COPY_OUT_VENDOR)/firmware/brcm/brcmfmac43455-sdio.txt
+else
+# Qcom 1PJ Bluetooth Firmware
+PRODUCT_COPY_FILES += \
+    vendor/nxp/qca-wifi-bt/1PJ_QCA9377-3_LEA_2.0/lib/firmware/qca/tfbtnv11.bin:vendor/firmware/nvm_tlv_3.2.bin \
+    vendor/nxp/qca-wifi-bt/1PJ_QCA9377-3_LEA_2.0/lib/firmware/qca/tfbtfw11.tlv:vendor/firmware/rampatch_tlv_3.2.tlv \
+    vendor/nxp/qca-wifi-bt/qca_proprietary/Android_HAL/wcnss_filter_8mm:vendor/bin/wcnss_filter
 # Qcom WiFi Firmware
 PRODUCT_COPY_FILES += \
     vendor/nxp/qca-wifi-bt/1PJ_QCA9377-3_LEA_2.0/lib/firmware/qca9377/bdwlan30.bin:vendor/firmware/bdwlan30.bin \
     vendor/nxp/qca-wifi-bt/1PJ_QCA9377-3_LEA_2.0/lib/firmware/qca9377/otp30.bin:vendor/firmware/otp30.bin \
     vendor/nxp/qca-wifi-bt/1PJ_QCA9377-3_LEA_2.0/lib/firmware/qca9377/qwlan30.bin:vendor/firmware/qwlan30.bin \
     vendor/nxp/qca-wifi-bt/1PJ_QCA9377-3_LEA_2.0/lib/firmware/wlan/qca9377/qcom_cfg.ini:vendor/firmware/wlan/qcom_cfg.ini
-
-
-# BCM wifi supplicant for UNITE mode
-PRODUCT_PACKAGES += \
-    bcm_hostapd \
-    bcm_wpa_supplicant \
-    android.hardware.wifi@1.0-service.bcm
-
-# QCA wifi supplicant for UNITE mode
-PRODUCT_PACKAGES += \
-    qca_hostapd \
-    qca_wpa_supplicant \
-    android.hardware.wifi@1.0-service.qca
-
-# BCM bluetooth for UNITE mode
-PRODUCT_PACKAGES += \
-    libbt-vendor-unite-bcm
-
-# QCA bluetooth for UNITE mode
-PRODUCT_PACKAGES += \
-    libbt-vendor-unite-qca
-
-# BCM 1MW Wifi Firmware
-PRODUCT_COPY_FILES += \
-    vendor/nxp/imx-firmware/cyw-wifi-bt/1MW_CYW43455/brcmfmac43455-sdio.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/brcm/brcmfmac43455-sdio.bin \
-    vendor/nxp/imx-firmware/cyw-wifi-bt/1MW_CYW43455/brcmfmac43455-sdio.clm_blob:$(TARGET_COPY_OUT_VENDOR)/firmware/brcm/brcmfmac43455-sdio.clm_blob \
-    vendor/nxp/imx-firmware/cyw-wifi-bt/1MW_CYW43455/brcmfmac43455-sdio.txt:$(TARGET_COPY_OUT_VENDOR)/firmware/brcm/brcmfmac43455-sdio.txt
+endif
 
 # Keymaster HAL
 ifeq ($(PRODUCT_IMX_TRUSTY),true)
