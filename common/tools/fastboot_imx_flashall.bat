@@ -48,6 +48,28 @@ set image_directory=
 set ser_num=
 set fastboot_tool=fastboot
 set /A error_level=0
+set /A flag=1
+
+:: We want to detect illegal feature input to some extent. Here it's based on SoC names. Since an SoC may be on a
+:: board running different set of images(android and automative for a example), so misuse the features of one set of
+:: images when flash another set of images can not be detect early with this scenario.
+set imx8mm_uboot_feature=dual trusty-dual 4g-evk-uuu 4g ddr4-evk-uuu ddr4 evk-uuu trusty-4g trusty-secure-unlock trusty
+set imx8mn_uboot_feature=dual trusty-dual evk-uuu trusty-secure-unlock trusty
+set imx8mq_uboot_feature=dual trusty-dual evk-uuu trusty-secure-unlock trusty aiy-uuu
+set imx8qxp_uboot_feature=mek-uuu trusty-secure-unlock trusty secure-unlock
+set imx8qm_uboot_feature=mek-uuu trusty-secure-unlock trusty secure-unlock md
+set imx7ulp_uboot_feature=evk-uuu
+
+set imx8mm_dtb_feature=ddr4 m4 mipi-panel
+set imx8mn_dtb_feature=mipi-panel rpmsg
+set imx8mq_dtb_feature=dual mipi-panel mipi
+set imx8qxp_dtb_feature=
+set imx8qm_dtb_feature=hdmi mipi-panel md xen
+set imx7ulp_dtb_feature=evk-mipi evk mipi
+
+:: an array to collect the supported soc_names
+set supported_soc_names=imx8qm imx8qxp imx8mq imx8mm imx8mn imx7ulp
+
 
 
 ::---------------------------------------------------------------------------------
@@ -78,6 +100,22 @@ if %1 == -tos set /A support_trusty=1 & shift & goto :parse_loop
 echo %1 is an illegal option
 call :help & goto :eof
 :parse_end
+
+:: check whether the soc_name is legal or not
+if not [%soc_name%] == [] (
+    setlocal enabledelayedexpansion
+    call :whether_in_array soc_name supported_soc_names
+    if !flag! neq 0 (
+        echo illegal soc_name "%soc_name%"
+        call :help
+        set /A error_level=1 && goto :exit
+    )
+    endlocal
+) else (
+    echo use "-f" option to specify the soc name
+    call :help
+    set /A error_level=1 && goto :exit
+)
 
 :: avoid substring judgement error
 set uboot_feature_test=A%uboot_feature%
@@ -115,6 +153,32 @@ if not [%image_directory%] == [] if not %image_directory:~-1% == \ (
 )
 
 if not [%ser_num%] == [] set fastboot_tool=fastboot -s %ser_num%
+
+
+:: check whether provided spl/bootloader/uboot feature is legal
+set uboot_feature_no_pre_hyphen=%uboot_feature:~1%
+if not [%uboot_feature%] == [] (
+    setlocal enabledelayedexpansion
+    call :whether_in_array uboot_feature_no_pre_hyphen %soc_name%_uboot_feature
+    if !flag! neq 0 (
+        echo illegal parameter "%uboot_feature_no_pre_hyphen%" for "-u" option
+        call :help
+        set /A error_level=1 && goto :exit
+    )
+    endlocal
+)
+
+:: check whether provided dtb feature is legal
+if not [%dtb_feature%] == [] (
+    setlocal enabledelayedexpansion
+    call :whether_in_array dtb_feature %soc_name%_dtb_feature
+    if !flag! neq 0 (
+        echo illegal parameter "%dtb_feature%" for "-d" option
+        call :help
+        set /A error_level=1 && goto :exit
+    )
+    endlocal
+)
 
 ::---------------------------------------------------------------------------------
 :: Invoke function to flash android images
@@ -157,11 +221,10 @@ echo  -h                displays this help message
 echo  -f soc_name       flash android image file with soc_name
 echo  -a                only flash image to slot_a
 echo  -b                only flash image to slot_b
-echo  -c card_size      optional setting: 7 / 14 / 28
-echo                        If not set, use partition-table.img (default)
-echo                        If set to  7, use partition-table-7GB.img  for  8GB SD card
+echo  -c card_size      optional setting: 14 / 28
+echo                        If not set, use partition-table.img/partition-table-dual.img (default)
 echo                        If set to 14, use partition-table-14GB.img for 16GB SD card
-echo                        If set to 28, use partition-table-28GB.img for 32GB SD card
+echo                        If set to 28, use partition-table-28GB.img/partition-table-28GB-dual.img for 32GB SD card
 echo                    Make sure the corresponding file exist for your platform
 echo  -m                flash mcu image
 echo  -u uboot_feature  flash uboot or spl&bootloader image with "uboot_feature" in their names
@@ -170,8 +233,42 @@ echo                            If the parameter after "-u" option contains the 
 echo                            otherwise uboot image will be flashed
 echo                        For Android Automative:
 echo                            only dual bootloader feature is supported, by default spl&bootloader image will be flashed
+echo                        Below table lists the legal value supported now based on the soc_name provided:
+echo                           ©°©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©Ð©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©´
+echo                           ©¦   soc_name     ©¦  legal parameter after "-u"                                                                          ©¦
+echo                           ©À©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©à©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©È
+echo                           ©¦   imx8mm       ©¦  dual trusty-dual 4g-evk-uuu 4g ddr4-evk-uuu ddr4 evk-uuu trusty-4g trusty-secure-unlock trusty      ©¦
+echo                           ©À©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©à©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©È
+echo                           ©¦   imx8mn       ©¦  dual trusty-dual evk-uuu trusty-secure-unlock trusty                                                ©¦
+echo                           ©À©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©à©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©È
+echo                           ©¦   imx8mq       ©¦  dual trusty-dual evk-uuu trusty-secure-unlock trusty aiy-uuu                                        ©¦
+echo                           ©À©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©à©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©È
+echo                           ©¦   imx8qxp      ©¦  mek-uuu trusty-secure-unlock trusty secure-unlock                                                   ©¦
+echo                           ©À©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©à©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©È
+echo                           ©¦   imx8qm       ©¦  mek-uuu trusty-secure-unlock trusty secure-unlock md                                                ©¦
+echo                           ©À©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©à©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©È
+echo                           ©¦   imx7ulp      ©¦  evk-uuu                                                                                             ©¦
+echo                           ©¸©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©Ø©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¼
+echo
 echo  -d dtb_feature    flash dtbo, vbmeta and recovery image file with "dtb_feature" in their names
 echo                        If not set, default dtbo, vbmeta and recovery image will be flashed
+echo                        Below table lists the legal value supported now based on the soc_name provided:
+echo                           ©°©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©Ð©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©´
+echo                           ©¦   soc_name     ©¦  legal parameter after "-d"                                                                          ©¦
+echo                           ©À©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©à©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©È
+echo                           ©¦   imx8mm       ©¦  ddr4 m4 mipi-panel                                                                                  ©¦
+echo                           ©À©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©à©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©È
+echo                           ©¦   imx8mn       ©¦  mipi-panel rpmsg                                                                                    ©¦
+echo                           ©À©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©à©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©È
+echo                           ©¦   imx8mq       ©¦  dual mipi-panel mipi                                                                                ©¦
+echo                           ©À©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©à©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©È
+echo                           ©¦   imx8qxp      ©¦                                                                                                      ©¦
+echo                           ©À©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©à©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©È
+echo                           ©¦   imx8qm       ©¦  hdmi mipi-panel md xen                                                                              ©¦
+echo                           ©À©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©à©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©È
+echo                           ©¦   imx7ulp      ©¦  evk-mipi evk mipi                                                                                   ©¦
+echo                           ©¸©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©Ø©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¼
+echo
 echo  -e                erase user data after all image files being flashed
 echo  -l                lock the device after all image files being flashed
 echo  -D directory      the directory of of images
@@ -180,6 +277,26 @@ echo  -s ser_num        the serial number of board
 echo                        If only one board connected to computer, no need to use this option
 goto :eof
 
+:: this function checks whether the value of first parameter is in the array value of second parameter.
+:: pass the name of the (array)variable to this function. the first is potential element, the second one is array,
+:: a global flag is used to store the result. make sure the first parameter is not empty
+:whether_in_array
+for /F "tokens=*" %%F in ('echo %%%1%%') do (
+set potential_element=%%F
+)
+
+for /F "tokens=*" %%F in ('echo %%%2%%') do (
+set array_passed_in=%%F
+)
+
+(for %%a in (%array_passed_in%) do (
+   if %%a == %potential_element% (
+        set /A flag=0
+        goto :eof
+   )
+))
+set /A flag=1
+goto :eof
 
 :flash_partition
 set partition_to_be_flashed=%1
