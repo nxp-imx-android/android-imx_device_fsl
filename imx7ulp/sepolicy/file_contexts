@@ -78,12 +78,3 @@
 /vendor/lib(64)?/extractors/libfslextractor\.so              u:object_r:same_process_hal_file:s0
 /vendor/bin/hw/android\.hardware\.health@2\.0-service.imx          u:object_r:hal_health_default_exec:s0
 /vendor/bin/hw/android\.hardware\.dumpstate@1\.0-service\.imx      u:object_r:hal_dumpstate_impl_exec:s0
-
-/vendor/bin/hw/android\.hardware\.wifi@1\.0-service.bcm            u:object_r:hal_wifi_default_exec:s0
-/vendor/bin/hw/android\.hardware\.wifi@1\.0-service.qca            u:object_r:hal_wifi_default_exec:s0
-
-# Wifi binary for UNITE
-/(vendor|system/vendor)/bin/hw/bcm_hostapd          u:object_r:hal_wifi_hostapd_default_exec:s0
-/(vendor|system/vendor)/bin/hw/bcm_wpa_supplicant   u:object_r:hal_wifi_supplicant_default_exec:s0
-/(vendor|system/vendor)/bin/hw/qca_hostapd          u:object_r:hal_wifi_hostapd_default_exec:s0
-/(vendor|system/vendor)/bin/hw/qca_wpa_supplicant   u:object_r:hal_wifi_supplicant_default_exec:s0
