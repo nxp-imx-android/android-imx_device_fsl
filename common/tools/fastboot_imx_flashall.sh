@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash
 
 help() {
 
@@ -18,11 +18,10 @@ options:
   -f soc_name       flash android image file with soc_name
   -a                only flash image to slot_a
   -b                only flash image to slot_b
-  -c card_size      optional setting: 7 / 14 / 28
-                        If not set, use partition-table.img (default)
-                        If set to  7, use partition-table-7GB.img  for  8GB SD card
+  -c card_size      optional setting: 14 / 28
+                        If not set, use partition-table.img/partition-table-dual.img (default)
                         If set to 14, use partition-table-14GB.img for 16GB SD card
-                        If set to 28, use partition-table-28GB.img for 32GB SD card
+                        If set to 28, use partition-table-28GB.img/partition-table-28GB-dual.img for 32GB SD card
                     Make sure the corresponding file exist for your platform
   -m                flash mcu image
   -u uboot_feature  flash uboot or spl&bootloader image with "uboot_feature" in their names
@@ -31,8 +30,42 @@ options:
                             otherwise uboot image will be flashed
                         For Android Automative:
                             only dual bootloader feature is supported, by default spl&bootloader image will be flashed
+                        Below table lists the legal value supported now based on the soc_name provided:
+                           ┌────────────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────┐
+                           │   soc_name     │  legal parameter after "-u"                                                                          │
+                           ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
+                           │   imx8mm       │  dual trusty-dual 4g-evk-uuu 4g ddr4-evk-uuu ddr4 evk-uuu trusty-4g trusty-secure-unlock trusty      │
+                           ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
+                           │   imx8mn       │  dual trusty-dual evk-uuu trusty-secure-unlock trusty                                                │
+                           ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
+                           │   imx8mq       │  dual trusty-dual evk-uuu trusty-secure-unlock trusty aiy-uuu                                        │
+                           ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
+                           │   imx8qxp      │  mek-uuu trusty-secure-unlock trusty secure-unlock                                                   │
+                           ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
+                           │   imx8qm       │  mek-uuu trusty-secure-unlock trusty secure-unlock md                                                │
+                           ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
+                           │   imx7ulp      │  evk-uuu                                                                                             │
+                           └────────────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────┘
+
   -d dtb_feature    flash dtbo, vbmeta and recovery image file with "dtb_feature" in their names
                         If not set, default dtbo, vbmeta and recovery image will be flashed
+                        Below table lists the legal value supported now based on the soc_name provided:
+                           ┌────────────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────┐
+                           │   soc_name     │  legal parameter after "-d"                                                                          │
+                           ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
+                           │   imx8mm       │  ddr4 m4 mipi-panel                                                                                  │
+                           ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
+                           │   imx8mn       │  mipi-panel rpmsg                                                                                    │
+                           ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
+                           │   imx8mq       │  dual mipi-panel mipi                                                                                │
+                           ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
+                           │   imx8qxp      │                                                                                                      │
+                           ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
+                           │   imx8qm       │  hdmi mipi-panel md xen                                                                              │
+                           ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
+                           │   imx7ulp      │  evk-mipi evk mipi                                                                                   │
+                           └────────────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────┘
+
   -e                erase user data after all image files being flashed
   -l                lock the device after all image files being flashed
   -D directory      the directory of images
@@ -43,100 +76,25 @@ EOF
 
 }
 
-# parse command line
-soc_name=""
-uboot_feature=""
-dtb_feature=""
-card_size=0
-slot=""
-systemimage_file="system.img"
-vendor_file="vendor.img"
-product_file="product.img"
-partition_file="partition-table.img"
-support_dtbo=0
-support_recovery=0
-support_dualslot=0
-support_mcu_os=0
-support_dual_bootloader=0
-dual_bootloader_partition=""
-bootloader_flashed_to_board=""
-uboot_proper_to_be_flashed=""
-boot_partition="boot"
-recovery_partition="recovery"
-system_partition="system"
-vendor_partition="vendor"
-product_partition="product"
-vbmeta_partition="vbmeta"
-dtbo_partition="dtbo"
-mcu_os_partition="mcu_os"
-flash_mcu=0
-lock=0
-erase=0
-image_directory=""
-ser_num=""
-fastboot_tool="fastboot"
-RED='\033[0;31m'
-STD='\033[0;0m'
-GREEN='\033[0;32m'
-
-if [ $# -eq 0 ]; then
-    echo -e ${RED}no parameter specified, will directly exit after displaying help message${STD}
-    help; exit 1;
-fi
-while [ $# -gt 0 ]; do
-    case $1 in
-        -h) help; exit ;;
-        -f) soc_name=$2; shift;;
-        -c) card_size=$2; shift;;
-        -u) uboot_feature=-$2; shift;;
-        -d) dtb_feature=$2; shift;;
-        -a) slot="_a" ;;
-        -b) slot="_b" ;;
-        -m) flash_mcu=1 ;;
-        -e) erase=1 ;;
-        -l) lock=1 ;;
-        -D) image_directory=$2; shift;;
-        -s) ser_num=$2; shift;;
-        *)  echo -e ${RED}$1${STD} is not an illegal option
-            help; exit;;
-    esac
-    shift
-done
-
-# Process of the uboot_feature parameter
-if [[ "${uboot_feature}" = *"dual"* ]]; then
-    support_dual_bootloader=1;
-fi
-
-# if card_size is not correctly set, exit.
-if [ ${card_size} -ne 0 ] && [ ${card_size} -ne 7 ] && [ ${card_size} -ne 14 ] && [ ${card_size} -ne 28 ]; then
-    help; exit 1;
-fi
-
-# Android Automative by default support dual bootloader, no "dual" in its partition table name
-if [ ${support_dual_bootloader} -eq 1 ]; then
-    if [ ${card_size} -gt 0 ]; then
-        partition_file="partition-table-${card_size}GB-dual.img";
-
-    else
-        partition_file="partition-table-dual.img";
-    fi
-else
-	if [ ${card_size} -gt 0 ]; then
-        partition_file="partition-table-${card_size}GB.img";
-    else
-        partition_file="partition-table.img";
-    fi
-fi
-
-# if directory is specified, make sure there is a slash at the end
-if [[ "${image_directory}" != "" ]]; then
-    image_directory="${image_directory%/}/"
-fi
-
-if [[ "${ser_num}" != "" ]]; then
-    fastboot_tool="fastboot -s ${ser_num}"
-fi
+# this function checks whether the value of first parameter is in the array value of second parameter
+# pass the name of the (array)variable to this function. the first is potential element, the second one is array.
+# make sure the first parameter is not empty
+function whether_in_array
+{
+    local potential_element=`eval echo \$\{${1}\}`
+    local array=(`eval echo \$\{${2}\[\*\]\}`)
+    local array_length=${#array[*]}
+    local last_element=${array[${array_length}-1]}
+    for arg in ${array[*]}
+    do
+        if [ "${arg}" = "${potential_element}" ]; then
+            return 0
+        fi
+        if [ "${arg}" = "${last_element}" ]; then
+            return 1
+        fi
+    done
+}
 
 function flash_partition
 {
@@ -276,6 +234,156 @@ function flash_android
         fi
     fi
 }
+
+# parse command line
+soc_name=""
+uboot_feature=""
+dtb_feature=""
+card_size=0
+slot=""
+systemimage_file="system.img"
+vendor_file="vendor.img"
+product_file="product.img"
+partition_file="partition-table.img"
+support_dtbo=0
+support_recovery=0
+support_dualslot=0
+support_mcu_os=0
+support_dual_bootloader=0
+dual_bootloader_partition=""
+bootloader_flashed_to_board=""
+uboot_proper_to_be_flashed=""
+boot_partition="boot"
+recovery_partition="recovery"
+system_partition="system"
+vendor_partition="vendor"
+product_partition="product"
+vbmeta_partition="vbmeta"
+dtbo_partition="dtbo"
+mcu_os_partition="mcu_os"
+flash_mcu=0
+lock=0
+erase=0
+image_directory=""
+ser_num=""
+fastboot_tool="fastboot"
+RED='\033[0;31m'
+STD='\033[0;0m'
+GREEN='\033[0;32m'
+
+# We want to detect illegal feature input to some extent. Here it's based on SoC names. Since an SoC may be on a
+# board running different set of images(android and automative for a example), so misuse the features of one set of
+# images when flash another set of images can not be detect early with this scenario.
+imx8mm_uboot_feature=(dual trusty-dual 4g-evk-uuu 4g ddr4-evk-uuu ddr4 evk-uuu trusty-4g trusty-secure-unlock trusty)
+imx8mn_uboot_feature=(dual trusty-dual evk-uuu trusty-secure-unlock trusty)
+imx8mq_uboot_feature=(dual trusty-dual evk-uuu trusty-secure-unlock trusty aiy-uuu)
+imx8qxp_uboot_feature=(mek-uuu trusty-secure-unlock trusty secure-unlock)
+imx8qm_uboot_feature=(mek-uuu trusty-secure-unlock trusty secure-unlock md)
+imx7ulp_uboot_feature=(evk-uuu)
+
+imx8mm_dtb_feature=(ddr4 m4 mipi-panel)
+imx8mn_dtb_feature=(mipi-panel rpmsg)
+imx8mq_dtb_feature=(dual mipi-panel mipi)
+imx8qxp_dtb_feature=()
+imx8qm_dtb_feature=(hdmi mipi-panel md xen)
+imx7ulp_dtb_feature=(evk-mipi evk mipi)
+
+# an array to collect the supported soc_names
+supported_soc_names=(imx8qm imx8qxp imx8mq imx8mm imx8mn imx7ulp)
+
+if [ $# -eq 0 ]; then
+    echo -e ${RED}no parameter specified, will directly exit after displaying help message${STD}
+    help; exit 1;
+fi
+while [ $# -gt 0 ]; do
+    case $1 in
+        -h) help; exit ;;
+        -f) soc_name=$2; shift;;
+        -c) card_size=$2; shift;;
+        -u) uboot_feature=-$2; shift;;
+        -d) dtb_feature=$2; shift;;
+        -a) slot="_a" ;;
+        -b) slot="_b" ;;
+        -m) flash_mcu=1 ;;
+        -e) erase=1 ;;
+        -l) lock=1 ;;
+        -D) image_directory=$2; shift;;
+        -s) ser_num=$2; shift;;
+        *)  echo -e ${RED}$1${STD} is not an illegal option
+            help; exit;;
+    esac
+    shift
+done
+
+# check whether the soc_name is legal or not
+if [ -n "${soc_name}" ]; then
+    whether_in_array soc_name supported_soc_names
+    return_value=$?
+    if [ ${return_value} != 0 ]; then
+        echo -e >&2 ${RED}illegal soc_name \"${soc_name}\"${STD}
+        help; exit 1;
+    fi
+else
+    echo -e >&2 ${RED}use \"-f\" option to specify the soc name${STD}
+fi
+
+
+# Process of the uboot_feature parameter
+if [[ "${uboot_feature}" = *"dual"* ]]; then
+    support_dual_bootloader=1;
+fi
+
+# if card_size is not correctly set, exit.
+if [ ${card_size} -ne 0 ] && [ ${card_size} -ne 7 ] && [ ${card_size} -ne 14 ] && [ ${card_size} -ne 28 ]; then
+    help; exit 1;
+fi
+
+# Android Automative by default support dual bootloader, no "dual" in its partition table name
+if [ ${support_dual_bootloader} -eq 1 ]; then
+    if [ ${card_size} -gt 0 ]; then
+        partition_file="partition-table-${card_size}GB-dual.img";
+
+    else
+        partition_file="partition-table-dual.img";
+    fi
+else
+	if [ ${card_size} -gt 0 ]; then
+        partition_file="partition-table-${card_size}GB.img";
+    else
+        partition_file="partition-table.img";
+    fi
+fi
+
+# if directory is specified, make sure there is a slash at the end
+if [[ "${image_directory}" != "" ]]; then
+    image_directory="${image_directory%/}/"
+fi
+
+if [[ "${ser_num}" != "" ]]; then
+    fastboot_tool="fastboot -s ${ser_num}"
+fi
+
+# check whether provided spl/bootloader/uboot feature is legal
+if [ -n "${uboot_feature}" ]; then
+    uboot_feature_no_pre_hyphen=${uboot_feature#-}
+    whether_in_array uboot_feature_no_pre_hyphen ${soc_name}_uboot_feature
+    return_value=$?
+    if [ ${return_value} != 0 ]; then
+        echo -e >&2 ${RED}illegal parameter \"${uboot_feature_no_pre_hyphen}\" for \"-u\" option${STD}
+        help; exit 1;
+    fi
+fi
+
+# check whether provided dtb feature is legal
+if [ -n "${dtb_feature}" ]; then
+    dtb_feature_no_pre_hyphen=${dtb_feature#-}
+    whether_in_array dtb_feature_no_pre_hyphen ${soc_name}_dtb_feature
+    return_value=$?
+    if [ ${return_value} != 0 ]; then
+        echo -e >&2 ${RED}illegal parameter \"${dtb_feature}\" for \"-d\" option${STD}
+        help; exit 1;
+    fi
+fi
 
 flash_android
 
