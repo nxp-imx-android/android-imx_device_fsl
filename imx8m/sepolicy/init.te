@@ -19,3 +19,4 @@ allow init sysfs_dm:file { write open };
 allow init sysfs_devices_system_cpu:file { write };
 allow init sysfs_rfkill:file { open write setattr };
 allow init sysfs_block_devices:file { open write setattr };
+allow init rootfs:lnk_file { setattr };
