@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash
 
 help() {
 
@@ -7,10 +7,9 @@ cat << EOF
 
 Version: 1.6
 Last change: remove "-tos" and "-dboot" option, add "-u" option to specify which uboot or spl&bootloader image to flash
-currently suported platforms: sabresd_6dq, sabreauto_6q, sabresd_6sx, evk_7ulp, sabresd_7d
-                              evk_8mm, evk_8mq, evk_8mn, aiy_8mq, mek_8q, mek_8q_car
+currently suported platforms: evk_7ulp, evk_8mm, evk_8mq, evk_8mn, aiy_8mq, mek_8q, mek_8q_car
 
-eg: ./uuu_imx_android_flash.sh -f imx8qm -a -e -D ~/android10/mek_8q/
+eg: ./uuu_imx_android_flash.sh -f imx8qm -a -e -D ~/android10/mek_8q/ -t emmc -u trusty -d mipi-panel
 
 Usage: $bn <option>
 
@@ -19,11 +18,10 @@ options:
   -f soc_name       flash android image file with soc_name
   -a                only flash image to slot_a
   -b                only flash image to slot_b
-  -c card_size      optional setting: 7 / 14 / 28
-                        If not set, use partition-table.img (default)
-                        If set to  7, use partition-table-7GB.img  for  8GB SD card
+  -c card_size      optional setting: 14 / 28
+                        If not set, use partition-table.img/partition-table-dual.img (default)
                         If set to 14, use partition-table-14GB.img for 16GB SD card
-                        If set to 28, use partition-table-28GB.img for 32GB SD card
+                        If set to 28, use partition-table-28GB.img/partition-table-28GB-dual.img for 32GB SD card
                     Make sure the corresponding file exist for your platform
   -m                flash mcu image
   -u uboot_feature  flash uboot or spl&bootloader image with "uboot_feature" in their names
@@ -32,8 +30,42 @@ options:
                             otherwise uboot image will be flashed
                         For Android Automative:
                             only dual bootloader feature is supported, by default spl&bootloader image will be flashed
+                        Below table lists the legal value supported now based on the soc_name provided:
+                           ┌────────────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────┐
+                           │   soc_name     │  legal parameter after "-u"                                                                          │
+                           ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
+                           │   imx8mm       │  dual trusty-dual 4g-evk-uuu 4g ddr4-evk-uuu ddr4 evk-uuu trusty-4g trusty-secure-unlock trusty      │
+                           ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
+                           │   imx8mn       │  dual trusty-dual evk-uuu trusty-secure-unlock trusty                                                │
+                           ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
+                           │   imx8mq       │  dual trusty-dual evk-uuu trusty-secure-unlock trusty aiy-uuu                                        │
+                           ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
+                           │   imx8qxp      │  mek-uuu trusty-secure-unlock trusty secure-unlock                                                   │
+                           ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
+                           │   imx8qm       │  mek-uuu trusty-secure-unlock trusty secure-unlock md                                                │
+                           ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
+                           │   imx7ulp      │  evk-uuu                                                                                             │
+                           └────────────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────┘
+
   -d dtb_feature    flash dtbo, vbmeta and recovery image file with "dtb_feature" in their names
                         If not set, default dtbo, vbmeta and recovery image will be flashed
+                        Below table lists the legal value supported now based on the soc_name provided:
+                           ┌────────────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────┐
+                           │   soc_name     │  legal parameter after "-d"                                                                          │
+                           ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
+                           │   imx8mm       │  ddr4 m4 mipi-panel                                                                                  │
+                           ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
+                           │   imx8mn       │  mipi-panel rpmsg                                                                                    │
+                           ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
+                           │   imx8mq       │  dual mipi-panel mipi                                                                                │
+                           ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
+                           │   imx8qxp      │                                                                                                      │
+                           ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
+                           │   imx8qm       │  hdmi mipi-panel md xen                                                                              │
+                           ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
+                           │   imx7ulp      │  evk-mipi evk mipi                                                                                   │
+                           └────────────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────┘
+
   -e                erase user data after all image files being flashed
   -D directory      the directory of images
                         No need to use this option if images are in current working directory
@@ -50,6 +82,198 @@ options:
   -dryrun           only generate the uuu script under /tmp direcbory but not flash images
 EOF
 
+}
+
+# this function checks whether the value of first parameter is in the array value of second parameter
+# pass the name of the (array)variable to this function. the first is potential element, the second one is array.
+# make sure the first parameter is not empty
+function whether_in_array
+{
+    local potential_element=`eval echo \$\{${1}\}`
+    local array=(`eval echo \$\{${2}\[\*\]\}`)
+    local array_length=${#array[*]}
+    local last_element=${array[${array_length}-1]}
+
+    for arg in ${array[*]}
+    do
+        if [ "${arg}" = "${potential_element}" ]; then
+            return 0
+        fi
+        if [ "${arg}" = "${last_element}" ]; then
+            return 1
+        fi
+    done
+}
+
+function uuu_load_uboot
+{
+    echo uuu_version 1.3.74 > /tmp/uuu.lst
+    rm -f /tmp/${bootloader_used_by_uuu}
+    ln -s ${sym_link_directory}${bootloader_used_by_uuu} /tmp/${bootloader_used_by_uuu}
+    echo ${sdp}: boot -f ${bootloader_used_by_uuu} >> /tmp/uuu.lst
+    # for uboot by uuu which enabled SPL
+    if [[ ${soc_name#imx8m} != ${soc_name} ]]; then
+        # for images need SDPU
+        echo SDPU: delay 1000 >> /tmp/uuu.lst
+        echo SDPU: write -f ${bootloader_used_by_uuu} -offset 0x57c00 >> /tmp/uuu.lst
+        echo SDPU: jump >> /tmp/uuu.lst
+        # for images need SDPV
+        echo SDPV: delay 1000 >> /tmp/uuu.lst
+        echo SDPV: write -f ${bootloader_used_by_uuu} -skipspl >> /tmp/uuu.lst
+        echo SDPV: jump >> /tmp/uuu.lst
+    fi
+    echo FB: ucmd setenv fastboot_dev mmc >> /tmp/uuu.lst
+    echo FB: ucmd setenv mmcdev ${target_num} >> /tmp/uuu.lst
+    echo FB: ucmd mmc dev ${target_num} >> /tmp/uuu.lst
+
+    # erase environment variables of uboot
+    if [[ ${target_dev} = "emmc" ]]; then
+        echo FB: ucmd mmc dev ${target_num} 0 >> /tmp/uuu.lst
+    fi
+    echo FB: ucmd mmc erase ${uboot_env_start} ${uboot_env_len} >> /tmp/uuu.lst
+
+    if [[ ${target_dev} = "emmc" ]]; then
+        echo FB: ucmd mmc partconf ${target_num} 1 1 1 >> /tmp/uuu.lst
+    fi
+
+    if [[ ${intervene} -eq 1 ]]; then
+        echo FB: done >> /tmp/uuu.lst
+        uuu /tmp/uuu.lst
+        exit 0
+    fi
+}
+
+function flash_partition
+{
+    if [ "$(echo ${1} | grep "bootloader_")" != "" ]; then
+        img_name=${uboot_proper_to_be_flashed}
+    elif [ "$(echo ${1} | grep "system")" != "" ]; then
+        img_name=${systemimage_file}
+    elif [ "$(echo ${1} | grep "vendor")" != "" ]; then
+        img_name=${vendor_file}
+    elif [ "$(echo ${1} | grep "product")" != "" ]; then
+        img_name=${product_file}
+    elif [ "$(echo ${1} | grep "bootloader")" != "" ]; then
+        img_name=${bootloader_flashed_to_board}
+
+    elif [ ${support_dtbo} -eq 1 ] && [ "$(echo ${1} | grep "boot")" != "" ]; then
+            img_name="boot.img"
+    elif [ "$(echo ${1} | grep "mcu_os")" != "" ]; then
+        img_name="${soc_name}_mcu_demo.img"
+    elif [ "$(echo ${1} | grep -E "dtbo|vbmeta|recovery")" != "" -a "${dtb_feature}" != "" ]; then
+        img_name="${1%_*}-${soc_name}-${dtb_feature}.img"
+    elif [ "$(echo ${1} | grep "gpt")" != "" ]; then
+        img_name=${partition_file}
+    else
+        img_name="${1%_*}-${soc_name}.img"
+    fi
+
+    echo -e generate lines to flash ${RED}${img_name}${STD} to the partition of ${RED}${1}${STD}
+    rm -f /tmp/${img_name}
+    ln -s ${sym_link_directory}${img_name} /tmp/${img_name}
+    echo FB: flash ${1} ${img_name} >> /tmp/uuu.lst
+}
+
+function flash_userpartitions
+{
+    if [ ${support_dual_bootloader} -eq 1 ]; then
+        flash_partition ${dual_bootloader_partition}
+    fi
+    if [ ${support_dtbo} -eq 1 ]; then
+        flash_partition ${dtbo_partition}
+    fi
+
+    flash_partition ${boot_partition}
+
+    if [ ${support_recovery} -eq 1 ]; then
+        flash_partition ${recovery_partition}
+    fi
+
+    flash_partition ${system_partition}
+    flash_partition ${vendor_partition}
+    flash_partition ${product_partition}
+    flash_partition ${vbmeta_partition}
+}
+
+function flash_partition_name
+{
+    boot_partition="boot"${1}
+    recovery_partition="recovery"${1}
+    system_partition="system"${1}
+    vendor_partition="vendor"${1}
+    product_partition="product"${1}
+    vbmeta_partition="vbmeta"${1}
+    dtbo_partition="dtbo"${1}
+    if [ ${support_dual_bootloader} -eq 1 ]; then
+        dual_bootloader_partition=bootloader${1}
+    fi
+}
+
+function flash_android
+{
+    # if dual bootloader is supported, the name of the bootloader flashed to the board need to be updated
+    if [ ${support_dual_bootloader} -eq 1 ]; then
+        bootloader_flashed_to_board=spl-${soc_name}${uboot_feature}.bin
+        uboot_proper_to_be_flashed=bootloader-${soc_name}${uboot_feature}.img
+        # specially handle xen related condition
+        if [[ "${soc_name}" = imx8qm ]] && [[ "${dtb_feature}" = xen ]]; then
+            uboot_proper_to_be_flashed=bootloader-${soc_name}-${dtb_feature}.img
+        fi
+    fi
+
+    # for xen, no need to flash spl
+    if [[ "${dtb_feature}" != xen ]]; then
+        if [ ${support_dualslot} -eq 1 ]; then
+            flash_partition "bootloader0"
+        else
+            flash_partition "bootloader"
+        fi
+    fi
+
+    flash_partition "gpt"
+    # force to load the gpt just flashed, since for imx6 and imx7, we use uboot from BSP team,
+    # so partition table is not automatically loaded after gpt partition is flashed.
+    echo FB: ucmd setenv fastboot_dev sata >> /tmp/uuu.lst
+    echo FB: ucmd setenv fastboot_dev mmc >> /tmp/uuu.lst
+
+    # if a platform doesn't support dual slot but a slot is selected, ignore it.
+    if [ ${support_dualslot} -eq 0 ] && [ "${slot}" != "" ]; then
+        echo -e >&2 ${RED}ab slot feature not supported, the slot you specified will be ignored${STD}
+        slot=""
+    fi
+
+    # since imx7ulp use uboot for uuu from BSP team,there is no hardcoded mcu_os partition. If m4 need to be flashed, flash it here.
+    if [[ ${soc_name} == imx7ulp ]] && [[ ${flash_mcu} -eq 1 ]]; then
+        # download m4 image to dram
+        rm -f /tmp/${soc_name}_m4_demo.img
+        ln -s ${sym_link_directory}${soc_name}_m4_demo.img /tmp/${soc_name}_m4_demo.img
+        echo -e generate lines to flash ${RED}${soc_name}_m4_demo.img${STD} to the partition of ${RED}m4_os${STD}
+        echo FB: ucmd setenv fastboot_buffer ${imx7ulp_stage_base_addr} >> /tmp/uuu.lst
+        echo FB: download -f ${soc_name}_m4_demo.img >> /tmp/uuu.lst
+
+        echo FB: ucmd sf probe >> /tmp/uuu.lst
+        echo FB[-t 30000]: ucmd sf erase `echo "obase=16;$((${imx7ulp_evk_m4_sf_start}*${imx7ulp_evk_sf_blksz}))" | bc` \
+                `echo "obase=16;$((${imx7ulp_evk_m4_sf_length}*${imx7ulp_evk_sf_blksz}))" | bc` >> /tmp/uuu.lst
+
+        echo FB[-t 30000]: ucmd sf write ${imx7ulp_stage_base_addr} `echo "obase=16;$((${imx7ulp_evk_m4_sf_start}*${imx7ulp_evk_sf_blksz}))" | bc` \
+                `echo "obase=16;$((${imx7ulp_evk_m4_sf_length}*${imx7ulp_evk_sf_blksz}))" | bc` >> /tmp/uuu.lst
+    else
+        if [[ ${flash_mcu} -eq 1 ]]; then
+            flash_partition ${mcu_os_partition}
+        fi
+    fi
+
+    if [ "${slot}" = "" ] && [ ${support_dualslot} -eq 1 ]; then
+        #flash image to a and b slot
+        flash_partition_name "_a"
+        flash_userpartitions
+
+        flash_partition_name "_b"
+        flash_userpartitions
+    else
+        flash_partition_name ${slot}
+        flash_userpartitions
+    fi
 }
 
 
@@ -103,6 +327,24 @@ sym_link_directory=""
 yocto_image_sym_link=""
 daemon_mode=0
 dryrun=0
+
+# We want to detect illegal feature input to some extent. Here it's based on SoC names. Since an SoC may be on a
+# board running different set of images(android and automative for a example), so misuse the features of one set of
+# images when flash another set of images can not be detect early with this scenario.
+imx8mm_uboot_feature=(dual trusty-dual 4g-evk-uuu 4g ddr4-evk-uuu ddr4 evk-uuu trusty-4g trusty-secure-unlock trusty)
+imx8mn_uboot_feature=(dual trusty-dual evk-uuu trusty-secure-unlock trusty)
+imx8mq_uboot_feature=(dual trusty-dual evk-uuu trusty-secure-unlock trusty aiy-uuu)
+imx8qxp_uboot_feature=(mek-uuu trusty-secure-unlock trusty secure-unlock)
+imx8qm_uboot_feature=(mek-uuu trusty-secure-unlock trusty secure-unlock md)
+imx7ulp_uboot_feature=(evk-uuu)
+
+imx8mm_dtb_feature=(ddr4 m4 mipi-panel)
+imx8mn_dtb_feature=(mipi-panel rpmsg)
+imx8mq_dtb_feature=(dual mipi-panel mipi)
+imx8qxp_dtb_feature=()
+imx8qm_dtb_feature=(hdmi mipi-panel md xen)
+imx7ulp_dtb_feature=(evk-mipi evk mipi)
+
 
 echo -e This script is validated with ${RED}uuu 1.3.74${STD} version, please align with this version.
 
@@ -184,7 +426,6 @@ else
     yocto_image_sym_link="${yocto_image_sym_link%/}/";
     yocto_image_sym_link=${yocto_image_sym_link}${yocto_image}
 fi
-
 
 
 # if card_size is not correctly set, exit.
@@ -319,6 +560,28 @@ else
     target_num=${sd_num};
 fi
 
+# check whether provided spl/bootloader/uboot feature is legal
+if [ -n "${uboot_feature}" ]; then
+    uboot_feature_no_pre_hyphen=${uboot_feature#-}
+    whether_in_array uboot_feature_no_pre_hyphen ${soc_name}_uboot_feature
+    return_value=$?
+    if [ ${return_value} != 0 ]; then
+        echo -e >&2 ${RED}illegal parameter \"${uboot_feature_no_pre_hyphen}\" for \"-u\" option${STD}
+        help; exit 1;
+    fi
+fi
+
+# check whether provided dtb feature is legal
+if [ -n "${dtb_feature}" ]; then
+    dtb_feature_no_pre_hyphen=${dtb_feature#-}
+    whether_in_array dtb_feature_no_pre_hyphen ${soc_name}_dtb_feature
+    return_value=$?
+    if [ ${return_value} != 0 ]; then
+        echo -e >&2 ${RED}illegal parameter \"${dtb_feature}\" for \"-d\" option${STD}
+        help; exit 1;
+    fi
+fi
+
 # set sdp command name based on soc_name
 if [[ ${soc_name#imx8q} != ${soc_name} ]] || [[ ${soc_name} == "imx8mn" ]]; then
     sdp="SDPS"
@@ -332,181 +595,12 @@ bootloader_flashed_to_board="u-boot-${soc_name}${uboot_feature}.imx"
 if [ "${soc_name}" = imx8mm ]; then
     if [[ "${uboot_feature}" = *"ddr4"* ]]; then
         bootloader_used_by_uuu=u-boot-${soc_name}-ddr4-${board}-uuu.imx
-	elif [[ "${uboot_feature}" = *"4g"* ]]; then
+    elif [[ "${uboot_feature}" = *"4g"* ]]; then
         bootloader_used_by_uuu=u-boot-${soc_name}-4g-${board}-uuu.imx
     fi
 fi
 
-function uuu_load_uboot
-{
-    echo uuu_version 1.3.74 > /tmp/uuu.lst
-    rm -f /tmp/${bootloader_used_by_uuu}
-    ln -s ${sym_link_directory}${bootloader_used_by_uuu} /tmp/${bootloader_used_by_uuu}
-    echo ${sdp}: boot -f ${bootloader_used_by_uuu} >> /tmp/uuu.lst
-    # for uboot by uuu which enabled SPL
-    if [[ ${soc_name#imx8m} != ${soc_name} ]]; then
-        # for images need SDPU
-        echo SDPU: delay 1000 >> /tmp/uuu.lst
-        echo SDPU: write -f ${bootloader_used_by_uuu} -offset 0x57c00 >> /tmp/uuu.lst
-        echo SDPU: jump >> /tmp/uuu.lst
-        # for images need SDPV
-        echo SDPV: delay 1000 >> /tmp/uuu.lst
-        echo SDPV: write -f ${bootloader_used_by_uuu} -skipspl >> /tmp/uuu.lst
-        echo SDPV: jump >> /tmp/uuu.lst
-    fi
-    echo FB: ucmd setenv fastboot_dev mmc >> /tmp/uuu.lst
-    echo FB: ucmd setenv mmcdev ${target_num} >> /tmp/uuu.lst
-    echo FB: ucmd mmc dev ${target_num} >> /tmp/uuu.lst
 
-    # erase environment variables of uboot
-    if [[ ${target_dev} = "emmc" ]]; then
-        echo FB: ucmd mmc dev ${target_num} 0 >> /tmp/uuu.lst
-    fi
-    echo FB: ucmd mmc erase ${uboot_env_start} ${uboot_env_len} >> /tmp/uuu.lst
-
-    if [[ ${target_dev} = "emmc" ]]; then
-        echo FB: ucmd mmc partconf ${target_num} 1 1 1 >> /tmp/uuu.lst
-    fi
-
-    if [[ ${intervene} -eq 1 ]]; then
-        echo FB: done >> /tmp/uuu.lst
-        uuu /tmp/uuu.lst
-        exit 0
-    fi
-}
-
-function flash_partition
-{
-    if [ "$(echo ${1} | grep "bootloader_")" != "" ]; then
-        img_name=${uboot_proper_to_be_flashed}
-    elif [ "$(echo ${1} | grep "system")" != "" ]; then
-        img_name=${systemimage_file}
-    elif [ "$(echo ${1} | grep "vendor")" != "" ]; then
-        img_name=${vendor_file}
-    elif [ "$(echo ${1} | grep "product")" != "" ]; then
-        img_name=${product_file}
-    elif [ "$(echo ${1} | grep "bootloader")" != "" ]; then
-        img_name=${bootloader_flashed_to_board}
-
-    elif [ ${support_dtbo} -eq 1 ] && [ "$(echo ${1} | grep "boot")" != "" ]; then
-            img_name="boot.img"
-    elif [ "$(echo ${1} | grep "mcu_os")" != "" ]; then
-        img_name="${soc_name}_mcu_demo.img"
-    elif [ "$(echo ${1} | grep -E "dtbo|vbmeta|recovery")" != "" -a "${dtb_feature}" != "" ]; then
-        img_name="${1%_*}-${soc_name}-${dtb_feature}.img"
-    elif [ "$(echo ${1} | grep "gpt")" != "" ]; then
-        img_name=${partition_file}
-    else
-        img_name="${1%_*}-${soc_name}.img"
-    fi
-
-    echo -e generate lines to flash ${RED}${img_name}${STD} to the partition of ${RED}${1}${STD}
-    rm -f /tmp/${img_name}
-    ln -s ${sym_link_directory}${img_name} /tmp/${img_name}
-    echo FB: flash ${1} ${img_name} >> /tmp/uuu.lst
-}
-
-function flash_userpartitions
-{
-    if [ ${support_dual_bootloader} -eq 1 ]; then
-        flash_partition ${dual_bootloader_partition}
-    fi
-    if [ ${support_dtbo} -eq 1 ]; then
-        flash_partition ${dtbo_partition}
-    fi
-
-    flash_partition ${boot_partition}
-
-    if [ ${support_recovery} -eq 1 ]; then
-        flash_partition ${recovery_partition}
-    fi
-
-    flash_partition ${system_partition}
-    flash_partition ${vendor_partition}
-    flash_partition ${product_partition}
-    flash_partition ${vbmeta_partition}
-}
-
-function flash_partition_name
-{
-    boot_partition="boot"${1}
-    recovery_partition="recovery"${1}
-    system_partition="system"${1}
-    vendor_partition="vendor"${1}
-    product_partition="product"${1}
-    vbmeta_partition="vbmeta"${1}
-    dtbo_partition="dtbo"${1}
-    if [ ${support_dual_bootloader} -eq 1 ]; then
-        dual_bootloader_partition=bootloader${1}
-    fi
-}
-
-function flash_android
-{
-    # if dual bootloader is supported, the name of the bootloader flashed to the board need to be updated
-    if [ ${support_dual_bootloader} -eq 1 ]; then
-        bootloader_flashed_to_board=spl-${soc_name}${uboot_feature}.bin
-        uboot_proper_to_be_flashed=bootloader-${soc_name}${uboot_feature}.img
-        # specially handle xen related condition
-        if [[ "${soc_name}" = imx8qm ]] && [[ "${dtb_feature}" = xen ]]; then
-            uboot_proper_to_be_flashed=bootloader-${soc_name}-${dtb_feature}.img
-        fi
-	fi
-
-    # for xen, no need to flash spl
-    if [[ "${dtb_feature}" != xen ]]; then
-        if [ ${support_dualslot} -eq 1 ]; then
-            flash_partition "bootloader0"
-        else
-            flash_partition "bootloader"
-        fi
-    fi
-
-    flash_partition "gpt"
-    # force to load the gpt just flashed, since for imx6 and imx7, we use uboot from BSP team,
-    # so partition table is not automatically loaded after gpt partition is flashed.
-    echo FB: ucmd setenv fastboot_dev sata >> /tmp/uuu.lst
-    echo FB: ucmd setenv fastboot_dev mmc >> /tmp/uuu.lst
-
-    # if a platform doesn't support dual slot but a slot is selected, ignore it.
-    if [ ${support_dualslot} -eq 0 ] && [ "${slot}" != "" ]; then
-        echo -e >&2 ${RED}ab slot feature not supported, the slot you specified will be ignored${STD}
-        slot=""
-    fi
-
-    # since imx7ulp use uboot for uuu from BSP team,there is no hardcoded mcu_os partition. If m4 need to be flashed, flash it here.
-    if [[ ${soc_name} == imx7ulp ]] && [[ ${flash_mcu} -eq 1 ]]; then
-        # download m4 image to dram
-        rm -f /tmp/${soc_name}_m4_demo.img
-        ln -s ${sym_link_directory}${soc_name}_m4_demo.img /tmp/${soc_name}_m4_demo.img
-        echo -e generate lines to flash ${RED}${soc_name}_m4_demo.img${STD} to the partition of ${RED}m4_os${STD}
-        echo FB: ucmd setenv fastboot_buffer ${imx7ulp_stage_base_addr} >> /tmp/uuu.lst
-        echo FB: download -f ${soc_name}_m4_demo.img >> /tmp/uuu.lst
-
-        echo FB: ucmd sf probe >> /tmp/uuu.lst
-        echo FB[-t 30000]: ucmd sf erase `echo "obase=16;$((${imx7ulp_evk_m4_sf_start}*${imx7ulp_evk_sf_blksz}))" | bc` \
-                `echo "obase=16;$((${imx7ulp_evk_m4_sf_length}*${imx7ulp_evk_sf_blksz}))" | bc` >> /tmp/uuu.lst
-
-        echo FB[-t 30000]: ucmd sf write ${imx7ulp_stage_base_addr} `echo "obase=16;$((${imx7ulp_evk_m4_sf_start}*${imx7ulp_evk_sf_blksz}))" | bc` \
-                `echo "obase=16;$((${imx7ulp_evk_m4_sf_length}*${imx7ulp_evk_sf_blksz}))" | bc` >> /tmp/uuu.lst
-    else
-        if [[ ${flash_mcu} -eq 1 ]]; then
-            flash_partition ${mcu_os_partition}
-        fi
-    fi
-
-    if [ "${slot}" = "" ] && [ ${support_dualslot} -eq 1 ]; then
-        #flash image to a and b slot
-        flash_partition_name "_a"
-        flash_userpartitions
-
-        flash_partition_name "_b"
-        flash_userpartitions
-    else
-        flash_partition_name ${slot}
-        flash_userpartitions
-    fi
-}
 
 uuu_load_uboot
 
