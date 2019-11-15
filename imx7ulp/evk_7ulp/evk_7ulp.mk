@@ -40,7 +40,17 @@ PRODUCT_COPY_FILES += \
     device/fsl/common/wifi/wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/qca_wpa_supplicant_overlay.conf \
     device/fsl/common/wifi/bcm_wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/bcm_wpa_supplicant_overlay.conf
 
-
+ifeq ($(PRODUCT_7ULP_REVB), true)
+#evk board, qcom wifi supplicant overlay
+PRODUCT_COPY_FILES += \
+    $(IMX_DEVICE_PATH)/init.imx7ulp.revb.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.freescale.additional.rc \
+    device/fsl/common/wifi/wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf
+else
+#evkb board, bcm wifi supplicant overlay
+PRODUCT_COPY_FILES += \
+    $(IMX_DEVICE_PATH)/init.imx7ulp.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.freescale.additional.rc \
+    device/fsl/common/wifi/bcm_wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf
+endif
 
 # ONLY devices that meet the CDD's requirements may declare these features
 PRODUCT_COPY_FILES += \
@@ -156,14 +166,7 @@ PRODUCT_PACKAGES += \
     android.hardware.bluetooth@1.0-impl \
     android.hardware.bluetooth@1.0-service
 
-# BCM Bluetooth vendor config
-PRODUCT_PACKAGES += \
-    bt_vendor.conf
-
-# BCM 1CX Bluetooth Firmware
-PRODUCT_COPY_FILES += \
-    vendor/nxp/imx-firmware/cyw-wifi-bt/1DX_CYW43430/BCM43430A1.1DX.hcd:$(TARGET_COPY_OUT_VENDOR)/firmware/brcm/CYW43430A1.1DX.hcd
-
+ifeq ($(PRODUCT_7ULP_REVB), true)
 # Qcom WiFi Firmware
 PRODUCT_COPY_FILES += \
     vendor/nxp/qca-wifi-bt/1PJ_QCA9377-3_LEA_2.0/lib/firmware/qca9377/bdwlan30.bin:vendor/firmware/bdwlan30.bin \
@@ -176,38 +179,27 @@ PRODUCT_COPY_FILES += \
     vendor/nxp/qca-wifi-bt/1PJ_QCA9377-3_LEA_2.0/lib/firmware/qca/tfbtnv11.bin:vendor/firmware/nvm_tlv_3.2.bin \
     vendor/nxp/qca-wifi-bt/1PJ_QCA9377-3_LEA_2.0/lib/firmware/qca/tfbtfw11.tlv:vendor/firmware/rampatch_tlv_3.2.tlv \
     vendor/nxp/qca-wifi-bt/qca_proprietary/Android_HAL/wcnss_filter_7ulp:vendor/bin/wcnss_filter
-
-# WiFi HAL
+else
+# BCM Bluetooth vendor config
 PRODUCT_PACKAGES += \
-    android.hardware.wifi@1.0-service \
-    wifilogd \
-    wificond
+    bt_vendor.conf
 
-# BCM bluetooth for UNITE mode
-PRODUCT_PACKAGES += \
-    libbt-vendor-unite-bcm
-
-# QCA bluetooth for UNITE mode
-PRODUCT_PACKAGES += \
-    libbt-vendor-unite-qca
-
-# BCM wifi supplicant for UNITE mode
-PRODUCT_PACKAGES += \
-    bcm_hostapd \
-    bcm_wpa_supplicant \
-    android.hardware.wifi@1.0-service.bcm
-
-# QCA wifi supplicant for UNITE mode
-PRODUCT_PACKAGES += \
-    qca_hostapd \
-    qca_wpa_supplicant \
-    android.hardware.wifi@1.0-service.qca
+# BCM 1CX Bluetooth Firmware
+PRODUCT_COPY_FILES += \
+    vendor/nxp/imx-firmware/cyw-wifi-bt/1DX_CYW43430/BCM43430A1.1DX.hcd:$(TARGET_COPY_OUT_VENDOR)/firmware/brcm/CYW43430A1.1DX.hcd
 
 # BCM 1CX Wifi Firmware
 PRODUCT_COPY_FILES += \
     vendor/nxp/imx-firmware/cyw-wifi-bt/1DX_CYW43430/brcmfmac43430-sdio.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/brcm/brcmfmac43430-sdio.bin \
     vendor/nxp/imx-firmware/cyw-wifi-bt/1DX_CYW43430/brcmfmac43430-sdio.clm_blob:$(TARGET_COPY_OUT_VENDOR)/firmware/brcm/brcmfmac43430-sdio.clm_blob \
     vendor/nxp/imx-firmware/cyw-wifi-bt/1DX_CYW43430/brcmfmac43430-sdio.txt:$(TARGET_COPY_OUT_VENDOR)/firmware/brcm/brcmfmac43430-sdio.txt
+endif
+
+# WiFi HAL
+PRODUCT_PACKAGES += \
+    android.hardware.wifi@1.0-service \
+    wifilogd \
+    wificond
 
 # Keymaster HAL
 PRODUCT_PACKAGES += \
