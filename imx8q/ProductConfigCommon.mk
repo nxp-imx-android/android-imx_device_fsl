@@ -66,6 +66,10 @@ PRODUCT_PACKAGES += \
 ifneq ($(PRODUCT_IMX_CAR),true)
 PRODUCT_PACKAGES += \
     update_engine_sideload
+
+PRODUCT_STATIC_BOOT_CONTROL_HAL:= \
+    bootctrl-static.avb \
+    libcutils
 endif
 
 # audio
