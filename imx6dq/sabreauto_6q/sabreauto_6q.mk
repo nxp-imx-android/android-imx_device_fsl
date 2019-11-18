@@ -24,7 +24,6 @@ PRODUCT_FULL_TREBLE_OVERRIDE := true
 
 # Copy device related config and binary to board
 PRODUCT_COPY_FILES += \
-    $(FSL_PROPRIETARY_PATH)/fsl-proprietary/gpu-viv/lib/egl/egl.cfg:$(TARGET_COPY_OUT_VENDOR)/lib/egl/egl.cfg \
     $(IMX_DEVICE_PATH)/app_whitelist.xml:system/etc/sysconfig/app_whitelist.xml \
     $(IMX_DEVICE_PATH)/fstab.freescale:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.freescale \
     $(IMX_DEVICE_PATH)/init.imx6dl.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.freescale.imx6dl.rc \
