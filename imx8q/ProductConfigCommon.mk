@@ -202,14 +202,14 @@ PRODUCT_PACKAGES += \
     media_codecs.xml \
     media_codecs_8qm.xml \
     media_codecs_8qxp.xml \
-    media_codecs_ac3.xml \
-    media_codecs_ddp.xml \
-    media_codecs_ms.xml \
-    media_codecs_wmv9.xml \
-    media_codecs_ra.xml \
-    media_codecs_rv.xml \
-    media_codecs_dsp.xml \
-    media_codecs_dsp_aacp.xml \
+    media_codecs_c2_ac3.xml \
+    media_codecs_c2_ddp.xml \
+    media_codecs_c2_ms.xml \
+    media_codecs_c2_wmv9.xml \
+    media_codecs_c2_ra.xml \
+    media_codecs_c2_rv.xml \
+    media_codecs_c2_dsp.xml \
+    media_codecs_c2_dsp_aacp.xml \
     media_codecs_performance.xml \
     media_profiles_V1_0.xml \
     media_codecs_google_video.xml \
