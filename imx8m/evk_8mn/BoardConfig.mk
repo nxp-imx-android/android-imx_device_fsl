@@ -14,9 +14,7 @@ TARGET_GRALLOC_VERSION := v3
 TARGET_HIGH_PERFORMANCE := true
 TARGET_USES_HWC2 := true
 TARGET_HWCOMPOSER_VERSION := v2.0
-TARGET_HAVE_VIV_HWCOMPOSER = true
 USE_OPENGL_RENDERER := true
-TARGET_CPU_SMP := true
 TARGET_HAVE_VULKAN := true
 ENABLE_CFI=false
 
@@ -54,10 +52,7 @@ DEVICE_MATRIX_FILE := $(IMX_DEVICE_PATH)/compatibility_matrix.xml
 
 TARGET_BOOTLOADER_BOARD_NAME := EVK
 
-TARGET_BOOTLOADER_POSTFIX := bin
-
 USE_OPENGL_RENDERER := true
-TARGET_CPU_SMP := true
 
 BOARD_WLAN_DEVICE            := bcmdhd
 WPA_SUPPLICANT_VERSION       := VER_0_8_X
@@ -68,15 +63,8 @@ BOARD_WPA_SUPPLICANT_PRIVATE_LIB        := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
 
 WIFI_DRIVER_FW_PATH_PARAM := "/sys/module/brcmfmac/parameters/alternative_fw_path"
 
-# BCM fmac wifi driver module
-BOARD_VENDOR_KERNEL_MODULES += \
-    $(KERNEL_OUT)/drivers/net/wireless/broadcom/brcm80211/brcmfmac/brcmfmac.ko \
-    $(KERNEL_OUT)/drivers/net/wireless/broadcom/brcm80211/brcmutil/brcmutil.ko
-
 BOARD_USE_SENSOR_FUSION := true
 
-# for recovery service
-TARGET_SELECT_KEY := 28
 # we don't support sparse image.
 TARGET_USERIMAGES_SPARSE_EXT_DISABLED := false
 
@@ -84,11 +72,6 @@ BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(IMX_DEVICE_PATH)/bluetooth
 
 # BCM 1MW BT
 BOARD_HAVE_BLUETOOTH_BCM := true
-
-UBOOT_POST_PROCESS := true
-
-# camera hal v3
-IMX_CAMERA_HAL_V3 := true
 
 BOARD_HAVE_USB_CAMERA := true
 
@@ -111,7 +94,6 @@ NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
 
 CMASIZE=800M
 
-KERNEL_NAME := Image
 ifeq ($(LOW_MEMORY),true)
 BOARD_KERNEL_CMDLINE := init=/init androidboot.console=ttymxc1 androidboot.hardware=freescale cma=320M@0x400M-0xb80M androidboot.primary_display=imx-drm firmware_class.path=/vendor/firmware transparent_hugepage=never loop.max_part=7 androidboot.displaymode=720p galcore.contiguousSize=33554432
 else
@@ -132,16 +114,6 @@ endif
 
 BOARD_PREBUILT_DTBOIMAGE := out/target/product/evk_8mn/dtbo-imx8mn.img
 
-# u-boot target for stand config and Trusty OS config
-TARGET_BOOTLOADER_CONFIG := imx8mn:imx8mn_ddr4_evk_android_defconfig
-TARGET_BOOTLOADER_CONFIG += imx8mn-dual:imx8mn_ddr4_evk_android_dual_defconfig
-ifeq ($(PRODUCT_IMX_TRUSTY),true)
-TARGET_BOOTLOADER_CONFIG += imx8mn-trusty:imx8mn_ddr4_evk_android_trusty_defconfig
-TARGET_BOOTLOADER_CONFIG += imx8mn-trusty-secure-unlock:imx8mn_ddr4_evk_android_trusty_secure_unlock_defconfig
-TARGET_BOOTLOADER_CONFIG += imx8mn-trusty-dual:imx8mn_ddr4_evk_android_trusty_dual_defconfig
-endif
-# u-boot target used by uuu for imx8mn_evk
-TARGET_BOOTLOADER_CONFIG += imx8mn-evk-uuu:imx8mn_ddr4_evk_android_uuu_defconfig
 # imx8mn with MIPI-HDMI display, BCM wifi and support trusty
 TARGET_BOARD_DTS_CONFIG := imx8mn:fsl-imx8mn-ddr4-evk.dtb
 # imx8mn with MIPI panel display and BCM wifi
@@ -149,13 +121,11 @@ TARGET_BOARD_DTS_CONFIG += imx8mn-mipi-panel:fsl-imx8mn-ddr4-evk-rm67191.dtb
 # imx8mn with MIPI-HDMI display and BCM wifi and M7 image
 TARGET_BOARD_DTS_CONFIG += imx8mn-rpmsg:fsl-imx8mn-ddr4-evk-rpmsg.dtb
 
-
-TARGET_KERNEL_DEFCONFIG := android_defconfig
-
-TARGET_KERNEL_ADDITION_DEFCONF := android_addition_defconfig
-
 BOARD_SEPOLICY_DIRS := \
        device/fsl/imx8m/sepolicy \
        $(IMX_DEVICE_PATH)/sepolicy
 
 TARGET_BOARD_KERNEL_HEADERS := device/fsl/common/kernel-headers
+
+ALL_DEFAULT_INSTALLED_MODULES += $(BOARD_VENDOR_KERNEL_MODULES)
+

@@ -22,15 +22,9 @@ DEVICE_MATRIX_FILE := $(IMX_DEVICE_PATH)/compatibility_matrix.xml
 
 TARGET_BOOTLOADER_BOARD_NAME := EVK
 
-TARGET_BOOTLOADER_POSTFIX := imx
-TARGET_DTB_POSTFIX := -dtb
-
 # evk board use qcom wifi and evkb board(default) use cypress wifi
 ifeq ($(PRODUCT_7ULP_REVB), true)
 BOARD_WLAN_DEVICE := qcwcn
-# QCA qcacld wifi driver module
-BOARD_VENDOR_KERNEL_MODULES += \
-    $(KERNEL_OUT)/drivers/net/wireless/qcacld-2.0/wlan.ko
 WIFI_HIDL_FEATURE_DUAL_INTERFACE := true
 # Qcom BT
 BOARD_HAVE_BLUETOOTH_QCOM := true
@@ -44,10 +38,6 @@ SOONG_CONFIG_IMXPLUGIN += BOARD_HAVE_BLUETOOTH_QCOM
 SOONG_CONFIG_IMXPLUGIN_BOARD_HAVE_BLUETOOTH_QCOM = true
 else
 BOARD_WLAN_DEVICE := bcmdhd
-# BCM fmac wifi driver module
-BOARD_VENDOR_KERNEL_MODULES += \
-    $(KERNEL_OUT)/drivers/net/wireless/broadcom/brcm80211/brcmfmac/brcmfmac.ko \
-    $(KERNEL_OUT)/drivers/net/wireless/broadcom/brcm80211/brcmutil/brcmutil.ko
 WIFI_DRIVER_FW_PATH_PARAM := "/sys/module/brcmfmac/parameters/alternative_fw_path"
 # BCM 1DX BT
 BOARD_HAVE_BLUETOOTH_BCM := true
@@ -81,14 +71,10 @@ NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
 IMX_CAMERA_HAL_V1 := true
 TARGET_VSYNC_DIRECT_REFRESH := true
 
-KERNEL_NAME := zImage
 BOARD_KERNEL_CMDLINE := init=/init androidboot.console=ttyLP0 consoleblank=0 androidboot.hardware=freescale vmalloc=128M cma=320M loop.max_part=7
 
 # Set the density to 120dpi for 640x480 lcd panel
 BOARD_KERNEL_CMDLINE += androidboot.lcd_density=120
-
-# u-boot target for imx7ulp_evk
-TARGET_BOOTLOADER_CONFIG := imx7ulp:imx7ulp_evk_android_defconfig
 
 ifeq ($(PRODUCT_7ULP_REVB), true)
 # imx7ulp_evk with HDMI display
@@ -102,12 +88,7 @@ TARGET_BOARD_DTS_CONFIG := imx7ulp:imx7ulp-evkb.dtb
 TARGET_BOARD_DTS_CONFIG += imx7ulp-mipi:imx7ulp-evkb-rm68200-wxga.dtb
 endif
 
-TARGET_KERNEL_DEFCONFIG := imx_v7_android_defconfig
-# TARGET_KERNEL_ADDITION_DEFCONF := imx_v7_android_addition_defconfig
 BOARD_PREBUILT_DTBOIMAGE := out/target/product/evk_7ulp/dtbo-imx7ulp.img
-
-# u-boot target used by uuu for imx7ulp_evk
-TARGET_BOOTLOADER_CONFIG += imx7ulp-evk-uuu:mx7ulp_evk_defconfig
 
 BOARD_SEPOLICY_DIRS := \
        device/fsl/imx7ulp/sepolicy \
@@ -128,3 +109,6 @@ BOARD_USES_FULL_RECOVERY_IMAGE := true
 
 # define board type
 BOARD_TYPE := EVK
+
+ALL_DEFAULT_INSTALLED_MODULES += $(BOARD_VENDOR_KERNEL_MODULES)
+
