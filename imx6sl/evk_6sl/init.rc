@@ -41,6 +41,9 @@ on early-boot
 
     setprop hwc.stretch.filter  1
 
+    # Default g2d [dpu|pxp|viv] lib to be used
+    setprop vendor.imx.default-g2d viv
+
     # Disable OpenGL Renderer on 6sl_evk
     setprop sys.viewroot.hw false
 

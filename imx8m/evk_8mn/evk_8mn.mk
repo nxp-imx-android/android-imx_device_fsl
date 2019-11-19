@@ -156,7 +156,8 @@ PRODUCT_PACKAGES += \
     libCLC \
     libLLVM_viv \
     libOpenCL \
-    libopencl-2d \
+    libg2d-opencl \
+    libg2d-viv \
     gatekeeper.imx8
 
 PRODUCT_PACKAGES += \
@@ -279,3 +280,5 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/gsi_keys.mk)
 PRODUCT_PACKAGES += \
     adb_debug.prop
 endif
+
+IMX-DEFAULT-G2D-LIB := libg2d-opencl
