@@ -154,7 +154,7 @@ PRODUCT_PACKAGES += \
     libGAL \
     libGLSLC \
     libVSC \
-    libg2d \
+    libg2d-viv \
     libgpuhelper \
     gatekeeper.imx8
 
@@ -303,3 +303,5 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/gsi_keys.mk)
 PRODUCT_PACKAGES += \
     adb_debug.prop
 endif
+
+IMX-DEFAULT-G2D-LIB := libg2d-viv
