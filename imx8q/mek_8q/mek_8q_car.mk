@@ -3,14 +3,6 @@
 
 IMX_DEVICE_PATH := device/fsl/imx8q/mek_8q
 
-PRODUCT_IMX_CAR := true
-# build m4 image from source code
-PRODUCT_IMX_CAR_M4_BUILD := true
-#with m4 when build uboot
-PRODUCT_IMX_CAR_M4 ?= true
-#without m4 when build uboot
-#PRODUCT_IMX_CAR_M4 ?= false
-
 include $(IMX_DEVICE_PATH)/mek_8q.mk
 
 # Overrides

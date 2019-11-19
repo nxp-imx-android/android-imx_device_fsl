@@ -3,6 +3,9 @@
 
 IMX_DEVICE_PATH := device/fsl/imx8m/aiy_8mq
 
+# configs shared between uboot, kernel and Android rootfs
+include $(IMX_DEVICE_PATH)/SharedBoardConfig.mk
+
 -include device/fsl/common/imx_path/ImxPathConfig.mk
 $(call inherit-product, device/fsl/imx8m/ProductConfigCommon.mk)
 
