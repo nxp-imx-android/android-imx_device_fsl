@@ -39,7 +39,8 @@ PRODUCT_PACKAGES += \
     GoogleExtServices_demo \
     GoogleExtShared_demo \
     GooglePartnerSetup_demo \
-    HeadUnit
+    HeadUnit \
+    privapp_permissions_google_auto
 
 # Add Car related HAL
 PRODUCT_PACKAGES += \
