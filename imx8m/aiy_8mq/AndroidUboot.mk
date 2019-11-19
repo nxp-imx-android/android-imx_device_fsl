@@ -36,10 +36,10 @@ define build_imx_uboot
 		$(MAKE) -C $(IMX_MKIMAGE_PATH)/imx-mkimage/ SOC=iMX8M PRINT_FIT_HAB_OFFSET=0x0 print_fit_hab || exit 1; \
 	fi; \
 	if [ `echo $(2) | rev | cut -d '-' -f1 | rev` != "dual" ]; then \
-		cp $(IMX_MKIMAGE_PATH)/imx-mkimage/iMX8M/flash.bin $(PRODUCT_OUT)/u-boot-$(strip $(2)).imx; \
+		cp $(IMX_MKIMAGE_PATH)/imx-mkimage/iMX8M/flash.bin $(UBOOT_COLLECTION)/u-boot-$(strip $(2)).imx; \
 	else \
-		cp $(IMX_MKIMAGE_PATH)/imx-mkimage/iMX8M/flash.bin $(PRODUCT_OUT)/spl-$(strip $(2)).bin; \
-		cp $(IMX_MKIMAGE_PATH)/imx-mkimage/iMX8M/u-boot-ivt.itb $(PRODUCT_OUT)/bootloader-$(strip $(2)).img; \
+		cp $(IMX_MKIMAGE_PATH)/imx-mkimage/iMX8M/flash.bin $(UBOOT_COLLECTION)/spl-$(strip $(2)).bin; \
+		cp $(IMX_MKIMAGE_PATH)/imx-mkimage/iMX8M/u-boot-ivt.itb $(UBOOT_COLLECTION)/bootloader-$(strip $(2)).img; \
 	fi;
 endef
 
