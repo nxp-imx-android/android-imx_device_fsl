@@ -221,7 +221,8 @@ PRODUCT_PACKAGES += \
         libGAL \
         libGLSLC \
         libVSC \
-        libg2d \
+        libg2d-dpu \
+        libg2d-viv \
         libgpuhelper \
         libSPIRV_viv \
         libvulkan_VIVANTE \
@@ -229,7 +230,7 @@ PRODUCT_PACKAGES += \
         libCLC \
         libLLVM_viv \
         libOpenCL \
-        libopencl-2d \
+        libg2d-opencl \
         libOpenVX \
         libOpenVXU \
         libNNVXCBinary-evis \
@@ -432,3 +433,8 @@ BOARD_AVB_ROLLBACK_INDEX := $(AVB_RBINDEX)
 else
 BOARD_AVB_ROLLBACK_INDEX := 0
 endif
+
+#set default lib name for g2d, which will be linked
+#in OpenMAX repo
+IMX-DEFAULT-G2D-LIB := libg2d-dpu
+

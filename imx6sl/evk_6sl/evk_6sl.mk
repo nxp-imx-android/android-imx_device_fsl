@@ -96,7 +96,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     gralloc_viv.imx6 \
     libGAL \
-    libg2d \
+    libg2d-viv \
     libgpuhelper \
     gatekeeper.imx6
 
@@ -153,3 +153,5 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.crypto.fde_sector_size=4096 \
     ro.crypto.volume.contents_mode=adiantum \
     ro.crypto.volume.filenames_mode=adiantum
+
+IMX-DEFAULT-G2D-LIB := libg2d-viv
