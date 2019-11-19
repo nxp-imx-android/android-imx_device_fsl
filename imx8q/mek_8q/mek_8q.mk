@@ -3,6 +3,9 @@
 
 IMX_DEVICE_PATH := device/fsl/imx8q/mek_8q
 
+# configs shared between uboot, kernel and Android rootfs
+include $(IMX_DEVICE_PATH)/SharedBoardConfig.mk
+
 -include device/fsl/common/imx_path/ImxPathConfig.mk
 ifneq ($(IMX8_BUILD_32BIT_ROOTFS),true)
 ifeq ($(PRODUCT_IMX_CAR),true)
@@ -37,9 +40,6 @@ SOONG_CONFIG_IMXPLUGIN_BOARD_USE_LEGACY_SENSOR = true
 endif
 #Enable this to choose 32 bit user space build
 #IMX8_BUILD_32BIT_ROOTFS := true
-
-#Enable this to include trusty support
-PRODUCT_IMX_TRUSTY := true
 
 # Include keystore attestation keys and certificates.
 ifeq ($(PRODUCT_IMX_TRUSTY),true)

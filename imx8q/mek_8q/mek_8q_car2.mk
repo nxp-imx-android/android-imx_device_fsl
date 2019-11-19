@@ -3,9 +3,6 @@
 
 IMX_DEVICE_PATH := device/fsl/imx8q/mek_8q
 
-# the env setting in mek_8q_car to make the build without M4 image
-PRODUCT_IMX_CAR_M4 := false
-
 include $(IMX_DEVICE_PATH)/mek_8q_car.mk
 
 # Overrides

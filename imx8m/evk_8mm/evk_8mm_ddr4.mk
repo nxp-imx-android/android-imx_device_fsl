@@ -3,8 +3,6 @@
 
 IMX_DEVICE_PATH := device/fsl/imx8m/evk_8mm
 
-PRODUCT_8MM_DDR4 := true
-
 $(call inherit-product, $(TOPDIR)$(IMX_DEVICE_PATH)/evk_8mm.mk)
 
 # Overrides

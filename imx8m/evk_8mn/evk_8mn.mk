@@ -3,6 +3,9 @@
 
 IMX_DEVICE_PATH := device/fsl/imx8m/evk_8mn
 
+# configs shared between uboot, kernel and Android rootfs
+include $(IMX_DEVICE_PATH)/SharedBoardConfig.mk
+
 -include device/fsl/common/imx_path/ImxPathConfig.mk
 $(call inherit-product, device/fsl/imx8m/ProductConfigCommon.mk)
 
@@ -19,12 +22,6 @@ PRODUCT_FULL_TREBLE_OVERRIDE := true
 
 #Enable this to choose 32 bit user space build
 #IMX8_BUILD_32BIT_ROOTFS := true
-
-#Enable this to config 1GB ddr on evk_imx8mn
-#LOW_MEMORY := true
-
-#Enable this to include trusty support
-PRODUCT_IMX_TRUSTY := true
 
 # Include keystore attestation keys and certificates.
 ifeq ($(PRODUCT_IMX_TRUSTY),true)

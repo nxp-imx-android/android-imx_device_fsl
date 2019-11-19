@@ -23,7 +23,7 @@ define build_m4_image_core
 	$(MAKE) -C $(UBOOT_M4_OUT)/$2 1>/dev/null
 endef
 
-ifeq ($(PRODUCT_IMX_CAR_M4_BUILD),true)
+ifeq ($(PRODUCT_IMX_CAR_M4),true)
 ifeq ($(ARMGCC_DIR),)
 $(error please install arm-none-eabi-gcc toolchain and set the installed path to ARMGCC_DIR)
 endif
@@ -33,7 +33,7 @@ define build_m4_image
 	mkdir -p $(UBOOT_M4_OUT); \
 	cmake_version=$(shell /usr/local/bin/cmake --version | head -n 1 | tr " " "\n" | tail -n 1); \
 	req_version="3.13.0"; \
-	if [ "$(shell echo "$$cmake_version $$req_version" | tr " " "\n" | sort -V | head -n 1)" != "$$req_version" ]; then \
+	if [ "`echo "$$cmake_version $$req_version" | tr " " "\n" | sort -V | head -n 1`" != "$$req_version" ]; then \
 		echo "please upgrade cmake version to 3.13.0 or newer"; \
 		exit 1; \
 	fi; \
@@ -45,14 +45,14 @@ define build_m4_image
 	echo "android build without building M4 image"
 endef
 
-endif # PRODUCT_IMX_CAR_M4_BUILD
+endif # PRODUCT_IMX_CAR_M4
 
 define build_imx_uboot
-	if [ `echo $(2) | cut -d '-' -f1` == "imx8qm" ] && [ `echo $(2) | cut -d '-' -f2` != "xen" ]; then \
+	if [ `echo $(2) | cut -d '-' -f1` = "imx8qm" ] && [ `echo $(2) | cut -d '-' -f2` != "xen" ]; then \
 		MKIMAGE_PLATFORM=`echo iMX8QM`; \
 		SCFW_PLATFORM=`echo 8qm`;  \
 		ATF_PLATFORM=`echo imx8qm`; \
-		if [ `echo $(2) | rev | cut -d '-' -f1` == "uuu" ]; then \
+		if [ `echo $(2) | rev | cut -d '-' -f1` = "uuu" ]; then \
 			FLASH_TARGET=`echo flash_b0`;  \
 		else \
 			FLASH_TARGET=`echo flash_linux_m4`;  \
@@ -62,8 +62,8 @@ define build_imx_uboot
 		cp  $(FSL_PROPRIETARY_PATH)/fsl-proprietary/mcu-sdk/imx8q/imx8qm_m4_1_default.bin $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/m4_1_image.bin; \
 		cp $(FSL_PROPRIETARY_PATH)/linux-firmware-imx/firmware/hdmi/cadence/hdmitxfw.bin $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/hdmitxfw.bin; \
 		cp $(FSL_PROPRIETARY_PATH)/linux-firmware-imx/firmware/hdmi/cadence/hdmirxfw.bin $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/hdmirxfw.bin; \
-		if [ "$(PRODUCT_IMX_CAR)" == "true" ] && [ `echo $(2) | rev | cut -d '-' -f1` != "uuu" ]; then \
-			if [ "$(PRODUCT_IMX_CAR_M4)" == "true" ] ; then \
+		if [ "$(PRODUCT_IMX_CAR)" = "true" ] && [ `echo $(2) | rev | cut -d '-' -f1` != "uuu" ]; then \
+			if [ "$(PRODUCT_IMX_CAR_M4)" = "true" ] ; then \
 				FLASH_TARGET=`echo flash_b0_spl_container_m4_1_trusty`;  \
 				if [ -f $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/m4_1_image.bin ]; then \
 					rm -f $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/m4_1_image.bin; \
@@ -75,29 +75,29 @@ define build_imx_uboot
 				rm -f $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/hdmirxfw.bin; \
 			fi; \
 		fi; \
-	elif [ "$(strip $(2))" == "imx8qm-xen-dom0" ]; then \
+	elif [ "$(strip $(2))" = "imx8qm-xen-dom0" ]; then \
 		MKIMAGE_PLATFORM=`echo iMX8QM`; \
 		SCFW_PLATFORM=`echo 8qm`;  \
 		ATF_PLATFORM=`echo imx8qm`; \
 		cp  $(FSL_PROPRIETARY_PATH)/imx-seco/firmware/seco/mx8qm*ahab-container.img $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/; \
 		FLASH_TARGET=`echo flash_b0_spl_container_m4_1`;  \
 		cp  $(UBOOT_M4_OUT)/MIMX8QM/$(UBOOT_M4_BUILD_TYPE)/m4_image.bin $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/m4_1_image.bin; \
-	elif [ "$(strip $(2))" == "imx8qm-xen" ]; then \
+	elif [ "$(strip $(2))" = "imx8qm-xen" ]; then \
 		MKIMAGE_PLATFORM=`echo iMX8QM`; \
 		FLASH_TARGET=`echo flash_b0_xen_uboot`;  \
-	elif [ `echo $(2) | cut -d '-' -f1` == "imx8qxp" ]; then \
+	elif [ `echo $(2) | cut -d '-' -f1` = "imx8qxp" ]; then \
 		MKIMAGE_PLATFORM=`echo iMX8QX`; \
 		SCFW_PLATFORM=`echo 8qx`; \
 		ATF_PLATFORM=`echo imx8qx`; \
-		if [ `echo $(2) | rev | cut -d '-' -f1` == "uuu" ]; then \
+		if [ `echo $(2) | rev | cut -d '-' -f1` = "uuu" ]; then \
 			FLASH_TARGET=`echo flash`;  \
 		else \
 			FLASH_TARGET=`echo flash_linux_m4`;  \
 		fi; \
 		cp  $(FSL_PROPRIETARY_PATH)/imx-seco/firmware/seco/mx8qx*ahab-container.img $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/; \
 		cp  $(FSL_PROPRIETARY_PATH)/fsl-proprietary/mcu-sdk/imx8q/imx8qx_m4_default.bin $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/m4_image.bin; \
-		if [ "$(PRODUCT_IMX_CAR)" == "true" ] && [ `echo $(2) | rev | cut -d '-' -f1` != "uuu" ]; then \
-			if [ "$(PRODUCT_IMX_CAR_M4)" == "true" ] ; then \
+		if [ "$(PRODUCT_IMX_CAR)" = "true" ] && [ `echo $(2) | rev | cut -d '-' -f1` != "uuu" ]; then \
+			if [ "$(PRODUCT_IMX_CAR_M4)" = "true" ] ; then \
 				FLASH_TARGET=`echo flash_all_spl_container_ddr_car`;  \
 				if [ -f $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/m4_image.bin ]; then \
 					rm -f $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/m4_image.bin; \
@@ -106,12 +106,12 @@ define build_imx_uboot
 			fi; \
 		fi; \
 	fi; \
-	if [ "$(PRODUCT_IMX_CAR_M4)" == "true" ]; then \
+	if [ "$(PRODUCT_IMX_CAR_M4)" = "true" ]; then \
 		cp  $(FSL_PROPRIETARY_PATH)/fsl-proprietary/uboot-firmware/imx8q_car/mx$$SCFW_PLATFORM-scfw-tcm.bin $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/scfw_tcm.bin; \
 	else \
 		cp  $(FSL_PROPRIETARY_PATH)/fsl-proprietary/uboot-firmware/imx8q/mx$$SCFW_PLATFORM-scfw-tcm.bin $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/scfw_tcm.bin; \
 	fi; \
-	if [ "$(PRODUCT_IMX_CAR)" == "true" -a  `echo $(2) | rev | cut -d '-' -f1` != "uuu" -o `echo $(2) | cut -d '-' -f2` == "trusty" ]; then \
+	if [ "$(PRODUCT_IMX_CAR)" = "true" -a  `echo $(2) | rev | cut -d '-' -f1` != "uuu" -o `echo $(2) | cut -d '-' -f2` = "trusty" ]; then \
 		cp  $(FSL_PROPRIETARY_PATH)/fsl-proprietary/uboot-firmware/imx8q_car/tee-imx$$SCFW_PLATFORM.bin $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/tee.bin; \
 	else \
 		if [ -f $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/tee.bin ]; then \
@@ -120,7 +120,7 @@ define build_imx_uboot
 	fi; \
 	if [ "$(strip $(2))" != "imx8qm-xen" ]; then \
 		$(MAKE) -C $(IMX_PATH)/arm-trusted-firmware/ PLAT=$$ATF_PLATFORM clean; \
-		if [ "$(PRODUCT_IMX_CAR)" == "true" -a "$(strip $(2))" != "imx8qm-xen-dom0" -a `echo $(2) | rev | cut -d '-' -f1` != "uuu" -o `echo $(2) | cut -d '-' -f2` == "trusty" ]; then \
+		if [ "$(PRODUCT_IMX_CAR)" = "true" -a "$(strip $(2))" != "imx8qm-xen-dom0" -a `echo $(2) | rev | cut -d '-' -f1` != "uuu" -o `echo $(2) | cut -d '-' -f2` = "trusty" ]; then \
 			$(MAKE) -C $(IMX_PATH)/arm-trusted-firmware/ CROSS_COMPILE="$(ATF_CROSS_COMPILE)" PLAT=$$ATF_PLATFORM bl31 SPD=trusty -B 1>/dev/null || exit 1; \
 		else \
 			$(MAKE) -C $(IMX_PATH)/arm-trusted-firmware/ CROSS_COMPILE="$(ATF_CROSS_COMPILE)" PLAT=$$ATF_PLATFORM bl31 -B 1>/dev/null || exit 1; \
@@ -133,19 +133,19 @@ define build_imx_uboot
 		cp  $(UBOOT_OUT)/tools/mkimage  $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/mkimage_uboot; \
 		$(MAKE) -C $(IMX_MKIMAGE_PATH)/imx-mkimage/ clean; \
 		$(MAKE) -C $(IMX_MKIMAGE_PATH)/imx-mkimage/ SOC=$$MKIMAGE_PLATFORM $$FLASH_TARGET || exit 1; \
-		if [ "$(PRODUCT_IMX_CAR)" != "true" ] || [ `echo $(2) | rev | cut -d '-' -f1` == "uuu" ] || [ "$(strip $(2))" == "imx8qm-xen-dom0" ]; then \
-			cp $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/flash.bin $(PRODUCT_OUT)/u-boot-$(strip $(2)).imx; \
+		if [ "$(PRODUCT_IMX_CAR)" != "true" ] || [ `echo $(2) | rev | cut -d '-' -f1` = "uuu" ] || [ "$(strip $(2))" = "imx8qm-xen-dom0" ]; then \
+			cp $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/flash.bin $(UBOOT_COLLECTION)/u-boot-$(strip $(2)).imx; \
 		else \
-			cp $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/boot-spl-container.img $(PRODUCT_OUT)/spl-$(strip $(2)).bin; \
-			cp $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/u-boot-atf-container.img $(PRODUCT_OUT)/bootloader-$(strip $(2)).img; \
+			cp $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/boot-spl-container.img $(UBOOT_COLLECTION)/spl-$(strip $(2)).bin; \
+			cp $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/u-boot-atf-container.img $(UBOOT_COLLECTION)/bootloader-$(strip $(2)).img; \
 		fi; \
 	else \
 		cp $(UBOOT_OUT)/u-boot.$(strip $(1)) $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/u-boot.bin; \
-		cp $(UBOOT_OUT)/spl/u-boot-spl.bin $(PRODUCT_OUT)/spl-$(strip $(2)).bin; \
+		cp $(UBOOT_OUT)/spl/u-boot-spl.bin $(UBOOT_COLLECTION)/spl-$(strip $(2)).bin; \
 		cp $(UBOOT_OUT)/tools/mkimage  $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/mkimage_uboot; \
 		$(MAKE) -C $(IMX_MKIMAGE_PATH)/imx-mkimage/ clean; \
 		$(MAKE) -C $(IMX_MKIMAGE_PATH)/imx-mkimage/ SOC=$$MKIMAGE_PLATFORM $$FLASH_TARGET || exit 1; \
-		cp $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/u-boot-xen-container.img $(PRODUCT_OUT)/bootloader-$(strip $(2)).img; \
+		cp $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/u-boot-xen-container.img $(UBOOT_COLLECTION)/bootloader-$(strip $(2)).img; \
 	fi;
 endef
 

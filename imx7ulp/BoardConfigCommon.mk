@@ -16,7 +16,6 @@ TARGET_HIGH_PERFORMANCE := false
 TARGET_USES_HWC2 := true
 TARGET_HWCOMPOSER_VERSION := v2.0
 USE_OPENGL_RENDERER := true
-TARGET_CPU_SMP := false
 
 SOONG_CONFIG_NAMESPACES += IMXPLUGIN
 SOONG_CONFIG_IMXPLUGIN += BOARD_PLATFORM \
@@ -56,11 +55,8 @@ TARGET_BOARD_PLATFORM := imx7
 TARGET_CPU_ABI := armeabi-v7a
 TARGET_CPU_ABI2 := armeabi
 TARGET_ARCH := arm
-TARGET_KERNEL_ARCH := $(TARGET_ARCH)
-TARGET_UBOOT_ARCH := $(TARGET_ARCH)
 TARGET_ARCH_VARIANT := armv7-a-neon
 TARGET_CPU_VARIANT := cortex-a7
-ARCH_ARM_HAVE_TLS_REGISTER := true
 
 TARGET_NO_BOOTLOADER := true
 TARGET_NO_KERNEL := false
@@ -146,7 +142,10 @@ BOARD_FLASH_BLOCK_SIZE := 4096
 TARGET_RECOVERY_UI_LIB := librecovery_ui_imx
 
 # kernel module's copy to vendor need this folder setting
-KERNEL_OUT ?= $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ
+KERNEL_OUT ?= $(OUT_DIR)/target/product/$(PRODUCT_DEVICE)/obj/KERNEL_OBJ
+
+PRODUCT_COPY_FILES += \
+    $(OUT_DIR)/target/product/$(PRODUCT_DEVICE)/obj/KERNEL_OBJ/arch/$(TARGET_KERNEL_ARCH)/boot/$(KERNEL_NAME):kernel
 
 -include device/google/gapps/gapps_config.mk
 -include $(FSL_RESTRICTED_CODEC_PATH)/fsl-restricted-codec/fsl_ms_codec/BoardConfig.mk

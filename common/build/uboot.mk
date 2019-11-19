@@ -99,48 +99,49 @@ endif
 
 # Set the output for the U-Boot build products.
 UBOOT_OUT := $(TARGET_OUT_INTERMEDIATES)/UBOOT_OBJ
+UBOOT_COLLECTION := $(TARGET_OUT_INTERMEDIATES)/UBOOT_COLLECTION
 UBOOT_BIN := $(PRODUCT_OUT)/$(TARGET_UBOOT_BUILD_TARGET)
 UBOOT_ENV_OUT := $(PRODUCT_OUT)/uboot.env
 
 # Figure out which U-Boot version is being built (disregard -stable version).
 UBOOT_VERSION := $(shell $(MAKE) -j1 --no-print-directory -C $(UBOOT_IMX_PATH)/uboot-imx -s SUBLEVEL="" ubootversion)
 
-$(UBOOT_OUT):
+$(UBOOT_COLLECTION) $(UBOOT_OUT):
 	mkdir -p $@
 
-UBOOTENVSH := $(intermediates)/ubootenv.sh
+UBOOTENVSH := /tmp/ubootenv.sh
 $(UBOOTENVSH):
 	rm -rf $@
 	if [ -n "$(BOOTLOADER_RBINDEX)" ]; then \
-		echo 'export ROLLBACK_INDEX_IN_CONTAINER=$(BOOTLOADER_RBINDEX)' >> $@; \
+		echo 'export ROLLBACK_INDEX_IN_CONTAINER=$(BOOTLOADER_RBINDEX)' > $@; \
 		echo 'export ROLLBACK_INDEX_IN_FIT=$(BOOTLOADER_RBINDEX)' >> $@; \
 	else \
-		echo 'export ROLLBACK_INDEX_IN_CONTAINER=' >> $@; \
+		echo 'export ROLLBACK_INDEX_IN_CONTAINER=' > $@; \
 		echo 'export ROLLBACK_INDEX_IN_FIT=' >> $@; \
 	fi
 
-$(UBOOT_BIN): $(UBOOTENVSH) $(UBOOT_OUT)
+$(UBOOT_BIN): $(UBOOTENVSH) | $(UBOOT_COLLECTION) $(UBOOT_OUT)
 	$(hide) echo "Building $(UBOOT_ARCH) $(UBOOT_VERSION) U-Boot ..."
-	$(call build_m4_image)
-	for ubootplat in $(TARGET_BOOTLOADER_CONFIG); do \
+	$(hide) $(call build_m4_image)
+	$(hide) for ubootplat in $(TARGET_BOOTLOADER_CONFIG); do \
 		UBOOT_PLATFORM=`echo $$ubootplat | cut -d':' -f1`; \
 		UBOOT_CONFIG=`echo $$ubootplat | cut -d':' -f2`; \
 		$(MAKE) -C $(UBOOT_IMX_PATH)/uboot-imx/ CROSS_COMPILE="$(UBOOT_CROSS_COMPILE_WRAPPER)" O=$(realpath $(UBOOT_OUT)) mrproper; \
 		$(MAKE) -C $(UBOOT_IMX_PATH)/uboot-imx/ CROSS_COMPILE="$(UBOOT_CROSS_COMPILE_WRAPPER)" O=$(realpath $(UBOOT_OUT)) $$UBOOT_CONFIG; \
 		$(MAKE) -s -C $(UBOOT_IMX_PATH)/uboot-imx/ CROSS_COMPILE="$(UBOOT_CROSS_COMPILE_WRAPPER)" O=$(realpath $(UBOOT_OUT)) 1>/dev/null || exit 1; \
-		if [ $(UBOOT_POST_PROCESS) = true ]; then \
+		if [ "$(UBOOT_POST_PROCESS)" = "true" ]; then \
 			echo "build post process" ; \
 			source $(UBOOTENVSH); \
 		    $(call build_imx_uboot, $(TARGET_BOOTLOADER_POSTFIX), $$UBOOT_PLATFORM) \
 		    echo "===================Finish building `echo $$ubootplat | cut -d':' -f2` ==================="; \
 		else \
-			install -D $(UBOOT_OUT)/u-boot$(TARGET_DTB_POSTFIX).$(TARGET_BOOTLOADER_POSTFIX) $(PRODUCT_OUT)/u-boot-$$UBOOT_PLATFORM.imx; \
+			install -D $(UBOOT_OUT)/u-boot$(TARGET_DTB_POSTFIX).$(TARGET_BOOTLOADER_POSTFIX) $(UBOOT_COLLECTION)/u-boot-$$UBOOT_PLATFORM.imx; \
 		fi; \
-		if [ $(PRODUCT_IMX_DRM) = true ]; then \
+		if [ "$(PRODUCT_IMX_DRM)" = "true" ]; then \
 		    echo "build post process with tee" ; \
 		    $(call build_uboot_w_tee,  $(TARGET_BOOTLOADER_POSTFIX), $$UBOOT_PLATFORM) \
 		fi; \
-		install -D $(PRODUCT_OUT)/u-boot-$$UBOOT_PLATFORM.imx $(UBOOT_BIN); \
+		install -D $(UBOOT_COLLECTION)/u-boot-$$UBOOT_PLATFORM.imx $(UBOOT_BIN); \
 	done
 	rm $(UBOOT_BIN)
 
@@ -153,7 +154,6 @@ $(UBOOT_ENV_OUT): $(TARGET_UBOOT_ENV) | $(UBOOT_BIN)
 	$(UBOOT_OUT)/tools/mkenvimage -s $(TARGET_UBOOT_ENV_SIZE) -o $@ $<
 endif
 
-ALL_DEFAULT_INSTALLED_MODULES += $(UBOOT_BIN)
 ifneq ($(BOARD_OTA_BOOTLOADERIMAGE),)
 INSTALLED_RADIOIMAGE_TARGET += $(PRODUCT_OUT)/bootloader.img
 $(INSTALLED_RADIOIMAGE_TARGET): $(UBOOT_BIN)
