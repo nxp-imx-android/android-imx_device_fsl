@@ -16,6 +16,7 @@ vendor.all.system_server.ready      u:object_r:public_vendor_default_prop:s0
 vendor.all.system_server.start      u:object_r:public_vendor_default_prop:s0
 sys.hwc.disable                     u:object_r:public_vendor_default_prop:s0
 vendor.2d.composition               u:object_r:public_vendor_default_prop:s0
+vendor.imx.default-g2d              u:object_r:public_vendor_default_prop:s0
 hw.backlight.dev                    u:object_r:public_vendor_default_prop:s0
 TEMP                                u:object_r:public_vendor_default_prop:s0
 TEMPDIR                             u:object_r:public_vendor_default_prop:s0

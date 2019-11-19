@@ -42,6 +42,9 @@ on early-boot
 
     setprop hwc.stretch.filter  1
 
+    # Default g2d [dpu|pxp|viv] lib to be used
+    setprop vendor.imx.default-g2d viv
+
     # fsl omx graphic manager media framework property
     setprop rw.VIDEO_RENDER_NAME video_render.surface
     setprop media.fsl_codec.flag 7

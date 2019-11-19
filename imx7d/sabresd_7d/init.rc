@@ -43,6 +43,9 @@ on early-boot
 
     setprop hwc.stretch.filter  1
 
+    # Default g2d [dpu|pxp|viv] lib to be used
+    setprop vendor.imx.default-g2d pxp
+
     # Disable OpenGL Renderer on sabresd_7d
     setprop sys.viewroot.hw false
 
