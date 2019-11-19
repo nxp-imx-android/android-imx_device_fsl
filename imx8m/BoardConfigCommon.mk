@@ -26,8 +26,6 @@ SOONG_CONFIG_IMXPLUGIN_PRODUCT_MANUFACTURER = freescale
 #
 
 TARGET_BOARD_PLATFORM := imx8
-TARGET_KERNEL_ARCH := arm64
-TARGET_UBOOT_ARCH := arm64
 
 ifeq ($(IMX8_BUILD_32BIT_ROOTFS),true)
 TARGET_ARCH := arm
@@ -50,11 +48,8 @@ TARGET_2ND_CPU_ABI2 := armeabi
 TARGET_2ND_CPU_VARIANT := cortex-a9
 endif
 
-ARCH_ARM_HAVE_TLS_REGISTER := true
-
 TARGET_NO_BOOTLOADER := true
 TARGET_NO_KERNEL := false
-TARGET_NO_RECOVERY := false
 TARGET_NO_RADIOIMAGE := true
 
 BOARD_SOC_CLASS := IMX8
@@ -134,7 +129,11 @@ BOARD_PRODUCTIMAGE_FILE_SYSTEM_TYPE := ext4
 TARGET_COPY_OUT_PRODUCT := product
 
 # kernel module's copy to vendor need this folder setting
-KERNEL_OUT ?= $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ
+KERNEL_OUT ?= $(OUT_DIR)/target/product/$(PRODUCT_DEVICE)/obj/KERNEL_OBJ
+
+PRODUCT_COPY_FILES += \
+    $(OUT_DIR)/target/product/$(PRODUCT_DEVICE)/obj/KERNEL_OBJ/arch/$(TARGET_KERNEL_ARCH)/boot/$(KERNEL_NAME):kernel
+
 
 -include $(FSL_RESTRICTED_CODEC_PATH)/fsl-restricted-codec/fsl_ms_codec/BoardConfig.mk
 -include $(FSL_RESTRICTED_CODEC_PATH)/fsl-restricted-codec/fsl_real_dec/BoardConfig.mk

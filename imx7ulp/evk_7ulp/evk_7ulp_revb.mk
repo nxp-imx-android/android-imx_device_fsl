@@ -3,8 +3,6 @@
 
 IMX_DEVICE_PATH := device/fsl/imx7ulp/evk_7ulp
 
-PRODUCT_7ULP_REVB := true
-
 $(call inherit-product, $(TOPDIR)$(IMX_DEVICE_PATH)/evk_7ulp.mk)
 
 # Overrides

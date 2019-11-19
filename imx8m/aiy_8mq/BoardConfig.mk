@@ -15,9 +15,7 @@ TARGET_GRALLOC_VERSION := v3
 TARGET_HIGH_PERFORMANCE := true
 TARGET_USES_HWC2 := true
 TARGET_HWCOMPOSER_VERSION := v2.0
-TARGET_HAVE_VIV_HWCOMPOSER = false
 USE_OPENGL_RENDERER := true
-TARGET_CPU_SMP := true
 TARGET_HAVE_VULKAN := true
 ENABLE_CFI=false
 
@@ -55,10 +53,7 @@ DEVICE_MATRIX_FILE := $(IMX_DEVICE_PATH)/compatibility_matrix.xml
 
 TARGET_BOOTLOADER_BOARD_NAME := AIY
 
-TARGET_BOOTLOADER_POSTFIX := bin
-
 USE_OPENGL_RENDERER := true
-TARGET_CPU_SMP := true
 
 BOARD_WLAN_DEVICE            := qcwcn
 WPA_SUPPLICANT_VERSION       := VER_0_8_X
@@ -72,15 +67,8 @@ WIFI_HIDL_FEATURE_DUAL_INTERFACE := true
 
 BOARD_USE_SENSOR_FUSION := true
 
-# for recovery service
-TARGET_SELECT_KEY := 28
 # we don't support sparse image.
 TARGET_USERIMAGES_SPARSE_EXT_DISABLED := false
-
-UBOOT_POST_PROCESS := true
-
-# camera hal v3
-IMX_CAMERA_HAL_V3 := true
 
 BOARD_HAVE_USB_CAMERA := true
 
@@ -101,7 +89,6 @@ TARGET_USES_MKE2FS := true
 # define frame buffer count
 NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
 
-KERNEL_NAME := Image
 # Density is set in u-boot, default density for 1G DDR AIY is 160 tvdpi, other platform is 213 tvdpi.
 BOARD_KERNEL_CMDLINE := init=/init androidboot.gui_resolution=1080p androidboot.console=ttymxc0 androidboot.hardware=freescale androidboot.fbTileSupport=enable androidboot.primary_display=imx-drm firmware_class.path=/vendor/firmware transparent_hugepage=never loop.max_part=7
 
@@ -118,8 +105,6 @@ BOARD_WPA_SUPPLICANT_PRIVATE_LIB_QCA    := lib_driver_cmd_qcwcn
 
 WIFI_HIDL_FEATURE_DUAL_INTERFACE := true
 
-BOARD_VENDOR_KERNEL_MODULES += \
-                            $(KERNEL_OUT)/drivers/net/wireless/qcacld-2.0/wlan.ko
 # Qcom 1CQ(QCA6174) BT
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(IMX_DEVICE_PATH)/bluetooth
 BOARD_HAVE_BLUETOOTH_QCOM := true
@@ -140,19 +125,10 @@ BOARD_PREBUILT_DTBOIMAGE := out/target/product/aiy_8mq/dtbo-imx8mq.img
 # imx8mq phanbell
 TARGET_BOARD_DTS_CONFIG ?= imx8mq:fsl-imx8mq-phanbell.dtb
 
-# u-boot target for imx8mq_aiy android with trusty os related features supported
-TARGET_BOOTLOADER_CONFIG := imx8mq-trusty:imx8mq_aiy_android_trusty_defconfig
-TARGET_BOOTLOADER_CONFIG += imx8mq-trusty-secure-unlock:imx8mq_aiy_android_trusty_secure_unlock_defconfig
-TARGET_BOOTLOADER_CONFIG += imx8mq-trusty-dual:imx8mq_aiy_android_trusty_dual_defconfig
-
-# u-boot target used by uuu for imx8qm_mek
-TARGET_BOOTLOADER_CONFIG += imx8mq-aiy-uuu:imx8mq_aiy_android_uuu_defconfig
-
-TARGET_KERNEL_DEFCONFIG := android_defconfig
-TARGET_KERNEL_ADDITION_DEFCONF := android_addition_defconfig
-
 BOARD_SEPOLICY_DIRS := \
        device/fsl/imx8m/sepolicy \
        $(IMX_DEVICE_PATH)/sepolicy
 
 TARGET_BOARD_KERNEL_HEADERS := device/fsl/common/kernel-headers
+
+ALL_DEFAULT_INSTALLED_MODULES += $(BOARD_VENDOR_KERNEL_MODULES)

@@ -3,6 +3,9 @@
 
 IMX_DEVICE_PATH := device/fsl/imx7ulp/evk_7ulp
 
+# configs shared between uboot, kernel and Android rootfs
+include $(IMX_DEVICE_PATH)/SharedBoardConfig.mk
+
 -include device/fsl/common/imx_path/ImxPathConfig.mk
 $(call inherit-product, device/fsl/imx7ulp/ProductConfigCommon.mk)
 $(call inherit-product-if-exists,vendor/google/products/gms.mk)

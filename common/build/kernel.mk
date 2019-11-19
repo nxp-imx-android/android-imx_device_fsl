@@ -53,7 +53,7 @@ TARGET_KERNEL_SRC := $(KERNEL_IMX_PATH)/kernel_imx
 ifeq ($(TARGET_KERNEL_ARCH), arm)
 ifneq ($(AARCH32_GCC_CROSS_COMPILE),)
 KERNEL_CROSS_COMPILE := $(strip $(AARCH32_GCC_CROSS_COMPILE))
-KERNEL_CFLAGS := -Wno-self-assign -Wno-empty-body -Wno-incompatible-pointer-types
+KERNEL_CFLAGS := -Wno-incompatible-pointer-types
 else
 KERNEL_TOOLCHAIN_ABS := $(realpath prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9/bin)
 KERNEL_CROSS_COMPILE := $(KERNEL_TOOLCHAIN_ABS)/arm-linux-androidkernel-
@@ -65,12 +65,8 @@ CLANG_TOOL_CHAIN_ABS :=
 KERNEL_SRC_ARCH := arm
 KERNEL_NAME := zImage
 else ifeq ($(TARGET_KERNEL_ARCH), arm64)
-ifneq ($(AARCH64_GCC_CROSS_COMPILE),)
-KERNEL_CROSS_COMPILE := $(strip $(AARCH64_GCC_CROSS_COMPILE))
-else
 KERNEL_TOOLCHAIN_ABS := $(realpath prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9/bin)
 KERNEL_CROSS_COMPILE := $(KERNEL_TOOLCHAIN_ABS)/aarch64-linux-androidkernel-
-endif
 CLANG_TRIPLE := CLANG_TRIPLE=aarch64-linux-gnu-
 CLANG_TO_COMPILE := CC=clang
 CLANG_TOOL_CHAIN_ABS := $(realpath prebuilts/clang/host/linux-x86/clang-r349610/bin)
@@ -102,13 +98,12 @@ KERNEL_CFLAGS += -mno-android
 KERNEL_AFLAGS += -mno-android
 endif
 
-# options are used to eliminate compilation errors with GPU and qca wifi driver when use clang
+# options are used to eliminate compilation errors with qca wifi driver when use clang
 ifneq ($(CLANG_TO_COMPILE),)
-KERNEL_CFLAGS := -Wno-self-assign -Wno-empty-body -Wno-incompatible-pointer-types
+KERNEL_CFLAGS := -Wno-incompatible-pointer-types
 endif
 
 # Set the output for the kernel build products.
-KERNEL_OUT := $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ
 KERNEL_BIN := $(KERNEL_OUT)/arch/$(KERNEL_SRC_ARCH)/boot/$(KERNEL_NAME)
 
 # Figure out which kernel version is being built (disregard -stable version).
@@ -153,26 +148,20 @@ $(KERNEL_CONFIG): $(KERNEL_CONFIG_SRC) $(TARGET_KERNEL_SRC) | $(KERNEL_OUT)
 	$(KERNEL_MERGE_CONFIG) $(TARGET_KERNEL_SRC) $(realpath $(KERNEL_OUT)) \
 	$(KERNEL_ARCH) $^
 
-# Disable CCACHE_DIRECT so that header location changes are noticed.
-define build_kernel
-	PATH=$$(cd prebuilts/clang/host/linux-x86/clang-r349610/bin; pwd):$$(cd prebuilts/misc/linux-x86/lz4; pwd):$$PATH \
-		$(CLANG_TRIPLE) \
-		CCACHE_NODIRECT="true" $(MAKE) -C $(TARGET_KERNEL_SRC) \
-		O=$(realpath $(KERNEL_OUT)) \
-		ARCH=$(KERNEL_ARCH) \
-		CROSS_COMPILE="$(KERNEL_CROSS_COMPILE_WRAPPER)" \
-		$(CLANG_TO_COMPILE) \
-		KCFLAGS="$(KERNEL_CFLAGS)" \
-		KAFLAGS="$(KERNEL_AFLAGS)" \
-		$(1)
-endef
+# use deferred expansion
+kernel_build_shell_env = PATH=$$(cd prebuilts/clang/host/linux-x86/clang-r349610/bin; pwd):$$(cd prebuilts/misc/linux-x86/lz4; pwd):$${PATH} \
+        $(CLANG_TRIPLE) CCACHE_NODIRECT="true"
+kernel_build_make_env = -C $(TARGET_KERNEL_SRC) O=$(realpath $(KERNEL_OUT)) ARCH=$(KERNEL_ARCH) \
+        CROSS_COMPILE=$(strip $(KERNEL_CROSS_COMPILE_WRAPPER)) $(CLANG_TO_COMPILE) \
+        KCFLAGS="$(KERNEL_CFLAGS)" KAFLAGS="$(KERNEL_AFLAGS)"
 
 $(KERNEL_BIN): $(KERNEL_CONFIG) $(TARGET_KERNEL_SRC) | $(KERNEL_OUT)
 	$(hide) echo "Building $(KERNEL_ARCH) $(KERNEL_VERSION) kernel ..."
 	$(hide) PATH=$$PATH $(MAKE) -C $(TARGET_KERNEL_SRC) O=$(realpath $(KERNEL_OUT)) clean
-	$(call build_kernel,syncconfig)
-	$(call build_kernel,$(KERNEL_NAME))
-	$(call build_kernel,modules)
+	$(hide) $(kernel_build_shell_env) $(MAKE) $(kernel_build_make_env) syncconfig
+	$(hide) $(kernel_build_shell_env) $(MAKE) $(kernel_build_make_env) $(KERNEL_NAME)
+	$(hide) $(kernel_build_shell_env) $(MAKE) $(kernel_build_make_env) modules
+	$(hide) $(kernel_build_shell_env) $(MAKE) $(kernel_build_make_env) dtbs
 
 $(KERNEL_OUT)/vmlinux: $(KERNEL_BIN)
 	@true
@@ -182,7 +171,7 @@ $(KERNEL_MODULES_INSTALL): $(KERNEL_BIN)
 
 $(KERNEL_HEADERS_INSTALL): $(KERNEL_BIN)
 	$(hide) echo "Installing kernel headers ..."
-	$(call build_kernel,headers_install)
+	$(hide) $(kernel_build_shell_env) $(MAKE) $(kernel_build_make_env) headers_install
 
 # If the kernel generates VDSO files, generate breakpad symbol files for them.
 # VDSO libraries are mapped as linux-gate.so, so rename the symbol file to
@@ -203,9 +192,5 @@ endif
 KERNEL_DEPS := $(KERNEL_BIN).vdso $(KERNEL_HEADERS_INSTALL) $(KERNEL_MODULES_INSTALL)
 KERNEL_IMAGE := $(KERNEL_BIN)
 
-# Makes sure any built modules will be included in the system image build.
-ALL_DEFAULT_INSTALLED_MODULES += $(KERNEL_MODULES_INSTALL)
-
-# Produces the actual kernel image!
-$(PRODUCT_OUT)/kernel: $(KERNEL_IMAGE) $(KERNEL_DEPS) | $(ACP)
-	$(ACP) -fp $< $@
+$(PRODUCT_OUT)/kernel: $(KERNEL_IMAGE) $(KERNEL_DEPS)
+	$(hide)cp -fp $< $@
