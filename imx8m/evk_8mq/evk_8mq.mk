@@ -144,7 +144,6 @@ PRODUCT_PACKAGES += \
         libGAL \
         libGLSLC \
         libVSC \
-        libg2d \
         libgpuhelper \
         libSPIRV_viv \
         libvulkan_VIVANTE \
@@ -152,7 +151,8 @@ PRODUCT_PACKAGES += \
         libCLC \
         libLLVM_viv \
         libOpenCL \
-        libopencl-2d \
+        libg2d-opencl \
+        libg2d-viv \
         libOpenVX \
         libOpenVXU \
         libNNVXCBinary-evis \
@@ -308,3 +308,5 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/gsi_keys.mk)
 PRODUCT_PACKAGES += \
     adb_debug.prop
 endif
+
+IMX-DEFAULT-G2D-LIB := libg2d-viv

@@ -114,7 +114,7 @@ PRODUCT_PACKAGES += \
     android.hardware.renderscript@1.0-impl
 
 PRODUCT_PACKAGES += \
-    libg2d \
+    libg2d-pxp \
     libEGL_swiftshader \
     libGLESv1_CM_swiftshader \
     libGLESv2_swiftshader \
@@ -185,3 +185,5 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.crypto.fde_sector_size=4096 \
     ro.crypto.volume.contents_mode=adiantum \
     ro.crypto.volume.filenames_mode=adiantum
+
+IMX-DEFAULT-G2D-LIB := libg2d-pxp
