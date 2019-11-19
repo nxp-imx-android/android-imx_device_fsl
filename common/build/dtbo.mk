@@ -14,34 +14,18 @@
 
 TARGET_KERNEL_ARCH := $(strip $(TARGET_KERNEL_ARCH))
 TARGET_KERNEL_SRC := $(KERNEL_IMX_PATH)/kernel_imx
-KERNEL_CC_WRAPPER := $(CC_WRAPPER)
 KERNEL_AFLAGS ?=
 KERNEL_CFLAGS ?=
 
 ifeq ($(TARGET_KERNEL_ARCH), arm)
-ifneq ($(AARCH32_GCC_CROSS_COMPILE),)
-KERNEL_CROSS_COMPILE := $(strip $(AARCH32_GCC_CROSS_COMPILE))
-else
-KERNEL_TOOLCHAIN_ABS := $(realpath prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9/bin)
-KERNEL_CROSS_COMPILE := $(KERNEL_TOOLCHAIN_ABS)/arm-linux-androidkernel-
-endif
 KERNEL_SRC_ARCH := arm
 DTS_ADDITIONAL_PATH :=
 else ifeq ($(TARGET_KERNEL_ARCH), arm64)
-ifneq ($(AARCH64_GCC_CROSS_COMPILE),)
-KERNEL_CROSS_COMPILE := $(strip $(AARCH64_GCC_CROSS_COMPILE))
-else
-KERNEL_TOOLCHAIN_ABS := $(realpath prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9/bin)
-KERNEL_CROSS_COMPILE := $(KERNEL_TOOLCHAIN_ABS)/aarch64-linux-androidkernel-
-endif
 KERNEL_SRC_ARCH := arm64
 DTS_ADDITIONAL_PATH := freescale
 else
 $(error kernel arch not supported at present)
 endif
-
-# Use ccache if requested by USE_CCACHE variable
-KERNEL_CROSS_COMPILE_WRAPPER := $(realpath $(KERNEL_CC_WRAPPER)) $(KERNEL_CROSS_COMPILE)
 
 MKDTIMG := $(HOST_OUT_EXECUTABLES)/mkdtimg
 DTS_PATH := $(TARGET_KERNEL_SRC)/arch/$(KERNEL_SRC_ARCH)/boot/dts/$(DTS_ADDITIONAL_PATH)/
@@ -49,23 +33,8 @@ DTS_SRC :=
 $(foreach dts_config,$(TARGET_BOARD_DTS_CONFIG), \
     $(eval DTS_SRC += $(addprefix $(DTS_PATH),$(shell echo ${dts_config} | cut -d':' -f2 | sed 's/dtb/dts/g' ))))
 
-define build_dtb
-	PATH=$$(cd prebuilts/clang/host/linux-x86/clang-r349610/bin; pwd):$$(cd prebuilts/misc/linux-x86/lz4; pwd):$$PATH \
-	$(CLANG_TRIPLE) \
-	CCACHE_NODIRECT="true" $(MAKE) -C $(TARGET_KERNEL_SRC) \
-	O=$(realpath $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ) \
-	ARCH=$(KERNEL_ARCH) \
-	$(CLANG_TO_COMPILE) \
-	CROSS_COMPILE="$(KERNEL_CROSS_COMPILE_WRAPPER)" \
-	KCFLAGS="$(KERNEL_CFLAGS)" \
-	KAFLAGS="$(KERNEL_AFLAGS)" \
-	dtbs
-endef
-
 $(BOARD_PREBUILT_DTBOIMAGE): $(KERNEL_BIN) $(DTS_SRC) | $(MKDTIMG) $(AVBTOOL)
 	$(hide) echo "Building $(KERNEL_ARCH) dtbo ..."
-	$(hide) PATH=$$PATH $(MAKE) -C $(TARGET_KERNEL_SRC) mrproper
-	$(call build_dtb) || exit 1; \
 	for dtsplat in $(TARGET_BOARD_DTS_CONFIG); do \
 		DTS_PLATFORM=`echo $$dtsplat | cut -d':' -f1`; \
 		DTB_NAME=`echo $$dtsplat | cut -d':' -f2`; \
