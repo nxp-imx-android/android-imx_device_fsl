@@ -6,7 +6,7 @@ bn=`basename $0`
 cat << EOF
 
 Version: 1.5
-Last change: support flash product.img
+Last change: support flash product.img and dual bootloader condition
 V1.4 change: add support imx8mn chips
 
 Usage: $bn <option> device_node
@@ -34,7 +34,8 @@ options:
                         If set to 14, use partition-table-14GB.img for 16GB SD card
                         If set to 28, use partition-table-28GB.img for 32GB SD card
                     Make sure the corresponding file exist for your platform.
-  -d dev            flash android image file with "dev" in there names.
+  -u uboot_feature  flash uboot or spl&bootloader image files with "uboot_feature" in their names.
+  -d dtb_feature    flash dtbo, recovery and vbmeta image files with "dtb_feature" in their names.
   -D directory      specify the directory which contains the images to be flashed.
   -m                flash mcu image
   -o force_offset   force set uboot offset
@@ -65,8 +66,9 @@ RED='\033[0;31m'
 STD='\033[0;0m'
 
 image_directory=""
-device_character=""
-
+dtb_feature=""
+uboot_feature=""
+support_dual_bootloader=0
 
 
 while [ "$moreoptions" = 1 -a $# -gt 0 ]; do
@@ -80,7 +82,8 @@ while [ "$moreoptions" = 1 -a $# -gt 0 ]; do
         -b) slot="_b" ;;
         -m) flash_mcu=1 ;;
         -o) force_offset=$2; shift;;
-        -d) device_character=$2; shift;;
+        -u) uboot_feature=-$2; shift;;
+        -d) dtb_feature=$2; shift;;
         -D) image_directory=$2; shift;;
         *)  moreoptions=0; node=$1 ;;
     esac
@@ -116,6 +119,38 @@ if [ ! -e ${node} ]; then
     help
     exit 1
 fi
+
+# Process of the uboot_feature parameter
+if [[ "${uboot_feature}" = *"trusty"* ]] || [[ "${uboot_feature}" = *"secure"* ]]; then
+    echo -e >&2 ${RED}Do not flash the image with Trusty OS to SD card${STD}
+    help
+    exit 1
+fi
+if [[ "${uboot_feature}" = *"dual"* ]]; then
+    support_dual_bootloader=1;
+fi
+
+
+# dual bootloader support will use different gpt. Android Automative only boot from eMMC, judgement here is complete
+if [ ${support_dual_bootloader} -eq 1 ]; then
+    if [ ${card_size} -gt 0 ]; then
+        partition_file="partition-table-${card_size}GB-dual.img";
+    else
+        partition_file="partition-table-dual.img";
+    fi
+else
+    if [ ${card_size} -gt 0 ]; then
+        partition_file="partition-table-${card_size}GB.img";
+    else
+        partition_file="partition-table.img";
+    fi
+fi
+
+if [ ! -f "${image_directory}${partition_file}" ]; then
+    echo -e >&2 "${RED}File ${partition_file} not found. Please check. Exiting${STD}"
+    return 1
+fi
+
 
 # to be discussed
 # echo "${soc_name} bootloader offset is: ${bootloader_offset}"
@@ -165,7 +200,9 @@ function flash_partition
     for num in `gdisk -l ${node} | grep -E -w "$1|$1_a|$1_b" | awk '{print $1}'`
     do
         if [ $? -eq 0 ]; then
-            if [ "$(echo ${1} | grep "system")" != "" ]; then
+            if [ "$(echo ${1} | grep "bootloader_")" != "" ]; then
+                img_name=${uboot_proper_file}
+            elif [ "$(echo ${1} | grep "system")" != "" ]; then
                 img_name=${systemimage_file}
             elif [ "$(echo ${1} | grep "vendor")" != "" ]; then
                 img_name=${vendor_file}
@@ -173,8 +210,8 @@ function flash_partition
                 img_name=${product_file}
             elif [ ${support_dtbo} -eq 1 ] && [ $(echo ${1} | grep "boot") != "" ] 2>/dev/null; then
                 img_name="boot.img"
-            elif [ "$(echo ${1} | grep -E "dtbo|vbmeta|recovery")" != "" -a "${device_character}" != "" ]; then
-                img_name="${1%_*}-${soc_name}-${device_character}.img"
+            elif [ "$(echo ${1} | grep -E "dtbo|vbmeta|recovery")" != "" -a "${dtb_feature}" != "" ]; then
+                img_name="${1%_*}-${soc_name}-${dtb_feature}.img"
             else
                 img_name="${1%_*}-${soc_name}.img"
             fi
@@ -206,13 +243,6 @@ function format_android
 
 function make_partition
 {
-    if [ ${card_size} -gt 0 ]; then
-        partition_file="partition-table-${card_size}GB.img"
-    fi
-    if [ ! -f "${image_directory}${partition_file}" ]; then
-        echo -e >&2 "${RED}File ${partition_file} not found. Please check. Exiting${STD}"
-        return 1
-    fi
     echo "make gpt partition for android: ${partition_file}"
     dd if=${image_directory}${partition_file} of=${node} bs=1k count=${vaild_gpt_size} conv=fsync
 }
@@ -228,11 +258,13 @@ function flash_android
     dtbo_partition="dtbo"${slot}
     gdisk -l ${node} 2>/dev/null | grep -q "dtbo" && support_dtbo=1
 
-    if [[ "${device_character}" == "ldo" ]] || [[ "${device_character}" == "epdc" ]] || \
-            [[ "${device_character}" == "ddr4" ]]; then
-        bootloader_file="u-boot-${soc_name}-${device_character}.imx"
+    if [ ${support_dual_bootloader} -eq 1 ]; then
+        bootloader_file=spl-${soc_name}${uboot_feature}.bin
+	    uboot_proper_file=bootloader-${soc_name}${uboot_feature}.img
+        bootloader_partition="bootloader"${slot}
+        flash_partition ${bootloader_partition} || exit 1
     else
-        bootloader_file="u-boot-${soc_name}.imx"
+        bootloader_file=u-boot-${soc_name}${uboot_feature}.imx
     fi
 
     if [ "${support_dtbo}" -eq "1" ] ; then
@@ -264,26 +296,19 @@ function flash_android
     fi
 }
 
-if [ "${not_partition}" -eq "1" ] ; then
-    flash_android || exit 1
-    echo ">>>>>>>>>>>>>> Flashing successfully completed <<<<<<<<<<<<<<"
-    exit 0
+if [ "${not_partition}" -ne "1" ] ; then
+    # invoke make_partition to write first 17KB in partition table image to sdcard start
+    make_partition || exit 1
+    # unmount partitions and then force to re-read the partition table of the specified device
+	sleep 3
+    for i in `cat /proc/mounts | grep "${node}" | awk '{print $2}'`; do umount $i; done
+    hdparm -z ${node}
+    # backup the GPT table to last LBA for sd card. execute "gdisk ${node}" with the input characters
+    # redirect standard OUTPUT to /dev/null to reduce some ouput
+    echo -e 'r\ne\nY\nw\nY\nY' |  gdisk ${node} 1>/dev/null
+    format_android
 fi
 
-
-# invoke make_partition to write first 17KB in partition table image to sdcard start
-make_partition || exit 1
-
-# unmount partitions and then force to re-read the partition table of the specified device
-sleep 3
-for i in `cat /proc/mounts | grep "${node}" | awk '{print $2}'`; do umount $i; done
-hdparm -z ${node}
-
-# backup the GPT table to last LBA for sd card. execute "gdisk ${node}" with the input characters
-# redirect standard OUTPUT to /dev/null to reduce some ouput
-echo -e 'r\ne\nY\nw\nY\nY' |  gdisk ${node} 1>/dev/null
-
-format_android
 flash_android || exit 1
 
 if [ "${slot}" = "_b" ]; then
