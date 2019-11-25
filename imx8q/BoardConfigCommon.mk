@@ -164,5 +164,10 @@ KERNEL_OUT ?= $(OUT_DIR)/target/product/$(PRODUCT_DEVICE)/obj/KERNEL_OBJ
 PRODUCT_COPY_FILES += \
     $(OUT_DIR)/target/product/$(PRODUCT_DEVICE)/obj/KERNEL_OBJ/arch/$(TARGET_KERNEL_ARCH)/boot/$(KERNEL_NAME):kernel
 
+ifneq ($(BOARD_OTA_BOOTLOADERIMAGE),)
+  PRODUCT_COPY_FILES += \
+      $(BOARD_OTA_BOOTLOADERIMAGE):bootloader.img
+endif
+
 -include $(FSL_RESTRICTED_CODEC_PATH)/fsl-restricted-codec/fsl_ms_codec/BoardConfig.mk
 -include $(FSL_RESTRICTED_CODEC_PATH)/fsl-restricted-codec/fsl_real_dec/BoardConfig.mk

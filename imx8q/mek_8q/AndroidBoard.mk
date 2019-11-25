@@ -7,3 +7,8 @@ include $(FSL_PROPRIETARY_PATH)/fsl-proprietary/media-profile/media-profile.mk
 ifneq ($(PRODUCT_IMX_CAR),true)
 include $(FSL_PROPRIETARY_PATH)/fsl-proprietary/sensor/fsl-sensor.mk
 endif
+
+ifneq ($(BOARD_OTA_BOOTLOADERIMAGE),)
+  INSTALLED_RADIOIMAGE_TARGET += $(PRODUCT_OUT)/bootloader.img
+endif
+
