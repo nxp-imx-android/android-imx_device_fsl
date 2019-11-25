@@ -143,9 +143,8 @@ $(UBOOT_BIN): $(UBOOTENVSH) | $(UBOOT_COLLECTION) $(UBOOT_OUT)
 		fi; \
 		install -D $(UBOOT_COLLECTION)/u-boot-$$UBOOT_PLATFORM.imx $(UBOOT_BIN); \
 	done
-	rm $(UBOOT_BIN)
 
-.PHONY: bootloader
+.PHONY: bootloader $(UBOOT_BIN)
 
 bootloader: $(UBOOT_BIN)
 
@@ -154,8 +153,3 @@ $(UBOOT_ENV_OUT): $(TARGET_UBOOT_ENV) | $(UBOOT_BIN)
 	$(UBOOT_OUT)/tools/mkenvimage -s $(TARGET_UBOOT_ENV_SIZE) -o $@ $<
 endif
 
-ifneq ($(BOARD_OTA_BOOTLOADERIMAGE),)
-INSTALLED_RADIOIMAGE_TARGET += $(PRODUCT_OUT)/bootloader.img
-$(INSTALLED_RADIOIMAGE_TARGET): $(UBOOT_BIN)
-	cp $(BOARD_OTA_BOOTLOADERIMAGE) $(PRODUCT_OUT)/bootloader.img
-endif

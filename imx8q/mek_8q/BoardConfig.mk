@@ -4,6 +4,11 @@
 
 IMX_DEVICE_PATH := device/fsl/imx8q/mek_8q
 
+ifeq ($(PRODUCT_IMX_CAR),true)
+  AB_OTA_PARTITIONS += bootloader
+  BOARD_OTA_BOOTLOADERIMAGE := out/target/product/mek_8q/obj/UBOOT_COLLECTION/bootloader-imx8qm.img
+endif
+
 include device/fsl/imx8q/BoardConfigCommon.mk
 ifeq ($(PREBUILT_FSL_IMX_CODEC),true)
 -include $(FSL_CODEC_PATH)/fsl-codec/fsl-codec.mk
@@ -106,8 +111,6 @@ endif
 
 BOARD_PREBUILT_DTBOIMAGE := out/target/product/mek_8q/dtbo-imx8qm.img
 ifeq ($(PRODUCT_IMX_CAR),true)
-AB_OTA_PARTITIONS += bootloader
-BOARD_OTA_BOOTLOADERIMAGE := out/target/product/mek_8q/bootloader-imx8qm.img
 ifeq ($(PRODUCT_IMX_CAR_M4),true)
 # imx8qm auto android
 TARGET_BOARD_DTS_CONFIG := imx8qm:fsl-imx8qm-mek-car.dtb
