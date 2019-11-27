@@ -139,8 +139,10 @@ BOARD_PREBUILT_DTBOIMAGE := out/target/product/evk_8mn/dtbo-imx8mn.img
 # u-boot target for stand config and Trusty OS config
 TARGET_BOOTLOADER_CONFIG := imx8mn:imx8mn_ddr4_evk_android_defconfig
 TARGET_BOOTLOADER_CONFIG += imx8mn-trusty:imx8mn_ddr4_evk_android_trusty_defconfig
+TARGET_BOOTLOADER_CONFIG += imx8mn-lpddr4:imx8mn_evk_android_defconfig
 # u-boot target used by uuu for imx8mn_evk
 TARGET_BOOTLOADER_CONFIG += imx8mn-evk-uuu:imx8mn_ddr4_evk_android_uuu_defconfig
+TARGET_BOOTLOADER_CONFIG += imx8mn-lpddr4-evk-uuu:imx8mn_evk_android_uuu_defconfig
 # imx8mn with MIPI-HDMI display, BCM wifi and support trusty
 TARGET_BOARD_DTS_CONFIG := imx8mn:fsl-imx8mn-ddr4-evk-trusty.dtb
 # imx8mn with MIPI panel display and BCM wifi
