@@ -8,12 +8,13 @@ define build_imx_uboot
 	cp $(UBOOT_OUT)/u-boot-nodtb.$(strip $(1)) $(IMX_MKIMAGE_PATH)/imx-mkimage/iMX8M/.; \
 	cp $(UBOOT_OUT)/spl/u-boot-spl.bin  $(IMX_MKIMAGE_PATH)/imx-mkimage/iMX8M/.; \
 	cp $(UBOOT_OUT)/tools/mkimage  $(IMX_MKIMAGE_PATH)/imx-mkimage/iMX8M/mkimage_uboot; \
-	cp $(FSL_PROPRIETARY_PATH)/fsl-proprietary/uboot-firmware/imx8m/signed_hdmi_imx8m.bin  $(IMX_MKIMAGE_PATH)/imx-mkimage/iMX8M/.; \
-	cp $(UBOOT_OUT)/arch/arm/dts/fsl-imx8mn-ddr4-evk.dtb $(IMX_MKIMAGE_PATH)/imx-mkimage/iMX8M/.; \
-	cp $(FSL_PROPRIETARY_PATH)/fsl-proprietary/uboot-firmware/imx8m/ddr4_dmem_1d_201810.bin $(IMX_MKIMAGE_PATH)/imx-mkimage/iMX8M/.; \
-	cp $(FSL_PROPRIETARY_PATH)/fsl-proprietary/uboot-firmware/imx8m/ddr4_dmem_2d_201810.bin $(IMX_MKIMAGE_PATH)/imx-mkimage/iMX8M/.; \
-	cp $(FSL_PROPRIETARY_PATH)/fsl-proprietary/uboot-firmware/imx8m/ddr4_imem_1d_201810.bin $(IMX_MKIMAGE_PATH)/imx-mkimage/iMX8M/.; \
-	cp $(FSL_PROPRIETARY_PATH)/fsl-proprietary/uboot-firmware/imx8m/ddr4_imem_2d_201810.bin $(IMX_MKIMAGE_PATH)/imx-mkimage/iMX8M/.; \
+	if [ `echo $(2) | cut -d '-' -f2` == "lpddr4" ]; then \
+		cp $(UBOOT_OUT)/arch/arm/dts/fsl-imx8mn-evk.dtb $(IMX_MKIMAGE_PATH)/imx-mkimage/iMX8M/.; \
+		cp $(FSL_PROPRIETARY_PATH)/fsl-proprietary/uboot-firmware/imx8m/lpddr4_pmu_train_* $(IMX_MKIMAGE_PATH)/imx-mkimage/iMX8M/.; \
+	else \
+		cp $(UBOOT_OUT)/arch/arm/dts/fsl-imx8mn-ddr4-evk.dtb  $(IMX_MKIMAGE_PATH)/imx-mkimage/iMX8M/.; \
+		cp $(FSL_PROPRIETARY_PATH)/fsl-proprietary/uboot-firmware/imx8m/ddr4_* $(IMX_MKIMAGE_PATH)/imx-mkimage/iMX8M/.; \
+	fi; \
 	$(MAKE) -C $(IMX_PATH)/arm-trusted-firmware/ PLAT=`echo $(2) | cut -d '-' -f1` clean; \
 	if [ `echo $(2) | cut -d '-' -f2` == "trusty" ]; then \
 		cp $(FSL_PROPRIETARY_PATH)/fsl-proprietary/uboot-firmware/imx8m/tee-imx8mn.bin $(IMX_MKIMAGE_PATH)/imx-mkimage/iMX8M/tee.bin; \
@@ -26,7 +27,11 @@ define build_imx_uboot
 	fi; \
 	cp $(IMX_PATH)/arm-trusted-firmware/build/`echo $(2) | cut -d '-' -f1`/release/bl31.bin $(IMX_MKIMAGE_PATH)/imx-mkimage/iMX8M/bl31.bin; \
 	$(MAKE) -C $(IMX_MKIMAGE_PATH)/imx-mkimage/ clean; \
-	$(MAKE) -C $(IMX_MKIMAGE_PATH)/imx-mkimage/ SOC=iMX8MN  flash_ddr4_evk 1>/dev/null || exit 1; \
+	if [ `echo $(2) | cut -d '-' -f2` == "lpddr4" ]; then \
+		$(MAKE) -C $(IMX_MKIMAGE_PATH)/imx-mkimage/ SOC=iMX8MN flash_spl_uboot 1>/dev/null || exit 1; \
+	else \
+		$(MAKE) -C $(IMX_MKIMAGE_PATH)/imx-mkimage/ SOC=iMX8MN flash_ddr4_evk 1>/dev/null || exit 1; \
+	fi; \
 	cp $(IMX_MKIMAGE_PATH)/imx-mkimage/iMX8M/flash.bin $(PRODUCT_OUT)/u-boot-$(strip $(2)).imx;
 endef
 
