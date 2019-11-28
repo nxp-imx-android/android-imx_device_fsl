@@ -3,7 +3,11 @@
 # help function, it display the usage of this script.
 help() {
 cat << EOF
+
     This script is executed after "source build/envsetup.sh" and "lunch".
+    It can build uboot/kernel code into binaries that Android images are dependent on, without thse binary files, "make"or "mm" command
+    to build the boot image and vendor image will be terminated with errors.
+
 
     usage:
         `basename $0` <option>
@@ -12,7 +16,9 @@ cat << EOF
            -h/--help               display this help info
            -j[<num>]               specify the number of parallel jobs when build the target, the number after -j should be greater than 0
            bootloader              bootloader will be compiled, Android rootfs will not be compiled
+                                       if this option and "kernel" are not used, all images will be built
            kernel                  kernel, include related dts will be compiled, Android rootfs will not be compiled
+                                       if this option and "bootloader" are not used, all images will be built
            -c                      use clean build for kernel, not incremental build
 
 
