@@ -9,9 +9,11 @@ cat << EOF
         `basename $0` <option>
 
         options:
+           -h/--help               display this help info
            -j[<num>]               specify the number of parallel jobs when build the target, the number after -j should be greater than 0
            bootloader              bootloader will be compiled, Android rootfs will not be compiled
            kernel                  kernel, include related dts will be compiled, Android rootfs will not be compiled
+           -c                      use clean build for kernel, not incremental build
 
 
     an example to build the whole system with maximum parallel jobs as below:
@@ -59,6 +61,7 @@ build_bootloader=""
 build_kernel_flag=0
 build_kernel=""
 parallel_option=""
+clean_build=0
 
 # process of the arguments
 args=( "$@" )
@@ -66,6 +69,7 @@ for arg in ${args[*]} ; do
     case ${arg} in
         -h) help;;
         --help) help;;
+        -c) clean_build=1;;
         bootloader) build_bootloader_flag=1; build_bootloader="bootloader";;
         kernel) build_kernel_flag=1; build_kernel="${OUT}/kernel";;
         *) handle_special_arg ${arg};;
@@ -89,7 +93,7 @@ if [ -n "${build_bootloader}" ]; then
 fi
 
 # redirect standard input to /dev/null to avoid manually input in kernel configuration stage
-soc_path=${soc_path} product_path=${product_path} fsl_git_path=${fsl_git_path} \
+soc_path=${soc_path} product_path=${product_path} fsl_git_path=${fsl_git_path} clean_build=${clean_build} \
     make -C ./ -f ${fsl_git_path}/common/build/Makefile ${parallel_option} \
     ${build_bootloader} ${build_kernel} </dev/null || exit
 
