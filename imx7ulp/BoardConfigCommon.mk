@@ -144,6 +144,11 @@ TARGET_RECOVERY_UI_LIB := librecovery_ui_imx
 # kernel module's copy to vendor need this folder setting
 KERNEL_OUT ?= $(OUT_DIR)/target/product/$(PRODUCT_DEVICE)/obj/KERNEL_OBJ
 
+# if kernel binary file does not exist, need to output help info to tell users to use imx-make.sh to build the android images
+ifneq ($(shell test -e $(OUT_DIR)/target/product/$(PRODUCT_DEVICE)/obj/KERNEL_OBJ/arch/$(TARGET_KERNEL_ARCH)/boot/$(KERNEL_NAME); echo $$? ),0)
+  $(error Use "./imx-make.sh" to build the Android images to solve dependency on uboot/kernel. Use "./imx-make.sh -h" or refer to "i.MX Android User's Guide" for details)
+endif
+
 PRODUCT_COPY_FILES += \
     $(OUT_DIR)/target/product/$(PRODUCT_DEVICE)/obj/KERNEL_OBJ/arch/$(TARGET_KERNEL_ARCH)/boot/$(KERNEL_NAME):kernel
 
