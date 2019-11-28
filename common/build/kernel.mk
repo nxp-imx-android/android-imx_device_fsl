@@ -157,7 +157,9 @@ kernel_build_make_env = -C $(TARGET_KERNEL_SRC) O=$(realpath $(KERNEL_OUT)) ARCH
 
 $(KERNEL_BIN): $(KERNEL_CONFIG) $(TARGET_KERNEL_SRC) | $(KERNEL_OUT)
 	$(hide) echo "Building $(KERNEL_ARCH) $(KERNEL_VERSION) kernel ..."
-	$(hide) PATH=$$PATH $(MAKE) -C $(TARGET_KERNEL_SRC) O=$(realpath $(KERNEL_OUT)) clean
+	$(hide) if [ ${clean_build} = 1 ]; then \
+		PATH=$$PATH $(MAKE) -C $(TARGET_KERNEL_SRC) O=$(realpath $(KERNEL_OUT)) clean; \
+	fi
 	$(hide) $(kernel_build_shell_env) $(MAKE) $(kernel_build_make_env) syncconfig
 	$(hide) $(kernel_build_shell_env) $(MAKE) $(kernel_build_make_env) $(KERNEL_NAME)
 	$(hide) $(kernel_build_shell_env) $(MAKE) $(kernel_build_make_env) modules
