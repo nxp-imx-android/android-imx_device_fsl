@@ -65,6 +65,9 @@ on early-boot
     # Wifi firmware reload path
     chown wifi wifi /sys/module/brcmfmac/parameters/alternative_fw_path
 
+    # Default g2d [dpu|pxp|viv] lib to be used
+    setprop vendor.imx.default-g2d dpu
+
     # Prepare for wifi
     setprop wifi.interface wlan0
     setprop wifi.direct.interface p2p-dev-wlan0
