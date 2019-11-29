@@ -36,6 +36,9 @@ on late-init
     insmod /lib/modules/imx-dpu-render.ko
     wait /dev/dri/card1 1
 
+on boot
+   setprop sys.usb.configfs 1
+
 on property:sys.usb.ffs.ready=1
     rm /config/usb_gadget/g1/configs/b.1/f1
     symlink /config/usb_gadget/g1/functions/ffs.adb /config/usb_gadget/g1/configs/b.1/f1
