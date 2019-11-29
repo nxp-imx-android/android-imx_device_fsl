@@ -267,7 +267,7 @@ PRODUCT_PACKAGES += \
     lib_c2_imx_audio_dec_common \
     lib_c2_imx_aac_dec \
     lib_c2_imx_ac3_dec \
-    lib_c2_imx_ddp_dec \
+    lib_c2_imx_eac3_dec \
     lib_c2_imx_mp3_dec \
     lib_c2_imx_ra_dec \
     lib_c2_imx_wma_dec
