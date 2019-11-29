@@ -1,5 +1,4 @@
 import init.recovery.${ro.hardware}.${ro.boot.storage_type}.rc
-
 on init 
     # disable cursor blink for fbcon, if no splash screen support
     write /sys/class/graphics/fbcon/cursor_blink 0
@@ -18,6 +17,9 @@ on init
     write /config/usb_gadget/g1/strings/0x409/serialnumber ${ro.serialno}
     write /config/usb_gadget/g1/strings/0x409/manufacturer ${ro.product.manufacturer}
     write /config/usb_gadget/g1/strings/0x409/product ${ro.product.model}
+
+on boot
+   setprop sys.usb.configfs 1
 
 on property:sys.usb.ffs.ready=1
     rm /config/usb_gadget/g1/configs/b.1/f1
