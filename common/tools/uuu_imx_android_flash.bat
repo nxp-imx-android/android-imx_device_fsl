@@ -60,6 +60,7 @@ set /A support_dual_bootloader=0
 set dual_bootloader_partition=
 set /A daemon_mode=0
 set /A flag=1
+set /A dryrun=0
 
 :: We want to detect illegal feature input to some extent. Here it's based on SoC names. Since an SoC may be on a
 :: board running different set of images(android and automative for a example), so misuse the features of one set of
