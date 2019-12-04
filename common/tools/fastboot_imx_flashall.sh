@@ -1,15 +1,15 @@
-#!/bin/bash -e
+#!/bin/bash
 
 help() {
 
 bn=`basename $0`
 cat << EOF
 
-Version: 1.3
-Last change: adapt to the new partition name for Cortex-M core.
+Version: 1.4
+Last change: add "-u" option to specify which uboot or spl&bootloader image to flash
 
-eg: sudo ./fastboot_imx_flashall.sh -f imx8mm -a -D ~/nfs/179/2018.10.03/imx_pi9.0/evk_8mm/
-eg: sudo ./fastboot_imx_flashall.sh -f imx7ulp -D ~/nfs/179/2018.10.03/imx_pi9.0/evk_7ulp/
+eg: sudo ./fastboot_imx_flashall.sh -f imx8mn -a -D ~/imx_pi9.0/evk_8mn/
+eg: sudo ./fastboot_imx_flashall.sh -f imx7ulp -D ~/imx_pi9.0/evk_7ulp/
 
 Usage: $bn <option>
 
@@ -20,100 +20,81 @@ options:
   -b                only flash image to slot_b
   -c card_size      optional setting: 7 / 14 / 28
                         If not set, use partition-table.img (default)
-                        If set to  7, use partition-table-7GB.img  for  8GB SD card
-                        If set to 14, use partition-table-14GB.img for 16GB SD card
-                        If set to 28, use partition-table-28GB.img for 32GB SD card
-                    Make sure the corresponding file exist for your platform
+                        If set to 7, use partition-table-7GB.img for 8GB target storage device
+                        If set to 14, use partition-table-14GB.img for 16GB target storage device
+                        If set to 28, use partition-table-28GB.img for 32GB target storage device
+                    Make sure the corresponding file exists for your platform
   -m                flash mcu image
-  -d dev            flash dtbo, vbmeta and recovery image file with dev
-                        If not set, use default dtbo, vbmeta and image
+  -u uboot_feature  flash uboot or spl&bootloader image with "uboot_feature" in their names
+                        For Standard Android:
+                            If not set, default uboot image will be flashed
+                        For Android Automative:
+                            If not set, default spl&bootloader images will be flashed
+                        Below table lists the legal value supported now based on the soc_name provided:
+                           ┌────────────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────┐
+                           │   soc_name     │  legal parameter after "-u"                                                                          │
+                           ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
+                           │   imx8mm       │  4g-evk-uuu 4g ddr4-evk-uuu ddr4 evk-uuu trusty-4g-evk-uuu trusty-4g trusty                          │
+                           ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
+                           │   imx8mn       │  evk-uuu trusty lpddr4-evk-uuu lpddr4                                                                │
+                           ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
+                           │   imx8mq       │  evk-uuu aiy-uuu                                                                                     │
+                           ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
+                           │   imx8qxp      │  mek-uuu trusty c0 trusty-c0 mek-c0-uuu                                                              │
+                           ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
+                           │   imx8qm       │  mek-uuu trusty xen                                                                                  │
+                           ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
+                           │   imx7ulp      │  evk-uuu                                                                                             │
+                           └────────────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+  -d dtb_feature    flash dtbo, vbmeta and recovery image file with "dtb_feature" in their names
+                        If not set, default dtbo, vbmeta and recovery image will be flashed
+                        Below table lists the legal value supported now based on the soc_name provided:
+                           ┌────────────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────┐
+                           │   soc_name     │  legal parameter after "-d"                                                                          │
+                           ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
+                           │   imx8mm       │  ddr4 m4 mipi-panel                                                                                  │
+                           ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
+                           │   imx8mn       │  mipi-panel rpmsg                                                                                    │
+                           ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
+                           │   imx8mq       │  b3 dual mipi-b3 mipi-panel-b3 mipi-panel mipi                                                       │
+                           ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
+                           │   imx8qxp      │                                                                                                      │
+                           ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
+                           │   imx8qm       │  hdmi mipi-panel xen                                                                                 │
+                           ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
+                           │   imx7ulp      │  evk-mipi evk mipi                                                                                   │
+                           └────────────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────┘
+
   -e                erase user data after all image files being flashed
   -l                lock the device after all image files being flashed
   -D directory      the directory of images
                         No need to use this option if images are in current working directory
   -s ser_num        the serial number of board
                         If only one board connected to computer, no need to use this option
-  -tos              flash the uboot with trusty enabled for i.MX 8M Mini EVK, i.MX8M Nano EVK, i.MX8QuadMax/i.MX8QuadXPlus MEK
-                        The platforms listed have both uboot images with trusty enabled and not enabled. the enabled ones have "trusty" in their names
 EOF
 
 }
 
-# parse command line
-soc_name=""
-device_character=""
-card_size=0
-slot=""
-systemimage_file="system.img"
-vendor_file="vendor.img"
-partition_file="partition-table.img"
-support_dtbo=0
-support_recovery=0
-support_dualslot=0
-support_mcu_os=0
-support_dual_bootloader=0
-support_trusty=0
-dual_bootloader_partition=""
-bootloader_flashed_to_board=""
-uboot_proper_to_be_flashed=""
-boot_partition="boot"
-recovery_partition="recovery"
-system_partition="system"
-vendor_partition="vendor"
-vbmeta_partition="vbmeta"
-dtbo_partition="dtbo"
-mcu_os_partition="mcu_os"
-flash_mcu=0
-lock=0
-erase=0
-image_directory=""
-ser_num=""
-fastboot_tool="fastboot"
-RED='\033[0;31m'
-STD='\033[0;0m'
-GREEN='\033[0;32m'
-
-if [ $# -eq 0 ]; then
-    echo -e ${RED}no parameter specified, will directly exit after displaying help message${STD}
-    help; exit 1;
-fi
-while [ $# -gt 0 ]; do
-    case $1 in
-        -h) help; exit ;;
-        -f) soc_name=$2; shift;;
-        -c) card_size=$2; shift;;
-        -d) device_character=$2; shift;;
-        -a) slot="_a" ;;
-        -b) slot="_b" ;;
-        -m) flash_mcu=1 ;;
-        -e) erase=1 ;;
-        -l) lock=1 ;;
-        -D) image_directory=$2; shift;;
-        -s) ser_num=$2; shift;;
-        -tos) support_trusty=1 ;;
-        *)  echo -e ${RED}$1${STD} is not an illegal option
-            help; exit;;
-    esac
-    shift
-done
-
-# if card_size is not correctly set, exit.
-if [ ${card_size} -ne 0 ] && [ ${card_size} -ne 7 ] && [ ${card_size} -ne 14 ] && [ ${card_size} -ne 28 ]; then
-    help; exit 1;
-fi
-
-if [ ${card_size} -gt 0 ]; then
-    partition_file="partition-table-${card_size}GB.img"
-fi
-
-# if directory is specified, make sure there is a slash at the end
-if [[ "${image_directory}" != "" ]]; then
-    image_directory="${image_directory%/}/"
-fi
-
-if [[ "${ser_num}" != "" ]]; then
-    fastboot_tool="fastboot -s ${ser_num}"
-fi
+# this function checks whether the value of first parameter is in the array value of second parameter
+# pass the name of the (array)variable to this function. the first is potential element, the second one is array.
+# make sure the first parameter is not empty
+function whether_in_array
+{
+    local potential_element=`eval echo \$\{${1}\}`
+    local array=(`eval echo \$\{${2}\[\*\]\}`)
+    local array_length=${#array[*]}
+    local last_element=${array[${array_length}-1]}
+    for arg in ${array[*]}
+    do
+        if [ "${arg}" = "${potential_element}" ]; then
+            return 0
+        fi
+        if [ "${arg}" = "${last_element}" ]; then
+            return 1
+        fi
+    done
+}
 
 function flash_partition
 {
@@ -133,8 +114,8 @@ function flash_partition
         else
             img_name="${soc_name}_mcu_demo.img"
         fi
-    elif [ "$(echo ${1} | grep -E "dtbo|vbmeta|recovery")" != "" -a "${device_character}" != "" ]; then
-        img_name="${1%_*}-${soc_name}-${device_character}.img"
+    elif [ "$(echo ${1} | grep -E "dtbo|vbmeta|recovery")" != "" -a "${dtb_feature}" != "" ]; then
+        img_name="${1%_*}-${soc_name}-${dtb_feature}.img"
     elif [ "$(echo ${1} | grep "gpt")" != "" ]; then
         img_name=${partition_file}
     else
@@ -142,7 +123,7 @@ function flash_partition
     fi
 
     echo -e flash the file of ${GREEN}${img_name}${STD} to the partition of ${GREEN}${1}${STD}
-    ${fastboot_tool} flash ${1} "${image_directory}${img_name}"
+    ${fastboot_tool} flash ${1} "${image_directory}${img_name}" || exit 1
 }
 
 function flash_userpartitions
@@ -187,32 +168,12 @@ function flash_android
 
     # some partitions are hard-coded in uboot, flash the uboot first and then reboot to check these partitions
 
-    # default u-boot image name first, no dual bootloader support, no special requirement different from default
-    bootloader_flashed_to_board="u-boot-${soc_name}.imx"
-
-    # mainly for Android Auto on 8qxp_mek and 8qm_mek
+    # uboot or spl&bootloader
     if [ ${support_dual_bootloader} -eq 1 ]; then
-        bootloader_flashed_to_board="spl-${soc_name}.bin"
-        uboot_proper_to_be_flashed="bootloader-${soc_name}.img"
-    fi
-
-    # i.MX 8M Mini EVK and i.MX 8M Nano EVK dose not support dual bootloader for now, and has some special requirement
-    if [ ${soc_name} == "imx8mm" ]; then
-        if [ "$(echo ${device_character} | grep "ddr4")" != "" ]; then
-            # i.MX8M Mini EVK with DDR4 on board does not support eMMC, trusty is not supported.
-            bootloader_flashed_to_board="u-boot-${soc_name}-ddr4.imx"
-        else
-            # 4GB LPDDR4 version not supported in this script
-            if [ ${support_trusty} -eq 1 ]; then
-                bootloader_flashed_to_board="u-boot-${soc_name}-trusty.imx"
-            else
-                bootloader_flashed_to_board="u-boot-${soc_name}.imx"
-            fi
-        fi
-    fi
-
-    if [  ${soc_name} != "imx8mm" ] && [ ${support_trusty} -eq 1 ]; then
-        bootloader_flashed_to_board="u-boot-${soc_name}-trusty.imx"
+        bootloader_flashed_to_board="spl-${soc_name}${uboot_feature}.bin"
+        uboot_proper_to_be_flashed="bootloader-${soc_name}${uboot_feature}.img"
+    else
+        bootloader_flashed_to_board="u-boot-${soc_name}${uboot_feature}.imx"
     fi
 
     # in the source code, if AB slot feature is supported, uboot partition name is bootloader0, otherwise it's bootloader
@@ -270,6 +231,154 @@ function flash_android
     fi
 }
 
+# parse command line
+soc_name=""
+uboot_feature=""
+dtb_feature=""
+card_size=0
+slot=""
+systemimage_file="system.img"
+vendor_file="vendor.img"
+partition_file="partition-table.img"
+support_dtbo=0
+support_recovery=0
+support_dualslot=0
+support_mcu_os=0
+support_dual_bootloader=0
+dual_bootloader_partition=""
+bootloader_flashed_to_board=""
+uboot_proper_to_be_flashed=""
+boot_partition="boot"
+recovery_partition="recovery"
+system_partition="system"
+vendor_partition="vendor"
+vbmeta_partition="vbmeta"
+dtbo_partition="dtbo"
+mcu_os_partition="mcu_os"
+flash_mcu=0
+lock=0
+erase=0
+image_directory=""
+ser_num=""
+fastboot_tool="fastboot"
+RED='\033[0;31m'
+STD='\033[0;0m'
+GREEN='\033[0;32m'
+
+# We want to detect illegal feature input to some extent. Here it's based on SoC names. Since an SoC may be on a
+# board running different set of images(android and automative for a example), so misuse the features of one set of
+# images when flash another set of images can not be detect early with this scenario.
+imx8mm_uboot_feature=(4g-evk-uuu 4g ddr4-evk-uuu ddr4 evk-uuu trusty-4g-evk-uuu trusty-4g trusty)
+imx8mn_uboot_feature=(evk-uuu trusty lpddr4-evk-uuu lpddr4)
+imx8mq_uboot_feature=(evk-uuu aiy-uuu)
+imx8qxp_uboot_feature=(mek-uuu trusty c0 trusty-c0 mek-c0-uuu)
+imx8qm_uboot_feature=(mek-uuu trusty xen)
+imx7ulp_uboot_feature=(evk-uuu)
+
+imx8mm_dtb_feature=(ddr4 m4 mipi-panel)
+imx8mn_dtb_feature=(mipi-panel rpmsg)
+imx8mq_dtb_feature=(b3 dual mipi-b3 mipi-panel-b3 mipi-panel mipi)
+imx8qxp_dtb_feature=()
+imx8qm_dtb_feature=(hdmi mipi-panel xen)
+imx7ulp_dtb_feature=(evk-mipi evk mipi)
+
+# an array to collect the supported soc_names
+supported_soc_names=(imx8qm imx8qxp imx8mq imx8mm imx8mn imx7ulp)
+
+if [ $# -eq 0 ]; then
+    echo -e ${RED}no parameter specified, will directly exit after displaying help message${STD}
+    help; exit 1;
+fi
+while [ $# -gt 0 ]; do
+    case $1 in
+        -h) help; exit ;;
+        -f) soc_name=$2; shift;;
+        -c) card_size=$2; shift;;
+        -u) uboot_feature=-$2; shift;;
+        -d) dtb_feature=$2; shift;;
+        -a) slot="_a" ;;
+        -b) slot="_b" ;;
+        -m) flash_mcu=1 ;;
+        -e) erase=1 ;;
+        -l) lock=1 ;;
+        -D) image_directory=$2; shift;;
+        -s) ser_num=$2; shift;;
+        *)  echo -e ${RED}$1${STD} is not an illegal option
+            help; exit;;
+    esac
+    shift
+done
+
+# check whether the soc_name is legal or not
+if [ -n "${soc_name}" ]; then
+    whether_in_array soc_name supported_soc_names
+    return_value=$?
+    if [ ${return_value} != 0 ]; then
+        echo -e >&2 ${RED}illegal soc_name \"${soc_name}\"${STD}
+        help; exit 1;
+    fi
+else
+    echo -e >&2 ${RED}use \"-f\" option to specify the soc name${STD}
+fi
+
+
+# Process of the uboot_feature parameter
+if [[ "${uboot_feature}" = *"dual"* ]]; then
+    support_dual_bootloader=1;
+fi
+
+# if card_size is not correctly set, exit.
+if [ ${card_size} -ne 0 ] && [ ${card_size} -ne 7 ] && [ ${card_size} -ne 14 ] && [ ${card_size} -ne 28 ]; then
+    help; exit 1;
+fi
+
+# Android Automative by default support dual bootloader, no "dual" in its partition table name
+if [ ${support_dual_bootloader} -eq 1 ]; then
+    if [ ${card_size} -gt 0 ]; then
+        partition_file="partition-table-${card_size}GB-dual.img";
+
+    else
+        partition_file="partition-table-dual.img";
+    fi
+else
+	if [ ${card_size} -gt 0 ]; then
+        partition_file="partition-table-${card_size}GB.img";
+    else
+        partition_file="partition-table.img";
+    fi
+fi
+
+# if directory is specified, make sure there is a slash at the end
+if [[ "${image_directory}" != "" ]]; then
+    image_directory="${image_directory%/}/"
+fi
+
+if [[ "${ser_num}" != "" ]]; then
+    fastboot_tool="fastboot -s ${ser_num}"
+fi
+
+# check whether provided spl/bootloader/uboot feature is legal
+if [ -n "${uboot_feature}" ]; then
+    uboot_feature_no_pre_hyphen=${uboot_feature#-}
+    whether_in_array uboot_feature_no_pre_hyphen ${soc_name}_uboot_feature
+    return_value=$?
+    if [ ${return_value} != 0 ]; then
+        echo -e >&2 ${RED}illegal parameter \"${uboot_feature_no_pre_hyphen}\" for \"-u\" option${STD}
+        help; exit 1;
+    fi
+fi
+
+# check whether provided dtb feature is legal
+if [ -n "${dtb_feature}" ]; then
+    dtb_feature_no_pre_hyphen=${dtb_feature#-}
+    whether_in_array dtb_feature_no_pre_hyphen ${soc_name}_dtb_feature
+    return_value=$?
+    if [ ${return_value} != 0 ]; then
+        echo -e >&2 ${RED}illegal parameter \"${dtb_feature}\" for \"-d\" option${STD}
+        help; exit 1;
+    fi
+fi
+
 flash_android
 
 if [ ${erase} -eq 1 ]; then
@@ -288,3 +397,4 @@ echo
 echo ">>>>>>>>>>>>>> Flashing successfully completed <<<<<<<<<<<<<<"
 
 exit 0
+
