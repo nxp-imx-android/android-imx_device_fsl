@@ -81,11 +81,6 @@ TARGET_USERIMAGES_SPARSE_EXT_DISABLED := false
 
 BOARD_HAVE_USB_CAMERA := true
 
-# whether to accelerate camera service with openCL
-# it will make camera service load the opencl lib in vendor
-# and break the full treble rule
-#OPENCL_2D_IN_CAMERA := true
-
 USE_ION_ALLOCATOR := true
 USE_GPU_ALLOCATOR := false
 
