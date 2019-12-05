@@ -129,12 +129,12 @@ $(UBOOT_BIN): $(UBOOT_OUT)
 		$(MAKE) -C $(UBOOT_IMX_PATH)/uboot-imx/ CROSS_COMPILE="$(UBOOT_CROSS_COMPILE_WRAPPER)" O=$(realpath $(UBOOT_OUT)) $$UBOOT_CONFIG; \
 		$(MAKE) -s -C $(UBOOT_IMX_PATH)/uboot-imx/ CROSS_COMPILE="$(UBOOT_CROSS_COMPILE_WRAPPER)" O=$(realpath $(UBOOT_OUT)) || exit 1; \
 		install -D $(UBOOT_OUT)/u-boot$(TARGET_DTB_POSTFIX).$(TARGET_BOOTLOADER_POSTFIX) $(PRODUCT_OUT)/u-boot-$$UBOOT_PLATFORM.imx; \
-		if [ $(UBOOT_POST_PROCESS) = true ]; then \
+		if [ "$(UBOOT_POST_PROCESS)" = true ]; then \
 			echo "build post process" ; \
 		    $(call build_imx_uboot, $(TARGET_BOOTLOADER_POSTFIX), $$UBOOT_PLATFORM) \
 		    echo "===================Finish building `echo $$ubootplat | cut -d':' -f2` ==================="; \
 		fi; \
-		if [ $(PRODUCT_IMX_DRM) = true ]; then \
+		if [ "$(PRODUCT_IMX_DRM)" = true ]; then \
 		    echo "build post process with tee" ; \
 		    $(call build_uboot_w_tee,  $(TARGET_BOOTLOADER_POSTFIX), $$UBOOT_PLATFORM) \
 		fi; \
