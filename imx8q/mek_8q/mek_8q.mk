@@ -427,6 +427,14 @@ PRODUCT_PACKAGES += \
     adb_debug.prop
 endif
 
+# In user build, the Cluster display is not included in
+# packages/services/Car/car_product/build/car.mk. Here add it back for testing
+ifeq ($(PRODUCT_IMX_CAR),true)
+PRODUCT_PACKAGES += \
+    DirectRenderingCluster \
+
+endif
+
 # Specify rollback index for bootloader and for AVB
 ifneq ($(AVB_RBINDEX),)
 BOARD_AVB_ROLLBACK_INDEX := $(AVB_RBINDEX)
