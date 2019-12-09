@@ -146,7 +146,7 @@ $(KERNEL_CONFIG): $(KERNEL_CONFIG_SRC) $(TARGET_KERNEL_SRC) | $(KERNEL_OUT)
 	$(hide) echo Merging KERNEL config
 	rm -f $(KERNEL_CONFIG)
 	$(KERNEL_MERGE_CONFIG) $(TARGET_KERNEL_SRC) $(realpath $(KERNEL_OUT)) \
-	$(KERNEL_ARCH) $^
+	$(KERNEL_ARCH) $(KERNEL_CONFIG_SRC)
 
 # use deferred expansion
 kernel_build_shell_env = PATH=$$(cd prebuilts/clang/host/linux-x86/clang-r349610/bin; pwd):$$(cd prebuilts/misc/linux-x86/lz4; pwd):$${PATH} \
