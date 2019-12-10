@@ -290,9 +290,6 @@ else
 BOARD_AVB_ROLLBACK_INDEX := 0
 endif
 
-# define bootloader rollback index
-BOOTLOADER_RBINDEX ?= 0
-
 #DRM Widevine 1.2 L3 support
 PRODUCT_PACKAGES += \
     android.hardware.drm@1.0-impl \

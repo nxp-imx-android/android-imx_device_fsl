@@ -109,15 +109,15 @@ UBOOT_VERSION := $(shell $(MAKE) -j1 --no-print-directory -C $(UBOOT_IMX_PATH)/u
 $(UBOOT_COLLECTION) $(UBOOT_OUT):
 	mkdir -p $@
 
-UBOOTENVSH := /tmp/ubootenv.sh
-$(UBOOTENVSH):
+UBOOTENVSH := $(UBOOT_OUT)/ubootenv.sh
+$(UBOOTENVSH): | $(UBOOT_OUT)
 	rm -rf $@
 	if [ -n "$(BOOTLOADER_RBINDEX)" ]; then \
-		echo 'export ROLLBACK_INDEX_IN_CONTAINER=$(BOOTLOADER_RBINDEX)' > $@; \
-		echo 'export ROLLBACK_INDEX_IN_FIT=$(BOOTLOADER_RBINDEX)' >> $@; \
+		echo 'export ROLLBACK_INDEX_IN_FIT=$(BOOTLOADER_RBINDEX)' > $@; \
+		echo 'export ROLLBACK_INDEX_IN_CONTAINER=$(BOOTLOADER_RBINDEX)' >> $@; \
 	else \
-		echo 'export ROLLBACK_INDEX_IN_CONTAINER=' > $@; \
-		echo 'export ROLLBACK_INDEX_IN_FIT=' >> $@; \
+		echo 'export ROLLBACK_INDEX_IN_FIT=' > $@; \
+		echo 'export ROLLBACK_INDEX_IN_CONTAINER=' >> $@; \
 	fi
 
 $(UBOOT_BIN): $(UBOOTENVSH) | $(UBOOT_COLLECTION) $(UBOOT_OUT)
@@ -131,7 +131,7 @@ $(UBOOT_BIN): $(UBOOTENVSH) | $(UBOOT_COLLECTION) $(UBOOT_OUT)
 		$(MAKE) -s -C $(UBOOT_IMX_PATH)/uboot-imx/ CROSS_COMPILE="$(UBOOT_CROSS_COMPILE_WRAPPER)" O=$(realpath $(UBOOT_OUT)) 1>/dev/null || exit 1; \
 		if [ "$(UBOOT_POST_PROCESS)" = "true" ]; then \
 			echo "build post process" ; \
-			source $(UBOOTENVSH); \
+			. $(UBOOTENVSH); \
 		    $(call build_imx_uboot, $(TARGET_BOOTLOADER_POSTFIX), $$UBOOT_PLATFORM) \
 		    echo "===================Finish building `echo $$ubootplat | cut -d':' -f2` ==================="; \
 		else \
@@ -144,7 +144,7 @@ $(UBOOT_BIN): $(UBOOTENVSH) | $(UBOOT_COLLECTION) $(UBOOT_OUT)
 		install -D $(UBOOT_COLLECTION)/u-boot-$$UBOOT_PLATFORM.imx $(UBOOT_BIN); \
 	done
 
-.PHONY: bootloader $(UBOOT_BIN)
+.PHONY: bootloader $(UBOOT_BIN) $(UBOOTENVSH)
 
 bootloader: $(UBOOT_BIN)
 

@@ -23,7 +23,7 @@ endif
 
 ifeq ($(PRODUCT_8MM_DDR4), true)
   # u-boot target used by uuu for imx8mm_evk with DDR4 on board
-    TARGET_BOOTLOADER_CONFIG += imx8mm-ddr4-evk-uuu:imx8mm_ddr4_evk_android_uuu_defconfig
+  TARGET_BOOTLOADER_CONFIG += imx8mm-ddr4-evk-uuu:imx8mm_ddr4_evk_android_uuu_defconfig
 else
   # u-boot target used by uuu for imx8mm_evk with LPDDR4 on board
   TARGET_BOOTLOADER_CONFIG += imx8mm-evk-uuu:imx8mm_evk_android_uuu_defconfig
@@ -36,4 +36,7 @@ TARGET_KERNEL_ADDITION_DEFCONF := android_addition_defconfig
 
 # absolute path is used, not the same as relative path used in AOSP make
 TARGET_DEVICE_DIR := $(patsubst %/, %, $(dir $(realpath $(lastword $(MAKEFILE_LIST)))))
+
+# define bootloader rollback index
+BOOTLOADER_RBINDEX ?= 0
 

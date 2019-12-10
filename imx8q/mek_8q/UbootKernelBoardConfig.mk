@@ -56,3 +56,8 @@ endif # PRODUCT_IMX_CAR
 # absolute path is used, not the same as relative path used in AOSP make
 TARGET_DEVICE_DIR := $(patsubst %/, %, $(dir $(realpath $(lastword $(MAKEFILE_LIST)))))
 
+# define rollback index in container
+ifeq ($(PRODUCT_IMX_CAR),true)
+  BOOTLOADER_RBINDEX ?= 0
+endif
+
