@@ -51,5 +51,3 @@ PRODUCT_PROPERTY_OVERRIDES += \
     debug.sf.nobootanimation=1
 endif # PRODUCT_IMX_CAR_M4
 
-# define rollback index in container
-BOOTLOADER_RBINDEX ?= 0
