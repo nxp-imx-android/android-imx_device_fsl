@@ -51,14 +51,14 @@
                         address="bus0_media_out">
                     <gains>
                         <gain name="" mode="AUDIO_GAIN_MODE_JOINT"
-                                minValueMB="-3200" maxValueMB="600" defaultValueMB="0" stepValueMB="100"/>
+                                minValueMB="-500" maxValueMB="0" defaultValueMB="0" stepValueMB="100"/>
                     </gains>
                 </devicePort>
                 <devicePort tagName="bus1_system_sound_out" role="sink" type="AUDIO_DEVICE_OUT_BUS"
                         address="bus1_system_sound_out">
                     <gains>
                         <gain name="" mode="AUDIO_GAIN_MODE_JOINT"
-                                minValueMB="-3200" maxValueMB="600" defaultValueMB="0" stepValueMB="100"/>
+                                minValueMB="-500" maxValueMB="0" defaultValueMB="0" stepValueMB="100"/>
                     </gains>
                 </devicePort>
 
