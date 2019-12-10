@@ -31,5 +31,7 @@
     <bool name="config_useSystemProvidedLauncherForSecondary">true</bool>
     <string name="config_secondaryHomeComponent" translatable="false">
         com.android.example/com.android.example.SecondaryDisplayFixedLauncher</string>
+    <!-- Handle volume keys directly in Window Manager without passing them to the foreground app -->
+    <bool name="config_handleVolumeKeysInWindowManager">true</bool>
 
 </resources>
