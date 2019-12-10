@@ -34,43 +34,13 @@ const std::vector<std::string> ITEMS{ "reboot system now",
                         "wipe data/factory reset",
                         "wipe cache partition",};
 
-class ImxUI : public ScreenRecoveryUI {
-  public:
-    virtual KeyAction CheckKey(int key) {
-        if (IsKeyPressed(KEY_POWER) && key == KEY_VOLUMEUP) {
-            return TOGGLE;
-        }
-        return ENQUEUE;
-    }
-};
-
-
 class ImxDevice : public Device {
   public:
     ImxDevice() :
-        Device(new ImxUI) {
+        Device(new ScreenRecoveryUI) {
     }
 
-    int HandleMenuKey(int key_code, int visible) {
-        if (visible) {
-            switch (key_code) {
-              case KEY_DOWN:
-              case KEY_VOLUMEDOWN:
-                return kHighlightDown;
-
-              case KEY_UP:
-              case KEY_VOLUMEUP:
-                return kHighlightUp;
-
-              case KEY_POWER:
-                return kInvokeItem;
-            }
-        }
-
-        return kNoAction;
-    }
-
-    BuiltinAction InvokeMenuItem(int menu_position) {
+    BuiltinAction InvokeMenuItem(size_t menu_position) override {
         switch (menu_position) {
           case 0: return REBOOT;
           case 1: return APPLY_ADB_SIDELOAD;
