@@ -20,3 +20,6 @@ TARGET_KERNEL_DEFCONFIG := android_defconfig
 # absolute path is used, not the same as relative path used in AOSP make
 TARGET_DEVICE_DIR := $(patsubst %/, %, $(dir $(realpath $(lastword $(MAKEFILE_LIST)))))
 
+# define bootloader rollback index
+BOOTLOADER_RBINDEX ?= 0
+
