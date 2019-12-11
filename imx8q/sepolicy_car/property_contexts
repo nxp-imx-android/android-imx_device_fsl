@@ -2,3 +2,4 @@ vendor.vehicle.event      u:object_r:evs_prop:s0
 vendor.vehicle.register   u:object_r:evs_prop:s0
 vendor.evs.video.ready      u:object_r:evs_prop:s0
 persist.car.cluster.displayport    u:object_r:public_vendor_default_prop:s0
+ro.config.media_vol_default u:object_r:public_vendor_default_prop:s0

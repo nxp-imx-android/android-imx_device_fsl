@@ -94,6 +94,9 @@ on early-boot
 
     setprop persist.bluetooth.enablenewavrcp false
 
+    setprop ro.config.media_vol_steps 15
+    setprop ro.config.media_vol_default 15
+
     start vendor.wifi_hal_legacy
 
 on property:vendor.vehicle.event=1 && property:vendor.evs.video.ready=1
