@@ -11,6 +11,9 @@ endif
 #Enable this to include trusty support
 PRODUCT_IMX_TRUSTY := true
 
+#Enable this to disable product partition build.
+#IMX_NO_PRODUCT_PARTITION := true
+
 # LPDDR4 board use qcom wifi and for DDR4 board use cypress wifi
 ifeq ($(PRODUCT_8MM_DDR4), true)
   # BCM fmac wifi driver module
