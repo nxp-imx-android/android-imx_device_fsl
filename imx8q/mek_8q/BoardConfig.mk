@@ -28,11 +28,21 @@ endif # PRODUCT_IMX_CAR
 
 # Support gpt
 ifeq ($(PRODUCT_IMX_CAR),true)
-BOARD_BPT_INPUT_FILES += device/fsl/common/partition/device-partitions-13GB-ab-dual-bootloader.bpt
-ADDITION_BPT_PARTITION = partition-table-28GB:device/fsl/common/partition/device-partitions-28GB-ab-dual-bootloader.bpt
+  ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
+    BOARD_BPT_INPUT_FILES += device/fsl/common/partition/device-partitions-13GB-ab-dual-bootloader-no-product.bpt
+    ADDITION_BPT_PARTITION = partition-table-28GB:device/fsl/common/partition/device-partitions-28GB-ab-dual-bootloader-no-product.bpt
+  else
+    BOARD_BPT_INPUT_FILES += device/fsl/common/partition/device-partitions-13GB-ab-dual-bootloader.bpt
+    ADDITION_BPT_PARTITION = partition-table-28GB:device/fsl/common/partition/device-partitions-28GB-ab-dual-bootloader.bpt
+  endif
 else
-BOARD_BPT_INPUT_FILES += device/fsl/common/partition/device-partitions-13GB-ab.bpt
-ADDITION_BPT_PARTITION = partition-table-28GB:device/fsl/common/partition/device-partitions-28GB-ab.bpt
+  ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
+    BOARD_BPT_INPUT_FILES += device/fsl/common/partition/device-partitions-13GB-ab-no-product.bpt
+    ADDITION_BPT_PARTITION = partition-table-28GB:device/fsl/common/partition/device-partitions-28GB-ab-no-product.bpt
+  else
+    BOARD_BPT_INPUT_FILES += device/fsl/common/partition/device-partitions-13GB-ab.bpt
+    ADDITION_BPT_PARTITION = partition-table-28GB:device/fsl/common/partition/device-partitions-28GB-ab.bpt
+  endif
 endif
 
 # Vendor Interface Manifest
@@ -106,33 +116,47 @@ endif
 
 BOARD_PREBUILT_DTBOIMAGE := out/target/product/mek_8q/dtbo-imx8qm.img
 ifeq ($(PRODUCT_IMX_CAR),true)
-ifeq ($(PRODUCT_IMX_CAR_M4),true)
-# imx8qm auto android
-TARGET_BOARD_DTS_CONFIG := imx8qm:fsl-imx8qm-mek-car.dtb
-# imx8qm auto android with multi-display
-TARGET_BOARD_DTS_CONFIG += imx8qm-md:fsl-imx8qm-mek-car-md.dtb
-# imx8qm auto android virtualization
-TARGET_BOARD_DTS_CONFIG += imx8qm-xen:fsl-imx8qm-mek-domu-car.dtb
-# imx8qxp auto android
-TARGET_BOARD_DTS_CONFIG += imx8qxp:fsl-imx8qxp-mek-car.dtb
+  ifeq ($(PRODUCT_IMX_CAR_M4),true)
+    ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
+      TARGET_BOARD_DTS_CONFIG := imx8qm:fsl-imx8qm-mek-car-no-product.dtb
+      TARGET_BOARD_DTS_CONFIG += imx8qxp:fsl-imx8qxp-mek-car-no-product.dtb
+    else
+      # imx8qm auto android
+      TARGET_BOARD_DTS_CONFIG := imx8qm:fsl-imx8qm-mek-car.dtb
+      # imx8qm auto android with multi-display
+      TARGET_BOARD_DTS_CONFIG += imx8qm-md:fsl-imx8qm-mek-car-md.dtb
+      # imx8qm auto android virtualization
+      TARGET_BOARD_DTS_CONFIG += imx8qm-xen:fsl-imx8qm-mek-domu-car.dtb
+      # imx8qxp auto android
+      TARGET_BOARD_DTS_CONFIG += imx8qxp:fsl-imx8qxp-mek-car.dtb
+    endif # IMX_NO_PRODUCT_PARTITION
+  else #PRODUCT_IMX_CAR_M4
+    ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
+      TARGET_BOARD_DTS_CONFIG := imx8qm:fsl-imx8qm-mek-car2-no-product.dtb
+      TARGET_BOARD_DTS_CONFIG += imx8qxp:fsl-imx8qxp-mek-car2-no-product.dtb
+    else
+      # imx8qm auto android without m4 image
+      TARGET_BOARD_DTS_CONFIG := imx8qm:fsl-imx8qm-mek-car2.dtb
+      # imx8qm auto android without m4 image for multi-display
+      TARGET_BOARD_DTS_CONFIG += imx8qm-md:fsl-imx8qm-mek-car2-md.dtb
+      # imx8qxp auto android without m4 image
+      TARGET_BOARD_DTS_CONFIG += imx8qxp:fsl-imx8qxp-mek-car2.dtb
+    endif #IMX_NO_PRODUCT_PARTITION
+  endif #PRODUCT_IMX_CAR_M4
 else
-# imx8qm auto android without m4 image
-TARGET_BOARD_DTS_CONFIG := imx8qm:fsl-imx8qm-mek-car2.dtb
-# imx8qm auto android without m4 image for multi-display
-TARGET_BOARD_DTS_CONFIG += imx8qm-md:fsl-imx8qm-mek-car2-md.dtb
-# imx8qxp auto android without m4 image
-TARGET_BOARD_DTS_CONFIG += imx8qxp:fsl-imx8qxp-mek-car2.dtb
-endif #PRODUCT_IMX_CAR_M4
-
-else
-# imx8qm standard android; MIPI-HDMI display
-TARGET_BOARD_DTS_CONFIG := imx8qm:fsl-imx8qm-mek-ov5640.dtb
-# imx8qm standard android; MIPI panel display
-TARGET_BOARD_DTS_CONFIG += imx8qm-mipi-panel:fsl-imx8qm-mek-dsi-rm67191.dtb
-# imx8qm standard android; HDMI display
-TARGET_BOARD_DTS_CONFIG += imx8qm-hdmi:fsl-imx8qm-mek-hdmi.dtb
-# imx8qxp standard android; MIPI-HDMI display
-TARGET_BOARD_DTS_CONFIG += imx8qxp:fsl-imx8qxp-mek-ov5640.dtb
+  ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
+    TARGET_BOARD_DTS_CONFIG := imx8qm:fsl-imx8qm-mek-ov5640-no-product.dtb
+    TARGET_BOARD_DTS_CONFIG += imx8qxp:fsl-imx8qxp-mek-ov5640-no-product.dtb
+  else
+    # imx8qm standard android; MIPI-HDMI display
+    TARGET_BOARD_DTS_CONFIG := imx8qm:fsl-imx8qm-mek-ov5640.dtb
+    # imx8qm standard android; MIPI panel display
+    TARGET_BOARD_DTS_CONFIG += imx8qm-mipi-panel:fsl-imx8qm-mek-dsi-rm67191.dtb
+    # imx8qm standard android; HDMI display
+    TARGET_BOARD_DTS_CONFIG += imx8qm-hdmi:fsl-imx8qm-mek-hdmi.dtb
+    # imx8qxp standard android; MIPI-HDMI display
+    TARGET_BOARD_DTS_CONFIG += imx8qxp:fsl-imx8qxp-mek-ov5640.dtb
+  endif #IMX_NO_PRODUCT_PARTITION
 endif #PRODUCT_IMX_CAR
 
 BOARD_SEPOLICY_DIRS := \
