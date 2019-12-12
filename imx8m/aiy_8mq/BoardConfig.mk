@@ -44,8 +44,13 @@ TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_RECOVERY_FSTAB = $(IMX_DEVICE_PATH)/fstab.freescale
 
 # Support gpt
+ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
+BOARD_BPT_INPUT_FILES += device/fsl/common/partition/device-partitions-13GB-ab-no-product.bpt
+ADDITION_BPT_PARTITION = partition-table-dual:device/fsl/common/partition/device-partitions-13GB-ab-dual-bootloader-no-product.bpt
+else
 BOARD_BPT_INPUT_FILES += device/fsl/common/partition/device-partitions-13GB-ab.bpt
 ADDITION_BPT_PARTITION = partition-table-dual:device/fsl/common/partition/device-partitions-13GB-ab-dual-bootloader.bpt
+endif
 
 # Vendor Interface manifest and compatibility
 DEVICE_MANIFEST_FILE := $(IMX_DEVICE_PATH)/manifest.xml
@@ -118,7 +123,11 @@ endif
 
 BOARD_PREBUILT_DTBOIMAGE := out/target/product/aiy_8mq/dtbo-imx8mq.img
 # imx8mq phanbell
+ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
+TARGET_BOARD_DTS_CONFIG ?= imx8mq:fsl-imx8mq-phanbell-no-product.dtb
+else
 TARGET_BOARD_DTS_CONFIG ?= imx8mq:fsl-imx8mq-phanbell.dtb
+endif
 
 BOARD_SEPOLICY_DIRS := \
        device/fsl/imx8m/sepolicy \

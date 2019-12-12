@@ -41,10 +41,17 @@ TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_RECOVERY_FSTAB = $(IMX_DEVICE_PATH)/fstab.freescale
 
 # Support gpt
+ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
+BOARD_BPT_INPUT_FILES += device/fsl/common/partition/device-partitions-13GB-ab-no-product.bpt
+ADDITION_BPT_PARTITION = partition-table-28GB:device/fsl/common/partition/device-partitions-28GB-ab-no-product.bpt \
+                         partition-table-dual:device/fsl/common/partition/device-partitions-13GB-ab-dual-bootloader-no-product.bpt \
+                         partition-table-28GB-dual:device/fsl/common/partition/device-partitions-28GB-ab-dual-bootloader-no-product.bpt
+else
 BOARD_BPT_INPUT_FILES += device/fsl/common/partition/device-partitions-13GB-ab.bpt
 ADDITION_BPT_PARTITION = partition-table-28GB:device/fsl/common/partition/device-partitions-28GB-ab.bpt \
                          partition-table-dual:device/fsl/common/partition/device-partitions-13GB-ab-dual-bootloader.bpt \
                          partition-table-28GB-dual:device/fsl/common/partition/device-partitions-28GB-ab-dual-bootloader.bpt
+endif
 
 # Vendor Interface manifest and compatibility
 DEVICE_MANIFEST_FILE := $(IMX_DEVICE_PATH)/manifest.xml
@@ -109,12 +116,16 @@ endif
 
 BOARD_PREBUILT_DTBOIMAGE := out/target/product/evk_8mn/dtbo-imx8mn.img
 
+ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
+TARGET_BOARD_DTS_CONFIG := imx8mn:fsl-imx8mn-ddr4-evk-no-product.dtb
+else
 # imx8mn with MIPI-HDMI display, BCM wifi and support trusty
 TARGET_BOARD_DTS_CONFIG := imx8mn:fsl-imx8mn-ddr4-evk.dtb
 # imx8mn with MIPI panel display and BCM wifi
 TARGET_BOARD_DTS_CONFIG += imx8mn-mipi-panel:fsl-imx8mn-ddr4-evk-rm67191.dtb
 # imx8mn with MIPI-HDMI display and BCM wifi and M7 image
 TARGET_BOARD_DTS_CONFIG += imx8mn-rpmsg:fsl-imx8mn-ddr4-evk-rpmsg.dtb
+endif
 
 BOARD_SEPOLICY_DIRS := \
        device/fsl/imx8m/sepolicy \
