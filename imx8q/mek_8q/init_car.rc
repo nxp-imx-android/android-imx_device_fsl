@@ -32,6 +32,8 @@ on init
     # deattch the fbcon as hdmi hotplug conflict with fbcon
     write /sys/class/vtconsole/vtcon1/bind 0
 
+on init && property:ro.product.system.device=generic_arm64
+    start boot_completed_main_sh
 
 on early-boot
     wait_for_prop sys.all.early_init.ready 1
@@ -115,7 +117,7 @@ on boot
     # Trigger start evs_driver service
     start evs_driver
 
-on property:vendor.all.setup_core.ready=1
+on property:vendor.all.setup_core.ready=1 && property:ro.product.system.device=mek_8q
     start boot_completed_main_sh
 
 on property:vendor.all.setup_main.ready=1
