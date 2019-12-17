@@ -44,13 +44,13 @@ TARGET_BOOTLOADER_CONFIG += imx8qxp-mek-uuu:imx8qxp_mek_android_uuu_defconfig
 
 ifeq ($(PRODUCT_IMX_CAR),true)
   ifeq ($(PRODUCT_IMX_CAR_M4),true)
-    TARGET_KERNEL_DEFCONFIG := android_car_defconfig
+    TARGET_KERNEL_DEFCONFIG := imx_v8_android_car_defconfig
   else
-    TARGET_KERNEL_DEFCONFIG := android_car2_defconfig
+    TARGET_KERNEL_DEFCONFIG := imx_v8_android_car2_defconfig
   endif # PRODUCT_IMX_CAR_M4
   TARGET_KERNEL_ADDITION_DEFCONF := android_addition_defconfig
 else
-  TARGET_KERNEL_DEFCONFIG := android_defconfig
+  TARGET_KERNEL_DEFCONFIG := imx_v8_android_defconfig
 endif # PRODUCT_IMX_CAR
 
 # absolute path is used, not the same as relative path used in AOSP make
