@@ -31,7 +31,7 @@ else
 endif
 
 # imx8mm kernel defconfig
-TARGET_KERNEL_DEFCONFIG := android_defconfig
+TARGET_KERNEL_DEFCONFIG := imx_v8_android_defconfig
 TARGET_KERNEL_ADDITION_DEFCONF := android_addition_defconfig
 
 # absolute path is used, not the same as relative path used in AOSP make

@@ -13,7 +13,7 @@ endif
 # u-boot target used by uuu for imx8mn_evk
 TARGET_BOOTLOADER_CONFIG += imx8mn-evk-uuu:imx8mn_ddr4_evk_android_uuu_defconfig
 
-TARGET_KERNEL_DEFCONFIG := android_defconfig
+TARGET_KERNEL_DEFCONFIG := imx_v8_android_defconfig
 
 TARGET_KERNEL_ADDITION_DEFCONF := android_addition_defconfig
 
