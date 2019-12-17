@@ -134,7 +134,7 @@
       "PowerHint": "CAMERA_STREAMING",
       "Node": "CPULittleClusterMaxFreq",
       "Duration": 0,
-      "Value": "14000000"
+      "Value": "1400000"
     },
     {
       "PowerHint": "CAMERA_SHOT",
