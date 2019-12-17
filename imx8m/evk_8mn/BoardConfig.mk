@@ -117,14 +117,14 @@ endif
 BOARD_PREBUILT_DTBOIMAGE := out/target/product/evk_8mn/dtbo-imx8mn.img
 
 ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
-TARGET_BOARD_DTS_CONFIG := imx8mn:fsl-imx8mn-ddr4-evk-no-product.dtb
+TARGET_BOARD_DTS_CONFIG := imx8mn:imx8mn-ddr4-evk-no-product.dtb
 else
 # imx8mn with MIPI-HDMI display, BCM wifi and support trusty
-TARGET_BOARD_DTS_CONFIG := imx8mn:fsl-imx8mn-ddr4-evk.dtb
+TARGET_BOARD_DTS_CONFIG := imx8mn:imx8mn-ddr4-evk.dtb
 # imx8mn with MIPI panel display and BCM wifi
-TARGET_BOARD_DTS_CONFIG += imx8mn-mipi-panel:fsl-imx8mn-ddr4-evk-rm67191.dtb
+TARGET_BOARD_DTS_CONFIG += imx8mn-mipi-panel:imx8mn-ddr4-evk-rm67191.dtb
 # imx8mn with MIPI-HDMI display and BCM wifi and M7 image
-TARGET_BOARD_DTS_CONFIG += imx8mn-rpmsg:fsl-imx8mn-ddr4-evk-rpmsg.dtb
+TARGET_BOARD_DTS_CONFIG += imx8mn-rpmsg:imx8mn-ddr4-evk-rpmsg.dtb
 endif
 
 BOARD_SEPOLICY_DIRS := \

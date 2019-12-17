@@ -144,22 +144,22 @@ ifeq ($(PRODUCT_8MM_DDR4), true)
 # dts target for imx8mm_evk with DDR4 on board
 ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
 # dts without product partition
-TARGET_BOARD_DTS_CONFIG ?= imx8mm:fsl-imx8mm-ddr4-evk-no-product.dtb
+TARGET_BOARD_DTS_CONFIG ?= imx8mm:imx8mm-ddr4-evk-no-product.dtb
 else
-TARGET_BOARD_DTS_CONFIG ?= imx8mm:fsl-imx8mm-ddr4-evk.dtb
+TARGET_BOARD_DTS_CONFIG ?= imx8mm:imx8mm-ddr4-evk.dtb
 endif
 else
 # dts target for imx8mm_evk with LPDDR4 on board
 ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
 # dts without product partition
-TARGET_BOARD_DTS_CONFIG ?= imx8mm:fsl-imx8mm-evk-no-product.dtb
+TARGET_BOARD_DTS_CONFIG ?= imx8mm:imx8mm-evk-no-product.dtb
 else
 # imx8mm with MIPI-HDMI display and QCA wifi
-TARGET_BOARD_DTS_CONFIG ?= imx8mm:fsl-imx8mm-evk.dtb
+TARGET_BOARD_DTS_CONFIG ?= imx8mm:imx8mm-evk.dtb
 # imx8mm with MIPI panel display and QCA wifi
-TARGET_BOARD_DTS_CONFIG += imx8mm-mipi-panel:fsl-imx8mm-evk-rm67191.dtb
+TARGET_BOARD_DTS_CONFIG += imx8mm-mipi-panel:imx8mm-evk-rm67191.dtb
 # imx8mm with MIPI-HDMI display, QCA wifi and m4 image to support LPA
-TARGET_BOARD_DTS_CONFIG += imx8mm-m4:fsl-imx8mm-evk-m4.dtb
+TARGET_BOARD_DTS_CONFIG += imx8mm-m4:imx8mm-evk-rpmsg.dtb
 endif
 endif
 

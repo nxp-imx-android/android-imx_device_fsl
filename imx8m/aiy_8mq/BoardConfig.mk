@@ -124,9 +124,9 @@ endif
 BOARD_PREBUILT_DTBOIMAGE := out/target/product/aiy_8mq/dtbo-imx8mq.img
 # imx8mq phanbell
 ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
-TARGET_BOARD_DTS_CONFIG ?= imx8mq:fsl-imx8mq-phanbell-no-product.dtb
+TARGET_BOARD_DTS_CONFIG ?= imx8mq:imx8mq-phanbell-no-product.dtb
 else
-TARGET_BOARD_DTS_CONFIG ?= imx8mq:fsl-imx8mq-phanbell.dtb
+TARGET_BOARD_DTS_CONFIG ?= imx8mq:imx8mq-phanbell.dtb
 endif
 
 BOARD_SEPOLICY_DIRS := \

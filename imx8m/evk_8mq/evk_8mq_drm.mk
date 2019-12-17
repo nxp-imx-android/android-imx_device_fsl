@@ -16,7 +16,7 @@ PRODUCT_COPY_FILES += \
 $(call inherit-product, $(TOPDIR)device/fsl/imx8m/optee-packages.mk)
 $(call inherit-product, $(TOPDIR)$(IMX_DEVICE_PATH)/evk_8mq.mk)
 
-TARGET_KERNEL_DEFCONFIG := android_defconfig
+TARGET_KERNEL_DEFCONFIG := imx_v8_android_defconfig
 
 
 # Overrides
@@ -39,7 +39,7 @@ DECODED_BUFFER_LEN		:= 0x30000000
 endif
 endif
 
-TARGET_BOARD_DTS_CONFIG := imx8mq:fsl-imx8mq-evk-drm.dtb imx8mq-mipi:fsl-imx8mq-evk-lcdif-adv7535.dtb imx8mq-dual:fsl-imx8mq-evk-dual-display.dtb
+TARGET_BOARD_DTS_CONFIG := imx8mq:imx8mq-evk-drm.dtb imx8mq-mipi:imx8mq-evk-lcdif-adv7535.dtb imx8mq-dual:imx8mq-evk-dual-display.dtb
 
 # Exoplayer
 PRODUCT_PACKAGES += \
