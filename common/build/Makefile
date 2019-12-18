@@ -32,4 +32,5 @@ include ${fsl_git_path}/common/build/kernel.mk
 include ${fsl_git_path}/common/build/uboot.mk
 -include ${product_path}/AndroidUboot.mk
 -include ${product_path}/AndroidTee.mk
+-include ${GPU_VIV6_PATH}/gpu-viv6/driver/hal/kernel/galcore.mk
 

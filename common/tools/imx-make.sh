@@ -13,6 +13,7 @@ cat << EOF
            -j[<num>]               specify the number of parallel jobs when build the target, the number after -j should be greater than 0
            bootloader              bootloader will be compiled
            kernel                  kernel, include related dts will be compiled
+           galcore                 galcore.ko in GPU repo will be compiled
            dtboimage               dtbo images will be built out
            bootimage               boot.img will be built out
            vendorimage             vendor.img will be built out
@@ -63,6 +64,7 @@ build_bootloader_kernel_flag=0
 build_android_flag=0
 build_bootloader=""
 build_kernel=""
+build_galcore=""
 build_bootimage=""
 build_dtboimage=""
 build_vendorimage=""
@@ -80,6 +82,8 @@ for arg in ${args[*]} ; do
                     build_bootloader="bootloader";;
         kernel) build_bootloader_kernel_flag=1;
                     build_kernel="${OUT}/kernel";;
+        galcore) build_bootloader_kernel_flag=1;
+                    build_galcore="galcore";;
         bootimage) build_bootloader_kernel_flag=1;
                     build_android_flag=1;
                     build_kernel="${OUT}/kernel";
@@ -116,7 +120,7 @@ fi
 # redirect standard input to /dev/null to avoid manually input in kernel configuration stage
 soc_path=${soc_path} product_path=${product_path} fsl_git_path=${fsl_git_path} clean_build=${clean_build} \
     make -C ./ -f ${fsl_git_path}/common/build/Makefile ${parallel_option} \
-    ${build_bootloader} ${build_kernel} </dev/null || exit
+    ${build_bootloader} ${build_kernel} ${build_galcore} </dev/null || exit
 
 if [ ${build_android_flag} -eq 1 ]; then
     # source envsetup.sh before building Android rootfs, the time spent on building uboot/kernel
