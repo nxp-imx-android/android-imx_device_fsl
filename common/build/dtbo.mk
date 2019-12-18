@@ -39,7 +39,7 @@ $(BOARD_PREBUILT_DTBOIMAGE): $(KERNEL_BIN) $(TARGET_DTB) | $(MKDTIMG) $(AVBTOOL)
 	for dtsplat in $(TARGET_BOARD_DTS_CONFIG); do \
 		DTS_PLATFORM=`echo $$dtsplat | cut -d':' -f1`; \
 		DTB_NAME=`echo $$dtsplat | cut -d':' -f2`; \
-		DTB=`echo $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/arch/$(TARGET_KERNEL_ARCH)/boot/dts/$(DTS_ADDITIONAL_PATH)/$${DTB_NAME}`; \
+		DTB=`echo $(PRODUCT_OUT)/obj/KERNEL_OBJ/arch/$(TARGET_KERNEL_ARCH)/boot/dts/$(DTS_ADDITIONAL_PATH)/$${DTB_NAME}`; \
 		DTBO_IMG=`echo $(PRODUCT_OUT)/dtbo-$${DTS_PLATFORM}.img`; \
 		$(MKDTIMG) create $$DTBO_IMG $$DTB; \
 		$(AVBTOOL) add_hash_footer --image $$DTBO_IMG  \
