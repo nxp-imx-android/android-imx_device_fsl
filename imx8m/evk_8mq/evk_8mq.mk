@@ -272,21 +272,12 @@ PRODUCT_PACKAGES += \
 
 # imx c2 codec binary
 PRODUCT_PACKAGES += \
-    android.hardware.media.c2@1.0-service \
-    libsfplugin_ccodec \
-    lib_imx_c2_componentbase \
+    lib_vpu_wrapper \
     lib_imx_c2_videodec_common \
-    lib_imx_ts_manager \
     lib_imx_c2_videodec \
     lib_imx_c2_vpuwrapper_dec \
-    lib_c2_imx_store \
-    lib_c2_imx_audio_dec_common \
-    lib_c2_imx_aac_dec \
-    lib_c2_imx_ac3_dec \
-    lib_c2_imx_eac3_dec \
-    lib_c2_imx_mp3_dec \
-    lib_c2_imx_ra_dec \
-    lib_c2_imx_wma_dec
+    lib_imx_c2_process \
+    lib_imx_c2_process_dummy_post \
 
 
 # Add oem unlocking option in settings.

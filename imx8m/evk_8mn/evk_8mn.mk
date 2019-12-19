@@ -233,11 +233,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.product.first_api_level=28
 
 PRODUCT_PACKAGES += \
-    libg1 \
-    libhantro \
-    libcodec \
-    libhantro_h1 \
-    libcodec_enc \
     DirectAudioPlayer
 
 # Add oem unlocking option in settings.
