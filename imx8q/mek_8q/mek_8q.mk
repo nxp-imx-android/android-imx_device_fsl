@@ -382,24 +382,6 @@ endif
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.product.first_api_level=28
 
-PRODUCT_PACKAGES += \
-   android.hardware.media.c2@1.0-service \
-    libsfplugin_ccodec \
-    lib_imx_c2_componentbase.so \
-    lib_imx_c2_videodec_base.so \
-    lib_imx_c2_videodec_common.so \
-    lib_imx_v4l2_dev.so \
-    lib_imx_c2_v4l2_dec.so \
-    lib_c2_imx_store.so \
-    lib_c2_imx_audio_dec_common.so \
-    lib_c2_imx_aac_dec.so \
-    lib_c2_imx_ac3_dec.so \
-    lib_c2_imx_ddp_dec.so \
-    lib_c2_imx_mp3_dec.so \
-    lib_c2_imx_ra_dec.so \
-    lib_c2_imx_wma_dec.so
-
-
 ifneq ($(PRODUCT_IMX_CAR),true)
 # Tensorflow lite camera demo
 PRODUCT_PACKAGES += \
