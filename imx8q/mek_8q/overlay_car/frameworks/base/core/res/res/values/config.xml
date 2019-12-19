@@ -33,6 +33,9 @@
         com.android.example/com.android.example.SecondaryDisplayFixedLauncher</string>
     <!-- Handle volume keys directly in Window Manager without passing them to the foreground app -->
     <bool name="config_handleVolumeKeysInWindowManager">true</bool>
+    <!-- If this is true, notification effects will be played by the notification server.
+         When false, car notification effects will be handled elsewhere. -->
+    <bool name="config_enableServerNotificationEffectsForAutomotive">true</bool>
 
     <!-- Whether the device supports quick settings and its associated APIs -->
     <bool name="config_quickSettingsSupported">false</bool>
