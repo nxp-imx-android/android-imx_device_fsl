@@ -86,7 +86,7 @@ TARGET_USES_MKE2FS := true
 # define frame buffer count
 NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
 
-# Density is set in u-boot, default density for 1G DDR AIY is 160 tvdpi, other platform is 213 tvdpi.
+# Density is set in u-boot, default density for 1G DDR AIY is 160, other platform is 240.
 BOARD_KERNEL_CMDLINE := init=/init androidboot.gui_resolution=1080p androidboot.console=ttymxc0 androidboot.hardware=freescale androidboot.fbTileSupport=enable androidboot.primary_display=imx-drm firmware_class.path=/vendor/firmware transparent_hugepage=never loop.max_part=7
 
 # Default wificountrycode
