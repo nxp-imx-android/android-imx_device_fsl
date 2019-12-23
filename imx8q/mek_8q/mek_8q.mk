@@ -207,8 +207,6 @@ PRODUCT_PACKAGES += \
     android.hardware.audio@4.0-impl:32 \
     android.hardware.audio@2.0-service \
     android.hardware.audio.effect@4.0-impl:32 \
-    android.hardware.sensors@1.0-impl \
-    android.hardware.sensors@1.0-service \
     android.hardware.power@1.0-impl \
     android.hardware.power@1.0-service \
     android.hardware.light@2.0-impl \
@@ -216,13 +214,17 @@ PRODUCT_PACKAGES += \
     android.hardware.configstore@1.1-service \
     configstore@1.1.policy
 
+ifneq ($(PRODUCT_IMX_CAR),true)
+# imx8 sensor HAL
+PRODUCT_PACKAGES += \
+    sensors.imx8 \
+    android.hardware.sensors@1.0-impl \
+    android.hardware.sensors@1.0-service
+endif
+
 # Neural Network HAL
 PRODUCT_PACKAGES += \
     android.hardware.neuralnetworks@1.0-service-imx-nn
-
-# imx8 sensor HAL libs.
-PRODUCT_PACKAGES += \
-        sensors.imx8
 
 # Usb HAL
 PRODUCT_PACKAGES += \
