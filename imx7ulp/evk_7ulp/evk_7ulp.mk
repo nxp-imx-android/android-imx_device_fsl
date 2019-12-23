@@ -110,7 +110,7 @@ DEVICE_PACKAGE_OVERLAYS := $(IMX_DEVICE_PATH)/overlay
 
 PRODUCT_CHARACTERISTICS := tablet
 
-PRODUCT_AAPT_CONFIG += xlarge large tvdpi hdpi xhdpi
+PRODUCT_AAPT_CONFIG += xlarge large tvdpi hdpi xhdpi xxhdpi
 PRODUCT_CUSTOM_RECOVERY_DENSITY := mdpi
 
 PRODUCT_PACKAGES += \
