@@ -9,15 +9,15 @@
 	<display name="port:2"
 		shouldShowSystemDecors="true"
 		shouldShowIme="true"
-		forcedDensity="213" />
+		forcedDensity="240" />
 	<!-- Repeat for second rear seat at port 3 -->
 	<display name="port:3"
 		shouldShowSystemDecors="true"
 		shouldShowIme="true"
-		forcedDensity="213" />
+		forcedDensity="240" />
 	<!-- Repeat for second rear seat at port 3 -->
 	<display name="port:4"
 		shouldShowSystemDecors="true"
 		shouldShowIme="true"
-		forcedDensity="213" />
+		forcedDensity="240" />
 </display-settings>

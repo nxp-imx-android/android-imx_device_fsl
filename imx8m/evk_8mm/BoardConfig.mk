@@ -124,8 +124,8 @@ else
 BOARD_KERNEL_CMDLINE := init=/init androidboot.console=ttymxc1 androidboot.hardware=freescale cma=$(CMASIZE)@0x400M-0xb80M androidboot.primary_display=imx-drm firmware_class.path=/vendor/firmware transparent_hugepage=never loop.max_part=7
 endif
 
-# Set the density to 213 tvdpi to match CDD.
-BOARD_KERNEL_CMDLINE += androidboot.lcd_density=213
+# Set the density to 240 to match CDD.
+BOARD_KERNEL_CMDLINE += androidboot.lcd_density=240
 
 # Default wificountrycode
 BOARD_KERNEL_CMDLINE += androidboot.wificountrycode=CN
