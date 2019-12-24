@@ -155,7 +155,21 @@ PRODUCT_PACKAGES += \
     libOpenCL \
     libg2d-opencl \
     libg2d-viv \
+    libOpenVX \
+    libOpenVXU \
+    libNNVXCBinary-evis \
+    libNNVXCBinary-lite \
+    libOvx12VXCBinary-evis \
+    libOvx12VXCBinary-lite \
+    libNNGPUBinary-evis \
+    libNNGPUBinary-lite \
     gatekeeper.imx8
+
+# Neural Network HAL and Lib
+PRODUCT_PACKAGES += \
+    libovxlib \
+    libnnrt \
+    android.hardware.neuralnetworks@1.2-service-vsi-npu-server
 
 PRODUCT_PACKAGES += \
     android.hardware.audio@5.0-impl:32 \
@@ -234,6 +248,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 PRODUCT_PACKAGES += \
     DirectAudioPlayer
+
+# Tensorflow lite camera demo
+PRODUCT_PACKAGES += \
+                    tflitecamerademo
 
 # Add oem unlocking option in settings.
 PRODUCT_PROPERTY_OVERRIDES += ro.frp.pst=/dev/block/by-name/presistdata
