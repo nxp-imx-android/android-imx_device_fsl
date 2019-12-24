@@ -20,18 +20,7 @@ PRODUCT_COPY_FILES += \
 
 # Add Google prebuilt services
 PRODUCT_PACKAGES += \
-    GoogleSearchEmbedded \
-    GoogleDemandspace \
-    GoogleMaps \
-    GooglePlayStore \
-    GoogleGmscore_demo \
-    GoogleServicesFramework_demo \
-    GoogleLoginService_demo \
-    GoogleExtServices_demo \
-    GoogleExtShared_demo \
-    GooglePartnerSetup_demo \
     HeadUnit \
-    privapp_permissions_google_auto
 
 # Add Car related HAL
 PRODUCT_PACKAGES += \
