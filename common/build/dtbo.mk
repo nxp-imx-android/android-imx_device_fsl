@@ -28,12 +28,13 @@ $(error kernel arch not supported at present)
 endif
 
 MKDTIMG := $(HOST_OUT_EXECUTABLES)/mkdtimg
-DTS_PATH := $(TARGET_KERNEL_SRC)/arch/$(KERNEL_SRC_ARCH)/boot/dts/$(DTS_ADDITIONAL_PATH)/
-DTS_SRC :=
-$(foreach dts_config,$(TARGET_BOARD_DTS_CONFIG), \
-    $(eval DTS_SRC += $(addprefix $(DTS_PATH),$(shell echo ${dts_config} | cut -d':' -f2 | sed 's/dtb/dts/g' ))))
+DTB_OUT_PATH := $(PRODUCT_OUT)/obj/KERNEL_OBJ/arch/$(TARGET_KERNEL_ARCH)/boot/dts/$(DTS_ADDITIONAL_PATH)/
 
-$(BOARD_PREBUILT_DTBOIMAGE): $(KERNEL_BIN) $(DTS_SRC) | $(MKDTIMG) $(AVBTOOL)
+TARGET_DTB :=
+$(foreach dts_config,$(TARGET_BOARD_DTS_CONFIG), \
+	$(eval TARGET_DTB += $(addprefix $(DTB_OUT_PATH),$(shell echo ${dts_config} | cut -d':' -f2))))
+
+$(BOARD_PREBUILT_DTBOIMAGE): $(KERNEL_BIN) $(TARGET_DTB) | $(MKDTIMG) $(AVBTOOL)
 	$(hide) echo "Building $(KERNEL_ARCH) dtbo ..."
 	for dtsplat in $(TARGET_BOARD_DTS_CONFIG); do \
 		DTS_PLATFORM=`echo $$dtsplat | cut -d':' -f1`; \
