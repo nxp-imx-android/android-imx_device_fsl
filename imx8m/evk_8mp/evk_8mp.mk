@@ -153,6 +153,18 @@ PRODUCT_PACKAGES += \
     libOpenCL \
     libg2d-opencl \
     libg2d-viv \
+    libOpenVX \
+    libOpenVXU \
+    libNNVXCBinary-evis \
+    libNNVXCBinary-evis2 \
+    libNNVXCBinary-lite \
+    libOvx12VXCBinary-evis \
+    libOvx12VXCBinary-evis2 \
+    libOvx12VXCBinary-lite \
+    libNNGPUBinary-evis \
+    libNNGPUBinary-evis2 \
+    libNNGPUBinary-lite \
+    libNNGPUBinary-ulite \
     gatekeeper.imx8
 
 PRODUCT_PACKAGES += \
@@ -170,6 +182,12 @@ PRODUCT_PACKAGES += \
     android.hardware.thermal@2.0-service.imx
 PRODUCT_COPY_FILES += \
     device/fsl/imx8m/evk_8mp/thermal_info_config_imx8mp.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/thermal_info_config_imx8mp.json
+
+# Neural Network HAL and lib
+PRODUCT_PACKAGES += \
+    libovxlib \
+    libnnrt \
+    android.hardware.neuralnetworks@1.2-service-vsi-npu-server
 
 # Usb HAL
 PRODUCT_PACKAGES += \
@@ -232,6 +250,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 PRODUCT_PACKAGES += \
     DirectAudioPlayer
+
+# Tensorflow lite camera demo
+PRODUCT_PACKAGES += \
+                    tflitecamerademo
 
 # Add oem unlocking option in settings.
 PRODUCT_PROPERTY_OVERRIDES += ro.frp.pst=/dev/block/by-name/presistdata
