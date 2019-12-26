@@ -174,9 +174,6 @@ PRODUCT_PACKAGES += \
     android.hardware.gatekeeper@1.0-impl \
     android.hardware.gatekeeper@1.0-service
 
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.internel.storage_size=/sys/block/mmcblk0/size
-
 PRODUCT_PROPERTY_OVERRIDES += ro.frp.pst=/dev/block/by-name/presistdata
 PRODUCT_COMPATIBLE_PROPERTY_OVERRIDE := true
 
