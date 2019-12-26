@@ -226,8 +226,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.dumpstate@1.0-service.imx
 
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.internel.storage_size=/sys/block/mmcblk0/size
 PRODUCT_COMPATIBLE_PROPERTY_OVERRIDE := true
 
 PRODUCT_PROPERTY_OVERRIDES += \
