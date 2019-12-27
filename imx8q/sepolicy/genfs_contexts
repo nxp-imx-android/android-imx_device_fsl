@@ -4,10 +4,12 @@ genfscon sysfs /class/typec                                             u:object
 genfscon sysfs /devices/virtual/power_supply/usb                  u:object_r:sysfs_batteryinfo:s0
 genfscon sysfs /devices/virtual/power_supply/battery              u:object_r:sysfs_batteryinfo:s0
 genfscon sysfs /devices/platform/rtc/rtc/rtc0/hctosys             u:object_r:sysfs_rtc:s0
+genfscon sysfs /devices/platform/scu/scu:rtc/rtc/rtc0/hctosys     u:object_r:sysfs_rtc:s0
 genfscon sysfs /devices/platform/sound/extcon                     u:object_r:sysfs_extcon:s0
 genfscon sysfs /devices/platform/56268000.hdmi/extcon             u:object_r:sysfs_extcon:s0
 genfscon debugfs /dma_buf u:object_r:debugfs_dma:s0
 genfscon debugfs /sync/sw_sync u:object_r:debugfs_sw_sync:s0
+genfscon sysfs /devices/soc0   u:object_r:sysfs_soc:s0
 
 #mek_8q ethernet
 genfscon sysfs /devices/platform/5b040000.ethernet/net  u:object_r:sysfs_net:s0
