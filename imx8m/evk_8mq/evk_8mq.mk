@@ -281,6 +281,7 @@ PRODUCT_PACKAGES += \
 
 # Multi-Display launcher
 PRODUCT_PACKAGES += \
+    MultiClientInputMethod \
     MultiDisplay
 
 # Specify rollback index for bootloader and for AVB
