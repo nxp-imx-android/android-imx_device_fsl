@@ -191,4 +191,6 @@
     <!-- Boolean indicating whether system support sustained performance mode. -->
     <bool name="config_sustainedPerformanceModeSupported">true</bool>
 
+    <!-- If the system has the input method for each display - enable per-display focus. -->
+    <bool name="config_perDisplayFocusEnabled">true</bool>
 </resources>
