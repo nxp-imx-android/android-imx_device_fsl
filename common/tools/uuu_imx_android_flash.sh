@@ -7,7 +7,7 @@ cat << EOF
 
 Version: 1.6
 Last change: remove "-tos" and "-dboot" option, add "-u" option to specify which uboot or spl&bootloader image to flash
-currently suported platforms: evk_7ulp, evk_8mm, evk_8mq, evk_8mn, aiy_8mq, mek_8q, mek_8q_car
+currently suported platforms: evk_7ulp, evk_8mm, evk_8mq, evk_8mn, aiy_8mq, evk_8mp, mek_8q, mek_8q_car
 
 eg: ./uuu_imx_android_flash.sh -f imx8qm -a -e -D ~/android10/mek_8q/ -t emmc -u trusty -d mipi-panel
 
@@ -40,6 +40,8 @@ options:
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                            │   imx8mq       │  dual trusty-dual evk-uuu trusty-secure-unlock trusty aiy-uuu                                        │
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
+                           │   imx8mp       │  evk-uuu                                                                                             │
+                           ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                            │   imx8qxp      │  mek-uuu trusty-secure-unlock trusty secure-unlock                                                   │
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                            │   imx8qm       │  mek-uuu trusty-secure-unlock trusty secure-unlock md                                                │
@@ -58,6 +60,8 @@ options:
                            │   imx8mn       │  mipi-panel rpmsg                                                                                    │
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                            │   imx8mq       │  dual mipi-panel mipi                                                                                │
+                           ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
+                           │   imx8mp       │                                                                                                      │
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                            │   imx8qxp      │                                                                                                      │
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
@@ -107,7 +111,7 @@ function whether_in_array
 
 function uuu_load_uboot
 {
-    echo uuu_version 1.3.74 > /tmp/uuu.lst
+    echo uuu_version 1.3.124 > /tmp/uuu.lst
     rm -f /tmp/${bootloader_used_by_uuu}
     ln -s ${sym_link_directory}${bootloader_used_by_uuu} /tmp/${bootloader_used_by_uuu}
     echo ${sdp}: boot -f ${bootloader_used_by_uuu} >> /tmp/uuu.lst
@@ -346,7 +350,7 @@ imx8qm_dtb_feature=(hdmi mipi-panel md xen)
 imx7ulp_dtb_feature=(evk-mipi evk mipi)
 
 
-echo -e This script is validated with ${RED}uuu 1.3.74${STD} version, please align with this version.
+echo -e This script is validated with ${RED}uuu 1.3.124${STD} version, please align with this version.
 
 if [ $# -eq 0 ]; then
     echo -e >&2 ${RED}please provide more information with command script options${STD}
@@ -499,6 +503,11 @@ case ${soc_name%%-*} in
             uboot_env_start=0x2000; uboot_env_len=0x8;
             emmc_num=2; sd_num=1;
             board=evk ;;
+    imx8mp)
+            vid=0x1fc9; pid=0x0146; chip=MX8MP;
+            uboot_env_start=0x2000; uboot_env_len=0x8;
+            emmc_num=2; sd_num=1;
+            board=evk ;;
     imx7ulp)
             vid=0x1fc9; pid=0x0126; chip=MX7ULP;
             uboot_env_start=0x700; uboot_env_len=0x10;
@@ -583,7 +592,7 @@ if [ -n "${dtb_feature}" ]; then
 fi
 
 # set sdp command name based on soc_name
-if [[ ${soc_name#imx8q} != ${soc_name} ]] || [[ ${soc_name} == "imx8mn" ]]; then
+if [[ ${soc_name#imx8q} != ${soc_name} ]] || [[ ${soc_name} == "imx8mn" ]] || [[ ${soc_name} == "imx8mp" ]]; then
     sdp="SDPS"
 fi
 
