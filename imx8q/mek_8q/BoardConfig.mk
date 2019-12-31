@@ -7,6 +7,9 @@ IMX_DEVICE_PATH := device/fsl/imx8q/mek_8q
 ifeq ($(PRODUCT_IMX_CAR),true)
   AB_OTA_PARTITIONS += bootloader
   BOARD_OTA_BOOTLOADERIMAGE := out/target/product/mek_8q/obj/UBOOT_COLLECTION/bootloader-imx8qm.img
+  ifeq ($(OTA_TARGET),8qxp)
+    BOARD_OTA_BOOTLOADERIMAGE := out/target/product/mek_8q/obj/UBOOT_COLLECTION/bootloader-imx8qxp.img
+  endif
 endif
 
 include device/fsl/imx8q/BoardConfigCommon.mk
@@ -114,6 +117,10 @@ endif
 endif
 
 BOARD_PREBUILT_DTBOIMAGE := out/target/product/mek_8q/dtbo-imx8qm.img
+ifeq ($(OTA_TARGET),8qxp)
+BOARD_PREBUILT_DTBOIMAGE := out/target/product/mek_8q/dtbo-imx8qxp.img
+endif
+
 ifeq ($(PRODUCT_IMX_CAR),true)
   ifeq ($(PRODUCT_IMX_CAR_M4),true)
     ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
