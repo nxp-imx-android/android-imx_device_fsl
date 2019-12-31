@@ -2,6 +2,7 @@
 /dev/mxc_hdmi                   u:object_r:video_device:s0
 /dev/mxc_hantro                 u:object_r:video_device:s0
 /dev/mxc_hantro_h1              u:object_r:video_device:s0
+/dev/mxc_hantro_vc8000e         u:object_r:video_device:s0
 /dev/mxc_vpu_malone             u:object_r:video_device:s0
 /dev/mxc_hifi4                  u:object_r:audio_device:s0
 /dev/galcore                    u:object_r:gpu_device:s0

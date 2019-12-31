@@ -4,7 +4,8 @@
 
 BOARD_SOC_TYPE := IMX8MP
 BOARD_TYPE := EVK
-BOARD_HAVE_VPU := false
+BOARD_HAVE_VPU := true
+BOARD_VPU_TYPE := hantro
 HAVE_FSL_IMX_GPU2D := false
 HAVE_FSL_IMX_GPU3D := true
 HAVE_FSL_IMX_IPU := false
@@ -19,10 +20,12 @@ TARGET_HAVE_VULKAN := true
 ENABLE_CFI=false
 
 SOONG_CONFIG_IMXPLUGIN += \
-                        BOARD_HAVE_VPU
+                        BOARD_HAVE_VPU \
+                        BOARD_VPU_TYPE
 
 SOONG_CONFIG_IMXPLUGIN_BOARD_SOC_TYPE = IMX8MP
-SOONG_CONFIG_IMXPLUGIN_BOARD_HAVE_VPU = false
+SOONG_CONFIG_IMXPLUGIN_BOARD_HAVE_VPU = true
+SOONG_CONFIG_IMXPLUGIN_BOARD_VPU_TYPE = hantro
 
 #
 # Product-specific compile-time definitions.
