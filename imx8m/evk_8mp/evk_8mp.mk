@@ -249,6 +249,25 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.product.first_api_level=28
 
 PRODUCT_PACKAGES += \
+    libg1 \
+    libhantro \
+    libcodec \
+    libhantro_vc8000e
+
+# imx c2 codec binary
+PRODUCT_PACKAGES += \
+    lib_vpu_wrapper \
+    lib_imx_c2_videodec_common \
+    lib_imx_c2_videodec \
+    lib_imx_c2_vpuwrapper_dec \
+    lib_imx_c2_videoenc_common \
+    lib_imx_c2_videoenc \
+    lib_imx_c2_vpuwrapper_enc \
+    lib_imx_c2_process \
+    lib_imx_c2_process_dummy_post \
+    lib_imx_c2_process_g2d_pre
+
+PRODUCT_PACKAGES += \
     DirectAudioPlayer
 
 # Tensorflow lite camera demo
