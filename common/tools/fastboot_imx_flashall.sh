@@ -38,6 +38,8 @@ options:
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                            │   imx8mn       │  dual trusty-dual evk-uuu trusty-secure-unlock trusty                                                │
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
+                           │   imx8mp       │  evk-uuu                                                                                             │
+                           ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                            │   imx8mq       │  dual trusty-dual evk-uuu trusty-secure-unlock trusty aiy-uuu                                        │
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                            │   imx8qxp      │  mek-uuu trusty-secure-unlock trusty secure-unlock                                                   │
@@ -58,6 +60,8 @@ options:
                            │   imx8mn       │  mipi-panel rpmsg                                                                                    │
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                            │   imx8mq       │  dual mipi-panel mipi                                                                                │
+                           ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
+                           │   imx8mp       │                                                                                                      │
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                            │   imx8qxp      │                                                                                                      │
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
@@ -277,6 +281,7 @@ GREEN='\033[0;32m'
 imx8mm_uboot_feature=(dual trusty-dual 4g-evk-uuu 4g ddr4-evk-uuu ddr4 evk-uuu trusty-4g trusty-secure-unlock trusty)
 imx8mn_uboot_feature=(dual trusty-dual evk-uuu trusty-secure-unlock trusty)
 imx8mq_uboot_feature=(dual trusty-dual evk-uuu trusty-secure-unlock trusty aiy-uuu)
+imx8mp_uboot_feature=(evk-uuu)
 imx8qxp_uboot_feature=(mek-uuu trusty-secure-unlock trusty secure-unlock)
 imx8qm_uboot_feature=(mek-uuu trusty-secure-unlock trusty secure-unlock md)
 imx7ulp_uboot_feature=(evk-uuu)
@@ -284,12 +289,13 @@ imx7ulp_uboot_feature=(evk-uuu)
 imx8mm_dtb_feature=(ddr4 m4 mipi-panel)
 imx8mn_dtb_feature=(mipi-panel rpmsg)
 imx8mq_dtb_feature=(dual mipi-panel mipi)
+imx8mp_dtb_feature=()
 imx8qxp_dtb_feature=()
 imx8qm_dtb_feature=(hdmi mipi-panel md xen)
 imx7ulp_dtb_feature=(evk-mipi evk mipi)
 
 # an array to collect the supported soc_names
-supported_soc_names=(imx8qm imx8qxp imx8mq imx8mm imx8mn imx7ulp)
+supported_soc_names=(imx8qm imx8qxp imx8mq imx8mm imx8mn imx8mp imx7ulp)
 
 if [ $# -eq 0 ]; then
     echo -e ${RED}no parameter specified, will directly exit after displaying help message${STD}
