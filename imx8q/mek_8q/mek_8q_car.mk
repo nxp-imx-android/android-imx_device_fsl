@@ -21,6 +21,7 @@ PRODUCT_COPY_FILES += \
 # Add Google prebuilt services
 PRODUCT_PACKAGES += \
     HeadUnit \
+    privapp_permissions_google_auto
 
 # Add Car related HAL
 PRODUCT_PACKAGES += \
