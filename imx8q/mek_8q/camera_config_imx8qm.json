@@ -10,7 +10,7 @@
   "camera_metadata": [
     {
       "camera_type": "back",
-      "camera_name": "imx8_ov5640",
+      "camera_name": "mxc-isi-cap",
       "orientation": "0",
       "buffer_type": "dma",
       "ActiveArrayWidth": "2592",
@@ -33,7 +33,7 @@
     },
     {
       "camera_type": "front",
-      "camera_name": "imx8_ov5640",
+      "camera_name": "mxc-isi-cap",
       "orientation": "0",
       "buffer_type": "dma",
       "ActiveArrayWidth": "2592",
