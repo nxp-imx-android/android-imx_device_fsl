@@ -12,9 +12,3 @@
 /dev/watchdog             0660   system     root
 /dev/mmcblk2rpmb    0600   system     system
 /dev/trusty-ipc-dev0      0660   system     drmrpc
-
-/sys/devices/virtual/thermal/thermal_zone* trip_point_0_temp 0660 system system
-/sys/devices/virtual/thermal/thermal_zone* trip_point_1_temp 0660 system system
-
-/sys/devices/virtual/thermal/thermal_zone* trip_point_0_hyst 0660 system system
-/sys/devices/virtual/thermal/thermal_zone* trip_point_1_hyst 0660 system system

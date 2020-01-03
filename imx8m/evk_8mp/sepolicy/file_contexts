@@ -31,6 +31,3 @@
 /dev/FreescaleMagnetometer      u:object_r:sensors_device:s0
 /dev/FreescaleGyroscope         u:object_r:sensors_device:s0
 /dev/sda[0-8]*                  u:object_r:fuse:s0
-
-#Thermal HAL service
-/vendor/bin/hw/android\.hardware\.thermal@2\.0-service.imx         u:object_r:hal_thermal_default_exec:s0
