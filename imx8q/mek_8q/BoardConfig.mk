@@ -146,10 +146,17 @@ ifeq ($(PRODUCT_IMX_CAR),true)
       TARGET_BOARD_DTS_CONFIG := imx8qm:imx8qm-mek-car-no-product.dtb
       TARGET_BOARD_DTS_CONFIG += imx8qxp:imx8qxp-mek-car-no-product.dtb
     else
-      # imx8qm auto android
-      TARGET_BOARD_DTS_CONFIG := imx8qm:imx8qm-mek-car.dtb
-      # imx8qm auto android with multi-display
-      TARGET_BOARD_DTS_CONFIG += imx8qm-md:imx8qm-mek-car-md.dtb
+      ifeq ($(IMX8QM_A72_BOOT),true)
+        # imx8qm auto android, A72 boot
+        TARGET_BOARD_DTS_CONFIG := imx8qm:imx8qm-mek-car-a72.dtb
+        # imx8qm auto android with multi-display, A72 boot
+        TARGET_BOARD_DTS_CONFIG += imx8qm-md:imx8qm-mek-car-md-a72.dtb
+      else
+        # imx8qm auto android
+        TARGET_BOARD_DTS_CONFIG := imx8qm:imx8qm-mek-car.dtb
+        # imx8qm auto android with multi-display
+        TARGET_BOARD_DTS_CONFIG += imx8qm-md:imx8qm-mek-car-md.dtb
+      endif
       # imx8qm auto android virtualization
       TARGET_BOARD_DTS_CONFIG += imx8qm-xen:imx8qm-mek-domu-car.dtb
       # imx8qxp auto android
@@ -160,10 +167,17 @@ ifeq ($(PRODUCT_IMX_CAR),true)
       TARGET_BOARD_DTS_CONFIG := imx8qm:imx8qm-mek-car2-no-product.dtb
       TARGET_BOARD_DTS_CONFIG += imx8qxp:imx8qxp-mek-car2-no-product.dtb
     else
-      # imx8qm auto android without m4 image
-      TARGET_BOARD_DTS_CONFIG := imx8qm:imx8qm-mek-car2.dtb
-      # imx8qm auto android without m4 image for multi-display
-      TARGET_BOARD_DTS_CONFIG += imx8qm-md:imx8qm-mek-car2-md.dtb
+      ifeq ($(IMX8QM_A72_BOOT),true)
+        # imx8qm auto android without m4 image, A72 boot
+        TARGET_BOARD_DTS_CONFIG := imx8qm:imx8qm-mek-car2-a72.dtb
+        # imx8qm auto android without m4 image for multi-display, A72 boot
+        TARGET_BOARD_DTS_CONFIG += imx8qm-md:imx8qm-mek-car2-md-a72.dtb
+      else
+        # imx8qm auto android without m4 image
+        TARGET_BOARD_DTS_CONFIG := imx8qm:imx8qm-mek-car2.dtb
+        # imx8qm auto android without m4 image for multi-display
+        TARGET_BOARD_DTS_CONFIG += imx8qm-md:imx8qm-mek-car2-md.dtb
+      endif
       # imx8qxp auto android without m4 image
       TARGET_BOARD_DTS_CONFIG += imx8qxp:imx8qxp-mek-car2.dtb
     endif #IMX_NO_PRODUCT_PARTITION
