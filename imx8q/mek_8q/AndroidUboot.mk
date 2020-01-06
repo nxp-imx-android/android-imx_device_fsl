@@ -12,14 +12,19 @@ MCU_SDK_IMX8QM_DEMO_PATH := $(IMX_MCU_SDK_PATH)/mcu-sdk-auto/SDK_MEK-MIMX8QM/boa
 MCU_SDK_IMX8QM_CMAKE_FILE := ../../../../../../tools/cmake_toolchain_files/armgcc.cmake
 MCU_SDK_IMX8QX_DEMO_PATH := $(IMX_MCU_SDK_PATH)/mcu-sdk-auto/SDK_MEK-MIMX8QX/boards/mekmimx8qx/demo_apps/rear_view_camera/armgcc
 MCU_SDK_IMX8QX_CMAKE_FILE := ../../../../../tools/cmake_toolchain_files/armgcc.cmake
+ifeq ($(IMX8QM_A72_BOOT),true)
+MCU_SDK_IMX8QM_EXTRA_CONFIG := -DCMAKE_BOOT_FROM_A72=ON
+else
+MCU_SDK_IMX8QM_EXTRA_CONFIG :=
+endif
+MCU_SDK_IMX8QX_EXTRA_CONFIG :=
 
 UBOOT_M4_OUT := $(TARGET_OUT_INTERMEDIATES)/MCU_OBJ
 UBOOT_M4_BUILD_TYPE := ddr_release
 
-
 define build_m4_image_core
 	mkdir -p $(UBOOT_M4_OUT)/$2; \
-	/usr/local/bin/cmake -DCMAKE_TOOLCHAIN_FILE="$4" -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=$3 -S $1 -B $(UBOOT_M4_OUT)/$2 1>/dev/null; \
+	/usr/local/bin/cmake -DCMAKE_TOOLCHAIN_FILE="$4" -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=$3 $5 -S $1 -B $(UBOOT_M4_OUT)/$2 1>/dev/null; \
 	$(MAKE) -C $(UBOOT_M4_OUT)/$2 1>/dev/null
 endef
 
@@ -37,8 +42,8 @@ define build_m4_image
 		echo "please upgrade cmake version to 3.13.0 or newer"; \
 		exit 1; \
 	fi; \
-	$(call build_m4_image_core,$(MCU_SDK_IMX8QM_DEMO_PATH),MIMX8QM,$(UBOOT_M4_BUILD_TYPE),$(MCU_SDK_IMX8QM_CMAKE_FILE)); \
-	$(call build_m4_image_core,$(MCU_SDK_IMX8QX_DEMO_PATH),MIMX8QX,$(UBOOT_M4_BUILD_TYPE),$(MCU_SDK_IMX8QX_CMAKE_FILE))
+	$(call build_m4_image_core,$(MCU_SDK_IMX8QM_DEMO_PATH),MIMX8QM,$(UBOOT_M4_BUILD_TYPE),$(MCU_SDK_IMX8QM_CMAKE_FILE),$(MCU_SDK_IMX8QM_EXTRA_CONFIG)); \
+	$(call build_m4_image_core,$(MCU_SDK_IMX8QX_DEMO_PATH),MIMX8QX,$(UBOOT_M4_BUILD_TYPE),$(MCU_SDK_IMX8QX_CMAKE_FILE),$(MCU_SDK_IMX8QX_EXTRA_CONFIG))
 endef
 else
 define build_m4_image
@@ -65,11 +70,17 @@ define build_imx_uboot
 		cp $(FSL_PROPRIETARY_PATH)/linux-firmware-imx/firmware/hdmi/cadence/hdmirxfw.bin $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/hdmirxfw.bin; \
 		if [ "$(PRODUCT_IMX_CAR)" = "true" ] && [ `echo $(2) | rev | cut -d '-' -f1` != "uuu" ]; then \
 			if [ "$(PRODUCT_IMX_CAR_M4)" = "true" ] ; then \
-				FLASH_TARGET=`echo flash_b0_spl_container_m4_1_trusty`;  \
+				if [ "$(IMX8QM_A72_BOOT)" = "true" ] ; then \
+					FLASH_TARGET=`echo flash_b0_spl_container_m4_1_trusty_a72`;  \
+				else \
+					FLASH_TARGET=`echo flash_b0_spl_container_m4_1_trusty`;  \
+				fi; \
 				if [ -f $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/m4_1_image.bin ]; then \
 					rm -f $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/m4_1_image.bin; \
 				fi; \
 				cp  $(UBOOT_M4_OUT)/MIMX8QM/$(UBOOT_M4_BUILD_TYPE)/m4_image.bin $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/m4_1_image.bin; \
+			elif [ "$(IMX8QM_A72_BOOT)" = "true" ] ; then \
+				FLASH_TARGET=`echo flash_b0_spl_container_m4_0_1_trusty_a72`;  \
 			fi; \
 			if [ `echo $(2) | cut -d '-' -f2` != "md" ]; then \
 				rm -f $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/hdmitxfw.bin; \
@@ -120,7 +131,11 @@ define build_imx_uboot
 		cp  $(FSL_PROPRIETARY_PATH)/fsl-proprietary/uboot-firmware/imx8q/mx$$SCFW_PLATFORM-scfw-tcm.bin $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/scfw_tcm.bin; \
 	fi; \
 	if [ "$(PRODUCT_IMX_CAR)" = "true" -a  `echo $(2) | rev | cut -d '-' -f1` != "uuu" -o `echo $(2) | cut -d '-' -f2` = "trusty" ]; then \
-		cp  $(FSL_PROPRIETARY_PATH)/fsl-proprietary/uboot-firmware/imx8q_car/tee-imx$$SCFW_PLATFORM.bin $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/tee.bin; \
+		if [ `echo $(2) | cut -d '-' -f1` = "imx8qm" ] && [ "$(IMX8QM_A72_BOOT)" = "true" ]; then \
+			cp  $(FSL_PROPRIETARY_PATH)/fsl-proprietary/uboot-firmware/imx8q_car/tee-imx$$SCFW_PLATFORM-a72.bin $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/tee.bin; \
+		else \
+			cp  $(FSL_PROPRIETARY_PATH)/fsl-proprietary/uboot-firmware/imx8q_car/tee-imx$$SCFW_PLATFORM.bin $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/tee.bin; \
+		fi; \
 	else \
 		if [ -f $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/tee.bin ]; then \
 			rm -f $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/tee.bin; \
