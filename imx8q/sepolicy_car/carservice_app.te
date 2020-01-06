@@ -1,3 +1,5 @@
 get_prop(carservice_app, vendor_default_prop)
 
 allow carservice_app sysfs:file { getattr };
+allow carservice_app carservice_app:netlink_route_socket  { read create write nlmsg_read };
+allow carservice_app carservice_app:udp_socket  { create ioctl };
