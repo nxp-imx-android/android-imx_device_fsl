@@ -9,6 +9,7 @@ ifeq ($(PRODUCT_IMX_CAR),true)
     TARGET_BOOTLOADER_CONFIG += imx8qm-secure-unlock:imx8qm_mek_androidauto_trusty_secure_unlock_defconfig
     # u-boot target for imx8qxp_mek auto android
     TARGET_BOOTLOADER_CONFIG += imx8qxp:imx8qxp_mek_androidauto_trusty_defconfig
+    TARGET_BOOTLOADER_CONFIG += imx8qxp-c0:imx8qxp_mek_androidauto_trusty_defconfig
     # imx8qxp auto android with secure unlock feature enabled
     TARGET_BOOTLOADER_CONFIG += imx8qxp-secure-unlock:imx8qxp_mek_androidauto_trusty_secure_unlock_defconfig
   else
@@ -20,12 +21,14 @@ ifeq ($(PRODUCT_IMX_CAR),true)
     endif
     # u-boot target for imx8qxp_mek auto android
     TARGET_BOOTLOADER_CONFIG += imx8qxp:imx8qxp_mek_androidauto2_trusty_defconfig
+    TARGET_BOOTLOADER_CONFIG += imx8qxp-c0:imx8qxp_mek_androidauto2_trusty_defconfig
   endif #PRODUCT_IMX_CAR_M4
 else
   # u-boot target for imx8qm_mek standard android
   TARGET_BOOTLOADER_CONFIG := imx8qm:imx8qm_mek_android_defconfig
   # u-boot target for imx8qxp_mek standard android
   TARGET_BOOTLOADER_CONFIG += imx8qxp:imx8qxp_mek_android_defconfig
+  TARGET_BOOTLOADER_CONFIG += imx8qxp-c0:imx8qxp_mek_android_defconfig
 
   ifeq ($(PRODUCT_IMX_TRUSTY),true)
     # u-boot target for imx8qm_mek standard android with trusty support
@@ -33,6 +36,7 @@ else
     TARGET_BOOTLOADER_CONFIG += imx8qm-trusty-secure-unlock:imx8qm_mek_android_trusty_secure_unlock_defconfig
     # u-boot target for imx8qxp_mek standard android with trusty support
     TARGET_BOOTLOADER_CONFIG += imx8qxp-trusty:imx8qxp_mek_android_trusty_defconfig
+    TARGET_BOOTLOADER_CONFIG += imx8qxp-trusty-c0:imx8qxp_mek_android_trusty_defconfig
     TARGET_BOOTLOADER_CONFIG += imx8qxp-trusty-secure-unlock:imx8qxp_mek_android_trusty_secure_unlock_defconfig
   endif
 endif #PRODUCT_IMX_CAR
@@ -41,6 +45,7 @@ endif #PRODUCT_IMX_CAR
 TARGET_BOOTLOADER_CONFIG += imx8qm-mek-uuu:imx8qm_mek_android_uuu_defconfig
 # u-boot target used by uuu for imx8qxp_mek
 TARGET_BOOTLOADER_CONFIG += imx8qxp-mek-uuu:imx8qxp_mek_android_uuu_defconfig
+TARGET_BOOTLOADER_CONFIG += imx8qxp-mek-c0-uuu:imx8qxp_mek_android_uuu_defconfig
 
 ifeq ($(PRODUCT_IMX_CAR),true)
   ifeq ($(PRODUCT_IMX_CAR_M4),true)
