@@ -26,3 +26,6 @@ else
     $(KERNEL_OUT)/drivers/net/wireless/qcacld-2.0/wlan.ko
 endif
 
+# mipi-panel touch driver module
+BOARD_VENDOR_KERNEL_MODULES += \
+    $(KERNEL_OUT)/drivers/input/touchscreen/synaptics_dsx/synaptics_dsx_i2c.ko
