@@ -1,6 +1,7 @@
 allow mediacodec sysfs:file { read open getattr };
 allow mediacodec tmpfs:dir { search write add_name create};
 allow mediacodec tmpfs:file { create open read write };
+allow mediacodec audio_device:chr_file { open ioctl map read write };
 allow mediacodec debugfs_tracing:file { write open };
 allow mediacodec rootfs:lnk_file { getattr };
 allow mediacodec video_device:dir { search write add_name create};
