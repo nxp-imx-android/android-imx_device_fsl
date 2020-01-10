@@ -104,9 +104,9 @@ BOARD_GPU_LIBDRM := libdrm_imx
 
 AB_OTA_UPDATER := true
 ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
-AB_OTA_PARTITIONS := dtbo boot system vendor vbmeta
+AB_OTA_PARTITIONS += dtbo boot system vendor vbmeta
 else
-AB_OTA_PARTITIONS := dtbo boot system vendor vbmeta product
+AB_OTA_PARTITIONS += dtbo boot system vendor vbmeta product
 endif
 BOARD_BUILD_SYSTEM_ROOT_IMAGE := true
 TARGET_NO_RECOVERY := true
