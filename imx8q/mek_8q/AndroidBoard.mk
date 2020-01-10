@@ -10,5 +10,6 @@ endif
 
 ifneq ($(BOARD_OTA_BOOTLOADERIMAGE),)
   INSTALLED_RADIOIMAGE_TARGET += $(PRODUCT_OUT)/bootloader.img
+  BOARD_PACK_RADIOIMAGES += bootloader.img
 endif
 
