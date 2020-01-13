@@ -194,5 +194,8 @@ endif
 KERNEL_DEPS := $(KERNEL_BIN).vdso $(KERNEL_HEADERS_INSTALL) $(KERNEL_MODULES_INSTALL)
 KERNEL_IMAGE := $(KERNEL_BIN)
 
+# Indicate use vivante drm based egl and gralloc
+BOARD_GPU_DRIVERS := vivante
+
 $(PRODUCT_OUT)/kernel: $(KERNEL_IMAGE) $(KERNEL_DEPS)
 	$(hide)cp -fp $< $@
