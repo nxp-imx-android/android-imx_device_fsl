@@ -34,26 +34,26 @@
 /sys/devices/virtual/misc/Freescale*          position    0660  system   system
 
 # light sensor sysfs properities for 8qm_mek
-/sys/class/i2c-dev/i2c-4/device/4-0044 mode                          0660 system system
-/sys/class/i2c-dev/i2c-4/device/4-0044 lux                           0660 system system
-/sys/class/i2c-dev/i2c-4/device/4-0044 int_lt_lux                    0660 system system
-/sys/class/i2c-dev/i2c-4/device/4-0044 int_ht_lux                    0660 system system
+/sys/class/i2c-dev/i2c-2/device/2-0044 mode                          0660 system system
+/sys/class/i2c-dev/i2c-2/device/2-0044 lux                           0660 system system
+/sys/class/i2c-dev/i2c-2/device/2-0044 int_lt_lux                    0660 system system
+/sys/class/i2c-dev/i2c-2/device/2-0044 int_ht_lux                    0660 system system
 
-/sys/devices/platform/5a800000.i2c/i2c-4/4-0044 mode                 0660 system system
-/sys/devices/platform/5a800000.i2c/i2c-4/4-0044 lux                  0660 system system
-/sys/devices/platform/5a800000.i2c/i2c-4/4-0044 int_lt_lux           0660 system system
-/sys/devices/platform/5a800000.i2c/i2c-4/4-0044 int_ht_lux           0660 system system
+/sys/devices/platform/bus@5a000000/5a800000.i2c/i2c-2/2-0044 mode                 0660 system system
+/sys/devices/platform/bus@5a000000/5a800000.i2c/i2c-2/2-0044 lux                  0660 system system
+/sys/devices/platform/bus@5a000000/5a800000.i2c/i2c-2/2-0044 int_lt_lux           0660 system system
+/sys/devices/platform/bus@5a000000/5a800000.i2c/i2c-2/2-0044 int_ht_lux           0660 system system
 
 # light sensor sysfs properities for 8qxp_mek
-/sys/class/i2c-dev/i2c-8/device/8-0044 mode                          0660 system system
-/sys/class/i2c-dev/i2c-8/device/8-0044 lux                           0660 system system
-/sys/class/i2c-dev/i2c-8/device/8-0044 int_lt_lux                    0660 system system
-/sys/class/i2c-dev/i2c-8/device/8-0044 int_ht_lux                    0660 system system
+/sys/class/i2c-dev/i2c-15/device/15-0044 mode                          0660 system system
+/sys/class/i2c-dev/i2c-15/device/15-0044 lux                           0660 system system
+/sys/class/i2c-dev/i2c-15/device/15-0044 int_lt_lux                    0660 system system
+/sys/class/i2c-dev/i2c-15/device/15-0044 int_ht_lux                    0660 system system
 
-/sys/devices/platform/5a810000.i2c/i2c-4/i2c-8/8-0044 mode           0660 system system
-/sys/devices/platform/5a810000.i2c/i2c-4/i2c-8/8-0044 lux            0660 system system
-/sys/devices/platform/5a810000.i2c/i2c-4/i2c-8/8-0044 int_lt_lux     0660 system system
-/sys/devices/platform/5a810000.i2c/i2c-4/i2c-8/8-0044 int_ht_lux     0660 system system
+/sys/devices/platform/bus@5a000000/bus@5a000000:i2c-rpbus-15/i2c-15/15-0044 mode           0660 system system
+/sys/devices/platform/bus@5a000000/bus@5a000000:i2c-rpbus-15/i2c-15/15-0044 lux            0660 system system
+/sys/devices/platform/bus@5a000000/bus@5a000000:i2c-rpbus-15/i2c-15/15-0044 int_lt_lux     0660 system system
+/sys/devices/platform/bus@5a000000/bus@5a000000:i2c-rpbus-15/i2c-15/15-0044 int_ht_lux     0660 system system
 
 /sys/devices/virtual/thermal/thermal_zone* trip_point_0_temp 0660 system system
 /sys/devices/virtual/thermal/thermal_zone* trip_point_1_temp 0660 system system
