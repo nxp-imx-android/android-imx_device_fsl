@@ -37,4 +37,6 @@
          When false, car notification effects will be handled elsewhere. -->
     <bool name="config_enableServerNotificationEffectsForAutomotive">true</bool>
 
+    <!-- Whether the device supports quick settings and its associated APIs -->
+    <bool name="config_quickSettingsSupported">false</bool>
 </resources>
