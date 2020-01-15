@@ -1,0 +1,6 @@
+{
+  "driver_name": "xtor-audio",
+  "supported_out_devices": ["bluetooth_sco_headset"],
+  "supported_in_devices": ["bluetooth_sco_headset"],
+  "support_hfp": 1
+}
