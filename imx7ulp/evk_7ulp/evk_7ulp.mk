@@ -98,6 +98,11 @@ PRODUCT_COPY_FILES += \
     frameworks/av/services/audiopolicy/config/r_submix_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/r_submix_audio_policy_configuration.xml \
     frameworks/av/services/audiopolicy/config/usb_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/usb_audio_policy_configuration.xml
 
+# Audio card json
+PRODUCT_COPY_FILES += \
+    device/fsl/common/audio-json/rpmsg_config.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/audio/rpmsg_config.json \
+    device/fsl/common/audio-json/readme.txt:$(TARGET_COPY_OUT_VENDOR)/etc/configs/audio/readme.txt
+
 # fastboot_imx_flashall scripts, fsl-sdcard-partition script and uuu_imx_android_flash scripts
 PRODUCT_COPY_FILES += \
     device/fsl/common/tools/fastboot_imx_flashall.bat:fastboot_imx_flashall.bat \
