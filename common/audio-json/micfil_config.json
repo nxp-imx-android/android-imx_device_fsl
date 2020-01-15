@@ -1,0 +1,4 @@
+{
+  "driver_name": "imx-audio-micfi",
+  "supported_in_devices": ["builtin_mic", "wired_headset"]
+}
