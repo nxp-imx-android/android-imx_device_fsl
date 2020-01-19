@@ -96,9 +96,9 @@ NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
 
 CMASIZE=800M
 ifeq ($(LOW_MEMORY),true)
-BOARD_KERNEL_CMDLINE := init=/init androidboot.console=ttymxc1 androidboot.hardware=freescale cma=$(CMASIZE)@0x400M-0xb80M androidboot.primary_display=imx-drm firmware_class.path=/vendor/firmware transparent_hugepage=never loop.max_part=7
-else
 BOARD_KERNEL_CMDLINE := init=/init androidboot.console=ttymxc1 androidboot.hardware=freescale cma=320M@0x400M-0xb80M androidboot.primary_display=imx-drm firmware_class.path=/vendor/firmware transparent_hugepage=never loop.max_part=7 androidboot.displaymode=720p galcore.contiguousSize=33554432
+else
+BOARD_KERNEL_CMDLINE := init=/init androidboot.console=ttymxc1 androidboot.hardware=freescale cma=$(CMASIZE)@0x400M-0xb80M androidboot.primary_display=imx-drm firmware_class.path=/vendor/firmware transparent_hugepage=never loop.max_part=7
 endif
 
 # Set the density to 240 to match CDD.
