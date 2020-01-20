@@ -86,10 +86,20 @@ TARGET_USES_MKE2FS := true
 # define frame buffer count
 NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
 
-# Density is set in u-boot, default density for 1G DDR AIY is 160, other platform is 240.
-BOARD_KERNEL_CMDLINE := init=/init androidboot.gui_resolution=1080p androidboot.console=ttymxc0 androidboot.hardware=freescale androidboot.fbTileSupport=enable androidboot.primary_display=imx-dcss firmware_class.path=/vendor/firmware transparent_hugepage=never loop.max_part=7
+# NXP default config
+BOARD_KERNEL_CMDLINE := init=/init androidboot.console=ttymxc0 androidboot.hardware=freescale firmware_class.path=/vendor/firmware loop.max_part=7
 
-# Default wificountrycode
+# framebuffer config
+BOARD_KERNEL_CMDLINE += androidboot.fbTileSupport=enable
+
+# memory config
+BOARD_KERNEL_CMDLINE += transparent_hugepage=never
+
+# display config
+# Density is set in u-boot, default density for 1G DDR AIY is 160, other platform is 240.
+BOARD_KERNEL_CMDLINE += androidboot.primary_display=imx-dcss androidboot.gui_resolution=1080p
+
+# wifi config
 BOARD_KERNEL_CMDLINE += androidboot.wificountrycode=CN
 
 # Qcom 1CQ(QCA6174) WiFi

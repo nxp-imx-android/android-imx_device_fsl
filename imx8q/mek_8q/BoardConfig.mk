@@ -96,15 +96,23 @@ USE_GPU_ALLOCATOR := false
 # define frame buffer count
 NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
 
-BOARD_KERNEL_CMDLINE := init=/init androidboot.hardware=freescale androidboot.fbTileSupport=enable cma=800M@0x960M-0xe00M androidboot.primary_display=imx-drm firmware_class.path=/vendor/firmware transparent_hugepage=never loop.max_part=7
+# NXP default config
+BOARD_KERNEL_CMDLINE := init=/init androidboot.hardware=freescale firmware_class.path=/vendor/firmware loop.max_part=7
 
-# Set the density to 240 to match CDD.
-BOARD_KERNEL_CMDLINE += androidboot.lcd_density=240
+# framebuffer config
+BOARD_KERNEL_CMDLINE += androidboot.fbTileSupport=enable
 
-# Default wificountrycode
+# memory config
+BOARD_KERNEL_CMDLINE += cma=800M@0x960M-0xe00M transparent_hugepage=never
+
+# display config
+BOARD_KERNEL_CMDLINE += androidboot.lcd_density=240 androidboot.primary_display=imx-drm
+
+# wifi config
 BOARD_KERNEL_CMDLINE += androidboot.wificountrycode=CN
 
 ifeq ($(PRODUCT_IMX_CAR),true)
+# automotive config
 BOARD_KERNEL_CMDLINE += galcore.contiguousSize=33554432 video=HDMI-A-2:d
 else
 BOARD_KERNEL_CMDLINE += androidboot.console=ttyLP0
