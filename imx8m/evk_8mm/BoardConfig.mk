@@ -118,17 +118,24 @@ else
 CMASIZE=800M
 endif
 
-ifeq ($(LOW_MEMORY),true)
-BOARD_KERNEL_CMDLINE := init=/init androidboot.console=ttymxc1 androidboot.hardware=freescale cma=320M@0x400M-0xb80M androidboot.primary_display=imx-drm firmware_class.path=/vendor/firmware transparent_hugepage=never loop.max_part=7 androidboot.displaymode=720p galcore.contiguousSize=33554432
-else
-BOARD_KERNEL_CMDLINE := init=/init androidboot.console=ttymxc1 androidboot.hardware=freescale cma=$(CMASIZE)@0x400M-0xb80M androidboot.primary_display=imx-drm firmware_class.path=/vendor/firmware transparent_hugepage=never loop.max_part=7
-endif
+# NXP default config
+BOARD_KERNEL_CMDLINE := init=/init androidboot.console=ttymxc1 androidboot.hardware=freescale firmware_class.path=/vendor/firmware loop.max_part=7
 
-# Set the density to 240 to match CDD.
-BOARD_KERNEL_CMDLINE += androidboot.lcd_density=240
+# memory config
+BOARD_KERNEL_CMDLINE += transparent_hugepage=never
 
-# Default wificountrycode
+# display config
+BOARD_KERNEL_CMDLINE += androidboot.lcd_density=240 androidboot.primary_display=imx-drm
+
+# wifi config
 BOARD_KERNEL_CMDLINE += androidboot.wificountrycode=CN
+
+# low memory device build config
+ifeq ($(LOW_MEMORY),true)
+BOARD_KERNEL_CMDLINE += cma=320M@0x400M-0xb80M androidboot.displaymode=720p galcore.contiguousSize=33554432
+else
+BOARD_KERNEL_CMDLINE += cma=$(CMASIZE)@0x400M-0xb80M
+endif
 
 ifeq ($(TARGET_USERIMAGES_USE_UBIFS),true)
 ifeq ($(TARGET_USERIMAGES_USE_EXT4),true)
