@@ -103,12 +103,19 @@ else
 CMASIZE=1280M
 endif
 
-BOARD_KERNEL_CMDLINE := init=/init androidboot.gui_resolution=1080p androidboot.console=ttymxc0 androidboot.hardware=freescale androidboot.fbTileSupport=enable cma=$(CMASIZE) androidboot.primary_display=imx-dcss firmware_class.path=/vendor/firmware transparent_hugepage=never loop.max_part=7
+# NXP default config
+BOARD_KERNEL_CMDLINE := init=/init androidboot.console=ttymxc0 androidboot.hardware=freescale firmware_class.path=/vendor/firmware loop.max_part=7
 
-# Set the density to 240 to match CDD.
-BOARD_KERNEL_CMDLINE += androidboot.lcd_density=240
+# framebuffer config
+BOARD_KERNEL_CMDLINE += androidboot.fbTileSupport=enable
 
-# Default wificountrycode
+# memory config
+BOARD_KERNEL_CMDLINE += transparent_hugepage=never cma=$(CMASIZE)
+
+# display config
+BOARD_KERNEL_CMDLINE += androidboot.lcd_density=240 androidboot.primary_display=imx-dcss androidboot.gui_resolution=1080p
+
+# wifi config
 BOARD_KERNEL_CMDLINE += androidboot.wificountrycode=CN
 
 ifeq ($(TARGET_USERIMAGES_USE_UBIFS),true)
