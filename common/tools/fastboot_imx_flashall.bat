@@ -422,7 +422,7 @@ if %support_dualslot% == 0 set slot=
 
 :: if dual-bootloader feature is supported, we need to flash the u-boot proper then reboot to get hard-coded partition info
 if %support_dual_bootloader% == 1 (
-    if [%slot%] == [] (
+    if not [%slot%] == [] (
         call :flash_partition bootloader%slot% || set /A error_level=1 && goto :exit
         %fastboot_tool% set_active %slot:~-1%
     ) else (
