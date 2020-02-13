@@ -220,6 +220,8 @@ TARGET_BOARD_DTS_CONFIG += imx8qm-mipi-panel:fsl-imx8qm-mek-dsi-rm67191.dtb
 TARGET_BOARD_DTS_CONFIG += imx8qm-hdmi:fsl-imx8qm-mek-hdmi.dtb
 # imx8qxp standard android; MIPI-HDMI display
 TARGET_BOARD_DTS_CONFIG += imx8qxp:fsl-imx8qxp-mek-ov5640.dtb
+# imx8dx standard android; MIPI-HDMI display
+TARGET_BOARD_DTS_CONFIG += imx8dx:fsl-imx8dx-mek-ov5640.dtb
 
 # u-boot target for imx8qm_mek standard android
 TARGET_BOOTLOADER_CONFIG := imx8qm:imx8qm_mek_android_defconfig
@@ -231,6 +233,9 @@ TARGET_BOOTLOADER_CONFIG += imx8qxp-c0:imx8qxp_mek_android_defconfig
 # u-boot target for imx8qxp_mek standard android
 TARGET_BOOTLOADER_CONFIG += imx8qxp-trusty:imx8qxp_mek_android_trusty_defconfig
 TARGET_BOOTLOADER_CONFIG += imx8qxp-trusty-c0:imx8qxp_mek_android_trusty_defconfig
+# u-boot target for imx8dx_mek standard android
+TARGET_BOOTLOADER_CONFIG += imx8dx:imx8dx_mek_android_defconfig
+TARGET_BOOTLOADER_CONFIG += imx8dx-mek-uuu:imx8dx_mek_android_uuu_defconfig
 endif #PRODUCT_IMX_CAR
 
 # u-boot target used by uuu for imx8qm_mek

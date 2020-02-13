@@ -108,6 +108,17 @@ define build_imx_uboot
 				cp  $(UBOOT_M4_OUT)/MIMX8QX/$(UBOOT_M4_BUILD_TYPE)/rear_view_camera.bin $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/m4_image.bin; \
 			fi; \
 		fi; \
+	elif [ `echo $(2) | cut -d '-' -f1` == "imx8dx" ]; then \
+		MKIMAGE_PLATFORM=`echo iMX8QX`; \
+		SCFW_PLATFORM=`echo 8dx`; \
+		ATF_PLATFORM=`echo imx8qx`; \
+		REV=`echo C0`;  \
+		if [ `echo $(2) | rev | cut -d '-' -f1` == "uuu" ]; then \
+			FLASH_TARGET=`echo flash`;  \
+		else \
+			FLASH_TARGET=`echo flash_spl`;  \
+		fi; \
+		cp  $(FSL_PROPRIETARY_PATH)/imx-seco/firmware/seco/mx8qxc0-ahab-container.img $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/; \
 	fi; \
 	if [ "$(PRODUCT_IMX_CAR_M4)" == "true" ]; then \
 		cp  $(FSL_PROPRIETARY_PATH)/fsl-proprietary/uboot-firmware/imx8q_car/mx$$SCFW_PLATFORM-scfw-tcm.bin $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/scfw_tcm.bin; \
