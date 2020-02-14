@@ -25,8 +25,18 @@
       "MaxFrameDuration": "300000000",
       "OmitFrame": [
           {
-              "width": "2592",
-              "height": "1944",
+              "width": "1280",
+              "height": "720",
+              "omit_num": "2"
+          },
+          {
+              "width": "640",
+              "height": "480",
+              "omit_num": "2"
+          },
+          {
+              "width": "320",
+              "height": "240",
               "omit_num": "2"
           }
       ]
