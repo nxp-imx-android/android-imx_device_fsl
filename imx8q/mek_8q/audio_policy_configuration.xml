@@ -49,6 +49,10 @@
                 </devicePort>
                 <devicePort tagName="BT SCO Headset" type="AUDIO_DEVICE_OUT_BLUETOOTH_SCO_HEADSET" role="sink">
                 </devicePort>
+                <devicePort tagName="BT SCO CarKit" type="AUDIO_DEVICE_OUT_BLUETOOTH_SCO_CARKIT" role="sink">
+                </devicePort>
+                <devicePort tagName="BT SCO" type="AUDIO_DEVICE_OUT_BLUETOOTH_SCO" role="sink">
+                </devicePort>
 
                 <devicePort tagName="Built-In Mic" type="AUDIO_DEVICE_IN_BUILTIN_MIC" role="source">
                 </devicePort>
@@ -67,6 +71,10 @@
                 <route type="mix" sink="HDMI Out"
                        sources="primary output"/>
                 <route type="mix" sink="BT SCO Headset"
+                       sources="primary output"/>
+                <route type="mix" sink="BT SCO CarKit"
+                       sources="primary output"/>
+                <route type="mix" sink="BT SCO"
                        sources="primary output"/>
 
                 <route type="mix" sink="primary input"
