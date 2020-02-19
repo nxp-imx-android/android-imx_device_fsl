@@ -182,7 +182,7 @@ PRODUCT_PACKAGES += \
     media_codecs_c2_rv.xml \
     media_codecs_performance.xml \
     media_profiles_V1_0.xml \
-    media_codecs_google_video.xml \
+    media_codecs_google_c2_video.xml \
     media_codecs_c2.xml \
     media_codecs_performance_c2.xml
 
