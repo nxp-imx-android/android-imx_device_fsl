@@ -30,8 +30,8 @@ ifeq ($(PRODUCT_IMX_CAR),true)
 BOARD_VENDOR_KERNEL_MODULES += \
                             $(KERNEL_OUT)/drivers/extcon/extcon-ptn5150.ko \
                             $(KERNEL_OUT)/drivers/usb/roles/roles.ko \
-                            $(KERNEL_OUT)/drivers/usb/typec/tcpci.ko \
-                            $(KERNEL_OUT)/drivers/usb/typec/tcpm.ko \
+                            $(KERNEL_OUT)/drivers/usb/typec/tcpm/tcpci.ko \
+                            $(KERNEL_OUT)/drivers/usb/typec/tcpm/tcpm.ko \
                             $(KERNEL_OUT)/drivers/usb/cdns3/cdns3.ko \
                             $(KERNEL_OUT)/drivers/usb/chipidea/ci_hdrc.ko \
                             $(KERNEL_OUT)/drivers/usb/chipidea/ci_hdrc_imx.ko \
