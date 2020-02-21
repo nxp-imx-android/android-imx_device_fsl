@@ -13,8 +13,8 @@ genfscon debugfs /sync/sw_sync u:object_r:debugfs_sw_sync:s0
 genfscon sysfs /devices/soc0   u:object_r:sysfs_soc:s0
 
 #mek_8q ethernet
-genfscon sysfs /devices/platform/5b040000.ethernet/net  u:object_r:sysfs_net:s0
+genfscon sysfs /devices/platform/bus@5b000000/5b040000.ethernet/net  u:object_r:sysfs_net:s0
 #mek_8qm wifi
-genfscon sysfs /devices/platform/hsio/5f000000.pcie/pci0000:00/0000:00:00.0/0000:01:00.0/net u:object_r:sysfs_net:s0
+genfscon sysfs /devices/platform/bus@5f000000/5f000000.pcie/pci0000:00/0000:00:00.0/0000:01:00.0/net u:object_r:sysfs_net:s0
 #mek_8qxp wifi
-genfscon sysfs /devices/platform/hsio/5f010000.pcie/pci0000:00/0000:00:00.0/0000:01:00.0/net u:object_r:sysfs_net:s0
+genfscon sysfs /devices/platform/bus@5f000000/5f010000.pcie/pci0000:00/0000:00:00.0/0000:01:00.0/net u:object_r:sysfs_net:s0
