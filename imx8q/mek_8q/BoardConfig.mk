@@ -25,22 +25,43 @@ endif # PRODUCT_IMX_CAR
 
 # Support gpt
 ifeq ($(PRODUCT_IMX_CAR),true)
-  ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
-    BOARD_BPT_INPUT_FILES += device/fsl/common/partition/device-partitions-13GB-ab-dual-bootloader-no-product.bpt
-    ADDITION_BPT_PARTITION = partition-table-28GB:device/fsl/common/partition/device-partitions-28GB-ab-dual-bootloader-no-product.bpt
+  ifeq ($(TARGET_USE_DYNAMIC_PARTITIONS),true)
+    ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
+      BOARD_BPT_INPUT_FILES += device/fsl/common/partition/device-partitions-13GB-ab-dual-bootloader-no-product_super.bpt
+      ADDITION_BPT_PARTITION = partition-table-28GB:device/fsl/common/partition/device-partitions-28GB-ab-dual-bootloader-no-product_super.bpt
+    else
+      BOARD_BPT_INPUT_FILES += device/fsl/common/partition/device-partitions-13GB-ab-dual-bootloader_super.bpt
+      ADDITION_BPT_PARTITION = partition-table-28GB:device/fsl/common/partition/device-partitions-28GB-ab-dual-bootloader_super.bpt
+    endif
   else
-    BOARD_BPT_INPUT_FILES += device/fsl/common/partition/device-partitions-13GB-ab-dual-bootloader.bpt
-    ADDITION_BPT_PARTITION = partition-table-28GB:device/fsl/common/partition/device-partitions-28GB-ab-dual-bootloader.bpt
+    ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
+      BOARD_BPT_INPUT_FILES += device/fsl/common/partition/device-partitions-13GB-ab-dual-bootloader-no-product.bpt
+      ADDITION_BPT_PARTITION = partition-table-28GB:device/fsl/common/partition/device-partitions-28GB-ab-dual-bootloader-no-product.bpt
+    else
+      BOARD_BPT_INPUT_FILES += device/fsl/common/partition/device-partitions-13GB-ab-dual-bootloader.bpt
+      ADDITION_BPT_PARTITION = partition-table-28GB:device/fsl/common/partition/device-partitions-28GB-ab-dual-bootloader.bpt
+    endif
   endif
 else
-  ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
-    BOARD_BPT_INPUT_FILES += device/fsl/common/partition/device-partitions-13GB-ab-no-product.bpt
-    ADDITION_BPT_PARTITION = partition-table-28GB:device/fsl/common/partition/device-partitions-28GB-ab-no-product.bpt
+  ifeq ($(TARGET_USE_DYNAMIC_PARTITIONS),true)
+    ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
+      BOARD_BPT_INPUT_FILES += device/fsl/common/partition/device-partitions-13GB-ab-no-product_super.bpt
+      ADDITION_BPT_PARTITION = partition-table-28GB:device/fsl/common/partition/device-partitions-28GB-ab-no-product_super.bpt
+    else
+      BOARD_BPT_INPUT_FILES += device/fsl/common/partition/device-partitions-13GB-ab_super.bpt
+      ADDITION_BPT_PARTITION = partition-table-28GB:device/fsl/common/partition/device-partitions-28GB-ab_super.bpt
+    endif
   else
-    BOARD_BPT_INPUT_FILES += device/fsl/common/partition/device-partitions-13GB-ab.bpt
-    ADDITION_BPT_PARTITION = partition-table-28GB:device/fsl/common/partition/device-partitions-28GB-ab.bpt
+    ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
+      BOARD_BPT_INPUT_FILES += device/fsl/common/partition/device-partitions-13GB-ab-no-product.bpt
+      ADDITION_BPT_PARTITION = partition-table-28GB:device/fsl/common/partition/device-partitions-28GB-ab-no-product.bpt
+    else
+      BOARD_BPT_INPUT_FILES += device/fsl/common/partition/device-partitions-13GB-ab.bpt
+      ADDITION_BPT_PARTITION = partition-table-28GB:device/fsl/common/partition/device-partitions-28GB-ab.bpt
+    endif
   endif
 endif
+
 
 # Vendor Interface Manifest
 ifeq ($(PRODUCT_IMX_CAR),true)
@@ -158,20 +179,31 @@ ifeq ($(PRODUCT_IMX_CAR),true)
     endif #IMX_NO_PRODUCT_PARTITION
   endif #PRODUCT_IMX_CAR_M4
 else
-  ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
-    TARGET_BOARD_DTS_CONFIG := imx8qm:imx8qm-mek-ov5640-no-product.dtb
-    TARGET_BOARD_DTS_CONFIG += imx8qxp:imx8qxp-mek-ov5640-no-product.dtb
+  ifeq ($(TARGET_USE_DYNAMIC_PARTITIONS),true)
+    ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
+      TARGET_BOARD_DTS_CONFIG := imx8qm:imx8qm-mek-ov5640-no-product.dtb
+      TARGET_BOARD_DTS_CONFIG += imx8qxp:imx8qxp-mek-ov5640-no-product.dtb
+    else
+      # imx8qm standard android; MIPI-HDMI display
+      TARGET_BOARD_DTS_CONFIG := imx8qm:imx8qm-mek-ov5640.dtb
+      # imx8qm standard android; MIPI panel display
+      TARGET_BOARD_DTS_CONFIG += imx8qm-mipi-panel:imx8qm-mek-dsi-rm67191.dtb
+      # imx8qm standard android; HDMI display
+      TARGET_BOARD_DTS_CONFIG += imx8qm-hdmi:imx8qm-mek-hdmi.dtb
+      # imx8qxp standard android; MIPI-HDMI display
+      TARGET_BOARD_DTS_CONFIG += imx8qxp:imx8qxp-mek-ov5640.dtb
+    endif #IMX_NO_PRODUCT_PARTITION
   else
-    # imx8qm standard android; MIPI-HDMI display
-    TARGET_BOARD_DTS_CONFIG := imx8qm:imx8qm-mek-ov5640.dtb
-    # imx8qm standard android; MIPI panel display
-    TARGET_BOARD_DTS_CONFIG += imx8qm-mipi-panel:imx8qm-mek-dsi-rm67191.dtb
-    # imx8qm standard android; HDMI display
-    TARGET_BOARD_DTS_CONFIG += imx8qm-hdmi:imx8qm-mek-hdmi.dtb
-    # imx8qxp standard android; MIPI-HDMI display
-    TARGET_BOARD_DTS_CONFIG += imx8qxp:imx8qxp-mek-ov5640.dtb
-  endif #IMX_NO_PRODUCT_PARTITION
+    ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
+      TARGET_BOARD_DTS_CONFIG := imx8qm:imx8qm-mek-ov5640-no-product-no-dynamic_partition.dtb
+      TARGET_BOARD_DTS_CONFIG += imx8qxp:imx8qxp-mek-ov5640-no-product-no-dynamic_partition.dtb
+    else
+      TARGET_BOARD_DTS_CONFIG := imx8qm:imx8qm-mek-ov5640-no-dynamic_partition.dtb
+      TARGET_BOARD_DTS_CONFIG += imx8qxp:imx8qxp-mek-ov5640-no-dynamic_partition.dtb
+    endif
+  endif
 endif #PRODUCT_IMX_CAR
+
 
 BOARD_SEPOLICY_DIRS := \
        device/fsl/imx8q/sepolicy \

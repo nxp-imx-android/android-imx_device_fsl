@@ -3,6 +3,9 @@
 
 IMX_DEVICE_PATH := device/fsl/imx8q/mek_8q
 
+# Android Auto will not use dynamic partition
+TARGET_USE_DYNAMIC_PARTITIONS := false
+
 include $(IMX_DEVICE_PATH)/mek_8q.mk
 
 # Overrides
