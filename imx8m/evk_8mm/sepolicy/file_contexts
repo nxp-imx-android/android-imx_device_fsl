@@ -9,6 +9,7 @@
 /dev/block/platform/soc@0/soc@0\:bus@30800000/30b50000\.mmc/by-name/presistdata      u:object_r:frp_block_device:s0
 /dev/block/platform/soc@0/soc@0\:bus@30800000/30b50000\.mmc/by-name/userdata         u:object_r:userdata_block_device:s0
 /dev/block/platform/soc@0/soc@0\:bus@30800000/30b50000\.mmc/by-name/vbmeta_[ab]      u:object_r:vbmeta_block_device:s0
+/dev/block/platform/soc@0/soc@0\:bus@30800000/30b50000\.mmc/by-name/super            u:object_r:super_block_device:s0
 
 #emmc boot
 /dev/block/platform/soc@0/soc@0\:bus@30800000/30b60000\.mmc/by-name/dtbo_[ab]        u:object_r:dtbo_block_device:s0
@@ -21,6 +22,7 @@
 /dev/block/platform/soc@0/soc@0\:bus@30800000/30b60000\.mmc/by-name/presistdata      u:object_r:frp_block_device:s0
 /dev/block/platform/soc@0/soc@0\:bus@30800000/30b60000\.mmc/by-name/userdata         u:object_r:userdata_block_device:s0
 /dev/block/platform/soc@0/soc@0\:bus@30800000/30b60000\.mmc/by-name/vbmeta_[ab]      u:object_r:vbmeta_block_device:s0
+/dev/block/platform/soc@0/soc@0\:bus@30800000/30b60000\.mmc/by-name/super            u:object_r:super_block_device:s0
 
 #peripheral
 /vendor/bin/magd                u:object_r:sensors_exec:s0
