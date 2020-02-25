@@ -249,6 +249,9 @@ PRODUCT_PACKAGES += \
     lib_c2_imx_ra_dec \
     lib_c2_imx_wma_dec \
 
+# Support Dynamic partition userspace fastboot
+PRODUCT_PACKAGES += \
+    fastbootd \
 
 # Copy soc related config and binary to board
 PRODUCT_COPY_FILES += \
