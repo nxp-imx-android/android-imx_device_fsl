@@ -41,18 +41,31 @@ TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_RECOVERY_FSTAB = $(IMX_DEVICE_PATH)/fstab.freescale
 
 # Support gpt
-ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
-BOARD_BPT_INPUT_FILES += device/fsl/common/partition/device-partitions-13GB-ab-no-product.bpt
-ADDITION_BPT_PARTITION = partition-table-28GB:device/fsl/common/partition/device-partitions-28GB-ab-no-product.bpt \
-                         partition-table-dual:device/fsl/common/partition/device-partitions-13GB-ab-dual-bootloader-no-product.bpt \
-                         partition-table-28GB-dual:device/fsl/common/partition/device-partitions-28GB-ab-dual-bootloader-no-product.bpt
+ifeq ($(TARGET_USE_DYNAMIC_PARTITIONS),true)
+  ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
+    BOARD_BPT_INPUT_FILES += device/fsl/common/partition/device-partitions-13GB-ab-no-product_super.bpt
+    ADDITION_BPT_PARTITION = partition-table-28GB:device/fsl/common/partition/device-partitions-28GB-ab-no-product_super.bpt \
+                             partition-table-dual:device/fsl/common/partition/device-partitions-13GB-ab-dual-bootloader-no-product_super.bpt \
+                             partition-table-28GB-dual:device/fsl/common/partition/device-partitions-28GB-ab-dual-bootloader-no-product_super.bpt
+  else
+    BOARD_BPT_INPUT_FILES += device/fsl/common/partition/device-partitions-13GB-ab_super.bpt
+    ADDITION_BPT_PARTITION = partition-table-28GB:device/fsl/common/partition/device-partitions-28GB-ab_super.bpt \
+                             partition-table-dual:device/fsl/common/partition/device-partitions-13GB-ab-dual-bootloader_super.bpt \
+                             partition-table-28GB-dual:device/fsl/common/partition/device-partitions-28GB-ab-dual-bootloader_super.bpt
+  endif
 else
-BOARD_BPT_INPUT_FILES += device/fsl/common/partition/device-partitions-13GB-ab.bpt
-ADDITION_BPT_PARTITION = partition-table-28GB:device/fsl/common/partition/device-partitions-28GB-ab.bpt \
-                         partition-table-dual:device/fsl/common/partition/device-partitions-13GB-ab-dual-bootloader.bpt \
-                         partition-table-28GB-dual:device/fsl/common/partition/device-partitions-28GB-ab-dual-bootloader.bpt
+  ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
+    BOARD_BPT_INPUT_FILES += device/fsl/common/partition/device-partitions-13GB-ab-no-product.bpt
+    ADDITION_BPT_PARTITION = partition-table-28GB:device/fsl/common/partition/device-partitions-28GB-ab-no-product.bpt \
+                             partition-table-dual:device/fsl/common/partition/device-partitions-13GB-ab-dual-bootloader-no-product.bpt \
+                             partition-table-28GB-dual:device/fsl/common/partition/device-partitions-28GB-ab-dual-bootloader-no-product.bpt
+  else
+    BOARD_BPT_INPUT_FILES += device/fsl/common/partition/device-partitions-13GB-ab.bpt
+    ADDITION_BPT_PARTITION = partition-table-28GB:device/fsl/common/partition/device-partitions-28GB-ab.bpt \
+                             partition-table-dual:device/fsl/common/partition/device-partitions-13GB-ab-dual-bootloader.bpt \
+                             partition-table-28GB-dual:device/fsl/common/partition/device-partitions-28GB-ab-dual-bootloader.bpt
+  endif
 endif
-
 
 # Vendor Interface manifest and compatibility
 DEVICE_MANIFEST_FILE := $(IMX_DEVICE_PATH)/manifest.xml
@@ -125,17 +138,25 @@ endif
 endif
 
 BOARD_PREBUILT_DTBOIMAGE := out/target/product/evk_8mq/dtbo-imx8mq.img
-ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
-TARGET_BOARD_DTS_CONFIG ?= imx8mq:imx8mq-evk-no-product.dtb
-else
-# imx8mq with HDMI display
-TARGET_BOARD_DTS_CONFIG ?= imx8mq:imx8mq-evk.dtb
-# imx8mq with MIPI-HDMI display
-TARGET_BOARD_DTS_CONFIG += imx8mq-mipi:imx8mq-evk-lcdif-adv7535.dtb
-# imx8mq with HDMI and MIPI-HDMI display
-# TARGET_BOARD_DTS_CONFIG += imx8mq-dual:imx8mq-evk-dual-display.dtb
-# imx8mq with MIPI panel display
-TARGET_BOARD_DTS_CONFIG += imx8mq-mipi-panel:imx8mq-evk-dcss-rm67191.dtb
+ifeq ($(TARGET_USE_DYNAMIC_PARTITIONS),true)
+  ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
+    TARGET_BOARD_DTS_CONFIG ?= imx8mq:imx8mq-evk-no-product.dtb
+  else
+    # imx8mq with HDMI display
+    TARGET_BOARD_DTS_CONFIG ?= imx8mq:imx8mq-evk.dtb
+    # imx8mq with MIPI-HDMI display
+    TARGET_BOARD_DTS_CONFIG += imx8mq-mipi:imx8mq-evk-lcdif-adv7535.dtb
+    # imx8mq with HDMI and MIPI-HDMI display
+    # TARGET_BOARD_DTS_CONFIG += imx8mq-dual:imx8mq-evk-dual-display.dtb
+    # imx8mq with MIPI panel display
+    TARGET_BOARD_DTS_CONFIG += imx8mq-mipi-panel:imx8mq-evk-dcss-rm67191.dtb
+  endif
+else # no dynamic parition feature
+  ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
+    TARGET_BOARD_DTS_CONFIG ?= imx8mq:imx8mq-evk-no-product-no-dynamic_partition.dtb
+  else
+	TARGET_BOARD_DTS_CONFIG ?= imx8mq:imx8mq-evk-no-dynamic_partition.dtb
+  endif
 endif
 
 BOARD_SEPOLICY_DIRS := \
