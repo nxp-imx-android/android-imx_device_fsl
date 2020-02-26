@@ -291,6 +291,15 @@ PRODUCT_PACKAGES += \
     lib_imx_c2_vpuwrapper_dec \
     lib_imx_c2_process \
     lib_imx_c2_process_dummy_post \
+    c2_component_register \
+    c2_component_register_ms \
+    c2_component_register_wmv9 \
+    c2_component_register_ra \
+    c2_component_register_rv
+
+# imx c2 component register
+PRODUCT_COPY_FILES += \
+    $(FSL_CODEC_PATH)/imx_android_mm/codec2/store/registry/c2_component_register_8mq:$(TARGET_COPY_OUT_VENDOR)/etc/c2_component_register
 
 
 # Add oem unlocking option in settings.
