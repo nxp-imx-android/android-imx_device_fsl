@@ -168,6 +168,8 @@ function flash_partition
         img_name="${1%_*}-${soc_name}-${dtb_feature}.img"
     elif [ "$(echo ${1} | grep "gpt")" != "" ]; then
         img_name=${partition_file}
+    elif [ "$(echo ${1} | grep "super")" != "" ]; then
+        img_name=${super_file}
     else
         img_name="${1%_*}-${soc_name}.img"
     fi
@@ -193,9 +195,11 @@ function flash_userpartitions
         flash_partition ${recovery_partition}
     fi
 
-    flash_partition ${system_partition}
-    flash_partition ${vendor_partition}
-    flash_partition ${product_partition}
+    if [ ${support_dynamic_partition} -eq 0 ]; then
+        flash_partition ${system_partition}
+        flash_partition ${vendor_partition}
+        flash_partition ${product_partition}
+    fi
     flash_partition ${vbmeta_partition}
 }
 
@@ -278,6 +282,10 @@ function flash_android
         flash_partition_name ${slot}
         flash_userpartitions
     fi
+    # super partition does not have a/b slot, handle it individually
+    if [ ${support_dynamic_partition} -eq 1 ]; then
+        flash_partition ${super_partition}
+    fi
 }
 
 
@@ -291,11 +299,13 @@ systemimage_file="system.img"
 vendor_file="vendor.img"
 product_file="product.img"
 partition_file="partition-table.img"
+super_file="super.img"
 support_dtbo=0
 support_recovery=0
 support_dualslot=0
 support_mcu_os=0
 support_trusty=0
+support_dynamic_partition=0
 boot_partition="boot"
 recovery_partition="recovery"
 system_partition="system"
@@ -304,6 +314,7 @@ product_partition="product"
 vbmeta_partition="vbmeta"
 dtbo_partition="dtbo"
 mcu_os_partition="mcu_os"
+super_partition="super"
 
 flash_mcu=0
 erase=0
@@ -472,6 +483,9 @@ grep "72 00 65 00 63 00 6f 00 76 00 65 00 72 00 79 00" /tmp/partition-table_3.tx
 # check whether there is "boot_b" in partition file
 grep "62 00 6f 00 6f 00 74 00 5f 00 61 00" /tmp/partition-table_3.txt > /dev/null \
         && support_dualslot=1 && echo dual slot is supported
+# check whether there is "super" in partition table
+grep "73 00 75 00 70 00 65 00 72 00" /tmp/partition-table_3.txt > /dev/null \
+        && support_dynamic_partition=1 && echo dynamic parttition is supported
 
 
 # get device and board specific parameter
