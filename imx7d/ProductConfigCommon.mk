@@ -355,3 +355,5 @@ include frameworks/native/build/tablet-7in-hdpi-1024-dalvik-heap.mk
 -include device/google/gapps/gapps.mk
 -include $(FSL_RESTRICTED_CODEC_PATH)/fsl-restricted-codec/fsl_real_dec/fsl_real_dec.mk
 -include $(FSL_RESTRICTED_CODEC_PATH)/fsl-restricted-codec/fsl_ms_codec/fsl_ms_codec.mk
+
+PRODUCT_SOONG_NAMESPACES += external/mesa3d

@@ -69,7 +69,7 @@ KERNEL_TOOLCHAIN_ABS := $(realpath prebuilts/gcc/linux-x86/aarch64/aarch64-linux
 KERNEL_CROSS_COMPILE := $(KERNEL_TOOLCHAIN_ABS)/aarch64-linux-androidkernel-
 CLANG_TRIPLE := CLANG_TRIPLE=aarch64-linux-gnu-
 CLANG_TO_COMPILE := CC=clang
-CLANG_TOOL_CHAIN_ABS := $(realpath prebuilts/clang/host/linux-x86/clang-r349610/bin)
+CLANG_TOOL_CHAIN_ABS := $(realpath prebuilts/clang/host/linux-x86/clang-r353983c/bin)
 KERNEL_SRC_ARCH := arm64
 KERNEL_CFLAGS :=
 KERNEL_NAME ?= Image.gz
@@ -149,7 +149,7 @@ $(KERNEL_CONFIG): $(KERNEL_CONFIG_SRC) $(TARGET_KERNEL_SRC) | $(KERNEL_OUT)
 	$(KERNEL_ARCH) $(KERNEL_CONFIG_SRC)
 
 # use deferred expansion
-kernel_build_shell_env = PATH=$$(cd prebuilts/clang/host/linux-x86/clang-r349610/bin; pwd):$$(cd prebuilts/misc/linux-x86/lz4; pwd):$${PATH} \
+kernel_build_shell_env = PATH=$$(cd prebuilts/clang/host/linux-x86/clang-r353983c/bin; pwd):$$(cd prebuilts/misc/linux-x86/lz4; pwd):$${PATH} \
         $(CLANG_TRIPLE) CCACHE_NODIRECT="true"
 kernel_build_make_env = -C $(TARGET_KERNEL_SRC) O=$(realpath $(KERNEL_OUT)) ARCH=$(KERNEL_ARCH) \
         CROSS_COMPILE=$(strip $(KERNEL_CROSS_COMPILE_WRAPPER)) $(CLANG_TO_COMPILE) \

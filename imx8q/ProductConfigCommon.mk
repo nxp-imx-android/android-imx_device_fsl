@@ -372,3 +372,5 @@ include frameworks/native/build/tablet-10in-xhdpi-2048-dalvik-heap.mk
 
 BOARD_SOC_TYPE := IMX8Q
 PREBUILT_FSL_IMX_CODEC := true
+
+PRODUCT_SOONG_NAMESPACES += external/mesa3d
