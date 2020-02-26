@@ -23,11 +23,13 @@ set systemimage_file=system.img
 set vendor_file=vendor.img
 set product_file=product.img
 set partition_file=partition-table.img
+set super_file=super.img
 set /A support_dtbo=0
 set /A support_recovery=0
 set /A support_dualslot=0
 set /A support_mcu_os=0
 set /A support_dual_bootloader=0
+set /A support_dynamic_partition=0
 set dual_bootloader_partition=
 set bootloader_flashed_to_board=
 set uboot_proper_to_be_flashed=
@@ -40,6 +42,7 @@ set product_partition=product
 set vbmeta_partition=vbmeta
 set dtbo_partition=dtbo
 set mcu_os_partition=mcu_os
+set super_partition=super
 set /A flash_mcu=0
 set /A statisc=0
 set /A lock=0
@@ -368,6 +371,11 @@ if not [%partition_to_be_flashed:gpt=%] == [%partition_to_be_flashed%] (
     goto :start_to_flash
 )
 
+if not [%partition_to_be_flashed:super=%] == [%partition_to_be_flashed%] (
+    set img_name=%super_file%
+    goto :start_to_flash
+)
+
 :start_to_flash
 echo flash the file of %img_name% to the partition of %partition_to_be_flashed%
 %fastboot_tool% flash %1 %image_directory%%img_name% || set /A error_level=1 && goto :exit
@@ -378,9 +386,11 @@ goto :eof
 if %support_dtbo% == 1 call :flash_partition %dtbo_partition% || set /A error_level=1 && goto :exit
 if %support_recovery% == 1 call :flash_partition %recovery_partition% || set /A error_level=1 && goto :exit
 call :flash_partition %boot_partition% || set /A error_level=1 && goto :exit
-call :flash_partition %system_partition% || set /A error_level=1 && goto :exit
-call :flash_partition %vendor_partition% || set /A error_level=1 && goto :exit
-call :flash_partition %product_partition% || set /A error_level=1 && goto :exit
+if %support_dynamic_partition% == 0 (
+    call :flash_partition %system_partition% || set /A error_level=1 && goto :exit
+    call :flash_partition %vendor_partition% || set /A error_level=1 && goto :exit
+    call :flash_partition %product_partition% || set /A error_level=1 && goto :exit
+)
 call :flash_partition %vbmeta_partition% || set /A error_level=1 && goto :exit
 goto :eof
 
@@ -406,6 +416,7 @@ find "recovery" fastboot_var.log > nul && set /A support_recovery=1
 
 ::use boot_b to check whether current gpt support a/b slot
 find "boot_b" fastboot_var.log > nul && set /A support_dualslot=1
+find "super" fastboot_var.log > nul && set /A support_dynamic_partition=1
 del fastboot_var.log
 
 :: some partitions are hard-coded in uboot, flash the uboot first and then reboot to check these partitions
@@ -465,6 +476,10 @@ if not [%slot%] == []  if %support_dualslot% == 1 (
 if %support_dualslot% == 0 (
     call :flash_partition_name %slot% || set /A error_level=1 && goto :exit
     call :flash_userpartitions || set /A error_level=1 && goto :exit
+)
+::super partition does not have a/b slot, handle it individually
+if %support_dynamic_partition% == 1 (
+    call :flash_partition %super_partition%
 )
 
 del fastboot_var.log
