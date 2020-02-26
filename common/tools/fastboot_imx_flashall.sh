@@ -124,6 +124,8 @@ function flash_partition
         img_name="${1%_*}-${soc_name}-${dtb_feature}.img"
     elif [ "$(echo ${1} | grep "gpt")" != "" ]; then
         img_name=${partition_file}
+    elif [ "$(echo ${1} | grep "super")" != "" ]; then
+        img_name=${super_file}
     else
         img_name="${1%_*}-${soc_name}.img"
     fi
@@ -144,9 +146,11 @@ function flash_userpartitions
         flash_partition ${recovery_partition}
     fi
 
-    flash_partition ${system_partition}
-    flash_partition ${vendor_partition}
-    flash_partition ${product_partition}
+    if [ ${support_dynamic_partition} -eq 0 ]; then
+        flash_partition ${system_partition}
+        flash_partition ${vendor_partition}
+        flash_partition ${product_partition}
+    fi
     flash_partition ${vbmeta_partition}
 }
 
@@ -173,6 +177,7 @@ function flash_android
     grep -q "recovery" /tmp/fastboot_var.log && support_recovery=1
     # use boot_b to check whether current gpt support a/b slot
     grep -q "boot_b" /tmp/fastboot_var.log && support_dualslot=1
+    grep -q "super" /tmp/fastboot_var.log && support_dynamic_partition=1
 
     # some partitions are hard-coded in uboot, flash the uboot first and then reboot to check these partitions
 
@@ -237,6 +242,10 @@ function flash_android
             ${fastboot_tool} set_active ${slot#_}
         fi
     fi
+    # super partition does not have a/b slot, handle it individually
+    if [ ${support_dynamic_partition} -eq 1 ]; then
+        flash_partition ${super_partition}
+    fi
 }
 
 # parse command line
@@ -249,11 +258,13 @@ systemimage_file="system.img"
 vendor_file="vendor.img"
 product_file="product.img"
 partition_file="partition-table.img"
+super_file="super.img"
 support_dtbo=0
 support_recovery=0
 support_dualslot=0
 support_mcu_os=0
 support_dual_bootloader=0
+support_dynamic_partition=0
 dual_bootloader_partition=""
 bootloader_flashed_to_board=""
 uboot_proper_to_be_flashed=""
@@ -265,6 +276,7 @@ product_partition="product"
 vbmeta_partition="vbmeta"
 dtbo_partition="dtbo"
 mcu_os_partition="mcu_os"
+super_partition="super"
 flash_mcu=0
 lock=0
 erase=0
