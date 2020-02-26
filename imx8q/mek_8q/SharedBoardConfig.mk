@@ -47,11 +47,12 @@ BOARD_VENDOR_KERNEL_MODULES += \
                             $(KERNEL_OUT)/drivers/hid/hid-multitouch.ko
 
 ifeq ($(PRODUCT_IMX_CAR_M4),true)
-BOARD_VENDOR_KERNEL_MODULES += \
-                            $(KERNEL_OUT)/drivers/media/platform/imx8/max9286_gmsl.ko \
-                            $(KERNEL_OUT)/drivers/media/platform/imx8/mxc-mipi-csi2.ko \
-                            $(KERNEL_OUT)/drivers/media/platform/imx8/mxc-media-dev.ko \
-                            $(KERNEL_OUT)/drivers/media/platform/imx8/mxc-capture.ko
+#BOARD_VENDOR_KERNEL_MODULES += \
+                            $(KERNEL_OUT)/drivers/staging/media/imx/gmsl-max9286.ko \
+                            $(KERNEL_OUT)/drivers/staging/media/imx/imx8-mipi-csi2.ko \
+                            $(KERNEL_OUT)/drivers/staging/media/imx/imx8-media-dev.ko \
+                            $(KERNEL_OUT)/drivers/staging/media/imx/imx8-capture.ko
+
 endif
 endif
 
