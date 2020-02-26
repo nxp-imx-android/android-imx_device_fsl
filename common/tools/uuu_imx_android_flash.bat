@@ -24,11 +24,13 @@ set systemimage_file=system.img
 set vendor_file=vendor.img
 set product_file=product.img
 set partition_file=partition-table.img
+set super_file=super.img
 set /A support_dtbo=0
 set /A support_recovery=0
 set /A support_dualslot=0
 set /A support_mcu_os=0
 set /A support_trusty=0
+set /A support_dynamic_partition=0
 set boot_partition=boot
 set recovery_partition=recovery
 set system_partition=system
@@ -37,6 +39,7 @@ set product_partition=product
 set vbmeta_partition=vbmeta
 set dtbo_partition=dtbo
 set mcu_os_partition=mcu_os
+set super_partition=super
 set /A flash_mcu=0
 set /A statisc=0
 set /A erase=0
@@ -192,6 +195,8 @@ find "d.t.b.o." partition-table_3.txt > nul && set /A support_dtbo=1 && echo dtb
 find "r.e.c.o.v.e.r.y." partition-table_3.txt > nul && set /A support_recovery=1 && echo recovery is supported
 :: check whether there is "boot_b" in partition file
 find "b.o.o.t._.b." partition-table_3.txt > nul && set /A support_dualslot=1 && echo dual slot is supported
+:: check whether there is "super" in partition table
+find "s.u.p.e.r." partition-table_3.txt > nul && set /A support_dynamic_partition=1 && echo dynamic parttition is supported
 
 del partition-table_1.txt
 del partition-table_2.txt
@@ -667,6 +672,10 @@ if not [%partition_to_be_flashed:bootloader=%] == [%partition_to_be_flashed%] (
     set img_name=%bootloader_flashed_to_board%
     goto :start_to_flash
 )
+if not [%partition_to_be_flashed:super=%] == [%partition_to_be_flashed%] (
+    set img_name=%super_file%
+    goto :start_to_flash
+)
 
 
 if %support_dtbo% == 1 (
@@ -696,9 +705,11 @@ if %support_dual_bootloader% == 1 call :flash_partition %dual_bootloader_partiti
 if %support_dtbo% == 1 call :flash_partition %dtbo_partition% || set /A error_level=1 && goto :exit
 if %support_recovery% == 1 call :flash_partition %recovery_partition% || set /A error_level=1 && goto :exit
 call :flash_partition %boot_partition% || set /A error_level=1 && goto :exit
-call :flash_partition %system_partition% || set /A error_level=1 && goto :exit
-call :flash_partition %vendor_partition% || set /A error_level=1 && goto :exit
-call :flash_partition %product_partition% || set /A error_level=1 && goto :exit
+if %support_dynamic_partition% == 0 ( 
+    call :flash_partition %system_partition% || set /A error_level=1 && goto :exit
+    call :flash_partition %vendor_partition% || set /A error_level=1 && goto :exit
+    call :flash_partition %product_partition% || set /A error_level=1 && goto :exit
+)
 call :flash_partition %vbmeta_partition% || set /A error_level=1 && goto :exit
 goto :eof
 
@@ -785,6 +796,11 @@ if [%slot%] == [] (
 if not [%slot%] == [] (
     call :flash_partition_name %slot% || set /A error_level=1 && goto :exit
     call :flash_userpartitions || set /A error_level=1 && goto :exit
+)
+
+::super partition does not have a/b slot, handle it individually
+if %support_dynamic_partition% == 1 (
+    call :flash_partition %super_partition%
 )
 
 goto :eof

@@ -59,6 +59,7 @@ systemimage_file="system.img"
 vendor_file="vendor.img"
 product_file="product.img"
 partition_file="partition-table.img"
+super_file="super.img"
 g_sizes=0
 support_dtbo=0
 flash_mcu=0
@@ -69,6 +70,7 @@ image_directory=""
 dtb_feature=""
 uboot_feature=""
 support_dual_bootloader=0
+support_dynamic_partition=0
 
 
 while [ "$moreoptions" = 1 -a $# -gt 0 ]; do
@@ -212,6 +214,8 @@ function flash_partition
                 img_name="boot.img"
             elif [ "$(echo ${1} | grep -E "dtbo|vbmeta|recovery")" != "" -a "${dtb_feature}" != "" ]; then
                 img_name="${1%_*}-${soc_name}-${dtb_feature}.img"
+            elif [ "$(echo ${1} | grep "super")" != "" ]; then
+                img_name=${super_file}
             else
                 img_name="${1%_*}-${soc_name}.img"
             fi
@@ -222,7 +226,8 @@ function flash_partition
             fi
             echo "flash_partition: ${img_name} ---> ${node}${num}"
 
-            if [ "$(echo ${1} | grep "system")" != "" ] || [ "$(echo ${1} | grep "vendor")" != "" ] || [ "$(echo ${1} | grep "product")" != "" ]; then
+            if [ "$(echo ${1} | grep "system")" != "" ] || [ "$(echo ${1} | grep "vendor")" != "" ] || \
+				[ "$(echo ${1} | grep "product")" != "" ] || [ "$(echo ${1} | grep "super")" != "" ]; then
                 simg2img ${image_directory}${img_name} ${node}${num}
             else
                 dd if=${image_directory}${img_name} of=${node}${num} bs=10M conv=fsync
@@ -256,7 +261,9 @@ function flash_android
     product_partition="product"${slot}
     vbmeta_partition="vbmeta"${slot}
     dtbo_partition="dtbo"${slot}
+    super_partition="super"
     gdisk -l ${node} 2>/dev/null | grep -q "dtbo" && support_dtbo=1
+    gdisk -l ${node} 2>/dev/null | grep -q "super" && support_dynamic_partition=1
 
     if [ ${support_dual_bootloader} -eq 1 ]; then
         bootloader_file=spl-${soc_name}${uboot_feature}.bin
@@ -272,9 +279,13 @@ function flash_android
     fi
     flash_partition ${boot_partition}  || exit 1
     flash_partition ${recovery_partition}  || exit 1
-    flash_partition ${system_partition} || exit 1
-    flash_partition ${vendor_partition} || exit 1
-    flash_partition ${product_partition} || exit 1
+    if [ ${support_dynamic_partition} -eq 0 ]; then
+        flash_partition ${system_partition} || exit 1
+        flash_partition ${vendor_partition} || exit 1
+        flash_partition ${product_partition} || exit 1
+    else
+        flash_partition ${super_partition} || exit 1
+    fi
     flash_partition ${vbmeta_partition} || exit 1
     echo "erase_partition: uboot : ${node}"
     echo "flash_partition: ${bootloader_file} ---> ${node}"
