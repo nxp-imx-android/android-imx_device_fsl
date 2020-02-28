@@ -46,7 +46,7 @@
         },
         {
             "label": "super",
-            "size": "5120 MiB",
+            "size": "7168 MiB",
             "guid": "auto",
             "type_guid": "c1dedb9a-a0d3-42e4-b74d-0acf96833624"
         },

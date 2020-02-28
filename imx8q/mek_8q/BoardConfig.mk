@@ -26,13 +26,8 @@ endif # PRODUCT_IMX_CAR
 # Support gpt
 ifeq ($(PRODUCT_IMX_CAR),true)
   ifeq ($(TARGET_USE_DYNAMIC_PARTITIONS),true)
-    ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
-      BOARD_BPT_INPUT_FILES += device/fsl/common/partition/device-partitions-13GB-ab-dual-bootloader-no-product_super.bpt
-      ADDITION_BPT_PARTITION = partition-table-28GB:device/fsl/common/partition/device-partitions-28GB-ab-dual-bootloader-no-product_super.bpt
-    else
-      BOARD_BPT_INPUT_FILES += device/fsl/common/partition/device-partitions-13GB-ab-dual-bootloader_super.bpt
-      ADDITION_BPT_PARTITION = partition-table-28GB:device/fsl/common/partition/device-partitions-28GB-ab-dual-bootloader_super.bpt
-    endif
+    BOARD_BPT_INPUT_FILES += device/fsl/common/partition/device-partitions-13GB-ab-dual-bootloader_super.bpt
+    ADDITION_BPT_PARTITION = partition-table-28GB:device/fsl/common/partition/device-partitions-28GB-ab-dual-bootloader_super.bpt
   else
     ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
       BOARD_BPT_INPUT_FILES += device/fsl/common/partition/device-partitions-13GB-ab-dual-bootloader-no-product.bpt
@@ -44,13 +39,8 @@ ifeq ($(PRODUCT_IMX_CAR),true)
   endif
 else
   ifeq ($(TARGET_USE_DYNAMIC_PARTITIONS),true)
-    ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
-      BOARD_BPT_INPUT_FILES += device/fsl/common/partition/device-partitions-13GB-ab-no-product_super.bpt
-      ADDITION_BPT_PARTITION = partition-table-28GB:device/fsl/common/partition/device-partitions-28GB-ab-no-product_super.bpt
-    else
-      BOARD_BPT_INPUT_FILES += device/fsl/common/partition/device-partitions-13GB-ab_super.bpt
-      ADDITION_BPT_PARTITION = partition-table-28GB:device/fsl/common/partition/device-partitions-28GB-ab_super.bpt
-    endif
+    BOARD_BPT_INPUT_FILES += device/fsl/common/partition/device-partitions-13GB-ab_super.bpt
+    ADDITION_BPT_PARTITION = partition-table-28GB:device/fsl/common/partition/device-partitions-28GB-ab_super.bpt
   else
     ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
       BOARD_BPT_INPUT_FILES += device/fsl/common/partition/device-partitions-13GB-ab-no-product.bpt
