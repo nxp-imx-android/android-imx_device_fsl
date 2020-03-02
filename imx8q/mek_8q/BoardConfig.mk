@@ -180,6 +180,8 @@ else
       TARGET_BOARD_DTS_CONFIG += imx8qm-mipi-panel:imx8qm-mek-dsi-rm67191.dtb
       # imx8qm standard android; HDMI display
       TARGET_BOARD_DTS_CONFIG += imx8qm-hdmi:imx8qm-mek-hdmi.dtb
+      # imx8qm standard android; Multiple display
+      TARGET_BOARD_DTS_CONFIG += imx8qm-md:imx8qm-mek-md.dtb
       # imx8qxp standard android; MIPI-HDMI display
       TARGET_BOARD_DTS_CONFIG += imx8qxp:imx8qxp-mek-ov5640.dtb
     endif #IMX_NO_PRODUCT_PARTITION
