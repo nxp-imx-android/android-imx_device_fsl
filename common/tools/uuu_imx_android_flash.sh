@@ -177,7 +177,7 @@ function flash_partition
     echo -e generate lines to flash ${RED}${img_name}${STD} to the partition of ${RED}${1}${STD}
     rm -f /tmp/${img_name}
     ln -s ${sym_link_directory}${img_name} /tmp/${img_name}
-    echo FB: flash ${1} ${img_name} >> /tmp/uuu.lst
+    echo FB[-t 600000]: flash ${1} ${img_name} >> /tmp/uuu.lst
 }
 
 function flash_userpartitions
