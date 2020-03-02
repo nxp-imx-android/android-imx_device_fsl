@@ -696,7 +696,7 @@ if exist %img_name%.link (
     del %img_name%.link
 )
 cmd /c mklink %img_name%.link %image_directory%%img_name% > nul
-echo FB: flash %1 %img_name%.link >> uuu.lst
+echo FB[-t 600000]: flash %1 %img_name%.link >> uuu.lst
 goto :eof
 
 
