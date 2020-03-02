@@ -28,7 +28,7 @@ $(error kernel arch not supported at present)
 endif
 
 MKDTIMG := $(HOST_OUT_EXECUTABLES)/mkdtimg
-DTB_OUT_PATH := $(PRODUCT_OUT)/obj/KERNEL_OBJ/arch/$(TARGET_KERNEL_ARCH)/boot/dts/$(DTS_ADDITIONAL_PATH)/
+DTB_OUT_PATH := $(KERNEL_OUT)/arch/$(TARGET_KERNEL_ARCH)/boot/dts/$(DTS_ADDITIONAL_PATH)/
 
 TARGET_DTB :=
 $(foreach dts_config,$(TARGET_BOARD_DTS_CONFIG), \
@@ -39,7 +39,7 @@ $(BOARD_PREBUILT_DTBOIMAGE): $(KERNEL_BIN) $(TARGET_DTB) | $(MKDTIMG) $(AVBTOOL)
 	for dtsplat in $(TARGET_BOARD_DTS_CONFIG); do \
 		DTS_PLATFORM=`echo $$dtsplat | cut -d':' -f1`; \
 		DTB_NAME=`echo $$dtsplat | cut -d':' -f2`; \
-		DTB=`echo $(PRODUCT_OUT)/obj/KERNEL_OBJ/arch/$(TARGET_KERNEL_ARCH)/boot/dts/$(DTS_ADDITIONAL_PATH)/$${DTB_NAME}`; \
+		DTB=`echo $(KERNEL_OUT)/arch/$(TARGET_KERNEL_ARCH)/boot/dts/$(DTS_ADDITIONAL_PATH)/$${DTB_NAME}`; \
 		DTBO_IMG=`echo $(PRODUCT_OUT)/dtbo-$${DTS_PLATFORM}.img`; \
 		$(MKDTIMG) create $$DTBO_IMG $$DTB; \
 		$(AVBTOOL) add_hash_footer --image $$DTBO_IMG  \
