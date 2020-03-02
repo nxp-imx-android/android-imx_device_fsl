@@ -129,10 +129,18 @@ endif
 
 BOARD_PREBUILT_DTBOIMAGE := out/target/product/evk_8mp/dtbo-imx8mp.img
 
-ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
-TARGET_BOARD_DTS_CONFIG := imx8mp:imx8mp-evk-no-product.dtb
-else
-TARGET_BOARD_DTS_CONFIG := imx8mp:imx8mp-evk.dtb
+ifeq ($(TARGET_USE_DYNAMIC_PARTITIONS),true)
+  ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
+    TARGET_BOARD_DTS_CONFIG := imx8mp:imx8mp-evk-no-product.dtb
+  else
+    TARGET_BOARD_DTS_CONFIG := imx8mp:imx8mp-evk.dtb
+  endif
+else # no dynamic parition feature
+  ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
+    TARGET_BOARD_DTS_CONFIG := imx8mp:imx8mp-evk-no-product-no-dynamic_partition.dtb
+  else
+    TARGET_BOARD_DTS_CONFIG := imx8mp:imx8mp-evk-no-dynamic_partition.dtb
+  endif
 endif
 
 BOARD_SEPOLICY_DIRS := \
