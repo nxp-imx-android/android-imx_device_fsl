@@ -6,7 +6,7 @@ IMX_INSTALLED_RECOVERYIMAGE_TARGET : $(PRODUCT_OUT)/recovery.img $(BOARD_PREBUIL
 	for dtsplat in $(TARGET_BOARD_DTS_CONFIG); do \
 		DTS_PLATFORM=`echo $$dtsplat | cut -d':' -f1`; \
 		DTB_NAME=`echo $$dtsplat | cut -d':' -f2`; \
-		DTB=`echo $(PRODUCT_OUT)/obj/KERNEL_OBJ/arch/$(TARGET_KERNEL_ARCH)/boot/dts/$(DTS_ADDITIONAL_PATH)/$${DTB_NAME}`; \
+		DTB=`echo $(KERNEL_OUT)/arch/$(TARGET_KERNEL_ARCH)/boot/dts/$(DTS_ADDITIONAL_PATH)/$${DTB_NAME}`; \
 		DTBO_IMG_NO_FOOTER=`echo $(PRODUCT_OUT)/dtbo-no-footer-$${DTS_PLATFORM}.img`; \
 		$(MKDTIMG) create $$DTBO_IMG_NO_FOOTER $$DTB; \
 	done \
