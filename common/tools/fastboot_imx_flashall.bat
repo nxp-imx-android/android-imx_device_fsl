@@ -52,6 +52,22 @@ set ser_num=
 set fastboot_tool=fastboot
 set /A error_level=0
 set /A flag=1
+set /A raw_system_size=0
+set /A raw_system_size_a=0
+set /A raw_system_size_b=0
+set /A raw_vendor_size=0
+set /A raw_vendor_size_a=0
+set /A raw_vendor_size_b=0
+set /A raw_product_size=0
+set /A raw_product_size_a=0
+set /A raw_product_size_b=0
+set lpmake_system_image_a=
+set lpmake_system_image_b=
+set lpmake_vendor_image_a=
+set lpmake_vendor_image_b=
+set lpmake_product_image_a=
+set lpmake_product_image_b=
+
 
 :: We want to detect illegal feature input to some extent. Here it's based on SoC names. Since an SoC may be on a
 :: board running different set of images(android and automative for a example), so misuse the features of one set of
@@ -213,8 +229,8 @@ goto :eof
 ::----------------------------------------------------------------------------------
 
 :help
-echo Version: 1.4
-echo Last change: add "-u" option to specify which uboot or spl&bootloader image to flash
+echo Version: 1.5
+echo Last change: generate super.img when flash images with dynamic partition feature
 echo.
 echo eg: fastboot_imx_flashall.bat -f imx8mm -a -D C:\Users\user_01\android10\evk_8mm
 echo eg: fastboot_imx_flashall.bat -f imx7ulp -D C:\Users\user_01\android10\evk_7ulp
@@ -373,12 +389,17 @@ if not [%partition_to_be_flashed:gpt=%] == [%partition_to_be_flashed%] (
 
 if not [%partition_to_be_flashed:super=%] == [%partition_to_be_flashed%] (
     set img_name=%super_file%
+    call :make_super_image
     goto :start_to_flash
 )
 
 :start_to_flash
 echo flash the file of %img_name% to the partition of %partition_to_be_flashed%
-%fastboot_tool% flash %1 %image_directory%%img_name% || set /A error_level=1 && goto :exit
+if not [%img_name%] == [%super_file%] (
+    %fastboot_tool% flash %1 %image_directory%%img_name% || set /A error_level=1 && goto :exit
+) else (
+    %fastboot_tool% flash %1 %img_name% || set /A error_level=1 && goto :exit
+)
 goto :eof
 
 
@@ -483,6 +504,63 @@ if %support_dynamic_partition% == 1 (
 )
 
 del fastboot_var.log
+
+goto :eof
+
+:: this function will invoke lpmake to create super.img, the super.img will
+:: be created in current directory
+:make_super_image
+:: check the size of raw images
+for /f %%i in ('%image_directory%simglen.exe %image_directory%%systemimage_file%') do ( set raw_system_size=%%i) || set /A error_level=1 && goto :exit
+for /f %%i in ('%image_directory%simglen.exe %image_directory%%vendor_file%') do ( set raw_vendor_size=%%i) || set /A error_level=1 && goto :exit
+for /f %%i in ('%image_directory%simglen.exe %image_directory%%product_file%') do ( set raw_product_size=%%i) || set /A error_level=1 && goto :exit
+
+if exist %super_file% (
+    del %super_file%
+)
+:: now dynamic partition is only enabled in dual slot condition
+if %support_dualslot% == 1 (
+    setlocal enabledelayedexpansion
+    if [%slot%] == [_a] (
+        set raw_system_size_a=%raw_system_size%
+        set lpmake_system_image_a=--image system_a=%image_directory%%systemimage_file%
+        set raw_vendor_size_a=%raw_vendor_size%
+        set lpmake_vendor_image_a=--image vendor_a=%image_directory%%vendor_file%
+        set raw_product_size_a=%raw_product_size%
+        set lpmake_product_image_a=--image product_a=%image_directory%%product_file%
+    )
+    if [%slot%] == [_b] (
+        set raw_system_size_b=%raw_system_size%
+        set lpmake_system_image_b=--image system_b=%image_directory%%systemimage_file%
+        set raw_vendor_size_b=%raw_vendor_size%
+        set lpmake_vendor_image_b=--image vendor_b=%image_directory%%vendor_file%
+        set raw_product_size_b=%raw_product_size%
+        set lpmake_product_image_b=--image product_b=%image_directory%%product_file%
+    )
+    if [%slot%] == [] (
+        set raw_system_size_a=%raw_system_size%
+        set lpmake_system_image_a=--image system_a=%image_directory%%systemimage_file%
+        set raw_vendor_size_a=%raw_vendor_size%
+        set lpmake_vendor_image_a=--image vendor_a=%image_directory%%vendor_file%
+        set raw_product_size_a=%raw_product_size%
+        set lpmake_product_image_a=--image product_a=%image_directory%%product_file%
+        set raw_system_size_b=%raw_system_size%
+        set lpmake_system_image_b=--image system_b=%image_directory%%systemimage_file%
+        set raw_vendor_size_b=%raw_vendor_size%
+        set lpmake_vendor_image_b=--image vendor_b=%image_directory%%vendor_file%
+        set raw_product_size_b=%raw_product_size%
+        set lpmake_product_image_b=--image product_b=%image_directory%%product_file%
+    )
+    %image_directory%lpmake.exe --metadata-size 65536 --super-name super --metadata-slots 3 --device super:7516192768 ^
+        --group nxp_dynamic_partitions_a:3747610624 --group nxp_dynamic_partitions_b:3747610624 ^
+        --partition system_a:readonly:!raw_system_size_a!:nxp_dynamic_partitions_a !lpmake_system_image_a! ^
+        --partition system_b:readonly:!raw_system_size_b!:nxp_dynamic_partitions_b !lpmake_system_image_b! ^
+        --partition vendor_a:readonly:!raw_vendor_size_a!:nxp_dynamic_partitions_a !lpmake_vendor_image_a! ^
+        --partition vendor_b:readonly:!raw_vendor_size_b!:nxp_dynamic_partitions_b !lpmake_vendor_image_b! ^
+        --partition product_a:readonly:!raw_product_size_a!:nxp_dynamic_partitions_a !lpmake_product_image_a! ^
+        --partition product_b:readonly:!raw_product_size_b!:nxp_dynamic_partitions_b !lpmake_product_image_b! ^
+        --sparse --output !super_file!
+)
 
 goto :eof
 
