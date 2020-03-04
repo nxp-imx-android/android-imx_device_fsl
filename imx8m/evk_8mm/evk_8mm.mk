@@ -60,6 +60,14 @@ PRODUCT_COPY_FILES += \
     device/fsl/common/wifi/p2p_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/p2p_supplicant_overlay.conf \
     device/fsl/common/init/init.insmod.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.insmod.sh
 
+ifeq ($(TARGET_USE_DYNAMIC_PARTITIONS),true)
+PRODUCT_COPY_FILES += \
+    $(FSL_PROPRIETARY_PATH)/fsl-proprietary/dynamic_partiton_tools/simglen:simglen \
+    $(FSL_PROPRIETARY_PATH)/fsl-proprietary/dynamic_partiton_tools/lpmake:lpmake \
+    $(FSL_PROPRIETARY_PATH)/fsl-proprietary/dynamic_partiton_tools/simglen.exe:simglen.exe \
+    $(FSL_PROPRIETARY_PATH)/fsl-proprietary/dynamic_partiton_tools/lpmake.exe:lpmake.exe
+endif
+
 # Audio card json
 PRODUCT_COPY_FILES += \
     device/fsl/common/audio-json/wm8524_config.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/audio/wm8524_config.json \
