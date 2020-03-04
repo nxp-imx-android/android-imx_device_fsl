@@ -134,6 +134,8 @@ ifeq ($(TARGET_USE_DYNAMIC_PARTITIONS),true)
     TARGET_BOARD_DTS_CONFIG := imx8mp:imx8mp-evk-no-product.dtb
   else
     TARGET_BOARD_DTS_CONFIG := imx8mp:imx8mp-evk.dtb
+    # Used to support mcu image
+    TARGET_BOARD_DTS_CONFIG += imx8mp-rpmsg:imx8mp-evk-rpmsg.dtb
   endif
 else # no dynamic parition feature
   ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
