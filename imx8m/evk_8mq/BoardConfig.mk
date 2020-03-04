@@ -140,7 +140,7 @@ ifeq ($(TARGET_USE_DYNAMIC_PARTITIONS),true)
     # imx8mq with MIPI-HDMI display
     TARGET_BOARD_DTS_CONFIG += imx8mq-mipi:imx8mq-evk-lcdif-adv7535.dtb
     # imx8mq with HDMI and MIPI-HDMI display
-    # TARGET_BOARD_DTS_CONFIG += imx8mq-dual:imx8mq-evk-dual-display.dtb
+    TARGET_BOARD_DTS_CONFIG += imx8mq-dual:imx8mq-evk-dual-display.dtb
     # imx8mq with MIPI panel display
     TARGET_BOARD_DTS_CONFIG += imx8mq-mipi-panel:imx8mq-evk-dcss-rm67191.dtb
   endif
