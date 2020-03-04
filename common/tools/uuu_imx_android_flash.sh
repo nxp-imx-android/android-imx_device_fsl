@@ -5,8 +5,8 @@ help() {
 bn=`basename $0`
 cat << EOF
 
-Version: 1.6
-Last change: remove "-tos" and "-dboot" option, add "-u" option to specify which uboot or spl&bootloader image to flash
+Version: 1.7
+Last change: generate super.img when flash images with dynamic partition feature
 currently suported platforms: evk_7ulp, evk_8mm, evk_8mq, evk_8mn, aiy_8mq, evk_8mp, mek_8q, mek_8q_car
 
 eg: ./uuu_imx_android_flash.sh -f imx8qm -a -e -D ~/android10/mek_8q/ -t emmc -u trusty -d mipi-panel
@@ -169,14 +169,17 @@ function flash_partition
     elif [ "$(echo ${1} | grep "gpt")" != "" ]; then
         img_name=${partition_file}
     elif [ "$(echo ${1} | grep "super")" != "" ]; then
+        make_super_image
         img_name=${super_file}
     else
         img_name="${1%_*}-${soc_name}.img"
     fi
 
     echo -e generate lines to flash ${RED}${img_name}${STD} to the partition of ${RED}${1}${STD}
-    rm -f /tmp/${img_name}
-    ln -s ${sym_link_directory}${img_name} /tmp/${img_name}
+    if [ "${img_name}" != "${super_file}" ]; then
+        rm -f /tmp/${img_name}
+        ln -s ${sym_link_directory}${img_name} /tmp/${img_name}
+    fi
     echo FB[-t 600000]: flash ${1} ${img_name} >> /tmp/uuu.lst
 }
 
@@ -288,6 +291,73 @@ function flash_android
     fi
 }
 
+# this function will invoke lpmake to create super.img, the super.img will
+# be created in /tmp, make sure that there is enouth space
+function make_super_image
+{
+    # check the size of raw images
+    raw_system_size=`${sym_link_directory}simglen ${sym_link_directory}${systemimage_file}`
+    return_value=$?
+    if [ ${return_value} != 0 ]; then
+        echo -e >&2 ${RED}fail to get the size of raw system image${STD}
+        eixt 1
+    fi
+    raw_vendor_size=`${sym_link_directory}simglen ${sym_link_directory}${vendor_file}`
+    return_value=$?
+    if [ ${return_value} != 0 ]; then
+        echo -e >&2 ${RED}fail to get the size of raw vendor image${STD}
+        exit 1
+    fi
+    raw_product_size=`${sym_link_directory}simglen ${sym_link_directory}${product_file}`
+    return_value=$?
+    if [ ${return_value} != 0 ]; then
+        echo -e >&2 ${RED}fail to get the size of raw product image${STD}
+        exit 1
+    fi
+
+    rm -rf /tmp/${super_file}
+    # now dynamic partition is only enabled in dual slot condition
+    if [ ${support_dualslot} -eq 1 ]; then
+        if [ "${slot}" == "_a" ]; then
+            raw_system_size_a=${raw_system_size}
+            lpmake_system_image_a="--image system_a=${sym_link_directory}${systemimage_file}"
+            raw_vendor_size_a=${raw_vendor_size}
+            lpmake_vendor_image_a="--image vendor_a=${sym_link_directory}${vendor_file}"
+            raw_product_size_a=${raw_product_size}
+            lpmake_product_image_a="--image product_a=${sym_link_directory}${product_file}"
+        elif [ "${slot}" == "_b" ]; then
+            raw_system_size_b=${raw_system_size}
+            lpmake_system_image_b="--image system_b=${sym_link_directory}${systemimage_file}"
+            raw_vendor_size_b=${raw_vendor_size}
+            lpmake_vendor_image_b="--image vendor_b=${sym_link_directory}${vendor_file}"
+            raw_product_size_b=${raw_product_size}
+            lpmake_product_image_b="--image product_b=${sym_link_directory}${product_file}"
+        else
+            raw_system_size_a=${raw_system_size}
+            lpmake_system_image_a="--image system_a=${sym_link_directory}${systemimage_file}"
+            raw_vendor_size_a=${raw_vendor_size}
+            lpmake_vendor_image_a="--image vendor_a=${sym_link_directory}${vendor_file}"
+            raw_product_size_a=${raw_product_size}
+            lpmake_product_image_a="--image product_a=${sym_link_directory}${product_file}"
+            raw_system_size_b=${raw_system_size}
+            lpmake_system_image_b="--image system_b=${sym_link_directory}${systemimage_file}"
+            raw_vendor_size_b=${raw_vendor_size}
+            lpmake_vendor_image_b="--image vendor_b=${sym_link_directory}${vendor_file}"
+            raw_product_size_b=${raw_product_size}
+            lpmake_product_image_b="--image product_b=${sym_link_directory}${product_file}"
+        fi
+    fi
+
+        ${sym_link_directory}lpmake --metadata-size 65536 --super-name super --metadata-slots 3 --device super:7516192768 \
+            --group nxp_dynamic_partitions_a:3747610624 --group nxp_dynamic_partitions_b:3747610624 \
+            --partition system_a:readonly:${raw_system_size_a}:nxp_dynamic_partitions_a ${lpmake_system_image_a} \
+            --partition system_b:readonly:${raw_system_size_b}:nxp_dynamic_partitions_b ${lpmake_system_image_b} \
+            --partition vendor_a:readonly:${raw_vendor_size_a}:nxp_dynamic_partitions_a ${lpmake_vendor_image_a} \
+            --partition vendor_b:readonly:${raw_vendor_size_b}:nxp_dynamic_partitions_b ${lpmake_vendor_image_b} \
+            --partition product_a:readonly:${raw_product_size_a}:nxp_dynamic_partitions_a ${lpmake_product_image_a} \
+            --partition product_b:readonly:${raw_product_size_b}:nxp_dynamic_partitions_b ${lpmake_product_image_b} \
+            --sparse --output /tmp/${super_file}
+}
 
 # parse command line
 soc_name=""
@@ -342,6 +412,21 @@ sym_link_directory=""
 yocto_image_sym_link=""
 daemon_mode=0
 dryrun=0
+raw_system_size=0
+raw_system_size_a=0
+raw_system_size_b=0
+raw_vendor_size=0
+raw_vendor_size_a=0
+raw_vendor_size_b=0
+raw_product_size=0
+raw_product_size_a=0
+raw_product_size_b=0
+lpmake_system_image_a=""
+lpmake_system_image_b=""
+lpmake_vendor_image_a=""
+lpmake_vendor_image_b=""
+lpmake_product_image_a=""
+lpmake_product_image_b=""
 
 # We want to detect illegal feature input to some extent. Here it's based on SoC names. Since an SoC may be on a
 # board running different set of images(android and automative for a example), so misuse the features of one set of
@@ -361,7 +446,7 @@ imx8qm_dtb_feature=(hdmi mipi-panel md xen)
 imx7ulp_dtb_feature=(evk-mipi evk mipi)
 
 
-echo -e This script is validated with ${RED}uuu 1.3.124${STD} version, please align with this version.
+echo -e This script is validated with ${RED}uuu 1.3.124${STD} version, it is recommended to align with this version.
 
 if [ $# -eq 0 ]; then
     echo -e >&2 ${RED}please provide more information with command script options${STD}

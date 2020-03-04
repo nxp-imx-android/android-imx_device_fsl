@@ -1,7 +1,7 @@
 :: Do not output the command
 @echo off
 
-echo This script is validated with uuu 1.3.124 version, please align with this version.
+echo This script is validated with uuu 1.3.124 version, it is recommended to align with this version.
 
 ::---------------------------------------------------------------------------------
 ::Variables
@@ -64,6 +64,22 @@ set dual_bootloader_partition=
 set /A daemon_mode=0
 set /A flag=1
 set /A dryrun=0
+set /A raw_system_size=0
+set /A raw_system_size_a=0
+set /A raw_system_size_b=0
+set /A raw_vendor_size=0
+set /A raw_vendor_size_a=0
+set /A raw_vendor_size_b=0
+set /A raw_product_size=0
+set /A raw_product_size_a=0
+set /A raw_product_size_b=0
+set lpmake_system_image_a=
+set lpmake_system_image_b=
+set lpmake_vendor_image_a=
+set lpmake_vendor_image_b=
+set lpmake_product_image_a=
+set lpmake_product_image_b=
+
 
 :: We want to detect illegal feature input to some extent. Here it's based on SoC names. Since an SoC may be on a
 :: board running different set of images(android and automative for a example), so misuse the features of one set of
@@ -196,7 +212,7 @@ find "r.e.c.o.v.e.r.y." partition-table_3.txt > nul && set /A support_recovery=1
 :: check whether there is "boot_b" in partition file
 find "b.o.o.t._.b." partition-table_3.txt > nul && set /A support_dualslot=1 && echo dual slot is supported
 :: check whether there is "super" in partition table
-find "s.u.p.e.r." partition-table_3.txt > nul && set /A support_dynamic_partition=1 && echo dynamic parttition is supported
+find "s.u.p.e.r." partition-table_3.txt > nul && set /A support_dynamic_partition=1 && echo dynamic partition is supported
 
 del partition-table_1.txt
 del partition-table_2.txt
@@ -459,8 +475,8 @@ goto :eof
 
 :help
 echo.
-echo Version: 1.6
-echo Last change: remove "-tos" and "-dboot" option, add "-u" option to specify which uboot or spl&bootloader image to flash
+echo Version: 1.7
+echo Last change: generate super.img when flash images with dynamic partition feature
 echo currently suported platforms: evk_7ulp, evk_8mm, evk_8mq, evk_8mn, evk_8mp, aiy_8mq, mek_8q, mek_8q_car
 echo.
 echo eg: uuu_imx_android_flash.bat -f imx8qm -a -e -D C:\Users\user_01\images\android10\mek_8q\ -t emmc -u trusty -d mipi-panel
@@ -673,6 +689,7 @@ if not [%partition_to_be_flashed:bootloader=%] == [%partition_to_be_flashed%] (
     goto :start_to_flash
 )
 if not [%partition_to_be_flashed:super=%] == [%partition_to_be_flashed%] (
+    call :make_super_image
     set img_name=%super_file%
     goto :start_to_flash
 )
@@ -692,11 +709,15 @@ if not [%partition_to_be_flashed:gpt=%] == [%partition_to_be_flashed%] (
 
 :start_to_flash
 echo generate lines to flash %img_name% to the partition of %1
-if exist %img_name%.link (
-    del %img_name%.link
+if not [%img_name%] == [%super_file%] (
+    if exist %img_name%.link (
+        del %img_name%.link
+    )
+    cmd /c mklink %img_name%.link %image_directory%%img_name% > nul
+    echo FB[-t 600000]: flash %1 %img_name%.link >> uuu.lst
+) else (
+    echo FB[-t 600000]: flash %1 %img_name% >> uuu.lst
 )
-cmd /c mklink %img_name%.link %image_directory%%img_name% > nul
-echo FB[-t 600000]: flash %1 %img_name%.link >> uuu.lst
 goto :eof
 
 
@@ -822,6 +843,63 @@ if not [!dec!] == [0] (
     goto :division_modular_loop
 )
 echo !hex!
+goto :eof
+
+:: this function will invoke lpmake to create super.img, the super.img will
+:: be created in current directory
+:make_super_image
+:: check the size of raw images
+for /f %%i in ('%image_directory%simglen.exe %image_directory%%systemimage_file%') do ( set raw_system_size=%%i) || set /A error_level=1 && goto :exit
+for /f %%i in ('%image_directory%simglen.exe %image_directory%%vendor_file%') do ( set raw_vendor_size=%%i) || set /A error_level=1 && goto :exit
+for /f %%i in ('%image_directory%simglen.exe %image_directory%%product_file%') do ( set raw_product_size=%%i) || set /A error_level=1 && goto :exit
+
+if exist %super_file% (
+    del %super_file%
+)
+:: now dynamic partition is only enabled in dual slot condition
+if %support_dualslot% == 1 (
+    setlocal enabledelayedexpansion
+    if [%slot%] == [_a] (
+        set raw_system_size_a=%raw_system_size%
+        set lpmake_system_image_a=--image system_a=%image_directory%%systemimage_file%
+        set raw_vendor_size_a=%raw_vendor_size%
+        set lpmake_vendor_image_a=--image vendor_a=%image_directory%%vendor_file%
+        set raw_product_size_a=%raw_product_size%
+        set lpmake_product_image_a=--image product_a=%image_directory%%product_file%
+    )
+    if [%slot%] == [_b] (
+        set raw_system_size_b=%raw_system_size%
+        set lpmake_system_image_b=--image system_b=%image_directory%%systemimage_file%
+        set raw_vendor_size_b=%raw_vendor_size%
+        set lpmake_vendor_image_b=--image vendor_b=%image_directory%%vendor_file%
+        set raw_product_size_b=%raw_product_size%
+        set lpmake_product_image_b=--image product_b=%image_directory%%product_file%
+    )
+    if [%slot%] == [] (
+        set raw_system_size_a=%raw_system_size%
+        set lpmake_system_image_a=--image system_a=%image_directory%%systemimage_file%
+        set raw_vendor_size_a=%raw_vendor_size%
+        set lpmake_vendor_image_a=--image vendor_a=%image_directory%%vendor_file%
+        set raw_product_size_a=%raw_product_size%
+        set lpmake_product_image_a=--image product_a=%image_directory%%product_file%
+        set raw_system_size_b=%raw_system_size%
+        set lpmake_system_image_b=--image system_b=%image_directory%%systemimage_file%
+        set raw_vendor_size_b=%raw_vendor_size%
+        set lpmake_vendor_image_b=--image vendor_b=%image_directory%%vendor_file%
+        set raw_product_size_b=%raw_product_size%
+        set lpmake_product_image_b=--image product_b=%image_directory%%product_file%
+    )
+    %image_directory%lpmake.exe --metadata-size 65536 --super-name super --metadata-slots 3 --device super:7516192768 ^
+        --group nxp_dynamic_partitions_a:3747610624 --group nxp_dynamic_partitions_b:3747610624 ^
+        --partition system_a:readonly:!raw_system_size_a!:nxp_dynamic_partitions_a !lpmake_system_image_a! ^
+        --partition system_b:readonly:!raw_system_size_b!:nxp_dynamic_partitions_b !lpmake_system_image_b! ^
+        --partition vendor_a:readonly:!raw_vendor_size_a!:nxp_dynamic_partitions_a !lpmake_vendor_image_a! ^
+        --partition vendor_b:readonly:!raw_vendor_size_b!:nxp_dynamic_partitions_b !lpmake_vendor_image_b! ^
+        --partition product_a:readonly:!raw_product_size_a!:nxp_dynamic_partitions_a !lpmake_product_image_a! ^
+        --partition product_b:readonly:!raw_product_size_b!:nxp_dynamic_partitions_b !lpmake_product_image_b! ^
+        --sparse --output !super_file!
+)
+
 goto :eof
 
 :exit

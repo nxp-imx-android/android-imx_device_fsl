@@ -5,8 +5,8 @@ help() {
 bn=`basename $0`
 cat << EOF
 
-Version: 1.5
-Last change: support flash product.img and dual bootloader condition
+Version: 1.6
+Last change: generate super.img when flash images with dynamic partition feature
 V1.4 change: add support imx8mn chips
 
 Usage: $bn <option> device_node
@@ -43,6 +43,75 @@ EOF
 
 }
 
+# this function will invoke lpmake to create super.img, the super.img will
+# be created in /tmp, make sure that there is enouth space
+function make_super_image
+{
+    # check the size of raw images
+    raw_system_size=`${image_directory}simglen ${image_directory}${systemimage_file}`
+    return_value=$?
+    if [ ${return_value} != 0 ]; then
+        echo -e >&2 ${RED}fail to get the size of raw system image${STD}
+        eixt 1
+    fi
+    raw_vendor_size=`${image_directory}simglen ${image_directory}${vendor_file}`
+    return_value=$?
+    if [ ${return_value} != 0 ]; then
+        echo -e >&2 ${RED}fail to get the size of raw vendor image${STD}
+        exit 1
+    fi
+    raw_product_size=`${image_directory}simglen ${image_directory}${product_file}`
+    return_value=$?
+    if [ ${return_value} != 0 ]; then
+        echo -e >&2 ${RED}fail to get the size of raw product image${STD}
+        exit 1
+    fi
+
+    rm -rf /tmp/${super_file}
+    # now dynamic partition is only enabled in dual slot condition
+    if [ ${support_dualslot} -eq 1 ]; then
+        if [ "${slot}" == "_a" ]; then
+            raw_system_size_a=${raw_system_size}
+            lpmake_system_image_a="--image system_a=${image_directory}${systemimage_file}"
+            raw_vendor_size_a=${raw_vendor_size}
+            lpmake_vendor_image_a="--image vendor_a=${image_directory}${vendor_file}"
+            raw_product_size_a=${raw_product_size}
+            lpmake_product_image_a="--image product_a=${image_directory}${product_file}"
+        elif [ "${slot}" == "_b" ]; then
+            raw_system_size_b=${raw_system_size}
+            lpmake_system_image_b="--image system_b=${image_directory}${systemimage_file}"
+            raw_vendor_size_b=${raw_vendor_size}
+            lpmake_vendor_image_b="--image vendor_b=${image_directory}${vendor_file}"
+            raw_product_size_b=${raw_product_size}
+            lpmake_product_image_b="--image product_b=${image_directory}${product_file}"
+        else
+            raw_system_size_a=${raw_system_size}
+            lpmake_system_image_a="--image system_a=${image_directory}${systemimage_file}"
+            raw_vendor_size_a=${raw_vendor_size}
+            lpmake_vendor_image_a="--image vendor_a=${image_directory}${vendor_file}"
+            raw_product_size_a=${raw_product_size}
+            lpmake_product_image_a="--image product_a=${image_directory}${product_file}"
+            raw_system_size_b=${raw_system_size}
+            lpmake_system_image_b="--image system_b=${image_directory}${systemimage_file}"
+            raw_vendor_size_b=${raw_vendor_size}
+            lpmake_vendor_image_b="--image vendor_b=${image_directory}${vendor_file}"
+            raw_product_size_b=${raw_product_size}
+            lpmake_product_image_b="--image product_b=${image_directory}${product_file}"
+        fi
+    fi
+
+    ${image_directory}lpmake --metadata-size 65536 --super-name super --metadata-slots 3 --device super:7516192768 \
+            --group nxp_dynamic_partitions_a:3747610624 --group nxp_dynamic_partitions_b:3747610624 \
+            --partition system_a:readonly:${raw_system_size_a}:nxp_dynamic_partitions_a ${lpmake_system_image_a} \
+            --partition system_b:readonly:${raw_system_size_b}:nxp_dynamic_partitions_b ${lpmake_system_image_b} \
+            --partition vendor_a:readonly:${raw_vendor_size_a}:nxp_dynamic_partitions_a ${lpmake_vendor_image_a} \
+            --partition vendor_b:readonly:${raw_vendor_size_b}:nxp_dynamic_partitions_b ${lpmake_vendor_image_b} \
+            --partition product_a:readonly:${raw_product_size_a}:nxp_dynamic_partitions_a ${lpmake_product_image_a} \
+            --partition product_b:readonly:${raw_product_size_b}:nxp_dynamic_partitions_b ${lpmake_product_image_b} \
+            --sparse --output /tmp/${super_file}
+}
+
+
 # parse command line
 moreoptions=1
 node="na"
@@ -71,6 +140,22 @@ dtb_feature=""
 uboot_feature=""
 support_dual_bootloader=0
 support_dynamic_partition=0
+raw_system_size=0
+raw_system_size_a=0
+raw_system_size_b=0
+raw_vendor_size=0
+raw_vendor_size_a=0
+raw_vendor_size_b=0
+raw_product_size=0
+raw_product_size_a=0
+raw_product_size_b=0
+lpmake_system_image_a=""
+lpmake_system_image_b=""
+lpmake_vendor_image_a=""
+lpmake_vendor_image_b=""
+lpmake_product_image_a=""
+lpmake_product_image_b=""
+
 
 
 while [ "$moreoptions" = 1 -a $# -gt 0 ]; do
@@ -158,9 +243,10 @@ fi
 # echo "${soc_name} bootloader offset is: ${bootloader_offset}"
 
 # for specified directory, make sure there is a slash at the end
-if [[ "${image_directory}" != "" ]]; then
-    image_directory="${image_directory%/}/";
+if [[ "${image_directory}" = "" ]]; then
+    image_directory=`pwd`;
 fi
+image_directory="${image_directory%/}/";
 
 
 
@@ -215,6 +301,7 @@ function flash_partition
             elif [ "$(echo ${1} | grep -E "dtbo|vbmeta|recovery")" != "" -a "${dtb_feature}" != "" ]; then
                 img_name="${1%_*}-${soc_name}-${dtb_feature}.img"
             elif [ "$(echo ${1} | grep "super")" != "" ]; then
+                make_super_image
                 img_name=${super_file}
             else
                 img_name="${1%_*}-${soc_name}.img"
@@ -227,8 +314,10 @@ function flash_partition
             echo "flash_partition: ${img_name} ---> ${node}${num}"
 
             if [ "$(echo ${1} | grep "system")" != "" ] || [ "$(echo ${1} | grep "vendor")" != "" ] || \
-				[ "$(echo ${1} | grep "product")" != "" ] || [ "$(echo ${1} | grep "super")" != "" ]; then
+                [ "$(echo ${1} | grep "product")" != "" ]; then
                 simg2img ${image_directory}${img_name} ${node}${num}
+            elif [ "$(echo ${1} | grep "super")" != "" ]; then
+                simg2img /tmp/${img_name} ${node}${num}
             else
                 dd if=${image_directory}${img_name} of=${node}${num} bs=10M conv=fsync
             fi
@@ -267,7 +356,7 @@ function flash_android
 
     if [ ${support_dual_bootloader} -eq 1 ]; then
         bootloader_file=spl-${soc_name}${uboot_feature}.bin
-	    uboot_proper_file=bootloader-${soc_name}${uboot_feature}.img
+        uboot_proper_file=bootloader-${soc_name}${uboot_feature}.img
         bootloader_partition="bootloader"${slot}
         flash_partition ${bootloader_partition} || exit 1
     else
@@ -311,7 +400,7 @@ if [ "${not_partition}" -ne "1" ] ; then
     # invoke make_partition to write first 17KB in partition table image to sdcard start
     make_partition || exit 1
     # unmount partitions and then force to re-read the partition table of the specified device
-	sleep 3
+    sleep 3
     for i in `cat /proc/mounts | grep "${node}" | awk '{print $2}'`; do umount $i; done
     hdparm -z ${node}
     # backup the GPT table to last LBA for sd card. execute "gdisk ${node}" with the input characters
