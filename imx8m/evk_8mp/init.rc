@@ -95,12 +95,10 @@ on early-boot
     # Set period_us for usb audio
     setprop ro.audio.usb.period_us 20000
 
-    # Wifi firmware reload path
-    chown wifi wifi /sys/module/brcmfmac/parameters/alternative_fw_path
-
     # Prepare for wifi
     setprop wifi.interface wlan0
-    setprop wifi.direct.interface p2p-dev-wlan0
+    setprop wifi.direct.interface p2p0
+    setprop wifi.concurrent.interface p2p0
 
     setprop persist.service.bdroid.bdaddr 22:22:67:C6:69:73
 

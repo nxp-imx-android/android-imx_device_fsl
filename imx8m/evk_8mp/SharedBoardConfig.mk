@@ -10,8 +10,7 @@ PRODUCT_IMX_TRUSTY := true
 #Enable this to disable product partition build.
 #IMX_NO_PRODUCT_PARTITION := true
 
-# BCM fmac wifi driver module
+#NXP 8997 wifi driver module
 BOARD_VENDOR_KERNEL_MODULES += \
-    $(KERNEL_OUT)/drivers/net/wireless/broadcom/brcm80211/brcmfmac/brcmfmac.ko \
-    $(KERNEL_OUT)/drivers/net/wireless/broadcom/brcm80211/brcmutil/brcmutil.ko
-
+    $(KERNEL_OUT)/drivers/net/wireless/marvell/mrvl8997/wlan_src/mlan.ko \
+    $(KERNEL_OUT)/drivers/net/wireless/marvell/mrvl8997/wlan_src/pcie8xxx.ko \
