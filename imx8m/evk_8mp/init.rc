@@ -102,11 +102,6 @@ on early-boot
     setprop wifi.interface wlan0
     setprop wifi.direct.interface p2p-dev-wlan0
 
-    # Prepare for bluetooth
-    chmod 665 /sys/class/rfkill/rfkill0/state
-    chown bluetooth bluetooth /sys/class/rfkill/rfkill0/state
-    write /sys/class/rfkill/rfkill0/state 0
-
     setprop persist.service.bdroid.bdaddr 22:22:67:C6:69:73
 
     # Use ro.boot.lcd_density to override ro.sf.lcd_density
