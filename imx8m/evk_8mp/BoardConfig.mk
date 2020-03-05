@@ -77,15 +77,15 @@ BOARD_WPA_SUPPLICANT_PRIVATE_LIB        := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
 
 WIFI_DRIVER_FW_PATH_PARAM := "/sys/module/brcmfmac/parameters/alternative_fw_path"
 
+# NXP 8997 BT
+BOARD_HAVE_BLUETOOTH_NXP := true
+
 BOARD_USE_SENSOR_FUSION := true
 
 # we don't support sparse image.
 TARGET_USERIMAGES_SPARSE_EXT_DISABLED := false
 
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(IMX_DEVICE_PATH)/bluetooth
-
-# BCM 1MW BT
-BOARD_HAVE_BLUETOOTH_BCM := true
 
 BOARD_HAVE_USB_CAMERA := true
 
