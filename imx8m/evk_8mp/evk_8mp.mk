@@ -233,11 +233,12 @@ PRODUCT_PACKAGES += \
     wifilogd \
     wificond
 
-# BCM 1MW Wifi Firmware
+# nxp 8997 Firmware
 PRODUCT_COPY_FILES += \
-    vendor/nxp/imx-firmware/cyw-wifi-bt/1MW_CYW43455/brcmfmac43455-sdio.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/brcm/brcmfmac43455-sdio.bin \
-    vendor/nxp/imx-firmware/cyw-wifi-bt/1MW_CYW43455/brcmfmac43455-sdio.clm_blob:$(TARGET_COPY_OUT_VENDOR)/firmware/brcm/brcmfmac43455-sdio.clm_blob \
-    vendor/nxp/imx-firmware/cyw-wifi-bt/1MW_CYW43455/brcmfmac43455-sdio.txt:$(TARGET_COPY_OUT_VENDOR)/firmware/brcm/brcmfmac43455-sdio.txt
+    vendor/nxp/mrvl-wifi-bt/mrvl/FwImage_8997/pcie8997_wlan_v4.bin:vendor/firmware/mrvl/pcie8997_wlan_v4.bin \
+    vendor/nxp/mrvl-wifi-bt/mrvl/FwImage_8997/pcieuart8997_combo_v4.bin:vendor/firmware/mrvl/pcieuart8997_combo_v4.bin \
+    vendor/nxp/mrvl-wifi-bt/mrvl/FwImage_8997/helper_uart_3000000.bin:vendor/firmware/mrvl/helper_uart_3000000.bin \
+    vendor/nxp/mrvl-wifi-bt/mrvl/FwImage_8997/uart8997_bt_v4.bin:vendor/firmware/mrvl/uart8997_bt_v4.bin \
 
 # Keymaster HAL
 ifeq ($(PRODUCT_IMX_TRUSTY),true)
