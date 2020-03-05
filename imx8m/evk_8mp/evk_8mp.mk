@@ -223,13 +223,9 @@ PRODUCT_PACKAGES += \
     android.hardware.bluetooth@1.0-impl \
     android.hardware.bluetooth@1.0-service
 
-# BCM Bluetooth vendor config
+#nxp 8997 Bluetooth vendor config
 PRODUCT_PACKAGES += \
     bt_vendor.conf
-
-# BCM 1MW Bluetooth Firmware
-PRODUCT_COPY_FILES += \
-    vendor/nxp/imx-firmware/cyw-wifi-bt/1MW_CYW43455/BCM4345C0.1MW.hcd:$(TARGET_COPY_OUT_VENDOR)/firmware/brcm/CYW4345C0.1MW.hcd
 
 # WiFi HAL
 PRODUCT_PACKAGES += \
