@@ -124,7 +124,6 @@ PRODUCT_PACKAGES += \
     libVSC \
     libg2d-viv \
     libgpuhelper \
-    gatekeeper.imx
 
 # imx7 Hardware HAL libs.
 PRODUCT_PACKAGES += \

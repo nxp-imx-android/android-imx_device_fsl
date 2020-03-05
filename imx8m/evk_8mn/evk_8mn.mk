@@ -207,7 +207,6 @@ PRODUCT_PACKAGES += \
     libNNGPUBinary-evis2 \
     libNNGPUBinary-lite \
     libNNGPUBinary-ulite \
-    gatekeeper.imx
 
 # Neural Network HAL and Lib
 PRODUCT_PACKAGES += \
@@ -277,8 +276,7 @@ PRODUCT_PACKAGES += \
 
 # new gatekeeper HAL
 PRODUCT_PACKAGES += \
-    android.hardware.gatekeeper@1.0-impl \
-    android.hardware.gatekeeper@1.0-service
+    android.hardware.gatekeeper@1.0-service.software
 
 ifneq ($(BUILD_TARGET_FS),ubifs)
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -303,7 +301,7 @@ PRODUCT_COMPATIBLE_PROPERTY_OVERRIDE := true
 # Add Trusty OS backed gatekeeper and secure storage proxy
 ifeq ($(PRODUCT_IMX_TRUSTY),true)
 PRODUCT_PACKAGES += \
-    gatekeeper.trusty \
+    android.hardware.gatekeeper@1.0-service.trusty \
     storageproxyd
 endif
 

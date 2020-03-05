@@ -52,7 +52,8 @@ on init
     write /dev/stune/rt/schedtune.prefer_idle 1
 
 on late-fs
-    # Start keymaster service
+    # Start keymaster/gatekeeper service
+    start vendor.gatekeeper-1-0-${ro.boot.keystore}
     start vendor.keymaster-3-0-${ro.boot.keystore}
     setprop vendor.powerhal.init 1
 
