@@ -42,7 +42,7 @@ options:
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                            │   imx8mp       │  evk-uuu                                                                                             │
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
-                           │   imx8qxp      │  mek-uuu trusty-secure-unlock trusty secure-unlock                                                   │
+                           │   imx8qxp      │  mek-uuu trusty-secure-unlock trusty secure-unlock c0 trusty-c0 mek-c0-uuu                           │
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                            │   imx8qm       │  mek-uuu trusty-secure-unlock trusty secure-unlock md                                                │
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
@@ -434,7 +434,7 @@ lpmake_product_image_b=""
 imx8mm_uboot_feature=(dual trusty-dual 4g-evk-uuu 4g ddr4-evk-uuu ddr4 evk-uuu trusty-4g trusty-secure-unlock trusty)
 imx8mn_uboot_feature=(dual trusty-dual evk-uuu trusty-secure-unlock trusty)
 imx8mq_uboot_feature=(dual trusty-dual evk-uuu trusty-secure-unlock trusty aiy-uuu)
-imx8qxp_uboot_feature=(mek-uuu trusty-secure-unlock trusty secure-unlock)
+imx8qxp_uboot_feature=(mek-uuu trusty-secure-unlock trusty secure-unlock c0 trusty-c0 mek-c0-uuu)
 imx8qm_uboot_feature=(mek-uuu trusty-secure-unlock trusty secure-unlock md)
 imx7ulp_uboot_feature=(evk-uuu)
 
@@ -706,6 +706,12 @@ if [ "${soc_name}" = imx8mm ]; then
         bootloader_used_by_uuu=u-boot-${soc_name}-ddr4-${board}-uuu.imx
     elif [[ "${uboot_feature}" = *"4g"* ]]; then
         bootloader_used_by_uuu=u-boot-${soc_name}-4g-${board}-uuu.imx
+    fi
+fi
+
+if [ "${soc_name}" = imx8qxp ]; then
+    if [[ "${uboot_feature}" = *"c0"* ]]; then
+        bootloader_used_by_uuu=u-boot-${soc_name}-${board}-c0-uuu.imx
     fi
 fi
 
