@@ -118,7 +118,7 @@ PRODUCT_PACKAGES += \
     libEGL_swiftshader \
     libGLESv1_CM_swiftshader \
     libGLESv2_swiftshader \
-    gatekeeper.imx7
+    gatekeeper.imx
 
 PRODUCT_PACKAGES += \
     android.hardware.audio@4.0-impl \
@@ -135,7 +135,7 @@ PRODUCT_PACKAGES += \
 
 # imx7 sensor HAL libs.
 PRODUCT_PACKAGES += \
-        sensors.imx7
+        sensors.imx
 
 # Usb HAL
 PRODUCT_PACKAGES += \

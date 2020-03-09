@@ -26,7 +26,7 @@ SOONG_CONFIG_IMXPLUGIN_BOARD_HAVE_VPU = false
 # Product-specific compile-time definitions.
 #
 
-TARGET_BOARD_PLATFORM := imx6
+TARGET_BOARD_PLATFORM := imx
 TARGET_CPU_ABI := armeabi-v7a
 TARGET_CPU_ABI2 := armeabi
 TARGET_ARCH := arm

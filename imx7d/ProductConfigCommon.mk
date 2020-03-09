@@ -51,12 +51,12 @@ PRODUCT_PACKAGES += \
 
 # HAL
 PRODUCT_PACKAGES += \
-    camera.imx7 \
-    gralloc.imx7 \
-    hwcomposer.imx7 \
-    lights.imx7 \
-    overlay.imx7 \
-    power.imx7
+    camera.imx \
+    gralloc.imx \
+    hwcomposer.imx \
+    lights.imx \
+    overlay.imx \
+    power.imx
 
 # sensor
 PRODUCT_PACKAGES += \
@@ -68,7 +68,7 @@ PRODUCT_PACKAGES += \
 # audio
 PRODUCT_PACKAGES += \
     audio.a2dp.default \
-    audio.primary.imx7 \
+    audio.primary.imx \
     audio.r_submix.default \
     audio.usb.default \
     libaudioutils \
@@ -127,7 +127,7 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     android.hardware.memtrack@1.0-impl \
     android.hardware.memtrack@1.0-service \
-    memtrack.imx7
+    memtrack.imx
 
 # FUSE based emulated sdcard daemon
 PRODUCT_PACKAGES += sdcard

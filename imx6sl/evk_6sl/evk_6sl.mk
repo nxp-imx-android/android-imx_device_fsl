@@ -94,11 +94,11 @@ PRODUCT_PACKAGES += \
     android.hardware.renderscript@1.0-impl
 
 PRODUCT_PACKAGES += \
-    gralloc_viv.imx6 \
+    gralloc_viv.imx \
     libGAL \
     libg2d-viv \
     libgpuhelper \
-    gatekeeper.imx6
+    gatekeeper.imx
 
 PRODUCT_PACKAGES += \
     android.hardware.audio@4.0-impl \

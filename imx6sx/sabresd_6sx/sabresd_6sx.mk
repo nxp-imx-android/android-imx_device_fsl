@@ -101,13 +101,13 @@ PRODUCT_PACKAGES += \
     libEGL_VIVANTE \
     libGLESv1_CM_VIVANTE \
     libGLESv2_VIVANTE \
-    gralloc_viv.imx6 \
+    gralloc_viv.imx \
     libGAL \
     libGLSLC \
     libVSC \
     libg2d-viv \
     libgpuhelper \
-    gatekeeper.imx6
+    gatekeeper.imx
 
 PRODUCT_PACKAGES += \
     android.hardware.audio@4.0-impl \
@@ -124,7 +124,7 @@ PRODUCT_PACKAGES += \
 
 # imx6 sensor HAL libs.
 PRODUCT_PACKAGES += \
-       sensors.imx6
+       sensors.imx
 
 # Usb HAL
 PRODUCT_PACKAGES += \
