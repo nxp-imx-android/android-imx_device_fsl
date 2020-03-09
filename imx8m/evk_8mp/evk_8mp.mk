@@ -292,11 +292,6 @@ PRODUCT_PACKAGES += \
     c2_component_register_ms \
     c2_component_register_ra
 
-# imx c2 component register
-PRODUCT_COPY_FILES += \
-    $(FSL_CODEC_PATH)/imx_android_mm/codec2/store/registry/c2_component_register_8mp:$(TARGET_COPY_OUT_VENDOR)/etc/c2_component_register
-
-
 PRODUCT_PACKAGES += \
     DirectAudioPlayer
 
