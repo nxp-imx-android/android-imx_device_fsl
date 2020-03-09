@@ -25,7 +25,7 @@ SOONG_CONFIG_IMXPLUGIN_PRODUCT_MANUFACTURER = freescale
 # Product-specific compile-time definitions.
 #
 
-TARGET_BOARD_PLATFORM := imx8
+TARGET_BOARD_PLATFORM := imx
 
 ifeq ($(IMX8_BUILD_32BIT_ROOTFS),true)
 TARGET_ARCH := arm

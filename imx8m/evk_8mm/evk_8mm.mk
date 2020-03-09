@@ -173,13 +173,13 @@ PRODUCT_PACKAGES += \
     libEGL_VIVANTE \
     libGLESv1_CM_VIVANTE \
     libGLESv2_VIVANTE \
-    gralloc_viv.imx8 \
+    gralloc_viv.imx \
     libGAL \
     libGLSLC \
     libVSC \
     libg2d-viv \
     libgpuhelper \
-    gatekeeper.imx8
+    gatekeeper.imx
 
 PRODUCT_PACKAGES += \
     android.hardware.audio@5.0-impl:32 \

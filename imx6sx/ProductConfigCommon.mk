@@ -61,18 +61,18 @@ PRODUCT_PACKAGES += \
 
 # HAL
 PRODUCT_PACKAGES += \
-    camera.imx6 \
-    copybit.imx6 \
-    gralloc.imx6 \
-    hwcomposer.imx6 \
-    lights.imx6 \
-    overlay.imx6 \
-    power.imx6
+    camera.imx \
+    copybit.imx \
+    gralloc.imx \
+    hwcomposer.imx \
+    lights.imx \
+    overlay.imx \
+    power.imx
 
 # audio
 PRODUCT_PACKAGES += \
     audio.a2dp.default \
-    audio.primary.imx6 \
+    audio.primary.imx \
     audio.r_submix.default \
     audio.usb.default \
     libaudioutils \
@@ -161,7 +161,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.memtrack@1.0-impl \
     android.hardware.memtrack@1.0-service \
-    memtrack.imx6
+    memtrack.imx
 
 # Freescale VPU firmware files.
 PRODUCT_PACKAGES += \
