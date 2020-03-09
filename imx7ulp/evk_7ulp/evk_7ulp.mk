@@ -122,17 +122,17 @@ PRODUCT_PACKAGES += \
     libEGL_VIVANTE \
     libGLESv1_CM_VIVANTE \
     libGLESv2_VIVANTE \
-    gralloc_viv.imx7 \
+    gralloc_viv.imx \
     libGAL \
     libGLSLC \
     libVSC \
     libg2d-viv \
     libgpuhelper \
-    gatekeeper.imx7
+    gatekeeper.imx
 
 # imx7 Hardware HAL libs.
 PRODUCT_PACKAGES += \
-        gralloc.imx7      \
+        gralloc.imx      \
 
 # HWC2 HAL
 PRODUCT_PACKAGES += \
@@ -163,7 +163,7 @@ PRODUCT_PACKAGES += \
 
 # imx7 sensor HAL libs.
 PRODUCT_PACKAGES += \
-        sensors.imx7
+        sensors.imx
 
 # Usb HAL
 PRODUCT_PACKAGES += \

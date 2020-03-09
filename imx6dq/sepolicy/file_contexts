@@ -15,7 +15,7 @@
 ###############################################
 # same-process HAL files and their dependencies
 #
-/vendor/lib/hw/gralloc\.imx6\.so       u:object_r:same_process_hal_file:s0
+/vendor/lib/hw/gralloc\.imx\.so       u:object_r:same_process_hal_file:s0
 /vendor/lib/libfsldisplay\.so          u:object_r:same_process_hal_file:s0
 /vendor/lib(64)?/nxp.hardware.display@1.0\.so       u:object_r:same_process_hal_file:s0
 /vendor/lib/libedid\.so                u:object_r:same_process_hal_file:s0
@@ -25,7 +25,7 @@
 /vendor/lib/libVSC\.so                 u:object_r:same_process_hal_file:s0
 /vendor/lib/libGAL\.so                 u:object_r:same_process_hal_file:s0
 
-/vendor/lib/hw/gralloc_viv\.imx6\.so   u:object_r:same_process_hal_file:s0
+/vendor/lib/hw/gralloc_viv\.imx\.so   u:object_r:same_process_hal_file:s0
 /vendor/lib/libdrm_vivante\.so         u:object_r:same_process_hal_file:s0
 
 /vendor/usr/idc/eGalax_Touch_Screen\.idc              u:object_r:same_process_hal_file:s0

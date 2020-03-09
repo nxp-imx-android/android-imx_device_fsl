@@ -42,12 +42,12 @@ endif
 
 # HAL
 PRODUCT_PACKAGES += \
-    copybit.imx8 \
-    gralloc.imx8 \
-    hwcomposer.imx8 \
-    lights.imx8 \
-    overlay.imx8 \
-    power.imx8
+    copybit.imx \
+    gralloc.imx \
+    hwcomposer.imx \
+    lights.imx \
+    overlay.imx \
+    power.imx
 
 PRODUCT_STATIC_BOOT_CONTROL_HAL:= \
     bootctrl-static.avb \
@@ -69,7 +69,7 @@ PRODUCT_HOST_PACKAGES += \
 # audio
 PRODUCT_PACKAGES += \
     audio.a2dp.default \
-    audio.primary.imx8 \
+    audio.primary.imx \
     audio.r_submix.default \
     audio.usb.default \
     libaudioutils \
@@ -104,7 +104,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.memtrack@1.0-impl \
     android.hardware.memtrack@1.0-service \
-    memtrack.imx8
+    memtrack.imx
 
 # camera
 ifneq ($(PRODUCT_IMX_CAR),true)
@@ -113,7 +113,7 @@ PRODUCT_PACKAGES += \
     android.hardware.camera.provider@2.4-service \
     camera.device@1.0-impl \
     camera.device@3.2-impl \
-    camera.imx8
+    camera.imx
 endif
 
 PRODUCT_PACKAGES += \
