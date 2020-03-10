@@ -38,7 +38,7 @@ options:
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                            │   imx8mn       │  dual trusty-dual evk-uuu trusty-secure-unlock trusty                                                │
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
-                           │   imx8mp       │  evk-uuu                                                                                             │
+                           │   imx8mp       │  dual trusty-dual evk-uuu trusty-secure-unlock trusty                                                │
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                            │   imx8mq       │  dual trusty-dual evk-uuu trusty-secure-unlock trusty aiy-uuu                                        │
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
@@ -383,7 +383,7 @@ lpmake_product_image_b=""
 imx8mm_uboot_feature=(dual trusty-dual 4g-evk-uuu 4g ddr4-evk-uuu ddr4 evk-uuu trusty-4g trusty-secure-unlock trusty)
 imx8mn_uboot_feature=(dual trusty-dual evk-uuu trusty-secure-unlock trusty)
 imx8mq_uboot_feature=(dual trusty-dual evk-uuu trusty-secure-unlock trusty aiy-uuu)
-imx8mp_uboot_feature=(evk-uuu)
+imx8mp_uboot_feature=(dual trusty-dual evk-uuu trusty-secure-unlock trusty)
 imx8qxp_uboot_feature=(mek-uuu trusty-secure-unlock trusty secure-unlock c0 trusty-c0 mek-c0-uuu)
 imx8qm_uboot_feature=(mek-uuu trusty-secure-unlock trusty secure-unlock md)
 imx7ulp_uboot_feature=(evk-uuu)
