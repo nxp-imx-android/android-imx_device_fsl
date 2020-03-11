@@ -143,7 +143,11 @@ ifeq ($(TARGET_USE_DYNAMIC_PARTITIONS),true)
     # Support HDMI interface
     TARGET_BOARD_DTS_CONFIG += imx8mp-hdmi:imx8mp-evk-hdmi.dtb
     # Support LVDS interface
-    TARGET_BOARD_DTS_CONFIG += imx8mp-lvds:imx8mp-evk-it6263-lvds-dual-channel.dtb
+    TARGET_BOARD_DTS_CONFIG += imx8mp-lvds:imx8mp-evk-it6263-lvds-channel0.dtb
+    # Support LVDS panel
+    TARGET_BOARD_DTS_CONFIG += imx8mp-lvds-panel:imx8mp-evk-jdi-wuxga-lvds-panel.dtb
+    # Support MIPI panel
+    TARGET_BOARD_DTS_CONFIG += imx8mp-mipi-panel:imx8mp-evk-rm67191.dtb
   endif
 else # no dynamic parition feature
   ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
