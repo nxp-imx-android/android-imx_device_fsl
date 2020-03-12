@@ -13,7 +13,7 @@ if [ -f $cfg_file ]; then
   while IFS=" " read -r action name value arg1 arg2 arg3 arg4 arg5 arg6 arg7 arg8 arg9
   do
     case $action in
-      "insmod") insmod $name $arg1 $arg2 $arg3 $arg4 $arg5 $arg6 $arg7 $arg8 $arg9 ;;
+      "insmod") insmod $name $value $arg1 $arg2 $arg3 $arg4 $arg5 $arg6 $arg7 $arg8 $arg9 ;;
       "setprop") setprop $name $value ;;
     esac
   done < $cfg_file
