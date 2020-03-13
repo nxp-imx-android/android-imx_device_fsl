@@ -2,3 +2,9 @@ genfscon sysfs /devices/platform/soc@0/30800000.bus/30b50000.mmc/mmc_host/mmc1/m
 genfscon sysfs /devices/platform/soc@0/30800000.bus/30b60000.mmc/mmc_host/mmc2/mmc2:0001/block/mmcblk2 u:object_r:sysfs_block_devices:s0
 genfscon sysfs /devices/platform/soc@0/30800000.bus/30bb0000.flexspi/mtd/mtd0/mtdblock0                u:object_r:sysfs_block_devices:s0
 genfscon sysfs /devices/platform/32e10000.mipi_dsi/32e10000.mipi_dsi.0/backlight u:object_r:sysfs_leds:s0
+
+#sys/class/net
+genfscon sysfs /devices/platform/soc@0/30800000.bus/30be0000.ethernet/net                u:object_r:sysfs_net:s0
+genfscon sysfs /devices/platform/soc@0/30800000.bus/30bf0000.ethernet/net                u:object_r:sysfs_net:s0
+genfscon sysfs /devices/platform/33800000.pcie/pci0000:00/0000:00:00.0/0000:01:00.0/net  u:object_r:sysfs_net:s0
+genfscon sysfs /devices/platform/32f10100.usb/38100000.dwc3/gadget/net                   u:object_r:sysfs_net:s0
