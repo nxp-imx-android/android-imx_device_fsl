@@ -235,10 +235,9 @@ PRODUCT_PACKAGES += \
 
 # nxp 8997 Firmware
 PRODUCT_COPY_FILES += \
-    vendor/nxp/nxp-wifi-bt/mrvl/FwImage_8997/pcie8997_wlan_v4.bin:vendor/firmware/mrvl/pcie8997_wlan_v4.bin \
-    vendor/nxp/nxp-wifi-bt/mrvl/FwImage_8997/pcieuart8997_combo_v4.bin:vendor/firmware/mrvl/pcieuart8997_combo_v4.bin \
-    vendor/nxp/nxp-wifi-bt/mrvl/FwImage_8997/helper_uart_3000000.bin:vendor/firmware/mrvl/helper_uart_3000000.bin \
-    vendor/nxp/nxp-wifi-bt/mrvl/FwImage_8997/uart8997_bt_v4.bin:vendor/firmware/mrvl/uart8997_bt_v4.bin \
+    vendor/nxp/imx-firmware/nxp/FwImage_8997/pcie8997_wlan_v4.bin:vendor/firmware/mrvl/pcie8997_wlan_v4.bin \
+    vendor/nxp/imx-firmware/nxp/FwImage_8997/pcieuart8997_combo_v4.bin:vendor/firmware/mrvl/pcieuart8997_combo_v4.bin \
+    vendor/nxp/imx-firmware/nxp/FwImage_8997/uart8997_bt_v4.bin:vendor/firmware/mrvl/uart8997_bt_v4.bin \
 
 # Keymaster HAL
 ifeq ($(PRODUCT_IMX_TRUSTY),true)
