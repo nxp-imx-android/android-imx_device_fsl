@@ -391,12 +391,11 @@ endif
 # hardware backed keymaster service
 ifeq ($(PRODUCT_IMX_TRUSTY),true)
 PRODUCT_PACKAGES += \
-    android.hardware.keymaster@3.0-service.trusty
+    android.hardware.keymaster@4.0-service.trusty
 endif
 # Keymaster HAL
 PRODUCT_PACKAGES += \
-    android.hardware.keymaster@3.0-impl \
-    android.hardware.keymaster@3.0-service
+    android.hardware.keymaster@4.0-service
 
 # DRM HAL
 TARGET_ENABLE_MEDIADRM_64 := true

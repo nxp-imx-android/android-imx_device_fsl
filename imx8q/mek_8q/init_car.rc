@@ -228,7 +228,7 @@ on verity-logging
 on late-fs
     # Start keymaster/gatekeeper service
     start vendor.gatekeeper-1-0-${ro.boot.keystore}
-    start vendor.keymaster-3-0-${ro.boot.keystore}
+    start vendor.keymaster-4-0-${ro.boot.keystore}
     start servicemanager
     start surfaceflinger
 
