@@ -52,15 +52,6 @@ set ser_num=
 set fastboot_tool=fastboot
 set /A error_level=0
 set /A flag=1
-set /A raw_system_size=0
-set /A raw_system_size_a=0
-set /A raw_system_size_b=0
-set /A raw_vendor_size=0
-set /A raw_vendor_size_a=0
-set /A raw_vendor_size_b=0
-set /A raw_product_size=0
-set /A raw_product_size_a=0
-set /A raw_product_size_b=0
 set lpmake_system_image_a=
 set lpmake_system_image_b=
 set lpmake_vendor_image_a=
@@ -510,11 +501,6 @@ goto :eof
 :: this function will invoke lpmake to create super.img, the super.img will
 :: be created in current directory
 :make_super_image
-:: check the size of raw images
-for /f %%i in ('%image_directory%simglen.exe %image_directory%%systemimage_file%') do ( set raw_system_size=%%i) || set /A error_level=1 && goto :exit
-for /f %%i in ('%image_directory%simglen.exe %image_directory%%vendor_file%') do ( set raw_vendor_size=%%i) || set /A error_level=1 && goto :exit
-for /f %%i in ('%image_directory%simglen.exe %image_directory%%product_file%') do ( set raw_product_size=%%i) || set /A error_level=1 && goto :exit
-
 if exist %super_file% (
     del %super_file%
 )
@@ -522,43 +508,31 @@ if exist %super_file% (
 if %support_dualslot% == 1 (
     setlocal enabledelayedexpansion
     if [%slot%] == [_a] (
-        set raw_system_size_a=%raw_system_size%
         set lpmake_system_image_a=--image system_a=%image_directory%%systemimage_file%
-        set raw_vendor_size_a=%raw_vendor_size%
         set lpmake_vendor_image_a=--image vendor_a=%image_directory%%vendor_file%
-        set raw_product_size_a=%raw_product_size%
         set lpmake_product_image_a=--image product_a=%image_directory%%product_file%
     )
     if [%slot%] == [_b] (
-        set raw_system_size_b=%raw_system_size%
         set lpmake_system_image_b=--image system_b=%image_directory%%systemimage_file%
-        set raw_vendor_size_b=%raw_vendor_size%
         set lpmake_vendor_image_b=--image vendor_b=%image_directory%%vendor_file%
-        set raw_product_size_b=%raw_product_size%
         set lpmake_product_image_b=--image product_b=%image_directory%%product_file%
     )
     if [%slot%] == [] (
-        set raw_system_size_a=%raw_system_size%
         set lpmake_system_image_a=--image system_a=%image_directory%%systemimage_file%
-        set raw_vendor_size_a=%raw_vendor_size%
         set lpmake_vendor_image_a=--image vendor_a=%image_directory%%vendor_file%
-        set raw_product_size_a=%raw_product_size%
         set lpmake_product_image_a=--image product_a=%image_directory%%product_file%
-        set raw_system_size_b=%raw_system_size%
         set lpmake_system_image_b=--image system_b=%image_directory%%systemimage_file%
-        set raw_vendor_size_b=%raw_vendor_size%
         set lpmake_vendor_image_b=--image vendor_b=%image_directory%%vendor_file%
-        set raw_product_size_b=%raw_product_size%
         set lpmake_product_image_b=--image product_b=%image_directory%%product_file%
     )
     %image_directory%lpmake.exe --metadata-size 65536 --super-name super --metadata-slots 3 --device super:7516192768 ^
         --group nxp_dynamic_partitions_a:3747610624 --group nxp_dynamic_partitions_b:3747610624 ^
-        --partition system_a:readonly:!raw_system_size_a!:nxp_dynamic_partitions_a !lpmake_system_image_a! ^
-        --partition system_b:readonly:!raw_system_size_b!:nxp_dynamic_partitions_b !lpmake_system_image_b! ^
-        --partition vendor_a:readonly:!raw_vendor_size_a!:nxp_dynamic_partitions_a !lpmake_vendor_image_a! ^
-        --partition vendor_b:readonly:!raw_vendor_size_b!:nxp_dynamic_partitions_b !lpmake_vendor_image_b! ^
-        --partition product_a:readonly:!raw_product_size_a!:nxp_dynamic_partitions_a !lpmake_product_image_a! ^
-        --partition product_b:readonly:!raw_product_size_b!:nxp_dynamic_partitions_b !lpmake_product_image_b! ^
+        --partition system_a:readonly:0:nxp_dynamic_partitions_a !lpmake_system_image_a! ^
+        --partition system_b:readonly:0:nxp_dynamic_partitions_b !lpmake_system_image_b! ^
+        --partition vendor_a:readonly:0:nxp_dynamic_partitions_a !lpmake_vendor_image_a! ^
+        --partition vendor_b:readonly:0:nxp_dynamic_partitions_b !lpmake_vendor_image_b! ^
+        --partition product_a:readonly:0:nxp_dynamic_partitions_a !lpmake_product_image_a! ^
+        --partition product_b:readonly:0:nxp_dynamic_partitions_b !lpmake_product_image_b! ^
         --sparse --output !super_file!
 )
 

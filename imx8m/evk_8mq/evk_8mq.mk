@@ -78,9 +78,7 @@ PRODUCT_COPY_FILES += \
 
 ifeq ($(TARGET_USE_DYNAMIC_PARTITIONS),true)
 PRODUCT_COPY_FILES += \
-    $(FSL_PROPRIETARY_PATH)/fsl-proprietary/dynamic_partiton_tools/simglen:simglen \
     $(FSL_PROPRIETARY_PATH)/fsl-proprietary/dynamic_partiton_tools/lpmake:lpmake \
-    $(FSL_PROPRIETARY_PATH)/fsl-proprietary/dynamic_partiton_tools/simglen.exe:simglen.exe \
     $(FSL_PROPRIETARY_PATH)/fsl-proprietary/dynamic_partiton_tools/lpmake.exe:lpmake.exe
 endif
 

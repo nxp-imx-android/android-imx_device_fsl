@@ -295,67 +295,35 @@ function flash_android
 # be created in /tmp, make sure that there is enouth space
 function make_super_image
 {
-    # check the size of raw images
-    raw_system_size=`${sym_link_directory}simglen ${sym_link_directory}${systemimage_file}`
-    return_value=$?
-    if [ ${return_value} != 0 ]; then
-        echo -e >&2 ${RED}fail to get the size of raw system image${STD}
-        eixt 1
-    fi
-    raw_vendor_size=`${sym_link_directory}simglen ${sym_link_directory}${vendor_file}`
-    return_value=$?
-    if [ ${return_value} != 0 ]; then
-        echo -e >&2 ${RED}fail to get the size of raw vendor image${STD}
-        exit 1
-    fi
-    raw_product_size=`${sym_link_directory}simglen ${sym_link_directory}${product_file}`
-    return_value=$?
-    if [ ${return_value} != 0 ]; then
-        echo -e >&2 ${RED}fail to get the size of raw product image${STD}
-        exit 1
-    fi
-
     rm -rf /tmp/${super_file}
     # now dynamic partition is only enabled in dual slot condition
     if [ ${support_dualslot} -eq 1 ]; then
         if [ "${slot}" == "_a" ]; then
-            raw_system_size_a=${raw_system_size}
             lpmake_system_image_a="--image system_a=${sym_link_directory}${systemimage_file}"
-            raw_vendor_size_a=${raw_vendor_size}
             lpmake_vendor_image_a="--image vendor_a=${sym_link_directory}${vendor_file}"
-            raw_product_size_a=${raw_product_size}
             lpmake_product_image_a="--image product_a=${sym_link_directory}${product_file}"
         elif [ "${slot}" == "_b" ]; then
-            raw_system_size_b=${raw_system_size}
             lpmake_system_image_b="--image system_b=${sym_link_directory}${systemimage_file}"
-            raw_vendor_size_b=${raw_vendor_size}
             lpmake_vendor_image_b="--image vendor_b=${sym_link_directory}${vendor_file}"
-            raw_product_size_b=${raw_product_size}
             lpmake_product_image_b="--image product_b=${sym_link_directory}${product_file}"
         else
-            raw_system_size_a=${raw_system_size}
             lpmake_system_image_a="--image system_a=${sym_link_directory}${systemimage_file}"
-            raw_vendor_size_a=${raw_vendor_size}
             lpmake_vendor_image_a="--image vendor_a=${sym_link_directory}${vendor_file}"
-            raw_product_size_a=${raw_product_size}
             lpmake_product_image_a="--image product_a=${sym_link_directory}${product_file}"
-            raw_system_size_b=${raw_system_size}
             lpmake_system_image_b="--image system_b=${sym_link_directory}${systemimage_file}"
-            raw_vendor_size_b=${raw_vendor_size}
             lpmake_vendor_image_b="--image vendor_b=${sym_link_directory}${vendor_file}"
-            raw_product_size_b=${raw_product_size}
             lpmake_product_image_b="--image product_b=${sym_link_directory}${product_file}"
         fi
     fi
 
         ${sym_link_directory}lpmake --metadata-size 65536 --super-name super --metadata-slots 3 --device super:7516192768 \
             --group nxp_dynamic_partitions_a:3747610624 --group nxp_dynamic_partitions_b:3747610624 \
-            --partition system_a:readonly:${raw_system_size_a}:nxp_dynamic_partitions_a ${lpmake_system_image_a} \
-            --partition system_b:readonly:${raw_system_size_b}:nxp_dynamic_partitions_b ${lpmake_system_image_b} \
-            --partition vendor_a:readonly:${raw_vendor_size_a}:nxp_dynamic_partitions_a ${lpmake_vendor_image_a} \
-            --partition vendor_b:readonly:${raw_vendor_size_b}:nxp_dynamic_partitions_b ${lpmake_vendor_image_b} \
-            --partition product_a:readonly:${raw_product_size_a}:nxp_dynamic_partitions_a ${lpmake_product_image_a} \
-            --partition product_b:readonly:${raw_product_size_b}:nxp_dynamic_partitions_b ${lpmake_product_image_b} \
+            --partition system_a:readonly:0:nxp_dynamic_partitions_a ${lpmake_system_image_a} \
+            --partition system_b:readonly:0:nxp_dynamic_partitions_b ${lpmake_system_image_b} \
+            --partition vendor_a:readonly:0:nxp_dynamic_partitions_a ${lpmake_vendor_image_a} \
+            --partition vendor_b:readonly:0:nxp_dynamic_partitions_b ${lpmake_vendor_image_b} \
+            --partition product_a:readonly:0:nxp_dynamic_partitions_a ${lpmake_product_image_a} \
+            --partition product_b:readonly:0:nxp_dynamic_partitions_b ${lpmake_product_image_b} \
             --sparse --output /tmp/${super_file}
 }
 
@@ -412,15 +380,6 @@ sym_link_directory=""
 yocto_image_sym_link=""
 daemon_mode=0
 dryrun=0
-raw_system_size=0
-raw_system_size_a=0
-raw_system_size_b=0
-raw_vendor_size=0
-raw_vendor_size_a=0
-raw_vendor_size_b=0
-raw_product_size=0
-raw_product_size_a=0
-raw_product_size_b=0
 lpmake_system_image_a=""
 lpmake_system_image_b=""
 lpmake_vendor_image_a=""
