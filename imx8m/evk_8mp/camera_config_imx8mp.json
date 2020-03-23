@@ -22,24 +22,7 @@
       "FocalLength": "3.37",
       "MaxJpegSize": "8388608",
       "MinFrameDuration": "33331760",
-      "MaxFrameDuration": "300000000",
-      "OmitFrame": [
-          {
-              "width": "1280",
-              "height": "720",
-              "omit_num": "2"
-          },
-          {
-              "width": "640",
-              "height": "480",
-              "omit_num": "2"
-          },
-          {
-              "width": "320",
-              "height": "240",
-              "omit_num": "2"
-          }
-      ]
+      "MaxFrameDuration": "300000000"
     },
     {
       "camera_type": "front",
