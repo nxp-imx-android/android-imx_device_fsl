@@ -52,10 +52,14 @@
                 </devicePort>
                 <devicePort tagName="Wired Headphones" type="AUDIO_DEVICE_OUT_WIRED_HEADPHONE" role="sink">
                 </devicePort>
+                <devicePort tagName="Wired Headset" type="AUDIO_DEVICE_OUT_WIRED_HEADSET" role="sink">
+                </devicePort>
                 <devicePort tagName="Line-Out" type="AUDIO_DEVICE_OUT_LINE" role="sink">
                 </devicePort>
 
                 <devicePort tagName="Built-In Mic" type="AUDIO_DEVICE_IN_BUILTIN_MIC" role="source">
+                </devicePort>
+                <devicePort tagName="Wired Headset Mic" type="AUDIO_DEVICE_IN_WIRED_HEADSET" role="source">
                 </devicePort>
                 <devicePort tagName="Spdif-In" type="AUDIO_DEVICE_IN_AUX_DIGITAL" role="source">
                 </devicePort>
@@ -65,11 +69,13 @@
                        sources="primary output"/>
                 <route type="mix" sink="Wired Headphones"
                        sources="dsd output,esai output,primary output"/>
+                <route type="mix" sink="Wired Headset"
+                       sources="dsd output,esai output,primary output"/>
                 <route type="mix" sink="Line-Out"
                        sources="dsd output,esai output,primary output"/>
 
                 <route type="mix" sink="primary input"
-                       sources="Built-In Mic,Spdif-In"/>
+                       sources="Wired Headset Mic,Built-In Mic,Spdif-In"/>
             </routes>
         </module>
 
