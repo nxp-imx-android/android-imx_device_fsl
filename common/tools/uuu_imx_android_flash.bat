@@ -70,6 +70,7 @@ set lpmake_vendor_image_a=
 set lpmake_vendor_image_b=
 set lpmake_product_image_a=
 set lpmake_product_image_b=
+set /A dont_generate_super=0
 
 
 :: We want to detect illegal feature input to some extent. Here it's based on SoC names. Since an SoC may be on a
@@ -120,6 +121,7 @@ if %1 == -y set yocto_image=%2&shift &shift & goto :parse_loop
 if %1 == -i set /A intervene=1 & shift & goto :parse_loop
 if %1 == -daemon set /A daemon_mode=1 & shift & goto :parse_loop
 if %1 == -dryrun set /A dryrun=1 & shift & goto :parse_loop
+if %1 == -super set /A dont_generate_super=1 & shift & goto :parse_loop
 echo unknown option "%1", please check it.
 call :help & set /A error_level=1 && goto :exit
 :parse_end
@@ -551,6 +553,10 @@ echo  -i                with this option used, after uboot for uuu loaded and ex
 echo                        This option is for users to manually flash the images to partitions they want to
 echo  -daemon           after uuu script generated, uuu will be invoked with daemon mode. It is used for flash multi boards
 echo  -dryrun           only generate the uuu script under /tmp direcbory but not flash images
+echo  -super            do not generate super.img when flash the images with dynamic partition feature enabled.
+echo                        Under the condition that dynamic partition feature are enabled:
+echo                          if this option is not used, super.img will be generated under current working directory and flashed to the board.
+echo                          if this option is used, make sure super.img already exists together with other images.
 goto :eof
 
 
@@ -686,7 +692,9 @@ if not [%partition_to_be_flashed:bootloader=%] == [%partition_to_be_flashed%] (
     goto :start_to_flash
 )
 if not [%partition_to_be_flashed:super=%] == [%partition_to_be_flashed%] (
-    call :make_super_image
+    if %dont_generate_super% == 0 (
+        call :make_super_image
+    )
     set img_name=%super_file%
     goto :start_to_flash
 )
@@ -706,14 +714,22 @@ if not [%partition_to_be_flashed:gpt=%] == [%partition_to_be_flashed%] (
 
 :start_to_flash
 echo generate lines to flash %img_name% to the partition of %1
-if not [%img_name%] == [%super_file%] (
+if [%img_name%] == [%super_file%] (
+    if %dont_generate_super% == 0 (
+        echo FB[-t 600000]: flash %1 %img_name% >> uuu.lst
+    ) else (
+        if exist %img_name%.link (
+            del %img_name%.link
+        )
+        cmd /c mklink %img_name%.link %image_directory%%img_name% > nul
+        echo FB[-t 600000]: flash %1 %img_name%.link >> uuu.lst
+    )
+) else (
     if exist %img_name%.link (
         del %img_name%.link
     )
     cmd /c mklink %img_name%.link %image_directory%%img_name% > nul
     echo FB[-t 600000]: flash %1 %img_name%.link >> uuu.lst
-) else (
-    echo FB[-t 600000]: flash %1 %img_name% >> uuu.lst
 )
 goto :eof
 

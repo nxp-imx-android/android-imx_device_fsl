@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -e
 
 help() {
 
@@ -76,6 +76,10 @@ options:
                         No need to use this option if images are in current working directory
   -s ser_num        the serial number of board
                         If only one board connected to computer, no need to use this option
+  -super            do not generate super.img when flash the images with dynamic partition feature enabled.
+                        Under the condition that dynamic partition feature are enabled:
+                          if this option is not used, super.img will be generated under "/tmp" and flashed to the board.
+                          if this option is used, make sure super.img already exists together with other images.
 EOF
 
 }
@@ -92,10 +96,12 @@ function whether_in_array
     for arg in ${array[*]}
     do
         if [ "${arg}" = "${potential_element}" ]; then
+            result_value=0
             return 0
         fi
         if [ "${arg}" = "${last_element}" ]; then
-            return 1
+            result_value=1
+            return 0
         fi
     done
 }
@@ -125,17 +131,19 @@ function flash_partition
     elif [ "$(echo ${1} | grep "gpt")" != "" ]; then
         img_name=${partition_file}
     elif [ "$(echo ${1} | grep "super")" != "" ]; then
-        make_super_image
+        if [ ${dont_generate_super} -eq 0 ]; then
+            make_super_image
+        fi
         img_name=${super_file}
     else
         img_name="${1%_*}-${soc_name}.img"
     fi
 
     echo -e flash the file of ${GREEN}${img_name}${STD} to the partition of ${GREEN}${1}${STD}
-    if [ "${img_name}" != "${super_file}" ]; then
-        ${fastboot_tool} flash ${1} "${image_directory}${img_name}" || exit
+    if [ "${img_name}" = "${super_file}" ] && [ ${dont_generate_super} -eq 0 ]; then
+        ${fastboot_tool} flash ${1} "/tmp/${img_name}"
     else
-        ${fastboot_tool} flash ${1} "/tmp/${img_name}" || exit
+        ${fastboot_tool} flash ${1} "${image_directory}${img_name}"
     fi
 }
 
@@ -243,9 +251,6 @@ function flash_android
     else
         flash_partition_name ${slot}
         flash_userpartitions
-        if [ ${support_dualslot} -eq 1 ]; then
-            ${fastboot_tool} set_active ${slot#_}
-        fi
     fi
     # super partition does not have a/b slot, handle it individually
     if [ ${support_dynamic_partition} -eq 1 ]; then
@@ -334,6 +339,8 @@ lpmake_vendor_image_a=""
 lpmake_vendor_image_b=""
 lpmake_product_image_a=""
 lpmake_product_image_b=""
+result_value=0
+dont_generate_super=0
 
 
 # We want to detect illegal feature input to some extent. Here it's based on SoC names. Since an SoC may be on a
@@ -376,6 +383,7 @@ while [ $# -gt 0 ]; do
         -l) lock=1 ;;
         -D) image_directory=$2; shift;;
         -s) ser_num=$2; shift;;
+        -super) dont_generate_super=1 ;;
         *)  echo -e ${RED}$1${STD} is not an illegal option
             help; exit;;
     esac
@@ -385,8 +393,7 @@ done
 # check whether the soc_name is legal or not
 if [ -n "${soc_name}" ]; then
     whether_in_array soc_name supported_soc_names
-    return_value=$?
-    if [ ${return_value} != 0 ]; then
+    if [ ${result_value} != 0 ]; then
         echo -e >&2 ${RED}illegal soc_name \"${soc_name}\"${STD}
         help; exit 1;
     fi
@@ -435,8 +442,7 @@ fi
 if [ -n "${uboot_feature}" ]; then
     uboot_feature_no_pre_hyphen=${uboot_feature#-}
     whether_in_array uboot_feature_no_pre_hyphen ${soc_name}_uboot_feature
-    return_value=$?
-    if [ ${return_value} != 0 ]; then
+    if [ ${result_value} != 0 ]; then
         echo -e >&2 ${RED}illegal parameter \"${uboot_feature_no_pre_hyphen}\" for \"-u\" option${STD}
         help; exit 1;
     fi
@@ -446,8 +452,7 @@ fi
 if [ -n "${dtb_feature}" ]; then
     dtb_feature_no_pre_hyphen=${dtb_feature#-}
     whether_in_array dtb_feature_no_pre_hyphen ${soc_name}_dtb_feature
-    return_value=$?
-    if [ ${return_value} != 0 ]; then
+    if [ ${result_value} != 0 ]; then
         echo -e >&2 ${RED}illegal parameter \"${dtb_feature}\" for \"-d\" option${STD}
         help; exit 1;
     fi
@@ -465,6 +470,10 @@ fi
 
 if [ ${lock} -eq 1 ]; then
     ${fastboot_tool} oem lock
+fi
+
+if [ ${support_dualslot} -eq 1 ] && [ "${slot}" != "" ]; then
+    ${fastboot_tool} set_active ${slot#_}
 fi
 
 echo
