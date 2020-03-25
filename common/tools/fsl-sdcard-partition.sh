@@ -39,6 +39,10 @@ options:
   -D directory      specify the directory which contains the images to be flashed.
   -m                flash mcu image
   -o force_offset   force set uboot offset
+  -super            do not generate super.img when flash the images with dynamic partition feature enabled.
+                        Under the condition that dynamic partition feature are enabled:
+                          if this option is not used, super.img will be generated under "/tmp" and flashed to the board.
+                          if this option is used, make sure super.img already exists together with other images.
 EOF
 
 }
@@ -115,6 +119,7 @@ lpmake_vendor_image_a=""
 lpmake_vendor_image_b=""
 lpmake_product_image_a=""
 lpmake_product_image_b=""
+dont_generate_super=0
 
 
 
@@ -132,6 +137,7 @@ while [ "$moreoptions" = 1 -a $# -gt 0 ]; do
         -u) uboot_feature=-$2; shift;;
         -d) dtb_feature=$2; shift;;
         -D) image_directory=$2; shift;;
+        -super) dont_generate_super=1 ;;
         *)  moreoptions=0; node=$1 ;;
     esac
     [ "$moreoptions" = 0 ] && [ $# -gt 1 ] && help && exit
@@ -193,14 +199,6 @@ else
     fi
 fi
 
-if [ ! -f "${image_directory}${partition_file}" ]; then
-    echo -e >&2 "${RED}File ${partition_file} not found. Please check. Exiting${STD}"
-    return 1
-fi
-
-
-# to be discussed
-# echo "${soc_name} bootloader offset is: ${bootloader_offset}"
 
 # for specified directory, make sure there is a slash at the end
 if [[ "${image_directory}" = "" ]]; then
@@ -208,6 +206,10 @@ if [[ "${image_directory}" = "" ]]; then
 fi
 image_directory="${image_directory%/}/";
 
+if [ ! -f "${image_directory}${partition_file}" ]; then
+    echo -e >&2 "${RED}File ${partition_file} not found. Please check. Exiting${STD}"
+    return 1
+fi
 
 
 # dump partitions
@@ -261,15 +263,19 @@ function flash_partition
             elif [ "$(echo ${1} | grep -E "dtbo|vbmeta|recovery")" != "" -a "${dtb_feature}" != "" ]; then
                 img_name="${1%_*}-${soc_name}-${dtb_feature}.img"
             elif [ "$(echo ${1} | grep "super")" != "" ]; then
-                make_super_image
+                if [ ${dont_generate_super} -eq 0 ]; then
+                    make_super_image
+                fi
                 img_name=${super_file}
             else
                 img_name="${1%_*}-${soc_name}.img"
             fi
             # check whether the image files to be flashed exist or not
-            if [ "$(echo ${1} | grep "super")" = "" ] && [ ! -f "${image_directory}${img_name}" ]; then
-                echo -e >&2 "${RED}File ${img_name} not found. Please check. Exiting${STD}"
-                return 1
+            if [ "$(echo ${1} | grep "super")" = "" ] || [ ${dont_generate_super} -eq 1 ]; then
+                if [ ! -f "${image_directory}${img_name}" ]; then
+                    echo -e >&2 "${RED}File ${img_name} not found. Please check. Exiting${STD}"
+                    return 1
+                fi
             fi
             echo "flash_partition: ${img_name} ---> ${node}${num}"
 
@@ -277,7 +283,11 @@ function flash_partition
                 [ "$(echo ${1} | grep "product")" != "" ]; then
                 simg2img ${image_directory}${img_name} ${node}${num}
             elif [ "$(echo ${1} | grep "super")" != "" ]; then
-                simg2img /tmp/${img_name} ${node}${num}
+                if [ ${dont_generate_super} -eq 0 ]; then
+                    simg2img /tmp/${img_name} ${node}${num}
+                else
+                    simg2img ${image_directory}${img_name} ${node}${num}
+                fi
             else
                 dd if=${image_directory}${img_name} of=${node}${num} bs=10M conv=fsync
             fi

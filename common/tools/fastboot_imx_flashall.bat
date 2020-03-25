@@ -58,6 +58,7 @@ set lpmake_vendor_image_a=
 set lpmake_vendor_image_b=
 set lpmake_product_image_a=
 set lpmake_product_image_b=
+set /A dont_generate_super=0
 
 
 :: We want to detect illegal feature input to some extent. Here it's based on SoC names. Since an SoC may be on a
@@ -108,7 +109,7 @@ if %1 == -l set /A lock=1 & shift & goto :parse_loop
 if %1 == -e set /A erase=1 & shift & goto :parse_loop
 if %1 == -D set image_directory=%2& shift & shift & goto :parse_loop
 if %1 == -s set ser_num=%2&shift &shift & goto :parse_loop
-if %1 == -tos set /A support_trusty=1 & shift & goto :parse_loop
+if %1 == -super set /A dont_generate_super=1 & shift & goto :parse_loop
 echo %1 is an illegal option
 call :help & goto :eof
 :parse_end
@@ -206,6 +207,10 @@ if %erase% == 1 (
 )
 if %lock% == 1 %fastboot_tool% oem lock
 
+if not [%slot%] == []  if %support_dualslot% == 1 (
+    %fastboot_tool% set_active %slot:~-1%
+)
+
 echo #######ALL IMAGE FILES FLASHED#######
 
 
@@ -291,6 +296,10 @@ echo  -D directory      the directory of of images
 echo                        No need to use this option if images are in current working directory
 echo  -s ser_num        the serial number of board
 echo                        If only one board connected to computer, no need to use this option
+echo  -super            do not generate super.img when flash the images with dynamic partition feature enabled.
+echo                        Under the condition that dynamic partition feature are enabled:
+echo                          if this option is not used, super.img will be generated under current working directory and flashed to the board.
+echo                          if this option is used, make sure super.img already exists together with other images.
 goto :eof
 
 :: this function checks whether the value of first parameter is in the array value of second parameter.
@@ -380,16 +389,22 @@ if not [%partition_to_be_flashed:gpt=%] == [%partition_to_be_flashed%] (
 
 if not [%partition_to_be_flashed:super=%] == [%partition_to_be_flashed%] (
     set img_name=%super_file%
-    call :make_super_image
+    if %dont_generate_super% == 0 (
+        call :make_super_image
+    )
     goto :start_to_flash
 )
 
 :start_to_flash
 echo flash the file of %img_name% to the partition of %partition_to_be_flashed%
-if not [%img_name%] == [%super_file%] (
-    %fastboot_tool% flash %1 %image_directory%%img_name% || set /A error_level=1 && goto :exit
+if [%img_name%] == [%super_file%] (
+    if %dont_generate_super% == 0 (
+        %fastboot_tool% flash %1 %img_name% || set /A error_level=1 && goto :exit
+    ) else (
+        %fastboot_tool% flash %1 %image_directory%%img_name% || set /A error_level=1 && goto :exit
+    )
 ) else (
-    %fastboot_tool% flash %1 %img_name% || set /A error_level=1 && goto :exit
+    %fastboot_tool% flash %1 %image_directory%%img_name% || set /A error_level=1 && goto :exit
 )
 goto :eof
 
@@ -483,7 +498,6 @@ if [%slot%] == [] if %support_dualslot% == 1 (
 if not [%slot%] == []  if %support_dualslot% == 1 (
     call :flash_partition_name %slot% || set /A error_level=1 && goto :exit
     call :flash_userpartitions || set /A error_level=1 && goto :exit
-    %fastboot_tool% set_active %slot:~-1%
 )
 if %support_dualslot% == 0 (
     call :flash_partition_name %slot% || set /A error_level=1 && goto :exit
@@ -491,7 +505,7 @@ if %support_dualslot% == 0 (
 )
 ::super partition does not have a/b slot, handle it individually
 if %support_dynamic_partition% == 1 (
-    call :flash_partition %super_partition%
+    call :flash_partition %super_partition% || set /A error_level=1 && goto :exit
 )
 
 del fastboot_var.log

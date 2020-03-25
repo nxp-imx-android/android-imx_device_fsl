@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -e
 
 help() {
 
@@ -84,6 +84,10 @@ options:
                         This option is for users to manually flash the images to partitions they want to
   -daemon           after uuu script generated, uuu will be invoked with daemon mode. It is used for flash multi boards
   -dryrun           only generate the uuu script under /tmp direcbory but not flash images
+  -super            do not generate super.img when flash the images with dynamic partition feature enabled.
+                       Under the condition that dynamic partition feature are enabled:
+                         if this option is not used, super.img will be generated under "/tmp" and flashed to the board.
+                         if this option is used, make sure super.img already exists together with other images.
 EOF
 
 }
@@ -101,10 +105,12 @@ function whether_in_array
     for arg in ${array[*]}
     do
         if [ "${arg}" = "${potential_element}" ]; then
+            result_value=0
             return 0
         fi
         if [ "${arg}" = "${last_element}" ]; then
-            return 1
+            result_value=1
+            return 0
         fi
     done
 }
@@ -169,14 +175,16 @@ function flash_partition
     elif [ "$(echo ${1} | grep "gpt")" != "" ]; then
         img_name=${partition_file}
     elif [ "$(echo ${1} | grep "super")" != "" ]; then
-        make_super_image
+        if [ ${dont_generate_super} -eq 0 ]; then
+            make_super_image
+        fi
         img_name=${super_file}
     else
         img_name="${1%_*}-${soc_name}.img"
     fi
 
     echo -e generate lines to flash ${RED}${img_name}${STD} to the partition of ${RED}${1}${STD}
-    if [ "${img_name}" != "${super_file}" ]; then
+    if [ "${img_name}" != "${super_file}" ] || [ ${dont_generate_super} -eq 1 ]; then
         rm -f /tmp/${img_name}
         ln -s ${sym_link_directory}${img_name} /tmp/${img_name}
     fi
@@ -386,6 +394,8 @@ lpmake_vendor_image_a=""
 lpmake_vendor_image_b=""
 lpmake_product_image_a=""
 lpmake_product_image_b=""
+result_value=0
+dont_generate_super=0
 
 # We want to detect illegal feature input to some extent. Here it's based on SoC names. Since an SoC may be on a
 # board running different set of images(android and automative for a example), so misuse the features of one set of
@@ -433,6 +443,7 @@ while [ $# -gt 0 ]; do
         -i) intervene=1 ;;
         -daemon) daemon_mode=1 ;;
         -dryrun) dryrun=1 ;;
+        -super) dont_generate_super=1 ;;
         *)  echo -e >&2 ${RED}the option \"${1}\"  you specified is not supported, please check it${STD}
             help; exit;;
     esac
@@ -633,8 +644,7 @@ fi
 if [ -n "${uboot_feature}" ]; then
     uboot_feature_no_pre_hyphen=${uboot_feature#-}
     whether_in_array uboot_feature_no_pre_hyphen ${soc_name}_uboot_feature
-    return_value=$?
-    if [ ${return_value} != 0 ]; then
+    if [ ${result_value} != 0 ]; then
         echo -e >&2 ${RED}illegal parameter \"${uboot_feature_no_pre_hyphen}\" for \"-u\" option${STD}
         help; exit 1;
     fi
@@ -644,8 +654,7 @@ fi
 if [ -n "${dtb_feature}" ]; then
     dtb_feature_no_pre_hyphen=${dtb_feature#-}
     whether_in_array dtb_feature_no_pre_hyphen ${soc_name}_dtb_feature
-    return_value=$?
-    if [ ${return_value} != 0 ]; then
+    if [ ${result_value} != 0 ]; then
         echo -e >&2 ${RED}illegal parameter \"${dtb_feature}\" for \"-d\" option${STD}
         help; exit 1;
     fi
