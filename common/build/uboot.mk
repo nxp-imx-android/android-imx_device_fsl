@@ -133,7 +133,7 @@ $(UBOOT_BIN): $(UBOOTENVSH) | $(UBOOT_COLLECTION) $(UBOOT_OUT)
 			echo "build post process" ; \
 			. $(UBOOTENVSH); \
 		    $(call build_imx_uboot, $(TARGET_BOOTLOADER_POSTFIX), $$UBOOT_PLATFORM) \
-		    echo "===================Finish building `echo $$ubootplat | cut -d':' -f2` ==================="; \
+		    echo "===================Finish building `echo $$ubootplat` ==================="; \
 		else \
 			install -D $(UBOOT_OUT)/u-boot$(TARGET_DTB_POSTFIX).$(TARGET_BOOTLOADER_POSTFIX) $(UBOOT_COLLECTION)/u-boot-$$UBOOT_PLATFORM.imx; \
 		fi; \
