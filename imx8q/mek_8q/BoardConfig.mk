@@ -187,7 +187,7 @@ else
   ifeq ($(TARGET_USE_DYNAMIC_PARTITIONS),true)
     ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
       TARGET_BOARD_DTS_CONFIG := imx8qm:imx8qm-mek-ov5640-no-product.dtb
-      TARGET_BOARD_DTS_CONFIG += imx8qxp:imx8qxp-mek-ov5640-no-product.dtb
+      TARGET_BOARD_DTS_CONFIG += imx8qxp:imx8qxp-mek-ov5640-rpmsg-no-product.dtb
     else
       # imx8qm standard android; MIPI-HDMI display
       TARGET_BOARD_DTS_CONFIG := imx8qm:imx8qm-mek-ov5640.dtb
@@ -198,15 +198,15 @@ else
       # imx8qm standard android; Multiple display
       TARGET_BOARD_DTS_CONFIG += imx8qm-md:imx8qm-mek-md.dtb
       # imx8qxp standard android; MIPI-HDMI display
-      TARGET_BOARD_DTS_CONFIG += imx8qxp:imx8qxp-mek-ov5640.dtb
+      TARGET_BOARD_DTS_CONFIG += imx8qxp:imx8qxp-mek-ov5640-rpmsg.dtb
     endif #IMX_NO_PRODUCT_PARTITION
   else
     ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
       TARGET_BOARD_DTS_CONFIG := imx8qm:imx8qm-mek-ov5640-no-product-no-dynamic_partition.dtb
-      TARGET_BOARD_DTS_CONFIG += imx8qxp:imx8qxp-mek-ov5640-no-product-no-dynamic_partition.dtb
+      TARGET_BOARD_DTS_CONFIG += imx8qxp:imx8qxp-mek-ov5640-rpmsg-no-product-no-dynamic_partition.dtb
     else
       TARGET_BOARD_DTS_CONFIG := imx8qm:imx8qm-mek-ov5640-no-dynamic_partition.dtb
-      TARGET_BOARD_DTS_CONFIG += imx8qxp:imx8qxp-mek-ov5640-no-dynamic_partition.dtb
+      TARGET_BOARD_DTS_CONFIG += imx8qxp:imx8qxp-mek-ov5640-rpmsg-no-dynamic_partition.dtb
     endif
   endif
 endif #PRODUCT_IMX_CAR
