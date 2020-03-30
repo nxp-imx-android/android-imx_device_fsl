@@ -17,3 +17,10 @@ BOARD_VENDOR_KERNEL_MODULES += \
 # mipi-panel touch driver module
 BOARD_VENDOR_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/input/touchscreen/synaptics_dsx/synaptics_dsx_i2c.ko
+
+BOARD_VENDOR_KERNEL_MODULES += \
+    $(KERNEL_OUT)/drivers/gpu/drm/bridge/synopsys/dw-hdmi-gp-audio.ko \
+    $(KERNEL_OUT)/drivers/gpu/drm/bridge/synopsys/dw-hdmi-i2s-audio.ko \
+    $(KERNEL_OUT)/drivers/gpu/drm/bridge/synopsys/dw-hdmi.ko \
+    $(KERNEL_OUT)/drivers/gpu/drm/imx/dw_hdmi-imx.ko \
+    $(KERNEL_OUT)/drivers/gpu/drm/imx/imx8mp-hdmi-pavi.ko
