@@ -100,9 +100,6 @@ on early-boot
 
     start vendor.wifi_hal_legacy
 
-    # use blocking ffs which init with usb_init_legacy
-    setprop persist.adb.nonblocking_ffs 0
-
 on property:vendor.vehicle.event=1 && property:vendor.evs.video.ready=1
     start evs_app
 
