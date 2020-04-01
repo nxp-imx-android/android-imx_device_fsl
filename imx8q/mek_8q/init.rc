@@ -131,9 +131,6 @@ on early-boot
 
     start vendor.wifi_hal_legacy
 
-    # use blocking ffs which init with usb_init_legacy
-    setprop persist.adb.nonblocking_ffs 0
-
 on boot
     start audioserver
     start mediadrm

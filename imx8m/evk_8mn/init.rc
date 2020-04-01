@@ -143,8 +143,6 @@ on early-boot
 
     start vendor.wifi_hal_legacy
 
-    # use blocking ffs which init with usb_init_legacy
-    setprop persist.adb.nonblocking_ffs 0
 
 service wpa_supplicant /vendor/bin/hw/wpa_supplicant \
     -O/data/vendor/wifi/wpa/sockets -puse_p2p_group_interface=1 \
