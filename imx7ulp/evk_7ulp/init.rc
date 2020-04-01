@@ -81,8 +81,6 @@ on early-boot
     # Set GPU 3D minimum clock to 3/64
     write /sys/bus/platform/drivers/galcore/gpu3DMinClock 3
 
-    # use blocking ffs which init with usb_init_legacy
-    setprop persist.adb.nonblocking_ffs 0
 
 # change for FSL specific service
     chown root system /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
