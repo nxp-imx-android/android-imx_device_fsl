@@ -131,6 +131,8 @@ BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE = ext4
 TARGET_COPY_OUT_VENDOR := vendor
 TARGET_RELEASETOOLS_EXTENSIONS := device/fsl/imx7ulp
 
+BOARD_VNDK_VERSION := current
+
 # product.img
 BOARD_USES_PRODUCTIMAGE := true
 BOARD_PRODUCTIMAGE_PARTITION_SIZE := 536870912
@@ -146,6 +148,5 @@ KERNEL_OUT ?= $(OUT_DIR)/target/product/$(PRODUCT_DEVICE)/obj/KERNEL_OBJ
 PRODUCT_COPY_FILES += \
     $(KERNEL_OUT)/arch/$(TARGET_KERNEL_ARCH)/boot/$(KERNEL_NAME):kernel
 
--include device/google/gapps/gapps_config.mk
 -include $(FSL_RESTRICTED_CODEC_PATH)/fsl-restricted-codec/fsl_ms_codec/BoardConfig.mk
 -include $(FSL_RESTRICTED_CODEC_PATH)/fsl-restricted-codec/fsl_real_dec/BoardConfig.mk
