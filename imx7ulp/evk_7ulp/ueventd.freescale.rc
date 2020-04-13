@@ -1,4 +1,4 @@
-/dev/block/platform/40000000\.ahb-bridge0/40370000\.usdhc/by-name/presistdata  0600   system     system
+/dev/block/platform/soc0/40000000.bus/40370000.mmc/by-name/presistdata  0600   system     system
 /dev/snd/*                0660   system     audio
 /dev/video*               0660   system     camera
 /dev/pxp_device           0666   media      drmrpc

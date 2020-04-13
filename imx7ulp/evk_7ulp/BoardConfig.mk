@@ -76,7 +76,10 @@ BOARD_KERNEL_CMDLINE := init=/init androidboot.console=ttyLP0 consoleblank=0 and
 # Set the density to 120dpi for 640x480 lcd panel
 BOARD_KERNEL_CMDLINE += androidboot.lcd_density=120
 
-ifeq ($(PRODUCT_7ULP_REVB), true)
+# Force use gpt as 7ulp have no backup GPT only
+BOARD_KERNEL_CMDLINE += gpt
+
+ifneq ($(PRODUCT_7ULP_REVB), true)
 # imx7ulp_evk with HDMI display
 TARGET_BOARD_DTS_CONFIG := imx7ulp:imx7ulp-evk.dtb
 # imx7ulp_evk with MIPI panel display
