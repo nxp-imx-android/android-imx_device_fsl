@@ -26,6 +26,8 @@ ifeq ($(PRODUCT_IMX_CAR),true)
 else
   # u-boot target for imx8qm_mek standard android
   TARGET_BOOTLOADER_CONFIG := imx8qm:imx8qm_mek_android_defconfig
+  TARGET_BOOTLOADER_CONFIG += imx8qm-hdmi:imx8qm_mek_android_hdmi_defconfig
+  TARGET_BOOTLOADER_CONFIG += imx8qm-md:imx8qm_mek_android_hdmi_defconfig
   # u-boot target for imx8qxp_mek standard android
   TARGET_BOOTLOADER_CONFIG += imx8qxp:imx8qxp_mek_android_defconfig
   TARGET_BOOTLOADER_CONFIG += imx8qxp-c0:imx8qxp_mek_android_defconfig
