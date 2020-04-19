@@ -49,10 +49,6 @@ PRODUCT_PACKAGES += \
     overlay.imx \
     power.imx
 
-PRODUCT_STATIC_BOOT_CONTROL_HAL:= \
-    bootctrl-static.avb \
-    libcutils \
-
 # A/B OTA
 PRODUCT_PACKAGES += \
     android.hardware.boot@1.0-impl \
