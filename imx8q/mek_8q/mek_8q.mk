@@ -373,6 +373,9 @@ PRODUCT_COPY_FILES += \
     vendor/nxp/imx-firmware/cyw-wifi-bt/1CX_CYW4356/BCM4354A2.1CX.hcd:$(TARGET_COPY_OUT_VENDOR)/firmware/brcm/CYW4354A2.1CX.hcd
 endif
 
+PRODUCT_COPY_FILES += \
+    vendor/nxp/linux-firmware-imx/firmware/hdmi/cadence/hdmitxfw.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/hdmi/hdmitxfw.bin
+
 # AudioControl service
 ifeq ($(PRODUCT_IMX_CAR),true)
 PRODUCT_PACKAGES += \
