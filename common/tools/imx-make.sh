@@ -70,6 +70,7 @@ build_dtboimage=""
 build_vendorimage=""
 parallel_option=""
 clean_build=0
+TOP=`pwd`
 
 # process of the arguments
 args=( "$@" )
@@ -116,6 +117,28 @@ fsl_git_path=${soc_path%/*}
 if [ -n "${build_bootloader}" ]; then
     rm -rf ${OUT}/obj/UBOOT_COLLECTION
 fi
+
+apply_patch()
+{
+    patch_dir=$TOP/vendor/nxp/fsl-proprietary/patches
+    cd $patch_dir
+    for patch_name in `find . -name *.patch`
+    do
+        # remove "./" in the name
+        patch_name=${patch_name#*/}
+        patch_git=`dirname $patch_name`
+        cd $TOP/$patch_git
+        echo "apply patch to $patch_git: git am -3 -q $patch_dir/$patch_name"
+        git am -3 -q $patch_dir/$patch_name
+        if [ $? -ne 0 ]; then
+            echo "`basename $0`: please fix conflicts when apply patch in $patch_git, then try again."
+            exit 1;
+        fi
+    done
+    cd $TOP
+}
+
+apply_patch
 
 # redirect standard input to /dev/null to avoid manually input in kernel configuration stage
 soc_path=${soc_path} product_path=${product_path} fsl_git_path=${fsl_git_path} clean_build=${clean_build} \
