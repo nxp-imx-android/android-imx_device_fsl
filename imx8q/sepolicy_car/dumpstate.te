@@ -1,0 +1,1 @@
+allow dumpstate { hal_audiocontrol_default hal_vehicle_default}:process { signal };
