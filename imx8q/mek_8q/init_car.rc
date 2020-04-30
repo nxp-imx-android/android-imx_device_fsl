@@ -264,6 +264,11 @@ on property:sys.boot_completed=1
     write /sys/class/drm/card0-HDMI-A-2/status on
     write /sys/class/drm/card1-HDMI-A-2/status on
 
+on post-fs
+    # Grant permission for fetching available_pages info of statsd
+    chown system system /proc/pagetypeinfo
+    chmod 0440 /proc/pagetypeinfo
+
 on post-fs-data
     # Set netd memlock rlimit to 8MB
     setrlimit 8 8388608 8388608
