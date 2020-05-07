@@ -21,6 +21,9 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.screen.landscape.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.screen.landscape.xml \
     frameworks/native/data/etc/android.hardware.type.automotive.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.type.automotive.xml
 
+PRODUCT_COPY_FILES += \
+    $(IMX_DEVICE_PATH)/privapp-permissions-imx.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/privapp-permissions-imx.xml \
+
 # Add Google prebuilt services
 PRODUCT_PACKAGES += \
     HeadUnit \
