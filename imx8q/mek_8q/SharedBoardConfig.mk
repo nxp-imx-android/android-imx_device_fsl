@@ -34,20 +34,12 @@ BOARD_VENDOR_KERNEL_MODULES += \
 
 ifeq ($(PRODUCT_IMX_CAR),true)
 BOARD_VENDOR_KERNEL_MODULES += \
-                            $(KERNEL_OUT)/drivers/extcon/extcon-ptn5150.ko \
-                            $(KERNEL_OUT)/drivers/usb/roles/roles.ko \
-                            $(KERNEL_OUT)/drivers/usb/typec/mux/gpio-switch.ko \
-                            $(KERNEL_OUT)/drivers/usb/typec/tcpm/tcpci.ko \
-                            $(KERNEL_OUT)/drivers/usb/typec/tcpm/tcpm.ko \
-                            $(KERNEL_OUT)/drivers/usb/cdns3/cdns3.ko \
                             $(KERNEL_OUT)/drivers/usb/chipidea/ci_hdrc.ko \
                             $(KERNEL_OUT)/drivers/usb/chipidea/ci_hdrc_imx.ko \
                             $(KERNEL_OUT)/drivers/usb/chipidea/usbmisc_imx.ko \
                             $(KERNEL_OUT)/drivers/usb/common/ulpi.ko \
-                            $(KERNEL_OUT)/drivers/usb/host/xhci-hcd.ko \
                             $(KERNEL_OUT)/drivers/usb/host/ehci-hcd.ko \
                             $(KERNEL_OUT)/drivers/usb/storage/usb-storage.ko \
-                            $(KERNEL_OUT)/drivers/usb/typec/typec.ko \
                             $(KERNEL_OUT)/drivers/scsi/sd_mod.ko \
                             $(KERNEL_OUT)/drivers/bluetooth/mx8_bt_rfkill.ko \
                             $(KERNEL_OUT)/drivers/hid/hid-multitouch.ko
