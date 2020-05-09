@@ -75,8 +75,8 @@ on late-fs && property:vendor.storageproxyd=trusty
 
 on early-boot
     # For evk_8mp, when swap used about 400M, upgrade the level.
-    setprop ro.lmk.upgrade_pressure 80
-    setprop ro.lmk.downgrade_pressure 95
+    setprop ro.lmk.upgrade_pressure 93
+    setprop ro.lmk.downgrade_pressure 99
     setprop ro.lmk.critical_upgrade true
 
     # Set the host name which used in console
