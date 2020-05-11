@@ -121,20 +121,22 @@ fi
 apply_patch()
 {
     patch_dir=$TOP/vendor/nxp/fsl-proprietary/patches
-    cd $patch_dir
-    for patch_name in `find . -name *.patch`
-    do
-        # remove "./" in the name
-        patch_name=${patch_name#*/}
-        patch_git=`dirname $patch_name`
-        cd $TOP/$patch_git
-        echo "apply patch to $patch_git: git am -3 -q $patch_dir/$patch_name"
-        git am -3 -q $patch_dir/$patch_name
-        if [ $? -ne 0 ]; then
-            echo "`basename $0`: please fix conflicts when apply patch in $patch_git, then try again."
-            exit 1;
-        fi
-    done
+    if [ -d "$patch_dir" ]; then
+        cd $patch_dir
+        for patch_name in `find . -name *.patch`
+        do
+            # remove "./" in the name
+            patch_name=${patch_name#*/}
+            patch_git=`dirname $patch_name`
+            cd $TOP/$patch_git
+            echo "apply patch to $patch_git: git am -3 -q $patch_dir/$patch_name"
+            git am -3 -q $patch_dir/$patch_name
+            if [ $? -ne 0 ]; then
+                echo "`basename $0`: please fix conflicts when apply patch in $patch_git, then try again."
+                exit 1;
+            fi
+        done
+    fi
     cd $TOP
 }
 
