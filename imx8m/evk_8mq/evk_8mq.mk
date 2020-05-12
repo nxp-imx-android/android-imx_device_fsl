@@ -74,7 +74,7 @@ PRODUCT_COPY_FILES += \
     $(LINUX_FIRMWARE_IMX_PATH)/linux-firmware-imx/firmware/sdma/sdma-imx7d.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/imx/sdma/sdma-imx7d.bin \
     device/fsl/common/init/init.insmod.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.insmod.sh \
     device/fsl/common/wifi/p2p_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/p2p_supplicant_overlay.conf \
-    device/fsl/common/wifi/bcm_wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf
+    device/fsl/common/wifi/wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf
 
 ifeq ($(TARGET_USE_DYNAMIC_PARTITIONS),true)
 PRODUCT_COPY_FILES += \
@@ -245,19 +245,13 @@ PRODUCT_PACKAGES += \
     wifilogd \
     wificond
 
-# BCM Bluetooth vendor config
+# NXP 8997 Bluetooth vendor config
 PRODUCT_PACKAGES += \
     bt_vendor.conf
 
-# BCM 1CX Bluetooth Firmware
+# NXP 8997 Wifi and Bluetooth Combo Firmware
 PRODUCT_COPY_FILES += \
-    vendor/nxp/imx-firmware/cyw-wifi-bt/1CX_CYW4356/BCM4354A2.1CX.hcd:$(TARGET_COPY_OUT_VENDOR)/firmware/brcm/CYW4354A2.1CX.hcd
-
-# BCM 1CX Wifi Firmware
-PRODUCT_COPY_FILES += \
-    vendor/nxp/imx-firmware/cyw-wifi-bt/1CX_CYW4356/brcmfmac4356-pcie.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/brcm/brcmfmac4356-pcie.bin \
-    vendor/nxp/imx-firmware/cyw-wifi-bt/1CX_CYW4356/brcmfmac4356-pcie.clm_blob:$(TARGET_COPY_OUT_VENDOR)/firmware/brcm/brcmfmac4356-pcie.clm_blob \
-    vendor/nxp/imx-firmware/cyw-wifi-bt/1CX_CYW4356/brcmfmac4356-pcie.txt:$(TARGET_COPY_OUT_VENDOR)/firmware/brcm/brcmfmac4356-pcie.txt
+    vendor/nxp/imx-firmware/nxp/FwImage_8997/pcieuart8997_combo_v4.bin:vendor/firmware/pcieuart8997_combo_v4.bin
 
 # hardware backed keymaster service
 ifeq ($(PRODUCT_IMX_TRUSTY),true)

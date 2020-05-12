@@ -1,8 +1,2 @@
 on property:sys.boot_completed=1
     start boot_completed_core_sh
-
-on early-boot
-     # Prepare for bluetooth
-     chmod 665 /sys/class/rfkill/rfkill0/state
-     chown bluetooth bluetooth /sys/class/rfkill/rfkill0/state
-     write /sys/class/rfkill/rfkill0/state 0

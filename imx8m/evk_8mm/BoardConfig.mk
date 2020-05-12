@@ -70,16 +70,30 @@ TARGET_BOOTLOADER_BOARD_NAME := EVK
 
 USE_OPENGL_RENDERER := true
 
-# LPDDR4 board use qcom wifi and for DDR4 board use cypress wifi
 ifeq ($(PRODUCT_8MM_DDR4), true)
 BOARD_WLAN_DEVICE            := bcmdhd
 WIFI_DRIVER_FW_PATH_PARAM := "/sys/module/brcmfmac/parameters/alternative_fw_path"
 # BCM 1MW BT
 BOARD_HAVE_BLUETOOTH_BCM := true
 else
-BOARD_WLAN_DEVICE            := qcwcn
-# QCA wifi support dual interface
+# 8mm LPDDR4 board use NXP 8987 wifi
+BOARD_WLAN_DEVICE            := nxp
+# NXP 8987 wifi support dual interface
 WIFI_HIDL_FEATURE_DUAL_INTERFACE := true
+
+# LPDDR4 board use NXP 8987 wifi and for DDR4 board use cypress wifi
+ifeq ($(BOARD_WLAN_DEVICE), bcmdhd)
+  # BCM fmac wifi driver module
+  BOARD_VENDOR_KERNEL_MODULES += \
+    $(KERNEL_OUT)/drivers/net/wireless/broadcom/brcm80211/brcmfmac/brcmfmac.ko \
+    $(KERNEL_OUT)/drivers/net/wireless/broadcom/brcm80211/brcmutil/brcmutil.ko
+else ifeq ($(BOARD_WLAN_DEVICE), nxp)
+  # NXP 8987 wifi driver module
+  BOARD_VENDOR_KERNEL_MODULES += \
+    $(KERNEL_OUT)/drivers/net/wireless/nxp/mxm_wifiex/wlan_src/mlan.ko \
+    $(KERNEL_OUT)/drivers/net/wireless/nxp/mxm_wifiex/wlan_src/moal.ko
+endif
+
 # Qcom 1PJ(QCA9377) BT
 BOARD_HAVE_BLUETOOTH_QCOM := true
 SOONG_CONFIG_IMXPLUGIN += BOARD_BLUETOOTH_NO_DLE

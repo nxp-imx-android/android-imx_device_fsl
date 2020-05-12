@@ -69,21 +69,19 @@ TARGET_BOOTLOADER_BOARD_NAME := EVK
 
 USE_OPENGL_RENDERER := true
 
-BOARD_WLAN_DEVICE            := bcmdhd
+BOARD_WLAN_DEVICE            := nxp
 WPA_SUPPLICANT_VERSION       := VER_0_8_X
 BOARD_WPA_SUPPLICANT_DRIVER  := NL80211
 BOARD_HOSTAPD_DRIVER         := NL80211
 BOARD_HOSTAPD_PRIVATE_LIB           := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
 BOARD_WPA_SUPPLICANT_PRIVATE_LIB    := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
 
-WIFI_DRIVER_FW_PATH_PARAM := "/sys/module/brcmfmac/parameters/alternative_fw_path"
-
-#WIFI_HIDL_FEATURE_DUAL_INTERFACE := true
+WIFI_HIDL_FEATURE_DUAL_INTERFACE := true
 
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(IMX_DEVICE_PATH)/bluetooth
 
-# BCM 1CX BT
-BOARD_HAVE_BLUETOOTH_BCM := true
+# NXP 8997 BT
+BOARD_HAVE_BLUETOOTH_NXP := true
 
 BOARD_USE_SENSOR_FUSION := true
 
@@ -138,7 +136,7 @@ ifeq ($(TARGET_USE_DYNAMIC_PARTITIONS),true)
     TARGET_BOARD_DTS_CONFIG ?= imx8mq:imx8mq-evk-no-product.dtb
   else
     # imx8mq with HDMI display
-    TARGET_BOARD_DTS_CONFIG ?= imx8mq:imx8mq-evk.dtb
+    TARGET_BOARD_DTS_CONFIG ?= imx8mq:imx8mq-evk-pcie1-m2.dtb
     # imx8mq with MIPI-HDMI display
     TARGET_BOARD_DTS_CONFIG += imx8mq-mipi:imx8mq-evk-lcdif-adv7535.dtb
     # imx8mq with HDMI and MIPI-HDMI display

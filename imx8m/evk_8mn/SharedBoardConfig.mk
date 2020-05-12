@@ -10,10 +10,10 @@ PRODUCT_IMX_TRUSTY := true
 #Enable this to disable product partition build.
 #IMX_NO_PRODUCT_PARTITION := true
 
-# BCM fmac wifi driver module
+# NXP 8987 wifi driver module
 BOARD_VENDOR_KERNEL_MODULES += \
-    $(KERNEL_OUT)/drivers/net/wireless/broadcom/brcm80211/brcmfmac/brcmfmac.ko \
-    $(KERNEL_OUT)/drivers/net/wireless/broadcom/brcm80211/brcmutil/brcmutil.ko
+    $(KERNEL_OUT)/drivers/net/wireless/nxp/mxm_wifiex/wlan_src/mlan.ko \
+    $(KERNEL_OUT)/drivers/net/wireless/nxp/mxm_wifiex/wlan_src/moal.ko \
 
 # mipi-panel touch driver module
 BOARD_VENDOR_KERNEL_MODULES += \

@@ -77,15 +77,13 @@ on early-boot
     # Set period_us for usb audio
     setprop ro.audio.usb.period_us 20000
 
-    # Wifi firmware reload path
-    chown wifi wifi /sys/module/brcmfmac/parameters/alternative_fw_path
-
     # Default g2d [dpu|pxp|viv] lib to be used
     setprop vendor.imx.default-g2d dpu
 
     # Prepare for wifi
     setprop wifi.interface wlan0
-    setprop wifi.direct.interface p2p-dev-wlan0
+    setprop wifi.direct.interface p2p0
+    setprop wifi.concurrent.interface p2p0
 
     # Use ro.boot.lcd_density to override ro.sf.lcd_density
     setprop ro.sf.lcd_density ${ro.boot.lcd_density}
@@ -112,8 +110,6 @@ on early-boot
     setprop ro.config.media_vol_steps 15
     setprop ro.config.media_vol_default 15
 
-    start vendor.wifi_hal_legacy
-
 on property:vendor.vehicle.event=1 && property:vendor.evs.video.ready=1
     start evs_app
 
@@ -136,12 +132,6 @@ on property:vendor.all.setup_core.ready=1 && property:ro.product.system.device=m
 on property:vendor.all.setup_main.ready=1
     # Trigger start adbd service
     start usbd
-
-on property:vendor.bluetooth.rfkill_initialized=1
-    # Prepare for bluetooth
-    chmod 664 /sys/class/rfkill/rfkill0/state
-    chown bluetooth bluetooth /sys/class/rfkill/rfkill0/state
-    write /sys/class/rfkill/rfkill0/state 0
 
 service wpa_supplicant /vendor/bin/hw/wpa_supplicant \
     -O/data/vendor/wifi/wpa/sockets -puse_p2p_group_interface=1 \

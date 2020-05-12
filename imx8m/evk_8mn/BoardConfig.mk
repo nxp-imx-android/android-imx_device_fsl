@@ -66,14 +66,15 @@ TARGET_BOOTLOADER_BOARD_NAME := EVK
 
 USE_OPENGL_RENDERER := true
 
-BOARD_WLAN_DEVICE            := bcmdhd
+BOARD_WLAN_DEVICE            := nxp
 WPA_SUPPLICANT_VERSION       := VER_0_8_X
 BOARD_WPA_SUPPLICANT_DRIVER  := NL80211
 BOARD_HOSTAPD_DRIVER         := NL80211
 BOARD_HOSTAPD_PRIVATE_LIB               := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
 BOARD_WPA_SUPPLICANT_PRIVATE_LIB        := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
 
-WIFI_DRIVER_FW_PATH_PARAM := "/sys/module/brcmfmac/parameters/alternative_fw_path"
+WIFI_HIDL_FEATURE_DUAL_INTERFACE := true
+WIFI_HIDL_FEATURE_DISABLE_AP_MAC_RANDOMIZATION := true
 
 BOARD_USE_SENSOR_FUSION := true
 
@@ -82,8 +83,8 @@ TARGET_USERIMAGES_SPARSE_EXT_DISABLED := false
 
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(IMX_DEVICE_PATH)/bluetooth
 
-# BCM 1MW BT
-BOARD_HAVE_BLUETOOTH_BCM := true
+# NXP 8987 BT
+BOARD_HAVE_BLUETOOTH_NXP := true
 
 BOARD_HAVE_USB_CAMERA := true
 BOARD_HAVE_USB_MJPEG_CAMERA := false
@@ -133,11 +134,11 @@ ifeq ($(TARGET_USE_DYNAMIC_PARTITIONS),true)
   ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
     TARGET_BOARD_DTS_CONFIG := imx8mn:imx8mn-ddr4-evk-no-product.dtb
   else
-    # imx8mn with MIPI-HDMI display, BCM wifi and support trusty
+    # imx8mn with MIPI-HDMI display, wifi and support trusty
     TARGET_BOARD_DTS_CONFIG := imx8mn:imx8mn-ddr4-evk.dtb
-    # imx8mn with MIPI panel display and BCM wifi
+    # imx8mn with MIPI panel display and wifi
     TARGET_BOARD_DTS_CONFIG += imx8mn-mipi-panel:imx8mn-ddr4-evk-rm67191.dtb
-    # imx8mn with MIPI-HDMI display and BCM wifi and M7 image
+    # imx8mn with MIPI-HDMI display and wifi and M7 image
     TARGET_BOARD_DTS_CONFIG += imx8mn-rpmsg:imx8mn-ddr4-evk-rpmsg.dtb
   endif
 else
