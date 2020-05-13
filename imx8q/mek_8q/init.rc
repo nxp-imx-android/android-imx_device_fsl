@@ -5,6 +5,8 @@ on early-init
     # mount the debugfs
     mount debugfs none /sys/kernel/debug/ mode=0755
 
+    mount overlay overlay /vendor/etc ro lowerdir=/vendor/vendor_overlay_soc/${ro.boot.soc_type}/vendor/etc:/vendor/etc,override_creds=off
+
 on early-init
     start early_init_sh
 
