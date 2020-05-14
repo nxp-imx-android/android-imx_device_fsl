@@ -290,6 +290,8 @@ PRODUCT_PACKAGES += \
         libNNGPUBinary-evis2 \
         libNNGPUBinary-lite \
         libNNGPUBinary-ulite \
+        imx_evs_app \
+        imx_evs_app_default_resources
 
 PRODUCT_PACKAGES += \
     android.hardware.audio@5.0-impl:32 \

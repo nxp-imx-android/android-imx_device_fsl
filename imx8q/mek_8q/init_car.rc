@@ -181,7 +181,7 @@ service evs_driver /vendor/bin/android.hardware.automotive.evs@1.0-EvsEnumerator
     group automotive_evs camera
     onrestart restart evs_manager
 
-service evs_app /system/bin/evs_app --hw
+service evs_app /system/bin/imx_evs_app --hw
     user automotive_evs
     group automotive_evs
 

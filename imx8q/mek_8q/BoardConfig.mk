@@ -216,10 +216,10 @@ BOARD_SEPOLICY_DIRS := \
 ifeq ($(PRODUCT_IMX_CAR),true)
 BOARD_SEPOLICY_DIRS += \
      packages/services/Car/car_product/sepolicy \
-     packages/services/Car/evs/sepolicy \
      device/fsl/imx8q/sepolicy_car \
      $(IMX_DEVICE_PATH)/sepolicy_car \
-     device/generic/car/common/sepolicy
+     device/generic/car/common/sepolicy \
+     vendor/nxp-opensource/imx/evs/sepolicy
 endif
 
 ifeq ($(PRODUCT_IMX_CAR),true)
