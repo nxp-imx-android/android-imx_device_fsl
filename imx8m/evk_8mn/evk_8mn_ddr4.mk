@@ -1,0 +1,10 @@
+# This is a FSL Android Reference Design platform based on i.MX8MN board
+# It will inherit from FSL core product which in turn inherit from Google generic
+
+
+IMX_DEVICE_PATH := device/fsl/imx8m/evk_8mn
+
+$(call inherit-product, $(TOPDIR)$(IMX_DEVICE_PATH)/evk_8mn.mk)
+
+# Overrides
+PRODUCT_NAME := evk_8mn_ddr4
