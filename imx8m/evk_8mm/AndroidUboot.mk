@@ -14,10 +14,10 @@ define build_imx_uboot
 	cp $(UBOOT_OUT)/spl/u-boot-spl.bin  $(IMX_MKIMAGE_PATH)/imx-mkimage/iMX8M/.; \
 	cp $(UBOOT_OUT)/tools/mkimage  $(IMX_MKIMAGE_PATH)/imx-mkimage/iMX8M/mkimage_uboot; \
 	if [ `echo $(2) | cut -d '-' -f2` = "ddr4" ]; then \
-		cp $(UBOOT_OUT)/arch/arm/dts/fsl-imx8mm-ddr4-evk.dtb $(IMX_MKIMAGE_PATH)/imx-mkimage/iMX8M/.; \
+		cp $(UBOOT_OUT)/arch/arm/dts/imx8mm-ddr4-evk.dtb $(IMX_MKIMAGE_PATH)/imx-mkimage/iMX8M/.; \
 		cp $(FSL_PROPRIETARY_PATH)/linux-firmware-imx/firmware/ddr/synopsys/ddr4* $(IMX_MKIMAGE_PATH)/imx-mkimage/iMX8M/.; \
 	else \
-		cp $(UBOOT_OUT)/arch/arm/dts/fsl-imx8mm-evk.dtb  $(IMX_MKIMAGE_PATH)/imx-mkimage/iMX8M/.; \
+		cp $(UBOOT_OUT)/arch/arm/dts/imx8mm-evk.dtb  $(IMX_MKIMAGE_PATH)/imx-mkimage/iMX8M/.; \
 		cp $(FSL_PROPRIETARY_PATH)/linux-firmware-imx/firmware/ddr/synopsys/lpddr4_pmu_train* $(IMX_MKIMAGE_PATH)/imx-mkimage/iMX8M/.; \
 	fi; \
 	$(MAKE) -C $(IMX_PATH)/arm-trusted-firmware/ PLAT=`echo $(2) | cut -d '-' -f1` clean; \
