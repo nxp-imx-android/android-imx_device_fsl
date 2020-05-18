@@ -66,4 +66,5 @@ fstatat64: 1
 ugetrlimit: 1
 getdents64: 1
 getrandom: 1
+readv: 1
 @include /system/etc/seccomp_policy/crash_dump.arm.policy
