@@ -6,3 +6,4 @@ fstat: 1
 newfstatat: 1
 fstatfs: 1
 sysinfo: 1
+readv: 1
