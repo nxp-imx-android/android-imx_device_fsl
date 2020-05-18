@@ -2,7 +2,7 @@
   "driver_name": "ak4497-audio",
   "supported_out_devices": ["speaker", "line"],
   "support_dsd": 1,
-  "support_multi_chn": 1,
+  "support_lpa": 1,
 
   "init_ctl": [
     {"name": "AK4497 DAC Enable", "type": "int", "val": 1},

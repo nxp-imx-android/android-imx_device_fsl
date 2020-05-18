@@ -67,6 +67,9 @@ Config your audio json file as below.
   // OPTIONAL keys if the card support multiple channels.
   "support_multi_chn": 1,
 
+  // OPTIONAL keys if the card support low power audio.
+  "support_lpa": 1,
+
   // OPTIONAL keys if the card is a hdmi card.
   "is_hdmi_card": 1,
 
