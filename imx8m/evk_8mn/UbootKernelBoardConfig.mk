@@ -3,23 +3,18 @@ TARGET_BOOTLOADER_POSTFIX := bin
 UBOOT_POST_PROCESS := true
 
 # u-boot target for stand config and Trusty OS config
-ifeq ($(PRODUCT_8MN_DDR4), true)
-  TARGET_BOOTLOADER_CONFIG := imx8mn-ddr4:imx8mn_ddr4_evk_android_defconfig
-else
-  TARGET_BOOTLOADER_CONFIG := imx8mn:imx8mn_evk_android_defconfig
-  TARGET_BOOTLOADER_CONFIG += imx8mn-dual:imx8mn_evk_android_dual_defconfig
-  ifeq ($(PRODUCT_IMX_TRUSTY),true)
-    TARGET_BOOTLOADER_CONFIG += imx8mn-trusty:imx8mn_evk_android_trusty_defconfig
-    TARGET_BOOTLOADER_CONFIG += imx8mn-trusty-dual:imx8mn_evk_android_trusty_dual_defconfig
-    TARGET_BOOTLOADER_CONFIG += imx8mn-trusty-secure-unlock:imx8mn_evk_android_trusty_secure_unlock_defconfig
-  endif
+TARGET_BOOTLOADER_CONFIG := imx8mn-ddr4:imx8mn_ddr4_evk_android_defconfig
+TARGET_BOOTLOADER_CONFIG += imx8mn:imx8mn_evk_android_defconfig
+TARGET_BOOTLOADER_CONFIG += imx8mn-dual:imx8mn_evk_android_dual_defconfig
+ifeq ($(PRODUCT_IMX_TRUSTY),true)
+  TARGET_BOOTLOADER_CONFIG += imx8mn-trusty:imx8mn_evk_android_trusty_defconfig
+  TARGET_BOOTLOADER_CONFIG += imx8mn-trusty-dual:imx8mn_evk_android_trusty_dual_defconfig
+  TARGET_BOOTLOADER_CONFIG += imx8mn-trusty-secure-unlock:imx8mn_evk_android_trusty_secure_unlock_defconfig
 endif
+
 # u-boot target used by uuu for imx8mn_evk
-ifeq ($(PRODUCT_8MN_DDR4), true)
-  TARGET_BOOTLOADER_CONFIG += imx8mn-ddr4-evk-uuu:imx8mn_ddr4_evk_android_uuu_defconfig
-else
-  TARGET_BOOTLOADER_CONFIG += imx8mn-evk-uuu:imx8mn_evk_android_uuu_defconfig
-endif
+TARGET_BOOTLOADER_CONFIG += imx8mn-ddr4-evk-uuu:imx8mn_ddr4_evk_android_uuu_defconfig
+TARGET_BOOTLOADER_CONFIG += imx8mn-evk-uuu:imx8mn_evk_android_uuu_defconfig
 
 TARGET_KERNEL_DEFCONFIG := imx_v8_android_defconfig
 

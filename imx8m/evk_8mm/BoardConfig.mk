@@ -70,29 +70,21 @@ TARGET_BOOTLOADER_BOARD_NAME := EVK
 
 USE_OPENGL_RENDERER := true
 
-ifeq ($(PRODUCT_8MM_DDR4), true)
-BOARD_WLAN_DEVICE            := bcmdhd
-WIFI_DRIVER_FW_PATH_PARAM := "/sys/module/brcmfmac/parameters/alternative_fw_path"
-# BCM 1MW BT
-BOARD_HAVE_BLUETOOTH_BCM := true
-else
 # 8mm LPDDR4 board use NXP 8987 wifi
 BOARD_WLAN_DEVICE            := nxp
+WPA_SUPPLICANT_VERSION       := VER_0_8_X
+BOARD_WPA_SUPPLICANT_DRIVER  := NL80211
+BOARD_HOSTAPD_DRIVER         := NL80211
+BOARD_HOSTAPD_PRIVATE_LIB               := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
+BOARD_WPA_SUPPLICANT_PRIVATE_LIB        := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
+
 # NXP 8987 wifi support dual interface
 WIFI_HIDL_FEATURE_DUAL_INTERFACE := true
 
-# LPDDR4 board use NXP 8987 wifi and for DDR4 board use cypress wifi
-ifeq ($(BOARD_WLAN_DEVICE), bcmdhd)
-  # BCM fmac wifi driver module
-  BOARD_VENDOR_KERNEL_MODULES += \
-    $(KERNEL_OUT)/drivers/net/wireless/broadcom/brcm80211/brcmfmac/brcmfmac.ko \
-    $(KERNEL_OUT)/drivers/net/wireless/broadcom/brcm80211/brcmutil/brcmutil.ko
-else ifeq ($(BOARD_WLAN_DEVICE), nxp)
-  # NXP 8987 wifi driver module
-  BOARD_VENDOR_KERNEL_MODULES += \
-    $(KERNEL_OUT)/drivers/net/wireless/nxp/mxm_wifiex/wlan_src/mlan.ko \
-    $(KERNEL_OUT)/drivers/net/wireless/nxp/mxm_wifiex/wlan_src/moal.ko
-endif
+# NXP 8987 wifi driver module
+BOARD_VENDOR_KERNEL_MODULES += \
+  $(KERNEL_OUT)/drivers/net/wireless/nxp/mxm_wifiex/wlan_src/mlan.ko \
+  $(KERNEL_OUT)/drivers/net/wireless/nxp/mxm_wifiex/wlan_src/moal.ko
 
 # Qcom 1PJ(QCA9377) BT
 BOARD_HAVE_BLUETOOTH_QCOM := true
@@ -104,14 +96,6 @@ QCOM_BT_USE_SIBS := true
 ifeq ($(QCOM_BT_USE_SIBS), true)
     WCNSS_FILTER_USES_SIBS := true
 endif
-endif
-
-# common wifi configs
-WPA_SUPPLICANT_VERSION       := VER_0_8_X
-BOARD_WPA_SUPPLICANT_DRIVER  := NL80211
-BOARD_HOSTAPD_DRIVER         := NL80211
-BOARD_HOSTAPD_PRIVATE_LIB               := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
-BOARD_WPA_SUPPLICANT_PRIVATE_LIB        := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
 
 BOARD_USE_SENSOR_FUSION := true
 
@@ -168,42 +152,28 @@ endif
 
 BOARD_PREBUILT_DTBOIMAGE := out/target/product/evk_8mm/dtbo-imx8mm.img
 
-ifeq ($(PRODUCT_8MM_DDR4), true)
-  ifeq ($(TARGET_USE_DYNAMIC_PARTITIONS),true)
-    # dts target for imx8mm_evk with DDR4 on board
-    ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
-      # dts without product partition
-      TARGET_BOARD_DTS_CONFIG ?= imx8mm:imx8mm-ddr4-evk-no-product.dtb
-    else
-      TARGET_BOARD_DTS_CONFIG ?= imx8mm:imx8mm-ddr4-evk.dtb
-    endif
+ifeq ($(TARGET_USE_DYNAMIC_PARTITIONS),true)
+  # dts target for imx8mm_evk with DDR4 on board
+  ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
+    # dts without product partition
+    TARGET_BOARD_DTS_CONFIG ?= imx8mm:imx8mm-evk-no-product.dtb
+    TARGET_BOARD_DTS_CONFIG += imx8mm-ddr4:imx8mm-ddr4-evk-no-product.dtb
   else
-    ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
-      TARGET_BOARD_DTS_CONFIG ?= imx8mm:imx8mm-ddr4-evk-no-product-no-dynamic_partition.dtb
-    else
-      TARGET_BOARD_DTS_CONFIG ?= imx8mm:imx8mm-ddr4-evk-no-dynamic_partition.dtb
-    endif
+    TARGET_BOARD_DTS_CONFIG ?= imx8mm-ddr4:imx8mm-ddr4-evk.dtb
+    # imx8mm with MIPI-HDMI display and NXP wifi
+    TARGET_BOARD_DTS_CONFIG += imx8mm:imx8mm-evk.dtb
+    # imx8mm with MIPI panel display and NXP wifi
+    TARGET_BOARD_DTS_CONFIG += imx8mm-mipi-panel:imx8mm-evk-rm67191.dtb
+    # imx8mm with MIPI-HDMI display, NXP wifi and m4 image to support LPA
+    TARGET_BOARD_DTS_CONFIG += imx8mm-m4:imx8mm-evk-rpmsg.dtb
   endif
 else
-  ifeq ($(TARGET_USE_DYNAMIC_PARTITIONS),true)
-    # dts target for imx8mm_evk with LPDDR4 on board
-    ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
-      # dts without product partition
-      TARGET_BOARD_DTS_CONFIG ?= imx8mm:imx8mm-evk-no-product.dtb
-    else
-      # imx8mm with MIPI-HDMI display and QCA wifi
-      TARGET_BOARD_DTS_CONFIG ?= imx8mm:imx8mm-evk.dtb
-      # imx8mm with MIPI panel display and QCA wifi
-      TARGET_BOARD_DTS_CONFIG += imx8mm-mipi-panel:imx8mm-evk-rm67191.dtb
-      # imx8mm with MIPI-HDMI display, QCA wifi and m4 image to support LPA
-      TARGET_BOARD_DTS_CONFIG += imx8mm-m4:imx8mm-evk-rpmsg.dtb
-    endif
+  ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
+    TARGET_BOARD_DTS_CONFIG ?= imx8mm:imx8mm-evk-no-product-no-dynamic_partition.dtb
+    TARGET_BOARD_DTS_CONFIG += imx8mm-ddr4:imx8mm-ddr4-evk-no-product-no-dynamic_partition.dtb
   else
-    ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
-      TARGET_BOARD_DTS_CONFIG ?= imx8mm:imx8mm-evk-no-product-no-dynamic_partition.dtb
-    else
-      TARGET_BOARD_DTS_CONFIG ?= imx8mm:imx8mm-evk-no-dynamic_partition.dtb
-    endif
+    TARGET_BOARD_DTS_CONFIG ?= imx8mm:imx8mm-evk-no-dynamic_partition.dtb
+    TARGET_BOARD_DTS_CONFIG += imx8mm-ddr4:imx8mm-ddr4-evk-no-dynamic_partition.dtb
   endif
 endif
 

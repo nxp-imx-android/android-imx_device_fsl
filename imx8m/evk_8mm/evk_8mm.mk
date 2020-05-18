@@ -93,17 +93,11 @@ PRODUCT_COPY_FILES += \
     device/fsl/common/audio-json/btsco_config.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/audio/btsco_config.json \
     device/fsl/common/audio-json/readme.txt:$(TARGET_COPY_OUT_VENDOR)/etc/configs/audio/readme.txt
 
-ifeq ($(PRODUCT_8MM_DDR4), true)
-#DDR4 board, bcm wifi supplicant overlay
-PRODUCT_COPY_FILES += \
-    $(IMX_DEVICE_PATH)/init.imx8mm.ddr4.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.freescale.additional.rc \
-    device/fsl/common/wifi/bcm_wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf
-else
-#LPDDR4 board, qcom wifi supplicant overlay
+
+#LPDDR4 board, NXP wifi supplicant overlay
 PRODUCT_COPY_FILES += \
     $(IMX_DEVICE_PATH)/init.imx8mm.lpddr4.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.freescale.additional.rc \
     device/fsl/common/wifi/wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf
-endif
 
 ifeq ($(PRODUCT_IMX_TRUSTY),true)
 PRODUCT_COPY_FILES += \
@@ -228,19 +222,6 @@ PRODUCT_PACKAGES += \
     wifilogd \
     wificond
 
-ifeq ($(PRODUCT_8MM_DDR4), true)
-# BCM Bluetooth vendor config
-PRODUCT_PACKAGES += \
-    bt_vendor.conf
-# BCM 1MW Bluetooth Firmware
-PRODUCT_COPY_FILES += \
-    vendor/nxp/imx-firmware/cyw-wifi-bt/1MW_CYW43455/BCM4345C0.1MW.hcd:$(TARGET_COPY_OUT_VENDOR)/firmware/brcm/CYW4345C0.1MW.hcd
-# BCM 1MW Wifi Firmware
-PRODUCT_COPY_FILES += \
-    vendor/nxp/imx-firmware/cyw-wifi-bt/1MW_CYW43455/brcmfmac43455-sdio.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/brcm/brcmfmac43455-sdio.bin \
-    vendor/nxp/imx-firmware/cyw-wifi-bt/1MW_CYW43455/brcmfmac43455-sdio.clm_blob:$(TARGET_COPY_OUT_VENDOR)/firmware/brcm/brcmfmac43455-sdio.clm_blob \
-    vendor/nxp/imx-firmware/cyw-wifi-bt/1MW_CYW43455/brcmfmac43455-sdio.txt:$(TARGET_COPY_OUT_VENDOR)/firmware/brcm/brcmfmac43455-sdio.txt
-else
 # Qcom 1PJ Bluetooth Firmware
 PRODUCT_COPY_FILES += \
     vendor/nxp/qca-wifi-bt/1PJ_QCA9377-3_LEA_2.0/lib/firmware/qca/tfbtnv11.bin:vendor/firmware/nvm_tlv_3.2.bin \
@@ -255,7 +236,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     external/wireless-regdb/regulatory.db:vendor/firmware/regulatory.db \
     external/wireless-regdb/regulatory.db.p7s:vendor/firmware/regulatory.db.p7s
-endif
 
 # Keymaster HAL
 ifeq ($(PRODUCT_IMX_TRUSTY),true)

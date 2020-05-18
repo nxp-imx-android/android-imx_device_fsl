@@ -130,27 +130,24 @@ endif
 
 BOARD_PREBUILT_DTBOIMAGE := out/target/product/evk_8mn/dtbo-imx8mn.img
 
-ifeq ($(PRODUCT_8MN_DDR4), true)
-  ifeq ($(TARGET_USE_DYNAMIC_PARTITIONS),true)
-    ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
-      TARGET_BOARD_DTS_CONFIG := imx8mn:imx8mn-ddr4-evk-no-product.dtb
-    else
-      # imx8mn with MIPI-HDMI display, wifi and support trusty
-      TARGET_BOARD_DTS_CONFIG := imx8mn:imx8mn-ddr4-evk.dtb
-      # imx8mn with MIPI panel display and wifi
-      TARGET_BOARD_DTS_CONFIG += imx8mn-mipi-panel:imx8mn-ddr4-evk-rm67191.dtb
-      # imx8mn with MIPI-HDMI display and wifi and M7 image
-      TARGET_BOARD_DTS_CONFIG += imx8mn-rpmsg:imx8mn-ddr4-evk-rpmsg.dtb
-    endif
+ifeq ($(TARGET_USE_DYNAMIC_PARTITIONS),true)
+  ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
+    TARGET_BOARD_DTS_CONFIG := imx8mn-ddr4:imx8mn-ddr4-evk-no-product.dtb
   else
-    ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
-      TARGET_BOARD_DTS_CONFIG := imx8mn:imx8mn-ddr4-evk-no-product-no-dynamic_partition.dtb
-    else
-      TARGET_BOARD_DTS_CONFIG := imx8mn:imx8mn-ddr4-evk-no-dynamic_partition.dtb
-    endif
+    # imx8mn with MIPI-HDMI display, wifi and support trusty
+    TARGET_BOARD_DTS_CONFIG := imx8mn-ddr4:imx8mn-ddr4-evk.dtb
+    TARGET_BOARD_DTS_CONFIG += imx8mn:imx8mn-evk.dtb
+    # imx8mn with MIPI panel display and wifi
+    TARGET_BOARD_DTS_CONFIG += imx8mn-ddr4-mipi-panel:imx8mn-ddr4-evk-rm67191.dtb
+    # imx8mn with MIPI-HDMI display and wifi and M7 image
+    TARGET_BOARD_DTS_CONFIG += imx8mn-ddr4-rpmsg:imx8mn-ddr4-evk-rpmsg.dtb
   endif
 else
-  TARGET_BOARD_DTS_CONFIG := imx8mn:imx8mn-evk.dtb
+  ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
+    TARGET_BOARD_DTS_CONFIG := imx8mn-ddr4:imx8mn-ddr4-evk-no-product-no-dynamic_partition.dtb
+  else
+    TARGET_BOARD_DTS_CONFIG := imx8mn-ddr4:imx8mn-ddr4-evk-no-dynamic_partition.dtb
+  endif
 endif
 
 BOARD_SEPOLICY_DIRS := \

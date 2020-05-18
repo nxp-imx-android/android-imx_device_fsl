@@ -1,9 +1,5 @@
 KERNEL_NAME := Image
 TARGET_KERNEL_ARCH := arm64
-# after selecting the target by "lunch" command, TARGET_PRODUCT will be set
-ifeq ($(TARGET_PRODUCT),evk_8mm_ddr4)
-  PRODUCT_8MM_DDR4 := true
-endif
 
 #Enable this to config 1GB ddr on evk_imx8mm
 #LOW_MEMORY := true
