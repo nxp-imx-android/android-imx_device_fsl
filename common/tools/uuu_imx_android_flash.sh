@@ -36,9 +36,9 @@ options:
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                            │   imx8mm       │  dual trusty-dual 4g-evk-uuu 4g ddr4-evk-uuu ddr4 evk-uuu trusty-4g trusty-secure-unlock trusty      │
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
-                           │   imx8mn       │  dual trusty-dual evk-uuu trusty-secure-unlock trusty                                                │
+                           │   imx8mn       │  dual trusty-dual evk-uuu trusty-secure-unlock trusty ddr4-evk-uuu ddr4                              │
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
-                           │   imx8mq       │  dual trusty-dual evk-uuu trusty-secure-unlock trusty aiy-uuu                                        │
+                           │   imx8mq       │  dual trusty-dual evk-uuu trusty-secure-unlock trusty                                                │
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                            │   imx8mp       │  dual trusty-dual evk-uuu trusty-secure-unlock trusty                                                │
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
@@ -57,7 +57,7 @@ options:
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                            │   imx8mm       │  ddr4 m4 mipi-panel                                                                                  │
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
-                           │   imx8mn       │  mipi-panel rpmsg                                                                                    │
+                           │   imx8mn       │  mipi-panel rpmsg ddr4 ddr4-mipi-panel ddr4-rpmsg                                                    │
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                            │   imx8mq       │  dual mipi-panel mipi                                                                                │
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
@@ -401,15 +401,15 @@ dont_generate_super=0
 # board running different set of images(android and automative for a example), so misuse the features of one set of
 # images when flash another set of images can not be detect early with this scenario.
 imx8mm_uboot_feature=(dual trusty-dual 4g-evk-uuu 4g ddr4-evk-uuu ddr4 evk-uuu trusty-4g trusty-secure-unlock trusty)
-imx8mn_uboot_feature=(dual trusty-dual evk-uuu trusty-secure-unlock trusty)
-imx8mq_uboot_feature=(dual trusty-dual evk-uuu trusty-secure-unlock trusty aiy-uuu)
+imx8mn_uboot_feature=(dual trusty-dual evk-uuu trusty-secure-unlock trusty ddr4-evk-uuu ddr4)
+imx8mq_uboot_feature=(dual trusty-dual evk-uuu trusty-secure-unlock trusty)
 imx8mp_uboot_feature=(dual trusty-dual evk-uuu trusty-secure-unlock trusty)
 imx8qxp_uboot_feature=(mek-uuu trusty-secure-unlock trusty secure-unlock c0 trusty-c0 mek-c0-uuu)
 imx8qm_uboot_feature=(mek-uuu trusty-secure-unlock trusty secure-unlock md hdmi)
 imx7ulp_uboot_feature=(evk-uuu)
 
 imx8mm_dtb_feature=(ddr4 m4 mipi-panel)
-imx8mn_dtb_feature=(mipi-panel rpmsg)
+imx8mn_dtb_feature=(mipi-panel rpmsg ddr4 ddr4-mipi-panel ddr4-rpmsg)
 imx8mq_dtb_feature=(dual mipi-panel mipi)
 imx8mp_dtb_feature=(rpmsg hdmi lvds-panel lvds mipi-panel)
 imx8qxp_dtb_feature=()
@@ -670,7 +670,7 @@ bootloader_used_by_uuu=u-boot-${soc_name}-${board}-uuu.imx
 bootloader_flashed_to_board="u-boot-${soc_name}${uboot_feature}.imx"
 
 # find the names of the bootloader used by uuu
-if [ "${soc_name}" = imx8mm ]; then
+if [ "${soc_name}" = imx8mm ] || [ "${soc_name}" = imx8mn ]; then
     if [[ "${uboot_feature}" = *"ddr4"* ]]; then
         bootloader_used_by_uuu=u-boot-${soc_name}-ddr4-${board}-uuu.imx
     elif [[ "${uboot_feature}" = *"4g"* ]]; then
