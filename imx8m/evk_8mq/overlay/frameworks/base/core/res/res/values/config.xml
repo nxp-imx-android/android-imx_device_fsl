@@ -193,4 +193,8 @@
 
     <!-- If the system has the input method for each display - enable per-display focus. -->
     <bool name="config_perDisplayFocusEnabled">true</bool>
+
+    <!-- Enable 802.11ac for Wifi hotspot (SAP) -->
+    <bool translatable="false" name="config_wifi_softap_ieee80211ac_supported">true</bool>
+
 </resources>
