@@ -358,7 +358,7 @@ PRODUCT_PACKAGES += \
     bt_vendor.conf
 
 PRODUCT_COPY_FILES += \
-    vendor/nxp/linux-firmware-imx/firmware/hdmi/cadence/hdmitxfw.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/hdmi/hdmitxfw.bin
+    vendor/nxp/linux-firmware-imx/firmware/hdmi/cadence/hdmitxfw.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/hdmitxfw.bin
 
 # AudioControl service
 ifeq ($(PRODUCT_IMX_CAR),true)
