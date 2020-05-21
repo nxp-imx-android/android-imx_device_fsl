@@ -130,10 +130,10 @@ on early-boot
     chmod 0664 /sys/kernel/debug/sync/sw_sync
 
     # Default backlight device
-    setprop hw.backlight.dev "32e10000.mipi_dsi.0"
+    setprop hw.backlight.dev "32e60000.mipi_dsi.0"
     # Chmod/chown FSL specific sys entry
-    chown system system /sys/class/backlight/32e10000.mipi_dsi.0/brightness
-    chmod 0660 /sys/class/backlight/32e10000.mipi_dsi.0/brightness
+    chown system system /sys/class/backlight/32e60000.mipi_dsi.0/brightness
+    chmod 0660 /sys/class/backlight/32e60000.mipi_dsi.0/brightness
 
     # Set light sensor sysfs path and light sensor threshold lux value
     setprop ro.hardware.lightsensor "/sys/class/i2c-dev/i2c-0/device/0-0044/"
