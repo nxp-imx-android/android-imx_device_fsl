@@ -1,7 +1,8 @@
 on early-boot
     # Prepare for wifi
     setprop wifi.interface wlan0
-    setprop wifi.concurrent.interface p2p0
+    setprop wifi.direct.interface p2p0
+    setprop wifi.concurrent.interface wlan1
 
     setprop qcom.bluetooth.soc rome_uart
     setprop vendor.wc_transport.start_hci false
