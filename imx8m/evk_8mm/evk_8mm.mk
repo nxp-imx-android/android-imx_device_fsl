@@ -357,3 +357,10 @@ INSTALL_64BIT_LIBRARY := true
 endif
 -include $(FSL_CODEC_PATH)/fsl-codec/fsl-codec.mk
 endif
+
+# Resume on Reboot support
+PRODUCT_PACKAGES += \
+    android.hardware.rebootescrow-service.default
+
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.rebootescrow.device=/dev/block/pmem0

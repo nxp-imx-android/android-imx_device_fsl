@@ -59,9 +59,10 @@ ifeq ($(PRODUCT_IMX_CAR),true)
   else
     TARGET_KERNEL_DEFCONFIG := imx_v8_android_car2_defconfig
   endif # PRODUCT_IMX_CAR_M4
-  TARGET_KERNEL_ADDITION_DEFCONF := android_addition_defconfig
+  TARGET_KERNEL_ADDITION_DEFCONF := automotive_addition_defconfig
 else
   TARGET_KERNEL_DEFCONFIG := imx_v8_android_defconfig
+  TARGET_KERNEL_ADDITION_DEFCONF := android_addition_defconfig
 endif # PRODUCT_IMX_CAR
 
 # absolute path is used, not the same as relative path used in AOSP make

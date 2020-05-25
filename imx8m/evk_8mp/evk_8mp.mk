@@ -420,3 +420,10 @@ endif
 
 # Included GMS package
 $(call inherit-product-if-exists, vendor/partner_gms/products/gms.mk)
+
+# Resume on Reboot support
+PRODUCT_PACKAGES += \
+    android.hardware.rebootescrow-service.default
+
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.rebootescrow.device=/dev/block/pmem0

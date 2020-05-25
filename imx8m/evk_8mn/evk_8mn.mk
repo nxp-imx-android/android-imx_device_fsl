@@ -355,3 +355,9 @@ PRODUCT_PACKAGES += \
     c2_component_register_ms \
     c2_component_register_ra
 
+# Resume on Reboot support
+PRODUCT_PACKAGES += \
+    android.hardware.rebootescrow-service.default
+
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.rebootescrow.device=/dev/block/pmem0

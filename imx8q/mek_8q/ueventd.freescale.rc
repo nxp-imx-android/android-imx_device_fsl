@@ -16,6 +16,7 @@
 /dev/input/event*         0660   system     system
 /dev/trusty-ipc-dev0      0660   system     drmrpc
 /dev/mmcblk0rpmb    0600   system     system
+/dev/block/pmem0          0660 system system
 
 # sensors sysfs
 /dev/FreescaleAccelerometer                     0660  system   system
