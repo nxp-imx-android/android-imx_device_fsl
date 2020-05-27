@@ -39,20 +39,16 @@ PRODUCT_COPY_FILES += \
     device/fsl/common/input/imx-keypad.idc:$(TARGET_COPY_OUT_VENDOR)/usr/idc/imx-keypad.idc \
     device/fsl/common/input/imx-keypad.kl:$(TARGET_COPY_OUT_VENDOR)/usr/keylayout/imx-keypad.kl \
     device/fsl/common/wifi/p2p_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/p2p_supplicant_overlay.conf \
-    device/fsl/common/wifi/bcm_wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf \
-    device/fsl/common/wifi/wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/qca_wpa_supplicant_overlay.conf \
-    device/fsl/common/wifi/bcm_wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/bcm_wpa_supplicant_overlay.conf
+    device/fsl/common/wifi/wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf
 
 ifeq ($(PRODUCT_7ULP_REVB), true)
-#evk board, qcom wifi supplicant overlay
+#evk board, NXP 8987 wifi supplicant overlay
 PRODUCT_COPY_FILES += \
-    $(IMX_DEVICE_PATH)/init.imx7ulp.revb.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.freescale.additional.rc \
-    device/fsl/common/wifi/wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf
+    $(IMX_DEVICE_PATH)/init.imx7ulp.revb.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.freescale.additional.rc
 else
 #evkb board, bcm wifi supplicant overlay
 PRODUCT_COPY_FILES += \
-    $(IMX_DEVICE_PATH)/init.imx7ulp.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.freescale.additional.rc \
-    device/fsl/common/wifi/bcm_wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf
+    $(IMX_DEVICE_PATH)/init.imx7ulp.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.freescale.additional.rc
 endif
 
 # ONLY devices that meet the CDD's requirements may declare these features
@@ -196,12 +192,15 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     vendor/nxp/imx-firmware/cyw-wifi-bt/1DX_CYW43430/BCM43430A1.1DX.hcd:$(TARGET_COPY_OUT_VENDOR)/firmware/brcm/CYW43430A1.1DX.hcd
 
-# BCM 1CX Wifi Firmware
+# NXP 8987 WiFi Firmware
 PRODUCT_COPY_FILES += \
-    vendor/nxp/imx-firmware/cyw-wifi-bt/1DX_CYW43430/brcmfmac43430-sdio.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/brcm/brcmfmac43430-sdio.bin \
-    vendor/nxp/imx-firmware/cyw-wifi-bt/1DX_CYW43430/brcmfmac43430-sdio.clm_blob:$(TARGET_COPY_OUT_VENDOR)/firmware/brcm/brcmfmac43430-sdio.clm_blob \
-    vendor/nxp/imx-firmware/cyw-wifi-bt/1DX_CYW43430/brcmfmac43430-sdio.txt:$(TARGET_COPY_OUT_VENDOR)/firmware/brcm/brcmfmac43430-sdio.txt
+    vendor/nxp/imx-firmware/nxp/FwImage_8987/sdiouart8987_combo_v0.bin:vendor/firmware/sdiouart8987_combo_v0.bin
 endif
+
+# Wifi regulatory
+PRODUCT_COPY_FILES += \
+    external/wireless-regdb/regulatory.db:vendor/firmware/regulatory.db \
+    external/wireless-regdb/regulatory.db.p7s:vendor/firmware/regulatory.db.p7s
 
 # WiFi HAL
 PRODUCT_PACKAGES += \

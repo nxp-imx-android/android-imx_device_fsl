@@ -22,7 +22,7 @@ DEVICE_MATRIX_FILE := $(IMX_DEVICE_PATH)/compatibility_matrix.xml
 
 TARGET_BOOTLOADER_BOARD_NAME := EVK
 
-# evk board use qcom wifi and evkb board(default) use cypress wifi
+# evk board use qcom wifi
 ifeq ($(PRODUCT_7ULP_REVB), true)
 BOARD_WLAN_DEVICE := qcwcn
 WIFI_HIDL_FEATURE_DUAL_INTERFACE := true
@@ -37,8 +37,8 @@ endif
 SOONG_CONFIG_IMXPLUGIN += BOARD_HAVE_BLUETOOTH_QCOM
 SOONG_CONFIG_IMXPLUGIN_BOARD_HAVE_BLUETOOTH_QCOM = true
 else
-BOARD_WLAN_DEVICE := bcmdhd
-WIFI_DRIVER_FW_PATH_PARAM := "/sys/module/brcmfmac/parameters/alternative_fw_path"
+# 7ulp evkb board use NXP 8987 wifi
+BOARD_WLAN_DEVICE := nxp
 # BCM 1DX BT
 BOARD_HAVE_BLUETOOTH_BCM := true
 endif
