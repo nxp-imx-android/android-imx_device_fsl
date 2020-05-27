@@ -15,6 +15,7 @@ ifeq ($(PRODUCT_IMX_CAR),true)
   else
     # u-boot target for imx8qm_mek auto android
     TARGET_BOOTLOADER_CONFIG := imx8qm:imx8qm_mek_androidauto2_trusty_defconfig
+    TARGET_BOOTLOADER_CONFIG += imx8qm-xen:imx8qm_mek_androidauto_xen_defconfig
     ifneq ($(IMX_NO_PRODUCT_PARTITION),true)
       # u-boot target for imx8qm_mek auto android with multi-display
       TARGET_BOOTLOADER_CONFIG += imx8qm-md:imx8qm_mek_androidauto2_trusty_md_defconfig
