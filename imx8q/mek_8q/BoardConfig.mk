@@ -181,6 +181,8 @@ ifeq ($(PRODUCT_IMX_CAR),true)
       endif
       # imx8qxp auto android without m4 image
       TARGET_BOARD_DTS_CONFIG += imx8qxp:imx8qxp-mek-car2.dtb
+      # imx8qm auto android without m4 image in xen
+      TARGET_BOARD_DTS_CONFIG += imx8qm-xen:imx8qm-mek-car2-domu.dtb
     endif #IMX_NO_PRODUCT_PARTITION
   endif #PRODUCT_IMX_CAR_M4
 else
