@@ -44,6 +44,9 @@ endif
 #Enable this to choose 32 bit user space build
 #IMX8_BUILD_32BIT_ROOTFS := true
 
+# Enable this to support vendor boot and boot header v3, this would be a MUST for GKI
+TARGET_USE_VENDOR_BOOT ?= true
+
 #Enable this to use dynamic partitions for the readonly partitions not touched by bootloader
 TARGET_USE_DYNAMIC_PARTITIONS ?= true
 #If the device is retrofit to have dynamic partition feature, set this variable to true to build
@@ -150,6 +153,15 @@ PRODUCT_COPY_FILES += \
     $(IMX_DEVICE_PATH)/required_hardware.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/required_hardware.xml \
     device/fsl/imx8q/init.recovery.freescale.rc:root/init.recovery.freescale.rc \
     $(IMX_DEVICE_PATH)/early.init.cfg:$(TARGET_COPY_OUT_VENDOR)/etc/early.init.cfg
+
+# We load the fstab from device tree so this is not needed, but since no kernel modules are installed to vendor
+# boot ramdisk so far, we need this step to generate the vendor-ramdisk folder or build process would fail. This
+# can be deleted once we figure out what kernel modules should be put into the vendor boot ramdisk.
+ifeq ($(TARGET_USE_VENDOR_BOOT),true)
+PRODUCT_COPY_FILES += \
+    $(IMX_DEVICE_PATH)/fstab.freescale:$(TARGET_COPY_OUT_VENDOR_RAMDISK)/first_stage_ramdisk/fstab.freescale
+endif
+
 endif
 
 # ONLY devices that meet the CDD's requirements may declare these features

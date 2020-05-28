@@ -20,6 +20,13 @@
             "type_guid": "bb499290-b57e-49f6-bf41-190386693794"
         },
         {
+            "ab": true,
+            "label": "vendor_boot",
+            "size": "64 MiB",
+            "guid": "auto",
+            "type_guid": "3930E8B2-72A7-9EA9-8C0F-817FE3D8B2DA"
+        },
+        {
             "label": "misc",
             "size": "4 MiB",
             "guid": "auto",

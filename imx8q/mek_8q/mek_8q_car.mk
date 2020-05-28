@@ -3,6 +3,9 @@
 
 IMX_DEVICE_PATH := device/fsl/imx8q/mek_8q
 
+# Don't enable vendor boot for Android Auto now
+TARGET_USE_VENDOR_BOOT := false
+
 # Android Auto will not use dynamic partition
 TARGET_USE_DYNAMIC_PARTITIONS := false
 

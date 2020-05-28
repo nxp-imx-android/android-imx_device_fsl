@@ -79,3 +79,9 @@ imx_vbmetaimage: IMX_INSTALLED_RECOVERYIMAGE_TARGET $(IMX_INSTALLED_VBMETAIMAGE_
 
 droid: imx_vbmetaimage
 otapackage: imx_vbmetaimage
+
+ifeq ($(TARGET_USE_VENDOR_BOOT), true)
+INSTALLED_DTBIMAGE_TARGET := $(PRODUCT_OUT)/dtb.img
+$(INSTALLED_DTBIMAGE_TARGET): $(KERNEL_BIN) $(TARGET_DTB)
+	cp $(word 1,$(TARGET_DTB)) $(INSTALLED_DTBIMAGE_TARGET)
+endif
