@@ -1,0 +1,2 @@
+genfscon sysfs /devices/vi2c-0/i2c-0/0-0051/power_supply/tcpm-source-psy-0-0051 u:object_r:sysfs_batteryinfo:s0
+genfscon sysfs /devices/vi2c-0/i2c-0/0-0051/extcon u:object_r:sysfs_extcon:s0

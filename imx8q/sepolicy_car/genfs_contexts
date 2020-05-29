@@ -1,3 +1,7 @@
 genfscon sysfs /devices/platform/vehicle_rpmsg_m4/register    u:object_r:sysfs_canregister:s0
 genfscon sysfs /devices/platform/passthrough/passthrough:vehicle_rpmsg_m4/register    u:object_r:sysfs_canregister:s0
 genfscon sysfs /firmware/devicetree/base/passthrough/firmware/android          u:object_r:sysfs_dt_firmware_android:s0
+
+# XEN
+genfscon sysfs /devices/platform/23000000.rtc/rtc/rtc0/hctosys                  u:object_r:sysfs_rtc:s0
+genfscon sysfs /devices/platform/vehicle-dummy/extcon                           u:object_r:sysfs_extcon:s0
