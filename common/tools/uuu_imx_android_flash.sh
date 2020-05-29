@@ -157,6 +157,8 @@ function flash_partition
 {
     if [ "$(echo ${1} | grep "bootloader_")" != "" ]; then
         img_name=${uboot_proper_to_be_flashed}
+    elif [ ${support_vendor_boot} -eq 1 ] && [ "$(echo ${1} | grep "vendor_boot")" != "" ]; then
+            img_name="vendor_boot.img"
     elif [ "$(echo ${1} | grep "system")" != "" ]; then
         img_name=${systemimage_file}
     elif [ "$(echo ${1} | grep "vendor")" != "" ]; then
@@ -202,6 +204,10 @@ function flash_userpartitions
 
     flash_partition ${boot_partition}
 
+    if [ ${support_vendor_boot} -eq 1 ]; then
+        flash_partition ${vendor_boot_partition}
+    fi
+
     if [ ${support_recovery} -eq 1 ]; then
         flash_partition ${recovery_partition}
     fi
@@ -223,6 +229,7 @@ function flash_partition_name
     product_partition="product"${1}
     vbmeta_partition="vbmeta"${1}
     dtbo_partition="dtbo"${1}
+    vendor_boot_partition="vendor_boot"${1}
     if [ ${support_dual_bootloader} -eq 1 ]; then
         dual_bootloader_partition=bootloader${1}
     fi
@@ -352,6 +359,7 @@ support_dualslot=0
 support_mcu_os=0
 support_trusty=0
 support_dynamic_partition=0
+support_vendor_boot=0
 boot_partition="boot"
 recovery_partition="recovery"
 system_partition="system"
@@ -359,6 +367,7 @@ vendor_partition="vendor"
 product_partition="product"
 vbmeta_partition="vbmeta"
 dtbo_partition="dtbo"
+vendor_boot_partition="vendor_boot"
 mcu_os_partition="mcu_os"
 super_partition="super"
 
@@ -544,6 +553,9 @@ grep "62 00 6f 00 6f 00 74 00 5f 00 61 00" /tmp/partition-table_3.txt > /dev/nul
 grep "73 00 75 00 70 00 65 00 72 00" /tmp/partition-table_3.txt > /dev/null \
         && support_dynamic_partition=1 && echo dynamic parttition is supported
 
+# check whether there is "vendor_boot" in partition table
+grep "76 00 65 00 6e 00 64 00 6f 00 72 00 5f 00 62 00 6f 00 6f 00 74 00 5f 00" /tmp/partition-table_3.txt > /dev/null \
+        && support_vendor_boot=1 && echo vendor_boot parttition is supported
 
 # get device and board specific parameter
 case ${soc_name%%-*} in

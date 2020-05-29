@@ -101,6 +101,7 @@ vendor_file="vendor.img"
 product_file="product.img"
 partition_file="partition-table.img"
 super_file="super.img"
+vendorboot_file="vendor_boot.img"
 g_sizes=0
 support_dtbo=0
 flash_mcu=0
@@ -113,6 +114,7 @@ uboot_feature=""
 support_dual_bootloader=0
 support_dualslot=0
 support_dynamic_partition=0
+support_vendor_boot=0
 lpmake_system_image_a=""
 lpmake_system_image_b=""
 lpmake_vendor_image_a=""
@@ -252,6 +254,8 @@ function flash_partition
         if [ $? -eq 0 ]; then
             if [ "$(echo ${1} | grep "bootloader_")" != "" ]; then
                 img_name=${uboot_proper_file}
+            elif [ ${support_vendor_boot} -eq 1 ] && [ $(echo ${1} | grep "vendor_boot") != "" ] 2>/dev/null; then
+                img_name="${vendorboot_file}"
             elif [ "$(echo ${1} | grep "system")" != "" ]; then
                 img_name=${systemimage_file}
             elif [ "$(echo ${1} | grep "vendor")" != "" ]; then
@@ -279,7 +283,9 @@ function flash_partition
             fi
             echo "flash_partition: ${img_name} ---> ${node}${num}"
 
-            if [ "$(echo ${1} | grep "system")" != "" ] || [ "$(echo ${1} | grep "vendor")" != "" ] || \
+            if [ "$(echo ${1} | grep "vendor_boot")" != "" ]; then
+                dd if=${image_directory}${img_name} of=${node}${num} bs=10M conv=fsync
+            elif [ "$(echo ${1} | grep "system")" != "" ] || [ "$(echo ${1} | grep "vendor")" != "" ] || \
                 [ "$(echo ${1} | grep "product")" != "" ]; then
                 simg2img ${image_directory}${img_name} ${node}${num}
             elif [ "$(echo ${1} | grep "super")" != "" ]; then
@@ -321,8 +327,10 @@ function flash_android
     vbmeta_partition="vbmeta"${slot}
     dtbo_partition="dtbo"${slot}
     super_partition="super"
+    vendor_boot_partition="vendor_boot"${slot}
     gdisk -l ${node} 2>/dev/null | grep -q "dtbo" && support_dtbo=1
     gdisk -l ${node} 2>/dev/null | grep -q "super" && support_dynamic_partition=1
+    gdisk -l ${node} 2>/dev/null | grep -q "vendor_boot" && support_vendor_boot=1
 
     if [ ${support_dual_bootloader} -eq 1 ]; then
         bootloader_file=spl-${soc_name}${uboot_feature}.bin
@@ -335,6 +343,9 @@ function flash_android
 
     if [ "${support_dtbo}" -eq "1" ] ; then
         flash_partition ${dtbo_partition} || exit 1
+    fi
+    if [ "${support_vendor_boot}" -eq "1" ] ; then
+        flash_partition ${vendor_boot_partition} || exit 1
     fi
     flash_partition ${boot_partition}  || exit 1
     flash_partition ${recovery_partition}  || exit 1

@@ -112,6 +112,8 @@ function flash_partition
         img_name=${uboot_proper_to_be_flashed}
     elif [ "$(echo ${1} | grep "system")" != "" ]; then
         img_name=${systemimage_file}
+    elif [ ${support_vendor_boot} -eq 1 ] && [ "$(echo ${1} | grep "vendor_boot")" != "" ]; then
+        img_name="vendor_boot.img"
     elif [ "$(echo ${1} | grep "vendor")" != "" ]; then
         img_name=${vendor_file}
     elif [ "$(echo ${1} | grep "product")" != "" ]; then
@@ -155,6 +157,10 @@ function flash_userpartitions
 
     flash_partition ${boot_partition}
 
+    if [ ${support_vendor_boot} -eq 1 ]; then
+        flash_partition ${vendor_boot_partition}
+    fi
+
     if [ ${support_recovery} -eq 1 ]; then
         flash_partition ${recovery_partition}
     fi
@@ -176,6 +182,7 @@ function flash_partition_name
     product_partition="product"${1}
     vbmeta_partition="vbmeta"${1}
     dtbo_partition="dtbo"${1}
+    vendor_boot_partition="vendor_boot"${1}
 }
 
 function flash_android
@@ -191,6 +198,7 @@ function flash_android
     # use boot_b to check whether current gpt support a/b slot
     grep -q "boot_b" /tmp/fastboot_var.log && support_dualslot=1
     grep -q "super" /tmp/fastboot_var.log && support_dynamic_partition=1
+    grep -q "vendor_boot" /tmp/fastboot_var.log && support_vendor_boot=1
 
     # some partitions are hard-coded in uboot, flash the uboot first and then reboot to check these partitions
 
@@ -312,6 +320,7 @@ support_dualslot=0
 support_mcu_os=0
 support_dual_bootloader=0
 support_dynamic_partition=0
+support_vendor_boot=0
 dual_bootloader_partition=""
 bootloader_flashed_to_board=""
 uboot_proper_to_be_flashed=""
@@ -324,6 +333,7 @@ vbmeta_partition="vbmeta"
 dtbo_partition="dtbo"
 mcu_os_partition="mcu_os"
 super_partition="super"
+vendor_boot_partition="vendor_boot"
 flash_mcu=0
 lock=0
 erase=0
