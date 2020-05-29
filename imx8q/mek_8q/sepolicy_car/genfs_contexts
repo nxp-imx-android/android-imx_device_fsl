@@ -8,3 +8,6 @@ genfscon sysfs /devices/platform/bus@5a000000/5a800000.i2c/i2c-4/4-0051/power_su
 genfscon sysfs /devices/platform/bus@5a000000/5a800000.i2c/i2c-4/4-0051/power_supply/tcpm-source-psy-4-0051/wakeup1    u:object_r:sysfs_wakeup:s0
 genfscon sysfs /devices/platform/bus@5a000000/5a800000.i2c/i2c-4/4-0051/power_supply/tcpm-source-psy-4-0051/wakeup5    u:object_r:sysfs_wakeup:s0
 genfscon sysfs /devices/platform/bus@5a000000/bus@5a000000:i2c-rpbus-1/i2c-1/1-0050/power_supply/tcpm-source-psy-1-0050/wakeup5    u:object_r:sysfs_wakeup:s0
+
+genfscon sysfs /devices/vi2c-0/i2c-0/0-0051/power_supply/tcpm-source-psy-0-0051 u:object_r:sysfs_batteryinfo:s0
+genfscon sysfs /devices/vi2c-0/i2c-0/0-0051/extcon u:object_r:sysfs_extcon:s0

@@ -13,6 +13,7 @@ allow hal_usb_impl configfs:file create_file_perms;
 allow hal_usb_impl configfs:dir create_dir_perms;
 allow hal_usb_impl device:file  { write open };
 allow hal_usb_impl functionfs:dir  { watch watch_reads };
+allow hal_usb_impl exported_ffs_prop:file { getattr };
 
 allow hal_usb_impl  ctl_start_prop:property_service  { set };
 allow hal_usb_impl  ctl_stop_prop:property_service  { set };
