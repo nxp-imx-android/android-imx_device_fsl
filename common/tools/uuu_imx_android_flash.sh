@@ -705,6 +705,11 @@ if [[ "${yocto_image}" != "" ]]; then
     rm -f /tmp/`basename ${yocto_image}`
     ln -s ${yocto_image_sym_link} /tmp/`basename ${yocto_image}`
     echo FB[-t 600000]: flash -raw2sparse all `basename ${yocto_image}` >> /tmp/uuu.lst
+    # use "mmc part" to reload part info before "fatwrite"
+    echo FB: ucmd mmc list >> /tmp/uuu.lst
+    echo FB: ucmd mmc dev ${target_num} >> /tmp/uuu.lst
+    echo FB: ucmd mmc part >> /tmp/uuu.lst
+
     # replace uboot from yocto team with the one from android team
     echo -e generate lines to flash ${RED}imx-boot-imx8qmmek-sd.bin-flash_spl${STD} to the partition of ${RED}bootloader0${STD} on SD card
     rm -f /tmp/imx-boot-imx8qmmek-sd.bin-flash_spl
