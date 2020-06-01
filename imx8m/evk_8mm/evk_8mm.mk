@@ -322,6 +322,7 @@ PRODUCT_COMPATIBLE_PROPERTY_OVERRIDE := true
 # Add Trusty OS backed gatekeeper and secure storage proxy
 ifeq ($(PRODUCT_IMX_TRUSTY),true)
 PRODUCT_PACKAGES += \
+    android.hardware.gatekeeper@1.0-service.trusty \
     storageproxyd
 endif
 
