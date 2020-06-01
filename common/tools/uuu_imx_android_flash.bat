@@ -406,6 +406,10 @@ if not [%yocto_image%] == [] (
             )
             cmd /c mklink yocto_image_with_xen_support.link %yocto_image% > nul
             echo FB[-t 600000]: flash -raw2sparse all yocto_image_with_xen_support.link >> uuu.lst
+            :: use "mmc part" to reload part info before "fatwrite"
+            echo FB: ucmd mmc list >> uuu.lst
+            echo FB: ucmd mmc dev !target_num! >> uuu.lst
+            echo FB: ucmd mmc part >> uuu.lst
             :: replace uboot from yocto team with the one from android team
             echo generate lines to flash u-boot-imx8qm-xen-dom0.imx to the partition of bootloader0 on SD card
             if exist u-boot-imx8qm-xen-dom0.imx.link (
