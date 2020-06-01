@@ -159,7 +159,7 @@ ifeq ($(TARGET_USE_DYNAMIC_PARTITIONS),true)
   else
     TARGET_BOARD_DTS_CONFIG ?= imx8mm-ddr4:imx8mm-ddr4-evk.dtb
     # imx8mm with MIPI-HDMI display and NXP wifi
-    TARGET_BOARD_DTS_CONFIG += imx8mm:imx8mm-evk.dtb
+    TARGET_BOARD_DTS_CONFIG += imx8mm:imx8mm-evk-usd-wifi.dtb
     # imx8mm with MIPI panel display and NXP wifi
     TARGET_BOARD_DTS_CONFIG += imx8mm-mipi-panel:imx8mm-evk-rm67191.dtb
     # imx8mm with MIPI-HDMI display, NXP wifi and m4 image to support LPA
