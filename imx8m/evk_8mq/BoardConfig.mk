@@ -124,6 +124,10 @@ BOARD_KERNEL_CMDLINE += androidboot.lcd_density=240 androidboot.primary_display=
 # wifi config
 BOARD_KERNEL_CMDLINE += androidboot.wificountrycode=CN
 
+ifneq (,$(filter userdebug eng,$(TARGET_BUILD_VARIANT)))
+BOARD_KERNEL_CMDLINE += androidboot.vendor.sysrq=1
+endif
+
 ifeq ($(TARGET_USERIMAGES_USE_UBIFS),true)
 ifeq ($(TARGET_USERIMAGES_USE_EXT4),true)
 $(error "TARGET_USERIMAGES_USE_UBIFS and TARGET_USERIMAGES_USE_EXT4 config open in same time, please only choose one target file system image")
