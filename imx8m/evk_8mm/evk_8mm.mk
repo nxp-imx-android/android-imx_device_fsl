@@ -214,11 +214,14 @@ PRODUCT_PACKAGES += \
     android.hardware.configstore@1.1-service \
     configstore@1.1.policy
 
+ifneq ($(IMX8MM_USES_GKI), true)
 # Thermal HAL
 PRODUCT_PACKAGES += \
     android.hardware.thermal@2.0-service.imx
+
 PRODUCT_COPY_FILES += \
     device/fsl/imx8m/evk_8mm/thermal_info_config_imx8mm.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/thermal_info_config_imx8mm.json
+endif
 
 # Usb HAL
 PRODUCT_PACKAGES += \

@@ -25,7 +25,12 @@ TARGET_BOOTLOADER_CONFIG += imx8mm-evk-uuu:imx8mm_evk_android_uuu_defconfig
 TARGET_BOOTLOADER_CONFIG += imx8mm-4g-evk-uuu:imx8mm_evk_4g_android_uuu_defconfig
 
 # imx8mm kernel defconfig
+ifneq ($(IMX8MM_USES_GKI),)
+TARGET_KERNEL_DEFCONFIG := gki_defconfig
+TARGET_KERNEL_GKI_DEFCONF:= android_gki_defconfig
+else
 TARGET_KERNEL_DEFCONFIG := imx_v8_android_defconfig
+endif
 TARGET_KERNEL_ADDITION_DEFCONF := android_addition_defconfig
 
 # absolute path is used, not the same as relative path used in AOSP make
