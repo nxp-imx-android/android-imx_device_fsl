@@ -40,3 +40,9 @@ on property:sys.boot_completed=1
     # system-background is for system tasks that should only run on
     # little cores, not on bigs to be used only by init
     write /dev/cpuset/system-background/cpus 0-2
+
+on early-boot && property:ro.boot.isp=yes
+    start isp_media_server
+
+service isp_media_server /vendor/bin/isp_media_server /vendor/etc/configs/isp/daA3840_30mc_1080P.json
+    group system

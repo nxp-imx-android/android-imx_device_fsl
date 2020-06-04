@@ -17,3 +17,7 @@ BOARD_VENDOR_KERNEL_MODULES += \
 # mipi-panel touch driver module
 BOARD_VENDOR_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/input/touchscreen/synaptics_dsx/synaptics_dsx_i2c.ko
+
+# isp vvcam driver module
+BOARD_VENDOR_KERNEL_MODULES += \
+    $(TARGET_OUT_INTERMEDIATES)/VVCAM_OBJ/vvcam.ko
