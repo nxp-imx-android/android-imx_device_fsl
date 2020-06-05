@@ -41,6 +41,11 @@
                     <profile name="" format="AUDIO_FORMAT_DSD"
                              samplingRates="2822400,5644800,11289600,22579200" channelMasks="AUDIO_CHANNEL_OUT_STEREO"/>
                 </mixPort>
+                <mixPort name="bt sco output" role="source">
+                    <profile name="" format="AUDIO_FORMAT_PCM_16_BIT"
+                             samplingRates="8000" channelMasks="AUDIO_CHANNEL_OUT_STEREO"/>
+                </mixPort>
+
                 <mixPort name="primary input" role="sink">
                     <profile name="" format="AUDIO_FORMAT_PCM_16_BIT"
                              samplingRates="8000,11025,16000,22050,24000,32000,44100,48000"
@@ -76,11 +81,11 @@
                 <route type="mix" sink="Line-Out"
                        sources="dsd output,esai output,primary output"/>
                  <route type="mix" sink="BT SCO Headset"
-                        sources="primary output"/>
+                        sources="bt sco output"/>
                 <route type="mix" sink="BT SCO CarKit"
-                       sources="primary output"/>
+                       sources="bt sco output"/>
                 <route type="mix" sink="BT SCO"
-                       sources="primary output"/>
+                       sources="bt sco output"/>
 
                 <route type="mix" sink="primary input"
                        sources="Built-In Mic,Spdif-In,BT SCO Headset Mic"/>
