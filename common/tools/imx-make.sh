@@ -112,6 +112,11 @@ if [ ${build_bootloader_kernel_flag} -eq 0 ] && [ ${build_android_flag} -eq 0 ];
     build_android_flag=1
 fi
 
+# vvcam.ko need build with kernel each time to make sure "insmod vvcam.ko" works
+if [ -n "${build_kernel}" ]; then
+    build_vvcam="vvcam";
+fi
+
 product_makefile=`pwd`/`find device/fsl -maxdepth 4 -name "${TARGET_PRODUCT}.mk"`;
 product_path=${product_makefile%/*}
 soc_path=${product_path%/*}
