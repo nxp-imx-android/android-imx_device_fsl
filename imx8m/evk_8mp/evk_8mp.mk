@@ -316,6 +316,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     media_codecs_c2_dsp.xml \
     media_codecs_c2_dsp_aacp.xml \
+    media_codecs_c2_dsp_wma.xml \
     lib_dsp_aac_dec \
     lib_dsp_bsac_dec \
     lib_dsp_codec_wrap \
@@ -325,7 +326,9 @@ PRODUCT_PACKAGES += \
     lib_dsp_codec_wrap_ext \
     lib_aacd_wrap_dsp \
     lib_mp3d_wrap_dsp \
+    lib_wma10d_wrap_dsp \
     c2_component_register_dsp \
+    c2_component_register_dsp_wma \
     c2_component_register_dsp_aacp
 
 
@@ -393,6 +396,7 @@ endif
 -include $(FSL_CODEC_PATH)/fsl-codec/fsl-codec.mk
 -include $(FSL_RESTRICTED_CODEC_PATH)/fsl-restricted-codec/imx_dsp_aacp_dec/imx_dsp_aacp_dec.mk
 -include $(FSL_RESTRICTED_CODEC_PATH)/fsl-restricted-codec/imx_dsp_codec/imx_dsp_codec.mk
+-include $(FSL_RESTRICTED_CODEC_PATH)/fsl-restricted-codec/imx_dsp_wma_dec/imx_dsp_wma_dec.mk
 -include $(FSL_RESTRICTED_CODEC_PATH)/fsl-restricted-codec/imx_dsp/imx_dsp_8mp.mk
 endif
 
