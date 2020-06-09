@@ -54,7 +54,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.boot@1.1-impl \
     android.hardware.boot@1.1-service \
-    bootctrl.avb \
     update_engine \
     update_engine_client \
     update_engine_sideload \
@@ -268,8 +267,7 @@ PRODUCT_COPY_FILES += \
     frameworks/av/services/audiopolicy/config/usb_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/usb_audio_policy_configuration.xml \
 
 PRODUCT_PROPERTY_OVERRIDES += \
-    pm.dexopt.boot=quicken \
-    ro.hardware.bootctrl=avb \
+    pm.dexopt.boot=quicken
 
 # wifionly device
 PRODUCT_PROPERTY_OVERRIDES += \
