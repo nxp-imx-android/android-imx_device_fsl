@@ -154,7 +154,11 @@ apply_patch
 # redirect standard input to /dev/null to avoid manually input in kernel configuration stage
 soc_path=${soc_path} product_path=${product_path} fsl_git_path=${fsl_git_path} clean_build=${clean_build} \
     make -C ./ -f ${fsl_git_path}/common/build/Makefile ${parallel_option} \
-    ${build_bootloader} ${build_kernel} ${build_galcore} ${build_vvcam} </dev/null || exit
+    ${build_bootloader} ${build_kernel} </dev/null || exit
+
+soc_path=${soc_path} product_path=${product_path} fsl_git_path=${fsl_git_path} clean_build=${clean_build} \
+    make -C ./ -f ${fsl_git_path}/common/build/Makefile ${parallel_option} \
+    ${build_vvcam} ${build_galcore} </dev/null || exit
 
 if [ ${build_android_flag} -eq 1 ]; then
     # source envsetup.sh before building Android rootfs, the time spent on building uboot/kernel
