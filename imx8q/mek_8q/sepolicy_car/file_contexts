@@ -1,5 +1,1 @@
-#emmc boot
-/dev/block/platform/bus@5b000000/5b010000\.mmc/by-name/bootloader_[ab]      u:object_r:bootloader_block_device:s0
-
-#emmc boot on xen
-/dev/block/platform/passthrough/bus@5b000000/5b010000\.mmc/by-name/bootloader_[ab]      u:object_r:bootloader_block_device:s0
+/dev/block/by-name/bootloader_[ab]      u:object_r:bootloader_block_device:s0
