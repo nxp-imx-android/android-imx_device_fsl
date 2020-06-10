@@ -205,9 +205,9 @@ PRODUCT_PACKAGES += \
     libgpuhelper \
 
 PRODUCT_PACKAGES += \
-    android.hardware.audio@5.0-impl:32 \
+    android.hardware.audio@6.0-impl:32 \
     android.hardware.audio@2.0-service \
-    android.hardware.audio.effect@5.0-impl:32 \
+    android.hardware.audio.effect@6.0-impl:32 \
     android.hardware.power@1.3-service.imx \
     android.hardware.light@2.0-impl \
     android.hardware.light@2.0-service \
