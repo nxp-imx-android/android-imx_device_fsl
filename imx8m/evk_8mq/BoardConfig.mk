@@ -122,7 +122,7 @@ BOARD_KERNEL_CMDLINE += transparent_hugepage=never cma=$(CMASIZE)
 BOARD_KERNEL_CMDLINE += androidboot.lcd_density=240 androidboot.primary_display=imx-dcss androidboot.gui_resolution=1080p
 
 # wifi config
-BOARD_KERNEL_CMDLINE += androidboot.wificountrycode=CN
+BOARD_KERNEL_CMDLINE += androidboot.wificountrycode=CN pcie8xxx.drv_mode=5 pcie8xxx.sta_name=wlan pcie8xxx.wfd_name=p2p pcie8xxx.ps_mode=2 pcie8xxx.auto_ds=2 pcie8xxx.cfg80211_wext=0xf pcie8xxx.cal_data_cfg=none pcie8xxx.fw_name=pcieuart8997_combo_v4.bin
 
 ifneq (,$(filter userdebug eng,$(TARGET_BUILD_VARIANT)))
 BOARD_KERNEL_CMDLINE += androidboot.vendor.sysrq=1

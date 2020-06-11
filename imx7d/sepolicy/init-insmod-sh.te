@@ -12,3 +12,4 @@ allow init-insmod-sh vendor_toolbox_exec:file rx_file_perms;
 allow init-insmod-sh self:capability sys_module;
 allow init-insmod-sh system_file:system module_load;
 allow init-insmod-sh vendor_file:system module_load;
+allow init-insmod-sh proc_cmdline:file { read open getattr };

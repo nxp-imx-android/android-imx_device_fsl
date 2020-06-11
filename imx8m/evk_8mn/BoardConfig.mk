@@ -112,7 +112,7 @@ BOARD_KERNEL_CMDLINE += transparent_hugepage=never
 BOARD_KERNEL_CMDLINE += androidboot.lcd_density=240 androidboot.primary_display=imx-drm
 
 # wifi config
-BOARD_KERNEL_CMDLINE += androidboot.wificountrycode=CN
+BOARD_KERNEL_CMDLINE += androidboot.wificountrycode=CN moal.drv_mode=5 moal.sta_name=wlan moal.wfd_name=p2p moal.max_vir_bss=1 moal.ps_mode=2 moal.auto_ds=2 moal.cfg80211_wext=0xf moal.cal_data_cfg=none moal.fw_name=sdiouart8987_combo_v0.bin
 
 # low memory device build config
 ifeq ($(LOW_MEMORY),true)
