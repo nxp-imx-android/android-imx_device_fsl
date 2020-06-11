@@ -379,7 +379,7 @@ PRODUCT_COPY_FILES += \
 # AudioControl service
 ifeq ($(PRODUCT_IMX_CAR),true)
 PRODUCT_PACKAGES += \
-    android.hardware.automotive.audiocontrol@1.0-service.imx
+    android.hardware.automotive.audiocontrol@2.0-service
 endif
 
 # hardware backed keymaster service
