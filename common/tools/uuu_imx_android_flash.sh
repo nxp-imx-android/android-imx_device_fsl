@@ -711,10 +711,10 @@ if [[ "${yocto_image}" != "" ]]; then
     echo FB: ucmd mmc part >> /tmp/uuu.lst
 
     # replace uboot from yocto team with the one from android team
-    echo -e generate lines to flash ${RED}imx-boot-imx8qmmek-sd.bin-flash_spl${STD} to the partition of ${RED}bootloader0${STD} on SD card
-    rm -f /tmp/imx-boot-imx8qmmek-sd.bin-flash_spl
-    ln -s ${sym_link_directory}imx-boot-imx8qmmek-sd.bin-flash_spl /tmp/imx-boot-imx8qmmek-sd.bin-flash_spl
-    echo FB: flash bootloader0 imx-boot-imx8qmmek-sd.bin-flash_spl >> /tmp/uuu.lst
+    echo -e generate lines to flash ${RED}u-boot-imx8qm-xen-dom0.imx${STD} to the partition of ${RED}bootloader0${STD} on SD card
+    rm -f /tmp/u-boot-imx8qm-xen-dom0.imx
+    ln -s ${sym_link_directory}u-boot-imx8qm-xen-dom0.imx /tmp/u-boot-imx8qm-xen-dom0.imx
+    echo FB: flash bootloader0 u-boot-imx8qm-xen-dom0.imx >> /tmp/uuu.lst
 
     xen_uboot_size_dec=`wc -c ${image_directory}spl-${soc_name}-${dtb_feature}.bin | cut -d ' ' -f1`
     xen_uboot_size_hex=`echo "obase=16;${xen_uboot_size_dec}" | bc`

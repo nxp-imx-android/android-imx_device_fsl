@@ -400,12 +400,12 @@ if not [%yocto_image%] == [] (
             echo FB: ucmd mmc dev !target_num! >> uuu.lst
             echo FB: ucmd mmc part >> uuu.lst
             :: replace uboot from yocto team with the one from android team
-            echo generate lines to flash imx-boot-imx8qmmek-sd.bin-flash_spl to the partition of bootloader0 on SD card
-            if exist imx-boot-imx8qmmek-sd.bin-flash_spl.link (
-                del imx-boot-imx8qmmek-sd.bin-flash_spl
+            echo generate lines to flash u-boot-imx8qm-xen-dom0.imx to the partition of bootloader0 on SD card
+            if exist u-boot-imx8qm-xen-dom0.imx.link (
+                del u-boot-imx8qm-xen-dom0.imx.link
             )
-            cmd /c mklink imx-boot-imx8qmmek-sd.bin-flash_spl.link %image_directory%imx-boot-imx8qmmek-sd.bin-flash_spl > nul
-            echo FB: flash bootloader0 imx-boot-imx8qmmek-sd.bin-flash_spl.link >> uuu.lst
+            cmd /c mklink u-boot-imx8qm-xen-dom0.imx.link %image_directory%u-boot-imx8qm-xen-dom0.imx > nul
+            echo FB: flash bootloader0 u-boot-imx8qm-xen-dom0.imx.link >> uuu.lst
             :: write the xen spl from android team to FAT on SD card
             set xen_uboot_name=spl-%soc_name%-%dtb_feature%.bin
             for /f "usebackq" %%A in ('%image_directory%!xen_uboot_name!') do set xen_uboot_size_dec=%%~zA
