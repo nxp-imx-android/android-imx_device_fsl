@@ -548,6 +548,9 @@ if %support_dualslot% == 1 (
         --partition product_a:readonly:0:nxp_dynamic_partitions_a !lpmake_product_image_a! ^
         --partition product_b:readonly:0:nxp_dynamic_partitions_b !lpmake_product_image_b! ^
         --sparse --output !super_file!
+
+::delete the temporary raw data files
+    del %TMP%\TemporaryFile-*
 )
 
 goto :eof
