@@ -44,7 +44,7 @@ options:
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                            │   imx8qxp      │  mek-uuu trusty-secure-unlock trusty secure-unlock c0 trusty-c0 mek-c0-uuu                           │
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
-                           │   imx8qm       │  mek-uuu trusty-secure-unlock trusty secure-unlock md hdmi                                           │
+                           │   imx8qm       │  mek-uuu trusty-secure-unlock trusty secure-unlock md hdmi xen                                       │
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                            │   imx7ulp      │  evk-uuu                                                                                             │
                            └────────────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────┘
@@ -203,10 +203,12 @@ function flash_android
     fi
 
     # in the source code, if AB slot feature is supported, uboot partition name is bootloader0, otherwise it's bootloader
-    if [ ${support_dualslot} -eq 1 ]; then
-         flash_partition "bootloader0"
-    else
-         flash_partition "bootloader"
+    if [ "${dtb_feature}" != "xen" ]; then
+        if [ ${support_dualslot} -eq 1 ]; then
+            flash_partition "bootloader0"
+        else
+            flash_partition "bootloader"
+        fi
     fi
 
     # if a platform doesn't support dual slot but a slot is selected, ignore it.
@@ -231,8 +233,11 @@ function flash_android
     fi
 
     # full uboot is flashed to the board and active slot is set, reboot to u-boot fastboot boot command
-    ${fastboot_tool} reboot bootloader
-    sleep 5
+    # XEN images on mek_8qm, it can't reboot
+    if [ "${dtb_feature}" != "xen" ]; then
+        ${fastboot_tool} reboot bootloader
+        sleep 5
+    fi
 
     ${fastboot_tool} getvar all 2>/tmp/fastboot_var.log
     grep -q `echo ${mcu_os_partition}` /tmp/fastboot_var.log && support_mcu_os=1
@@ -351,7 +356,7 @@ imx8mn_uboot_feature=(dual trusty-dual evk-uuu trusty-secure-unlock trusty)
 imx8mq_uboot_feature=(dual trusty-dual evk-uuu trusty-secure-unlock trusty aiy-uuu)
 imx8mp_uboot_feature=(dual trusty-dual evk-uuu trusty-secure-unlock trusty)
 imx8qxp_uboot_feature=(mek-uuu trusty-secure-unlock trusty secure-unlock c0 trusty-c0 mek-c0-uuu)
-imx8qm_uboot_feature=(mek-uuu trusty-secure-unlock trusty secure-unlock md hdmi)
+imx8qm_uboot_feature=(mek-uuu trusty-secure-unlock trusty secure-unlock md hdmi xen)
 imx7ulp_uboot_feature=(evk-uuu)
 
 imx8mm_dtb_feature=(ddr4 m4 mipi-panel)
