@@ -72,7 +72,7 @@ set imx8mn_uboot_feature=dual trusty-dual evk-uuu trusty-secure-unlock trusty dd
 set imx8mp_uboot_feature=dual trusty-dual evk-uuu trusty-secure-unlock trusty
 set imx8mq_uboot_feature=dual trusty-dual evk-uuu trusty-secure-unlock trusty
 set imx8qxp_uboot_feature=mek-uuu trusty-secure-unlock trusty secure-unlock c0 trusty-c0 mek-c0-uuu
-set imx8qm_uboot_feature=mek-uuu trusty-secure-unlock trusty secure-unlock md hdmi
+set imx8qm_uboot_feature=mek-uuu trusty-secure-unlock trusty secure-unlock md hdmi xen
 set imx7ulp_uboot_feature=evk-uuu
 
 set imx8mm_dtb_feature=ddr4 m4 mipi-panel
@@ -267,7 +267,7 @@ echo                           ©¦   imx8mq       ©¦  dual trusty-dual evk-uuu tr
 echo                           ©À©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©à©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©È
 echo                           ©¦   imx8qxp      ©¦  mek-uuu trusty-secure-unlock trusty secure-unlock c0 trusty-c0 mek-c0-uuu                           ©¦
 echo                           ©À©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©à©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©È
-echo                           ©¦   imx8qm       ©¦  mek-uuu trusty-secure-unlock trusty secure-unlock md hdmi                                           ©¦
+echo                           ©¦   imx8qm       ©¦  mek-uuu trusty-secure-unlock trusty secure-unlock md hdmi xen                                       ©¦
 echo                           ©À©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©à©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©È
 echo                           ©¦   imx7ulp      ©¦  evk-uuu                                                                                             ©¦
 echo                           ©¸©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©Ø©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¼
@@ -470,7 +470,9 @@ if %support_dual_bootloader% == 1 (
 
 :: in the source code, if AB slot feature is supported, uboot partition name is bootloader0
 if %support_dualslot% == 1 set bootloader_partition=bootloader0
-call :flash_partition %bootloader_partition% || set /A error_level=1 && goto :exit
+if not [%dtb_feature%] == [xen] (
+    call :flash_partition %bootloader_partition% || set /A error_level=1 && goto :exit
+)
 
 if %support_dualslot% == 0 set slot=
 
@@ -487,9 +489,12 @@ if %support_dual_bootloader% == 1 (
     )
 )
 :: full uboot is flashed to the board and active slot is set, reboot to u-boot fastboot boot command
-%fastboot_tool% reboot bootloader
-:: pause for about 5 second
-ping localhost -n 6 >nul
+:: XEN images on mek_8qm, it can't reboot
+if not [%dtb_feature%] == [xen] (
+    %fastboot_tool% reboot bootloader
+    :: pause for about 5 second
+    ping localhost -n 6 >nul
+)
 
 %fastboot_tool% getvar all 2> fastboot_var.log
 find "mcu_os" fastboot_var.log > nul && set /A support_mcu_os=1
