@@ -45,4 +45,4 @@ on early-boot && property:ro.boot.isp=yes
     start isp_media_server
 
 service isp_media_server /vendor/bin/isp_media_server /vendor/etc/configs/isp/daA3840_30mc_1080P.json
-    group system
+    group camera
