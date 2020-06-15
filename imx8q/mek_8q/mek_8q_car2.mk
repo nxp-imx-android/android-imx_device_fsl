@@ -5,5 +5,8 @@ IMX_DEVICE_PATH := device/fsl/imx8q/mek_8q
 
 include $(IMX_DEVICE_PATH)/mek_8q_car.mk
 
+PRODUCT_COPY_FILES += \
+    $(FSL_PROPRIETARY_PATH)/fsl-proprietary/uboot-firmware/imx8q_car/xen:xen
+
 # Overrides
 PRODUCT_NAME := mek_8q_car2
