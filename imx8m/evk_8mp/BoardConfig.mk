@@ -113,6 +113,7 @@ BOARD_KERNEL_CMDLINE := init=/init androidboot.console=ttymxc1 androidboot.hardw
 
 # memory config
 BOARD_KERNEL_CMDLINE += transparent_hugepage=never
+BOARD_KERNEL_CMDLINE += swiotlb=65536
 
 # display config
 BOARD_KERNEL_CMDLINE += androidboot.lcd_density=240 androidboot.primary_display=imx-drm
