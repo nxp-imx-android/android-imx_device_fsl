@@ -732,6 +732,14 @@ if [[ "${yocto_image}" != "" ]]; then
     echo FB: ucmd setenv fastboot_buffer ${imx8qm_stage_base_addr} >> /tmp/uuu.lst
     echo FB: download -f spl-${soc_name}-${dtb_feature}.bin >> /tmp/uuu.lst
     echo FB: ucmd fatwrite mmc ${sd_num} ${imx8qm_stage_base_addr} spl-${soc_name}-${dtb_feature}.bin 0x${xen_uboot_size_hex} >> /tmp/uuu.lst
+    xen_firmware_size_dec=`wc -c ${image_directory}xen | cut -d ' ' -f1`
+    xen_firmware_size_hex=`echo "obase=16;${xen_firmware_size_dec}" | bc`
+    echo -e generate lines to replace the ${RED}xen firmware${STD} on ${RED}FAT${STD}$
+    rm -f /tmp/xen
+    ln -s  ${sym_link_directory}xen /tmp/xen
+    echo FB: ucmd setenv fastboot_buffer ${imx8qm_stage_base_addr} >> /tmp/uuu.lst
+    echo FB: download -f xen >> /tmp/uuu.lst
+    echo FB: ucmd fatwrite mmc ${sd_num} ${imx8qm_stage_base_addr} xen 0x${xen_firmware_size_hex} >> /tmp/uuu.lst
 
     target_num=${emmc_num}
     echo FB: ucmd setenv fastboot_dev mmc >> /tmp/uuu.lst

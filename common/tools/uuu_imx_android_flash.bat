@@ -427,6 +427,17 @@ if not [%yocto_image%] == [] (
             echo FB: download -f !xen_uboot_name!.link >> uuu.lst
             echo FB: ucmd fatwrite mmc %sd_num% %imx8qm_stage_base_addr% !xen_uboot_name! 0x!xen_uboot_size_hex! >> uuu.lst
 
+            for /f "usebackq" %%A in ('%image_directory%xen') do set xen_firmware_size_dec=%%~zA
+            call :dec_to_hex !xen_firmware_size_dec! xen_firmware_size_hex
+            echo generate lines to replace xen firmware on FAT
+            if exist xen.link (
+                del xen.link
+            )
+            cmd /c mklink xen.link %image_directory%xen > nul
+            echo FB: ucmd setenv fastboot_buffer %imx8qm_stage_base_addr% >> uuu.lst
+            echo FB: download -f xen.link >> uuu.lst
+            echo FB: ucmd fatwrite mmc %sd_num% %imx8qm_stage_base_addr% xen 0x!xen_firmware_size_hex! >> uuu.lst
+
             set target_num=%emmc_num%
             echo FB: ucmd setenv fastboot_dev mmc >> uuu.lst
             echo FB: ucmd setenv mmcdev !target_num! >> uuu.lst
