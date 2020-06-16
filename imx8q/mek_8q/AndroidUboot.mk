@@ -93,9 +93,7 @@ define build_imx_uboot
 		ATF_PLATFORM=`echo imx8qm`; \
 		REV=`echo B0`;  \
 		cp  $(FSL_PROPRIETARY_PATH)/imx-seco/firmware/seco/mx8qm*ahab-container.img $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/; \
-		FLASH_TARGET=`echo flash_linux_m4`;  \
-		cp  $(FSL_PROPRIETARY_PATH)/fsl-proprietary/mcu-sdk/imx8q/imx8qm_m4_0_default.bin $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/m4_image.bin; \
-		cp  $(FSL_PROPRIETARY_PATH)/fsl-proprietary/mcu-sdk/imx8q/imx8qm_m4_1_default.bin $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/m4_1_image.bin; \
+		FLASH_TARGET=`echo flash_spl`;  \
 	elif [ "$(strip $(2))" = "imx8qm-xen" ]; then \
 		MKIMAGE_PLATFORM=`echo iMX8QM`; \
 		FLASH_TARGET=`echo flash_b0_xen_uboot`;  \
