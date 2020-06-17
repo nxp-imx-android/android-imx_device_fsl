@@ -82,7 +82,7 @@ PRODUCT_COPY_FILES += \
 # Copy isp files to board
 ISP_PROPRIETARY := $(FSL_PROPRIETARY_PATH)/fsl-proprietary/isp
 PRODUCT_COPY_FILES += \
-    $(call find-copy-subdir-files,*,$(ISP_PROPRIETARY)/exe,$(TARGET_COPY_OUT_VENDOR)/bin) \
+    $(call find-copy-subdir-files,*,$(ISP_PROPRIETARY)/bin,$(TARGET_COPY_OUT_VENDOR)/bin) \
     $(call find-copy-subdir-files,*,$(ISP_PROPRIETARY)/lib64,$(TARGET_COPY_OUT_VENDOR)/lib64) \
     $(call find-copy-subdir-files,*,$(ISP_PROPRIETARY)/config,$(TARGET_COPY_OUT_VENDOR)/etc/configs/isp)
 
