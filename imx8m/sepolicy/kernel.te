@@ -10,3 +10,4 @@ allow kernel vendor_file:file { read open map };
 allow kernel rootfs:file { execute };
 allow kernel vendor_configs_file:file { map };
 allow kernel vold_data_file:file { write };
+dontaudit kernel device:blk_file { create };
