@@ -99,7 +99,7 @@ PRODUCT_COPY_FILES += \
     device/fsl/common/audio-json/wm8960_config.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/audio/wm8960_config.json \
     device/fsl/common/audio-json/cs42888_config.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/audio/cs42888_config.json \
     device/fsl/common/audio-json/cdnhdmi_config.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/audio/cdnhdmi_config.json \
-    device/fsl/common/audio-json/xtor_config.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/audio/xtor_config.json \
+    device/fsl/common/audio-json/btsco_config.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/audio/btsco_config.json \
     device/fsl/common/audio-json/readme.txt:$(TARGET_COPY_OUT_VENDOR)/etc/configs/audio/readme.txt
 
 # Copy rpmb test key and AVB test public key
