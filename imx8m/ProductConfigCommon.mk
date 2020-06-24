@@ -49,14 +49,11 @@ PRODUCT_PACKAGES += \
     overlay.imx \
     power.imx
 
-PRODUCT_STATIC_BOOT_CONTROL_HAL:= \
-    bootctrl-static.avb \
-    libcutils \
-
 # A/B OTA
 PRODUCT_PACKAGES += \
-    android.hardware.boot@1.0-impl \
-    android.hardware.boot@1.0-service \
+    android.hardware.boot@1.0-impl.imx \
+    android.hardware.boot@1.0-impl.imx.recovery \
+    android.hardware.boot@1.0-service.imx \
     bootctrl.avb \
     update_engine \
     update_engine_client \
@@ -269,8 +266,7 @@ PRODUCT_COPY_FILES += \
     frameworks/av/services/audiopolicy/config/usb_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/usb_audio_policy_configuration.xml \
 
 PRODUCT_PROPERTY_OVERRIDES += \
-    pm.dexopt.boot=quicken \
-    ro.hardware.bootctrl=avb \
+    pm.dexopt.boot=quicken
 
 # wifionly device
 PRODUCT_PROPERTY_OVERRIDES += \

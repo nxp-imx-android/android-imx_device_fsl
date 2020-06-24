@@ -64,9 +64,9 @@ PRODUCT_PACKAGES += \
 
 # A/B OTA
 PRODUCT_PACKAGES += \
-    android.hardware.boot@1.0-impl \
-    android.hardware.boot@1.0-service \
-    bootctrl.avb \
+    android.hardware.boot@1.0-impl.imx \
+    android.hardware.boot@1.0-impl.imx.recovery \
+    android.hardware.boot@1.0-service.imx \
     update_engine \
     update_engine_client \
     update_verifier
@@ -74,10 +74,6 @@ PRODUCT_PACKAGES += \
 ifneq ($(PRODUCT_IMX_CAR),true)
 PRODUCT_PACKAGES += \
     update_engine_sideload
-
-PRODUCT_STATIC_BOOT_CONTROL_HAL:= \
-    bootctrl-static.avb \
-    libcutils
 endif
 
 PRODUCT_HOST_PACKAGES += \
@@ -320,7 +316,6 @@ PRODUCT_COPY_FILES += \
 
 PRODUCT_PROPERTY_OVERRIDES += \
     pm.dexopt.boot=quicken \
-    ro.hardware.bootctrl=avb \
 
 # wifionly device
 PRODUCT_PROPERTY_OVERRIDES += \
