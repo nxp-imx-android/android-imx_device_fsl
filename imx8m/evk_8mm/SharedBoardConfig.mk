@@ -35,6 +35,11 @@ BOARD_VENDOR_KERNEL_MODULES += \
 # CONFIG_DRM_SEC_MIPI_DSIM: sec-dsim.ko
 # CONFIG_DRM_IMX_SEC_DSIM: sec_mipi_dsim-imx.ko
 # CONFIG_DRM_I2C_ADV7511: adv7511.ko cec.ko
+# CONFIG_USB_CHIPIDEA_OF: usbmisc_imx.ko ci_hdrc_imx.ko
+# CONFIG_USB_CHIPIDEA: ci_hdrc.ko
+# CONFIG_NOP_USB_XCEIV: phy-generic.ko
+# CONFIG_TYPEC_TCPCI: tcpci.ko
+# CONFIG_USB_EHCI_HCD: ehci-hcd.ko
 
 ifneq ($(IMX8MM_USES_GKI),)
 BOARD_VENDOR_RAMDISK_KERNEL_MODULES +=     \
@@ -57,5 +62,12 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES +=     \
     $(KERNEL_OUT)/drivers/gpu/drm/bridge/sec-dsim.ko \
     $(KERNEL_OUT)/drivers/gpu/drm/imx/sec_mipi_dsim-imx.ko \
     $(KERNEL_OUT)/drivers/media/cec/cec.ko \
-    $(KERNEL_OUT)/drivers/gpu/drm/bridge/adv7511/adv7511.ko
+    $(KERNEL_OUT)/drivers/gpu/drm/bridge/adv7511/adv7511.ko \
+    $(KERNEL_OUT)/drivers/usb/chipidea/usbmisc_imx.ko \
+    $(KERNEL_OUT)/drivers/usb/common/ulpi.ko \
+    $(KERNEL_OUT)/drivers/usb/host/ehci-hcd.ko \
+    $(KERNEL_OUT)/drivers/usb/chipidea/ci_hdrc_imx.ko \
+    $(KERNEL_OUT)/drivers/usb/chipidea/ci_hdrc.ko \
+    $(KERNEL_OUT)/drivers/usb/phy/phy-generic.ko \
+    $(KERNEL_OUT)/drivers/usb/typec/tcpm/tcpci.ko
 endif
