@@ -73,6 +73,11 @@ TARGET_VSYNC_DIRECT_REFRESH := true
 
 BOARD_KERNEL_CMDLINE := init=/init androidboot.console=ttyLP0 consoleblank=0 androidboot.hardware=freescale vmalloc=128M cma=320M loop.max_part=7
 
+ifneq ($(PRODUCT_7ULP_REVB), true)
+# imx7ulp_evkb with NXP wifi
+BOARD_KERNEL_CMDLINE += androidboot.wificountrycode=CN moal.mod_para=wifi_mod_para_sd8987.conf
+endif
+
 # Set the density to 120dpi for 640x480 lcd panel
 BOARD_KERNEL_CMDLINE += androidboot.lcd_density=120
 

@@ -246,7 +246,8 @@ PRODUCT_COPY_FILES += \
 
 # NXP 8987 WiFi Firmware
 PRODUCT_COPY_FILES += \
-    vendor/nxp/imx-firmware/nxp/FwImage_8987/sdiouart8987_combo_v0.bin:vendor/firmware/sdiouart8987_combo_v0.bin
+    vendor/nxp/imx-firmware/nxp/FwImage_8987/sdiouart8987_combo_v0.bin:vendor/firmware/sdiouart8987_combo_v0.bin \
+    vendor/nxp/imx-firmware/nxp/FwImage_8987/wifi_mod_para_sd8987.conf:vendor/firmware/wifi_mod_para_sd8987.conf
 
 # Wifi regulatory
 PRODUCT_COPY_FILES += \
