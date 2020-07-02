@@ -28,7 +28,8 @@ ifneq ($(IMX8MM_USES_GKI),)
 BOARD_VENDOR_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/media/platform/mxc/capture/mx6s_capture.ko \
     $(KERNEL_OUT)/drivers/media/platform/mxc/capture/mxc_mipi_csi.ko \
-    $(KERNEL_OUT)/drivers/media/platform/mxc/capture/ov5640_camera_mipi_v2.ko
+    $(KERNEL_OUT)/drivers/media/platform/mxc/capture/ov5640_camera_mipi_v2.ko \
+    $(KERNEL_OUT)/drivers/bluetooth/mx8_bt_rfkill.ko
 endif
 
 # CONFIG_CLK_IMX8MM: clk-imx8mm.ko
