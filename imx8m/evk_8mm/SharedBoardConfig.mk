@@ -21,6 +21,14 @@ PRODUCT_IMX_TRUSTY := true
 # CONFIG_MXC_MIPI_CSI: mxc_mipi_csi.ko, mipi driver which get the sensor data and send data to csi
 # CONFIG_VIDEO_MXC_CAPTURE: only enable compile dir drivers/media/platform/mxc/capture/, no need mxc_v4l2_capture.c which used in imx6/7
 # linux bsp team will add new configure for mxc_v4l2_capture.c in lf-5.4 branch.
+# CONFIG_SND_SOC_WM8524: snd-soc-wm8524.ko, wm8524 audio codec
+# CONFIG_SND_IMX_SOC: SoC Audio for Freescale i.MX CPUs
+# CONFIG_SND_SIMPLE_CARD: snd-soc-simple-card.ko snd-soc-simple-card-utils.ko, connect cpu and codec
+# CONFIG_SND_SOC_FSL_SAI: snd-soc-fsl-sai.ko, audio cpu, privide i2s
+# CONFIG_IMX_SDMA: imx-sdma.ko, sdma used for audio
+# CONFIG_SND_SOC_FSL_MICFIL: snd-soc-fsl-micfil.ko, used in audio mic
+# CONFIG_SND_SOC_IMX_MICFIL: snd-soc-imx-micfil.ko, used in audio mic
+# CONFIG_SND_SOC_IMX_PCM_DMA: imx-pcm-dma-common.ko, used in fsl_micfil
 BOARD_VENDOR_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/input/touchscreen/synaptics_dsx/synaptics_dsx_i2c.ko
 
@@ -29,7 +37,15 @@ BOARD_VENDOR_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/media/platform/mxc/capture/mx6s_capture.ko \
     $(KERNEL_OUT)/drivers/media/platform/mxc/capture/mxc_mipi_csi.ko \
     $(KERNEL_OUT)/drivers/media/platform/mxc/capture/ov5640_camera_mipi_v2.ko \
-    $(KERNEL_OUT)/drivers/bluetooth/mx8_bt_rfkill.ko
+    $(KERNEL_OUT)/drivers/bluetooth/mx8_bt_rfkill.ko \
+    $(KERNEL_OUT)/sound/soc/codecs/snd-soc-wm8524.ko \
+    $(KERNEL_OUT)/drivers/dma/imx-sdma.ko \
+    $(KERNEL_OUT)/sound/soc/generic/snd-soc-simple-card.ko \
+    $(KERNEL_OUT)/sound/soc/generic/snd-soc-simple-card-utils.ko \
+    $(KERNEL_OUT)/sound/soc/fsl/snd-soc-fsl-sai.ko \
+    $(KERNEL_OUT)/sound/soc/fsl/imx-pcm-dma-common.ko \
+    $(KERNEL_OUT)/sound/soc/fsl/snd-soc-fsl-micfil.ko \
+    $(KERNEL_OUT)/sound/soc/fsl/snd-soc-imx-micfil.ko
 endif
 
 # CONFIG_CLK_IMX8MM: clk-imx8mm.ko
