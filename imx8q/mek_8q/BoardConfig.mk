@@ -124,7 +124,6 @@ ifeq ($(PRODUCT_IMX_CAR),true)
 BOARD_KERNEL_CMDLINE += galcore.contiguousSize=33554432 video=HDMI-A-2:d
 else
 BOARD_KERNEL_CMDLINE += androidboot.console=ttyLP0
-BOARD_KERNEL_CMDLINE += pcie8xxx.drv_mode=5 pcie8xxx.sta_name=wlan pcie8xxx.wfd_name=p2p pcie8xxx.ps_mode=2 pcie8xxx.auto_ds=2 pcie8xxx.cfg80211_wext=0xf pcie8xxx.cal_data_cfg=none pcie8xxx.fw_name=pcieuart8997_combo_v4.bin
 endif
 
 ifneq (,$(filter userdebug eng,$(TARGET_BUILD_VARIANT)))

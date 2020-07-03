@@ -118,7 +118,7 @@ BOARD_KERNEL_CMDLINE += transparent_hugepage=never
 BOARD_KERNEL_CMDLINE += androidboot.lcd_density=240 androidboot.primary_display=imx-drm
 
 # wifi config
-BOARD_KERNEL_CMDLINE += androidboot.wificountrycode=CN pcie8xxx.drv_mode=5 pcie8xxx.sta_name=wlan pcie8xxx.wfd_name=p2p pcie8xxx.ps_mode=2 pcie8xxx.auto_ds=2 pcie8xxx.max_vir_bss=1 pcie8xxx.cfg80211_wext=0xf pcie8xxx.cal_data_cfg=none pcie8xxx.p2p_enh=1 pcie8xxx.fw_name=pcieuart8997_combo_v4.bin
+BOARD_KERNEL_CMDLINE += androidboot.wificountrycode=CN
 
 # low memory device build config
 ifeq ($(LOW_MEMORY),true)
