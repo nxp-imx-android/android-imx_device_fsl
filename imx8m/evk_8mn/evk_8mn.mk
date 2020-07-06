@@ -182,6 +182,14 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     android.hardware.graphics.composer@2.3-service
 
+# Charger Mode
+PRODUCT_PRODUCT_PROPERTIES += \
+    ro.charger.no_ui=false
+
+# Do not skip charger_not_need trigger by default
+PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
+    vendor.skip.charger_not_need=0
+
 # Gralloc HAL
 PRODUCT_PACKAGES += \
     android.hardware.graphics.mapper@2.0-impl-2.1 \

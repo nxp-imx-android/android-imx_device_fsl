@@ -18,6 +18,7 @@ PRODUCT_PACKAGES += \
     ExtractorPkg \
     SystemUpdaterSample \
     charger_res_images \
+    charger \
     ethernet \
     libGLES_android \
     libRS \

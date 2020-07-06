@@ -18,6 +18,7 @@ PRODUCT_PACKAGES += \
     SystemUpdaterSample \
     MultiClientInputMethod \
     charger_res_images \
+    charger \
     libGLES_android \
     libRS \
     libedid \

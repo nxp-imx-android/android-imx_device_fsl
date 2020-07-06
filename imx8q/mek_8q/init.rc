@@ -1,6 +1,19 @@
 import /vendor/etc/init/hw/init.${ro.hardware}.usb.rc
 import /vendor/etc/init/hw/init.${ro.hardware}.${ro.boot.soc_type}.rc
 
+service vendor.charger /system/bin/charger
+    class charger
+    user system
+    group system wakelock input
+    capabilities SYS_BOOT
+    file /dev/kmsg w
+    file /sys/fs/pstore/console-ramoops-0 r
+    file /sys/fs/pstore/console-ramoops r
+    file /proc/last_kmsg r
+
+on charger
+    start vendor.charger
+
 on early-init
     # mount the debugfs
     mount debugfs none /sys/kernel/debug/ mode=0755
@@ -16,7 +29,11 @@ on early-init
     setprop ro.hardware.gatekeeper ${ro.boot.keystore}
     setprop vendor.storageproxyd ${ro.boot.keystore}
 
-on init
+# Skip charger_not_need trigger for charger mode
+on early-init && property:ro.boot.mode=charger
+    setprop vendor.skip.charger_not_need 1
+
+on init && property:vendor.skip.charger_not_need=0
     start watchdogd
 
     # Support legacy paths
@@ -53,16 +70,16 @@ on init
     write /dev/stune/rt/schedtune.boost 50
     write /dev/stune/rt/schedtune.prefer_idle 1
 
-on late-fs
+on late-fs && property:vendor.skip.charger_not_need=0
     # Start keymaster/gatekeeper service
     start vendor.gatekeeper-1-0-${ro.boot.keystore}
     start vendor.keymaster-3-0-${ro.boot.keystore}
     setprop vendor.powerhal.init 1
 
-on late-fs && property:vendor.storageproxyd=trusty
+on late-fs && property:vendor.storageproxyd=trusty && property:vendor.skip.charger_not_need=0
     start vendor.oemlock-1-0
 
-on early-boot
+on early-boot && property:vendor.skip.charger_not_need=0
     # Set the host name which used in console
     export HOSTNAME mek_8q
 
@@ -125,7 +142,7 @@ on early-boot
     # enlarge media max memory size to 3G.
     setprop ro.media.maxmem 3221225471
 
-on boot
+on boot && property:vendor.skip.charger_not_need=0
     start audioserver
     start mediadrm
     start media
@@ -203,7 +220,7 @@ service bugreport /system/bin/dumpstate -d -p -B -z \
     oneshot
     keycodes 114 115 116
 
-on fs
+on fs && property:vendor.skip.charger_not_need=0
 # mount ext4 partitions
     mount_all /vendor/etc/fstab.freescale
 
@@ -213,10 +230,10 @@ on fs
     # Update dm-verity state and set partition.*.verified properties
     verity_update_state
 
-on verity-logging
+on verity-logging && property:vendor.skip.charger_not_need=0
     exec u:r:slideshow:s0 -- /sbin/slideshow warning/verity_red_1 warning/verity_red_2
 
-on post-fs
+on post-fs && property:vendor.skip.charger_not_need=0
     # Set netd memlock rlimit to 8MB
     setrlimit 8 8388608 8388608
 
@@ -230,7 +247,7 @@ on post-fs
     chown system system /proc/pagetypeinfo
     chmod 0440 /proc/pagetypeinfo
 
-on post-fs-data
+on post-fs-data && property:vendor.skip.charger_not_need=0
     setprop vold.post_fs_data_done 1
     # create temp node for secure storage proxy
     mkdir /data/vendor/ss 0700 system system
@@ -239,7 +256,7 @@ on post-fs-data
     setprop TMPDIR /data/vendor/.opencl-cache
     mkdir /data/vendor/.opencl-cache 0771 camera camera
 
-on zygote-start
+on zygote-start && property:vendor.skip.charger_not_need=0
     # Create the directories used by the Wireless subsystem
     mkdir /data/vendor/wifi 0771 wifi wifi
     mkdir /data/vendor/wifi/wpa 0770 wifi wifi
@@ -252,11 +269,11 @@ service early_init_sh /vendor/bin/init.insmod.sh /vendor/etc/early.init.cfg sys.
     disabled
     oneshot
 
-on property:sys.boot_completed=1 && property:vendor.storageproxyd=trusty
+on property:sys.boot_completed=1 && property:vendor.storageproxyd=trusty && property:vendor.skip.charger_not_need=0
     start storageproxyd
 
 service storageproxyd /vendor/bin/storageproxyd -p /data/vendor/ss -r /dev/mmcblk0rpmb -d /dev/trusty-ipc-dev0
     group system
 
-on property:ro.boot.vendor.sysrq=1
+on property:ro.boot.vendor.sysrq=1 && property:vendor.skip.charger_not_need=0
     write /proc/sys/kernel/sysrq 1
