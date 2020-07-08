@@ -411,3 +411,5 @@ endif
 
 # Included GMS package
 $(call inherit-product-if-exists, vendor/partner_gms/products/gms.mk)
+
+$(call  inherit-product-if-exists, vendor/nxp-private/security/nxp_security.mk)

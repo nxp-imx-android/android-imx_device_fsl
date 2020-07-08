@@ -291,3 +291,7 @@ service storageproxyd /vendor/bin/storageproxyd -p /data/vendor/ss -r /dev/mmcbl
 
 on property:ro.boot.vendor.sysrq=1
     write /proc/sys/kernel/sysrq 1
+
+# setenv append_bootargs androidboot.usb.debugging=1
+on property:ro.boot.usb.debugging=1
+    setprop persist.sys.usb.config adb

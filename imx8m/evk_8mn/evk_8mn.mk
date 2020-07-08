@@ -346,3 +346,4 @@ PRODUCT_PACKAGES += \
     c2_component_register_ms \
     c2_component_register_ra
 
+$(call  inherit-product-if-exists, vendor/nxp-private/security/nxp_security.mk)

@@ -347,3 +347,5 @@ INSTALL_64BIT_LIBRARY := true
 endif
 -include $(FSL_CODEC_PATH)/fsl-codec/fsl-codec.mk
 endif
+
+$(call  inherit-product-if-exists, vendor/nxp-private/security/nxp_security.mk)

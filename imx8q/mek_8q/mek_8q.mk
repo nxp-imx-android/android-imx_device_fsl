@@ -483,3 +483,5 @@ endif
 -include $(FSL_RESTRICTED_CODEC_PATH)/fsl-restricted-codec/imx_dsp_wma_dec/imx_dsp_wma_dec.mk
 -include $(FSL_RESTRICTED_CODEC_PATH)/fsl-restricted-codec/imx_dsp/imx_dsp_8q.mk
 endif
+
+$(call  inherit-product-if-exists, vendor/nxp-private/security/nxp_security.mk)
