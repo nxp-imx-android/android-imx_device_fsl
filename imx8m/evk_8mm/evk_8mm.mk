@@ -376,3 +376,8 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.rebootescrow.device=/dev/block/pmem0
+
+ifneq ($(IMX8MM_USES_GKI),)
+PRODUCT_PROPERTY_OVERRIDES += \
+    vendor.gki.enable=true
+endif

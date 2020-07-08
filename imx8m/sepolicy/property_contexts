@@ -186,6 +186,7 @@ ro.af.client_heap_size_kbyte        u:object_r:public_vendor_default_prop:s0
 audio.offload.min.duration.secs     u:object_r:public_vendor_default_prop:s0
 ro.ril.wake_lock_timeout            u:object_r:public_vendor_default_prop:s0
 persist.service.bdroid.bdaddr       u:object_r:public_vendor_default_prop:s0
+vendor.gki.enable                   u:object_r:public_vendor_default_prop:s0
 
 ro.boot.gui_resolution              u:object_r:vendor_default_prop:s0
 ro.boot.primary_display             u:object_r:vendor_default_prop:s0
