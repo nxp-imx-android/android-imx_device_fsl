@@ -29,6 +29,10 @@ PRODUCT_IMX_TRUSTY := true
 # CONFIG_SND_SOC_FSL_MICFIL: snd-soc-fsl-micfil.ko, used in audio mic
 # CONFIG_SND_SOC_IMX_MICFIL: snd-soc-imx-micfil.ko, used in audio mic
 # CONFIG_SND_SOC_IMX_PCM_DMA: imx-pcm-dma-common.ko, used in fsl_micfil
+# CONFIG_MXC_HANTRO: hantrodec.ko vpu decoder
+# CONFIG_MXC_HANTRO_845: hantrodec_845s.ko vpu decodder
+# CONFIG_MXC_HANTRO_845_H1 hx280enc.ko vpu encoder
+
 BOARD_VENDOR_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/input/touchscreen/synaptics_dsx/synaptics_dsx_i2c.ko
 
@@ -45,7 +49,10 @@ BOARD_VENDOR_KERNEL_MODULES += \
     $(KERNEL_OUT)/sound/soc/fsl/snd-soc-fsl-sai.ko \
     $(KERNEL_OUT)/sound/soc/fsl/imx-pcm-dma-common.ko \
     $(KERNEL_OUT)/sound/soc/fsl/snd-soc-fsl-micfil.ko \
-    $(KERNEL_OUT)/sound/soc/fsl/snd-soc-imx-micfil.ko
+    $(KERNEL_OUT)/sound/soc/fsl/snd-soc-imx-micfil.ko \
+    $(KERNEL_OUT)/drivers/mxc/hantro/hantrodec.ko \
+    $(KERNEL_OUT)/drivers/mxc/hantro_845/hantrodec_845s.ko \
+    $(KERNEL_OUT)/drivers/mxc/hantro_845_h1/hx280enc.ko
 endif
 
 # CONFIG_CLK_IMX8MM: clk-imx8mm.ko
