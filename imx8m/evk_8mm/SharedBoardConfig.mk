@@ -31,7 +31,9 @@ PRODUCT_IMX_TRUSTY := true
 # CONFIG_SND_SOC_IMX_PCM_DMA: imx-pcm-dma-common.ko, used in fsl_micfil
 # CONFIG_MXC_HANTRO: hantrodec.ko vpu decoder
 # CONFIG_MXC_HANTRO_845: hantrodec_845s.ko vpu decodder
-# CONFIG_MXC_HANTRO_845_H1 hx280enc.ko vpu encoder
+# CONFIG_MXC_HANTRO_845_H1: hx280enc.ko vpu encoder
+# CONFIG_RTC_DRV_SNVS: rtc-snvs.ko, snvs driver
+# CONFIG_KEYBOARD_SNVS_PWRKEY: powerkey driver
 
 BOARD_VENDOR_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/input/touchscreen/synaptics_dsx/synaptics_dsx_i2c.ko
@@ -52,7 +54,9 @@ BOARD_VENDOR_KERNEL_MODULES += \
     $(KERNEL_OUT)/sound/soc/fsl/snd-soc-imx-micfil.ko \
     $(KERNEL_OUT)/drivers/mxc/hantro/hantrodec.ko \
     $(KERNEL_OUT)/drivers/mxc/hantro_845/hantrodec_845s.ko \
-    $(KERNEL_OUT)/drivers/mxc/hantro_845_h1/hx280enc.ko
+    $(KERNEL_OUT)/drivers/mxc/hantro_845_h1/hx280enc.ko \
+    $(KERNEL_OUT)/drivers/rtc/rtc-snvs.ko \
+    $(KERNEL_OUT)/drivers/input/keyboard/snvs_pwrkey.ko
 endif
 
 # CONFIG_CLK_IMX8MM: clk-imx8mm.ko
