@@ -101,7 +101,7 @@ PRODUCT_PACKAGES += \
 
 # HWC2 HAL
 PRODUCT_PACKAGES += \
-    android.hardware.graphics.composer@2.3-service
+    android.hardware.graphics.composer@2.4-service
 
 # Gralloc HAL
 PRODUCT_PACKAGES += \
