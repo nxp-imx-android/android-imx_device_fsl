@@ -1,18 +1,18 @@
 # This is a FSL Android Reference Design platform based on i.MX6Q ARD board
 # It will inherit from FSL core product which in turn inherit from Google generic
 
-IMX_DEVICE_PATH := device/fsl/imx6dq/sabreauto_6q
+IMX_DEVICE_PATH := device/nxp/imx6dq/sabreauto_6q
 
--include device/fsl/common/imx_path/ImxPathConfig.mk
-$(call inherit-product, device/fsl/imx6dq/ProductConfigCommon.mk)
+-include device/nxp/common/imx_path/ImxPathConfig.mk
+$(call inherit-product, device/nxp/imx6dq/ProductConfigCommon.mk)
 $(call inherit-product, build/target/product/go_defaults.mk)
 
-ifneq ($(wildcard device/fsl/sabreauto_6dq/fstab_nand.freescale),)
-$(shell touch $(IMX_DEVICE_PATH)/fstab_nand.freescale)
+ifneq ($(wildcard device/nxp/sabreauto_6dq/fstab_nand.nxp),)
+$(shell touch $(IMX_DEVICE_PATH)/fstab_nand.nxp)
 endif
 
-ifneq ($(wildcard device/fsl/sabreauto_6dq/fstab.freescale),)
-$(shell touch $(IMX_DEVICE_PATH)/fstab.freescale)
+ifneq ($(wildcard device/nxp/sabreauto_6dq/fstab.nxp),)
+$(shell touch $(IMX_DEVICE_PATH)/fstab.nxp)
 endif
 
 # Overrides
@@ -25,18 +25,18 @@ PRODUCT_FULL_TREBLE_OVERRIDE := true
 # Copy device related config and binary to board
 PRODUCT_COPY_FILES += \
     $(IMX_DEVICE_PATH)/app_whitelist.xml:system/etc/sysconfig/app_whitelist.xml \
-    $(IMX_DEVICE_PATH)/fstab.freescale:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.freescale \
-    $(IMX_DEVICE_PATH)/init.imx6dl.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.freescale.imx6dl.rc \
-    $(IMX_DEVICE_PATH)/init.imx6q.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.freescale.imx6q.rc \
-    $(IMX_DEVICE_PATH)/init.imx6qp.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.freescale.imx6qp.rc \
-    $(IMX_DEVICE_PATH)/init.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.freescale.rc \
+    $(IMX_DEVICE_PATH)/fstab.nxp:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.nxp \
+    $(IMX_DEVICE_PATH)/init.imx6dl.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.nxp.imx6dl.rc \
+    $(IMX_DEVICE_PATH)/init.imx6q.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.nxp.imx6q.rc \
+    $(IMX_DEVICE_PATH)/init.imx6qp.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.nxp.imx6qp.rc \
+    $(IMX_DEVICE_PATH)/init.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.nxp.rc \
     $(IMX_DEVICE_PATH)/required_hardware.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/required_hardware.xml \
-    $(IMX_DEVICE_PATH)/ueventd.freescale.rc:$(TARGET_COPY_OUT_VENDOR)/ueventd.rc \
+    $(IMX_DEVICE_PATH)/ueventd.nxp.rc:$(TARGET_COPY_OUT_VENDOR)/ueventd.rc \
     $(IMX_DEVICE_PATH)/privapp-permissions-imx.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/privapp-permissions-imx.xml \
     $(LINUX_FIRMWARE_IMX_PATH)/linux-firmware-imx/firmware/vpu/vpu_fw_imx6d.bin:$(TARGET_COPY_OUT_VENDOR)/lib/firmware/vpu/vpu_fw_imx6d.bin \
     $(LINUX_FIRMWARE_IMX_PATH)/linux-firmware-imx/firmware/vpu/vpu_fw_imx6q.bin:$(TARGET_COPY_OUT_VENDOR)/lib/firmware/vpu/vpu_fw_imx6q.bin \
-    device/fsl/common/wifi/p2p_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/p2p_supplicant_overlay.conf \
-    device/fsl/common/wifi/wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf \
+    device/nxp/common/wifi/p2p_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/p2p_supplicant_overlay.conf \
+    device/nxp/common/wifi/wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf \
 
 # ONLY devices that meet the CDD's requirements may declare these features
 PRODUCT_COPY_FILES += \
@@ -81,11 +81,11 @@ PRODUCT_COPY_FILES += \
 
 # fastboot_imx_flashall scripts and fsl-sdcard-partition script
 PRODUCT_COPY_FILES += \
-    device/fsl/common/tools/fastboot_imx_flashall.bat:fastboot_imx_flashall.bat \
-    device/fsl/common/tools/fastboot_imx_flashall.sh:fastboot_imx_flashall.sh \
-    device/fsl/common/tools/fsl-sdcard-partition.sh:fsl-sdcard-partition.sh \
-    device/fsl/common/tools/uuu_imx_android_flash.bat:uuu_imx_android_flash.bat \
-    device/fsl/common/tools/uuu_imx_android_flash.sh:uuu_imx_android_flash.sh
+    device/nxp/common/tools/fastboot_imx_flashall.bat:fastboot_imx_flashall.bat \
+    device/nxp/common/tools/fastboot_imx_flashall.sh:fastboot_imx_flashall.sh \
+    device/nxp/common/tools/imx-sdcard-partition.sh:imx-sdcard-partition.sh \
+    device/nxp/common/tools/uuu_imx_android_flash.bat:uuu_imx_android_flash.bat \
+    device/nxp/common/tools/uuu_imx_android_flash.sh:uuu_imx_android_flash.sh
 
 DEVICE_PACKAGE_OVERLAYS := $(IMX_DEVICE_PATH)/overlay
 

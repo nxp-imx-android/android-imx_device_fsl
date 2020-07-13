@@ -1,19 +1,19 @@
 # This is a FSL Android Reference Design platform based on i.MX6Q ARD board
 # It will inherit from FSL core product which in turn inherit from Google generic
 
-IMX_DEVICE_PATH := device/fsl/imx6sx/sabresd_6sx
+IMX_DEVICE_PATH := device/nxp/imx6sx/sabresd_6sx
 
--include device/fsl/common/imx_path/ImxPathConfig.mk
-$(call inherit-product, device/fsl/imx6sx/ProductConfigCommon.mk)
+-include device/nxp/common/imx_path/ImxPathConfig.mk
+$(call inherit-product, device/nxp/imx6sx/ProductConfigCommon.mk)
 $(call inherit-product-if-exists,vendor/google/products/gms.mk)
 $(call inherit-product, build/target/product/go_defaults.mk)
 
-ifneq ($(wildcard $(IMX_DEVICE_PATH)/fstab_nand.freescale),)
-$(shell touch $(IMX_DEVICE_PATH)/fstab_nand.freescale)
+ifneq ($(wildcard $(IMX_DEVICE_PATH)/fstab_nand.nxp),)
+$(shell touch $(IMX_DEVICE_PATH)/fstab_nand.nxp)
 endif
 
-ifneq ($(wildcard $(IMX_DEVICE_PATH)/fstab.freescale),)
-$(shell touch $(IMX_DEVICE_PATH)/fstab.freescale)
+ifneq ($(wildcard $(IMX_DEVICE_PATH)/fstab.nxp),)
+$(shell touch $(IMX_DEVICE_PATH)/fstab.nxp)
 endif
 
 # Overrides
@@ -26,15 +26,15 @@ PRODUCT_FULL_TREBLE_OVERRIDE := true
 # Copy device related config and binary to board
 PRODUCT_COPY_FILES += \
     $(IMX_DEVICE_PATH)/app_whitelist.xml:system/etc/sysconfig/app_whitelist.xml \
-    $(IMX_DEVICE_PATH)/fstab.freescale:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.freescale \
-    $(IMX_DEVICE_PATH)/init.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.freescale.rc \
+    $(IMX_DEVICE_PATH)/fstab.nxp:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.nxp \
+    $(IMX_DEVICE_PATH)/init.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.nxp.rc \
     $(IMX_DEVICE_PATH)/required_hardware.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/required_hardware.xml \
-    $(IMX_DEVICE_PATH)/ueventd.freescale.rc:$(TARGET_COPY_OUT_VENDOR)/ueventd.rc \
+    $(IMX_DEVICE_PATH)/ueventd.nxp.rc:$(TARGET_COPY_OUT_VENDOR)/ueventd.rc \
     $(IMX_DEVICE_PATH)/early.init.cfg:$(TARGET_COPY_OUT_VENDOR)/etc/early.init.cfg \
     $(IMX_DEVICE_PATH)/privapp-permissions-imx.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/privapp-permissions-imx.xml \
-    device/fsl/common/init/init.insmod.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.insmod.sh \
-    device/fsl/common/wifi/p2p_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/p2p_supplicant_overlay.conf \
-    device/fsl/common/wifi/bcm_wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf \
+    device/nxp/common/init/init.insmod.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.insmod.sh \
+    device/nxp/common/wifi/p2p_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/p2p_supplicant_overlay.conf \
+    device/nxp/common/wifi/bcm_wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf \
 
 # ONLY devices that meet the CDD's requirements may declare these features
 PRODUCT_COPY_FILES += \
@@ -69,11 +69,11 @@ PRODUCT_COPY_FILES += \
 
 # fastboot_imx_flashall scripts, fsl-sdcard-partition script and uuu_imx_android_flash scripts
 PRODUCT_COPY_FILES += \
-    device/fsl/common/tools/fastboot_imx_flashall.bat:fastboot_imx_flashall.bat \
-    device/fsl/common/tools/fastboot_imx_flashall.sh:fastboot_imx_flashall.sh \
-    device/fsl/common/tools/fsl-sdcard-partition.sh:fsl-sdcard-partition.sh \
-    device/fsl/common/tools/uuu_imx_android_flash.bat:uuu_imx_android_flash.bat \
-    device/fsl/common/tools/uuu_imx_android_flash.sh:uuu_imx_android_flash.sh
+    device/nxp/common/tools/fastboot_imx_flashall.bat:fastboot_imx_flashall.bat \
+    device/nxp/common/tools/fastboot_imx_flashall.sh:fastboot_imx_flashall.sh \
+    device/nxp/common/tools/imx-sdcard-partition.sh:imx-sdcard-partition.sh \
+    device/nxp/common/tools/uuu_imx_android_flash.bat:uuu_imx_android_flash.bat \
+    device/nxp/common/tools/uuu_imx_android_flash.sh:uuu_imx_android_flash.sh
 
 # GPU files
 

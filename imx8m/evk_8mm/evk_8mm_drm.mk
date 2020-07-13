@@ -1,18 +1,18 @@
 # This is a FSL Android Reference Design platform based on i.MX8MM board
 # It will inherit from FSL core product which in turn inherit from Google generic
 
-IMX_DEVICE_PATH := device/fsl/imx8m/evk_8mm
+IMX_DEVICE_PATH := device/nxp/imx8m/evk_8mm
 
 PRODUCT_IMX_DRM := true
 
 # copy drm specific files before inherit evk_8mm.mk, otherwise copy is ignored
 PRODUCT_COPY_FILES += \
-	$(IMX_DEVICE_PATH)/init.imx8mm.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.freescale.imx8mm.main.rc \
-	$(IMX_DEVICE_PATH)/init.imx8mm.drm.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.freescale.imx8mm.rc \
-	$(TOPDIR)device/fsl/imx8m/tee-supplicant.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/tee-supplicant.rc \
+	$(IMX_DEVICE_PATH)/init.imx8mm.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.nxp.imx8mm.main.rc \
+	$(IMX_DEVICE_PATH)/init.imx8mm.drm.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.nxp.imx8mm.rc \
+	$(TOPDIR)device/nxp/imx8m/tee-supplicant.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/tee-supplicant.rc \
 
 
-$(call inherit-product, $(TOPDIR)device/fsl/imx8m/optee-packages.mk)
+$(call inherit-product, $(TOPDIR)device/nxp/imx8m/optee-packages.mk)
 $(call inherit-product, $(TOPDIR)$(IMX_DEVICE_PATH)/evk_8mm.mk)
 
 TARGET_KERNEL_DEFCONFIG := imx_v8_android_defconfig

@@ -1,7 +1,7 @@
 # This is a FSL Android Reference Design platform based on i.MX6Q board
 # It will inherit from FSL core product which in turn inherit from Google generic
 
-IMX_DEVICE_PATH := device/fsl/imx6dq/sabresd_6dq
+IMX_DEVICE_PATH := device/nxp/imx6dq/sabresd_6dq
 
 PRODUCT_IMX_CAR := true
 
@@ -12,7 +12,7 @@ PRODUCT_NAME := sabresd_6dq_car
 PRODUCT_PACKAGE_OVERLAYS := packages/services/Car/car_product/overlay
 
 PRODUCT_COPY_FILES += \
-    $(IMX_DEVICE_PATH)/fstab.freescale.car:root/fstab.freescale \
+    $(IMX_DEVICE_PATH)/fstab.nxp.car:root/fstab.nxp \
     frameworks/native/data/etc/android.hardware.screen.landscape.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.screen.landscape.xml \
     frameworks/native/data/etc/android.hardware.type.automotive.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.type.automotive.xml \
     packages/services/Car/car_product/init/init.bootstat.rc:root/init.bootstat.rc \

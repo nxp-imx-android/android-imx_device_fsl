@@ -116,10 +116,10 @@ if [ -n "${build_kernel}" ] && [ ${TARGET_PRODUCT} = "evk_8mp" ]; then
     build_vvcam="vvcam";
 fi
 
-product_makefile=`pwd`/`find device/fsl -maxdepth 4 -name "${TARGET_PRODUCT}.mk"`;
+product_makefile=`pwd`/`find device/nxp -maxdepth 4 -name "${TARGET_PRODUCT}.mk"`;
 product_path=${product_makefile%/*}
 soc_path=${product_path%/*}
-fsl_git_path=${soc_path%/*}
+nxp_git_path=${soc_path%/*}
 
 # if uboot is to be compiled, remove the UBOOT_COLLECTION directory
 if [ -n "${build_bootloader}" ]; then
@@ -127,12 +127,12 @@ if [ -n "${build_bootloader}" ]; then
 fi
 
 # redirect standard input to /dev/null to avoid manually input in kernel configuration stage
-soc_path=${soc_path} product_path=${product_path} fsl_git_path=${fsl_git_path} clean_build=${clean_build} \
-    make -C ./ -f ${fsl_git_path}/common/build/Makefile ${parallel_option} \
+soc_path=${soc_path} product_path=${product_path} nxp_git_path=${nxp_git_path} clean_build=${clean_build} \
+    make -C ./ -f ${nxp_git_path}/common/build/Makefile ${parallel_option} \
     ${build_bootloader} ${build_kernel} </dev/null || exit
 
-soc_path=${soc_path} product_path=${product_path} fsl_git_path=${fsl_git_path} clean_build=${clean_build} \
-    make -C ./ -f ${fsl_git_path}/common/build/Makefile ${parallel_option} \
+soc_path=${soc_path} product_path=${product_path} nxp_git_path=${nxp_git_path} clean_build=${clean_build} \
+    make -C ./ -f ${nxp_git_path}/common/build/Makefile ${parallel_option} \
     ${build_vvcam} ${build_galcore} </dev/null || exit
 
 if [ ${build_android_flag} -eq 1 ]; then

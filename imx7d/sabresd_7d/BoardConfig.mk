@@ -2,9 +2,9 @@
 # Product-specific compile-time definitions.
 #
 
-IMX_DEVICE_PATH := device/fsl/imx7d/sabresd_7d
+IMX_DEVICE_PATH := device/nxp/imx7d/sabresd_7d
 
-include device/fsl/imx7d/BoardConfigCommon.mk
+include device/nxp/imx7d/BoardConfigCommon.mk
 include $(LINUX_FIRMWARE_IMX_PATH)/linux-firmware-imx/firmware/epdc/fsl-epdc.mk
 ifeq ($(PREBUILT_FSL_IMX_CODEC),true)
 -include $(FSL_CODEC_PATH)/fsl-codec/fsl-codec.mk
@@ -15,7 +15,7 @@ TARGET_USES_64_BIT_BINDER := true
 BUILD_TARGET_FS ?= ext4
 TARGET_USERIMAGES_USE_EXT4 := true
 
-TARGET_RECOVERY_FSTAB = $(IMX_DEVICE_PATH)/fstab.freescale
+TARGET_RECOVERY_FSTAB = $(IMX_DEVICE_PATH)/fstab.nxp
 
 # Vendor Interface manifest and compatibility
 DEVICE_MANIFEST_FILE := $(IMX_DEVICE_PATH)/manifest.xml
@@ -67,7 +67,7 @@ IMX_CAMERA_HAL_V1 := true
 TARGET_VSYNC_DIRECT_REFRESH := true
 
 KERNEL_NAME := zImage
-BOARD_KERNEL_CMDLINE := console=ttymxc0,115200 init=/init androidboot.console=ttymxc0 consoleblank=0 androidboot.hardware=freescale cma=320M loop.max_part=7
+BOARD_KERNEL_CMDLINE := console=ttymxc0,115200 init=/init androidboot.console=ttymxc0 consoleblank=0 androidboot.hardware=nxp cma=320M loop.max_part=7
 # u-boot target for imx7d_sabresd with HDMI or LCD display
 TARGET_BOOTLOADER_CONFIG := imx7d:imx7dsabresdandroid_defconfig
 # u-boot target for imx7d_sabresd with epdc display
@@ -86,15 +86,15 @@ TARGET_BOOTLOADER_CONFIG += imx7d-sabresd-uuu:mx7dsabresd_defconfig
 TARGET_BOOTLOADER_CONFIG += imx7d-epdc-sabresd-uuu:mx7dsabresd_defconfig
 
 BOARD_SEPOLICY_DIRS := \
-       device/fsl/imx7d/sepolicy \
+       device/nxp/imx7d/sepolicy \
        $(IMX_DEVICE_PATH)/sepolicy
 
 # Support gpt
-BOARD_BPT_INPUT_FILES += device/fsl/common/partition/device-partitions-7GB.bpt
-ADDITION_BPT_PARTITION = partition-table-14GB:device/fsl/common/partition/device-partitions-14GB.bpt \
-                         partition-table-28GB:device/fsl/common/partition/device-partitions-28GB.bpt
+BOARD_BPT_INPUT_FILES += device/nxp/common/partition/device-partitions-7GB.bpt
+ADDITION_BPT_PARTITION = partition-table-14GB:device/nxp/common/partition/device-partitions-14GB.bpt \
+                         partition-table-28GB:device/nxp/common/partition/device-partitions-28GB.bpt
 
-TARGET_BOARD_KERNEL_HEADERS := device/fsl/common/kernel-headers
+TARGET_BOARD_KERNEL_HEADERS := device/nxp/common/kernel-headers
 
 #Enable AVB
 BOARD_AVB_ENABLE := true

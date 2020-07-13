@@ -33,32 +33,32 @@ SOONG_CONFIG_IMXPLUGIN_BOARD_VPU_ONLY = true
 # Product-specific compile-time definitions.
 #
 
-IMX_DEVICE_PATH := device/fsl/imx8m/evk_8mm
+IMX_DEVICE_PATH := device/nxp/imx8m/evk_8mm
 
-include device/fsl/imx8m/BoardConfigCommon.mk
+include device/nxp/imx8m/BoardConfigCommon.mk
 
 BUILD_TARGET_FS ?= ext4
 TARGET_USERIMAGES_USE_EXT4 := true
 
-TARGET_RECOVERY_FSTAB = $(IMX_DEVICE_PATH)/fstab.freescale
+TARGET_RECOVERY_FSTAB = $(IMX_DEVICE_PATH)/fstab.nxp
 
 # Support gpt
 ifeq ($(TARGET_USE_DYNAMIC_PARTITIONS),true)
-  BOARD_BPT_INPUT_FILES += device/fsl/common/partition/device-partitions-13GB-ab_super.bpt
-  ADDITION_BPT_PARTITION = partition-table-28GB:device/fsl/common/partition/device-partitions-28GB-ab_super.bpt \
-                           partition-table-dual:device/fsl/common/partition/device-partitions-13GB-ab-dual-bootloader_super.bpt \
-                           partition-table-28GB-dual:device/fsl/common/partition/device-partitions-28GB-ab-dual-bootloader_super.bpt
+  BOARD_BPT_INPUT_FILES += device/nxp/common/partition/device-partitions-13GB-ab_super.bpt
+  ADDITION_BPT_PARTITION = partition-table-28GB:device/nxp/common/partition/device-partitions-28GB-ab_super.bpt \
+                           partition-table-dual:device/nxp/common/partition/device-partitions-13GB-ab-dual-bootloader_super.bpt \
+                           partition-table-28GB-dual:device/nxp/common/partition/device-partitions-28GB-ab-dual-bootloader_super.bpt
 else
   ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
-    BOARD_BPT_INPUT_FILES += device/fsl/common/partition/device-partitions-13GB-ab-no-product.bpt
-    ADDITION_BPT_PARTITION = partition-table-28GB:device/fsl/common/partition/device-partitions-28GB-ab-no-product.bpt \
-                             partition-table-dual:device/fsl/common/partition/device-partitions-13GB-ab-dual-bootloader-no-product.bpt \
-                             partition-table-28GB-dual:device/fsl/common/partition/device-partitions-28GB-ab-dual-bootloader-no-product.bpt
+    BOARD_BPT_INPUT_FILES += device/nxp/common/partition/device-partitions-13GB-ab-no-product.bpt
+    ADDITION_BPT_PARTITION = partition-table-28GB:device/nxp/common/partition/device-partitions-28GB-ab-no-product.bpt \
+                             partition-table-dual:device/nxp/common/partition/device-partitions-13GB-ab-dual-bootloader-no-product.bpt \
+                             partition-table-28GB-dual:device/nxp/common/partition/device-partitions-28GB-ab-dual-bootloader-no-product.bpt
   else
-    BOARD_BPT_INPUT_FILES += device/fsl/common/partition/device-partitions-13GB-ab.bpt
-    ADDITION_BPT_PARTITION = partition-table-28GB:device/fsl/common/partition/device-partitions-28GB-ab.bpt \
-                             partition-table-dual:device/fsl/common/partition/device-partitions-13GB-ab-dual-bootloader.bpt \
-                             partition-table-28GB-dual:device/fsl/common/partition/device-partitions-28GB-ab-dual-bootloader.bpt
+    BOARD_BPT_INPUT_FILES += device/nxp/common/partition/device-partitions-13GB-ab.bpt
+    ADDITION_BPT_PARTITION = partition-table-28GB:device/nxp/common/partition/device-partitions-28GB-ab.bpt \
+                             partition-table-dual:device/nxp/common/partition/device-partitions-13GB-ab-dual-bootloader.bpt \
+                             partition-table-28GB-dual:device/nxp/common/partition/device-partitions-28GB-ab-dual-bootloader.bpt
   endif
 endif
 
@@ -111,7 +111,7 @@ USE_GPU_ALLOCATOR := false
 BOARD_AVB_ENABLE := true
 BOARD_AVB_ALGORITHM := SHA256_RSA4096
 # The testkey_rsa4096.pem is copied from external/avb/test/data/testkey_rsa4096.pem
-BOARD_AVB_KEY_PATH := device/fsl/common/security/testkey_rsa4096.pem
+BOARD_AVB_KEY_PATH := device/nxp/common/security/testkey_rsa4096.pem
 TARGET_USES_MKE2FS := true
 
 # define frame buffer count
@@ -124,7 +124,7 @@ CMASIZE=800M
 endif
 
 # NXP default config
-BOARD_KERNEL_CMDLINE := init=/init androidboot.console=ttymxc1 androidboot.hardware=freescale firmware_class.path=/vendor/firmware loop.max_part=7
+BOARD_KERNEL_CMDLINE := init=/init androidboot.console=ttymxc1 androidboot.hardware=nxp firmware_class.path=/vendor/firmware loop.max_part=7
 
 # memory config
 BOARD_KERNEL_CMDLINE += transparent_hugepage=never
@@ -180,7 +180,7 @@ else
 endif
 
 BOARD_SEPOLICY_DIRS := \
-       device/fsl/imx8m/sepolicy \
+       device/nxp/imx8m/sepolicy \
        $(IMX_DEVICE_PATH)/sepolicy
 
 ifeq ($(PRODUCT_IMX_DRM),true)
@@ -188,6 +188,6 @@ BOARD_SEPOLICY_DIRS += \
        $(IMX_DEVICE_PATH)/sepolicy_drm
 endif
 
-TARGET_BOARD_KERNEL_HEADERS := device/fsl/common/kernel-headers
+TARGET_BOARD_KERNEL_HEADERS := device/nxp/common/kernel-headers
 
 ALL_DEFAULT_INSTALLED_MODULES += $(BOARD_VENDOR_KERNEL_MODULES)

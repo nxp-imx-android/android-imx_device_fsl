@@ -217,7 +217,7 @@ service boot_completed_main_sh /vendor/bin/init.insmod.sh /vendor/etc/setup.main
 
 on fs
 # mount ext4 partitions
-    mount_all /vendor/etc/fstab.freescale --early
+    mount_all /vendor/etc/fstab.nxp --early
 
     # Update dm-verity state and set partition.*.verified properties
     verity_update_state
@@ -233,7 +233,7 @@ on late-fs
     start surfaceflinger
 
     # Mount RW partitions which need run fsck
-    mount_all /vendor/etc/fstab.freescale --late
+    mount_all /vendor/etc/fstab.nxp --late
 
     # boot time fs tune
     write /sys/block/mmcblk0/queue/iostats 0

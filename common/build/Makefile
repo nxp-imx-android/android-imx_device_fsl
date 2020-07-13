@@ -23,13 +23,13 @@ HOST_PREBUILT_TAG := $(HOST_OS)-${HOST_PREBUILT_ARCH}
 
 # firstly to include UbootKernelCommonConfig.mk, then SharedBoardConfig.mk, finally UbootKernelBoardConfig.mk
 
-include ${fsl_git_path}/common/imx_path/ImxPathConfig.mk
+include ${nxp_git_path}/common/imx_path/ImxPathConfig.mk
 include ${soc_path}/UbootKernelCommonConfig.mk
 include ${product_path}/SharedBoardConfig.mk
 include ${product_path}/UbootKernelBoardConfig.mk
 
-include ${fsl_git_path}/common/build/kernel.mk
-include ${fsl_git_path}/common/build/uboot.mk
+include ${nxp_git_path}/common/build/kernel.mk
+include ${nxp_git_path}/common/build/uboot.mk
 -include ${product_path}/AndroidUboot.mk
 -include ${product_path}/AndroidTee.mk
 -include ${GPU_VIV6_PATH}/gpu-viv6/driver/hal/kernel/galcore.mk

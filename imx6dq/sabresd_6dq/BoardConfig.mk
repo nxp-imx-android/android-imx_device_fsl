@@ -2,9 +2,9 @@
 # Product-specific compile-time definitions.
 #
 
-IMX_DEVICE_PATH := device/fsl/imx6dq/sabresd_6dq
+IMX_DEVICE_PATH := device/nxp/imx6dq/sabresd_6dq
 
-include device/fsl/imx6dq/BoardConfigCommon.mk
+include device/nxp/imx6dq/BoardConfigCommon.mk
 ifeq ($(PREBUILT_FSL_IMX_CODEC),true)
 -include $(FSL_CODEC_PATH)/fsl-codec/fsl-codec.mk
 endif
@@ -15,9 +15,9 @@ BUILD_TARGET_FS ?= ext4
 TARGET_USERIMAGES_USE_EXT4 := true
 
 ifeq ($(PRODUCT_IMX_CAR),true)
-TARGET_RECOVERY_FSTAB = $(IMX_DEVICE_PATH)/fstab.freescale.car
+TARGET_RECOVERY_FSTAB = $(IMX_DEVICE_PATH)/fstab.nxp.car
 else
-TARGET_RECOVERY_FSTAB = $(IMX_DEVICE_PATH)/fstab.freescale
+TARGET_RECOVERY_FSTAB = $(IMX_DEVICE_PATH)/fstab.nxp
 endif # PRODUCT_IMX_CAR
 
 # Vendor Interface Manifest
@@ -78,7 +78,7 @@ endif
 endif
 
 KERNEL_NAME := zImage
-BOARD_KERNEL_CMDLINE := console=ttymxc0,115200 init=/init video=mxcfb0:dev=ldb,fbpix=RGB32,bpp=32 video=mxcfb1:off video=mxcfb2:off video=mxcfb3:off vmalloc=128M androidboot.console=ttymxc0 consoleblank=0 androidboot.hardware=freescale cma=320M galcore.contiguousSize=33554432 loop.max_part=7
+BOARD_KERNEL_CMDLINE := console=ttymxc0,115200 init=/init video=mxcfb0:dev=ldb,fbpix=RGB32,bpp=32 video=mxcfb1:off video=mxcfb2:off video=mxcfb3:off vmalloc=128M androidboot.console=ttymxc0 consoleblank=0 androidboot.hardware=nxp cma=320M galcore.contiguousSize=33554432 loop.max_part=7
 
 ifeq ($(TARGET_USERIMAGES_USE_UBIFS),true)
 #UBI boot command line.
@@ -142,7 +142,7 @@ TARGET_BOOTLOADER_CONFIG += imx6qp-sabresd-uuu:mx6qpsabresd_defconfig
 TARGET_BOOTLOADER_CONFIG += imx6qp-ldo-sabresd-uuu:mx6qpsabresd_defconfig
 
 BOARD_SEPOLICY_DIRS := \
-       device/fsl/imx6dq/sepolicy \
+       device/nxp/imx6dq/sepolicy \
        $(IMX_DEVICE_PATH)/sepolicy
 
 ifeq ($(PRODUCT_IMX_CAR),true)
@@ -152,11 +152,11 @@ BOARD_SEPOLICY_DIRS += \
 endif
 
 # Support gpt
-BOARD_BPT_INPUT_FILES += device/fsl/common/partition/device-partitions-7GB.bpt
-ADDITION_BPT_PARTITION = partition-table-14GB:device/fsl/common/partition/device-partitions-14GB.bpt \
-                         partition-table-28GB:device/fsl/common/partition/device-partitions-28GB.bpt
+BOARD_BPT_INPUT_FILES += device/nxp/common/partition/device-partitions-7GB.bpt
+ADDITION_BPT_PARTITION = partition-table-14GB:device/nxp/common/partition/device-partitions-14GB.bpt \
+                         partition-table-28GB:device/nxp/common/partition/device-partitions-28GB.bpt
 
-TARGET_BOARD_KERNEL_HEADERS := device/fsl/common/kernel-headers
+TARGET_BOARD_KERNEL_HEADERS := device/nxp/common/kernel-headers
 
 #Enable AVB
 BOARD_AVB_ENABLE := true

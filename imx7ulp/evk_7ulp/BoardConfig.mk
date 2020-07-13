@@ -2,9 +2,9 @@
 # Product-specific compile-time definitions.
 #
 
-IMX_DEVICE_PATH := device/fsl/imx7ulp/evk_7ulp
+IMX_DEVICE_PATH := device/nxp/imx7ulp/evk_7ulp
 
-include device/fsl/imx7ulp/BoardConfigCommon.mk
+include device/nxp/imx7ulp/BoardConfigCommon.mk
 ifeq ($(PREBUILT_FSL_IMX_CODEC),true)
 -include $(FSL_CODEC_PATH)/fsl-codec/fsl-codec.mk
 endif
@@ -14,7 +14,7 @@ TARGET_USES_64_BIT_BINDER := true
 BUILD_TARGET_FS ?= ext4
 TARGET_USERIMAGES_USE_EXT4 := true
 
-TARGET_RECOVERY_FSTAB = $(IMX_DEVICE_PATH)/fstab.freescale
+TARGET_RECOVERY_FSTAB = $(IMX_DEVICE_PATH)/fstab.nxp
 
 # Vendor Interface manifest and compatibility
 DEVICE_MANIFEST_FILE := $(IMX_DEVICE_PATH)/manifest.xml
@@ -71,7 +71,7 @@ NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
 IMX_CAMERA_HAL_V1 := true
 TARGET_VSYNC_DIRECT_REFRESH := true
 
-BOARD_KERNEL_CMDLINE := init=/init androidboot.console=ttyLP0 consoleblank=0 androidboot.hardware=freescale vmalloc=128M cma=320M loop.max_part=7
+BOARD_KERNEL_CMDLINE := init=/init androidboot.console=ttyLP0 consoleblank=0 androidboot.hardware=nxp vmalloc=128M cma=320M loop.max_part=7
 
 ifneq ($(PRODUCT_7ULP_REVB), true)
 # imx7ulp_evkb with NXP wifi
@@ -99,15 +99,15 @@ endif
 BOARD_PREBUILT_DTBOIMAGE := out/target/product/evk_7ulp/dtbo-imx7ulp.img
 
 BOARD_SEPOLICY_DIRS := \
-       device/fsl/imx7ulp/sepolicy \
+       device/nxp/imx7ulp/sepolicy \
        $(IMX_DEVICE_PATH)/sepolicy
 
 # Support gpt
-BOARD_BPT_INPUT_FILES += device/fsl/common/partition/device-partitions-7GB.bpt
-ADDITION_BPT_PARTITION = partition-table-14GB:device/fsl/common/partition/device-partitions-14GB.bpt \
-                         partition-table-28GB:device/fsl/common/partition/device-partitions-28GB.bpt
+BOARD_BPT_INPUT_FILES += device/nxp/common/partition/device-partitions-7GB.bpt
+ADDITION_BPT_PARTITION = partition-table-14GB:device/nxp/common/partition/device-partitions-14GB.bpt \
+                         partition-table-28GB:device/nxp/common/partition/device-partitions-28GB.bpt
 
-TARGET_BOARD_KERNEL_HEADERS := device/fsl/common/kernel-headers
+TARGET_BOARD_KERNEL_HEADERS := device/nxp/common/kernel-headers
 
 #Enable AVB
 BOARD_AVB_ENABLE := true

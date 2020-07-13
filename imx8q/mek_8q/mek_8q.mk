@@ -1,12 +1,12 @@
 # This is a FSL Android Reference Design platform based on i.MX8QP ARD board
 # It will inherit from FSL core product which in turn inherit from Google generic
 
-IMX_DEVICE_PATH := device/fsl/imx8q/mek_8q
+IMX_DEVICE_PATH := device/nxp/imx8q/mek_8q
 
 # configs shared between uboot, kernel and Android rootfs
 include $(IMX_DEVICE_PATH)/SharedBoardConfig.mk
 
--include device/fsl/common/imx_path/ImxPathConfig.mk
+-include device/nxp/common/imx_path/ImxPathConfig.mk
 
 ifneq ($(IMX8_BUILD_32BIT_ROOTFS),true)
 ifeq ($(PRODUCT_IMX_CAR),true)
@@ -15,16 +15,16 @@ else
 $(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
 endif # PRODUCT_IMX_CAR
 endif # IMX8_BUILD_32BIT_ROOTFS
-$(call inherit-product, device/fsl/imx8q/ProductConfigCommon.mk)
+$(call inherit-product, device/nxp/imx8q/ProductConfigCommon.mk)
 
-include device/fsl/imx8q/ProductConfigCommon.mk
+include device/nxp/imx8q/ProductConfigCommon.mk
 
-ifneq ($(wildcard $(IMX_DEVICE_PATH)/fstab_nand.freescale),)
-$(shell touch $(IMX_DEVICE_PATH)/fstab_nand.freescale)
+ifneq ($(wildcard $(IMX_DEVICE_PATH)/fstab_nand.nxp),)
+$(shell touch $(IMX_DEVICE_PATH)/fstab_nand.nxp)
 endif
 
-ifneq ($(wildcard $(IMX_DEVICE_PATH)/fstab.freescale),)
-$(shell touch $(IMX_DEVICE_PATH)/fstab.freescale)
+ifneq ($(wildcard $(IMX_DEVICE_PATH)/fstab.nxp),)
+$(shell touch $(IMX_DEVICE_PATH)/fstab.nxp)
 endif
 
 # Overrides
@@ -83,13 +83,13 @@ PRODUCT_COPY_FILES += \
     $(IMX_DEVICE_PATH)/app_whitelist.xml:system/etc/sysconfig/app_whitelist.xml \
     $(IMX_DEVICE_PATH)/audio_effects.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_effects.xml \
     $(IMX_DEVICE_PATH)/input-port-associations.xml:$(TARGET_COPY_OUT_VENDOR)/etc/input-port-associations.xml \
-    $(IMX_DEVICE_PATH)/init.imx8qm.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.freescale.imx8qm.rc \
-    $(IMX_DEVICE_PATH)/init.imx8qxp.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.freescale.imx8qxp.rc \
-    $(IMX_DEVICE_PATH)/init.usb.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.freescale.usb.rc \
-    $(IMX_DEVICE_PATH)/ueventd.freescale.rc:$(TARGET_COPY_OUT_VENDOR)/ueventd.rc \
-    device/fsl/common/init/init.insmod.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.insmod.sh \
-    device/fsl/common/wifi/p2p_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/p2p_supplicant_overlay.conf \
-    device/fsl/common/wifi/wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf
+    $(IMX_DEVICE_PATH)/init.imx8qm.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.nxp.imx8qm.rc \
+    $(IMX_DEVICE_PATH)/init.imx8qxp.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.nxp.imx8qxp.rc \
+    $(IMX_DEVICE_PATH)/init.usb.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.nxp.usb.rc \
+    $(IMX_DEVICE_PATH)/ueventd.nxp.rc:$(TARGET_COPY_OUT_VENDOR)/ueventd.rc \
+    device/nxp/common/init/init.insmod.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.insmod.sh \
+    device/nxp/common/wifi/p2p_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/p2p_supplicant_overlay.conf \
+    device/nxp/common/wifi/wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf
 
 ifeq ($(TARGET_USE_DYNAMIC_PARTITIONS),true)
 PRODUCT_COPY_FILES += \
@@ -99,22 +99,22 @@ endif
 
 # Audio card json
 PRODUCT_COPY_FILES += \
-    device/fsl/common/audio-json/wm8960_config.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/audio/wm8960_config.json \
-    device/fsl/common/audio-json/cs42888_config.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/audio/cs42888_config.json \
-    device/fsl/common/audio-json/cdnhdmi_config.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/audio/cdnhdmi_config.json \
-    device/fsl/common/audio-json/btsco_config.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/audio/btsco_config.json \
-    device/fsl/common/audio-json/readme.txt:$(TARGET_COPY_OUT_VENDOR)/etc/configs/audio/readme.txt
+    device/nxp/common/audio-json/wm8960_config.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/audio/wm8960_config.json \
+    device/nxp/common/audio-json/cs42888_config.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/audio/cs42888_config.json \
+    device/nxp/common/audio-json/cdnhdmi_config.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/audio/cdnhdmi_config.json \
+    device/nxp/common/audio-json/btsco_config.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/audio/btsco_config.json \
+    device/nxp/common/audio-json/readme.txt:$(TARGET_COPY_OUT_VENDOR)/etc/configs/audio/readme.txt
 
 # Copy rpmb test key and AVB test public key
 ifeq ($(PRODUCT_IMX_TRUSTY),true)
 PRODUCT_COPY_FILES += \
-    device/fsl/common/security/rpmb_key_test.bin:rpmb_key_test.bin \
-    device/fsl/common/security/testkey_public_rsa4096.bin:testkey_public_rsa4096.bin
+    device/nxp/common/security/rpmb_key_test.bin:rpmb_key_test.bin \
+    device/nxp/common/security/testkey_public_rsa4096.bin:testkey_public_rsa4096.bin
 endif
 
 PRODUCT_COPY_FILES += \
-    device/fsl/imx8q/mek_8q/camera_config_imx8qm.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/camera_config_imx8qm.json \
-    device/fsl/imx8q/mek_8q/camera_config_imx8qxp.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/camera_config_imx8qxp.json
+    device/nxp/imx8q/mek_8q/camera_config_imx8qm.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/camera_config_imx8qm.json \
+    device/nxp/imx8q/mek_8q/camera_config_imx8qxp.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/camera_config_imx8qxp.json
 
 ifeq ($(PRODUCT_IMX_CAR),true)
 PRODUCT_COPY_FILES += \
@@ -128,11 +128,11 @@ endif
 
 ifeq ($(PRODUCT_IMX_CAR),true)
 PRODUCT_COPY_FILES += \
-    $(IMX_DEVICE_PATH)/init_car.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.freescale.rc \
-    $(IMX_DEVICE_PATH)/fstab.freescale.car:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.freescale \
+    $(IMX_DEVICE_PATH)/init_car.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.nxp.rc \
+    $(IMX_DEVICE_PATH)/fstab.nxp.car:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.nxp \
     $(IMX_DEVICE_PATH)/early.init_car.cfg:$(TARGET_COPY_OUT_VENDOR)/etc/early.init.cfg \
     $(IMX_DEVICE_PATH)/required_hardware_auto.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/required_hardware.xml \
-    $(IMX_DEVICE_PATH)/init.recovery.freescale.car.rc:root/init.recovery.freescale.rc
+    $(IMX_DEVICE_PATH)/init.recovery.nxp.car.rc:root/init.recovery.nxp.rc
 
 ifeq ($(PRODUCT_IMX_CAR_M4),true)
 PRODUCT_COPY_FILES += \
@@ -147,10 +147,10 @@ PRODUCT_COPY_FILES += \
 endif #PRODUCT_IMX_CAR_M4
 else
 PRODUCT_COPY_FILES += \
-    $(IMX_DEVICE_PATH)/init.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.freescale.rc \
-    $(IMX_DEVICE_PATH)/fstab.freescale:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.freescale \
+    $(IMX_DEVICE_PATH)/init.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.nxp.rc \
+    $(IMX_DEVICE_PATH)/fstab.nxp:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.nxp \
     $(IMX_DEVICE_PATH)/required_hardware.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/required_hardware.xml \
-    $(IMX_DEVICE_PATH)/init.recovery.freescale.rc:root/init.recovery.freescale.rc \
+    $(IMX_DEVICE_PATH)/init.recovery.nxp.rc:root/init.recovery.nxp.rc \
     $(IMX_DEVICE_PATH)/early.init.cfg:$(TARGET_COPY_OUT_VENDOR)/etc/early.init.cfg
 
 # We load the fstab from device tree so this is not needed, but since no kernel modules are installed to vendor
@@ -158,7 +158,7 @@ PRODUCT_COPY_FILES += \
 # can be deleted once we figure out what kernel modules should be put into the vendor boot ramdisk.
 ifeq ($(TARGET_USE_VENDOR_BOOT),true)
 PRODUCT_COPY_FILES += \
-    $(IMX_DEVICE_PATH)/fstab.freescale:$(TARGET_COPY_OUT_VENDOR_RAMDISK)/first_stage_ramdisk/fstab.freescale
+    $(IMX_DEVICE_PATH)/fstab.nxp:$(TARGET_COPY_OUT_VENDOR_RAMDISK)/first_stage_ramdisk/fstab.nxp
 endif
 
 endif
@@ -207,8 +207,8 @@ endif
 PRODUCT_COPY_FILES += \
     $(IMX_DEVICE_PATH)/seccomp/mediaextractor-seccomp.policy:vendor/etc/seccomp_policy/mediaextractor.policy \
     $(IMX_DEVICE_PATH)/seccomp/mediacodec-seccomp.policy:vendor/etc/seccomp_policy/mediacodec.policy \
-    device/fsl/common/seccomp_policy/codec2.vendor.base.policy:vendor/etc/seccomp_policy/codec2.vendor.base.policy \
-    device/fsl/common/seccomp_policy/codec2.vendor.ext.policy:vendor/etc/seccomp_policy/codec2.vendor.ext.policy
+    device/nxp/common/seccomp_policy/codec2.vendor.base.policy:vendor/etc/seccomp_policy/codec2.vendor.base.policy \
+    device/nxp/common/seccomp_policy/codec2.vendor.ext.policy:vendor/etc/seccomp_policy/codec2.vendor.ext.policy
 
 USE_XML_AUDIO_POLICY_CONF := 1
 
@@ -219,19 +219,19 @@ PRODUCT_COPY_FILES += \
 
 # fastboot_imx_flashall scripts, fsl-sdcard-partition and uuu_imx_android_flash scripts
 PRODUCT_COPY_FILES += \
-    device/fsl/common/tools/fastboot_imx_flashall.bat:fastboot_imx_flashall.bat \
-    device/fsl/common/tools/fastboot_imx_flashall.sh:fastboot_imx_flashall.sh \
-    device/fsl/common/tools/uuu_imx_android_flash.bat:uuu_imx_android_flash.bat \
-    device/fsl/common/tools/uuu_imx_android_flash.sh:uuu_imx_android_flash.sh
+    device/nxp/common/tools/fastboot_imx_flashall.bat:fastboot_imx_flashall.bat \
+    device/nxp/common/tools/fastboot_imx_flashall.sh:fastboot_imx_flashall.sh \
+    device/nxp/common/tools/uuu_imx_android_flash.bat:uuu_imx_android_flash.bat \
+    device/nxp/common/tools/uuu_imx_android_flash.sh:uuu_imx_android_flash.sh
 
 PRODUCT_COPY_FILES += \
-     device/fsl/imx8q/mek_8q/powerhint_imx8qxp.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/powerhint_imx8qxp.json \
-     device/fsl/imx8q/mek_8q/powerhint_imx8qm.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/powerhint_imx8qm.json
+     device/nxp/imx8q/mek_8q/powerhint_imx8qxp.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/powerhint_imx8qxp.json \
+     device/nxp/imx8q/mek_8q/powerhint_imx8qm.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/powerhint_imx8qm.json
 
 ifneq ($(PRODUCT_IMX_CAR),true)
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.screen.portrait.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.screen.portrait.xml \
-    device/fsl/common/tools/fsl-sdcard-partition.sh:fsl-sdcard-partition.sh
+    device/nxp/common/tools/imx-sdcard-partition.sh:imx-sdcard-partition.sh
 endif
 
 
@@ -327,17 +327,17 @@ PRODUCT_PACKAGES += \
 
 ifneq ($(PRODUCT_IMX_CAR),true)
 PRODUCT_COPY_FILES += \
-    device/fsl/imx8q/mek_8q/thermal_info_config_imx8qxp.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/thermal_info_config_imx8qxp.json \
-    device/fsl/imx8q/mek_8q/thermal_info_config_imx8qm.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/thermal_info_config_imx8qm.json
+    device/nxp/imx8q/mek_8q/thermal_info_config_imx8qxp.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/thermal_info_config_imx8qxp.json \
+    device/nxp/imx8q/mek_8q/thermal_info_config_imx8qm.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/thermal_info_config_imx8qm.json
 else
 ifneq ($(PRODUCT_IMX_CAR_M4),true)
 PRODUCT_COPY_FILES += \
-    device/fsl/imx8q/mek_8q/thermal_info_config_imx8qxp_car2.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/thermal_info_config_imx8qxp.json \
-    device/fsl/imx8q/mek_8q/thermal_info_config_imx8qm_car2.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/thermal_info_config_imx8qm.json
+    device/nxp/imx8q/mek_8q/thermal_info_config_imx8qxp_car2.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/thermal_info_config_imx8qxp.json \
+    device/nxp/imx8q/mek_8q/thermal_info_config_imx8qm_car2.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/thermal_info_config_imx8qm.json
 else
 PRODUCT_COPY_FILES += \
-    device/fsl/imx8q/mek_8q/thermal_info_config_imx8qxp.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/thermal_info_config_imx8qxp.json \
-    device/fsl/imx8q/mek_8q/thermal_info_config_imx8qm.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/thermal_info_config_imx8qm.json
+    device/nxp/imx8q/mek_8q/thermal_info_config_imx8qxp.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/thermal_info_config_imx8qxp.json \
+    device/nxp/imx8q/mek_8q/thermal_info_config_imx8qm.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/thermal_info_config_imx8qm.json
 endif
 endif
 

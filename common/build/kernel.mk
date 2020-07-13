@@ -128,7 +128,7 @@ KERNEL_CONFIG_SRC := $(KERNEL_CONFIG_DEFAULT) \
   $(KERNEL_CONFIG_GKI)
 
 KERNEL_CONFIG := $(KERNEL_OUT)/.config
-KERNEL_MERGE_CONFIG := device/fsl/common/tools/mergeconfig.sh
+KERNEL_MERGE_CONFIG := device/nxp/common/tools/mergeconfig.sh
 
 KERNEL_HEADERS_INSTALL := $(KERNEL_OUT)/usr
 #KERNEL_MODULES_INSTALL := $(TARGET_OUT)/lib/modules

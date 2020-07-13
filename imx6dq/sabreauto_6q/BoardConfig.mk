@@ -2,9 +2,9 @@
 # Product-specific compile-time definitions.
 #
 
-IMX_DEVICE_PATH := device/fsl/imx6dq/sabreauto_6q
+IMX_DEVICE_PATH := device/nxp/imx6dq/sabreauto_6q
 
-include device/fsl/imx6dq/BoardConfigCommon.mk
+include device/nxp/imx6dq/BoardConfigCommon.mk
 ifeq ($(PREBUILT_FSL_IMX_CODEC),true)
 -include $(FSL_CODEC_PATH)/fsl-codec/fsl-codec.mk
 endif
@@ -14,12 +14,12 @@ TARGET_USES_64_BIT_BINDER := true
 BUILD_TARGET_FS ?= ext4
 TARGET_USERIMAGES_USE_EXT4 := true
 
-TARGET_RECOVERY_FSTAB = $(IMX_DEVICE_PATH)/fstab.freescale
+TARGET_RECOVERY_FSTAB = $(IMX_DEVICE_PATH)/fstab.nxp
 
 # Support gpt
-BOARD_BPT_INPUT_FILES += device/fsl/common/partition/device-partitions-7GB.bpt
-ADDITION_BPT_PARTITION = partition-table-14GB:device/fsl/common/partition/device-partitions-14GB.bpt \
-                         partition-table-28GB:device/fsl/common/partition/device-partitions-28GB.bpt
+BOARD_BPT_INPUT_FILES += device/nxp/common/partition/device-partitions-7GB.bpt
+ADDITION_BPT_PARTITION = partition-table-14GB:device/nxp/common/partition/device-partitions-14GB.bpt \
+                         partition-table-28GB:device/nxp/common/partition/device-partitions-28GB.bpt
 
 # Vendor Interface manifest and compatibility
 DEVICE_MANIFEST_FILE := $(IMX_DEVICE_PATH)/manifest.xml
@@ -62,7 +62,7 @@ USE_GPU_ALLOCATOR := false
 NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
 
 KERNEL_NAME := zImage
-BOARD_KERNEL_CMDLINE := console=ttymxc3,115200 init=/init video=mxcfb0:dev=ldb,fbpix=RGB32,bpp=32 video=mxcfb1:off video=mxcfb2:off video=mxcfb3:off vmalloc=128M androidboot.console=ttymxc3 consoleblank=0 androidboot.hardware=freescale cma=512M galcore.contiguousSize=67108864 loop.max_part=7
+BOARD_KERNEL_CMDLINE := console=ttymxc3,115200 init=/init video=mxcfb0:dev=ldb,fbpix=RGB32,bpp=32 video=mxcfb1:off video=mxcfb2:off video=mxcfb3:off vmalloc=128M androidboot.console=ttymxc3 consoleblank=0 androidboot.hardware=nxp cma=512M galcore.contiguousSize=67108864 loop.max_part=7
 
 ifeq ($(TARGET_USERIMAGES_USE_UBIFS),true)
 #UBI boot command line.
@@ -122,10 +122,10 @@ TARGET_KERNEL_DEFCONFIG := imx_v7_android_defconfig
 # TARGET_KERNEL_ADDITION_DEFCONF := imx_v7_android_addition_defconfig
 
 BOARD_SEPOLICY_DIRS := \
-       device/fsl/imx6dq/sepolicy \
+       device/nxp/imx6dq/sepolicy \
        $(IMX_DEVICE_PATH)/sepolicy
 
-TARGET_BOARD_KERNEL_HEADERS := device/fsl/common/kernel-headers
+TARGET_BOARD_KERNEL_HEADERS := device/nxp/common/kernel-headers
 
 #Enable AVB
 BOARD_AVB_ENABLE := true
