@@ -1,4 +1,4 @@
-on init 
+on init
     # disable cursor blink for fbcon, if no splash screen support
     write /sys/class/graphics/fbcon/cursor_blink 0
 

@@ -307,8 +307,7 @@ PRODUCT_COPY_FILES += \
     device/fsl/common/input/eGalax_Touch_Screen.idc:$(TARGET_COPY_OUT_VENDOR)/usr/idc/Novatek_NT11003_Touch_Screen.idc \
     device/fsl/common/input/eGalax_Touch_Screen.idc:$(TARGET_COPY_OUT_VENDOR)/usr/idc/eGalax_Touch_Screen.idc \
     device/fsl/imx7ulp/etc/init.usb.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.freescale.usb.rc \
-    device/fsl/imx7ulp/etc/ota.conf:$(TARGET_COPY_OUT_VENDOR)/etc/ota.conf \
-    device/fsl/imx7ulp/init.recovery.freescale.rc:root/init.recovery.freescale.rc \
+    device/fsl/imx7ulp/etc/ota.conf:$(TARGET_COPY_OUT_VENDOR)/etc/ota.conf
 
 # we have enough storage space to hold precise GC data
 PRODUCT_TAGS += dalvik.gc.type-precise

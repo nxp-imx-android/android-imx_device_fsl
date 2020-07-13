@@ -132,7 +132,7 @@ PRODUCT_COPY_FILES += \
     $(IMX_DEVICE_PATH)/fstab.freescale.car:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.freescale \
     $(IMX_DEVICE_PATH)/early.init_car.cfg:$(TARGET_COPY_OUT_VENDOR)/etc/early.init.cfg \
     $(IMX_DEVICE_PATH)/required_hardware_auto.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/required_hardware.xml \
-    device/fsl/imx8q/init.recovery.freescale.car.rc:root/init.recovery.freescale.rc
+    $(IMX_DEVICE_PATH)/init.recovery.freescale.car.rc:root/init.recovery.freescale.rc
 
 ifeq ($(PRODUCT_IMX_CAR_M4),true)
 PRODUCT_COPY_FILES += \
@@ -150,7 +150,7 @@ PRODUCT_COPY_FILES += \
     $(IMX_DEVICE_PATH)/init.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.freescale.rc \
     $(IMX_DEVICE_PATH)/fstab.freescale:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.freescale \
     $(IMX_DEVICE_PATH)/required_hardware.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/required_hardware.xml \
-    device/fsl/imx8q/init.recovery.freescale.rc:root/init.recovery.freescale.rc \
+    $(IMX_DEVICE_PATH)/init.recovery.freescale.rc:root/init.recovery.freescale.rc \
     $(IMX_DEVICE_PATH)/early.init.cfg:$(TARGET_COPY_OUT_VENDOR)/etc/early.init.cfg
 
 # We load the fstab from device tree so this is not needed, but since no kernel modules are installed to vendor
