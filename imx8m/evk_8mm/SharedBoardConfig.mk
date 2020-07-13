@@ -34,6 +34,8 @@ PRODUCT_IMX_TRUSTY := true
 # CONFIG_MXC_HANTRO_845_H1: hx280enc.ko vpu encoder
 # CONFIG_RTC_DRV_SNVS: rtc-snvs.ko, snvs driver
 # CONFIG_KEYBOARD_SNVS_PWRKEY: powerkey driver
+# CONFIG_FEC: fec.ko which depend on pps_core.ko and ptp.ko
+# CONFIG_AT803X_PHY: ethernet phy driver at803x.ko
 
 BOARD_VENDOR_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/input/touchscreen/synaptics_dsx/synaptics_dsx_i2c.ko
@@ -56,7 +58,11 @@ BOARD_VENDOR_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/mxc/hantro_845/hantrodec_845s.ko \
     $(KERNEL_OUT)/drivers/mxc/hantro_845_h1/hx280enc.ko \
     $(KERNEL_OUT)/drivers/rtc/rtc-snvs.ko \
-    $(KERNEL_OUT)/drivers/input/keyboard/snvs_pwrkey.ko
+    $(KERNEL_OUT)/drivers/input/keyboard/snvs_pwrkey.ko \
+    $(KERNEL_OUT)/drivers/pps/pps_core.ko \
+    $(KERNEL_OUT)/drivers/ptp/ptp.ko \
+    $(KERNEL_OUT)/drivers/net/phy/at803x.ko \
+    $(KERNEL_OUT)/drivers/net/ethernet/freescale/fec.ko
 endif
 
 # CONFIG_CLK_IMX8MM: clk-imx8mm.ko
