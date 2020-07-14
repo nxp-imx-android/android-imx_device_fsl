@@ -92,3 +92,6 @@
 /vendor/vendor_overlay_soc/(imx8qm|imx8qxp)/vendor/etc(/.*)?              u:object_r:vendor_configs_file:s0
 
 /dev/block/pmem0  u:object_r:rebootescrow_device:s0
+
+# partitions of boot device
+/dev/block/by-name/vendor_boot_[ab]          u:object_r:boot_block_device:s0
