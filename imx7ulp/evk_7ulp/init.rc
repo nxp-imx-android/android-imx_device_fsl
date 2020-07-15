@@ -31,6 +31,8 @@ on late-fs
     # Start keymaster service
     start vendor.keymaster-3-0-${ro.boot.keystore}
 
+    mount_all /vendor/etc/fstab.nxp --late
+
 on early-boot
     # Set the host name which used in console
     export HOSTNAME evk_7ulp
@@ -187,7 +189,7 @@ service bugreport /system/bin/dumpstate -d -p -B -z \
 
 on fs
 # mount ext4 partitions
-    mount_all /vendor/etc/fstab.nxp
+    mount_all /vendor/etc/fstab.nxp --early
 
     # Update dm-verity state and set partition.*.verified properties
     verity_update_state
