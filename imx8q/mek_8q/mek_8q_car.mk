@@ -34,8 +34,6 @@ PRODUCT_PACKAGES += \
 
 # Add Car related HAL
 PRODUCT_PACKAGES += \
-    libion \
-    vehicle.default \
     android.hardware.automotive.vehicle@2.0-service
 
 ifeq ($(PRODUCT_IMX_CAR_M4),false)

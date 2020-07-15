@@ -19,13 +19,9 @@ PRODUCT_PACKAGES += \
     MultiClientInputMethod \
     charger_res_images \
     charger \
-    libGLES_android \
-    libRS \
     libedid \
     libion \
-    librs_jni \
-    verity_warning_images \
-    vndk-sp
+    verity_warning_images
 
 
 ifneq ($(PRODUCT_IMX_CAR),true)
@@ -50,7 +46,6 @@ PRODUCT_PACKAGES += \
     Gallery2 \
     LegacyCamera \
     LiveWallpapersPicker \
-    MagicSmokeWallpapers \
     SoundRecorder
 endif
 
@@ -85,12 +80,10 @@ PRODUCT_PACKAGES += \
     audio.primary.imx \
     audio.r_submix.default \
     audio.usb.default \
-    libaudioutils \
-    libsrec_jni \
-    libtinyalsa \
     tinycap \
     tinymix \
-    tinyplay
+    tinyplay \
+    tinypcminfo
 
 # LDAC codec
 PRODUCT_PACKAGES += \
@@ -110,8 +103,7 @@ PRODUCT_PACKAGES += \
 # sensor
 PRODUCT_PACKAGES += \
     fsl_sensor_fusion \
-    libbt-vendor \
-    magd
+    libbt-vendor
 
 # memtrack
 PRODUCT_PACKAGES += \
@@ -157,33 +149,12 @@ PRODUCT_PACKAGES += \
 
 # drm
 PRODUCT_PACKAGES += \
-    drmserver                   		\
-    libdrmframework             		\
-    libdrmframework_jni         		\
-    libdrmpassthruplugin        		\
+    libdrmpassthruplugin \
     libfwdlockengine
 
 # vivante libdrm support
 PRODUCT_PACKAGES += \
     libdrm_vivante
-
-# FUSE based emulated sdcard daemon
-PRODUCT_PACKAGES += \
-    sdcard
-
-# e2fsprogs libs
-PRODUCT_PACKAGES += \
-    libext2_blkid \
-    libext2_com_err \
-    libext2_e2p \
-    libext2_profile \
-    libext2_uuid \
-    libext2fs \
-    mke2fs
-
-# for CtsVerifier
-PRODUCT_PACKAGES += \
-    com.android.future.usb.accessory
 
 # gpu debug tool
 PRODUCT_PACKAGES += \
