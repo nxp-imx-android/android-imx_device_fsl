@@ -13,41 +13,19 @@ PRODUCT_PACKAGES += \
     CubeLiveWallpapers \
     Email \
     FSLOta \
-    FSLProfileApp \
-    FSLProfileService \
-    Gallery \
     Gallery2 \
     LegacyCamera \
     LiveWallpapers \
     LiveWallpapersPicker \
-    MagicSmokeWallpapers \
-    PinyinIME \
     SoundRecorder \
-    VideoEditor \
-    VisualizationWallpapers \
     charger_res_images \
-    chat \
     ethernet \
     ip-up-vpn \
-    libGLES_android \
-    libRS \
     libedid \
     libion \
-    libjni_pinyinime \
     libpxp \
-    librs_jni \
-    libubi \
-    mkfs_ubifs \
     slideshow \
-    ubiattach \
-    ubidetach \
-    ubiformat \
-    ubimkvol \
-    ubinfo \
-    ubinize \
-    ubiupdatevol \
-    verity_warning_images \
-    vndk-sp
+    verity_warning_images
 
 # HAL
 PRODUCT_PACKAGES += \
@@ -61,9 +39,7 @@ PRODUCT_PACKAGES += \
 # sensor
 PRODUCT_PACKAGES += \
     fsl_sensor_fusion \
-    libbt-vendor \
-    libbt-vendor-broadcom \
-    magd
+    libbt-vendor
 
 # audio
 PRODUCT_PACKAGES += \
@@ -71,12 +47,10 @@ PRODUCT_PACKAGES += \
     audio.primary.imx \
     audio.r_submix.default \
     audio.usb.default \
-    libaudioutils \
-    libsrec_jni \
-    libtinyalsa \
     tinycap \
     tinymix \
-    tinyplay
+    tinyplay \
+    tinypcminfo
 
 # LDAC codec
 PRODUCT_PACKAGES += \
@@ -102,9 +76,6 @@ PRODUCT_PACKAGES += \
 
 # drm
 PRODUCT_PACKAGES += \
-    drmserver \
-    libdrmframework \
-    libdrmframework_jni \
     libdrmpassthruplugin \
     libfwdlockengine
 
@@ -113,7 +84,6 @@ PRODUCT_PACKAGES += \
 
 # Wifi AP mode
 PRODUCT_PACKAGES += \
-    wpa_supplicant \
     wpa_supplicant \
     wpa_supplicant.conf \
     hostapd \
@@ -127,33 +97,6 @@ PRODUCT_PACKAGES += \
     android.hardware.memtrack@1.0-impl \
     android.hardware.memtrack@1.0-service \
     memtrack.imx
-
-# FUSE based emulated sdcard daemon
-PRODUCT_PACKAGES += sdcard
-
-# e2fsprogs libs
-PRODUCT_PACKAGES += \
-    libext2_blkid \
-    libext2_com_err \
-    libext2_e2p \
-    libext2_profile \
-    libext2_uuid \
-    libext2fs \
-    mke2fs
-
-# ntfs-3g binary
-PRODUCT_PACKAGES += \
-    ntfs-3g \
-    ntfsfix
-
-# for CtsVerifier
-PRODUCT_PACKAGES += \
-    com.android.future.usb.accessory
-
-# Debug utils
-PRODUCT_PACKAGES += \
-    taskset \
-    sqlite3
 
 # gpu debug tool
 PRODUCT_PACKAGES += \
