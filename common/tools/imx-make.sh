@@ -17,6 +17,7 @@ cat << EOF
            vvcam                   vvcam.ko, the ISP driver will be compiled
            dtboimage               dtbo images will be built out
            bootimage               boot.img will be built out
+           vendorbootimage         vendor_boot.img will be built out
            vendorimage             vendor.img will be built out
            -c                      use clean build for kernel, not incremental build
 
@@ -68,6 +69,7 @@ build_kernel=""
 build_galcore=""
 build_vvcam=""
 build_bootimage=""
+build_vendorbootimage=""
 build_dtboimage=""
 build_vendorimage=""
 parallel_option=""
@@ -92,6 +94,10 @@ for arg in ${args[*]} ; do
                     build_android_flag=1;
                     build_kernel="${OUT}/kernel";
                     build_bootimage="bootimage";;
+        vendorbootimage) build_bootloader_kernel_flag=1;
+                    build_android_flag=1;
+                    build_kernel="${OUT}/kernel";
+                    build_vendorbootimage="vendorbootimage";;
         dtboimage) build_kernel_flag=1;
                     build_android_flag=1;
                     build_kernel="${OUT}/kernel";
@@ -139,7 +145,7 @@ if [ ${build_android_flag} -eq 1 ]; then
     # source envsetup.sh before building Android rootfs, the time spent on building uboot/kernel
     # before this does not count in the final result
     source build/envsetup.sh
-    make ${parallel_option} ${build_bootimage} ${build_dtboimage} ${build_vendorimage}
+    make ${parallel_option} ${build_bootimage} ${build_vendorbootimage} ${build_dtboimage} ${build_vendorimage}
 fi
 
 # copy the uboot output to ${OUT_DIR}
