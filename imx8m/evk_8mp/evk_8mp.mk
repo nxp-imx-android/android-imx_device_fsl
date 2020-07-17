@@ -33,6 +33,7 @@ TARGET_USE_DYNAMIC_PARTITIONS ?= true
 TARGET_USE_RETROFIT_DYNAMIC_PARTITION ?= false
 
 ifeq ($(TARGET_USE_DYNAMIC_PARTITIONS),true)
+  $(call inherit-product, $(SRC_TARGET_DIR)/product/virtual_ab_ota.mk)
   PRODUCT_USE_DYNAMIC_PARTITIONS := true
   BOARD_BUILD_SUPER_IMAGE_BY_DEFAULT := true
   BOARD_SUPER_IMAGE_IN_UPDATE_PACKAGE := true
@@ -98,11 +99,6 @@ PRODUCT_COPY_FILES += \
     $(IMX_DEVICE_PATH)/fstab.nxp:$(TARGET_COPY_OUT_VENDOR_RAMDISK)/first_stage_ramdisk/fstab.nxp
 endif
 
-ifeq ($(TARGET_USE_DYNAMIC_PARTITIONS),true)
-PRODUCT_COPY_FILES += \
-    $(FSL_PROPRIETARY_PATH)/fsl-proprietary/dynamic_partiton_tools/lpmake:lpmake \
-    $(FSL_PROPRIETARY_PATH)/fsl-proprietary/dynamic_partiton_tools/lpmake.exe:lpmake.exe
-endif
 
 # Audio card json
 PRODUCT_COPY_FILES += \

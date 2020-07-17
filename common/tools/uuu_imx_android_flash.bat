@@ -67,13 +67,6 @@ set dual_bootloader_partition=
 set /A daemon_mode=0
 set /A flag=1
 set /A dryrun=0
-set lpmake_system_image_a=
-set lpmake_system_image_b=
-set lpmake_vendor_image_a=
-set lpmake_vendor_image_b=
-set lpmake_product_image_a=
-set lpmake_product_image_b=
-set /A dont_generate_super=0
 
 
 :: We want to detect illegal feature input to some extent. Here it's based on SoC names. Since an SoC may be on a
@@ -124,7 +117,6 @@ if %1 == -y set yocto_image=%2&shift &shift & goto :parse_loop
 if %1 == -i set /A intervene=1 & shift & goto :parse_loop
 if %1 == -daemon set /A daemon_mode=1 & shift & goto :parse_loop
 if %1 == -dryrun set /A dryrun=1 & shift & goto :parse_loop
-if %1 == -super set /A dont_generate_super=1 & shift & goto :parse_loop
 echo unknown option "%1", please check it.
 call :help & set /A error_level=1 && goto :exit
 :parse_end
@@ -722,9 +714,6 @@ if not [%partition_to_be_flashed:bootloader=%] == [%partition_to_be_flashed%] (
     goto :start_to_flash
 )
 if not [%partition_to_be_flashed:super=%] == [%partition_to_be_flashed%] (
-    if %dont_generate_super% == 0 (
-        call :make_super_image
-    )
     set img_name=%super_file%
     goto :start_to_flash
 )
@@ -744,23 +733,11 @@ if not [%partition_to_be_flashed:gpt=%] == [%partition_to_be_flashed%] (
 
 :start_to_flash
 echo generate lines to flash %img_name% to the partition of %1
-if [%img_name%] == [%super_file%] (
-    if %dont_generate_super% == 0 (
-        echo FB[-t 600000]: flash %1 %img_name% >> uuu.lst
-    ) else (
-        if exist %img_name%.link (
-            del %img_name%.link
-        )
-        cmd /c mklink %img_name%.link %image_directory%%img_name% > nul
-        echo FB[-t 600000]: flash %1 %img_name%.link >> uuu.lst
-    )
-) else (
-    if exist %img_name%.link (
-        del %img_name%.link
-    )
-    cmd /c mklink %img_name%.link %image_directory%%img_name% > nul
-    echo FB[-t 600000]: flash %1 %img_name%.link >> uuu.lst
+if exist %img_name%.link (
+    del %img_name%.link
 )
+cmd /c mklink %img_name%.link %image_directory%%img_name% > nul
+echo FB[-t 600000]: flash %1 %img_name%.link >> uuu.lst
 goto :eof
 
 
@@ -890,45 +867,6 @@ if not [!dec!] == [0] (
 echo !hex!
 goto :eof
 
-:: this function will invoke lpmake to create super.img, the super.img will
-:: be created in current directory
-:make_super_image
-if exist %super_file% (
-    del %super_file%
-)
-:: now dynamic partition is only enabled in dual slot condition
-if %support_dualslot% == 1 (
-    setlocal enabledelayedexpansion
-    if [%slot%] == [_a] (
-        set lpmake_system_image_a=--image system_a=%image_directory%%systemimage_file%
-        set lpmake_vendor_image_a=--image vendor_a=%image_directory%%vendor_file%
-        set lpmake_product_image_a=--image product_a=%image_directory%%product_file%
-    )
-    if [%slot%] == [_b] (
-        set lpmake_system_image_b=--image system_b=%image_directory%%systemimage_file%
-        set lpmake_vendor_image_b=--image vendor_b=%image_directory%%vendor_file%
-        set lpmake_product_image_b=--image product_b=%image_directory%%product_file%
-    )
-    if [%slot%] == [] (
-        set lpmake_system_image_a=--image system_a=%image_directory%%systemimage_file%
-        set lpmake_vendor_image_a=--image vendor_a=%image_directory%%vendor_file%
-        set lpmake_product_image_a=--image product_a=%image_directory%%product_file%
-        set lpmake_system_image_b=--image system_b=%image_directory%%systemimage_file%
-        set lpmake_vendor_image_b=--image vendor_b=%image_directory%%vendor_file%
-        set lpmake_product_image_b=--image product_b=%image_directory%%product_file%
-    )
-    %image_directory%lpmake.exe --metadata-size 65536 --super-name super --metadata-slots 3 --device super:7516192768 ^
-        --group nxp_dynamic_partitions_a:3747610624 --group nxp_dynamic_partitions_b:3747610624 ^
-        --partition system_a:readonly:0:nxp_dynamic_partitions_a !lpmake_system_image_a! ^
-        --partition system_b:readonly:0:nxp_dynamic_partitions_b !lpmake_system_image_b! ^
-        --partition vendor_a:readonly:0:nxp_dynamic_partitions_a !lpmake_vendor_image_a! ^
-        --partition vendor_b:readonly:0:nxp_dynamic_partitions_b !lpmake_vendor_image_b! ^
-        --partition product_a:readonly:0:nxp_dynamic_partitions_a !lpmake_product_image_a! ^
-        --partition product_b:readonly:0:nxp_dynamic_partitions_b !lpmake_product_image_b! ^
-        --sparse --output !super_file!
-)
-
-goto :eof
 
 :exit
 exit /B %error_level%

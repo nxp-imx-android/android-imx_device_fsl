@@ -84,10 +84,6 @@ options:
                         This option is for users to manually flash the images to partitions they want to
   -daemon           after uuu script generated, uuu will be invoked with daemon mode. It is used for flash multi boards
   -dryrun           only generate the uuu script under /tmp direcbory but not flash images
-  -super            do not generate super.img when flash the images with dynamic partition feature enabled.
-                       Under the condition that dynamic partition feature are enabled:
-                         if this option is not used, super.img will be generated under "/tmp" and flashed to the board.
-                         if this option is used, make sure super.img already exists together with other images.
 EOF
 
 }
@@ -177,19 +173,14 @@ function flash_partition
     elif [ "$(echo ${1} | grep "gpt")" != "" ]; then
         img_name=${partition_file}
     elif [ "$(echo ${1} | grep "super")" != "" ]; then
-        if [ ${dont_generate_super} -eq 0 ]; then
-            make_super_image
-        fi
         img_name=${super_file}
     else
         img_name="${1%_*}-${soc_name}.img"
     fi
 
     echo -e generate lines to flash ${RED}${img_name}${STD} to the partition of ${RED}${1}${STD}
-    if [ "${img_name}" != "${super_file}" ] || [ ${dont_generate_super} -eq 1 ]; then
-        rm -f /tmp/${img_name}
-        ln -s ${sym_link_directory}${img_name} /tmp/${img_name}
-    fi
+    rm -f /tmp/${img_name}
+    ln -s ${sym_link_directory}${img_name} /tmp/${img_name}
     echo FB[-t 600000]: flash ${1} ${img_name} >> /tmp/uuu.lst
 }
 
@@ -306,42 +297,6 @@ function flash_android
     fi
 }
 
-# this function will invoke lpmake to create super.img, the super.img will
-# be created in /tmp, make sure that there is enouth space
-function make_super_image
-{
-    rm -rf /tmp/${super_file}
-    # now dynamic partition is only enabled in dual slot condition
-    if [ ${support_dualslot} -eq 1 ]; then
-        if [ "${slot}" == "_a" ]; then
-            lpmake_system_image_a="--image system_a=${sym_link_directory}${systemimage_file}"
-            lpmake_vendor_image_a="--image vendor_a=${sym_link_directory}${vendor_file}"
-            lpmake_product_image_a="--image product_a=${sym_link_directory}${product_file}"
-        elif [ "${slot}" == "_b" ]; then
-            lpmake_system_image_b="--image system_b=${sym_link_directory}${systemimage_file}"
-            lpmake_vendor_image_b="--image vendor_b=${sym_link_directory}${vendor_file}"
-            lpmake_product_image_b="--image product_b=${sym_link_directory}${product_file}"
-        else
-            lpmake_system_image_a="--image system_a=${sym_link_directory}${systemimage_file}"
-            lpmake_vendor_image_a="--image vendor_a=${sym_link_directory}${vendor_file}"
-            lpmake_product_image_a="--image product_a=${sym_link_directory}${product_file}"
-            lpmake_system_image_b="--image system_b=${sym_link_directory}${systemimage_file}"
-            lpmake_vendor_image_b="--image vendor_b=${sym_link_directory}${vendor_file}"
-            lpmake_product_image_b="--image product_b=${sym_link_directory}${product_file}"
-        fi
-    fi
-
-        ${sym_link_directory}lpmake --metadata-size 65536 --super-name super --metadata-slots 3 --device super:7516192768 \
-            --group nxp_dynamic_partitions_a:3747610624 --group nxp_dynamic_partitions_b:3747610624 \
-            --partition system_a:readonly:0:nxp_dynamic_partitions_a ${lpmake_system_image_a} \
-            --partition system_b:readonly:0:nxp_dynamic_partitions_b ${lpmake_system_image_b} \
-            --partition vendor_a:readonly:0:nxp_dynamic_partitions_a ${lpmake_vendor_image_a} \
-            --partition vendor_b:readonly:0:nxp_dynamic_partitions_b ${lpmake_vendor_image_b} \
-            --partition product_a:readonly:0:nxp_dynamic_partitions_a ${lpmake_product_image_a} \
-            --partition product_b:readonly:0:nxp_dynamic_partitions_b ${lpmake_product_image_b} \
-            --sparse --output /tmp/${super_file}
-}
-
 # parse command line
 soc_name=""
 uboot_feature=""
@@ -397,14 +352,7 @@ sym_link_directory=""
 yocto_image_sym_link=""
 daemon_mode=0
 dryrun=0
-lpmake_system_image_a=""
-lpmake_system_image_b=""
-lpmake_vendor_image_a=""
-lpmake_vendor_image_b=""
-lpmake_product_image_a=""
-lpmake_product_image_b=""
 result_value=0
-dont_generate_super=0
 
 # We want to detect illegal feature input to some extent. Here it's based on SoC names. Since an SoC may be on a
 # board running different set of images(android and automative for a example), so misuse the features of one set of
@@ -452,7 +400,6 @@ while [ $# -gt 0 ]; do
         -i) intervene=1 ;;
         -daemon) daemon_mode=1 ;;
         -dryrun) dryrun=1 ;;
-        -super) dont_generate_super=1 ;;
         *)  echo -e >&2 ${RED}the option \"${1}\"  you specified is not supported, please check it${STD}
             help; exit;;
     esac

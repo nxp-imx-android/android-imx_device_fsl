@@ -39,50 +39,9 @@ options:
   -D directory      specify the directory which contains the images to be flashed.
   -m                flash mcu image
   -o force_offset   force set uboot offset
-  -super            do not generate super.img when flash the images with dynamic partition feature enabled.
-                        Under the condition that dynamic partition feature are enabled:
-                          if this option is not used, super.img will be generated under "/tmp" and flashed to the board.
-                          if this option is used, make sure super.img already exists together with other images.
 EOF
 
 }
-
-# this function will invoke lpmake to create super.img, the super.img will
-# be created in /tmp, make sure that there is enouth space
-function make_super_image
-{
-    rm -rf /tmp/${super_file}
-    # now dynamic partition is only enabled in dual slot condition
-    if [ ${support_dualslot} -eq 1 ]; then
-        if [ "${slot}" == "_a" ]; then
-            lpmake_system_image_a="--image system_a=${image_directory}${systemimage_file}"
-            lpmake_vendor_image_a="--image vendor_a=${image_directory}${vendor_file}"
-            lpmake_product_image_a="--image product_a=${image_directory}${product_file}"
-        elif [ "${slot}" == "_b" ]; then
-            lpmake_system_image_b="--image system_b=${image_directory}${systemimage_file}"
-            lpmake_vendor_image_b="--image vendor_b=${image_directory}${vendor_file}"
-            lpmake_product_image_b="--image product_b=${image_directory}${product_file}"
-        else
-            lpmake_system_image_a="--image system_a=${image_directory}${systemimage_file}"
-            lpmake_vendor_image_a="--image vendor_a=${image_directory}${vendor_file}"
-            lpmake_product_image_a="--image product_a=${image_directory}${product_file}"
-            lpmake_system_image_b="--image system_b=${image_directory}${systemimage_file}"
-            lpmake_vendor_image_b="--image vendor_b=${image_directory}${vendor_file}"
-            lpmake_product_image_b="--image product_b=${image_directory}${product_file}"
-        fi
-    fi
-
-    ${image_directory}lpmake --metadata-size 65536 --super-name super --metadata-slots 3 --device super:7516192768 \
-            --group nxp_dynamic_partitions_a:3747610624 --group nxp_dynamic_partitions_b:3747610624 \
-            --partition system_a:readonly:0:nxp_dynamic_partitions_a ${lpmake_system_image_a} \
-            --partition system_b:readonly:0:nxp_dynamic_partitions_b ${lpmake_system_image_b} \
-            --partition vendor_a:readonly:0:nxp_dynamic_partitions_a ${lpmake_vendor_image_a} \
-            --partition vendor_b:readonly:0:nxp_dynamic_partitions_b ${lpmake_vendor_image_b} \
-            --partition product_a:readonly:0:nxp_dynamic_partitions_a ${lpmake_product_image_a} \
-            --partition product_b:readonly:0:nxp_dynamic_partitions_b ${lpmake_product_image_b} \
-            --sparse --output /tmp/${super_file}
-}
-
 
 # parse command line
 moreoptions=1
@@ -115,14 +74,6 @@ support_dual_bootloader=0
 support_dualslot=0
 support_dynamic_partition=0
 support_vendor_boot=0
-lpmake_system_image_a=""
-lpmake_system_image_b=""
-lpmake_vendor_image_a=""
-lpmake_vendor_image_b=""
-lpmake_product_image_a=""
-lpmake_product_image_b=""
-dont_generate_super=0
-
 
 
 while [ "$moreoptions" = 1 -a $# -gt 0 ]; do
@@ -139,7 +90,6 @@ while [ "$moreoptions" = 1 -a $# -gt 0 ]; do
         -u) uboot_feature=-$2; shift;;
         -d) dtb_feature=$2; shift;;
         -D) image_directory=$2; shift;;
-        -super) dont_generate_super=1 ;;
         *)  moreoptions=0; node=$1 ;;
     esac
     [ "$moreoptions" = 0 ] && [ $# -gt 1 ] && help && exit
@@ -267,33 +217,22 @@ function flash_partition
             elif [ "$(echo ${1} | grep -E "dtbo|vbmeta|recovery")" != "" -a "${dtb_feature}" != "" ]; then
                 img_name="${1%_*}-${soc_name}-${dtb_feature}.img"
             elif [ "$(echo ${1} | grep "super")" != "" ]; then
-                if [ ${dont_generate_super} -eq 0 ]; then
-                    make_super_image
-                fi
                 img_name=${super_file}
             else
                 img_name="${1%_*}-${soc_name}.img"
             fi
             # check whether the image files to be flashed exist or not
-            if [ "$(echo ${1} | grep "super")" = "" ] || [ ${dont_generate_super} -eq 1 ]; then
-                if [ ! -f "${image_directory}${img_name}" ]; then
-                    echo -e >&2 "${RED}File ${img_name} not found. Please check. Exiting${STD}"
-                    return 1
-                fi
+            if [ ! -f "${image_directory}${img_name}" ]; then
+                echo -e >&2 "${RED}File ${img_name} not found. Please check. Exiting${STD}"
+                return 1
             fi
             echo "flash_partition: ${img_name} ---> ${node}${num}"
 
             if [ "$(echo ${1} | grep "vendor_boot")" != "" ]; then
                 dd if=${image_directory}${img_name} of=${node}${num} bs=10M conv=fsync
             elif [ "$(echo ${1} | grep "system")" != "" ] || [ "$(echo ${1} | grep "vendor")" != "" ] || \
-                [ "$(echo ${1} | grep "product")" != "" ]; then
+                [ "$(echo ${1} | grep "product")" != "" ] || [ "$(echo ${1} | grep "super")" != "" ]; then
                 simg2img ${image_directory}${img_name} ${node}${num}
-            elif [ "$(echo ${1} | grep "super")" != "" ]; then
-                if [ ${dont_generate_super} -eq 0 ]; then
-                    simg2img /tmp/${img_name} ${node}${num}
-                else
-                    simg2img ${image_directory}${img_name} ${node}${num}
-                fi
             else
                 dd if=${image_directory}${img_name} of=${node}${num} bs=10M conv=fsync
             fi

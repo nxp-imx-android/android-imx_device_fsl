@@ -55,13 +55,6 @@ set ser_num=
 set fastboot_tool=fastboot
 set /A error_level=0
 set /A flag=1
-set lpmake_system_image_a=
-set lpmake_system_image_b=
-set lpmake_vendor_image_a=
-set lpmake_vendor_image_b=
-set lpmake_product_image_a=
-set lpmake_product_image_b=
-set /A dont_generate_super=0
 
 
 :: We want to detect illegal feature input to some extent. Here it's based on SoC names. Since an SoC may be on a
@@ -112,7 +105,6 @@ if %1 == -l set /A lock=1 & shift & goto :parse_loop
 if %1 == -e set /A erase=1 & shift & goto :parse_loop
 if %1 == -D set image_directory=%2& shift & shift & goto :parse_loop
 if %1 == -s set ser_num=%2&shift &shift & goto :parse_loop
-if %1 == -super set /A dont_generate_super=1 & shift & goto :parse_loop
 echo %1 is an illegal option
 call :help & goto :eof
 :parse_end
@@ -397,23 +389,12 @@ if not [%partition_to_be_flashed:gpt=%] == [%partition_to_be_flashed%] (
 
 if not [%partition_to_be_flashed:super=%] == [%partition_to_be_flashed%] (
     set img_name=%super_file%
-    if %dont_generate_super% == 0 (
-        call :make_super_image
-    )
     goto :start_to_flash
 )
 
 :start_to_flash
 echo flash the file of %img_name% to the partition of %partition_to_be_flashed%
-if [%img_name%] == [%super_file%] (
-    if %dont_generate_super% == 0 (
-        %fastboot_tool% flash %1 %img_name% || set /A error_level=1 && goto :exit
-    ) else (
-        %fastboot_tool% flash %1 %image_directory%%img_name% || set /A error_level=1 && goto :exit
-    )
-) else (
-    %fastboot_tool% flash %1 %image_directory%%img_name% || set /A error_level=1 && goto :exit
-)
+%fastboot_tool% flash %1 %image_directory%%img_name% || set /A error_level=1 && goto :exit
 goto :eof
 
 
@@ -528,45 +509,6 @@ del fastboot_var.log
 
 goto :eof
 
-:: this function will invoke lpmake to create super.img, the super.img will
-:: be created in current directory
-:make_super_image
-if exist %super_file% (
-    del %super_file%
-)
-:: now dynamic partition is only enabled in dual slot condition
-if %support_dualslot% == 1 (
-    setlocal enabledelayedexpansion
-    if [%slot%] == [_a] (
-        set lpmake_system_image_a=--image system_a=%image_directory%%systemimage_file%
-        set lpmake_vendor_image_a=--image vendor_a=%image_directory%%vendor_file%
-        set lpmake_product_image_a=--image product_a=%image_directory%%product_file%
-    )
-    if [%slot%] == [_b] (
-        set lpmake_system_image_b=--image system_b=%image_directory%%systemimage_file%
-        set lpmake_vendor_image_b=--image vendor_b=%image_directory%%vendor_file%
-        set lpmake_product_image_b=--image product_b=%image_directory%%product_file%
-    )
-    if [%slot%] == [] (
-        set lpmake_system_image_a=--image system_a=%image_directory%%systemimage_file%
-        set lpmake_vendor_image_a=--image vendor_a=%image_directory%%vendor_file%
-        set lpmake_product_image_a=--image product_a=%image_directory%%product_file%
-        set lpmake_system_image_b=--image system_b=%image_directory%%systemimage_file%
-        set lpmake_vendor_image_b=--image vendor_b=%image_directory%%vendor_file%
-        set lpmake_product_image_b=--image product_b=%image_directory%%product_file%
-    )
-    %image_directory%lpmake.exe --metadata-size 65536 --super-name super --metadata-slots 3 --device super:7516192768 ^
-        --group nxp_dynamic_partitions_a:3747610624 --group nxp_dynamic_partitions_b:3747610624 ^
-        --partition system_a:readonly:0:nxp_dynamic_partitions_a !lpmake_system_image_a! ^
-        --partition system_b:readonly:0:nxp_dynamic_partitions_b !lpmake_system_image_b! ^
-        --partition vendor_a:readonly:0:nxp_dynamic_partitions_a !lpmake_vendor_image_a! ^
-        --partition vendor_b:readonly:0:nxp_dynamic_partitions_b !lpmake_vendor_image_b! ^
-        --partition product_a:readonly:0:nxp_dynamic_partitions_a !lpmake_product_image_a! ^
-        --partition product_b:readonly:0:nxp_dynamic_partitions_b !lpmake_product_image_b! ^
-        --sparse --output !super_file!
-)
-
-goto :eof
 
 :exit
 exit /B %error_level%
