@@ -7,3 +7,4 @@ allow update_engine mnt_user_file:lnk_file { read write };
 allow update_engine sdcardfs:dir { search };
 allow update_engine sdcardfs:file { read open getattr };
 allow update_engine media_rw_data_file:file { read open getattr };
+allow update_engine loop_device:blk_file { open write };
