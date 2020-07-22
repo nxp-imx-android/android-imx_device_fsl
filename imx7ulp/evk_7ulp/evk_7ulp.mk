@@ -7,7 +7,7 @@ IMX_DEVICE_PATH := device/fsl/imx7ulp/evk_7ulp
 include $(IMX_DEVICE_PATH)/SharedBoardConfig.mk
 
 -include device/fsl/common/imx_path/ImxPathConfig.mk
-$(call inherit-product, device/fsl/imx7ulp/ProductConfigCommon.mk)
+include device/fsl/imx7ulp/ProductConfigCommon.mk
 $(call inherit-product-if-exists,vendor/google/products/gms.mk)
 $(call inherit-product, build/target/product/go_defaults.mk)
 
@@ -239,3 +239,13 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.crypto.volume.filenames_mode=adiantum
 
 IMX-DEFAULT-G2D-LIB := libg2d-viv
+
+ifeq ($(PREBUILT_FSL_IMX_CODEC),true)
+-include $(FSL_CODEC_PATH)/fsl-codec/fsl-codec.mk
+endif
+
+# imx c2 codec binary
+PRODUCT_PACKAGES += \
+    c2_component_register \
+    c2_component_register_ms \
+    c2_component_register_ra
