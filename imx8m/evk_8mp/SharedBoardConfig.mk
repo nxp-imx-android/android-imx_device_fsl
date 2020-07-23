@@ -1,5 +1,6 @@
 KERNEL_NAME := Image
 TARGET_KERNEL_ARCH := arm64
+# IMX8MP_USES_GKI := true
 
 #Enable this to config 1GB ddr on evk_imx8mp
 #LOW_MEMORY := true
@@ -21,3 +22,115 @@ BOARD_VENDOR_KERNEL_MODULES += \
 # isp vvcam driver module
 BOARD_VENDOR_KERNEL_MODULES += \
     $(TARGET_OUT_INTERMEDIATES)/VVCAM_OBJ/vvcam.ko
+
+# CONFIG_IMX_SDMA: imx-sdma.ko, sdma used for audio
+# CONFIG_SND_SOC_IMX_PCM_DMA: imx-pcm-dma-common.ko, used for fsl_micfil
+# CONFIG_SND_SOC_IMX_MICFIL: snd-soc-fsl-micfil.ko snd-soc-imx-micfil.ko, used for fsl_micfil
+# CONFIG_SND_SOC_FSL_EASRC: snd-soc-fsl-easrc.ko, used for audio
+# CONFIG_SND_IMX_SOC: snd-soc-fsl-sai.ko snd-soc-fsl-utils.ko, imx core audio
+# CONFIG_DRM_DW_HDMI_CEC: dw-hdmi-cec.ko, used for hdmi audio
+# CONFIG_DRM_DW_HDMI_GP_AUDIO: dw-hdmi-gp-audio.ko, used for hdmi audio
+# CONFIG_SND_SOC_IMX_CDNHDMI: snd-soc-hdmi-codec.ko snd-soc-imx-cdnhdmi.ko snd-soc-fsl-aud2htx.ko, used for hdmi audio
+# CONFIG_SND_SOC_IMX_WM8960: snd-soc-wm8960.ko snd-soc-imx-wm8960.ko, wm8960 audio driver
+# CONFIG_SND_SOC_BT_SCO: snd-soc-bt-sco.ko, bt sco driver
+# CONFIG_SND_SIMPLE_CARD: snd-soc-simple-card-utils.ko snd-soc-simple-card.ko, simple audio card used for bt sco
+# CONFIG_RTC_DRV_SNVS: rtc-snvs.ko, snvs rtc driver
+# CONFIG_USB_XHCI_HCD: xhci-hcd.ko xhci-pci.ko xhci-plat-hcd.ko, usb host driver
+# CONFIG_KEYBOARD_SNVS_PWRKEY: snvs_pwrkey.ko, snvs power key driver
+
+ifneq ($(IMX8MP_USES_GKI),)
+BOARD_VENDOR_KERNEL_MODULES += \
+    $(KERNEL_OUT)/drivers/dma/imx-sdma.ko \
+    $(KERNEL_OUT)/sound/soc/fsl/imx-pcm-dma-common.ko \
+    $(KERNEL_OUT)/sound/soc/fsl/snd-soc-fsl-micfil.ko \
+    $(KERNEL_OUT)/sound/soc/fsl/snd-soc-imx-micfil.ko \
+    $(KERNEL_OUT)/sound/soc/fsl/snd-soc-fsl-aud2htx.ko \
+    $(KERNEL_OUT)/sound/soc/fsl/snd-soc-fsl-easrc.ko \
+    $(KERNEL_OUT)/sound/soc/fsl/snd-soc-fsl-sai.ko \
+    $(KERNEL_OUT)/sound/soc/fsl/snd-soc-fsl-utils.ko \
+    $(KERNEL_OUT)/drivers/gpu/drm/bridge/synopsys/dw-hdmi-cec.ko \
+    $(KERNEL_OUT)/drivers/gpu/drm/bridge/synopsys/dw-hdmi-gp-audio.ko \
+    $(KERNEL_OUT)/sound/soc/codecs/snd-soc-hdmi-codec.ko \
+    $(KERNEL_OUT)/sound/soc/fsl/snd-soc-imx-cdnhdmi.ko \
+    $(KERNEL_OUT)/sound/soc/codecs/snd-soc-wm8960.ko \
+    $(KERNEL_OUT)/sound/soc/fsl/snd-soc-imx-wm8960.ko \
+    $(KERNEL_OUT)/sound/soc/codecs/snd-soc-bt-sco.ko \
+    $(KERNEL_OUT)/sound/soc/generic/snd-soc-simple-card-utils.ko \
+    $(KERNEL_OUT)/sound/soc/generic/snd-soc-simple-card.ko \
+    $(KERNEL_OUT)/drivers/rtc/rtc-snvs.ko \
+    $(KERNEL_OUT)/drivers/usb/host/xhci-hcd.ko \
+    $(KERNEL_OUT)/drivers/usb/host/xhci-pci.ko \
+    $(KERNEL_OUT)/drivers/usb/host/xhci-plat-hcd.ko \
+    $(KERNEL_OUT)/drivers/input/keyboard/snvs_pwrkey.ko
+endif
+
+# CONFIG_CLK_IMX8MP: clk-imx8mp.ko, clk-audiomix.ko, clk-gate-shared.ko, clk-hdmimix.ko
+# CONFIG_IMX8M_PM_DOMAINS: imx8m_pm_domains.ko
+# CONFIG_PINCTRL_IMX8MP: pinctrl-imx8mp.ko
+# CONFIG_SERIAL_IMX: imx.ko
+# CONFIG_IMX2_WDT: imx2_wdt.ko
+# CONFIG_I2C_IMX: i2c-imx.ko
+# CONFIG_MFD_PCA9450: pca9450.ko
+# CONFIG_REGULATOR_PCA9450: pca9450-regulator.ko
+# CONFIG_MMC_SDHCI_ESDHC_IMX: sdhci-esdhc-imx.ko, cqhci.ko
+# CONFIG_ION_CMA_HEAP: ion_cma_heap.ko
+# CONFIG_MFD_IMX_AUDIOMIX: imx-audiomix.ko
+# CONFIG_PHY_FSL_IMX8MP_LVDS: phy-fsl-imx8mp-lvds.ko
+# CONFIG_PHY_SAMSUNG_HDMI_PHY: phy-fsl-samsung-hdmi.ko
+# CONFIG_MXC_GPU_VIV: galcore.ko
+# CONFIG_IMX_LCDIF_CORE: imx-lcdif-core.ko
+# CONFIG_DRM_I2C_ADV7511: adv7511.ko, cec.ko
+# CONFIG_DRM_IMX_CDNS_MHDP: cdns_mhdp_drmcore.ko cdns_mhdp_imx.ko
+# CONFIG_DRM_IMX8MP_LDB: imx8mp-ldb.ko
+# CONFIG_DRM_FSL_IMX_LVDS_BRIDGE: fsl-imx-ldb.ko
+# CONFIG_DRM_ITE_IT6263: it6263.ko
+# CONFIG_DRM_IMX_SEC_DSIM: sec-dsim.ko sec_mipi_dsim-imx.ko
+# CONFIG_DRM_IMX_HDMI: dw-hdmi.ko dw_hdmi-imx.ko imx8mp-hdmi-pavi.ko
+# CONFIG_DRM_IMX: imxdrm.ko, imx-lcdif-crtc.ko
+# CONFIG_IMX_LCDIFV3_CORE: imx-lcdifv3-core.ko imx-lcdifv3-crtc.ko
+# CONFIG_USB_DWC3: dwc3-haps.ko dwc3-imx8mp.ko dwc3-of-simple.ko dwc3-qcom.ko dwc3.ko
+# CONFIG_TYPEC_SWITCH_GPIO: gpio-switch.ko
+# CONFIG_TYPEC_TCPCI: tcpci.ko
+
+ifneq ($(IMX8MP_USES_GKI),)
+BOARD_VENDOR_RAMDISK_KERNEL_MODULES +=     \
+    $(KERNEL_OUT)/drivers/clk/imx/clk-audiomix.ko \
+    $(KERNEL_OUT)/drivers/clk/imx/clk-gate-shared.ko \
+    $(KERNEL_OUT)/drivers/clk/imx/clk-imx8mp.ko \
+    $(KERNEL_OUT)/drivers/clk/imx/clk-hdmimix.ko \
+    $(KERNEL_OUT)/drivers/soc/imx/imx8m_pm_domains.ko \
+    $(KERNEL_OUT)/drivers/pinctrl/freescale/pinctrl-imx8mp.ko \
+    $(KERNEL_OUT)/drivers/tty/serial/imx.ko \
+    $(KERNEL_OUT)/drivers/watchdog/imx2_wdt.ko \
+    $(KERNEL_OUT)/drivers/i2c/busses/i2c-imx.ko \
+    $(KERNEL_OUT)/drivers/mfd/pca9450.ko \
+    $(KERNEL_OUT)/drivers/regulator/pca9450-regulator.ko \
+    $(KERNEL_OUT)/drivers/mmc/host/cqhci.ko \
+    $(KERNEL_OUT)/drivers/mmc/host/sdhci-esdhc-imx.ko \
+    $(KERNEL_OUT)/drivers/staging/android/ion/heaps/ion_cma_heap.ko \
+    $(KERNEL_OUT)/drivers/mfd/imx-audiomix.ko \
+    $(KERNEL_OUT)/drivers/phy/freescale/phy-fsl-imx8mp-lvds.ko \
+    $(KERNEL_OUT)/drivers/phy/freescale/phy-fsl-samsung-hdmi.ko \
+    $(KERNEL_OUT)/drivers/mxc/gpu-viv/galcore.ko \
+    $(KERNEL_OUT)/drivers/media/cec/cec.ko \
+    $(KERNEL_OUT)/drivers/gpu/imx/lcdif/imx-lcdif-core.ko \
+    $(KERNEL_OUT)/drivers/gpu/drm/bridge/adv7511/adv7511.ko \
+    $(KERNEL_OUT)/drivers/gpu/drm/bridge/cadence/cdns_mhdp_drmcore.ko \
+    $(KERNEL_OUT)/drivers/gpu/drm/bridge/fsl-imx-ldb.ko \
+    $(KERNEL_OUT)/drivers/gpu/drm/bridge/it6263.ko \
+    $(KERNEL_OUT)/drivers/gpu/drm/bridge/sec-dsim.ko \
+    $(KERNEL_OUT)/drivers/gpu/drm/bridge/synopsys/dw-hdmi.ko \
+    $(KERNEL_OUT)/drivers/gpu/drm/imx/mhdp/cdns_mhdp_imx.ko \
+    $(KERNEL_OUT)/drivers/gpu/drm/imx/dw_hdmi-imx.ko \
+    $(KERNEL_OUT)/drivers/gpu/drm/imx/imx8mp-hdmi-pavi.ko \
+    $(KERNEL_OUT)/drivers/gpu/drm/imx/imx8mp-ldb.ko \
+    $(KERNEL_OUT)/drivers/gpu/drm/imx/imxdrm.ko \
+    $(KERNEL_OUT)/drivers/gpu/drm/imx/lcdif/imx-lcdif-crtc.ko \
+    $(KERNEL_OUT)/drivers/gpu/drm/imx/lcdifv3/imx-lcdifv3-crtc.ko \
+    $(KERNEL_OUT)/drivers/gpu/imx/lcdifv3/imx-lcdifv3-core.ko \
+    $(KERNEL_OUT)/drivers/gpu/drm/imx/sec_mipi_dsim-imx.ko \
+    $(KERNEL_OUT)/drivers/usb/dwc3/dwc3-imx8mp.ko \
+    $(KERNEL_OUT)/drivers/usb/dwc3/dwc3.ko \
+    $(KERNEL_OUT)/drivers/usb/typec/mux/gpio-switch.ko \
+    $(KERNEL_OUT)/drivers/usb/typec/tcpm/tcpci.ko
+endif
