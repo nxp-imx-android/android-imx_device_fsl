@@ -165,15 +165,6 @@
         </interface>
     </hal>
     <hal format="hidl">
-        <name>android.hardware.automotive.evs</name>
-        <transport>hwbinder</transport>
-        <version>1.0</version>
-        <interface>
-            <name>IEvsEnumerator</name>
-            <instance>EvsEnumeratorHw</instance>
-        </interface>
-    </hal>
-    <hal format="hidl">
         <name>nxp.hardware.display</name>
             <transport>hwbinder</transport>
         <version>1.0</version>

@@ -176,7 +176,7 @@ service iprenew_bt-pan /system/bin/dhcpcd -n
     disabled
     oneshot
 
-service evs_driver /vendor/bin/android.hardware.automotive.evs@1.0-EvsEnumeratorHw
+service evs_driver /vendor/bin/android.hardware.automotive.evs@1.1-EvsEnumeratorHw
     user graphics
     group automotive_evs camera
     onrestart restart evs_manager
