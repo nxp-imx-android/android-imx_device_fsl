@@ -209,6 +209,10 @@ PRODUCT_PACKAGES += \
     wifilogd \
     wificond
 
+# WiFi RRO
+PRODUCT_PACKAGES += \
+    WifiOverlay
+
 # Keymaster HAL
 PRODUCT_PACKAGES += \
     android.hardware.keymaster@3.0-impl \
@@ -240,3 +244,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.crypto.volume.filenames_mode=adiantum
 
 IMX-DEFAULT-G2D-LIB := libg2d-viv
+
+PRODUCT_COPY_FILES += \
+    $(IMX_DEVICE_PATH)/config.xml:/product/overlay/config/config.xml

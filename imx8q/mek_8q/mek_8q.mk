@@ -361,6 +361,10 @@ PRODUCT_PACKAGES += \
     wifilogd \
     wificond
 
+# WiFi RRO
+PRODUCT_PACKAGES += \
+    WifiOverlay
+
 # NXP 8997 Wifi and Bluetooth Combo Firmware
 PRODUCT_COPY_FILES += \
     vendor/nxp/imx-firmware/nxp/FwImage_8997/pcieuart8997_combo_v4.bin:vendor/firmware/pcieuart8997_combo_v4.bin
@@ -505,3 +509,6 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.rebootescrow.device=/dev/block/pmem0
+
+PRODUCT_COPY_FILES += \
+    $(IMX_DEVICE_PATH)/config.xml:/product/overlay/config/config.xml

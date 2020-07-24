@@ -263,6 +263,10 @@ PRODUCT_PACKAGES += \
     wifilogd \
     wificond
 
+# WiFi RRO
+PRODUCT_PACKAGES += \
+    WifiOverlay
+
 # NXP 8997 Bluetooth vendor config
 PRODUCT_PACKAGES += \
     bt_vendor.conf
@@ -388,3 +392,6 @@ INSTALL_64BIT_LIBRARY := true
 endif
 -include $(FSL_CODEC_PATH)/fsl-codec/fsl-codec.mk
 endif
+
+PRODUCT_COPY_FILES += \
+    $(IMX_DEVICE_PATH)/config.xml:/product/overlay/config/config.xml

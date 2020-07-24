@@ -242,6 +242,10 @@ PRODUCT_PACKAGES += \
     wifilogd \
     wificond
 
+# WiFi RRO
+PRODUCT_PACKAGES += \
+    WifiOverlay
+
 # Qcom 1PJ Bluetooth Firmware
 PRODUCT_COPY_FILES += \
     vendor/nxp/qca-wifi-bt/1PJ_QCA9377-3_LEA_2.0/lib/firmware/qca/tfbtnv11.bin:vendor/firmware/nvm_tlv_3.2.bin \
@@ -377,3 +381,6 @@ ifneq ($(IMX8MM_USES_GKI),)
 PRODUCT_PROPERTY_OVERRIDES += \
     vendor.gki.enable=true
 endif
+
+PRODUCT_COPY_FILES += \
+    $(IMX_DEVICE_PATH)/config.xml:/product/overlay/config/config.xml
