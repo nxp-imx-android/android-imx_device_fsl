@@ -50,26 +50,20 @@ KERNEL_CC_WRAPPER := $(CC_WRAPPER)
 KERNEL_AFLAGS :=
 TARGET_KERNEL_SRC := $(KERNEL_IMX_PATH)/kernel_imx
 
+CLANG_TO_COMPILE := CC=clang HOSTCC=clang LD=ld.lld
+CLANG_TOOL_CHAIN_ABS := $(realpath prebuilts/clang/host/linux-x86/clang-r383902b/bin)
+
 ifeq ($(TARGET_KERNEL_ARCH), arm)
-ifneq ($(AARCH32_GCC_CROSS_COMPILE),)
-KERNEL_CROSS_COMPILE := $(strip $(AARCH32_GCC_CROSS_COMPILE))
-KERNEL_CFLAGS := -Wno-incompatible-pointer-types
-else
 KERNEL_TOOLCHAIN_ABS := $(realpath prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9/bin)
 KERNEL_CROSS_COMPILE := $(KERNEL_TOOLCHAIN_ABS)/arm-linux-androidkernel-
 KERNEL_CFLAGS :=
-endif
-CLANG_TRIPLE :=
-CLANG_TO_COMPILE :=
-CLANG_TOOL_CHAIN_ABS :=
+CLANG_TRIPLE := CLANG_TRIPLE=arm-linux-gnueabi-
 KERNEL_SRC_ARCH := arm
 KERNEL_NAME := zImage
 else ifeq ($(TARGET_KERNEL_ARCH), arm64)
 KERNEL_TOOLCHAIN_ABS := $(realpath prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9/bin)
 KERNEL_CROSS_COMPILE := $(KERNEL_TOOLCHAIN_ABS)/aarch64-linux-androidkernel-
 CLANG_TRIPLE := CLANG_TRIPLE=aarch64-linux-gnu-
-CLANG_TO_COMPILE := CC=clang
-CLANG_TOOL_CHAIN_ABS := $(realpath prebuilts/clang/host/linux-x86/clang-r353983c/bin)
 KERNEL_SRC_ARCH := arm64
 KERNEL_CFLAGS :=
 KERNEL_NAME ?= Image.gz
@@ -158,7 +152,7 @@ $(KERNEL_CONFIG): $(KERNEL_CONFIG_SRC) $(TARGET_KERNEL_SRC) | $(KERNEL_OUT)
 	$(KERNEL_ARCH) $(KERNEL_CONFIG_SRC)
 
 # use deferred expansion
-kernel_build_shell_env = PATH=$$(cd prebuilts/clang/host/linux-x86/clang-r353983c/bin; pwd):$$(cd prebuilts/misc/linux-x86/lz4; pwd):$${PATH} \
+kernel_build_shell_env = PATH=$(CLANG_TOOL_CHAIN_ABS):$$(cd prebuilts/misc/linux-x86/lz4; pwd):$${PATH} \
         $(CLANG_TRIPLE) CCACHE_NODIRECT="true"
 kernel_build_make_env = -C $(TARGET_KERNEL_SRC) O=$(realpath $(KERNEL_OUT)) ARCH=$(KERNEL_ARCH) \
         CROSS_COMPILE=$(strip $(KERNEL_CROSS_COMPILE_WRAPPER)) $(CLANG_TO_COMPILE) \
