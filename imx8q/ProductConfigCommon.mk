@@ -44,7 +44,6 @@ PRODUCT_PACKAGES += \
     Email \
     ethernet \
     Gallery2 \
-    LegacyCamera \
     LiveWallpapersPicker \
     SoundRecorder
 endif

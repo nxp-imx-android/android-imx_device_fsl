@@ -31,7 +31,6 @@ PRODUCT_PACKAGES += \
     CubeLiveWallpapers \
     Email \
     Gallery2 \
-    LegacyCamera \
     LiveWallpapersPicker \
     SoundRecorder
 endif
