@@ -732,6 +732,7 @@ echo FB[-t 600000]: erase misc >> /tmp/uuu.lst
 # make sure device is locked for boards don't use tee
 echo FB[-t 600000]: erase presistdata >> /tmp/uuu.lst
 echo FB[-t 600000]: erase fbmisc >> /tmp/uuu.lst
+echo FB[-t 600000]: erase metadata >> /tmp/uuu.lst
 
 if [ "${slot}" != "" ] && [ ${support_dualslot} -eq 1 ]; then
     echo FB: set_active ${slot#_} >> /tmp/uuu.lst

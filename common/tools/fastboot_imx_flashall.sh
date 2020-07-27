@@ -465,6 +465,7 @@ if [ ${erase} -eq 1 ]; then
         ${fastboot_tool} erase cache
     fi
     ${fastboot_tool} erase misc
+    ${fastboot_tool} erase metadata
     ${fastboot_tool} erase userdata
 fi
 
