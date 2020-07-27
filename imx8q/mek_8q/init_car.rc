@@ -7,6 +7,8 @@ on early-init
     mount debugfs none /sys/kernel/debug/ mode=0755
     mount overlay overlay /vendor/etc ro lowerdir=/vendor/vendor_overlay_soc/${ro.boot.soc_type}/vendor/etc:/vendor/etc,override_creds=off
     start early_init_sh
+    # Set the host name which used in console
+    export HOSTNAME mek_8q
 
     # Due keymaster start very early so set prop here
     # Also gatekeeper share same role for keymaster
@@ -38,9 +40,6 @@ on init && property:ro.product.system.device=generic_arm64
 
 on early-boot
     wait_for_prop sys.all.early_init.ready 1
-
-    # Set the host name which used in console
-    export HOSTNAME mek_8q
 
     # Set permission for IIM node
     symlink /dev/mxs_viim /dev/mxc_mem

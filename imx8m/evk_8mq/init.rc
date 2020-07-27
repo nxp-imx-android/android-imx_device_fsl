@@ -20,6 +20,8 @@ on early-init
 
 on early-init
     start early_init_sh
+    # Set the host name which used in console
+    export HOSTNAME evk_8mq
 
     # Due keymaster start very early so set prop here
     # Also gatekeeper share same role for keymaster
@@ -84,9 +86,6 @@ on early-boot && property:vendor.skip.charger_not_need=0
     setprop ro.lmk.upgrade_pressure 87
     setprop ro.lmk.downgrade_pressure 95
     setprop ro.lmk.critical_upgrade true
-
-    # Set the host name which used in console
-    export HOSTNAME evk_8mq
 
     # Set permission for IIM node
     symlink /dev/mxs_viim /dev/mxc_mem

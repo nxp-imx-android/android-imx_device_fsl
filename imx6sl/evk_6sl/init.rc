@@ -3,6 +3,8 @@ import /vendor/etc/init/hw/init.${ro.hardware}.usb.rc
 on early-init
     # mount the debugfs
     mount debugfs none /sys/kernel/debug/ mode=0755
+    # Set the host name which used in console
+    export HOSTNAME evk_6sl
 
 on init
     start watchdogd
@@ -30,9 +32,6 @@ on late-fs
     start vendor.keymaster-3-0-${ro.boot.keystore}
 
 on early-boot
-    # Set the host name which used in console
-    export HOSTNAME evk_6sl
-
     # Set permission for IIM node
     symlink /dev/mxs_viim /dev/mxc_mem
 

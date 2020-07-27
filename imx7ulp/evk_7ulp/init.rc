@@ -5,6 +5,8 @@ on early-init
     # mount the debugfs
     mount debugfs none /sys/kernel/debug/ mode=0755
     start early_init_sh
+    # Set the host name which used in console
+    export HOSTNAME evk_7ulp
 
 on init
     start watchdogd
@@ -34,9 +36,6 @@ on late-fs
     mount_all /vendor/etc/fstab.nxp --late
 
 on early-boot
-    # Set the host name which used in console
-    export HOSTNAME evk_7ulp
-
     # Set permission for IIM node
     symlink /dev/mxs_viim /dev/mxc_mem
 

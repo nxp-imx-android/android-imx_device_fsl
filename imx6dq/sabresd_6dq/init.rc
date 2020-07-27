@@ -6,6 +6,8 @@ on early-init
     mount debugfs none /sys/kernel/debug/ mode=0755
 
     start early_init_sh
+    # Set the host name which used in console
+    export HOSTNAME sabresd_6dq
 
 on init
     start watchdogd
@@ -40,9 +42,6 @@ on late-fs
     start vendor.keymaster-3-0-${ro.boot.keystore}
 
 on early-boot
-    # Set the host name which used in console
-    export HOSTNAME sabresd_6dq
-
     # Set permission for IIM node
     symlink /dev/mxs_viim /dev/mxc_mem
 
