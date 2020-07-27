@@ -243,11 +243,12 @@ function flash_partition
 function format_android
 {
     echo "formating android images"
-    format_partition userdata
+    format_partition metadata
     format_partition cache
     erase_partition presistdata
     erase_partition fbmisc
     erase_partition misc
+    format_partition userdata
 }
 
 function make_partition

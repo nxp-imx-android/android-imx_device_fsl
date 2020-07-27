@@ -198,6 +198,7 @@ if %erase% == 1 (
         %fastboot_tool% erase cache
     )
     %fastboot_tool% erase misc
+    %fastboot_tool% erase metadata
     %fastboot_tool% erase userdata
 )
 if %lock% == 1 %fastboot_tool% oem lock
