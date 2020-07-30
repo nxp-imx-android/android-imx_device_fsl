@@ -397,3 +397,5 @@ endif
 
 PRODUCT_COPY_FILES += \
     $(IMX_DEVICE_PATH)/config.xml:/product/overlay/config/config.xml
+
+$(call  inherit-product-if-exists, vendor/nxp-private/security/nxp_security.mk)
