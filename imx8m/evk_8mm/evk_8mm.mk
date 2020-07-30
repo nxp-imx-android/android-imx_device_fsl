@@ -269,7 +269,7 @@ PRODUCT_PACKAGES += \
 endif
 
 PRODUCT_PACKAGES += \
-    android.hardware.keymaster@4.0-service
+    android.hardware.keymaster@4.0-service-imx
 
 # DRM HAL
 TARGET_ENABLE_MEDIADRM_64 := true
@@ -279,7 +279,7 @@ PRODUCT_PACKAGES += \
 
 # new gatekeeper HAL
 PRODUCT_PACKAGES += \
-    android.hardware.gatekeeper@1.0-service.software
+    android.hardware.gatekeeper@1.0-service.software-imx
 
 ifneq ($(BUILD_TARGET_FS),ubifs)
 PRODUCT_PROPERTY_OVERRIDES += \
