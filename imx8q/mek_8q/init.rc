@@ -165,7 +165,7 @@ service sensor_fusion /vendor/bin/fsl_sensor_fusion
     class main
     seclabel u:r:sensors:s0
     user system
-    group input
+    group system uhid
     oneshot
 
 # Set watchdog timer to 30 seconds and pet it every 10 seconds to get a 20 second margin
