@@ -287,6 +287,8 @@ PRODUCT_PACKAGES += \
         libNNGPUBinary-evis2 \
         libNNGPUBinary-lite \
         libNNGPUBinary-ulite \
+        libNNArchPerf \
+        libarchmodelSw \
         gatekeeper.imx
 
 PRODUCT_PACKAGES += \
