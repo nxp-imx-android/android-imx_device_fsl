@@ -305,6 +305,8 @@ PRODUCT_PACKAGES += \
         libNNGPUBinary-evis2 \
         libNNGPUBinary-lite \
         libNNGPUBinary-ulite \
+        libNNArchPerf \
+        libarchmodelSw \
         imx_evs_app \
         imx_evs_app_default_resources
 

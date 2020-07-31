@@ -225,6 +225,8 @@ PRODUCT_PACKAGES += \
         libNNGPUBinary-evis2 \
         libNNGPUBinary-lite \
         libNNGPUBinary-ulite \
+        libNNArchPerf \
+        libarchmodelSw
 
 PRODUCT_PACKAGES += \
     android.hardware.audio@6.0-impl:32 \

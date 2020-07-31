@@ -225,6 +225,8 @@ PRODUCT_PACKAGES += \
     libNNGPUBinary-evis2 \
     libNNGPUBinary-lite \
     libNNGPUBinary-ulite \
+    libNNArchPerf \
+    libarchmodelSw
 
 # Neural Network HAL and Lib
 PRODUCT_PACKAGES += \
