@@ -67,6 +67,10 @@ set dual_bootloader_partition=
 set /A daemon_mode=0
 set /A flag=1
 set /A dryrun=0
+set tmp_dir=%TMP%
+if not [%tmp_dir%] == [] (
+    set tmp_dir=%tmp_dir%\
+)
 
 
 :: We want to detect illegal feature input to some extent. Here it's based on SoC names. Since an SoC may be on a
@@ -146,8 +150,16 @@ if [%intervene%] equ [1] (
 )
 
 :: if directory is specified, and the last character is not backslash, add one backslash
+:: this batch file does not handle the condition of relative path
 if not [%image_directory%] == [] if not %image_directory:~-1% == \ (
     set image_directory=%image_directory%\
+)
+if [%image_directory%] == [] (
+    set image_directory=%cd%\
+)
+
+if not [%yocto_image%] == [] (
+    echo %yocto_image% | findstr \ > nul || set yocto_image=%cd%\%yocto_image%
 )
 
 :: If sdcard size is not correctly set, exit
@@ -174,39 +186,39 @@ if [%support_dual_bootloader%] equ [1] (
 
 
 :: dump the partition table image file into text file and check whether some partition names are in it
-if exist partition-table_1.txt (
-    del partition-table_1.txt
+if exist %tmp_dir%partition-table_1.txt (
+    del %tmp_dir%partition-table_1.txt
 )
-certutil -encodehex %image_directory%%partition_file% partition-table_1.txt > nul
+certutil -encodehex %image_directory%%partition_file% %tmp_dir%partition-table_1.txt > nul
 :: get the last column, it's ASCII character of the values in partition table file. none-printable value displays as a dot
-if exist partition-table_2.txt (
-    del partition-table_2.txt
+if exist %tmp_dir%partition-table_2.txt (
+    del %tmp_dir%partition-table_2.txt
 )
 :: put all the lines in a file into one line
-for /f "tokens=17 delims= " %%I in (partition-table_1.txt) do echo %%I>> partition-table_2.txt
-if exist partition-table_3.txt (
-    del partition-table_3.txt
+for /f "tokens=17 delims= " %%I in (%tmp_dir%partition-table_1.txt) do echo %%I>> %tmp_dir%partition-table_2.txt
+if exist %tmp_dir%partition-table_3.txt (
+    del %tmp_dir%partition-table_3.txt
 )
-for /f "delims=" %%J in (partition-table_2.txt) do (
-    set /p="%%J"<nul>>partition-table_3.txt 2>nul
+for /f "delims=" %%J in (%tmp_dir%partition-table_2.txt) do (
+    set /p="%%J"<nul>>%tmp_dir%partition-table_3.txt 2>nul
 )
 
 :: check whether there is "bootloader_b" in partition file
-find "b.o.o.t.l.o.a.d.e.r._.b." partition-table_3.txt > nul && set /A support_dual_bootloader=1 && echo dual bootloader is supported
+find "b.o.o.t.l.o.a.d.e.r._.b." %tmp_dir%partition-table_3.txt > nul && set /A support_dual_bootloader=1 && echo dual bootloader is supported
 :: check whether there is "dtbo" in partition file
-find "d.t.b.o." partition-table_3.txt > nul && set /A support_dtbo=1 && echo dtbo is supported
+find "d.t.b.o." %tmp_dir%partition-table_3.txt > nul && set /A support_dtbo=1 && echo dtbo is supported
 :: check whether there is "recovery" in partition file
-find "r.e.c.o.v.e.r.y." partition-table_3.txt > nul && set /A support_recovery=1 && echo recovery is supported
+find "r.e.c.o.v.e.r.y." %tmp_dir%partition-table_3.txt > nul && set /A support_recovery=1 && echo recovery is supported
 :: check whether there is "boot_b" in partition file
-find "b.o.o.t._.b." partition-table_3.txt > nul && set /A support_dualslot=1 && echo dual slot is supported
+find "b.o.o.t._.b." %tmp_dir%partition-table_3.txt > nul && set /A support_dualslot=1 && echo dual slot is supported
 :: check whether there is "super" in partition table
-find "s.u.p.e.r." partition-table_3.txt > nul && set /A support_dynamic_partition=1 && echo dynamic partition is supported
+find "s.u.p.e.r." %tmp_dir%partition-table_3.txt > nul && set /A support_dynamic_partition=1 && echo dynamic partition is supported
 :: check whether there is "vendor_boot" in partition table
-find "v.e.n.d.o.r._.b.o.o.t." partition-table_3.txt > nul && set /A support_vendor_boot=1 && echo vendor_boot is supported
+find "v.e.n.d.o.r._.b.o.o.t." %tmp_dir%partition-table_3.txt > nul && set /A support_vendor_boot=1 && echo vendor_boot is supported
 
-del partition-table_1.txt
-del partition-table_2.txt
-del partition-table_3.txt
+del %tmp_dir%partition-table_1.txt
+del %tmp_dir%partition-table_2.txt
+del %tmp_dir%partition-table_3.txt
 
 :: get device and board specific parameter, for now, this step can't make sure the soc_name is definitely correct
 if not [%soc_name:imx8qm=%] == [%soc_name%] (
@@ -388,56 +400,56 @@ if not [%yocto_image%] == [] (
         if [%dtb_feature%] == [xen] (
             setlocal enabledelayedexpansion
             set target_num=%sd_num%
-            echo FB: ucmd setenv fastboot_dev mmc >> uuu.lst
-            echo FB: ucmd setenv mmcdev !target_num! >> uuu.lst
-            echo FB: ucmd mmc dev !target_num! >> uuu.lst
+            echo FB: ucmd setenv fastboot_dev mmc >> %tmp_dir%uuu.lst
+            echo FB: ucmd setenv mmcdev !target_num! >> %tmp_dir%uuu.lst
+            echo FB: ucmd mmc dev !target_num! >> %tmp_dir%uuu.lst
             :: flash the yocto image to "all" partition of SD card
             echo generate lines to flash %yocto_image% to the partition of all
-            if exist yocto_image_with_xen_support.link (
-                del yocto_image_with_xen_support.link
+            if exist %tmp_dir%yocto_image_with_xen_support.link (
+                del %tmp_dir%yocto_image_with_xen_support.link
             )
-            cmd /c mklink yocto_image_with_xen_support.link %yocto_image% > nul
-            echo FB[-t 600000]: flash -raw2sparse all yocto_image_with_xen_support.link >> uuu.lst
+            cmd /c mklink %tmp_dir%yocto_image_with_xen_support.link %yocto_image% > nul
+            echo FB[-t 600000]: flash -raw2sparse all yocto_image_with_xen_support.link >> %tmp_dir%uuu.lst
             :: use "mmc part" to reload part info before "fatwrite"
-            echo FB: ucmd mmc list >> uuu.lst
-            echo FB: ucmd mmc dev !target_num! >> uuu.lst
-            echo FB: ucmd mmc part >> uuu.lst
+            echo FB: ucmd mmc list >> %tmp_dir%uuu.lst
+            echo FB: ucmd mmc dev !target_num! >> %tmp_dir%uuu.lst
+            echo FB: ucmd mmc part >> %tmp_dir%uuu.lst
             :: replace uboot from yocto team with the one from android team
             echo generate lines to flash u-boot-imx8qm-xen-dom0.imx to the partition of bootloader0 on SD card
-            if exist u-boot-imx8qm-xen-dom0.imx.link (
-                del u-boot-imx8qm-xen-dom0.imx.link
+            if exist %tmp_dir%u-boot-imx8qm-xen-dom0.imx.link (
+                del %tmp_dir%u-boot-imx8qm-xen-dom0.imx.link
             )
-            cmd /c mklink u-boot-imx8qm-xen-dom0.imx.link %image_directory%u-boot-imx8qm-xen-dom0.imx > nul
-            echo FB: flash bootloader0 u-boot-imx8qm-xen-dom0.imx.link >> uuu.lst
+            cmd /c mklink %tmp_dir%u-boot-imx8qm-xen-dom0.imx.link %image_directory%u-boot-imx8qm-xen-dom0.imx > nul
+            echo FB: flash bootloader0 u-boot-imx8qm-xen-dom0.imx.link >> %tmp_dir%uuu.lst
             :: write the xen spl from android team to FAT on SD card
             set xen_uboot_name=spl-%soc_name%-%dtb_feature%.bin
             for /f "usebackq" %%A in ('%image_directory%!xen_uboot_name!') do set xen_uboot_size_dec=%%~zA
             :: directly pass the name of variable, just like pointer in C program
             call :dec_to_hex !xen_uboot_size_dec! xen_uboot_size_hex
             echo generate lines to write spl-%soc_name%-%dtb_feature%.bin to FAT on SD card
-            if exist !xen_uboot_name!.link (
-                del !xen_uboot_name!.link
+            if exist %tmp_dir%!xen_uboot_name!.link (
+                del %tmp_dir%!xen_uboot_name!.link
             )
-            cmd /c mklink !xen_uboot_name!.link %image_directory%!xen_uboot_name! > nul
-            echo FB: ucmd setenv fastboot_buffer %imx8qm_stage_base_addr% >> uuu.lst
-            echo FB: download -f !xen_uboot_name!.link >> uuu.lst
-            echo FB: ucmd fatwrite mmc %sd_num% %imx8qm_stage_base_addr% !xen_uboot_name! 0x!xen_uboot_size_hex! >> uuu.lst
+            cmd /c mklink %tmp_dir%!xen_uboot_name!.link %image_directory%!xen_uboot_name! > nul
+            echo FB: ucmd setenv fastboot_buffer %imx8qm_stage_base_addr% >> %tmp_dir%uuu.lst
+            echo FB: download -f !xen_uboot_name!.link >> %tmp_dir%uuu.lst
+            echo FB: ucmd fatwrite mmc %sd_num% %imx8qm_stage_base_addr% !xen_uboot_name! 0x!xen_uboot_size_hex! >> %tmp_dir%uuu.lst
 
             for /f "usebackq" %%A in ('%image_directory%xen') do set xen_firmware_size_dec=%%~zA
             call :dec_to_hex !xen_firmware_size_dec! xen_firmware_size_hex
             echo generate lines to replace xen firmware on FAT
-            if exist xen.link (
-                del xen.link
+            if exist %tmp_dir%xen.link (
+                del %tmp_dir%xen.link
             )
-            cmd /c mklink xen.link %image_directory%xen > nul
-            echo FB: ucmd setenv fastboot_buffer %imx8qm_stage_base_addr% >> uuu.lst
-            echo FB: download -f xen.link >> uuu.lst
-            echo FB: ucmd fatwrite mmc %sd_num% %imx8qm_stage_base_addr% xen 0x!xen_firmware_size_hex! >> uuu.lst
+            cmd /c mklink %tmp_dir%xen.link %image_directory%xen > nul
+            echo FB: ucmd setenv fastboot_buffer %imx8qm_stage_base_addr% >> %tmp_dir%uuu.lst
+            echo FB: download -f xen.link >> %tmp_dir%uuu.lst
+            echo FB: ucmd fatwrite mmc %sd_num% %imx8qm_stage_base_addr% xen 0x!xen_firmware_size_hex! >> %tmp_dir%uuu.lst
 
             set target_num=%emmc_num%
-            echo FB: ucmd setenv fastboot_dev mmc >> uuu.lst
-            echo FB: ucmd setenv mmcdev !target_num! >> uuu.lst
-            echo FB: ucmd mmc dev !target_num! >> uuu.lst
+            echo FB: ucmd setenv fastboot_dev mmc >> %tmp_dir%uuu.lst
+            echo FB: ucmd setenv mmcdev !target_num! >> %tmp_dir%uuu.lst
+            echo FB: ucmd mmc dev !target_num! >> %tmp_dir%uuu.lst
             endlocal
         )
     ) else (
@@ -446,25 +458,25 @@ if not [%yocto_image%] == [] (
     )
 )
 
-echo FB[-t 600000]: erase misc>> uuu.lst
+echo FB[-t 600000]: erase misc>> %tmp_dir%uuu.lst
 
 :: make sure device is locked for boards don't use tee
-echo FB[-t 600000]: erase presistdata>> uuu.lst
-echo FB[-t 600000]: erase fbmisc>> uuu.lst
-echo FB[-t 600000]: erase metadata>> uuu.lst
+echo FB[-t 600000]: erase presistdata>> %tmp_dir%uuu.lst
+echo FB[-t 600000]: erase fbmisc>> %tmp_dir%uuu.lst
+echo FB[-t 600000]: erase metadata>> %tmp_dir%uuu.lst
 
 if not [%slot%] == [] if %support_dualslot% == 1 (
-    echo FB: set_active %slot:~-1%>> uuu.lst
+    echo FB: set_active %slot:~-1%>> %tmp_dir%uuu.lst
 )
 
 if %erase% == 1 (
     if %support_recovery% == 1 (
-        echo FB[-t 600000]: erase cache>> uuu.lst
+        echo FB[-t 600000]: erase cache>> %tmp_dir%uuu.lst
     )
-    echo FB[-t 600000]: erase userdata>> uuu.lst
+    echo FB[-t 600000]: erase userdata>> %tmp_dir%uuu.lst
 )
 
-echo FB: done >> uuu.lst
+echo FB: done >> %tmp_dir%uuu.lst
 
 if [%dryrun%] == [1] (
     goto :exit
@@ -473,11 +485,11 @@ if [%dryrun%] == [1] (
 echo uuu script generated, start to invoke uuu with the generated uuu script
 
 if %daemon_mode% equ 1 (
-    uuu -d uuu.lst
+    uuu -d %tmp_dir%uuu.lst
 ) else (
-    uuu uuu.lst
-    del *.link
-    del uuu.lst
+    uuu %tmp_dir%uuu.lst
+    del %tmp_dir%*.link
+    del %tmp_dir%uuu.lst
 )
 
 
@@ -621,44 +633,44 @@ if [%board%] == [] (
 goto :eof
 
 :uuu_load_uboot
-echo uuu_version 1.3.74 > uuu.lst
+echo uuu_version 1.3.74 > %tmp_dir%uuu.lst
 
-if exist %bootloader_used_by_uuu%.link (
-    del %bootloader_used_by_uuu%.link
+if exist %tmp_dir%%bootloader_used_by_uuu%.link (
+    del %tmp_dir%%bootloader_used_by_uuu%.link
 )
-cmd /c mklink %bootloader_used_by_uuu%.link %image_directory%%bootloader_used_by_uuu% > nul
-echo %sdp%: boot -f %bootloader_used_by_uuu%.link >> uuu.lst
+cmd /c mklink %tmp_dir%%bootloader_used_by_uuu%.link %image_directory%%bootloader_used_by_uuu% > nul
+echo %sdp%: boot -f %bootloader_used_by_uuu%.link >> %tmp_dir%uuu.lst
 
 
 :: for uboot by uuu which enabled SPL
 if not [%soc_name:imx8m=%] == [%soc_name%] (
     :: for images need SDPU
-    echo SDPU: delay 1000 >> uuu.lst
-    echo SDPU: write -f %bootloader_used_by_uuu%.link -offset 0x57c00 >> uuu.lst
-    echo SDPU: jump >> uuu.lst
+    echo SDPU: delay 1000 >> %tmp_dir%uuu.lst
+    echo SDPU: write -f %bootloader_used_by_uuu%.link -offset 0x57c00 >> %tmp_dir%uuu.lst
+    echo SDPU: jump >> %tmp_dir%uuu.lst
     :: for images need SDPV
-    echo SDPV: delay 1000 >> uuu.lst
-    echo SDPV: write -f %bootloader_used_by_uuu%.link -skipspl >> uuu.lst
-    echo SDPV: jump >> uuu.lst
+    echo SDPV: delay 1000 >> %tmp_dir%uuu.lst
+    echo SDPV: write -f %bootloader_used_by_uuu%.link -skipspl >> %tmp_dir%uuu.lst
+    echo SDPV: jump >> %tmp_dir%uuu.lst
 )
 
-echo FB: ucmd setenv fastboot_dev mmc >> uuu.lst
-echo FB: ucmd setenv mmcdev %target_num% >> uuu.lst
-echo FB: ucmd mmc dev %target_num% >> uuu.lst
+echo FB: ucmd setenv fastboot_dev mmc >> %tmp_dir%uuu.lst
+echo FB: ucmd setenv mmcdev %target_num% >> %tmp_dir%uuu.lst
+echo FB: ucmd mmc dev %target_num% >> %tmp_dir%uuu.lst
 
 :: erase environment variables of uboot
 if [%target_dev%] == [emmc] (
-    echo FB: ucmd mmc dev %target_num% 0 >> uuu.lst
+    echo FB: ucmd mmc dev %target_num% 0 >> %tmp_dir%uuu.lst
 )
-echo FB: ucmd mmc erase %uboot_env_start% %uboot_env_len% >> uuu.lst
+echo FB: ucmd mmc erase %uboot_env_start% %uboot_env_len% >> %tmp_dir%uuu.lst
 if [%target_dev%] == [emmc] (
-    echo FB: ucmd mmc partconf %target_num% 1 1 1 >> uuu.lst
+    echo FB: ucmd mmc partconf %target_num% 1 1 1 >> %tmp_dir%uuu.lst
 )
 
 if %intervene% == 1 (
 :: in fact, it's not an error, but to align the behaviour of cmd and powershell, a non-zero error value is used.
-    echo FB: done >> uuu.lst
-    uuu uuu.lst
+    echo FB: done >> %tmp_dir%uuu.lst
+    uuu %tmp_dir%uuu.lst
     set /A error_level=1 && goto :exit
 )
 
@@ -734,11 +746,11 @@ if not [%partition_to_be_flashed:gpt=%] == [%partition_to_be_flashed%] (
 
 :start_to_flash
 echo generate lines to flash %img_name% to the partition of %1
-if exist %img_name%.link (
-    del %img_name%.link
+if exist %tmp_dir%%img_name%.link (
+    del %tmp_dir%%img_name%.link
 )
-cmd /c mklink %img_name%.link %image_directory%%img_name% > nul
-echo FB[-t 600000]: flash %1 %img_name%.link >> uuu.lst
+cmd /c mklink %tmp_dir%%img_name%.link %image_directory%%img_name% > nul
+echo FB[-t 600000]: flash %1 %img_name%.link >> %tmp_dir%uuu.lst
 goto :eof
 
 
@@ -795,8 +807,8 @@ if not [%dtb_feature%] == [xen] (
 call :flash_partition gpt || set /A error_level=1 && goto :exit
 :: force to load the gpt just flashed, since for imx6 and imx7, we use uboot from BSP team,
 :: so partition table is not automatically loaded after gpt partition is flashed.
-echo FB: ucmd setenv fastboot_dev sata >> uuu.lst
-echo FB: ucmd setenv fastboot_dev mmc >> uuu.lst
+echo FB: ucmd setenv fastboot_dev sata >> %tmp_dir%uuu.lst
+echo FB: ucmd setenv fastboot_dev mmc >> %tmp_dir%uuu.lst
 
 if %support_dualslot% == 0 (
     if not [%slot%] == [] (
@@ -809,16 +821,16 @@ if %support_dualslot% == 0 (
 if [%soc_name%] == [imx7ulp] (
     if [%flash_m4%] == [1] (
         :: download m4 image to sdram
-        if exist %soc_name%_m4_demo.img.link (
-            del %soc_name%_m4_demo.img.link
+        if exist %tmp_dir%%soc_name%_m4_demo.img.link (
+            del %tmp_dir%%soc_name%_m4_demo.img.link
         )
-        cmd /c mklink %soc_name%_m4_demo.img.link %image_directory%%soc_name%_m4_demo.img > nul
+        cmd /c mklink %tmp_dir%%soc_name%_m4_demo.img.link %image_directory%%soc_name%_m4_demo.img > nul
         echo generate lines to flash %soc_name%_m4_demo.img to the partition of m4_os
-        echo FB: ucmd setenv fastboot_buffer %imx7ulp_stage_base_addr% >> uuu.lst
-        echo FB: download -f %soc_name%_m4_demo.img.link >> uuu.lst
-        echo FB: ucmd sf probe >> uuu.lst
-        echo FB[-t 30000]: ucmd sf erase %imx7ulp_evk_m4_sf_start_byte% %imx7ulp_evk_m4_sf_length_byte% >> uuu.lst
-        echo FB[-t 30000]: ucmd sf write %imx7ulp_stage_base_addr% %imx7ulp_evk_m4_sf_start_byte% %imx7ulp_evk_m4_sf_length_byte% >> uuu.lst
+        echo FB: ucmd setenv fastboot_buffer %imx7ulp_stage_base_addr% >> %tmp_dir%uuu.lst
+        echo FB: download -f %soc_name%_m4_demo.img.link >> %tmp_dir%uuu.lst
+        echo FB: ucmd sf probe >> %tmp_dir%uuu.lst
+        echo FB[-t 30000]: ucmd sf erase %imx7ulp_evk_m4_sf_start_byte% %imx7ulp_evk_m4_sf_length_byte% >> %tmp_dir%uuu.lst
+        echo FB[-t 30000]: ucmd sf write %imx7ulp_stage_base_addr% %imx7ulp_evk_m4_sf_start_byte% %imx7ulp_evk_m4_sf_length_byte% >> %tmp_dir%uuu.lst
     )
 ) else (
     if %flash_mcu% == 1 call :flash_partition %mcu_os_partition%
@@ -851,9 +863,9 @@ goto :eof
 
 :dec_to_hex
 set base_num=0123456789abcdef
-(for /f "usebackq" %%A in ('%1') do call :post_dec_to_hex %%A) > temp_hex.txt
-set /P %2=<temp_hex.txt
-del temp_hex.txt
+(for /f "usebackq" %%A in ('%1') do call :post_dec_to_hex %%A) > %tmp_dir%temp_hex.txt
+set /P %2=<%tmp_dir%temp_hex.txt
+del %tmp_dir%temp_hex.txt
 goto :eof
 :post_dec_to_hex
 set dec=%1
