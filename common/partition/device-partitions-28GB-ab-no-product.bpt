@@ -47,7 +47,7 @@
         {
             "ab": true,
             "label": "vendor",
-            "size": "512 MiB",
+            "size": "640 MiB",
             "guid": "auto",
             "type_guid": "2578eab2-a534-43e2-92c0-fed1b01c5d1d"
         },
