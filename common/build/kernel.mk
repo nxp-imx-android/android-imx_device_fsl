@@ -103,8 +103,8 @@ KERNEL_BIN := $(KERNEL_OUT)/arch/$(KERNEL_SRC_ARCH)/boot/$(KERNEL_NAME)
 # Figure out which kernel version is being built (disregard -stable version).
 KERNEL_VERSION := $(shell PATH=$$PATH $(MAKE) --no-print-directory -C $(TARGET_KERNEL_SRC) -s SUBLEVEL="" kernelversion)
 
-# Brillo kernel config file sources.
-KERNEL_CONFIG_DEFAULT := $(TARGET_KERNEL_SRC)/arch/$(KERNEL_SRC_ARCH)/configs/$(TARGET_KERNEL_DEFCONFIG)
+# Kernel config file sources.
+KERNEL_CONFIG_DEFAULT := $(realpath $(TARGET_KERNEL_SRC)/arch/$(KERNEL_SRC_ARCH)/configs/$(TARGET_KERNEL_DEFCONFIG))
 ifneq ($(TARGET_KERNEL_ADDITION_DEFCONF),)
 KERNEL_CONFIG_ADDITION := $(TARGET_DEVICE_DIR)/$(TARGET_KERNEL_ADDITION_DEFCONF)
 else
@@ -122,7 +122,7 @@ KERNEL_CONFIG_SRC := $(KERNEL_CONFIG_DEFAULT) \
   $(KERNEL_CONFIG_GKI)
 
 KERNEL_CONFIG := $(KERNEL_OUT)/.config
-KERNEL_MERGE_CONFIG := device/nxp/common/tools/mergeconfig.sh
+KERNEL_MERGE_CONFIG := $(realpath device/nxp/common/tools/merge_config.sh)
 
 KERNEL_HEADERS_INSTALL := $(KERNEL_OUT)/usr
 #KERNEL_MODULES_INSTALL := $(TARGET_OUT)/lib/modules
@@ -144,19 +144,20 @@ $(KERNEL_OUT):
 $(KERNEL_CONFIG_REQUIRED): $(KERNEL_CONFIG_REQUIRED_SRC) | $(KERNEL_OUT)
 	$(hide) cat $^ > $@
 
+# use deferred expansion
+kernel_build_shell_env = PATH=$(CLANG_TOOL_CHAIN_ABS):$(realpath prebuilts/misc/linux-x86/lz4):$${PATH} \
+        $(CLANG_TRIPLE) CCACHE_NODIRECT="true"
+kernel_build_common_env = ARCH=$(KERNEL_ARCH) CROSS_COMPILE=$(strip $(KERNEL_CROSS_COMPILE_WRAPPER)) \
+        KCFLAGS="$(KERNEL_CFLAGS)" KAFLAGS="$(KERNEL_AFLAGS)"
+kernel_build_make_env = $(kernel_build_common_env) $(CLANG_TO_COMPILE) -C $(TARGET_KERNEL_SRC) O=$(realpath $(KERNEL_OUT))
+merge_config_env = $(kernel_build_shell_env) $(kernel_build_common_env)
+merge_config_params = -p "$(CLANG_TO_COMPILE)" -O $(realpath $(KERNEL_OUT)) $(KERNEL_CONFIG_SRC)
+
 # Merge the final target kernel config.
 $(KERNEL_CONFIG): $(KERNEL_CONFIG_SRC) $(TARGET_KERNEL_SRC) | $(KERNEL_OUT)
-	$(hide) echo Merging KERNEL config
-	rm -f $(KERNEL_CONFIG)
-	$(KERNEL_MERGE_CONFIG) $(TARGET_KERNEL_SRC) $(realpath $(KERNEL_OUT)) \
-	$(KERNEL_ARCH) $(KERNEL_CONFIG_SRC)
-
-# use deferred expansion
-kernel_build_shell_env = PATH=$(CLANG_TOOL_CHAIN_ABS):$$(cd prebuilts/misc/linux-x86/lz4; pwd):$${PATH} \
-        $(CLANG_TRIPLE) CCACHE_NODIRECT="true"
-kernel_build_make_env = -C $(TARGET_KERNEL_SRC) O=$(realpath $(KERNEL_OUT)) ARCH=$(KERNEL_ARCH) \
-        CROSS_COMPILE=$(strip $(KERNEL_CROSS_COMPILE_WRAPPER)) $(CLANG_TO_COMPILE) \
-        KCFLAGS="$(KERNEL_CFLAGS)" KAFLAGS="$(KERNEL_AFLAGS)"
+	$(hide) echo Merging KERNEL config srcs: $(KERNEL_CONFIG_SRC)
+	$(hide) rm -f $(KERNEL_CONFIG)
+	$(hide) cd $(TARGET_KERNEL_SRC) && $(merge_config_env) $(KERNEL_MERGE_CONFIG) $(merge_config_params)
 
 $(KERNEL_BIN): $(KERNEL_CONFIG) $(TARGET_KERNEL_SRC) | $(KERNEL_OUT)
 	$(hide) echo "Building $(KERNEL_ARCH) $(KERNEL_VERSION) kernel ..."
