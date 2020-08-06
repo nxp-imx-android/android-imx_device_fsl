@@ -61,7 +61,8 @@ BOARD_VENDOR_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/usb/host/xhci-hcd.ko \
     $(KERNEL_OUT)/drivers/usb/host/xhci-pci.ko \
     $(KERNEL_OUT)/drivers/usb/host/xhci-plat-hcd.ko \
-    $(KERNEL_OUT)/drivers/input/keyboard/snvs_pwrkey.ko
+    $(KERNEL_OUT)/drivers/input/keyboard/snvs_pwrkey.ko \
+    $(KERNEL_OUT)/drivers/pci/controller/dwc/pci-imx6.ko
 endif
 
 # CONFIG_CLK_IMX8MP: clk-imx8mp.ko, clk-audiomix.ko, clk-gate-shared.ko, clk-hdmimix.ko
