@@ -37,6 +37,9 @@ BOARD_VENDOR_KERNEL_MODULES += \
 # CONFIG_RTC_DRV_SNVS: rtc-snvs.ko, snvs rtc driver
 # CONFIG_USB_XHCI_HCD: xhci-hcd.ko xhci-pci.ko xhci-plat-hcd.ko, usb host driver
 # CONFIG_KEYBOARD_SNVS_PWRKEY: snvs_pwrkey.ko, snvs power key driver
+# CONFIG_STAGING_MEDIA: able to build drivers/staging/media/
+# CONFIG_VIDEO_OV5640: ov5640.ko, ov5640 sensor driver
+# CONFIG_VIDEO_IMX_CAPTURE: imx8-media-dev.ko, imx8-isi-cap.ko, imx8-isi-hw.ko, imx8-isi-m2m.ko, imx8-mipi-csi2-sam.ko, imx isi and mipi driver
 
 ifneq ($(IMX8MP_USES_GKI),)
 BOARD_VENDOR_KERNEL_MODULES += \
@@ -62,7 +65,16 @@ BOARD_VENDOR_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/usb/host/xhci-pci.ko \
     $(KERNEL_OUT)/drivers/usb/host/xhci-plat-hcd.ko \
     $(KERNEL_OUT)/drivers/input/keyboard/snvs_pwrkey.ko \
-    $(KERNEL_OUT)/drivers/pci/controller/dwc/pci-imx6.ko
+    $(KERNEL_OUT)/drivers/pci/controller/dwc/pci-imx6.ko \
+    $(KERNEL_OUT)/drivers/staging/media/imx/imx8-media-dev.ko \
+    $(KERNEL_OUT)/drivers/media/v4l2-core/v4l2-fwnode.ko \
+    $(KERNEL_OUT)/drivers/media/v4l2-core/v4l2-mem2mem.ko \
+    $(KERNEL_OUT)/drivers/media/i2c/ov5640.ko \
+    $(KERNEL_OUT)/drivers/staging/media/imx/imx8-capture.ko \
+    $(KERNEL_OUT)/drivers/staging/media/imx/imx8-isi-cap.ko \
+    $(KERNEL_OUT)/drivers/staging/media/imx/imx8-isi-hw.ko \
+    $(KERNEL_OUT)/drivers/staging/media/imx/imx8-isi-m2m.ko \
+    $(KERNEL_OUT)/drivers/staging/media/imx/imx8-mipi-csi2-sam.ko
 endif
 
 # CONFIG_CLK_IMX8MP: clk-imx8mp.ko, clk-audiomix.ko, clk-gate-shared.ko, clk-hdmimix.ko
