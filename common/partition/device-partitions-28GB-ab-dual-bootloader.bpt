@@ -34,6 +34,13 @@
             "type_guid": "0f2778c4-5cc1-4300-8670-6c88b7e57ed6"
         },
         {
+            "ab": true,
+            "label": "system_ext",
+            "size": "128 MiB",
+            "guid": "auto",
+            "type_guid": "031044ba-5430-4137-9fb0-4c27a19e816a"
+        },
+        {
             "label": "misc",
             "size": "4 MiB",
             "guid": "auto",

@@ -109,12 +109,12 @@ BOARD_GPU_LIBDRM := libdrm_imx
 
 AB_OTA_UPDATER := true
 ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
-AB_OTA_PARTITIONS += dtbo boot system vendor vbmeta
+AB_OTA_PARTITIONS += dtbo boot system system_ext vendor vbmeta
 else
 ifeq ($(TARGET_USE_VENDOR_BOOT),true)
-AB_OTA_PARTITIONS += dtbo boot vendor_boot system vendor vbmeta product
+AB_OTA_PARTITIONS += dtbo boot vendor_boot system system_ext vendor vbmeta product
 else
-AB_OTA_PARTITIONS += dtbo boot system vendor vbmeta product
+AB_OTA_PARTITIONS += dtbo boot system system_ext vendor vbmeta product
 endif
 endif
 TARGET_NO_RECOVERY := true
@@ -135,6 +135,11 @@ ifneq ($(IMX_NO_PRODUCT_PARTITION),true)
   BOARD_PRODUCTIMAGE_FILE_SYSTEM_TYPE := ext4
   TARGET_COPY_OUT_PRODUCT := product
 endif
+
+# Build a separate system_ext.img partition
+BOARD_USES_SYSTEM_EXTIMAGE := true
+BOARD_SYSTEM_EXTIMAGE_FILE_SYSTEM_TYPE := ext4
+TARGET_COPY_OUT_SYSTEM_EXT := system_ext
 
 BOARD_FLASH_BLOCK_SIZE := 4096
 TARGET_RECOVERY_UI_LIB := librecovery_ui_imx
@@ -157,14 +162,15 @@ ifeq ($(TARGET_USE_DYNAMIC_PARTITIONS),true)
     BOARD_NXP_DYNAMIC_PARTITIONS_SIZE := 3747610624
   endif
   ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
-    BOARD_NXP_DYNAMIC_PARTITIONS_PARTITION_LIST := system vendor
+    BOARD_NXP_DYNAMIC_PARTITIONS_PARTITION_LIST := system system_ext vendor
   else
-    BOARD_NXP_DYNAMIC_PARTITIONS_PARTITION_LIST := system vendor product
+    BOARD_NXP_DYNAMIC_PARTITIONS_PARTITION_LIST := system system_ext vendor product
 
   endif
 else
   BOARD_BUILD_SYSTEM_ROOT_IMAGE := true
   BOARD_VENDORIMAGE_PARTITION_SIZE := 671088640
+  BOARD_SYSTEM_EXTIMAGE_PARTITION_SIZE := 134217728
   ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
     BOARD_SYSTEMIMAGE_PARTITION_SIZE := 2952790016
   else

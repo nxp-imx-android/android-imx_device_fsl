@@ -56,6 +56,7 @@ vaild_gpt_size=17
 not_partition=0
 slot=""
 systemimage_file="system.img"
+system_extimage_file="system_ext.img"
 vendor_file="vendor.img"
 product_file="product.img"
 partition_file="partition-table.img"
@@ -206,6 +207,8 @@ function flash_partition
                 img_name=${uboot_proper_file}
             elif [ ${support_vendor_boot} -eq 1 ] && [ $(echo ${1} | grep "vendor_boot") != "" ] 2>/dev/null; then
                 img_name="${vendorboot_file}"
+            elif [ "$(echo ${1} | grep "system_ext")" != "" ]; then
+                img_name=${system_extimage_file}
             elif [ "$(echo ${1} | grep "system")" != "" ]; then
                 img_name=${systemimage_file}
             elif [ "$(echo ${1} | grep "vendor")" != "" ]; then
@@ -262,6 +265,7 @@ function flash_android
     boot_partition="boot"${slot}
     recovery_partition="recovery"${slot}
     system_partition="system"${slot}
+    system_ext_partition="system_ext"${slot}
     vendor_partition="vendor"${slot}
     product_partition="product"${slot}
     vbmeta_partition="vbmeta"${slot}
@@ -291,6 +295,7 @@ function flash_android
     flash_partition ${recovery_partition}  || exit 1
     if [ ${support_dynamic_partition} -eq 0 ]; then
         flash_partition ${system_partition} || exit 1
+        flash_partition ${system_ext_partition} || exit 1
         flash_partition ${vendor_partition} || exit 1
         flash_partition ${product_partition} || exit 1
     else

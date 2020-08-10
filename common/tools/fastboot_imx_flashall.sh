@@ -106,6 +106,8 @@ function flash_partition
 {
     if [ ${support_dual_bootloader} -eq 1 ] && [ "$(echo ${1} | grep "bootloader_")" != "" ]; then
         img_name=${uboot_proper_to_be_flashed}
+    elif [ "$(echo ${1} | grep "system_ext")" != "" ]; then
+        img_name=${system_extimage_file}
     elif [ "$(echo ${1} | grep "system")" != "" ]; then
         img_name=${systemimage_file}
     elif [ ${support_vendor_boot} -eq 1 ] && [ "$(echo ${1} | grep "vendor_boot")" != "" ]; then
@@ -156,6 +158,7 @@ function flash_userpartitions
 
     if [ ${support_dynamic_partition} -eq 0 ]; then
         flash_partition ${system_partition}
+        flash_partition ${system_ext_partition}
         flash_partition ${vendor_partition}
         flash_partition ${product_partition}
     fi
@@ -167,6 +170,7 @@ function flash_partition_name
     boot_partition="boot"${1}
     recovery_partition="recovery"${1}
     system_partition="system"${1}
+    system_ext_partition="system_ext"${1}
     vendor_partition="vendor"${1}
     product_partition="product"${1}
     vbmeta_partition="vbmeta"${1}
@@ -268,6 +272,7 @@ dtb_feature=""
 card_size=0
 slot=""
 systemimage_file="system.img"
+system_extimage_file="system_ext.img"
 vendor_file="vendor.img"
 product_file="product.img"
 partition_file="partition-table.img"
@@ -285,6 +290,7 @@ uboot_proper_to_be_flashed=""
 boot_partition="boot"
 recovery_partition="recovery"
 system_partition="system"
+system_ext_partition="system_ext"
 vendor_partition="vendor"
 product_partition="product"
 vbmeta_partition="vbmeta"

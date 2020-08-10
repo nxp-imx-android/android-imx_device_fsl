@@ -20,6 +20,7 @@ set /A card_size=0
 set slot=
 set bootimage=boot.img
 set systemimage_file=system.img
+set system_extimage_file=system_ext.img
 set vendor_file=vendor.img
 set product_file=product.img
 set partition_file=partition-table.img
@@ -39,6 +40,7 @@ set bootloader_partition=bootloader
 set boot_partition=boot
 set recovery_partition=recovery
 set system_partition=system
+set system_ext_partition=system_ext
 set vendor_partition=vendor
 set product_partition=product
 set vbmeta_partition=vbmeta
@@ -338,6 +340,10 @@ if not [%partition_to_be_flashed:vendor_boot=%] == [%partition_to_be_flashed%] (
     goto :start_to_flash
 )
 
+if not [%partition_to_be_flashed:system_ext=%] == [%partition_to_be_flashed%] (
+    set img_name=%system_extimage_file%
+    goto :start_to_flash
+)
 if not [%partition_to_be_flashed:system=%] == [%partition_to_be_flashed%] (
     set img_name=%systemimage_file%
     goto :start_to_flash
@@ -406,6 +412,7 @@ if %support_vendor_boot% == 1 call :flash_partition %vendor_boot_partition% || s
 call :flash_partition %boot_partition% || set /A error_level=1 && goto :exit
 if %support_dynamic_partition% == 0 (
     call :flash_partition %system_partition% || set /A error_level=1 && goto :exit
+    call :flash_partition %system_ext_partition% || set /A error_level=1 && goto :exit
     call :flash_partition %vendor_partition% || set /A error_level=1 && goto :exit
     call :flash_partition %product_partition% || set /A error_level=1 && goto :exit
 )
@@ -417,6 +424,7 @@ goto :eof
 set boot_partition=boot%1
 set recovery_partition=recovery%1
 set system_partition=system%1
+set system_ext_partition=system_ext%1
 set vendor_partition=vendor%1
 set product_partition=product%1
 set vbmeta_partition=vbmeta%1
