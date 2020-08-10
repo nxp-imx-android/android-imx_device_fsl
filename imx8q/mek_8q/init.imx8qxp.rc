@@ -31,6 +31,7 @@ on property:sys.boot_completed=1
     # The rate-limit tunable in the schedutil governor applies to transitions to both lower and higher frequencies
     # Set both up and down limit us to 200us
     write /sys/devices/system/cpu/cpufreq/schedutil/rate_limit_us 200
+    write /proc/sys/kernel/sched_util_clamp_min 512
 
 on property:sys.boot_completed=1
     # update cpuset now that processors are up

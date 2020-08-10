@@ -12,3 +12,4 @@ genfscon sysfs /devices/platform/soc@0/soc@0:bus@32c00000/32c00000.hdmi/extcon  
 genfscon sysfs /devices/soc0   u:object_r:sysfs_soc:s0
 genfscon debugfs /dma_buf u:object_r:debugfs_dma:s0
 genfscon debugfs /sync/sw_sync u:object_r:debugfs_sw_sync:s0
+genfscon proc /sys/kernel/sched_util_clamp_min u:object_r:proc_util_clamp:s0

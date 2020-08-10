@@ -1,1 +1,2 @@
 type debugfs_dma, debugfs_type, fs_type;
+type proc_util_clamp, fs_type, proc_type;

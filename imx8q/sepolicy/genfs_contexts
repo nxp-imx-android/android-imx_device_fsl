@@ -11,6 +11,7 @@ genfscon sysfs /devices/platform/bus@56260000/56268000.hdmi/extcon      u:object
 genfscon debugfs /dma_buf u:object_r:debugfs_dma:s0
 genfscon debugfs /sync/sw_sync u:object_r:debugfs_sw_sync:s0
 genfscon sysfs /devices/soc0   u:object_r:sysfs_soc:s0
+genfscon proc /sys/kernel/sched_util_clamp_min u:object_r:proc_util_clamp:s0
 
 #mek_8q ethernet
 genfscon sysfs /devices/platform/bus@5b000000/5b040000.ethernet/net  u:object_r:sysfs_net:s0
