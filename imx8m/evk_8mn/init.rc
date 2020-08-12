@@ -268,7 +268,7 @@ on post-fs-data && property:vendor.skip.charger_not_need=0
 
     # tmp dir for opencl Compiler
     setprop TMPDIR /data/vendor/.opencl-cache
-    mkdir /data/vendor/.opencl-cache 0771 camera camera
+    mkdir /data/vendor/.opencl-cache 0771 system camera
 
 on zygote-start && property:vendor.skip.charger_not_need=0
     # Create the directories used by the Wireless subsystem
