@@ -18,3 +18,6 @@ genfscon sysfs /devices/platform/soc@0/30000000.bus/30370000.snvs/30370000.snvs:
 genfscon sysfs /devices/virtual/power_supply/battery/wakeup4                                                                      u:object_r:sysfs_wakeup:s0
 genfscon sysfs /devices/virtual/power_supply/usb/wakeup5                                                                          u:object_r:sysfs_wakeup:s0
 genfscon sysfs /devices/platform/soc@0/30800000.bus/30a30000.i2c/i2c-1/1-0050/power_supply/tcpm-source-psy-1-0050/wakeup6         u:object_r:sysfs_wakeup:s0
+
+# for dumpstate to access the stat file
+genfscon sysfs /devices/platform/b8500000.pmem/ndbus0/region0/namespace0.0/block/pmem0                                            u:object_r:sysfs_block_devices:s0

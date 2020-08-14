@@ -18,3 +18,6 @@ genfscon sysfs /devices/platform/bus@5b000000/5b040000.ethernet/net  u:object_r:
 genfscon sysfs /devices/platform/bus@5f000000/5f000000.pcie/pci0000:00/0000:00:00.0/0000:01:00.0/net u:object_r:sysfs_net:s0
 #mek_8qxp wifi
 genfscon sysfs /devices/platform/bus@5f000000/5f010000.pcie/pci0000:00/0000:00:00.0/0000:01:00.0/net u:object_r:sysfs_net:s0
+
+# for dumpstate to access the stat file
+genfscon sysfs /devices/platform/94c00000.pmem/ndbus0/region0/namespace0.0/block/pmem0               u:object_r:sysfs_block_devices:s0
