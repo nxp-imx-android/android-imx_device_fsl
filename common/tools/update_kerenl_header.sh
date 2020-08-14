@@ -30,7 +30,7 @@ rm external/imx_kernel -rf
 
 prepare_work
 
-${bionic_uapi_tool_path}/generate_uapi_headers.sh --use-kernel-dir external/imx_kernel
+${bionic_uapi_tool_path}/generate_uapi_headers.sh --use-kernel-dir external/imx_kernel/linux-stable
 ${bionic_uapi_tool_path}/update_all.py
 
 for file in $(ls ${imx_kernel_header_path})
