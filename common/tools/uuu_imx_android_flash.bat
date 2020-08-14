@@ -157,11 +157,11 @@ if not [%image_directory%] == [] if not %image_directory:~-1% == \ (
     set image_directory=%image_directory%\
 )
 if [%image_directory%] == [] (
-    set image_directory=%cd%\
+    set image_directory="%cd%"\
 )
 
 if not [%yocto_image%] == [] (
-    echo %yocto_image% | findstr \ > nul || set yocto_image=%cd%\%yocto_image%
+    echo %yocto_image% | findstr \ > nul || set yocto_image="%cd%"\%yocto_image%
 )
 
 :: If sdcard size is not correctly set, exit
@@ -573,7 +573,7 @@ echo                           ©¦   imx7ulp      ©¦  evk-mipi evk mipi          
 echo                           ©¸©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©Ø©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¼
 echo
 echo  -e                erase user data after all image files being flashed
-echo  -D directory      the directory of of images
+echo  -D directory      the directory of of images, it this option is used, it must be followed with an absolute path.
 echo                        No need to use this option if images are in current working directory
 echo  -t target_dev     emmc or sd, emmc is default target_dev, make sure target device exist
 echo  -p board          specify board for imx6dl, imx6q, imx6qp and imx8mq, since more than one platform we maintain Android on use these chips
@@ -586,10 +586,6 @@ echo  -i                with this option used, after uboot for uuu loaded and ex
 echo                        This option is for users to manually flash the images to partitions they want to
 echo  -daemon           after uuu script generated, uuu will be invoked with daemon mode. It is used for flash multi boards
 echo  -dryrun           only generate the uuu script under /tmp direcbory but not flash images
-echo  -super            do not generate super.img when flash the images with dynamic partition feature enabled.
-echo                        Under the condition that dynamic partition feature are enabled:
-echo                          if this option is not used, super.img will be generated under current working directory and flashed to the board.
-echo                          if this option is used, make sure super.img already exists together with other images.
 goto :eof
 
 

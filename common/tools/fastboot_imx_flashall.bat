@@ -294,10 +294,6 @@ echo  -D directory      the directory of of images
 echo                        No need to use this option if images are in current working directory
 echo  -s ser_num        the serial number of board
 echo                        If only one board connected to computer, no need to use this option
-echo  -super            do not generate super.img when flash the images with dynamic partition feature enabled.
-echo                        Under the condition that dynamic partition feature are enabled:
-echo                          if this option is not used, super.img will be generated under current working directory and flashed to the board.
-echo                          if this option is used, make sure super.img already exists together with other images.
 goto :eof
 
 :: this function checks whether the value of first parameter is in the array value of second parameter.
