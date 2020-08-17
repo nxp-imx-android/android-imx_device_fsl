@@ -40,6 +40,10 @@ BOARD_VENDOR_KERNEL_MODULES += \
 # CONFIG_STAGING_MEDIA: able to build drivers/staging/media/
 # CONFIG_VIDEO_OV5640: ov5640.ko, ov5640 sensor driver
 # CONFIG_VIDEO_IMX_CAPTURE: imx8-media-dev.ko, imx8-isi-cap.ko, imx8-isi-hw.ko, imx8-isi-m2m.ko, imx8-mipi-csi2-sam.ko, imx isi and mipi driver
+# CONFIG_IMX_MBOX: imx-mailbox.ko, imx mailbox driver
+# CONFIG_I2C_RPBUS: virtio_rpmsg_bus.ko, virtio rpmsg bus driver
+# CONFIG_IMX_REMOTEPROC: imx_rproc.ko, remote proc driver
+# CONFIG_SND_SOC_IMX_RPMSG: imx-pcm-rpmsg.ko snd-soc-fsl-rpmsg-i2s.ko imx-i2s-rpmsg.ko, rpmsg audio driver
 
 ifneq ($(IMX8MP_USES_GKI),)
 BOARD_VENDOR_KERNEL_MODULES += \
@@ -60,6 +64,16 @@ BOARD_VENDOR_KERNEL_MODULES += \
     $(KERNEL_OUT)/sound/soc/codecs/snd-soc-bt-sco.ko \
     $(KERNEL_OUT)/sound/soc/generic/snd-soc-simple-card-utils.ko \
     $(KERNEL_OUT)/sound/soc/generic/snd-soc-simple-card.ko \
+    $(KERNEL_OUT)/drivers/mailbox/imx-mailbox.ko \
+    $(KERNEL_OUT)/drivers/rpmsg/virtio_rpmsg_bus.ko \
+    $(KERNEL_OUT)/drivers/remoteproc/imx_rproc.ko \
+    $(KERNEL_OUT)/drivers/i2c/busses/i2c-rpmsg-imx.ko \
+    $(KERNEL_OUT)/sound/soc/fsl/imx-pcm-rpmsg.ko \
+    $(KERNEL_OUT)/sound/soc/fsl/snd-soc-fsl-rpmsg-i2s.ko \
+    $(KERNEL_OUT)/sound/soc/fsl/imx-i2s-rpmsg.ko \
+    $(KERNEL_OUT)/sound/soc/codecs/snd-soc-rpmsg-wm8960.ko \
+    $(KERNEL_OUT)/sound/soc/codecs/snd-soc-rpmsg-wm8960-i2c.ko \
+    $(KERNEL_OUT)/sound/soc/fsl/snd-soc-imx-rpmsg.ko \
     $(KERNEL_OUT)/drivers/rtc/rtc-snvs.ko \
     $(KERNEL_OUT)/drivers/usb/host/xhci-hcd.ko \
     $(KERNEL_OUT)/drivers/usb/host/xhci-pci.ko \
