@@ -261,3 +261,7 @@ ro.bluetooth.emb_wp_mode            u:object_r:vendor_bluetooth_prop:s0
 ro.bluetooth.wipower                u:object_r:vendor_bluetooth_prop:s0
 unified_bt_logging                  u:object_r:vendor_bluetooth_prop:s0
 persist.BT3_2.version               u:object_r:vendor_bluetooth_prop:s0
+
+# vendor_wifi_version
+vendor.wlan.driver.version    u:object_r:vendor_wifi_version:s0
+vendor.wlan.firmware.version  u:object_r:vendor_wifi_version:s0
