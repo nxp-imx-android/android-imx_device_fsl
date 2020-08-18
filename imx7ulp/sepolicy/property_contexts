@@ -72,6 +72,7 @@ ro.media.maxmem                     u:object_r:public_vendor_default_prop:s0
 android.car.hvac.demo               u:object_r:public_vendor_default_prop:s0
 persist.bluetooth.enablenewavrcp    u:object_r:public_vendor_default_prop:s0
 persist.service.bdroid.bdaddr       u:object_r:public_vendor_default_prop:s0
+hwc.debug.dump_refresh_rate         u:object_r:public_vendor_default_prop:s0
 
 ro.boot.gui_resolution              u:object_r:vendor_default_prop:s0
 ro.boot.primary_display             u:object_r:vendor_default_prop:s0

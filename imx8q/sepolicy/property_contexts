@@ -51,6 +51,7 @@ VS90COMNTOOLS                       u:object_r:public_vendor_default_prop:s0
 VSC_OPTION                          u:object_r:public_vendor_default_prop:s0
 G2D_YUV_COLOR_MODE                  u:object_r:public_vendor_default_prop:s0
 hwc.enable.dump_frame               u:object_r:public_vendor_default_prop:s0
+hwc.debug.dump_refresh_rate         u:object_r:public_vendor_default_prop:s0
 OPENCL_TIMEOUT                      u:object_r:public_vendor_default_prop:s0
 VIV_CL_EXT_OPTION                   u:object_r:public_vendor_default_prop:s0
 
