@@ -296,3 +296,7 @@ on property:ro.boot.vendor.sysrq=1
 # setenv append_bootargs androidboot.usb.debugging=1
 on property:ro.boot.usb.debugging=1
     setprop persist.sys.usb.config adb
+
+# set freq coefficient to 3 for get better performance in i.MX8Q series SoC
+on property:sys.boot_completed=1
+    write /sys/devices/system/cpu/cpufreq/schedutil/freq_coefficient 3
