@@ -148,5 +148,13 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES +=     \
     $(KERNEL_OUT)/drivers/usb/dwc3/dwc3-imx8mp.ko \
     $(KERNEL_OUT)/drivers/usb/dwc3/dwc3.ko \
     $(KERNEL_OUT)/drivers/usb/typec/mux/gpio-switch.ko \
-    $(KERNEL_OUT)/drivers/usb/typec/tcpm/tcpci.ko
+    $(KERNEL_OUT)/drivers/usb/typec/tcpm/tcpci.ko \
+    $(KERNEL_OUT)/drivers/trusty/trusty.ko \
+    $(KERNEL_OUT)/drivers/trusty/trusty-fiq.ko \
+    $(KERNEL_OUT)/drivers/trusty/trusty-arm64-fiq.ko \
+    $(KERNEL_OUT)/drivers/trusty/trusty-ipc.ko \
+    $(KERNEL_OUT)/drivers/trusty/trusty-irq.ko \
+    $(KERNEL_OUT)/drivers/trusty/trusty-log.ko \
+    $(KERNEL_OUT)/drivers/trusty/trusty-mem.ko \
+    $(KERNEL_OUT)/drivers/trusty/trusty-virtio.ko
 endif

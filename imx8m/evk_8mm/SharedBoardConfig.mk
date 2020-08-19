@@ -115,5 +115,13 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES +=     \
     $(KERNEL_OUT)/drivers/usb/chipidea/ci_hdrc_imx.ko \
     $(KERNEL_OUT)/drivers/usb/chipidea/ci_hdrc.ko \
     $(KERNEL_OUT)/drivers/usb/phy/phy-generic.ko \
-    $(KERNEL_OUT)/drivers/usb/typec/tcpm/tcpci.ko
+    $(KERNEL_OUT)/drivers/usb/typec/tcpm/tcpci.ko \
+    $(KERNEL_OUT)/drivers/trusty/trusty.ko \
+    $(KERNEL_OUT)/drivers/trusty/trusty-fiq.ko \
+    $(KERNEL_OUT)/drivers/trusty/trusty-arm64-fiq.ko \
+    $(KERNEL_OUT)/drivers/trusty/trusty-ipc.ko \
+    $(KERNEL_OUT)/drivers/trusty/trusty-irq.ko \
+    $(KERNEL_OUT)/drivers/trusty/trusty-log.ko \
+    $(KERNEL_OUT)/drivers/trusty/trusty-mem.ko \
+    $(KERNEL_OUT)/drivers/trusty/trusty-virtio.ko
 endif
