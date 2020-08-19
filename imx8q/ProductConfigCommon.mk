@@ -165,14 +165,11 @@ PRODUCT_PACKAGES += \
     lib_aacd_wrap_arm12_elinux_android \
     lib_flac_dec_v2_arm11_elinux \
     lib_mp3_dec_v2_arm12_elinux \
-    lib_mp3_enc_v2_arm12_elinux \
     lib_mp3d_wrap_arm12_elinux_android \
     lib_nb_amr_dec_v2_arm9_elinux \
     lib_nb_amr_enc_v2_arm11_elinux \
-    lib_peq_v2_arm11_elinux \
     lib_wb_amr_dec_arm9_elinux \
     lib_wb_amr_enc_arm11_elinux \
-    libfsl_jpeg_enc_arm11_elinux \
     media_codecs.xml \
     media_codecs_8qm.xml \
     media_codecs_8qxp.xml \
@@ -196,7 +193,6 @@ PRODUCT_PACKAGES += \
     libimxextractor \
     lib_aac_parser_arm11_elinux.3.0 \
     lib_amr_parser_arm11_elinux.3.0 \
-    lib_ape_parser_arm11_elinux.3.0 \
     lib_avi_parser_arm11_elinux.3.0 \
     lib_dsf_parser_arm11_elinux.3.0 \
     lib_flac_parser_arm11_elinux.3.0 \
@@ -206,11 +202,9 @@ PRODUCT_PACKAGES += \
     lib_mp4_parser_arm11_elinux.3.0 \
     lib_mpg2_parser_arm11_elinux.3.0 \
     lib_ogg_parser_arm11_elinux.3.0 \
-    lib_wav_parser_arm11_elinux.3.0 \
 
 # Omx excluded libs
 PRODUCT_PACKAGES += \
-    lib_WMV789_dec_v2_arm11_elinux \
     lib_aacplus_dec_v2_arm11_elinux \
     lib_aacplusd_wrap_arm12_elinux_android \
     lib_ac3_dec_v2_arm11_elinux \

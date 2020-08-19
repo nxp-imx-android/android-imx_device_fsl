@@ -179,7 +179,6 @@ PRODUCT_PACKAGES += \
     lib_aac_parser_arm11_elinux.3.0 \
     lib_aacd_wrap_arm12_elinux_android \
     lib_amr_parser_arm11_elinux.3.0 \
-    lib_ape_parser_arm11_elinux.3.0 \
     lib_avi_parser_arm11_elinux.3.0 \
     lib_divx_drm_arm11_elinux \
     lib_ffmpeg_arm11_elinux \
@@ -190,11 +189,9 @@ PRODUCT_PACKAGES += \
     lib_id3_parser_arm11_elinux \
     lib_mkv_parser_arm11_elinux.3.0 \
     lib_mp3_dec_v2_arm12_elinux \
-    lib_mp3_enc_v2_arm12_elinux \
     lib_mp3_parser_arm11_elinux.3.0 \
     lib_mp3_parser_v2_arm11_elinux \
     lib_mp3d_wrap_arm12_elinux_android \
-    lib_mp4_muxer_arm11_elinux \
     lib_mp4_parser_arm11_elinux.3.0 \
     lib_mpg2_parser_arm11_elinux.3.0 \
     lib_nb_amr_dec_v2_arm9_elinux \
@@ -250,15 +247,11 @@ PRODUCT_PACKAGES += \
     lib_omx_vpu_enc_v2_arm11_elinux \
     lib_omx_vpu_v2_arm11_elinux \
     lib_omx_wav_parser_v2_arm11_elinux \
-    lib_peq_v2_arm11_elinux \
     lib_vpu_wrapper \
-    lib_wav_parser_arm11_elinux \
-    lib_wav_parser_arm11_elinux.3.0 \
     lib_wb_amr_dec_arm9_elinux \
     lib_wb_amr_enc_arm11_elinux \
     libavcodec \
     libavutil \
-    libfsl_jpeg_enc_arm11_elinux \
     libfslextractor \
     libfslxec \
     libstagefrighthw \
@@ -277,7 +270,6 @@ PRODUCT_PACKAGES += \
 
 # Omx excluded libs
 PRODUCT_PACKAGES += \
-    lib_WMV789_dec_v2_arm11_elinux \
     lib_aacplus_dec_v2_arm11_elinux \
     lib_aacplusd_wrap_arm12_elinux_android \
     lib_ac3_dec_v2_arm11_elinux \
