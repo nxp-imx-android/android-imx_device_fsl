@@ -60,6 +60,7 @@ PRODUCT_PACKAGES += \
 # A/B OTA
 PRODUCT_PACKAGES += \
     android.hardware.boot@1.1-impl \
+    android.hardware.boot@1.1-impl.recovery \
     android.hardware.boot@1.1-service \
     update_engine \
     update_engine_client \
