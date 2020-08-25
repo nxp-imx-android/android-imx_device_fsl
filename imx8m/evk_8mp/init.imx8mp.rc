@@ -42,6 +42,7 @@ on property:sys.boot_completed=1
     write /dev/cpuset/system-background/cpus 0-2
 
 on early-boot && property:ro.boot.isp=yes
+    export VSI_LOG_LEVEL 0
     start isp_media_server
 
 service isp_media_server /vendor/bin/isp_media_server /vendor/etc/configs/isp/daA3840_30mc_1080P.json
