@@ -19,26 +19,10 @@ DEVICE_MATRIX_FILE := $(IMX_DEVICE_PATH)/compatibility_matrix.xml
 
 TARGET_BOOTLOADER_BOARD_NAME := EVK
 
-# evk board use qcom wifi
-ifeq ($(PRODUCT_7ULP_REVB), true)
-BOARD_WLAN_DEVICE := qcwcn
-WIFI_HIDL_FEATURE_DUAL_INTERFACE := true
-# Qcom BT
-BOARD_HAVE_BLUETOOTH_QCOM := true
-BOARD_HAS_QCA_BT_ROME := true
-BOARD_HAVE_BLUETOOTH_BLUEZ := false
-QCOM_BT_USE_SIBS := true
-ifeq ($(QCOM_BT_USE_SIBS), true)
-    WCNSS_FILTER_USES_SIBS := true
-endif
-SOONG_CONFIG_IMXPLUGIN += BOARD_HAVE_BLUETOOTH_QCOM
-SOONG_CONFIG_IMXPLUGIN_BOARD_HAVE_BLUETOOTH_QCOM = true
-else
 # 7ulp evkb board use NXP 8987 wifi
 BOARD_WLAN_DEVICE := nxp
 # BCM 1DX BT
 BOARD_HAVE_BLUETOOTH_BCM := true
-endif
 
 #common wifi configs
 WPA_SUPPLICANT_VERSION       := VER_0_8_X
@@ -76,17 +60,10 @@ BOARD_KERNEL_CMDLINE += androidboot.lcd_density=120
 # Force use gpt as 7ulp have no backup GPT only
 BOARD_KERNEL_CMDLINE += gpt
 
-ifneq ($(PRODUCT_7ULP_REVB), true)
-# imx7ulp_evk with HDMI display
-TARGET_BOARD_DTS_CONFIG := imx7ulp:imx7ulp-evk.dtb
-# imx7ulp_evk with MIPI panel display
-TARGET_BOARD_DTS_CONFIG += imx7ulp-mipi:imx7ulp-evk-mipi.dtb
-else
 # imx7ulp_evkb with HDMI display
 TARGET_BOARD_DTS_CONFIG := imx7ulp:imx7ulp-evkb.dtb
 # imx7ulp_evkb with MIPI panel display
 TARGET_BOARD_DTS_CONFIG += imx7ulp-mipi:imx7ulp-evkb-rm68200-wxga.dtb
-endif
 
 BOARD_PREBUILT_DTBOIMAGE := out/target/product/evk_7ulp/dtbo-imx7ulp.img
 

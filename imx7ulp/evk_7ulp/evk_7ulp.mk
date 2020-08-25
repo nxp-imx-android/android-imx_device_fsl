@@ -41,15 +41,9 @@ PRODUCT_COPY_FILES += \
     device/fsl/common/wifi/p2p_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/p2p_supplicant_overlay.conf \
     device/fsl/common/wifi/wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf
 
-ifeq ($(PRODUCT_7ULP_REVB), true)
-#evk board, NXP 8987 wifi supplicant overlay
-PRODUCT_COPY_FILES += \
-    $(IMX_DEVICE_PATH)/init.imx7ulp.revb.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.freescale.additional.rc
-else
 #evkb board, bcm wifi supplicant overlay
 PRODUCT_COPY_FILES += \
     $(IMX_DEVICE_PATH)/init.imx7ulp.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.freescale.additional.rc
-endif
 
 # ONLY devices that meet the CDD's requirements may declare these features
 PRODUCT_COPY_FILES += \
@@ -170,20 +164,6 @@ PRODUCT_PACKAGES += \
     android.hardware.bluetooth@1.0-impl \
     android.hardware.bluetooth@1.0-service
 
-ifeq ($(PRODUCT_7ULP_REVB), true)
-# Qcom WiFi Firmware
-PRODUCT_COPY_FILES += \
-    vendor/nxp/qca-wifi-bt/1PJ_QCA9377-3_LEA_2.0/lib/firmware/qca9377/bdwlan30.bin:vendor/firmware/bdwlan30.bin \
-    vendor/nxp/qca-wifi-bt/1PJ_QCA9377-3_LEA_2.0/lib/firmware/qca9377/otp30.bin:vendor/firmware/otp30.bin \
-    vendor/nxp/qca-wifi-bt/1PJ_QCA9377-3_LEA_2.0/lib/firmware/qca9377/qwlan30.bin:vendor/firmware/qwlan30.bin \
-    vendor/nxp/qca-wifi-bt/1PJ_QCA9377-3_LEA_2.0/lib/firmware/wlan/qca9377/qcom_cfg.ini:vendor/firmware/wlan/qcom_cfg.ini
-
-# Qcom 1PJ Bluetooth Firmware
-PRODUCT_COPY_FILES += \
-    vendor/nxp/qca-wifi-bt/1PJ_QCA9377-3_LEA_2.0/lib/firmware/qca/tfbtnv11.bin:vendor/firmware/nvm_tlv_3.2.bin \
-    vendor/nxp/qca-wifi-bt/1PJ_QCA9377-3_LEA_2.0/lib/firmware/qca/tfbtfw11.tlv:vendor/firmware/rampatch_tlv_3.2.tlv \
-    vendor/nxp/qca-wifi-bt/qca_proprietary/Android_HAL/wcnss_filter_7ulp:vendor/bin/wcnss_filter
-else
 # BCM Bluetooth vendor config
 PRODUCT_PACKAGES += \
     bt_vendor.conf
@@ -195,7 +175,6 @@ PRODUCT_COPY_FILES += \
 # NXP 8987 WiFi Firmware
 PRODUCT_COPY_FILES += \
     vendor/nxp/imx-firmware/nxp/FwImage_8987/sdiouart8987_combo_v0.bin:vendor/firmware/sdiouart8987_combo_v0.bin
-endif
 
 # Wifi regulatory
 PRODUCT_COPY_FILES += \

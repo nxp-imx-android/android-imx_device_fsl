@@ -27,11 +27,8 @@
 # Copied from build/target/product/AndroidProducts.mk
 
 PRODUCT_MAKEFILES := \
-  $(LOCAL_DIR)/evk_7ulp/evk_7ulp.mk \
-  $(LOCAL_DIR)/evk_7ulp/evk_7ulp_revb.mk
+  $(LOCAL_DIR)/evk_7ulp/evk_7ulp.mk
 
 COMMON_LUNCH_CHOICES := \
   evk_7ulp-user \
-  evk_7ulp-userdebug \
-  evk_7ulp_revb-user \
-  evk_7ulp_revb-userdebug
+  evk_7ulp-userdebug
