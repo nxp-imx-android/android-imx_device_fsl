@@ -16,9 +16,6 @@ BOARD_VENDOR_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/net/wireless/marvell/mrvl8997/wlan_src/mlan.ko \
     $(KERNEL_OUT)/drivers/net/wireless/marvell/mrvl8997/wlan_src/pcie8xxx.ko \
 
-# isp vvcam driver module
-BOARD_VENDOR_KERNEL_MODULES += \
-    $(TARGET_OUT_INTERMEDIATES)/VVCAM_OBJ/vvcam.ko
 
 # CONFIG_IMX_SDMA: imx-sdma.ko, sdma used for audio
 # CONFIG_SND_SOC_IMX_PCM_DMA: imx-pcm-dma-common.ko, used for fsl_micfil
@@ -200,3 +197,10 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES +=     \
     $(KERNEL_OUT)/drivers/trusty/trusty-mem.ko \
     $(KERNEL_OUT)/drivers/trusty/trusty-virtio.ko
 endif
+
+# isp vvcam driver module
+BOARD_VENDOR_KERNEL_MODULES += \
+    $(TARGET_OUT_INTERMEDIATES)/VVCAM_OBJ/vvcam-video.ko \
+    $(TARGET_OUT_INTERMEDIATES)/VVCAM_OBJ/vvcam-isp.ko \
+    $(TARGET_OUT_INTERMEDIATES)/VVCAM_OBJ/vvcam-dwe.ko \
+    $(TARGET_OUT_INTERMEDIATES)/VVCAM_OBJ/basler-camera-driver-vvcam.ko
