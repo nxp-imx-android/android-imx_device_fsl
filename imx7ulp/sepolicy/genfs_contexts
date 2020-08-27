@@ -3,7 +3,7 @@ genfscon fuseblk / u:object_r:vfat:s0
 genfscon sysfs /class/typec    u:object_r:sysfs_usb_c:s0
 genfscon sysfs /devices/virtual/power_supply/usb                  u:object_r:sysfs_batteryinfo:s0
 genfscon sysfs /devices/virtual/power_supply/battery              u:object_r:sysfs_batteryinfo:s0
-genfscon sysfs /devices/platform/rtc-rpmsg/rtc/rtc0/hctosys       u:object_r:sysfs_rtc:s0
+genfscon sysfs /devices/soc0/rtc-rpmsg/rtc/rtc0/hctosys           u:object_r:sysfs_rtc:s0
 genfscon sysfs /devices/platform/sound-rpmsg/extcon               u:object_r:sysfs_extcon:s0
 genfscon debugfs /dma_buf u:object_r:debugfs_dma:s0
 genfscon proc /sys/kernel/sched_util_clamp_min u:object_r:proc_util_clamp:s0
