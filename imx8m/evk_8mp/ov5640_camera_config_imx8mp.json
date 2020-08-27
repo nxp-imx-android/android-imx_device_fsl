@@ -10,23 +10,6 @@
   "camera_metadata": [
     {
       "camera_type": "back",
-      "camera_name": "viv_v4l2_device",
-      "device_node": "/dev/video1",
-      "orientation": "0",
-      "buffer_type": "mmap",
-      "ActiveArrayWidth": "1920",
-      "ActiveArrayHeight": "1080",
-      "PixelArrayWidth": "1920",
-      "PixelArrayHeight": "1080",
-      "PhysicalWidth": "3.6288",
-      "PhysicalHeight": "2.7216",
-      "FocalLength": "3.37",
-      "MaxJpegSize": "4194304",
-      "MinFrameDuration": "33331760",
-      "MaxFrameDuration": "300000000"
-    },
-    {
-      "camera_type": "front",
       "camera_name": "mxc-isi-cap",
       "orientation": "0",
       "buffer_type": "dma",
@@ -38,6 +21,22 @@
       "PhysicalHeight": "2.7216",
       "FocalLength": "3.37",
       "MaxJpegSize": "8388608",
+      "MinFrameDuration": "33331760",
+      "MaxFrameDuration": "300000000"
+    },
+    {
+      "camera_type": "front",
+      "camera_name": "uvc",
+      "orientation": "0",
+      "buffer_type": "dma",
+      "ActiveArrayWidth": "1920",
+      "ActiveArrayHeight": "1080",
+      "PixelArrayWidth": "1920",
+      "PixelArrayHeight": "1080",
+      "PhysicalWidth": "2.688",
+      "PhysicalHeight": "1.512",
+      "FocalLength": "3.42",
+      "MaxJpegSize": "4194304",
       "MinFrameDuration": "33331760",
       "MaxFrameDuration": "300000000"
     }
