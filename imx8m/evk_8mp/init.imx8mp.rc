@@ -43,7 +43,7 @@ on property:sys.boot_completed=1
     # little cores, not on bigs to be used only by init
     write /dev/cpuset/system-background/cpus 0-2
 
-on early-boot && property:ro.boot.isp=yes
+on early-boot
     export VSI_LOG_LEVEL 0
     start isp_media_server
 

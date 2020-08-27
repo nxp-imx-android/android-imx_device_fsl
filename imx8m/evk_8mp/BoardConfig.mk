@@ -143,8 +143,11 @@ ifeq ($(TARGET_USE_DYNAMIC_PARTITIONS),true)
   ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
     TARGET_BOARD_DTS_CONFIG := imx8mp:imx8mp-evk-no-product.dtb
   else
-    TARGET_BOARD_DTS_CONFIG := imx8mp:imx8mp-evk.dtb
-    # Support basler camera
+    # Default use basler + ov5640
+    TARGET_BOARD_DTS_CONFIG := imx8mp:imx8mp-evk-basler-ov5640.dtb
+    # Only ov5640
+    TARGET_BOARD_DTS_CONFIG += imx8mp-ov5640:imx8mp-evk.dtb
+    # Only basler
     TARGET_BOARD_DTS_CONFIG += imx8mp-basler:imx8mp-evk-basler.dtb
     # Used to support mcu image
     TARGET_BOARD_DTS_CONFIG += imx8mp-rpmsg:imx8mp-evk-rpmsg.dtb
