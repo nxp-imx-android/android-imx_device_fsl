@@ -172,6 +172,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     vendor/nxp/imx-firmware/cyw-wifi-bt/1DX_CYW43430/BCM43430A1.1DX.hcd:$(TARGET_COPY_OUT_VENDOR)/firmware/brcm/CYW43430A1.1DX.hcd
 
+# Set Bluetooth transport initialization timeout
+PRODUCT_PROPERTY_OVERRIDES += \
+     bluetooth.enable_timeout_ms=10000
+
 # NXP 8987 WiFi Firmware
 PRODUCT_COPY_FILES += \
     vendor/nxp/imx-firmware/nxp/FwImage_8987/sdiouart8987_combo_v0.bin:vendor/firmware/sdiouart8987_combo_v0.bin
