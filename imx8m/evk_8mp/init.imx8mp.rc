@@ -49,3 +49,4 @@ on early-boot
 
 service isp_media_server /vendor/bin/isp_media_server /vendor/etc/configs/isp/daA3840_30mc_1080P.json
     group camera
+    oneshot
