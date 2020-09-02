@@ -167,3 +167,6 @@ ALL_DEFAULT_INSTALLED_MODULES += $(BOARD_VENDOR_KERNEL_MODULES)
 
 BOARD_USES_METADATA_PARTITION := true
 BOARD_ROOT_EXTRA_FOLDERS += metadata
+
+PRODUCT_COPY_FILES += \
+    device/fsl/imx8m/evk_8mq/init.recovery.freescale.rc:root/init.recovery.freescale.rc
