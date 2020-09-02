@@ -152,6 +152,8 @@ ifeq ($(PRODUCT_IMX_CAR),true)
         TARGET_BOARD_DTS_CONFIG := imx8qm:imx8qm-mek-car-a72.dtb
         # imx8qm auto android with multi-display, A72 boot
         TARGET_BOARD_DTS_CONFIG += imx8qm-md:imx8qm-mek-car-md-a72.dtb
+        # uncomment below line to build dtbo supporting multiple pcm device
+        # TARGET_BOARD_DTS_CONFIG += imx8qm-esai:imx8qm-mek-car-esai.dtb
       else
         # imx8qm auto android
         TARGET_BOARD_DTS_CONFIG := imx8qm:imx8qm-mek-car.dtb
@@ -173,6 +175,8 @@ ifeq ($(PRODUCT_IMX_CAR),true)
         TARGET_BOARD_DTS_CONFIG := imx8qm:imx8qm-mek-car2-a72.dtb
         # imx8qm auto android without m4 image for multi-display, A72 boot
         TARGET_BOARD_DTS_CONFIG += imx8qm-md:imx8qm-mek-car2-md-a72.dtb
+        # uncomment below line to build dtbo supporting multiple pcm device
+        # TARGET_BOARD_DTS_CONFIG += imx8qm-esai:imx8qm-mek-car2-esai.dtb
       else
         # imx8qm auto android without m4 image
         TARGET_BOARD_DTS_CONFIG := imx8qm:imx8qm-mek-car2.dtb
