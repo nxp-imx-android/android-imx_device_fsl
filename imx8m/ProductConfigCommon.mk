@@ -256,6 +256,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
     debug.stagefright.omx_default_rank=0x200 \
     debug.stagefright.c2-poolmask=0x70000
 
+# enable incremental installation
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.incremental.enable=1
+
 # we have enough storage space to hold precise GC data
 PRODUCT_TAGS += dalvik.gc.type-precise
 

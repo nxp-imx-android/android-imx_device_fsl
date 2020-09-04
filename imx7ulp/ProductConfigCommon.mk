@@ -265,6 +265,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.FSL_FLAC_PARSER=1 \
     ro.FSL_MPG2_PARSER=1
 
+# enable incremental installation
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.incremental.enable=1
+
 PRODUCT_DEFAULT_DEV_CERTIFICATE := \
     device/nxp/common/security/testkey
 
