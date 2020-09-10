@@ -66,6 +66,7 @@ TARGET_BOARD_DTS_CONFIG := imx7ulp:imx7ulp-evkb.dtb
 TARGET_BOARD_DTS_CONFIG += imx7ulp-mipi:imx7ulp-evkb-rm68200-wxga.dtb
 
 BOARD_PREBUILT_DTBOIMAGE := out/target/product/evk_7ulp/dtbo-imx7ulp.img
+BOARD_PREBUILT_RECOVERY_DTBOIMAGE := out/target/product/evk_7ulp/dtbo-no-footer-imx7ulp.img
 
 BOARD_SEPOLICY_DIRS := \
        device/fsl/imx7ulp/sepolicy \

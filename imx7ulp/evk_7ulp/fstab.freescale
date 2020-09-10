@@ -9,4 +9,12 @@
 /dev/block/by-name/cache         /cache       ext4    noatime,nosuid,nodev,nomblk_io_submit                                                    wait,formattable
 /dev/block/by-name/misc          /misc        emmc    defaults                                                                         defaults
 /dev/block/zram0 none swap defaults zramsize=536870912
+/dev/block/by-name/system        /system      ext4    ro,barrier=1,inode_readahead_blks=8                                              wait,first_stage_mount
+/dev/block/by-name/vendor        /vendor      ext4    ro,barrier=1,inode_readahead_blks=8                                              wait,first_stage_mount
+/dev/block/by-name/product       /product     ext4    ro,barrier=1,inode_readahead_blks=8                                              wait,first_stage_mount
+/dev/block/by-name/cache         /cache       ext4    noatime,nosuid,nodev,nomblk_io_submit                                            wait,formattable
+/dev/block/by-name/boot          /boot        emmc    defaults                                                                         defaults
+/dev/block/by-name/recovery      /recovery    emmc    defaults                                                                         defaults
+/dev/block/by-name/vbmeta        /vbmeta      emmc    defaults                                                                         defaults
+/dev/block/by-name/dtbo          /dtbo        emmc    defaults                                                                         defaults
 
