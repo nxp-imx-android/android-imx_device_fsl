@@ -79,6 +79,12 @@ imx_vbmetaimage: IMX_INSTALLED_RECOVERYIMAGE_TARGET $(IMX_INSTALLED_VBMETAIMAGE_
 
 droid: imx_vbmetaimage
 otapackage: imx_vbmetaimage
+target-files-package: imx_vbmetaimage
+
+ifeq (true,$(BOARD_BUILD_SUPER_IMAGE_BY_DEFAULT))
+otapackage: superimage_empty superimage
+target-files-package: superimage_empty superimage
+endif
 
 ifeq ($(TARGET_USE_VENDOR_BOOT), true)
 INSTALLED_DTBIMAGE_TARGET := $(PRODUCT_OUT)/dtb.img
