@@ -446,6 +446,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_COPY_FILES += \
     $(IMX_DEVICE_PATH)/config.xml:/product/overlay/config/config.xml
 
+PRODUCT_SOONG_NAMESPACES += hardware/google/camera
+PRODUCT_SOONG_NAMESPACES += vendor/nxp-opensource/imx/camera
+
 $(call  inherit-product-if-exists, vendor/nxp-private/security/nxp_security.mk)
 
 $(call inherit-product, $(SRC_TARGET_DIR)/product/emulated_storage.mk)
