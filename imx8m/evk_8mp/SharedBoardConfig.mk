@@ -1,6 +1,6 @@
 KERNEL_NAME := Image
 TARGET_KERNEL_ARCH := arm64
-# IMX8MP_USES_GKI := true
+IMX8MP_USES_GKI := true
 
 #Enable this to config 1GB ddr on evk_imx8mp
 #LOW_MEMORY := true
