@@ -90,6 +90,7 @@ PRODUCT_COPY_FILES += \
     device/fsl/common/audio-json/cdnhdmi_config.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/audio/cdnhdmi_config.json \
     device/fsl/common/audio-json/ak4458_config.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/audio/ak4458_config.json \
     device/fsl/common/audio-json/ak5558_config.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/audio/ak5558_config.json \
+    device/fsl/common/audio-json/btsco_config.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/audio/btsco_config.json \
     device/fsl/common/audio-json/readme.txt:$(TARGET_COPY_OUT_VENDOR)/etc/configs/audio/readme.txt
 
 ifeq ($(PRODUCT_IMX_TRUSTY),true)
