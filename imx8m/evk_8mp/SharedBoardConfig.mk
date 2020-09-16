@@ -45,6 +45,8 @@ BOARD_VENDOR_KERNEL_MODULES += \
 # CONFIG_IMX_REMOTEPROC: imx_rproc.ko, remote proc driver
 # CONFIG_SND_SOC_IMX_RPMSG: imx-pcm-rpmsg.ko snd-soc-fsl-rpmsg-i2s.ko imx-i2s-rpmsg.ko, rpmsg audio driver
 # CONFIG_SND_SOC_FSL_DSP: snd-soc-fsl-dsp.ko snd-soc-fsl-dsp-audiomix.ko, dsp audio driver
+# CONFIG_MXC_HANTRO_VC8000E: hx280enc_vc8000e.ko, vpu encoder driver
+# CONFIG_MXC_HANTRO_845: hantrodec_845s.ko, vpu decoder driver
 
 ifneq ($(IMX8MP_USES_GKI),)
 BOARD_VENDOR_KERNEL_MODULES += \
@@ -67,6 +69,8 @@ BOARD_VENDOR_KERNEL_MODULES += \
     $(KERNEL_OUT)/sound/soc/generic/snd-soc-simple-card.ko \
     $(KERNEL_OUT)/sound/soc/fsl/snd-soc-fsl-dsp-audiomix.ko \
     $(KERNEL_OUT)/sound/soc/fsl/snd-soc-fsl-dsp.ko \
+    $(KERNEL_OUT)/drivers/mxc/hantro_vc8000e/hx280enc_vc8000e.ko \
+    $(KERNEL_OUT)/drivers/mxc/hantro_845/hantrodec_845s.ko \
     $(KERNEL_OUT)/drivers/mailbox/imx-mailbox.ko \
     $(KERNEL_OUT)/drivers/rpmsg/virtio_rpmsg_bus.ko \
     $(KERNEL_OUT)/drivers/remoteproc/imx_rproc.ko \
