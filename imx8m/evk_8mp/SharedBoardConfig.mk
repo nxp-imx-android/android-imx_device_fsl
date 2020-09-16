@@ -44,6 +44,7 @@ BOARD_VENDOR_KERNEL_MODULES += \
 # CONFIG_I2C_RPBUS: virtio_rpmsg_bus.ko, virtio rpmsg bus driver
 # CONFIG_IMX_REMOTEPROC: imx_rproc.ko, remote proc driver
 # CONFIG_SND_SOC_IMX_RPMSG: imx-pcm-rpmsg.ko snd-soc-fsl-rpmsg-i2s.ko imx-i2s-rpmsg.ko, rpmsg audio driver
+# CONFIG_SND_SOC_FSL_DSP: snd-soc-fsl-dsp.ko snd-soc-fsl-dsp-audiomix.ko, dsp audio driver
 
 ifneq ($(IMX8MP_USES_GKI),)
 BOARD_VENDOR_KERNEL_MODULES += \
@@ -64,6 +65,8 @@ BOARD_VENDOR_KERNEL_MODULES += \
     $(KERNEL_OUT)/sound/soc/codecs/snd-soc-bt-sco.ko \
     $(KERNEL_OUT)/sound/soc/generic/snd-soc-simple-card-utils.ko \
     $(KERNEL_OUT)/sound/soc/generic/snd-soc-simple-card.ko \
+    $(KERNEL_OUT)/sound/soc/fsl/snd-soc-fsl-dsp-audiomix.ko \
+    $(KERNEL_OUT)/sound/soc/fsl/snd-soc-fsl-dsp.ko \
     $(KERNEL_OUT)/drivers/mailbox/imx-mailbox.ko \
     $(KERNEL_OUT)/drivers/rpmsg/virtio_rpmsg_bus.ko \
     $(KERNEL_OUT)/drivers/remoteproc/imx_rproc.ko \
