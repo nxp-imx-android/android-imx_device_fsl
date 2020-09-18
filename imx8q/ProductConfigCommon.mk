@@ -188,7 +188,9 @@ PRODUCT_PACKAGES += \
     media_profiles_V1_0.xml \
     media_codecs_google_c2_video.xml \
     media_codecs_c2.xml \
-    media_codecs_performance_c2.xml
+    media_codecs_performance_c2.xml \
+    media_codecs_performance_c2_8qm.xml \
+    media_codecs_performance_c2_8qxp.xml
 
 #parser
 PRODUCT_PACKAGES += \
