@@ -166,7 +166,7 @@ define build_imx_uboot
 		cp  $(UBOOT_OUT)/tools/mkimage  $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/mkimage_uboot; \
 		$(MAKE) -C $(IMX_MKIMAGE_PATH)/imx-mkimage/ clean; \
 		$(MAKE) -C $(IMX_MKIMAGE_PATH)/imx-mkimage/ SOC=$$MKIMAGE_PLATFORM REV=$$REV $$FLASH_TARGET || exit 1; \
-		if [ "$(PRODUCT_IMX_CAR)" != "true" ] || [ `echo $(2) | rev | cut -d '-' -f1` = "uuu" ] || [ "$(strip $(2))" = "imx8qm-xen-dom0" ]; then \
+		if [ "$(PRODUCT_IMX_DUAL_BOOTLOADER)" != "true" ] || [ `echo $(2) | rev | cut -d '-' -f1` = "uuu" ] || [ "$(strip $(2))" = "imx8qm-xen-dom0" ]; then \
 			cp $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/flash.bin $(UBOOT_COLLECTION)/u-boot-$(strip $(2)).imx; \
 		else \
 			cp $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/boot-spl-container.img $(UBOOT_COLLECTION)/spl-$(strip $(2)).bin; \

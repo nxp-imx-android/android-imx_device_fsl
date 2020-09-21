@@ -5,6 +5,8 @@ ifeq ($(TARGET_PRODUCT),mek_8q_car)
 # i.MX8QM  will boot from A72 core on Android Auto by default.
 # Remove below defination will make i.MX8QM boot from A53 core.
   IMX8QM_A72_BOOT := true
+# Enable dual bootloader feature
+  PRODUCT_IMX_DUAL_BOOTLOADER := true
 endif
 ifeq ($(TARGET_PRODUCT),mek_8q_car2)
   PRODUCT_IMX_CAR := true

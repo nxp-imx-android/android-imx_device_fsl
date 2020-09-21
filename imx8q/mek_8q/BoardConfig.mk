@@ -4,7 +4,7 @@
 
 IMX_DEVICE_PATH := device/nxp/imx8q/mek_8q
 
-ifeq ($(PRODUCT_IMX_CAR),true)
+ifeq ($(PRODUCT_IMX_DUAL_BOOTLOADER),true)
   AB_OTA_PARTITIONS += bootloader
   BOARD_OTA_BOOTLOADERIMAGE := out/target/product/mek_8q/obj/UBOOT_COLLECTION/bootloader-imx8qm.img
   ifeq ($(OTA_TARGET),8qxp)
@@ -24,7 +24,7 @@ TARGET_RECOVERY_FSTAB = $(IMX_DEVICE_PATH)/fstab.nxp
 endif # PRODUCT_IMX_CAR
 
 # Support gpt
-ifeq ($(PRODUCT_IMX_CAR),true)
+ifeq ($(PRODUCT_IMX_DUAL_BOOTLOADER),true)
   ifeq ($(TARGET_USE_DYNAMIC_PARTITIONS),true)
     BOARD_BPT_INPUT_FILES += device/nxp/common/partition/device-partitions-13GB-ab-dual-bootloader_super.bpt
     ADDITION_BPT_PARTITION = partition-table-28GB:device/nxp/common/partition/device-partitions-28GB-ab-dual-bootloader_super.bpt
