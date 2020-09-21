@@ -129,6 +129,14 @@ endif
 # CONFIG_USB_DWC3: dwc3-haps.ko dwc3-imx8mp.ko dwc3-of-simple.ko dwc3-qcom.ko dwc3.ko
 # CONFIG_TYPEC_SWITCH_GPIO: gpio-switch.ko
 # CONFIG_TYPEC_TCPCI: tcpci.ko
+# CONFIG_PHY_FSL_IMX8MQ_USB: phy-fsl-imx8mq-usb.ko
+# CONFIG_PHY_FSL_IMX_PCIE: phy-fsl-imx8-pcie.ko
+# CONFIG_RESET_IMX7: reset-imx7.ko
+# CONFIG_RESET_IMX_HDMIMIX: reset-imx-audiomix.ko
+# CONFIG_RESET_IMX_AUDIOMIX: reset-imx-hdmimix.ko
+# CONFIG_IMX8M_BUSFREQ: busfreq-imx8mq.ko
+# CONFIG_IMX_IRQSTEER: irq-imx-irqsteer.ko
+# CONFIG_GPIO_MXC: gpio-generic.ko gpio-mxc.ko
 
 ifneq ($(IMX8MP_USES_GKI),)
 BOARD_VENDOR_RAMDISK_KERNEL_MODULES +=     \
@@ -137,7 +145,11 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES +=     \
     $(KERNEL_OUT)/drivers/clk/imx/clk-imx8mp.ko \
     $(KERNEL_OUT)/drivers/clk/imx/clk-hdmimix.ko \
     $(KERNEL_OUT)/drivers/soc/imx/imx8m_pm_domains.ko \
+    $(KERNEL_OUT)/drivers/soc/imx/busfreq-imx8mq.ko \
+    $(KERNEL_OUT)/drivers/irqchip/irq-imx-irqsteer.ko \
     $(KERNEL_OUT)/drivers/pinctrl/freescale/pinctrl-imx8mp.ko \
+    $(KERNEL_OUT)/drivers/gpio/gpio-generic.ko \
+    $(KERNEL_OUT)/drivers/gpio/gpio-mxc.ko \
     $(KERNEL_OUT)/drivers/tty/serial/imx.ko \
     $(KERNEL_OUT)/drivers/watchdog/imx2_wdt.ko \
     $(KERNEL_OUT)/drivers/i2c/busses/i2c-imx.ko \
@@ -147,8 +159,13 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES +=     \
     $(KERNEL_OUT)/drivers/mmc/host/sdhci-esdhc-imx.ko \
     $(KERNEL_OUT)/drivers/staging/android/ion/heaps/ion_cma_heap.ko \
     $(KERNEL_OUT)/drivers/mfd/imx-audiomix.ko \
+    $(KERNEL_OUT)/drivers/reset/reset-imx7.ko \
+    $(KERNEL_OUT)/drivers/reset/reset-imx-audiomix.ko \
+    $(KERNEL_OUT)/drivers/reset/reset-imx-hdmimix.ko \
     $(KERNEL_OUT)/drivers/phy/freescale/phy-fsl-imx8mp-lvds.ko \
     $(KERNEL_OUT)/drivers/phy/freescale/phy-fsl-samsung-hdmi.ko \
+    $(KERNEL_OUT)/drivers/phy/freescale/phy-fsl-imx8mq-usb.ko \
+    $(KERNEL_OUT)/drivers/phy/freescale/phy-fsl-imx8-pcie.ko \
     $(KERNEL_OUT)/drivers/mxc/gpu-viv/galcore.ko \
     $(KERNEL_OUT)/drivers/media/cec/cec.ko \
     $(KERNEL_OUT)/drivers/gpu/imx/lcdif/imx-lcdif-core.ko \
