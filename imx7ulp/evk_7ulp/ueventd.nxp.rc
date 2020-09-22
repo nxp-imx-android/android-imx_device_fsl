@@ -7,7 +7,6 @@
 /dev/graphics/fb0         0660   system     graphics
 /dev/watchdog             0660   system     root
 /dev/ttyLP2               0660   bluetooth  bluetooth
-/dev/input/event*         0660   system     system
 
 #sensors sysfs
 /sys/class/misc/step_*              enable      0660  system system
