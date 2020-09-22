@@ -50,7 +50,6 @@
 /dev/mma8x5x                    u:object_r:sensors_device:s0
 /dev/ttyGS[0-9]*                u:object_r:tty_device:s0
 /dev/ttymxc[0-9]*               u:object_r:tty_device:s0
-/dev/ttyUSB[0-9]*               u:object_r:tty_device:s0
 /dev/FreescaleAccelerometer     u:object_r:sensors_device:s0
 /dev/FreescaleMagnetometer      u:object_r:sensors_device:s0
 /dev/FreescaleGyroscope         u:object_r:sensors_device:s0
@@ -74,5 +73,5 @@
 /vendor/lib(64)?/lib_ogg_parser_arm11_elinux\.3\.0\.so       u:object_r:same_process_hal_file:s0
 /vendor/lib(64)?/lib_rm_parser_arm11_elinux\.3\.0\.so        u:object_r:same_process_hal_file:s0
 /vendor/lib(64)?/extractors/libfslextractor\.so              u:object_r:same_process_hal_file:s0
-/vendor/bin/hw/android\.hardware\.health@2\.0-service.imx          u:object_r:hal_health_default_exec:s0
 /vendor/bin/hw/android\.hardware\.dumpstate@1\.0-service\.imx      u:object_r:hal_dumpstate_impl_exec:s0
+/vendor/bin/hw/android\.hardware\.gatekeeper@1\.0-service\.software-imx    u:object_r:hal_gatekeeper_default_exec:s0

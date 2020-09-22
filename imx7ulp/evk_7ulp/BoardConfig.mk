@@ -97,6 +97,7 @@ TARGET_BOARD_DTS_CONFIG += imx7ulp-mipi:imx7ulp-evkb-rm68200-wxga.dtb
 endif
 
 BOARD_PREBUILT_DTBOIMAGE := out/target/product/evk_7ulp/dtbo-imx7ulp.img
+BOARD_PREBUILT_RECOVERY_DTBOIMAGE := out/target/product/evk_7ulp/dtbo-no-footer-imx7ulp.img
 
 BOARD_SEPOLICY_DIRS := \
        device/nxp/imx7ulp/sepolicy \
@@ -122,3 +123,8 @@ ALL_DEFAULT_INSTALLED_MODULES += $(BOARD_VENDOR_KERNEL_MODULES)
 
 BOARD_USES_METADATA_PARTITION := true
 BOARD_ROOT_EXTRA_FOLDERS += metadata
+
+BOARD_AVB_RECOVERY_KEY_PATH := device/nxp/common/security/testkey_rsa4096.pem
+BOARD_AVB_RECOVERY_ALGORITHM := SHA256_RSA4096
+BOARD_AVB_RECOVERY_ROLLBACK_INDEX := 0
+BOARD_AVB_RECOVERY_ROLLBACK_INDEX_LOCATION := 1

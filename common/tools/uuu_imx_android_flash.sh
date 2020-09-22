@@ -207,7 +207,9 @@ function flash_userpartitions
 
     if [ ${support_dynamic_partition} -eq 0 ]; then
         flash_partition ${system_partition}
-        flash_partition ${system_ext_partition}
+        if [ ${has_system_ext_partition} -eq 1 ]; then
+            flash_partition ${system_ext_partition}
+        fi
         flash_partition ${vendor_partition}
         flash_partition ${product_partition}
     fi
@@ -324,6 +326,7 @@ boot_partition="boot"
 recovery_partition="recovery"
 system_partition="system"
 system_ext_partition="system_ext"
+has_system_ext_partition=0
 vendor_partition="vendor"
 product_partition="product"
 vbmeta_partition="vbmeta"
@@ -509,6 +512,9 @@ grep "73 00 75 00 70 00 65 00 72 00" /tmp/partition-table_3.txt > /dev/null \
 # check whether there is "vendor_boot" in partition table
 grep "76 00 65 00 6e 00 64 00 6f 00 72 00 5f 00 62 00 6f 00 6f 00 74 00 5f 00" /tmp/partition-table_3.txt > /dev/null \
         && support_vendor_boot=1 && echo vendor_boot parttition is supported
+
+grep "73 00 79 00 73 00 74 00 65 00 6d 00 5f 00 65 00 78 00 74 00" /tmp/partition-table_3.txt > /dev/null \
+&& has_system_ext_partition=1 && echo has system_ext partition
 
 # get device and board specific parameter
 case ${soc_name%%-*} in

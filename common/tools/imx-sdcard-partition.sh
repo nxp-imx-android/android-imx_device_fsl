@@ -75,6 +75,7 @@ support_dual_bootloader=0
 support_dualslot=0
 support_dynamic_partition=0
 support_vendor_boot=0
+has_system_ext_partition=0
 
 
 while [ "$moreoptions" = 1 -a $# -gt 0 ]; do
@@ -275,6 +276,7 @@ function flash_android
     gdisk -l ${node} 2>/dev/null | grep -q "dtbo" && support_dtbo=1
     gdisk -l ${node} 2>/dev/null | grep -q "super" && support_dynamic_partition=1
     gdisk -l ${node} 2>/dev/null | grep -q "vendor_boot" && support_vendor_boot=1
+    gdisk -l ${node} 2>/dev/null | grep -q "system_ext" && has_system_ext_partition=1
 
     if [ ${support_dual_bootloader} -eq 1 ]; then
         bootloader_file=spl-${soc_name}${uboot_feature}.bin
@@ -295,7 +297,9 @@ function flash_android
     flash_partition ${recovery_partition}  || exit 1
     if [ ${support_dynamic_partition} -eq 0 ]; then
         flash_partition ${system_partition} || exit 1
-        flash_partition ${system_ext_partition} || exit 1
+        if [ ${has_system_ext_partition} -eq 1 ]; then
+            flash_partition ${system_ext_partition} || exit 1
+        fi
         flash_partition ${vendor_partition} || exit 1
         flash_partition ${product_partition} || exit 1
     else

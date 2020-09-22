@@ -48,6 +48,7 @@ set super_partition=super
 set /A flash_mcu=0
 set /A statisc=0
 set /A erase=0
+set /A has_system_ext_partition=0
 set image_directory=
 
 set target_dev=emmc
@@ -217,6 +218,8 @@ find "b.o.o.t._.b." %tmp_dir%partition-table_3.txt > nul && set /A support_duals
 find "s.u.p.e.r." %tmp_dir%partition-table_3.txt > nul && set /A support_dynamic_partition=1 && echo dynamic partition is supported
 :: check whether there is "vendor_boot" in partition table
 find "v.e.n.d.o.r._.b.o.o.t." %tmp_dir%partition-table_3.txt > nul && set /A support_vendor_boot=1 && echo vendor_boot is supported
+:: check whether there is system_ext in partition table
+find "s.y.s.t.e.m._.e.x.t." %tmp_dir%partition-table_3.txt > nul && set /A has_system_ext_partition=1
 
 del %tmp_dir%partition-table_1.txt
 del %tmp_dir%partition-table_2.txt
@@ -764,7 +767,9 @@ if %support_vendor_boot% == 1 call :flash_partition %vendor_boot_partition% || s
 call :flash_partition %boot_partition% || set /A error_level=1 && goto :exit
 if %support_dynamic_partition% == 0 ( 
     call :flash_partition %system_partition% || set /A error_level=1 && goto :exit
-    call :flash_partition %system_ext_partition% || set /A error_level=1 && goto :exit
+    if %has_system_ext_partition% == 1 (
+        call :flash_partition %system_ext_partition% || set /A error_level=1 && goto :exit
+)
     call :flash_partition %vendor_partition% || set /A error_level=1 && goto :exit
     call :flash_partition %product_partition% || set /A error_level=1 && goto :exit
 )

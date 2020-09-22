@@ -1,2 +1,7 @@
 genfscon sysfs /devices/soc0/40000000.bus/40370000.mmc/mmc_host/mmc0/mmc0:aaaa/block/mmcblk0 u:object_r:sysfs_block_devices:s0
 genfscon sysfs /devices/platform/bt_rfkill/rfkill/rfkill0 u:object_r:sysfs_rfkill:s0
+
+genfscon sysfs /devices/soc0/rtc-rpmsg/wakeup/wakeup0                      u:object_r:sysfs_wakeup:s0
+genfscon sysfs /devices/virtual/power_supply/battery/wakeup1               u:object_r:sysfs_wakeup:s0
+genfscon sysfs /devices/virtual/power_supply/usb/wakeup2                   u:object_r:sysfs_wakeup:s0
+genfscon sysfs /devices/soc0/rtc-rpmsg/rtc/rtc0/wakeup4                    u:object_r:sysfs_wakeup:s0

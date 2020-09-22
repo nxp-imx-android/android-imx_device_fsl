@@ -158,7 +158,9 @@ function flash_userpartitions
 
     if [ ${support_dynamic_partition} -eq 0 ]; then
         flash_partition ${system_partition}
-        flash_partition ${system_ext_partition}
+        if [ ${has_system_ext_partition} -eq 1 ]; then
+            flash_partition ${system_ext_partition}
+        fi
         flash_partition ${vendor_partition}
         flash_partition ${product_partition}
     fi
@@ -192,6 +194,7 @@ function flash_android
     grep -q "boot_b" /tmp/fastboot_var.log && support_dualslot=1
     grep -q "super" /tmp/fastboot_var.log && support_dynamic_partition=1
     grep -q "vendor_boot" /tmp/fastboot_var.log && support_vendor_boot=1
+    grep -q "system_ext" /tmp/fastboot_var.log && has_system_ext_partition=1
 
     # some partitions are hard-coded in uboot, flash the uboot first and then reboot to check these partitions
 
@@ -291,6 +294,7 @@ boot_partition="boot"
 recovery_partition="recovery"
 system_partition="system"
 system_ext_partition="system_ext"
+has_system_ext_partition=0
 vendor_partition="vendor"
 product_partition="product"
 vbmeta_partition="vbmeta"

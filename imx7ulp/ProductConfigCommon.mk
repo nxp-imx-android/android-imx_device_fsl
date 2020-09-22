@@ -80,7 +80,8 @@ PRODUCT_PACKAGES += \
     libfwdlockengine
 
 PRODUCT_PACKAGES += \
-    android.hardware.health@2.0-service.imx
+    android.hardware.health@2.1-service \
+    android.hardware.health@2.1-impl-imx
 
 # Wifi AP mode
 PRODUCT_PACKAGES += \

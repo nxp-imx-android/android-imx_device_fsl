@@ -228,8 +228,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # new gatekeeper HAL
 PRODUCT_PACKAGES += \
-    android.hardware.gatekeeper@1.0-impl \
-    android.hardware.gatekeeper@1.0-service
+    android.hardware.gatekeeper@1.0-service.software-imx
 
 #Dumpstate HAL 1.0 support
 PRODUCT_PACKAGES += \

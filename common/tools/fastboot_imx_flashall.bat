@@ -52,6 +52,7 @@ set /A flash_mcu=0
 set /A statisc=0
 set /A lock=0
 set /A erase=0
+set /A has_system_ext_partition=0
 set image_directory=
 set ser_num=
 set fastboot_tool=fastboot
@@ -408,7 +409,9 @@ if %support_vendor_boot% == 1 call :flash_partition %vendor_boot_partition% || s
 call :flash_partition %boot_partition% || set /A error_level=1 && goto :exit
 if %support_dynamic_partition% == 0 (
     call :flash_partition %system_partition% || set /A error_level=1 && goto :exit
-    call :flash_partition %system_ext_partition% || set /A error_level=1 && goto :exit
+    if %has_system_ext_partition% == 1 (
+        call :flash_partition %system_ext_partition% || set /A error_level=1 && goto :exit
+    )
     call :flash_partition %vendor_partition% || set /A error_level=1 && goto :exit
     call :flash_partition %product_partition% || set /A error_level=1 && goto :exit
 )
@@ -441,6 +444,7 @@ find "recovery" fastboot_var.log > nul && set /A support_recovery=1
 find "boot_b" fastboot_var.log > nul && set /A support_dualslot=1
 find "super" fastboot_var.log > nul && set /A support_dynamic_partition=1
 find "vendor_boot" fastboot_var.log > nul && set /A support_vendor_boot=1
+find "system_ext" fastboot_var.log > nul && set /A has_system_ext_partition=1
 del fastboot_var.log
 
 :: some partitions are hard-coded in uboot, flash the uboot first and then reboot to check these partitions
