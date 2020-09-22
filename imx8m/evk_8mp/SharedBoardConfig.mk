@@ -137,6 +137,7 @@ endif
 # CONFIG_IMX8M_BUSFREQ: busfreq-imx8mq.ko
 # CONFIG_IMX_IRQSTEER: irq-imx-irqsteer.ko
 # CONFIG_GPIO_MXC: gpio-generic.ko gpio-mxc.ko
+# CONFIG_TIMER_IMX_SYS_CTR: timer-imx-sysctr.ko
 
 ifneq ($(IMX8MP_USES_GKI),)
 BOARD_VENDOR_RAMDISK_KERNEL_MODULES +=     \
@@ -144,6 +145,7 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES +=     \
     $(KERNEL_OUT)/drivers/clk/imx/clk-gate-shared.ko \
     $(KERNEL_OUT)/drivers/clk/imx/clk-imx8mp.ko \
     $(KERNEL_OUT)/drivers/clk/imx/clk-hdmimix.ko \
+    $(KERNEL_OUT)/drivers/clocksource/timer-imx-sysctr.ko \
     $(KERNEL_OUT)/drivers/soc/imx/imx8m_pm_domains.ko \
     $(KERNEL_OUT)/drivers/soc/imx/busfreq-imx8mq.ko \
     $(KERNEL_OUT)/drivers/irqchip/irq-imx-irqsteer.ko \
