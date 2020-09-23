@@ -104,6 +104,7 @@ endif
 
 # CONFIG_CLK_IMX8MP: clk-imx8mp.ko, clk-audiomix.ko, clk-gate-shared.ko, clk-hdmimix.ko
 # CONFIG_IMX8M_PM_DOMAINS: imx8m_pm_domains.ko
+# CONFIG_PINCTRL_IMX: pinctrl-imx.ko
 # CONFIG_PINCTRL_IMX8MP: pinctrl-imx8mp.ko
 # CONFIG_SERIAL_IMX: imx.ko
 # CONFIG_IMX2_WDT: imx2_wdt.ko
@@ -149,6 +150,7 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES +=     \
     $(KERNEL_OUT)/drivers/soc/imx/imx8m_pm_domains.ko \
     $(KERNEL_OUT)/drivers/soc/imx/busfreq-imx8mq.ko \
     $(KERNEL_OUT)/drivers/irqchip/irq-imx-irqsteer.ko \
+    $(KERNEL_OUT)/drivers/pinctrl/freescale/pinctrl-imx.ko \
     $(KERNEL_OUT)/drivers/pinctrl/freescale/pinctrl-imx8mp.ko \
     $(KERNEL_OUT)/drivers/gpio/gpio-generic.ko \
     $(KERNEL_OUT)/drivers/gpio/gpio-mxc.ko \
