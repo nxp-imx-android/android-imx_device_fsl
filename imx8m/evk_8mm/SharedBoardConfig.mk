@@ -37,9 +37,6 @@ PRODUCT_IMX_TRUSTY := true
 # CONFIG_FEC: fec.ko which depend on pps_core.ko and ptp.ko
 # CONFIG_AT803X_PHY: ethernet phy driver at803x.ko
 
-BOARD_VENDOR_KERNEL_MODULES += \
-    $(KERNEL_OUT)/drivers/input/touchscreen/synaptics_dsx/synaptics_dsx_i2c.ko
-
 ifneq ($(IMX8MM_USES_GKI),)
 BOARD_VENDOR_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/media/platform/mxc/capture/mx6s_capture.ko \
@@ -103,11 +100,13 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES +=     \
     $(KERNEL_OUT)/drivers/i2c/busses/i2c-imx.ko \
     $(KERNEL_OUT)/drivers/staging/android/ion/heaps/ion_cma_heap.ko \
     $(KERNEL_OUT)/drivers/reset/reset-dispmix.ko \
+    $(KERNEL_OUT)/drivers/input/touchscreen/synaptics_dsx/synaptics_dsx_i2c.ko \
     $(KERNEL_OUT)/drivers/gpu/imx/lcdif/imx-lcdif-core.ko \
     $(KERNEL_OUT)/drivers/gpu/drm/imx/lcdif/imx-lcdif-crtc.ko \
     $(KERNEL_OUT)/drivers/gpu/drm/imx/imxdrm.ko \
     $(KERNEL_OUT)/drivers/gpu/drm/bridge/sec-dsim.ko \
     $(KERNEL_OUT)/drivers/gpu/drm/imx/sec_mipi_dsim-imx.ko \
+    $(KERNEL_OUT)/drivers/gpu/drm/panel/panel-raydium-rm67191.ko \
     $(KERNEL_OUT)/drivers/media/cec/cec.ko \
     $(KERNEL_OUT)/drivers/gpu/drm/bridge/adv7511/adv7511.ko \
     $(KERNEL_OUT)/drivers/mxc/gpu-viv/galcore.ko \
