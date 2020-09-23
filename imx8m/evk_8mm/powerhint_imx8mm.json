@@ -89,6 +89,12 @@
       "Value": "60"
     },
     {
+      "PowerHint": "INTERACTION",
+      "Node": "PMQoSCpuDmaLatency",
+      "Duration": 500,
+      "Value": "0"
+    },
+    {
       "PowerHint": "LAUNCH",
       "Node": "CPULittleClusterMinFreq",
       "Duration": 5000,
