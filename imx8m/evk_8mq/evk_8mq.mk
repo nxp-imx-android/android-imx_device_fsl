@@ -23,6 +23,8 @@ PRODUCT_DEVICE := evk_8mq
 PRODUCT_MODEL := EVK_8MQ
 
 PRODUCT_FULL_TREBLE_OVERRIDE := true
+PRODUCT_SOONG_NAMESPACES += vendor/nxp-opensource/imx/power
+PRODUCT_SOONG_NAMESPACES += hardware/google/pixel
 
 #Enable this to choose 32 bit user space build
 #IMX8_BUILD_32BIT_ROOTFS := true

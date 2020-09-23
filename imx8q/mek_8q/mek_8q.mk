@@ -33,6 +33,8 @@ PRODUCT_DEVICE := mek_8q
 PRODUCT_MODEL := MEK-MX8Q
 
 PRODUCT_FULL_TREBLE_OVERRIDE := true
+PRODUCT_SOONG_NAMESPACES += vendor/nxp-opensource/imx/power
+PRODUCT_SOONG_NAMESPACES += hardware/google/pixel
 
 ifeq ($(PRODUCT_IMX_CAR),true)
 SOONG_CONFIG_IMXPLUGIN_IMX_CAR = true
