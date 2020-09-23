@@ -86,6 +86,9 @@ otapackage: superimage_empty superimage
 target-files-package: superimage_empty superimage
 endif
 
+otapackage: signapk
+target-files-package: signapk
+
 ifeq ($(TARGET_USE_VENDOR_BOOT), true)
 INSTALLED_DTBIMAGE_TARGET := $(PRODUCT_OUT)/dtb.img
 $(INSTALLED_DTBIMAGE_TARGET): $(KERNEL_BIN) $(TARGET_DTB)
