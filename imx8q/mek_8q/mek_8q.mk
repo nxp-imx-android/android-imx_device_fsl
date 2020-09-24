@@ -234,6 +234,10 @@ PRODUCT_COPY_FILES += \
      device/nxp/imx8q/mek_8q/powerhint_imx8qm.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/powerhint_imx8qm.json
 
 ifneq ($(PRODUCT_IMX_CAR),true)
+# Set permission for GMS packages
+PRODUCT_COPY_FILES += \
+	  device/nxp/imx8q/permissions/privapp-permissions-imx.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/privapp.permissions-imx.xml \
+
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.screen.portrait.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.screen.portrait.xml \
     device/nxp/common/tools/imx-sdcard-partition.sh:imx-sdcard-partition.sh

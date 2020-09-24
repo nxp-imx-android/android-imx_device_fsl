@@ -170,6 +170,10 @@ PRODUCT_COPY_FILES += \
     device/nxp/common/tools/uuu_imx_android_flash.bat:uuu_imx_android_flash.bat \
     device/nxp/common/tools/uuu_imx_android_flash.sh:uuu_imx_android_flash.sh
 
+# Set permission for GMS packages
+PRODUCT_COPY_FILES += \
+	  device/nxp/imx8m/permissions/privapp-permissions-imx.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/privapp.permissions-imx.xml \
+
 # Copy media_codecs.xml for 1GB evk_imx8mp board
 ifeq ($(LOW_MEMORY),true)
 PRODUCT_COPY_FILES += \
