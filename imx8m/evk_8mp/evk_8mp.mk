@@ -326,10 +326,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.frp.pst=/dev/block/by-name/presistdata
 endif
 
-# ro.product.first_api_level indicates the first api level the device has commercially launched on.
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.product.first_api_level=28
-
 PRODUCT_PACKAGES += \
     libg1 \
     libhantro \

@@ -332,6 +332,7 @@ ifneq (,$(filter userdebug, $(TARGET_BUILD_VARIANT)))
 endif
 
 PRODUCT_AAPT_CONFIG := normal mdpi
+PRODUCT_SHIPPING_API_LEVEL := 28
 
 # Enforce privapp-permissions whitelist
 PRODUCT_PROPERTY_OVERRIDES += \

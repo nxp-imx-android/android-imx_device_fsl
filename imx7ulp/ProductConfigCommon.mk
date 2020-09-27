@@ -274,8 +274,7 @@ PRODUCT_DEFAULT_DEV_CERTIFICATE := \
     device/nxp/common/security/testkey
 
 PRODUCT_AAPT_CONFIG := normal mdpi
-# default shipping android version or8.0
-PRODUCT_SHIPPING_API_LEVEL := 26
+PRODUCT_SHIPPING_API_LEVEL := 28
 
 #OEM Unlock reporting
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
