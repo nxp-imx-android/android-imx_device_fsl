@@ -160,11 +160,6 @@ PRODUCT_COPY_FILES += \
     device/nxp/common/tools/uuu_imx_android_flash.bat:uuu_imx_android_flash.bat \
     device/nxp/common/tools/uuu_imx_android_flash.sh:uuu_imx_android_flash.sh
 
-# Copy media_codecs.xml for 1GB evk_imx8mn board
-ifeq ($(LOW_MEMORY),true)
-PRODUCT_COPY_FILES += \
-    $(FSL_PROPRIETARY_PATH)/fsl-proprietary/media-profile/imx8mn/media_codecs_no_vpu.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs.xml
-endif
 
 USE_XML_AUDIO_POLICY_CONF := 1
 

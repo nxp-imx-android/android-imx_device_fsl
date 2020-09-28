@@ -168,11 +168,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
 	  device/nxp/imx8m/permissions/privapp-permissions-imx.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/privapp.permissions-imx.xml \
 
-# Copy media_codecs.xml for 1GB evk_imx8mm board
-ifeq ($(LOW_MEMORY),true)
-PRODUCT_COPY_FILES += \
-    $(FSL_PROPRIETARY_PATH)/fsl-proprietary/media-profile/imx8mm/media_codecs_no_vpu.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs.xml
-endif
 
 USE_XML_AUDIO_POLICY_CONF := 1
 

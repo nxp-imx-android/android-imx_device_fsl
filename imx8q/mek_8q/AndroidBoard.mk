@@ -13,3 +13,4 @@ ifneq ($(BOARD_OTA_BOOTLOADERIMAGE),)
   BOARD_PACK_RADIOIMAGES += bootloader.img
 endif
 
+-include $(IMX_MEDIA_CODEC_XML_PATH)/mediacodec-profile/mediacodec-profile.mk

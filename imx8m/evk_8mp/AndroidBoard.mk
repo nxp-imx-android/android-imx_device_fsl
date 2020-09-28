@@ -6,3 +6,4 @@ include device/nxp/common/build/gpt.mk
 #TODO add imx8mp target
 include $(FSL_PROPRIETARY_PATH)/fsl-proprietary/media-profile/media-profile.mk
 include $(FSL_PROPRIETARY_PATH)/fsl-proprietary/sensor/fsl-sensor.mk
+-include $(IMX_MEDIA_CODEC_XML_PATH)/mediacodec-profile/mediacodec-profile.mk
