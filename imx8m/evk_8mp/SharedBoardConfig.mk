@@ -133,6 +133,9 @@ endif
 # CONFIG_IMX_IRQSTEER: irq-imx-irqsteer.ko
 # CONFIG_GPIO_MXC: gpio-generic.ko gpio-mxc.ko
 # CONFIG_TIMER_IMX_SYS_CTR: timer-imx-sysctr.ko
+# CONFIG_NVMEM_IMX_OCOTP: nvmem-imx-ocotp.ko
+# CONFIG_CPUFREQ_DT: cpufreq-dt.ko
+# CONFIG_ARM_IMX_CPUFREQ_DT: imx-cpufreq-dt.ko
 
 ifneq ($(IMX8MP_USES_GKI),)
 BOARD_VENDOR_RAMDISK_KERNEL_MODULES +=     \
@@ -195,7 +198,10 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES +=     \
     $(KERNEL_OUT)/drivers/trusty/trusty-irq.ko \
     $(KERNEL_OUT)/drivers/trusty/trusty-log.ko \
     $(KERNEL_OUT)/drivers/trusty/trusty-mem.ko \
-    $(KERNEL_OUT)/drivers/trusty/trusty-virtio.ko
+    $(KERNEL_OUT)/drivers/trusty/trusty-virtio.ko \
+    $(KERNEL_OUT)/drivers/nvmem/nvmem-imx-ocotp.ko \
+    $(KERNEL_OUT)/drivers/cpufreq/cpufreq-dt.ko \
+    $(KERNEL_OUT)/drivers/cpufreq/imx-cpufreq-dt.ko
 endif
 
 # isp vvcam driver module
