@@ -80,7 +80,7 @@
       "PowerHint": "INTERACTION",
       "Node": "CPULittleClusterMinFreq",
       "Duration": 0,
-      "Value": "1600000"
+      "Value": "1800000"
     },
     {
       "PowerHint": "INTERACTION",
@@ -140,7 +140,7 @@
       "PowerHint": "CAMERA_STREAMING",
       "Node": "CPULittleClusterMaxFreq",
       "Duration": 0,
-      "Value": "1800000"
+      "Value": "1600000"
     },
     {
       "PowerHint": "CAMERA_SHOT",
@@ -177,6 +177,12 @@
       "Node": "PMQoSCpuDmaLatency",
       "Duration": 2000,
       "Value": "0"
+    },
+    {
+      "PowerHint": "AUDIO_STREAMING",
+      "Node": "CPULittleClusterMinFreq",
+      "Duration": 2000,
+      "Value": "1600000"
     },
     {
       "PowerHint": "AUDIO_LOW_LATENCY",
