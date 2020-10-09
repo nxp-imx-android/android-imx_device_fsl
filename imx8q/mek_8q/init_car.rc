@@ -17,6 +17,9 @@ on early-init
     setprop vendor.storageproxyd ${ro.boot.keystore}
     setprop vendor.all.car true
 
+    # Use ro.boot.lcd_density to override ro.sf.lcd_density
+    setprop ro.sf.lcd_density ${ro.boot.lcd_density}
+
 on init
     start watchdogd
 
@@ -70,9 +73,6 @@ on early-boot
     setprop wifi.interface wlan0
     setprop wifi.direct.interface p2p0
     setprop wifi.concurrent.interface wlan1
-
-    # Use ro.boot.lcd_density to override ro.sf.lcd_density
-    setprop ro.sf.lcd_density ${ro.boot.lcd_density}
 
     # Set tracefs permission to 755
     chmod 0755 /sys/kernel/debug/tracing

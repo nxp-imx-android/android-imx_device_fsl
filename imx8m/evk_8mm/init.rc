@@ -30,6 +30,9 @@ on early-init
     setprop ro.hardware.gatekeeper ${ro.boot.keystore}
     setprop vendor.storageproxyd ${ro.boot.keystore}
 
+    # Use ro.boot.lcd_density to override ro.sf.lcd_density
+    setprop ro.sf.lcd_density ${ro.boot.lcd_density}
+
 # Skip charger_not_need trigger for charger mode
 on early-init && property:ro.boot.mode=charger
     setprop vendor.skip.charger_not_need 1
@@ -121,9 +124,6 @@ on early-boot && property:vendor.skip.charger_not_need=0
     write /sys/class/rfkill/rfkill0/state 0
 
     setprop persist.service.bdroid.bdaddr 22:22:67:C6:69:73
-
-    # Use ro.boot.lcd_density to override ro.sf.lcd_density
-    setprop ro.sf.lcd_density ${ro.boot.lcd_density}
 
     # prepare for ril
     setprop ro.ril.wake_lock_timeout 300

@@ -8,6 +8,9 @@ on early-init
     # Set the host name which used in console
     export HOSTNAME evk_7ulp
 
+    # Use ro.boot.lcd_density to override ro.sf.lcd_density
+    setprop ro.sf.lcd_density ${ro.boot.lcd_density}
+
 on init
     start watchdogd
 
@@ -73,9 +76,6 @@ on early-boot
 
     # Set OpenGLES version
     setprop ro.opengles.version 131072
-
-    # Use ro.boot.lcd_density to override ro.sf.lcd_density
-    setprop ro.sf.lcd_density ${ro.boot.lcd_density}
 
     # Set sys.device.type to tablet to enable NavigationBar
     setprop sys.device.type tablet
