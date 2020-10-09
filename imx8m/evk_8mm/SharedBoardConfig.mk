@@ -59,7 +59,6 @@ BOARD_VENDOR_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/pps/pps_core.ko \
     $(KERNEL_OUT)/drivers/ptp/ptp.ko \
     $(KERNEL_OUT)/drivers/net/phy/at803x.ko \
-    $(KERNEL_OUT)/drivers/power/supply/dummy_battery.ko \
     $(KERNEL_OUT)/drivers/net/ethernet/freescale/fec.ko
 endif
 
@@ -116,6 +115,7 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES +=     \
     $(KERNEL_OUT)/drivers/usb/chipidea/ci_hdrc.ko \
     $(KERNEL_OUT)/drivers/usb/phy/phy-generic.ko \
     $(KERNEL_OUT)/drivers/usb/typec/tcpm/tcpci.ko \
+    $(KERNEL_OUT)/drivers/power/supply/dummy_battery.ko \
     $(KERNEL_OUT)/drivers/trusty/trusty.ko \
     $(KERNEL_OUT)/drivers/trusty/trusty-fiq.ko \
     $(KERNEL_OUT)/drivers/trusty/trusty-arm64-fiq.ko \
