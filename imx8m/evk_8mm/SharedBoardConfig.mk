@@ -60,6 +60,9 @@ BOARD_VENDOR_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/ptp/ptp.ko \
     $(KERNEL_OUT)/drivers/net/phy/at803x.ko \
     $(KERNEL_OUT)/drivers/net/ethernet/freescale/fec.ko
+else
+BOARD_VENDOR_KERNEL_MODULES +=     \
+    $(KERNEL_OUT)/drivers/input/touchscreen/synaptics_dsx/synaptics_dsx_i2c.ko
 endif
 
 # CONFIG_CLK_IMX8MM: clk-imx8mm.ko

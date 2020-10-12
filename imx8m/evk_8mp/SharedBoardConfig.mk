@@ -93,6 +93,9 @@ BOARD_VENDOR_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/ptp/ptp.ko \
     $(KERNEL_OUT)/drivers/pps/pps_core.ko \
     $(KERNEL_OUT)/drivers/net/ethernet/freescale/fec.ko
+else
+BOARD_VENDOR_KERNEL_MODULES +=     \
+    $(KERNEL_OUT)/drivers/input/touchscreen/synaptics_dsx/synaptics_dsx_i2c.ko
 endif
 
 # CONFIG_CLK_IMX8MP: clk-imx8mp.ko, clk-audiomix.ko, clk-gate-shared.ko, clk-hdmimix.ko
