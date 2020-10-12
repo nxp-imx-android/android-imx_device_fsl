@@ -77,7 +77,7 @@ endif
 # CONFIG_DRM_IMX: imxdrm.ko imx-lcdif-crtc.ko
 # CONFIG_DRM_SEC_MIPI_DSIM: sec-dsim.ko
 # CONFIG_DRM_IMX_SEC_DSIM: sec_mipi_dsim-imx.ko
-# CONFIG_DRM_I2C_ADV7511: adv7511.ko cec.ko
+# CONFIG_DRM_I2C_ADV7511: adv7511.ko
 # CONFIG_USB_CHIPIDEA_OF: usbmisc_imx.ko ci_hdrc_imx.ko
 # CONFIG_USB_CHIPIDEA: ci_hdrc.ko
 # CONFIG_NOP_USB_XCEIV: phy-generic.ko
@@ -106,7 +106,6 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES +=     \
     $(KERNEL_OUT)/drivers/gpu/drm/bridge/sec-dsim.ko \
     $(KERNEL_OUT)/drivers/gpu/drm/imx/sec_mipi_dsim-imx.ko \
     $(KERNEL_OUT)/drivers/gpu/drm/panel/panel-raydium-rm67191.ko \
-    $(KERNEL_OUT)/drivers/media/cec/cec.ko \
     $(KERNEL_OUT)/drivers/gpu/drm/bridge/adv7511/adv7511.ko \
     $(KERNEL_OUT)/drivers/mxc/gpu-viv/galcore.ko \
     $(KERNEL_OUT)/drivers/usb/chipidea/usbmisc_imx.ko \

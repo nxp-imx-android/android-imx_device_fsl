@@ -111,7 +111,7 @@ endif
 # CONFIG_PHY_SAMSUNG_HDMI_PHY: phy-fsl-samsung-hdmi.ko
 # CONFIG_MXC_GPU_VIV: galcore.ko
 # CONFIG_IMX_LCDIF_CORE: imx-lcdif-core.ko
-# CONFIG_DRM_I2C_ADV7511: adv7511.ko, cec.ko
+# CONFIG_DRM_I2C_ADV7511: adv7511.ko
 # CONFIG_DRM_IMX_CDNS_MHDP: cdns_mhdp_drmcore.ko cdns_mhdp_imx.ko
 # CONFIG_DRM_IMX8MP_LDB: imx8mp-ldb.ko
 # CONFIG_DRM_FSL_IMX_LVDS_BRIDGE: fsl-imx-ldb.ko
@@ -167,7 +167,6 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES +=     \
     $(KERNEL_OUT)/drivers/phy/freescale/phy-fsl-imx8mq-usb.ko \
     $(KERNEL_OUT)/drivers/phy/freescale/phy-fsl-imx8-pcie.ko \
     $(KERNEL_OUT)/drivers/mxc/gpu-viv/galcore.ko \
-    $(KERNEL_OUT)/drivers/media/cec/cec.ko \
     $(KERNEL_OUT)/drivers/input/touchscreen/synaptics_dsx/synaptics_dsx_i2c.ko \
     $(KERNEL_OUT)/drivers/gpu/imx/lcdif/imx-lcdif-core.ko \
     $(KERNEL_OUT)/drivers/gpu/drm/bridge/adv7511/adv7511.ko \
