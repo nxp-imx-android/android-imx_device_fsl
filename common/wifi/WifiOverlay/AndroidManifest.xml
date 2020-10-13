@@ -22,6 +22,6 @@
     <overlay
       android:targetPackage="com.android.wifi.resources"
       android:targetName="WifiCustomization"
-      android:isStatic="false"
+      android:isStatic="true"
       android:priority="0"/>
 </manifest>

@@ -1,3 +1,0 @@
-<config>
-    <overlay package="com.android.wifi.resources.imx" enabled="true" />
-</config>

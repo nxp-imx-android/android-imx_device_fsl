@@ -522,9 +522,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.rebootescrow.device=/dev/block/pmem0
 
-PRODUCT_COPY_FILES += \
-    $(IMX_DEVICE_PATH)/config.xml:/product/overlay/config/config.xml
-
 PRODUCT_SOONG_NAMESPACES += hardware/google/camera
 PRODUCT_SOONG_NAMESPACES += vendor/nxp-opensource/imx/camera
 

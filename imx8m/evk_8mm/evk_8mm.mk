@@ -380,9 +380,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     vendor.gki.enable=true
 endif
 
-PRODUCT_COPY_FILES += \
-    $(IMX_DEVICE_PATH)/config.xml:/product/overlay/config/config.xml
-
 PRODUCT_SOONG_NAMESPACES += hardware/google/camera
 PRODUCT_SOONG_NAMESPACES += vendor/nxp-opensource/imx/camera
 

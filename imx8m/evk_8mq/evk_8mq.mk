@@ -396,9 +396,6 @@ endif
 -include $(FSL_CODEC_PATH)/fsl-codec/fsl-codec.mk
 endif
 
-PRODUCT_COPY_FILES += \
-    $(IMX_DEVICE_PATH)/config.xml:/product/overlay/config/config.xml
-
 PRODUCT_SOONG_NAMESPACES += hardware/google/camera
 PRODUCT_SOONG_NAMESPACES += vendor/nxp-opensource/imx/camera
 
