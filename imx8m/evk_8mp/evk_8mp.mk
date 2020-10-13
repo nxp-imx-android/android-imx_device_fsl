@@ -449,5 +449,4 @@ PRODUCT_SOONG_NAMESPACES += vendor/nxp-opensource/imx/camera
 
 $(call  inherit-product-if-exists, vendor/nxp-private/security/nxp_security.mk)
 
-PRODUCT_PROPERTY_OVERRIDES += external_storage.casefold.enabled=0
 $(call inherit-product, $(SRC_TARGET_DIR)/product/emulated_storage.mk)
