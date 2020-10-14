@@ -237,7 +237,8 @@ BOARD_SEPOLICY_DIRS += \
      device/nxp/imx8q/sepolicy_car \
      $(IMX_DEVICE_PATH)/sepolicy_car \
      device/generic/car/common/sepolicy \
-     vendor/nxp-opensource/imx/evs/sepolicy
+     vendor/nxp-opensource/imx/evs/sepolicy \
+     packages/services/Car/surround_view/sepolicy
 endif
 
 ifeq ($(PRODUCT_IMX_CAR),true)

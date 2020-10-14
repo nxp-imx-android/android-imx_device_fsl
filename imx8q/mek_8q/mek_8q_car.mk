@@ -34,7 +34,9 @@ PRODUCT_PACKAGES += \
 
 # Add Car related HAL
 PRODUCT_PACKAGES += \
-    android.hardware.automotive.vehicle@2.0-service
+    android.hardware.automotive.vehicle@2.0-service \
+    android.automotive.sv.service@1.0-impl \
+    sv_app
 
 ifeq ($(PRODUCT_IMX_CAR_M4),false)
 # Simulate the vehical rpmsg register event for non m4 car image
