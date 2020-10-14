@@ -107,6 +107,8 @@ endif
 # CONFIG_I2C_IMX: i2c-imx.ko
 # CONFIG_MFD_PCA9450: pca9450.ko
 # CONFIG_REGULATOR_PCA9450: pca9450-regulator.ko
+# CONFIG_PWM_IMX27: pwm-imx27.ko
+# CONFIG_BACKLIGHT_PWM : pwm_bl.ko
 # CONFIG_MMC_SDHCI_ESDHC_IMX: sdhci-esdhc-imx.ko, cqhci.ko
 # CONFIG_ION_CMA_HEAP: ion_cma_heap.ko
 # CONFIG_MFD_IMX_AUDIOMIX: imx-audiomix.ko
@@ -124,6 +126,7 @@ endif
 # CONFIG_DRM_IMX: imxdrm.ko, imx-lcdif-crtc.ko
 # CONFIG_IMX_LCDIFV3_CORE: imx-lcdifv3-core.ko imx-lcdifv3-crtc.ko
 # CONFIG_USB_DWC3: dwc3-haps.ko dwc3-imx8mp.ko dwc3-of-simple.ko dwc3-qcom.ko dwc3.ko
+# CONFIG_DRM_PANEL_SIMPLE: panel-simple.ko
 # CONFIG_TYPEC_SWITCH_GPIO: gpio-switch.ko
 # CONFIG_TYPEC_TCPCI: tcpci.ko
 # CONFIG_PHY_FSL_IMX8MQ_USB: phy-fsl-imx8mq-usb.ko
@@ -158,6 +161,8 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES +=     \
     $(KERNEL_OUT)/drivers/i2c/busses/i2c-imx.ko \
     $(KERNEL_OUT)/drivers/mfd/pca9450.ko \
     $(KERNEL_OUT)/drivers/regulator/pca9450-regulator.ko \
+    $(KERNEL_OUT)/drivers/pwm/pwm-imx27.ko \
+    $(KERNEL_OUT)/drivers/video/backlight/pwm_bl.ko \
     $(KERNEL_OUT)/drivers/mmc/host/cqhci.ko \
     $(KERNEL_OUT)/drivers/mmc/host/sdhci-esdhc-imx.ko \
     $(KERNEL_OUT)/drivers/staging/android/ion/heaps/ion_cma_heap.ko \
@@ -188,6 +193,7 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES +=     \
     $(KERNEL_OUT)/drivers/gpu/imx/lcdifv3/imx-lcdifv3-core.ko \
     $(KERNEL_OUT)/drivers/gpu/drm/imx/sec_mipi_dsim-imx.ko \
     $(KERNEL_OUT)/drivers/gpu/drm/panel/panel-raydium-rm67191.ko \
+    $(KERNEL_OUT)/drivers/gpu/drm/panel/panel-simple.ko \
     $(KERNEL_OUT)/drivers/usb/dwc3/dwc3-imx8mp.ko \
     $(KERNEL_OUT)/drivers/usb/dwc3/dwc3.ko \
     $(KERNEL_OUT)/drivers/usb/typec/mux/gpio-switch.ko \
