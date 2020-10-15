@@ -466,6 +466,11 @@ BOARD_VNDK_VERSION := current
 ifneq ($(PRODUCT_IMX_CAR),true)
 # Included GMS package
 $(call inherit-product-if-exists, vendor/partner_gms/products/gms.mk)
+PRODUCT_SOONG_NAMESPACES += vendor/partner_gms
+else
+# Included GAS package
+$(call inherit-product-if-exists, vendor/partner_gas/products/gms.mk)
+PRODUCT_SOONG_NAMESPACES += vendor/partner_gas
 endif
 
 

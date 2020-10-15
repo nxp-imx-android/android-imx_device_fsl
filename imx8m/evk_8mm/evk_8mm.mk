@@ -345,6 +345,7 @@ endif
 
 # Included GMS package
 $(call inherit-product-if-exists, vendor/partner_gms/products/gms.mk)
+PRODUCT_SOONG_NAMESPACES += vendor/partner_gms
 
 # Specify rollback index for bootloader and for AVB
 ifneq ($(AVB_RBINDEX),)
