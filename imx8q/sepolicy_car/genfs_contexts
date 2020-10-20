@@ -5,3 +5,4 @@ genfscon sysfs /firmware/devicetree/base/passthrough/firmware/android          u
 # XEN
 genfscon sysfs /devices/platform/23000000.rtc/rtc/rtc0/hctosys                  u:object_r:sysfs_rtc:s0
 genfscon sysfs /devices/platform/vehicle-dummy/extcon                           u:object_r:sysfs_extcon:s0
+genfscon sysfs /devices/platform/imx8x_cm4@0/remoteproc/remoteproc0/remoteproc0#vdev0buffer/virtio1/virtio1.rpmsg-vehicle-channel.-1.1/extcon u:object_r:sysfs_extcon:s0
