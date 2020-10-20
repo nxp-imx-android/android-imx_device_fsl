@@ -473,6 +473,13 @@ $(call inherit-product-if-exists, vendor/partner_gas/products/gms.mk)
 PRODUCT_SOONG_NAMESPACES += vendor/partner_gas
 endif
 
+ifeq ($(PRODUCT_IMX_CAR),true)
+HAVE_GAS_INTEGRATED := $(shell test -f vendor/partner_gas/products/gms.mk && echo true)
+ifneq ($(HAVE_GAS_INTEGRATED),true)
+PRODUCT_PACKAGES += \
+    CarMapsPlaceholder
+endif
+endif
 
 #DRM Widevine 1.2 L3 support
 PRODUCT_PACKAGES += \
