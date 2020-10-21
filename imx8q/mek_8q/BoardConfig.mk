@@ -39,8 +39,13 @@ ifeq ($(PRODUCT_IMX_DUAL_BOOTLOADER),true)
   endif
 else
   ifeq ($(TARGET_USE_DYNAMIC_PARTITIONS),true)
-    BOARD_BPT_INPUT_FILES += device/nxp/common/partition/device-partitions-13GB-ab_super.bpt
-    ADDITION_BPT_PARTITION = partition-table-28GB:device/nxp/common/partition/device-partitions-28GB-ab_super.bpt
+    ifeq ($(PRODUCT_IMX_CAR),true)
+      BOARD_BPT_INPUT_FILES += device/nxp/common/partition/device-partitions-13GB-ab-no-vb_super.bpt
+      ADDITION_BPT_PARTITION = partition-table-28GB:device/nxp/common/partition/device-partitions-28GB-ab-no-vb_super.bpt
+    else
+      BOARD_BPT_INPUT_FILES += device/nxp/common/partition/device-partitions-13GB-ab_super.bpt
+      ADDITION_BPT_PARTITION = partition-table-28GB:device/nxp/common/partition/device-partitions-28GB-ab_super.bpt
+    endif
   else
     ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
       BOARD_BPT_INPUT_FILES += device/nxp/common/partition/device-partitions-13GB-ab-no-product.bpt
@@ -141,6 +146,9 @@ ifeq ($(OTA_TARGET),8qxp)
 BOARD_PREBUILT_DTBOIMAGE := out/target/product/mek_8q/dtbo-imx8qxp.img
 endif
 
+# For Android Auto with M4 EVS, fstab entries in dtb are in the form of non-dynamic partition by default
+# For Android Auto without M4 EVS, fstab entries in dtb are in the form of dynamic partition by default
+# For standard Android, the form of fstab entries in dtb depend on the value of "TARGET_USE_DYNAMIC_PARTITIONS"
 ifeq ($(PRODUCT_IMX_CAR),true)
   ifeq ($(PRODUCT_IMX_CAR_M4),true)
     ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
