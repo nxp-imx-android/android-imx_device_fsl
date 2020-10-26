@@ -19,7 +19,6 @@ PRODUCT_PACKAGES += \
     LiveWallpapersPicker \
     SoundRecorder \
     charger_res_images \
-    ethernet \
     ip-up-vpn \
     libedid \
     libion \
