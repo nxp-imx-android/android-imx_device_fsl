@@ -67,7 +67,9 @@ PRODUCT_PACKAGES += \
 # display libs
 PRODUCT_PACKAGES += \
     libdrm_android \
-    libfsldisplay \
+    libfsldisplay
+
+PRODUCT_HOST_PACKAGES += \
     nxp.hardware.display@1.0
 
 # Vivante libdrm support
@@ -231,6 +233,10 @@ PRODUCT_PACKAGES += \
     lib_wma10_dec_v2_arm12_elinux \
     lib_wma10d_wrap_arm12_elinux_android
 
+# vndservicemanager
+PRODUCT_PACKAGES += \
+    vndservicemanager
+
 # Copy soc related config and binary to board
 PRODUCT_COPY_FILES += \
     device/nxp/common/input/Dell_Dell_USB_Entry_Keyboard.idc:$(TARGET_COPY_OUT_VENDOR)/usr/idc/Dell_Dell_USB_Entry_Keyboard.idc \
@@ -271,7 +277,7 @@ PRODUCT_DEFAULT_DEV_CERTIFICATE := \
     device/nxp/common/security/testkey
 
 PRODUCT_AAPT_CONFIG := normal mdpi
-PRODUCT_SHIPPING_API_LEVEL := 28
+PRODUCT_SHIPPING_API_LEVEL := 30
 
 #OEM Unlock reporting
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \

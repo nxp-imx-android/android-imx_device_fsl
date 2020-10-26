@@ -55,7 +55,8 @@ PRODUCT_PACKAGES += \
     update_verifier
 
 PRODUCT_HOST_PACKAGES += \
-    brillo_update_payload
+    brillo_update_payload \
+    nxp.hardware.display@1.0
 
 # audio
 PRODUCT_PACKAGES += \
@@ -113,8 +114,7 @@ PRODUCT_PACKAGES += \
 # display
 PRODUCT_PACKAGES += \
     libdrm_android \
-    libfsldisplay \
-    nxp.hardware.display@1.0
+    libfsldisplay
 
 # drm
 PRODUCT_PACKAGES += \
@@ -212,6 +212,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     fastbootd \
 
+# vndservicemanager
+PRODUCT_PACKAGES += \
+    vndservicemanager
+
 # Copy soc related config and binary to board
 PRODUCT_COPY_FILES += \
     $(FSL_PROPRIETARY_PATH)/fsl-proprietary/media-profile/media_profiles_720p.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_profiles_720p.xml \
@@ -276,7 +280,7 @@ ifneq (,$(filter userdebug, $(TARGET_BUILD_VARIANT)))
 endif
 
 PRODUCT_AAPT_CONFIG := normal mdpi
-PRODUCT_SHIPPING_API_LEVEL := 28
+PRODUCT_SHIPPING_API_LEVEL := 30
 
 # Enforce privapp-permissions whitelist
 PRODUCT_PROPERTY_OVERRIDES += \
