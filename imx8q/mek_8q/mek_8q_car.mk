@@ -13,7 +13,7 @@ include $(IMX_DEVICE_PATH)/mek_8q.mk
 
 # Overrides
 PRODUCT_NAME := mek_8q_car
-PRODUCT_PACKAGE_OVERLAYS := $(IMX_DEVICE_PATH)/overlay_car packages/services/Car/car_product/overlay
+PRODUCT_PACKAGE_OVERLAYS += $(IMX_DEVICE_PATH)/overlay_car
 
 PRODUCT_COPY_FILES += \
     packages/services/Car/car_product/init/init.bootstat.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.bootstat.rc \
