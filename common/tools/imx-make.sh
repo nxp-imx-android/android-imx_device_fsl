@@ -66,6 +66,7 @@ build_bootloader_kernel_flag=0
 build_android_flag=0
 build_bootloader=""
 build_kernel=""
+build_kernel_module_flag=0
 build_galcore=""
 build_vvcam=""
 build_bootimage=""
@@ -87,8 +88,10 @@ for arg in ${args[*]} ; do
         kernel) build_bootloader_kernel_flag=1;
                     build_kernel="${OUT}/kernel";;
         galcore) build_bootloader_kernel_flag=1;
+                    build_kernel_module_flag=1;
                     build_galcore="galcore";;
         vvcam) build_bootloader_kernel_flag=1;
+                    build_kernel_module_flag=1
                     build_vvcam="vvcam";;
         bootimage) build_bootloader_kernel_flag=1;
                     build_android_flag=1;
@@ -98,7 +101,7 @@ for arg in ${args[*]} ; do
                     build_android_flag=1;
                     build_kernel="${OUT}/kernel";
                     build_vendorbootimage="vendorbootimage";;
-        dtboimage) build_kernel_flag=1;
+        dtboimage) build_bootloader_kernel_flag=1;
                     build_android_flag=1;
                     build_kernel="${OUT}/kernel";
                     build_dtboimage="dtboimage";;
@@ -120,6 +123,7 @@ fi
 # vvcam.ko need build with kernel each time to make sure "insmod vvcam.ko" works
 if [ -n "${build_kernel}" ] && [ ${TARGET_PRODUCT} = "evk_8mp" ]; then
     build_vvcam="vvcam";
+    build_kernel_module_flag=1;
 fi
 
 product_makefile=`pwd`/`find device/nxp -maxdepth 4 -name "${TARGET_PRODUCT}.mk"`;
@@ -137,9 +141,11 @@ soc_path=${soc_path} product_path=${product_path} nxp_git_path=${nxp_git_path} c
     make -C ./ -f ${nxp_git_path}/common/build/Makefile ${parallel_option} \
     ${build_bootloader} ${build_kernel} </dev/null || exit
 
-soc_path=${soc_path} product_path=${product_path} nxp_git_path=${nxp_git_path} clean_build=${clean_build} \
-    make -C ./ -f ${nxp_git_path}/common/build/Makefile ${parallel_option} \
-    ${build_vvcam} ${build_galcore} </dev/null || exit
+if [ ${build_kernel_module_flag} -eq 1 ]; then
+    soc_path=${soc_path} product_path=${product_path} nxp_git_path=${nxp_git_path} clean_build=${clean_build} \
+        make -C ./ -f ${nxp_git_path}/common/build/Makefile ${parallel_option} \
+        ${build_vvcam} ${build_galcore} </dev/null || exit
+fi
 
 if [ ${build_android_flag} -eq 1 ]; then
     # source envsetup.sh before building Android rootfs, the time spent on building uboot/kernel
