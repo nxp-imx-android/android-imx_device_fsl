@@ -348,11 +348,17 @@ endif
 $(call inherit-product-if-exists, vendor/partner_gms/products/gms.mk)
 PRODUCT_SOONG_NAMESPACES += vendor/partner_gms
 
-# Specify rollback index for bootloader and for AVB
+# Specify rollback index for boot and vbmeta partition
 ifneq ($(AVB_RBINDEX),)
 BOARD_AVB_ROLLBACK_INDEX := $(AVB_RBINDEX)
 else
 BOARD_AVB_ROLLBACK_INDEX := 0
+endif
+
+ifneq ($(AVB_BOOT_RBINDEX),)
+BOARD_AVB_BOOT_ROLLBACK_INDEX := $(AVB_BOOT_RBINDEX)
+else
+BOARD_AVB_BOOT_ROLLBACK_INDEX := 0
 endif
 
 ifneq (,$(filter userdebug eng,$(TARGET_BUILD_VARIANT)))

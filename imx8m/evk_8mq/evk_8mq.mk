@@ -364,11 +364,17 @@ PRODUCT_PACKAGES += \
     MultiClientInputMethod \
     MultiDisplay
 
-# Specify rollback index for bootloader and for AVB
+# Specify rollback index for boot and vbmeta partitions
 ifneq ($(AVB_RBINDEX),)
 BOARD_AVB_ROLLBACK_INDEX := $(AVB_RBINDEX)
 else
 BOARD_AVB_ROLLBACK_INDEX := 0
+endif
+
+ifneq ($(AVB_BOOT_RBINDEX),)
+BOARD_AVB_BOOT_ROLLBACK_INDEX := $(AVB_BOOT_RBINDEX)
+else
+BOARD_AVB_BOOT_ROLLBACK_INDEX := 0
 endif
 
 #DRM Widevine 1.2 L3 support

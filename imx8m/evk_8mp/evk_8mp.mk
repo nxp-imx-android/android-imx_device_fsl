@@ -405,11 +405,17 @@ PRODUCT_PACKAGES += \
     android.hardware.oemlock@1.0-service.imx
 endif
 
-# Specify rollback index for bootloader and for AVB
+# Specify rollback index for boot and vbmeta partitions
 ifneq ($(AVB_RBINDEX),)
 BOARD_AVB_ROLLBACK_INDEX := $(AVB_RBINDEX)
 else
 BOARD_AVB_ROLLBACK_INDEX := 0
+endif
+
+ifneq ($(AVB_BOOT_RBINDEX),)
+BOARD_AVB_BOOT_ROLLBACK_INDEX := $(AVB_BOOT_RBINDEX)
+else
+BOARD_AVB_BOOT_ROLLBACK_INDEX := 0
 endif
 
 ifneq (,$(filter userdebug eng,$(TARGET_BUILD_VARIANT)))

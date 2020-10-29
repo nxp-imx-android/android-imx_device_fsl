@@ -505,11 +505,19 @@ PRODUCT_PACKAGES += \
 
 endif
 
-# Specify rollback index for bootloader and for AVB
+# Specify rollback index for vbmeta and boot partition
 ifneq ($(AVB_RBINDEX),)
 BOARD_AVB_ROLLBACK_INDEX := $(AVB_RBINDEX)
 else
 BOARD_AVB_ROLLBACK_INDEX := 0
+endif
+
+ifneq ($(PRODUCT_IMX_CAR),true)
+ifneq ($(AVB_BOOT_RBINDEX),)
+BOARD_AVB_BOOT_ROLLBACK_INDEX := $(AVB_BOOT_RBINDEX)
+else
+BOARD_AVB_BOOT_ROLLBACK_INDEX := 0
+endif
 endif
 
 #set default lib name for g2d, which will be linked
