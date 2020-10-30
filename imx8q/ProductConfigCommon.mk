@@ -7,6 +7,13 @@ ifneq ($(TARGET_PRODUCT),mek_8q_car)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/updatable_apex.mk)
 endif
 $(call inherit-product, $(TOPDIR)frameworks/base/data/sounds/AllAudio.mk)
+
+# Installs gsi keys into ramdisk.
+$(call inherit-product, $(SRC_TARGET_DIR)/product/developer_gsi_keys.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/gsi_keys.mk)
+PRODUCT_PACKAGES += \
+    adb_debug.prop
+
 # overrides
 PRODUCT_BRAND := Android
 PRODUCT_MANUFACTURER := nxp

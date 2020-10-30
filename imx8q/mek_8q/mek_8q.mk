@@ -493,12 +493,6 @@ PRODUCT_PACKAGES += \
     libwvhidl \
     libwvdrmengine \
 
-ifneq (,$(filter userdebug eng,$(TARGET_BUILD_VARIANT)))
-$(call inherit-product, $(SRC_TARGET_DIR)/product/gsi_keys.mk)
-PRODUCT_PACKAGES += \
-    adb_debug.prop
-endif
-
 # In user build, the Cluster display is not included in
 # packages/services/Car/car_product/build/car.mk. Here add it back for testing
 ifeq ($(PRODUCT_IMX_CAR),true)
