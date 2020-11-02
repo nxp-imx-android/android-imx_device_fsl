@@ -9,6 +9,8 @@ ifeq ($(PRODUCT_IMX_CAR),true)
   BOARD_OTA_BOOTLOADERIMAGE := out/target/product/mek_8q/obj/UBOOT_COLLECTION/bootloader-imx8qm.img
   ifeq ($(OTA_TARGET),8qxp)
     BOARD_OTA_BOOTLOADERIMAGE := out/target/product/mek_8q/obj/UBOOT_COLLECTION/bootloader-imx8qxp.img
+  else ifeq ($(OTA_TARGET),8qxp-c0)
+    BOARD_OTA_BOOTLOADERIMAGE := out/target/product/mek_8q/obj/UBOOT_COLLECTION/bootloader-imx8qxp-c0.img
   endif
 endif
 
@@ -134,6 +136,9 @@ endif
 
 BOARD_PREBUILT_DTBOIMAGE := out/target/product/mek_8q/dtbo-imx8qm.img
 ifeq ($(OTA_TARGET),8qxp)
+BOARD_PREBUILT_DTBOIMAGE := out/target/product/mek_8q/dtbo-imx8qxp.img
+endif
+ifeq ($(OTA_TARGET),8qxp-c0)
 BOARD_PREBUILT_DTBOIMAGE := out/target/product/mek_8q/dtbo-imx8qxp.img
 endif
 
