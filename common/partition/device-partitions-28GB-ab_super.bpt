@@ -34,7 +34,7 @@
         },
         {
             "label": "metadata",
-            "size": "2 MiB",
+            "size": "16 MiB",
             "guid": "auto",
             "type_guid": "b598858a-5fe3-418e-b8c4-824b41f4adfc"
         },
