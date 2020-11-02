@@ -80,6 +80,9 @@ on late-fs && property:vendor.skip.charger_not_need=0
     start vendor.keymaster-4-0-${ro.boot.keystore}
     setprop vendor.powerhal.init 1
 
+    # Wait for keymaster
+    exec_start wait_for_keymaster
+
     mount_all /vendor/etc/fstab.nxp --late
 
 on late-fs && property:vendor.storageproxyd=trusty && property:vendor.skip.charger_not_need=0

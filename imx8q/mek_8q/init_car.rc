@@ -231,6 +231,9 @@ on late-fs
     start servicemanager
     start surfaceflinger
 
+    # Wait for keymaster
+    exec_start wait_for_keymaster
+
     # Mount RW partitions which need run fsck
     mount_all /vendor/etc/fstab.nxp --late
 
