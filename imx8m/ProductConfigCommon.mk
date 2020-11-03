@@ -19,6 +19,7 @@ PRODUCT_PACKAGES += \
     SystemUpdaterSample \
     charger_res_images \
     charger \
+    ethernet \
     libedid \
     libion \
     slideshow \
