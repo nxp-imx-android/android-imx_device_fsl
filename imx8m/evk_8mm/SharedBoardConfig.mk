@@ -36,6 +36,7 @@ PRODUCT_IMX_TRUSTY := true
 # CONFIG_KEYBOARD_SNVS_PWRKEY: powerkey driver
 # CONFIG_FEC: fec.ko which depend on pps_core.ko and ptp.ko
 # CONFIG_AT803X_PHY: ethernet phy driver at803x.ko
+# CONFIG_USB_VIDEO_CLASS: videobuf2-vmalloc.ko uvcvideo.ko, uvc driver
 
 ifneq ($(IMX8MM_USES_GKI),)
 BOARD_VENDOR_KERNEL_MODULES += \
@@ -51,6 +52,8 @@ BOARD_VENDOR_KERNEL_MODULES += \
     $(KERNEL_OUT)/sound/soc/fsl/imx-pcm-dma-common.ko \
     $(KERNEL_OUT)/sound/soc/fsl/snd-soc-fsl-micfil.ko \
     $(KERNEL_OUT)/sound/soc/fsl/snd-soc-imx-micfil.ko \
+    $(KERNEL_OUT)/drivers/media/common/videobuf2/videobuf2-vmalloc.ko \
+    $(KERNEL_OUT)/drivers/media/usb/uvc/uvcvideo.ko \
     $(KERNEL_OUT)/drivers/mxc/hantro/hantrodec.ko \
     $(KERNEL_OUT)/drivers/mxc/hantro_845/hantrodec_845s.ko \
     $(KERNEL_OUT)/drivers/mxc/hantro_845_h1/hx280enc.ko \
