@@ -104,6 +104,12 @@ PRODUCT_PACKAGES += \
     libgooglecamerahalutils \
     lib_profiler \
     libimxcamerahwl_impl
+
+PRODUCT_PACKAGES += \
+    android.hardware.camera.provider@2.4-external-service \
+    android.hardware.camera.provider@2.4-impl \
+    camera.device@1.0-impl \
+    camera.device@3.2-impl
 endif
 
 # health
