@@ -7,4 +7,4 @@ init_daemon_domain(evs_service)
 allow evs_service self:netlink_kobject_uevent_socket { create setopt getopt bind read };
 allow evs_service property_socket:sock_file { write };
 allow evs_service init:unix_stream_socket { connectto };
-allow evs_service evs_prop:property_service { set };
+allow evs_service vendor_evs_prop:property_service { set };

@@ -1,1 +1,1 @@
-set_prop(vendor_init, evs_prop)
+set_prop(vendor_init, vendor_evs_prop)
