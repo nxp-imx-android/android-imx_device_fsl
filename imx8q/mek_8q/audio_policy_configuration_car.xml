@@ -23,6 +23,7 @@
             <attachedDevices>
                 <item>bus0_media_out</item>
                 <item>bus1_system_sound_out</item>
+                <item>bus100_audio_zone_1</item>
                 <item>Built-In Mic</item>
             </attachedDevices>
             <defaultOutputDevice>bus0_media_out</defaultOutputDevice>
@@ -34,6 +35,12 @@
                              channelMasks="AUDIO_CHANNEL_OUT_STEREO"/>
                 </mixPort>
                 <mixPort name="mixport_bus1_system_sound_out" role="source"
+                        flags="AUDIO_OUTPUT_FLAG_PRIMARY">
+                    <profile name="" format="AUDIO_FORMAT_PCM_16_BIT"
+                             samplingRates="48000"
+                             channelMasks="AUDIO_CHANNEL_OUT_STEREO"/>
+                </mixPort>
+                <mixPort name="mixport_bus100_audio_zone_1" role="source"
                         flags="AUDIO_OUTPUT_FLAG_PRIMARY">
                     <profile name="" format="AUDIO_FORMAT_PCM_16_BIT"
                              samplingRates="48000"
@@ -61,6 +68,13 @@
                                 minValueMB="-500" maxValueMB="0" defaultValueMB="0" stepValueMB="100"/>
                     </gains>
                 </devicePort>
+                <devicePort tagName="bus100_audio_zone_1" role="sink" type="AUDIO_DEVICE_OUT_BUS"
+                        address="bus100_audio_zone_1">
+                    <gains>
+                        <gain name="" mode="AUDIO_GAIN_MODE_JOINT"
+                                minValueMB="-500" maxValueMB="0" defaultValueMB="0" stepValueMB="100"/>
+                    </gains>
+                </devicePort>
 
                 <devicePort tagName="Built-In Mic" type="AUDIO_DEVICE_IN_BUILTIN_MIC" role="source">
                 </devicePort>
@@ -69,6 +83,7 @@
             <routes>
                 <route type="mix" sink="bus0_media_out" sources="mixport_bus0_media_out"/>
                 <route type="mix" sink="bus1_system_sound_out" sources="mixport_bus1_system_sound_out"/>
+                <route type="mix" sink="bus100_audio_zone_1" sources="mixport_bus100_audio_zone_1"/>
                 <route type="mix" sink="primary input" sources="Built-In Mic"/>
             </routes>
 
