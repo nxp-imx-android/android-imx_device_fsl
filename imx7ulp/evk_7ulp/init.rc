@@ -72,8 +72,6 @@ on early-boot
     chown bluetooth bluetooth /sys/class/rfkill/rfkill0/state
     write /sys/class/rfkill/rfkill0/state 0
 
-    setprop persist.service.bdroid.bdaddr 22:22:67:C6:69:73
-
     # Set OpenGLES version
     setprop ro.opengles.version 131072
 
@@ -99,7 +97,7 @@ on early-boot
     chmod 0755 /sys/kernel/debug/tracing
 
     # Default backlight device
-    setprop hw.backlight.dev "backlight"
+    setprop vendor.hw.backlight.dev "backlight"
     # Chmod/chown FSL specific sys entry
     chown system system /sys/class/backlight/backlight/brightness
     chmod 0660 /sys/class/backlight/backlight/brightness
@@ -226,7 +224,7 @@ on zygote-start
     mkdir /data/misc/dhcp 0770 dhcp dhcp
     chown dhcp dhcp /data/misc/dhcp
 
-service early_init_sh /vendor/bin/init.insmod.sh /vendor/etc/early.init.cfg sys.all.early_init.ready
+service early_init_sh /vendor/bin/init.insmod.sh /vendor/etc/early.init.cfg vendor.all.early_init.ready
     class main
     user root
     group root system

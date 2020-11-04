@@ -42,16 +42,10 @@ on init && property:ro.product.system.device=generic_arm64
     start boot_completed_main_sh
 
 on early-boot
-    wait_for_prop sys.all.early_init.ready 1
+    wait_for_prop vendor.all.early_init.ready 1
 
     # Set permission for IIM node
     symlink /dev/mxs_viim /dev/mxc_mem
-
-    # Enable Tethering in the Settings
-    setprop ro.tether.denied false
-
-    # Enable Cluster Display
-    setprop persist.car.cluster.displayport 1
 
     setprop sys.hwc.disable     0
     setprop vendor.2d.composition 0
@@ -62,9 +56,6 @@ on early-boot
     setprop media.fsl_codec.flag 7
 
     setprop camera.disable_zsl_mode 1
-
-    # Set period_us for usb audio
-    setprop ro.audio.usb.period_us 20000
 
     # Default g2d [dpu|pxp|viv] lib to be used
     setprop vendor.imx.default-g2d dpu
@@ -79,19 +70,15 @@ on early-boot
 
     # Default backlight device
     # Chmod/chown FSL specific sys entry
-    setprop hw.backlight.dev "56228000.dsi_host.0"
+    setprop vendor.hw.backlight.dev "56228000.dsi_host.0"
     chown system system /sys/class/backlight/56228000.dsi_host.0/brightness
     chmod 0660 /sys/class/backlight/56228000.dsi_host.0/brightness
 
     # Set light sensor threshold lux value
-    setprop ro.lightsensor.threshold  20
-
-    setprop persist.service.bdroid.bdaddr 22:22:67:C6:69:73
+    setprop vendor.ro.lightsensor.threshold  20
 
     # enlarge media max memory size to 3G.
     setprop ro.media.maxmem 3221225471
-
-    setprop persist.bluetooth.enablenewavrcp false
 
     setprop ro.config.media_vol_steps 15
     setprop ro.config.media_vol_default 15
@@ -193,7 +180,7 @@ service bugreport /system/bin/dumpstate -d -p -B -z \
     oneshot
     keycodes 114 115 116
 
-service early_init_sh /vendor/bin/init.insmod.sh /vendor/etc/early.init.cfg sys.all.early_init.ready
+service early_init_sh /vendor/bin/init.insmod.sh /vendor/etc/early.init.cfg vendor.all.early_init.ready
     class main
     user root
     group root system

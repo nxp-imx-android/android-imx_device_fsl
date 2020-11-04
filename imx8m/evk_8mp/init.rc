@@ -96,9 +96,6 @@ on early-boot && property:vendor.skip.charger_not_need=0
     # Set permission for IIM node
     symlink /dev/mxs_viim /dev/mxc_mem
 
-    # Enable Tethering in the Settings
-    setprop ro.tether.denied false
-
     setprop hwc.stretch.filter  1
 
     # Default g2d [dpu|pxp|viv] lib to be used
@@ -117,18 +114,10 @@ on early-boot && property:vendor.skip.charger_not_need=0
     write /sys/block/mmcblk1/queue/read_ahead_kb 2048
     write /sys/block/mmcblk2/queue/read_ahead_kb 2048
 
-    # Set period_us for usb audio
-    setprop ro.audio.usb.period_us 20000
-
     # Prepare for wifi
     setprop wifi.interface wlan0
     setprop wifi.direct.interface p2p0
     setprop wifi.concurrent.interface wlan1
-
-    setprop persist.service.bdroid.bdaddr 22:22:67:C6:69:73
-
-    # prepare for ril
-    setprop ro.ril.wake_lock_timeout 300
 
     # Set tracefs permission to 755
     chmod 0755 /sys/kernel/debug/tracing
@@ -138,14 +127,14 @@ on early-boot && property:vendor.skip.charger_not_need=0
     chmod 0664 /sys/kernel/debug/sync/sw_sync
 
     # Default backlight device
-    setprop hw.backlight.dev "32e60000.mipi_dsi.0"
+    setprop vendor.hw.backlight.dev "32e60000.mipi_dsi.0"
     # Chmod/chown FSL specific sys entry
     chown system system /sys/class/backlight/32e60000.mipi_dsi.0/brightness
     chmod 0660 /sys/class/backlight/32e60000.mipi_dsi.0/brightness
 
     # Set light sensor sysfs path and light sensor threshold lux value
     setprop ro.hardware.lightsensor "/sys/class/i2c-dev/i2c-0/device/0-0044/"
-    setprop ro.lightsensor.threshold  20
+    setprop vendor.ro.lightsensor.threshold  20
 
     # Dectect DSF streams when scanning media
     setprop ro.FSL_DSF_PARSER 1
@@ -281,7 +270,7 @@ on zygote-start && property:vendor.skip.charger_not_need=0
     mkdir /data/vendor/wifi/wpa 0770 wifi wifi
     mkdir /data/vendor/wifi/wpa/sockets 0770 wifi wifi
 
-service early_init_sh /vendor/bin/init.insmod.sh /vendor/etc/early.init.cfg sys.all.early_init.ready
+service early_init_sh /vendor/bin/init.insmod.sh /vendor/etc/early.init.cfg vendor.all.early_init.ready
     class main
     user root
     group root system
