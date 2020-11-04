@@ -52,8 +52,8 @@ on early-boot
     setprop hwc.stretch.filter  1
 
     # fsl omx graphic manager media framework property
-    setprop rw.VIDEO_RENDER_NAME video_render.surface
-    setprop media.fsl_codec.flag 7
+    setprop vendor.rw.VIDEO_RENDER_NAME video_render.surface
+    setprop vendor.media.fsl_codec.flag 7
 
     setprop camera.disable_zsl_mode 1
 

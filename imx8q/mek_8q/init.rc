@@ -105,9 +105,9 @@ on early-boot && property:vendor.skip.charger_not_need=0
     setprop VIVANTE_SDK_DIR /vendor/etc/viv_sdk
 
     # fsl omx graphic manager media framework property
-    setprop rw.VIDEO_RENDER_NAME video_render.surface
-    setprop media.fsl_codec.flag 7
-    setprop media.amphion_vpu.enable-tile 0
+    setprop vendor.rw.VIDEO_RENDER_NAME video_render.surface
+    setprop vendor.media.fsl_codec.flag 7
+    setprop vendor.media.amphion_vpu.enable-tile 0
 
     setprop camera.disable_zsl_mode 1
 

@@ -259,16 +259,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.mediacomponents.package=com.nxp.extractorpkg
 
-# Freescale multimedia parser related prop setting
-# Define fsl avi/aac/asf/mkv/flv/flac format support
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.FSL_AVI_PARSER=1 \
-    ro.FSL_AAC_PARSER=1 \
-    ro.FSL_FLV_PARSER=1 \
-    ro.FSL_MKV_PARSER=1 \
-    ro.FSL_FLAC_PARSER=1 \
-    ro.FSL_MPG2_PARSER=1
-
 # enable incremental installation
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.incremental.enable=1

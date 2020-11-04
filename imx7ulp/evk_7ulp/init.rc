@@ -52,8 +52,8 @@ on early-boot
     setprop vendor.imx.default-g2d viv
 
     # fsl omx graphic manager media framework property
-    setprop rw.VIDEO_RENDER_NAME video_render.surface
-    setprop media.fsl_codec.flag 7
+    setprop vendor.rw.VIDEO_RENDER_NAME video_render.surface
+    setprop vendor.media.fsl_codec.flag 7
 
     #Define the config for dual camera
     setprop camera.disable_zsl_mode 1
