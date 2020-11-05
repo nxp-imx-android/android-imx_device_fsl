@@ -118,11 +118,8 @@ PRODUCT_PACKAGES += \
     android.hardware.health@2.1-impl-imx
 
 # Support Dynamic partition userspace fastboot
-ifneq ($(PRODUCT_IMX_CAR),true)
 PRODUCT_PACKAGES += \
-    fastbootd \
-
-endif
+    fastbootd
 
 # camera
 ifneq ($(PRODUCT_IMX_CAR),true)
