@@ -124,7 +124,7 @@ BOARD_KERNEL_CMDLINE += cma=1184M@0x960M-0xe00M transparent_hugepage=never
 BOARD_KERNEL_CMDLINE += androidboot.lcd_density=240 androidboot.primary_display=imx-drm
 
 # wifi config
-BOARD_KERNEL_CMDLINE += androidboot.wificountrycode=CN
+BOARD_KERNEL_CMDLINE += androidboot.wificountrycode=CN moal.mod_para=wifi_mod_para.conf
 
 ifeq ($(PRODUCT_IMX_CAR),true)
 # automotive config

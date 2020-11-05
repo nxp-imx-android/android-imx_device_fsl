@@ -30,10 +30,10 @@ PRODUCT_IMX_TRUSTY := true
 #Enable this to disable product partition build.
 #IMX_NO_PRODUCT_PARTITION := true
 
-# NXP wifi 8997 driver module
+# NXP 8997 mxmdriver wifi driver module
 BOARD_VENDOR_KERNEL_MODULES += \
-    $(KERNEL_OUT)/drivers/net/wireless/marvell/mrvl8997/wlan_src/mlan.ko \
-    $(KERNEL_OUT)/drivers/net/wireless/marvell/mrvl8997/wlan_src/pcie8xxx.ko
+    $(KERNEL_OUT)/drivers/net/wireless/nxp/mxm_wifiex/wlan_src/mlan.ko \
+    $(KERNEL_OUT)/drivers/net/wireless/nxp/mxm_wifiex/wlan_src/moal.ko
 
 ifeq ($(PRODUCT_IMX_CAR),true)
 BOARD_VENDOR_KERNEL_MODULES += \

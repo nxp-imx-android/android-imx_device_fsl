@@ -123,7 +123,7 @@ BOARD_KERNEL_CMDLINE += swiotlb=65536
 BOARD_KERNEL_CMDLINE += androidboot.lcd_density=240 androidboot.primary_display=imx-drm
 
 # wifi config
-BOARD_KERNEL_CMDLINE += androidboot.wificountrycode=CN
+BOARD_KERNEL_CMDLINE += androidboot.wificountrycode=CN moal.mod_para=wifi_mod_para.conf
 
 # low memory device build config
 ifeq ($(LOW_MEMORY),true)

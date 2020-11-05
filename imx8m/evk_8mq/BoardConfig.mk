@@ -125,7 +125,7 @@ BOARD_KERNEL_CMDLINE += transparent_hugepage=never cma=$(CMASIZE)
 BOARD_KERNEL_CMDLINE += androidboot.lcd_density=240 androidboot.primary_display=imx-dcss androidboot.gui_resolution=1080p
 
 # wifi config
-BOARD_KERNEL_CMDLINE += androidboot.wificountrycode=CN
+BOARD_KERNEL_CMDLINE += androidboot.wificountrycode=CN moal.mod_para=wifi_mod_para.conf
 
 ifneq (,$(filter userdebug eng,$(TARGET_BUILD_VARIANT)))
 BOARD_KERNEL_CMDLINE += androidboot.vendor.sysrq=1
