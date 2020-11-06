@@ -42,6 +42,7 @@ BOARD_VENDOR_KERNEL_MODULES += \
 
 ifneq ($(IMX8MP_USES_GKI),)
 BOARD_VENDOR_KERNEL_MODULES += \
+    $(KERNEL_OUT)/drivers/mxc/gpu-viv/galcore.ko \
     $(KERNEL_OUT)/drivers/dma/imx-sdma.ko \
     $(KERNEL_OUT)/sound/soc/fsl/imx-pcm-dma-common.ko \
     $(KERNEL_OUT)/sound/soc/fsl/snd-soc-fsl-micfil.ko \
@@ -165,7 +166,6 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES +=     \
     $(KERNEL_OUT)/drivers/phy/freescale/phy-fsl-samsung-hdmi.ko \
     $(KERNEL_OUT)/drivers/phy/freescale/phy-fsl-imx8mq-usb.ko \
     $(KERNEL_OUT)/drivers/phy/freescale/phy-fsl-imx8-pcie.ko \
-    $(KERNEL_OUT)/drivers/mxc/gpu-viv/galcore.ko \
     $(KERNEL_OUT)/drivers/input/touchscreen/synaptics_dsx/synaptics_dsx_i2c.ko \
     $(KERNEL_OUT)/drivers/gpu/imx/lcdif/imx-lcdif-core.ko \
     $(KERNEL_OUT)/drivers/gpu/drm/bridge/adv7511/adv7511.ko \

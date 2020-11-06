@@ -39,6 +39,7 @@ PRODUCT_IMX_TRUSTY := true
 
 ifneq ($(IMX8MM_USES_GKI),)
 BOARD_VENDOR_KERNEL_MODULES += \
+    $(KERNEL_OUT)/drivers/mxc/gpu-viv/galcore.ko \
     $(KERNEL_OUT)/drivers/media/platform/mxc/capture/mx6s_capture.ko \
     $(KERNEL_OUT)/drivers/media/platform/mxc/capture/mxc_mipi_csi.ko \
     $(KERNEL_OUT)/drivers/media/platform/mxc/capture/ov5640_camera_mipi_v2.ko \
@@ -110,7 +111,6 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES +=     \
     $(KERNEL_OUT)/drivers/gpu/drm/imx/sec_mipi_dsim-imx.ko \
     $(KERNEL_OUT)/drivers/gpu/drm/panel/panel-raydium-rm67191.ko \
     $(KERNEL_OUT)/drivers/gpu/drm/bridge/adv7511/adv7511.ko \
-    $(KERNEL_OUT)/drivers/mxc/gpu-viv/galcore.ko \
     $(KERNEL_OUT)/drivers/usb/chipidea/usbmisc_imx.ko \
     $(KERNEL_OUT)/drivers/usb/common/ulpi.ko \
     $(KERNEL_OUT)/drivers/usb/chipidea/ci_hdrc_imx.ko \
