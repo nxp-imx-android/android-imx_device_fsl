@@ -398,9 +398,9 @@ PRODUCT_PACKAGES += \
     libwvhidl \
     libwvdrmengine \
 
-#Dumpstate HAL 1.0 support
+#Dumpstate HAL 1.1 support
 PRODUCT_PACKAGES += \
-    android.hardware.dumpstate@1.0-service.imx
+    android.hardware.dumpstate@1.1-service.imx
 
 ifeq ($(PRODUCT_IMX_TRUSTY),true)
 #Oemlock HAL 1.0 support
