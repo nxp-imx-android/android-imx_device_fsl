@@ -110,3 +110,8 @@
 
 # allocator 4.0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.graphics\.allocator@4\.0-service.imx   u:object_r:hal_graphics_allocator_default_exec:s0
+
+# hantro v4l2 daemon
+/vendor/bin/vsidaemon                         u:object_r:vsidaemon_exec:s0
+/dev/vsi_daemon_ctrl                          u:object_r:vsi_daemon_ctrl_device:s0
+/data/vendor/vsi(/.*)?                        u:object_r:vsi_data_file:s0

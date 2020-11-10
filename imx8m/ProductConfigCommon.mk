@@ -44,6 +44,7 @@ PRODUCT_PACKAGES += \
 endif
 
 PRODUCT_PACKAGES += \
+    vsidaemon \
     CactusPlayer
 
 # Omx related libs
