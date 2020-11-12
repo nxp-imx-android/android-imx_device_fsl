@@ -1,5 +1,3 @@
-typeattribute priv_app system_writes_vendor_properties_violators;
-
 allow priv_app opencl_cache_file:dir {search};
 allow priv_app update_engine_service:service_manager find;
 allow priv_app update_engine:binder { call };

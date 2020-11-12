@@ -4,7 +4,6 @@ allow vendor_init sysfs_block_devices:file { open write setattr };
 allow vendor_init proc_sysrq:file { write };
 allow vendor_init device:file { create write };
 
-set_prop(vendor_init, vendor_http_proxy_prop)
 set_prop(vendor_init, vendor_wc_prop)
 set_prop(vendor_init, vendor_usb_config_prop)
 set_prop(vendor_init, vendor_power_hal_prop)
