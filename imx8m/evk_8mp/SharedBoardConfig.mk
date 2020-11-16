@@ -198,6 +198,8 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES +=     \
     $(KERNEL_OUT)/drivers/trusty/trusty-mem.ko \
     $(KERNEL_OUT)/drivers/trusty/trusty-virtio.ko \
     $(KERNEL_OUT)/drivers/nvmem/nvmem-imx-ocotp.ko \
+    $(KERNEL_OUT)/drivers/thermal/device_cooling.ko \
+    $(KERNEL_OUT)/drivers/thermal/imx8mm_thermal.ko \
     $(KERNEL_OUT)/drivers/cpufreq/cpufreq-dt.ko \
     $(KERNEL_OUT)/drivers/cpufreq/imx-cpufreq-dt.ko \
     $(KERNEL_OUT)/drivers/staging/media/imx/imx8-media-dev.ko \
