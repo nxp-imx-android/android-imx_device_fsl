@@ -338,6 +338,9 @@ PRODUCT_PACKAGES += \
 
 # Thermal HAL
 
+PRODUCT_PACKAGES += \
+    android.hardware.thermal@2.0-service.imx
+
 ifneq ($(PRODUCT_IMX_CAR),true)
 PRODUCT_COPY_FILES += \
     device/nxp/imx8q/mek_8q/thermal_info_config_imx8qxp.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/thermal_info_config_imx8qxp.json \
