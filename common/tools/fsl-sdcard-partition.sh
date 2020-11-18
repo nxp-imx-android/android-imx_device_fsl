@@ -120,6 +120,12 @@ lpmake_vendor_image_b=""
 lpmake_product_image_a=""
 lpmake_product_image_b=""
 dont_generate_super=0
+node_device_major=""
+node_device_minor=0
+current_device_major=""
+current_device_minor=0
+minor_difference=0
+current_device_base_name=""
 
 
 
@@ -226,12 +232,45 @@ function get_partition_size
     let "g_sizes=($end_sector - $start_sector + 1) / 2048"
 }
 
+function get_current_device_base_name
+{
+    if [ -z ${current_device_base_name} ]; then
+        #get the minor number of the node
+        node_device_major=`ls -l ${node} | awk '{print $5}'`
+        node_device_minor=`ls -l ${node} | awk '{print $6}'`
+        all_device_info=`ls -l ${node}*`
+
+        # use '\n' as delimiter
+        OLDIFS=$IFS
+        IFS=$'\n'
+        # find the first partition, and retrieve the base name
+        for current_device_info in $all_device_info ; do
+            current_device_major=`echo ${current_device_info} | awk '{print $5}'`
+            current_device_minor=`echo ${current_device_info} | awk '{print $6}'`
+            minor_difference=$[$current_device_minor - $node_device_minor]
+            if [ ${node_device_major} = ${current_device_major} ]; then
+                if [ 1 -eq $minor_difference ]; then
+                    current_device_base_name=`echo ${current_device_info} | awk '{print $10}'`
+                    current_device_base_name=${current_device_base_name%1}
+                    IFS=$OLDIFS
+                    return 0
+                fi
+            fi
+        done
+        # restore the delimeter
+        IFS=$OLDIFS
+        echo -e >&2 "${RED}Failed to find the first partition on ${node}.${STD}"
+        exit 1
+    fi
+}
+
 function format_partition
 {
     num=`gdisk -l ${node} | grep -w $1 | awk '{print $1}'`
     if [ ${num} -gt 0 ] 2>/dev/null; then
-        echo "format_partition: $1:${node}${num} ext4"
-        mkfs.ext4 -F ${node}${num} -L$1
+        get_current_device_base_name
+        echo "format_partition: $1:${current_device_base_name}${num} ext4"
+        mkfs.ext4 -F ${current_device_base_name}${num} -L$1
     fi
 }
 
@@ -239,9 +278,10 @@ function erase_partition
 {
     num=`gdisk -l ${node} | grep -w $1 | awk '{print $1}'`
     if [ ${num} -gt 0 ] 2>/dev/null; then
+        get_current_device_base_name
         get_partition_size $1
-        echo "erase_partition: $1 : ${node}${num} ${g_sizes}M"
-        dd if=/dev/zero of=${node}${num} bs=1048576 conv=fsync count=$g_sizes
+        echo "erase_partition: $1 : ${current_device_base_name}${num} ${g_sizes}M"
+        dd if=/dev/zero of=${current_device_base_name}${num} bs=1048576 conv=fsync,nocreat count=$g_sizes
     fi
 }
 
@@ -277,19 +317,20 @@ function flash_partition
                     return 1
                 fi
             fi
-            echo "flash_partition: ${img_name} ---> ${node}${num}"
+            get_current_device_base_name
+            echo "flash_partition: ${img_name} ---> ${current_device_base_name}${num}"
 
             if [ "$(echo ${1} | grep "system")" != "" ] || [ "$(echo ${1} | grep "vendor")" != "" ] || \
                 [ "$(echo ${1} | grep "product")" != "" ]; then
-                simg2img ${image_directory}${img_name} ${node}${num}
+                simg2img ${image_directory}${img_name} ${current_device_base_name}${num}
             elif [ "$(echo ${1} | grep "super")" != "" ]; then
                 if [ ${dont_generate_super} -eq 0 ]; then
-                    simg2img /tmp/${img_name} ${node}${num}
+                    simg2img /tmp/${img_name} ${current_device_base_name}${num}
                 else
-                    simg2img ${image_directory}${img_name} ${node}${num}
+                    simg2img ${image_directory}${img_name} ${current_device_base_name}${num}
                 fi
             else
-                dd if=${image_directory}${img_name} of=${node}${num} bs=10M conv=fsync
+                dd if=${image_directory}${img_name} of=${current_device_base_name}${num} bs=10M conv=fsync,nocreat
             fi
         fi
     done
