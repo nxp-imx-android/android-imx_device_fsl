@@ -243,6 +243,10 @@ PRODUCT_PACKAGES += \
     android.hardware.bluetooth@1.0-impl \
     android.hardware.bluetooth@1.0-service
 
+# NXP 8987 Bluetooth vendor config
+PRODUCT_PACKAGES += \
+    bt_vendor.conf
+
 # WiFi HAL
 PRODUCT_PACKAGES += \
     android.hardware.wifi@1.0-service \
@@ -252,12 +256,6 @@ PRODUCT_PACKAGES += \
 # WiFi RRO
 PRODUCT_PACKAGES += \
     WifiOverlay
-
-# Qcom 1PJ Bluetooth Firmware
-PRODUCT_COPY_FILES += \
-    vendor/nxp/qca-wifi-bt/1PJ_QCA9377-3_LEA_2.0/lib/firmware/qca/tfbtnv11.bin:vendor/firmware/nvm_tlv_3.2.bin \
-    vendor/nxp/qca-wifi-bt/1PJ_QCA9377-3_LEA_2.0/lib/firmware/qca/tfbtfw11.tlv:vendor/firmware/rampatch_tlv_3.2.tlv \
-    vendor/nxp/qca-wifi-bt/qca_proprietary/Android_HAL/wcnss_filter_8mm:vendor/bin/wcnss_filter
 
 # NXP 8987 WiFi Firmware
 PRODUCT_COPY_FILES += \
