@@ -12,7 +12,7 @@ TARGET_BOOTLOADER_CONFIG += imx8mp-evk-uuu:imx8mp_evk_android_uuu_defconfig
 
 TARGET_KERNEL_DEFCONFIG := imx_v8_android_defconfig
 
-TARGET_KERNEL_ADDITION_DEFCONF := android_addition_defconfig
+# TARGET_KERNEL_ADDITION_DEFCONF := android_addition_defconfig
 
 
 # absolute path is used, not the same as relative path used in AOSP make
