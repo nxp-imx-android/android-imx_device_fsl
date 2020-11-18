@@ -86,21 +86,14 @@ BOARD_VENDOR_KERNEL_MODULES += \
   $(KERNEL_OUT)/drivers/net/wireless/nxp/mxm_wifiex/wlan_src/mlan.ko \
   $(KERNEL_OUT)/drivers/net/wireless/nxp/mxm_wifiex/wlan_src/moal.ko
 
-# Qcom 1PJ(QCA9377) BT
-BOARD_HAVE_BLUETOOTH_QCOM := true
-BOARD_HAS_QCA_BT_ROME := true
-BOARD_HAVE_BLUETOOTH_BLUEZ := false
-QCOM_BT_USE_SIBS := true
-ifeq ($(QCOM_BT_USE_SIBS), true)
-    WCNSS_FILTER_USES_SIBS := true
-endif
+# NXP 8987 bluetooth
+BOARD_HAVE_BLUETOOTH_NXP := true
+BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(IMX_DEVICE_PATH)/bluetooth
 
 BOARD_USE_SENSOR_FUSION := true
 
 # we don't support sparse image.
 TARGET_USERIMAGES_SPARSE_EXT_DISABLED := false
-
-BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(IMX_DEVICE_PATH)/bluetooth
 
 BOARD_HAVE_USB_CAMERA := true
 BOARD_HAVE_USB_MJPEG_CAMERA := false
@@ -159,7 +152,7 @@ ifeq ($(TARGET_USE_DYNAMIC_PARTITIONS),true)
   else
     TARGET_BOARD_DTS_CONFIG ?= imx8mm-ddr4:imx8mm-ddr4-evk.dtb
     # imx8mm with MIPI-HDMI display and NXP wifi
-    TARGET_BOARD_DTS_CONFIG += imx8mm:imx8mm-evk-usd-wifi.dtb
+    TARGET_BOARD_DTS_CONFIG += imx8mm:imx8mm-evk.dtb
     # imx8mm with MIPI panel display and NXP wifi
     TARGET_BOARD_DTS_CONFIG += imx8mm-mipi-panel:imx8mm-evk-rm67191.dtb
     # imx8mm with MIPI-HDMI display, NXP wifi and m4 image to support LPA
