@@ -251,9 +251,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.radio.noril=yes
 
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.mediacomponents.package=com.nxp.extractorpkg
-
 # Set c2 codec in default
 PRODUCT_PROPERTY_OVERRIDES += \
     debug.stagefright.ccodec=4  \

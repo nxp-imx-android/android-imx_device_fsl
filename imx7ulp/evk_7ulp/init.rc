@@ -102,9 +102,6 @@ on early-boot
     chown system system /sys/class/backlight/backlight/brightness
     chmod 0660 /sys/class/backlight/backlight/brightness
 
-    # enlarge media max memory size to 3G.
-    setprop ro.media.maxmem 3221225471
-
 on boot
     start audioserver
     start mediadrm

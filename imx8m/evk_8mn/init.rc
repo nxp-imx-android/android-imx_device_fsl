@@ -139,9 +139,6 @@ on early-boot && property:vendor.skip.charger_not_need=0
     # Enlarge limition of audio buffer allocation
     setprop ro.af.client_heap_size_kbyte 32768
 
-    # enlarge media max memory size to 3G.
-    setprop ro.media.maxmem 3221225471
-
     start vendor.wifi_hal_legacy
 
 

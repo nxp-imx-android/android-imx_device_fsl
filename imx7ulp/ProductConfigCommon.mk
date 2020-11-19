@@ -263,9 +263,6 @@ PRODUCT_TAGS += dalvik.gc.type-precise
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.radio.noril=yes
 
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.mediacomponents.package=com.nxp.extractorpkg
-
 # enable incremental installation
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.incremental.enable=1

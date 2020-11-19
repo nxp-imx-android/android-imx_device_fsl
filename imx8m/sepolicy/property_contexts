@@ -174,7 +174,6 @@ ro.boot.soc_type                    u:object_r:vendor_public_default_prop:s0
 ro.boot.boot_device_root            u:object_r:vendor_public_default_prop:s0
 ro.hardware.gralloc_viv             u:object_r:vendor_public_default_prop:s0
 vendor.media.fsl_codec.flag         u:object_r:vendor_public_default_prop:s0
-ro.media.maxmem                     u:object_r:vendor_public_default_prop:s0
 vendor.gki.enable                   u:object_r:vendor_public_default_prop:s0
 hwc.debug.dump_refresh_rate         u:object_r:vendor_public_default_prop:s0
 hwc.drm.fbTileSupport               u:object_r:vendor_public_default_prop:s0
@@ -199,7 +198,6 @@ hwc.debug.disable_compression       u:object_r:vendor_default_prop:s0
 vendor.persist.audio.pass.through   u:object_r:vendor_default_prop:s0
 vendor.rw.VIDEO_RENDER_NAME         u:object_r:vendor_default_prop:s0
 sys.SECOND_DISPLAY_ENABLED          u:object_r:vendor_default_prop:s0
-ro.mediacomponents.package          u:object_r:vendor_default_prop:s0
 AQROOT                              u:object_r:vendor_default_prop:s0
 CL_NOPREPROCESS                     u:object_r:vendor_default_prop:s0
 
