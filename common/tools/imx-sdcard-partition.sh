@@ -206,12 +206,15 @@ function get_current_device_base_name
                 if [ 1 -eq $minor_difference ]; then
                     current_device_base_name=`echo ${current_device_info} | awk '{print $10}'`
                     current_device_base_name=${current_device_base_name%1}
+                    IFS=$OLDIFS
                     return 0
                 fi
             fi
         done
         # restore the delimeter
         IFS=$OLDIFS
+        echo -e >&2 "${RED}Failed to find the first partition on ${node}.${STD}"
+        exit 1
     fi
 }
 
@@ -232,7 +235,7 @@ function erase_partition
         get_current_device_base_name
         get_partition_size $1
         echo "erase_partition: $1 : ${current_device_base_name}${num} ${g_sizes}M"
-        dd if=/dev/zero of=${current_device_base_name}${num} bs=1048576 conv=fsync count=$g_sizes
+        dd if=/dev/zero of=${current_device_base_name}${num} bs=1048576 conv=fsync,nocreat count=$g_sizes
     fi
 }
 
@@ -271,12 +274,12 @@ function flash_partition
             echo "flash_partition: ${img_name} ---> ${current_device_base_name}${num}"
 
             if [ "$(echo ${1} | grep "vendor_boot")" != "" ]; then
-                dd if=${image_directory}${img_name} of=${current_device_base_name}${num} bs=10M conv=fsync
+                dd if=${image_directory}${img_name} of=${current_device_base_name}${num} bs=10M conv=fsync,nocreat
             elif [ "$(echo ${1} | grep "system")" != "" ] || [ "$(echo ${1} | grep "vendor")" != "" ] || \
                 [ "$(echo ${1} | grep "product")" != "" ] || [ "$(echo ${1} | grep "super")" != "" ]; then
                 simg2img ${image_directory}${img_name} ${current_device_base_name}${num}
             else
-                dd if=${image_directory}${img_name} of=${current_device_base_name}${num} bs=10M conv=fsync
+                dd if=${image_directory}${img_name} of=${current_device_base_name}${num} bs=10M conv=fsync,nocreat
             fi
         fi
     done
