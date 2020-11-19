@@ -10,5 +10,6 @@ allow system_app dhcp_prop:property_service  { set };
 allow system_app update_engine:binder { call transfer };
 allow system_app fs_bpf:dir { search };
 allow system_app opencl_cache_file:dir { search };
+allow system_app hal_graphics_allocator_default_tmpfs:file { read write };
 
 get_prop(system_app, vendor_default_prop)
