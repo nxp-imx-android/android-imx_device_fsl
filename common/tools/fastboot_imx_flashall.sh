@@ -78,8 +78,9 @@ options:
                         If only one board connected to computer, no need to use this option
   -super            do not generate super.img when flash the images with dynamic partition feature enabled.
                         Under the condition that dynamic partition feature are enabled:
-                          if this option is not used, super.img will be generated under "/tmp" and flashed to the board.
+                          if this option is not used, super.img will be generated under temporary directory and flashed to the board.
                           if this option is used, make sure super.img already exists together with other images.
+  -tmp temp_dir     specify the temporary directory. Default temporary directory is "/tmp".
 EOF
 
 }
@@ -141,7 +142,7 @@ function flash_partition
 
     echo -e flash the file of ${GREEN}${img_name}${STD} to the partition of ${GREEN}${1}${STD}
     if [ "${img_name}" = "${super_file}" ] && [ ${dont_generate_super} -eq 0 ]; then
-        ${fastboot_tool} flash ${1} "/tmp/${img_name}"
+        ${fastboot_tool} flash ${1} "${temp_dir}${img_name}"
     else
         ${fastboot_tool} flash ${1} "${image_directory}${img_name}"
     fi
@@ -184,13 +185,13 @@ function flash_android
     # should be the same for the u-boot just boot up the board and the on to be flashed to the board
     flash_partition "gpt"
 
-    ${fastboot_tool} getvar all 2>/tmp/fastboot_var.log
-    grep -q "bootloader_a" /tmp/fastboot_var.log && support_dual_bootloader=1
-    grep -q "dtbo" /tmp/fastboot_var.log && support_dtbo=1
-    grep -q "recovery" /tmp/fastboot_var.log && support_recovery=1
+    ${fastboot_tool} getvar all 2>${temp_dir}fastboot_var.log
+    grep -q "bootloader_a" ${temp_dir}fastboot_var.log && support_dual_bootloader=1
+    grep -q "dtbo" ${temp_dir}fastboot_var.log && support_dtbo=1
+    grep -q "recovery" ${temp_dir}fastboot_var.log && support_recovery=1
     # use boot_b to check whether current gpt support a/b slot
-    grep -q "boot_b" /tmp/fastboot_var.log && support_dualslot=1
-    grep -q "super" /tmp/fastboot_var.log && support_dynamic_partition=1
+    grep -q "boot_b" ${temp_dir}fastboot_var.log && support_dualslot=1
+    grep -q "super" ${temp_dir}fastboot_var.log && support_dynamic_partition=1
 
     # some partitions are hard-coded in uboot, flash the uboot first and then reboot to check these partitions
 
@@ -234,8 +235,8 @@ function flash_android
     ${fastboot_tool} reboot bootloader
     sleep 5
 
-    ${fastboot_tool} getvar all 2>/tmp/fastboot_var.log
-    grep -q `echo ${mcu_os_partition}` /tmp/fastboot_var.log && support_mcu_os=1
+    ${fastboot_tool} getvar all 2>${temp_dir}fastboot_var.log
+    grep -q `echo ${mcu_os_partition}` ${temp_dir}fastboot_var.log && support_mcu_os=1
 
     if [ ${flash_mcu} -eq 1 -a ${support_mcu_os} -eq 1 ]; then
         flash_partition ${mcu_os_partition}
@@ -259,10 +260,10 @@ function flash_android
 }
 
 # this function will invoke lpmake to create super.img, the super.img will
-# be created in /tmp, make sure that there is enouth space
+# be created in temporary directory, make sure that there is enouth space
 function make_super_image
 {
-    rm -rf /tmp/${super_file}
+    rm -rf ${temp_dir}${super_file}
     # now dynamic partition is only enabled in dual slot condition
     if [ ${support_dualslot} -eq 1 ]; then
         if [ "${slot}" == "_a" ]; then
@@ -291,7 +292,7 @@ function make_super_image
         --partition vendor_b:readonly:0:nxp_dynamic_partitions_b ${lpmake_vendor_image_b} \
         --partition product_a:readonly:0:nxp_dynamic_partitions_a ${lpmake_product_image_a} \
         --partition product_b:readonly:0:nxp_dynamic_partitions_b ${lpmake_product_image_b} \
-        --sparse --output /tmp/${super_file}
+        --sparse --output ${temp_dir}${super_file}
 }
 
 
@@ -341,6 +342,7 @@ lpmake_product_image_a=""
 lpmake_product_image_b=""
 result_value=0
 dont_generate_super=0
+temp_dir="/tmp/"
 
 
 # We want to detect illegal feature input to some extent. Here it's based on SoC names. Since an SoC may be on a
@@ -384,6 +386,7 @@ while [ $# -gt 0 ]; do
         -D) image_directory=$2; shift;;
         -s) ser_num=$2; shift;;
         -super) dont_generate_super=1 ;;
+        -tmp) temp_dir=$2; shift;;
         *)  echo -e ${RED}$1${STD} is not an illegal option
             help; exit;;
     esac
@@ -426,6 +429,11 @@ else
     else
         partition_file="partition-table.img";
     fi
+fi
+
+if [[ "${temp_dir}" != "" ]]; then
+    temp_dir="${temp_dir%/}/";
+    mkdir -p ${temp_dir}
 fi
 
 # if directory is specified, make sure there is a slash at the end
