@@ -3,7 +3,7 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/generic.mk)
 $(call inherit-product, $(TOPDIR)frameworks/base/data/sounds/AllAudio.mk)
 
 # Installs gsi keys into ramdisk.
-$(call inherit-product, $(SRC_TARGET_DIR)/product/developer_gsi_keys.mk)
+$(call inherit-product-if-exists, $(SRC_TARGET_DIR)/product/developer_gsi_keys.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/gsi_keys.mk)
 PRODUCT_PACKAGES += \
     adb_debug.prop
