@@ -73,10 +73,8 @@ PRODUCT_PACKAGES += \
     update_engine_client \
     update_verifier
 
-ifneq ($(PRODUCT_IMX_CAR),true)
 PRODUCT_PACKAGES += \
     update_engine_sideload
-endif
 
 PRODUCT_HOST_PACKAGES += \
     brillo_update_payload \
