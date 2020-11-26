@@ -39,4 +39,7 @@
 
     <!-- Whether the device supports quick settings and its associated APIs -->
     <bool name="config_quickSettingsSupported">false</bool>
+
+    <!-- Car uses hardware amplifier for volume. -->
+    <bool name="config_useFixedVolume">true</bool>
 </resources>
