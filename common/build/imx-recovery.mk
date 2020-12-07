@@ -2,7 +2,7 @@
 .PHONY : IMX_INSTALLED_RECOVERYIMAGE_TARGET
 ifneq ($(BOARD_USES_RECOVERY_AS_BOOT),true)
 
-$(BOARD_PREBUILT_RECOVERY_DTBOIMAGE) : $(TARGET_DTB)
+$(BOARD_PREBUILT_RECOVERY_DTBOIMAGE) : $(TARGET_DTB) $(MKDTIMG)
 	for dtsplat in $(TARGET_BOARD_DTS_CONFIG); do \
 		DTS_PLATFORM=`echo $$dtsplat | cut -d':' -f1`; \
 		DTB_NAME=`echo $$dtsplat | cut -d':' -f2`; \
