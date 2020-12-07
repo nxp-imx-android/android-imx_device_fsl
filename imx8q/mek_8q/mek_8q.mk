@@ -551,3 +551,39 @@ PRODUCT_SOONG_NAMESPACES += vendor/nxp-opensource/imx/camera
 $(call  inherit-product-if-exists, vendor/nxp-private/security/nxp_security.mk)
 
 $(call inherit-product, $(SRC_TARGET_DIR)/product/emulated_storage.mk)
+
+ifneq ($(filter TRUE true 1,$(IMX_OTA_POSTINSTALL)),)
+  PRODUCT_PACKAGES += imx_ota_postinstall
+
+  AB_OTA_POSTINSTALL_CONFIG += \
+    RUN_POSTINSTALL_vendor=true \
+    POSTINSTALL_PATH_vendor=bin/imx_ota_postinstall \
+    FILESYSTEM_TYPE_vendor=ext4 \
+    POSTINSTALL_OPTIONAL_vendor=false
+
+  ifeq ($(OTA_TARGET),8qxp)
+    ifneq ($(TARGET_PRODUCT),mek_8q_car)
+      PRODUCT_COPY_FILES += \
+        out/target/product/mek_8q/obj/UBOOT_COLLECTION/u-boot-imx8qxp.imx:$(TARGET_COPY_OUT_VENDOR)/etc/bootloader0.img
+    else
+      PRODUCT_COPY_FILES += \
+        out/target/product/mek_8q/obj/UBOOT_COLLECTION/spl-imx8qxp.bin:$(TARGET_COPY_OUT_VENDOR)/etc/bootloader0.img
+    endif
+  else ifeq ($(OTA_TARGET),8qxp-c0)
+    ifneq ($(TARGET_PRODUCT),mek_8q_car)
+      PRODUCT_COPY_FILES += \
+        out/target/product/mek_8q/obj/UBOOT_COLLECTION/u-boot-imx8qxp-c0.imx:$(TARGET_COPY_OUT_VENDOR)/etc/bootloader0.img
+    else
+      PRODUCT_COPY_FILES += \
+        out/target/product/mek_8q/obj/UBOOT_COLLECTION/spl-imx8qxp-c0.bin:$(TARGET_COPY_OUT_VENDOR)/etc/bootloader0.img
+    endif
+  else
+    ifneq ($(TARGET_PRODUCT),mek_8q_car)
+      PRODUCT_COPY_FILES += \
+        out/target/product/mek_8q/obj/UBOOT_COLLECTION/u-boot-imx8qm.imx:$(TARGET_COPY_OUT_VENDOR)/etc/bootloader0.img
+    else
+      PRODUCT_COPY_FILES += \
+        out/target/product/mek_8q/obj/UBOOT_COLLECTION/spl-imx8qm.bin:$(TARGET_COPY_OUT_VENDOR)/etc/bootloader0.img
+    endif
+  endif
+endif
