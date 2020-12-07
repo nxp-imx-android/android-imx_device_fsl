@@ -50,6 +50,9 @@
 /dev/block/platform/passthrough/passthrough:bus@5b000000/5b010000\.mmc/by-name/vbmeta_[ab]    u:object_r:vbmeta_block_device:s0
 /dev/block/platform/passthrough/passthrough:bus@5b000000/5b010000\.mmc/by-name/super            u:object_r:super_block_device:s0
 
+/dev/block/mmcblk0boot0                      u:object_r:emmc_boot0:s0
+/dev/block/mmcblk1                           u:object_r:sdcard:s0
+
 #peripheral
 /vendor/bin/magd                u:object_r:sensors_exec:s0
 /vendor/bin/fsl_sensor_fusion   u:object_r:sensors_exec:s0

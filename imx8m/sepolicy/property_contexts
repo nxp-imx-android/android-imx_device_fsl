@@ -172,6 +172,7 @@ vendor.audio.lpa.enable             u:object_r:vendor_public_default_prop:s0
 gralloc.drm.device                  u:object_r:vendor_public_default_prop:s0
 gralloc.trace                       u:object_r:vendor_public_default_prop:s0
 ro.boot.soc_type                    u:object_r:vendor_public_default_prop:s0
+ro.boot.soc_rev                     u:object_r:vendor_public_default_prop:s0
 ro.boot.boot_device_root            u:object_r:vendor_public_default_prop:s0
 ro.hardware.gralloc_viv             u:object_r:vendor_public_default_prop:s0
 vendor.media.fsl_codec.flag         u:object_r:vendor_public_default_prop:s0
