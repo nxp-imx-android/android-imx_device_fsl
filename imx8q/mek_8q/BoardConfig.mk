@@ -118,7 +118,7 @@ BOARD_KERNEL_CMDLINE := init=/init androidboot.hardware=nxp firmware_class.path=
 BOARD_KERNEL_CMDLINE += androidboot.fbTileSupport=enable
 
 # memory config
-BOARD_KERNEL_CMDLINE += cma=1184M@0x960M-0xe00M transparent_hugepage=never
+BOARD_KERNEL_CMDLINE += cma=928M@0x960M-0xe00M transparent_hugepage=never
 
 # display config
 BOARD_KERNEL_CMDLINE += androidboot.lcd_density=240 androidboot.primary_display=imx-drm
@@ -128,7 +128,7 @@ BOARD_KERNEL_CMDLINE += androidboot.wificountrycode=CN moal.mod_para=wifi_mod_pa
 
 ifeq ($(PRODUCT_IMX_CAR),true)
 # automotive config
-BOARD_KERNEL_CMDLINE += galcore.contiguousSize=33554432 video=HDMI-A-2:d
+BOARD_KERNEL_CMDLINE += video=HDMI-A-2:d
 else
 BOARD_KERNEL_CMDLINE += androidboot.console=ttyLP0
 endif
