@@ -25,12 +25,6 @@ typedef unsigned char bool;
 #endif
 #define irqreturn_t int
 #define dma_addr_t int
-#define uint32_t unsigned int
-#define uint16_t unsigned short
-#define uint8_t unsigned char
-#define u32 unsigned int
-#define u8 unsigned char
-#define __u32 u32
 typedef enum {
   IPU_ROTATE_NONE = 0,
   IPU_ROTATE_VERT_FLIP = 1,
@@ -112,17 +106,17 @@ typedef enum {
   NULL_CS
 } cs_t;
 struct ipu_pos {
-  u32 x;
-  u32 y;
+  __u32 x;
+  __u32 y;
 };
 struct ipu_crop {
   struct ipu_pos pos;
-  u32 w;
-  u32 h;
+  __u32 w;
+  __u32 h;
 };
 struct ipu_deinterlace {
   bool enable;
-  u8 motion;
+  __u8 motion;
 #define IPU_DEINTERLACE_FIELD_TOP 0
 #define IPU_DEINTERLACE_FIELD_BOTTOM 1
 #define IPU_DEINTERLACE_FIELD_MASK (IPU_DEINTERLACE_FIELD_TOP | IPU_DEINTERLACE_FIELD_BOTTOM)
@@ -130,12 +124,12 @@ struct ipu_deinterlace {
 #define IPU_DEINTERLACE_RATE_FRAME1 0x40
 #define IPU_DEINTERLACE_RATE_MASK (IPU_DEINTERLACE_RATE_EN | IPU_DEINTERLACE_RATE_FRAME1)
 #define IPU_DEINTERLACE_MAX_FRAME 2
-  u8 field_fmt;
+  __u8 field_fmt;
 };
 struct ipu_input {
-  u32 width;
-  u32 height;
-  u32 format;
+  __u32 width;
+  __u32 height;
+  __u32 format;
   struct ipu_crop crop;
   dma_addr_t paddr;
   struct ipu_deinterlace deinterlace;
@@ -144,28 +138,28 @@ struct ipu_input {
 struct ipu_alpha {
 #define IPU_ALPHA_MODE_GLOBAL 0
 #define IPU_ALPHA_MODE_LOCAL 1
-  u8 mode;
-  u8 gvalue;
+  __u8 mode;
+  __u8 gvalue;
   dma_addr_t loc_alp_paddr;
 };
 struct ipu_colorkey {
   bool enable;
-  u32 value;
+  __u32 value;
 };
 struct ipu_overlay {
-  u32 width;
-  u32 height;
-  u32 format;
+  __u32 width;
+  __u32 height;
+  __u32 format;
   struct ipu_crop crop;
   struct ipu_alpha alpha;
   struct ipu_colorkey colorkey;
   dma_addr_t paddr;
 };
 struct ipu_output {
-  u32 width;
-  u32 height;
-  u32 format;
-  u8 rotate;
+  __u32 width;
+  __u32 height;
+  __u32 format;
+  __u8 rotate;
   struct ipu_crop crop;
   dma_addr_t paddr;
 };
@@ -176,12 +170,12 @@ struct ipu_task {
   struct ipu_overlay overlay;
 #define IPU_TASK_PRIORITY_NORMAL 0
 #define IPU_TASK_PRIORITY_HIGH 1
-  u8 priority;
+  __u8 priority;
 #define IPU_TASK_ID_ANY 0
 #define IPU_TASK_ID_VF 1
 #define IPU_TASK_ID_PP 2
 #define IPU_TASK_ID_MAX 3
-  u8 task_id;
+  __u8 task_id;
   int timeout;
 };
 enum {
