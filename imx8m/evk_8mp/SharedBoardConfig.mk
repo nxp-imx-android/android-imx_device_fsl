@@ -29,7 +29,6 @@ BOARD_VENDOR_KERNEL_MODULES += \
 # CONFIG_SND_SIMPLE_CARD: snd-soc-simple-card-utils.ko snd-soc-simple-card.ko, simple audio card used for bt sco
 # CONFIG_RTC_DRV_SNVS: rtc-snvs.ko, snvs rtc driver
 # CONFIG_USB_XHCI_HCD: xhci-hcd.ko xhci-pci.ko xhci-plat-hcd.ko, usb host driver
-# CONFIG_KEYBOARD_SNVS_PWRKEY: snvs_pwrkey.ko, snvs power key driver
 # CONFIG_STAGING_MEDIA: able to build drivers/staging/media/
 # CONFIG_IMX_MBOX: imx-mailbox.ko, imx mailbox driver
 # CONFIG_I2C_RPBUS: virtio_rpmsg_bus.ko, virtio rpmsg bus driver
@@ -77,7 +76,6 @@ BOARD_VENDOR_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/usb/host/xhci-hcd.ko \
     $(KERNEL_OUT)/drivers/usb/host/xhci-pci.ko \
     $(KERNEL_OUT)/drivers/usb/host/xhci-plat-hcd.ko \
-    $(KERNEL_OUT)/drivers/input/keyboard/snvs_pwrkey.ko \
     $(KERNEL_OUT)/drivers/pci/controller/dwc/pci-imx6.ko \
     $(KERNEL_OUT)/drivers/ptp/ptp.ko \
     $(KERNEL_OUT)/drivers/pps/pps_core.ko \
@@ -120,6 +118,7 @@ endif
 # CONFIG_TYPEC_TCPCI: tcpci.ko
 # CONFIG_PHY_FSL_IMX8MQ_USB: phy-fsl-imx8mq-usb.ko
 # CONFIG_PHY_FSL_IMX_PCIE: phy-fsl-imx8-pcie.ko
+# CONFIG_KEYBOARD_SNVS_PWRKEY: snvs_pwrkey.ko, snvs power key driver
 # CONFIG_RESET_IMX7: reset-imx7.ko
 # CONFIG_RESET_IMX_HDMIMIX: reset-imx-audiomix.ko
 # CONFIG_RESET_IMX_AUDIOMIX: reset-imx-hdmimix.ko
@@ -165,6 +164,7 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES +=     \
     $(KERNEL_OUT)/drivers/phy/freescale/phy-fsl-samsung-hdmi.ko \
     $(KERNEL_OUT)/drivers/phy/freescale/phy-fsl-imx8mq-usb.ko \
     $(KERNEL_OUT)/drivers/phy/freescale/phy-fsl-imx8-pcie.ko \
+    $(KERNEL_OUT)/drivers/input/keyboard/snvs_pwrkey.ko \
     $(KERNEL_OUT)/drivers/input/touchscreen/synaptics_dsx/synaptics_dsx_i2c.ko \
     $(KERNEL_OUT)/drivers/gpu/imx/lcdif/imx-lcdif-core.ko \
     $(KERNEL_OUT)/drivers/gpu/drm/bridge/adv7511/adv7511.ko \

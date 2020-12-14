@@ -33,7 +33,6 @@ PRODUCT_IMX_TRUSTY := true
 # CONFIG_MXC_HANTRO_845: hantrodec_845s.ko vpu decodder
 # CONFIG_MXC_HANTRO_845_H1: hx280enc.ko vpu encoder
 # CONFIG_RTC_DRV_SNVS: rtc-snvs.ko, snvs driver
-# CONFIG_KEYBOARD_SNVS_PWRKEY: powerkey driver
 # CONFIG_FEC: fec.ko which depend on pps_core.ko and ptp.ko
 # CONFIG_AT803X_PHY: ethernet phy driver at803x.ko
 
@@ -56,7 +55,6 @@ BOARD_VENDOR_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/mxc/hantro_845/hantrodec_845s.ko \
     $(KERNEL_OUT)/drivers/mxc/hantro_845_h1/hx280enc.ko \
     $(KERNEL_OUT)/drivers/rtc/rtc-snvs.ko \
-    $(KERNEL_OUT)/drivers/input/keyboard/snvs_pwrkey.ko \
     $(KERNEL_OUT)/drivers/pps/pps_core.ko \
     $(KERNEL_OUT)/drivers/ptp/ptp.ko \
     $(KERNEL_OUT)/drivers/net/phy/at803x.ko \
@@ -77,6 +75,7 @@ endif
 # CONFIG_I2C_IMX:i2c-imx.ko
 # CONFIG_ION_CMA_HEAP: ion_cma_heap.ko
 # depend on clk module: reset-dispmix.ko, it will been select as m if clk build as m.
+# CONFIG_KEYBOARD_SNVS_PWRKEY: snvs_pwrkey.ko, snvs power key driver
 # CONFIG_IMX_LCDIF_CORE: imx-lcdif-core.ko
 # CONFIG_DRM_IMX: imxdrm.ko imx-lcdif-crtc.ko
 # CONFIG_DRM_SEC_MIPI_DSIM: sec-dsim.ko
@@ -103,6 +102,7 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES +=     \
     $(KERNEL_OUT)/drivers/i2c/busses/i2c-imx.ko \
     $(KERNEL_OUT)/drivers/staging/android/ion/heaps/ion_cma_heap.ko \
     $(KERNEL_OUT)/drivers/reset/reset-dispmix.ko \
+    $(KERNEL_OUT)/drivers/input/keyboard/snvs_pwrkey.ko \
     $(KERNEL_OUT)/drivers/input/touchscreen/synaptics_dsx/synaptics_dsx_i2c.ko \
     $(KERNEL_OUT)/drivers/gpu/imx/lcdif/imx-lcdif-core.ko \
     $(KERNEL_OUT)/drivers/gpu/drm/imx/lcdif/imx-lcdif-crtc.ko \
