@@ -176,6 +176,7 @@ VIV_VX_ENABLE_NN_DDR_BURST_SIZE_256B      u:object_r:public_vendor_default_prop:
 NN_DBG_OP_BLK_LIST                        u:object_r:public_vendor_default_prop:s0
 DISABLE_FLOAT_FEATURE                     u:object_r:public_vendor_default_prop:s0
 MODEL_BLOCK_LEVEL                         u:object_r:public_vendor_default_prop:s0
+USE_GPU_INFERENCE                         u:object_r:public_vendor_default_prop:s0
 
 
 vendor.audio.lpa.enable             u:object_r:public_vendor_default_prop:s0
