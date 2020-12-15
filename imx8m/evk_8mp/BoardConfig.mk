@@ -108,9 +108,6 @@ BOARD_AVB_BOOT_ROLLBACK_INDEX_LOCATION := 2
 
 TARGET_USES_MKE2FS := true
 
-# define frame buffer count
-NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
-
 CMASIZE=800M
 # NXP default config
 BOARD_KERNEL_CMDLINE := init=/init androidboot.console=ttymxc1 androidboot.hardware=nxp firmware_class.path=/vendor/firmware loop.max_part=7

@@ -154,9 +154,7 @@ PRODUCT_PACKAGES += \
     android.hardware.power@1.0-impl \
     android.hardware.power@1.0-service \
     android.hardware.light@2.0-impl \
-    android.hardware.light@2.0-service \
-    android.hardware.configstore@1.1-service \
-    configstore@1.1.policy
+    android.hardware.light@2.0-service
 
 # imx7 sensor HAL libs.
 PRODUCT_PACKAGES += \
@@ -244,3 +242,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.crypto.volume.filenames_mode=adiantum
 
 IMX-DEFAULT-G2D-LIB := libg2d-viv
+
+# define frame buffer count
+PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
+    ro.surface_flinger.max_frame_buffer_acquired_buffers=3
