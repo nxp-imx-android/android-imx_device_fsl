@@ -283,6 +283,10 @@ PRODUCT_PRODUCT_PROPERTIES += \
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     vendor.skip.charger_not_need=0
 
+# define frame buffer count
+PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
+    ro.surface_flinger.max_frame_buffer_acquired_buffers=3
+
 # Gralloc HAL
 PRODUCT_PACKAGES += \
     android.hardware.graphics.mapper@2.0-impl-2.1 \
@@ -335,8 +339,6 @@ PRODUCT_PACKAGES += \
     android.hardware.power@1.3-service.imx \
     android.hardware.light@2.0-impl \
     android.hardware.light@2.0-service \
-    android.hardware.configstore@1.1-service \
-    configstore@1.1.policy
 
 # Thermal HAL
 

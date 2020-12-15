@@ -108,9 +108,6 @@ BOARD_HAVE_USB_MJPEG_CAMERA := false
 USE_ION_ALLOCATOR := true
 USE_GPU_ALLOCATOR := false
 
-# define frame buffer count
-NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
-
 # NXP default config
 BOARD_KERNEL_CMDLINE := init=/init androidboot.hardware=nxp firmware_class.path=/vendor/firmware loop.max_part=7
 
