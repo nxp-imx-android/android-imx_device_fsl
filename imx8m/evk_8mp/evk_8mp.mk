@@ -374,6 +374,7 @@ PRODUCT_PACKAGES += \
 
 # Multi-Display launcher
 PRODUCT_PACKAGES += \
+    MultiClientInputMethod \
     MultiDisplay
 
 # Add oem unlocking option in settings.
