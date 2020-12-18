@@ -134,6 +134,7 @@ endif
 
 ifneq ($(IMX8MP_USES_GKI),)
 BOARD_VENDOR_RAMDISK_KERNEL_MODULES +=     \
+    $(KERNEL_OUT)/drivers/soc/imx/soc-imx8m.ko \
     $(KERNEL_OUT)/drivers/clk/imx/mxc-clk.ko \
     $(KERNEL_OUT)/drivers/clk/imx/clk-audiomix.ko \
     $(KERNEL_OUT)/drivers/clk/imx/clk-gate-shared.ko \
