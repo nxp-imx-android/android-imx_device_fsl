@@ -23,7 +23,11 @@
       "FocalLength": "4.0",
       "MaxJpegSize": "4194304",
       "MinFrameDuration": "33331760",
-      "MaxFrameDuration": "300000000"
+      "MaxFrameDuration": "300000000",
+      "ae_comp_min": "-4",
+      "ae_comp_max": "4",
+      "ae_comp_step_nummerator": "1",
+      "ae_comp_step_denominator": "2"
     },
     {
       "camera_type": "front",
