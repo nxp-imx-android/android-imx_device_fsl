@@ -250,7 +250,6 @@ struct v4l2_pix_format {
 #define V4L2_PIX_FMT_RGBX32 v4l2_fourcc('X', 'B', '2', '4')
 #define V4L2_PIX_FMT_ARGB32 v4l2_fourcc('B', 'A', '2', '4')
 #define V4L2_PIX_FMT_XRGB32 v4l2_fourcc('B', 'X', '2', '4')
-#define V4L2_PIX_FMT_RGBA v4l2_fourcc('R', 'G', 'B', 'A')
 #define V4L2_PIX_FMT_GREY v4l2_fourcc('G', 'R', 'E', 'Y')
 #define V4L2_PIX_FMT_Y4 v4l2_fourcc('Y', '0', '4', ' ')
 #define V4L2_PIX_FMT_Y6 v4l2_fourcc('Y', '0', '6', ' ')
