@@ -50,7 +50,7 @@ KERNEL_CC_WRAPPER := $(CC_WRAPPER)
 KERNEL_AFLAGS :=
 TARGET_KERNEL_SRC := $(KERNEL_IMX_PATH)/kernel_imx
 
-CLANG_TO_COMPILE := CC=clang HOSTCC=clang LD=ld.lld
+CLANG_TO_COMPILE := LLVM=1 LLVM_IAS=1
 CLANG_TOOL_CHAIN_ABS := $(realpath prebuilts/clang/host/linux-x86/clang-r383902b/bin)
 
 ifeq ($(TARGET_KERNEL_ARCH), arm)
@@ -147,8 +147,13 @@ $(KERNEL_CONFIG_REQUIRED): $(KERNEL_CONFIG_REQUIRED_SRC) | $(KERNEL_OUT)
 # use deferred expansion
 kernel_build_shell_env = PATH=$(CLANG_TOOL_CHAIN_ABS):$(realpath prebuilts/misc/linux-x86/lz4):$${PATH} \
         $(CLANG_TRIPLE) CCACHE_NODIRECT="true"
+ifeq ($(CLANG_TO_COMPILE),)
 kernel_build_common_env = ARCH=$(KERNEL_ARCH) CROSS_COMPILE=$(strip $(KERNEL_CROSS_COMPILE_WRAPPER)) \
         KCFLAGS="$(KERNEL_CFLAGS)" KAFLAGS="$(KERNEL_AFLAGS)"
+else
+kernel_build_common_env = ARCH=$(KERNEL_ARCH) CROSS_COMPILE=aarch64-linux-gnu- \
+        KCFLAGS="$(KERNEL_CFLAGS)" KAFLAGS="$(KERNEL_AFLAGS)"
+endif
 kernel_build_make_env = $(kernel_build_common_env) $(CLANG_TO_COMPILE) -C $(TARGET_KERNEL_SRC) O=$(realpath $(KERNEL_OUT))
 merge_config_env = $(kernel_build_shell_env) $(kernel_build_common_env)
 merge_config_params = -p "$(CLANG_TO_COMPILE)" -O $(realpath $(KERNEL_OUT)) $(KERNEL_CONFIG_SRC)
