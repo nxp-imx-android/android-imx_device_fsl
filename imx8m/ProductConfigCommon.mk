@@ -25,7 +25,6 @@ TARGET_BOARD_PLATFORM := imx
 # Android infrastructures
 PRODUCT_PACKAGES += \
     CactusPlayer \
-    ExtractorPkg \
     SystemUpdaterSample \
     charger_res_images \
     charger \
@@ -142,29 +141,19 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     lib_aac_dec_v2_arm12_elinux \
     lib_aacd_wrap_arm12_elinux_android \
-    lib_flac_dec_v2_arm11_elinux \
     lib_mp3_dec_v2_arm12_elinux \
     lib_mp3d_wrap_arm12_elinux_android \
-    lib_nb_amr_dec_v2_arm9_elinux \
-    lib_nb_amr_enc_v2_arm11_elinux \
-    lib_wb_amr_dec_arm9_elinux \
-    lib_wb_amr_enc_arm11_elinux \
     media_codecs_c2_ac3.xml \
     media_codecs_c2_ddp.xml \
     media_codecs_c2_ms.xml \
     media_codecs_c2_wmv9.xml \
     media_codecs_c2_ra.xml \
     media_codecs_c2_rv.xml \
+    media_codecs.xml \
     media_codecs_performance.xml \
     media_profiles_V1_0.xml \
-    media_codecs_google_c2_video.xml \
     media_codecs_c2.xml \
     media_codecs_performance_c2.xml
-
-ifneq ($(LOW_MEMORY),true)
-PRODUCT_PACKAGES += \
-    media_codecs.xml
-endif
 
 #parser
 PRODUCT_PACKAGES += \
