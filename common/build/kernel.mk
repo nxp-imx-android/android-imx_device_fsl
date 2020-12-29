@@ -22,8 +22,8 @@
 # TARGET_KERNEL_ARCH must be set to match kernel arch.
 #
 # The following maybe set:
-# TARGET_KERNEL_CROSS_COMPILE_PREFIX to override toolchain.
 # TARGET_KERNEL_CONFIGS to specify a set of additional kernel config files.
+# ENABLE_GCC_BUILD which enbale external gcc compiler
 
 # Brillo does not support prebuilt kernels.
 ifneq ($(TARGET_PREBUILT_KERNEL),)
@@ -44,6 +44,7 @@ $(error TARGET_KERNEL_ARCH not defined)
 endif
 
 # Check target arch.
+# ENABLE_GCC_BUILD := true
 TARGET_KERNEL_ARCH := $(strip $(TARGET_KERNEL_ARCH))
 KERNEL_ARCH := $(TARGET_KERNEL_ARCH)
 KERNEL_CC_WRAPPER := $(CC_WRAPPER)
@@ -54,15 +55,11 @@ CLANG_TO_COMPILE := LLVM=1 LLVM_IAS=1
 CLANG_TOOL_CHAIN_ABS := $(realpath prebuilts/clang/host/linux-x86/clang-r383902b/bin)
 
 ifeq ($(TARGET_KERNEL_ARCH), arm)
-KERNEL_TOOLCHAIN_ABS := $(realpath prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9/bin)
-KERNEL_CROSS_COMPILE := $(KERNEL_TOOLCHAIN_ABS)/arm-linux-androidkernel-
 KERNEL_CFLAGS :=
 CLANG_TRIPLE := CLANG_TRIPLE=arm-linux-gnueabi-
 KERNEL_SRC_ARCH := arm
 KERNEL_NAME := zImage
 else ifeq ($(TARGET_KERNEL_ARCH), arm64)
-KERNEL_TOOLCHAIN_ABS := $(realpath prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9/bin)
-KERNEL_CROSS_COMPILE := $(KERNEL_TOOLCHAIN_ABS)/aarch64-linux-androidkernel-
 CLANG_TRIPLE := CLANG_TRIPLE=aarch64-linux-gnu-
 KERNEL_SRC_ARCH := arm64
 KERNEL_CFLAGS :=
@@ -71,10 +68,19 @@ else
 $(error kernel arch not supported at present)
 endif
 
-# Allow caller to override toolchain.
-TARGET_KERNEL_CROSS_COMPILE_PREFIX := $(strip $(TARGET_KERNEL_CROSS_COMPILE_PREFIX))
-ifneq ($(TARGET_KERNEL_CROSS_COMPILE_PREFIX),)
-KERNEL_CROSS_COMPILE := $(TARGET_KERNEL_CROSS_COMPILE_PREFIX)
+ifeq ($(ENABLE_GCC_BUILD), true)
+CLANG_TRIPLE :=
+CLANG_TO_COMPILE :=
+CLANG_TOOL_CHAIN_ABS :=
+# prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9/bin/aarch64-linux-androidkernel-gcc have been remove in android11
+# android do not support internal gcc in android11 anymore, export external gcc for imx device. you can asign one local gcc here.
+ifeq ($(TARGET_KERNEL_ARCH), arm)
+KERNEL_TOOLCHAIN_ABS := /opt/fsl-imx-internal-xwayland/5.4-zeus/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi
+KERNEL_CROSS_COMPILE := $(KERNEL_TOOLCHAIN_ABS)/arm-poky-linux-gnueabi-
+else ifeq ($(TARGET_KERNEL_ARCH), arm64)
+KERNEL_TOOLCHAIN_ABS := /opt/fsl-imx-internal-xwayland/5.4-zeus/sysroots/x86_64-pokysdk-linux/usr/bin/aarch64-poky-linux
+KERNEL_CROSS_COMPILE := $(KERNEL_TOOLCHAIN_ABS)/aarch64-poky-linux-
+endif
 endif
 
 # Use ccache if requested by USE_CCACHE variable
