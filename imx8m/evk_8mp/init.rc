@@ -289,3 +289,12 @@ on property:ro.boot.vendor.sysrq=1 && property:vendor.skip.charger_not_need=0
 # setenv append_bootargs androidboot.usb.debugging=1
 on property:ro.boot.usb.debugging=1
     setprop persist.sys.usb.config adb
+
+# setenv append_bootargs androidboot.powersave.usb=true
+on property:ro.boot.powersave.usb=true
+    # enable platform/32f10100.usb runtime_pm
+    write /sys/devices/platform/32f10100.usb/38100000.dwc3/power/control auto
+
+    #enable platform/32f10108.usb runtime_pm
+    write /sys/devices/platform/32f10108.usb/38200000.dwc3/power/control auto
+    write /sys/devices/platform/32f10108.usb/38200000.dwc3/xhci-hcd.0.auto/power/control auto
