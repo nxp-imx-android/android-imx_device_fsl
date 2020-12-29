@@ -213,7 +213,7 @@ else
       # imx8qm standard android; HDMI display
       TARGET_BOARD_DTS_CONFIG += imx8qm-hdmi:imx8qm-mek-hdmi.dtb
       # imx8qm standard android; Multiple display
-      TARGET_BOARD_DTS_CONFIG += imx8qm-md:imx8qm-mek-md.dtb
+      # TARGET_BOARD_DTS_CONFIG += imx8qm-md:imx8qm-mek-md.dtb
       # imx8qxp standard android; MIPI-HDMI display
       TARGET_BOARD_DTS_CONFIG += imx8qxp:imx8qxp-mek-ov5640-rpmsg.dtb
       TARGET_BOARD_DTS_CONFIG += imx8dx:imx8dx-mek-ov5640.dtb

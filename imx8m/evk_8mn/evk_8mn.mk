@@ -246,8 +246,8 @@ PRODUCT_PACKAGES += \
     android.hardware.light@2.0-service
 
 # Thermal HAL
-PRODUCT_PACKAGES += \
-    android.hardware.thermal@2.0-service.imx
+#PRODUCT_PACKAGES += \
+#    android.hardware.thermal@2.0-service.imx
 PRODUCT_COPY_FILES += \
     device/nxp/imx8m/evk_8mn/thermal_info_config_imx8mn.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/thermal_info_config_imx8mn.json \
     device/nxp/imx8m/evk_8mn/external_camera_config.xml:$(TARGET_COPY_OUT_VENDOR)/etc/external_camera_config.xml
