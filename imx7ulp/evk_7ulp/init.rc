@@ -46,7 +46,7 @@ on early-boot
     # Enable Tethering in the Settings
     setprop ro.tether.denied false
 
-    setprop hwc.stretch.filter  1
+    setprop vendor.hwc.stretch.filter  1
 
     # Default g2d [dpu|pxp|viv] lib to be used
     setprop vendor.imx.default-g2d viv
@@ -76,7 +76,7 @@ on early-boot
     setprop ro.opengles.version 131072
 
     # Set sys.device.type to tablet to enable NavigationBar
-    setprop sys.device.type tablet
+    setprop vendor.sys.device.type tablet
 
     # Set GPU 3D minimum clock to 3/64
     write /sys/bus/platform/drivers/galcore/gpu3DMinClock 3

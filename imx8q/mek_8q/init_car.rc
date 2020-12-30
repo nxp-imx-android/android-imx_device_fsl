@@ -47,9 +47,9 @@ on early-boot
     # Set permission for IIM node
     symlink /dev/mxs_viim /dev/mxc_mem
 
-    setprop sys.hwc.disable     0
+    setprop vendor.sys.hwc.disable     0
     setprop vendor.2d.composition 0
-    setprop hwc.stretch.filter  1
+    setprop vendor.hwc.stretch.filter  1
 
     # fsl omx graphic manager media framework property
     setprop vendor.rw.VIDEO_RENDER_NAME video_render.surface
@@ -256,7 +256,7 @@ on post-fs-data
 
     setprop vold.post_fs_data_done 1
     # tmp dir for opencl Compiler
-    setprop TMPDIR /data/vendor/.opencl-cache
+    setprop vendor.TMPDIR /data/vendor/.opencl-cache
     mkdir /data/vendor/.opencl-cache 0771 system camera
 
     # create temp node for secure storage proxy
