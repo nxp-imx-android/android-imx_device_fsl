@@ -96,7 +96,7 @@ on early-boot && property:vendor.skip.charger_not_need=0
     # Set permission for IIM node
     symlink /dev/mxs_viim /dev/mxc_mem
 
-    setprop hwc.stretch.filter  1
+    setprop vendor.hwc.stretch.filter  1
 
     # Default g2d [dpu|pxp|viv] lib to be used
     setprop vendor.imx.default-g2d viv
@@ -261,7 +261,7 @@ on post-fs-data && property:vendor.skip.charger_not_need=0
     mkdir /data/vendor/ss 0700 system system
 
     # tmp dir for opencl Compiler
-    setprop TMPDIR /data/vendor/.opencl-cache
+    setprop vendor.TMPDIR /data/vendor/.opencl-cache
     mkdir /data/vendor/.opencl-cache 0771 system camera
 
 on zygote-start && property:vendor.skip.charger_not_need=0
