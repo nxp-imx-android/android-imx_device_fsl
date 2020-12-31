@@ -2,7 +2,7 @@
     "settings": {
         "disk_size": "7 GiB",
         "disk_alignment": 2097152,
-        "first_partition_offset": 8388608
+        "partitions_offset_begin": 8388608
     },
     "partitions": [
         {
