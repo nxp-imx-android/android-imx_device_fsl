@@ -2,19 +2,17 @@
 # Product-specific compile-time definitions.
 #
 
-IMX_DEVICE_PATH := device/nxp/imx8q/mek_8q
-
 ifeq ($(PRODUCT_IMX_DUAL_BOOTLOADER),true)
   AB_OTA_PARTITIONS += bootloader
-  BOARD_OTA_BOOTLOADERIMAGE := out/target/product/mek_8q/obj/UBOOT_COLLECTION/bootloader-imx8qm.img
+  BOARD_OTA_BOOTLOADERIMAGE := $(OUT_DIR)/target/product/$(PRODUCT_DEVICE)/obj/UBOOT_COLLECTION/bootloader-imx8qm.img
   ifeq ($(OTA_TARGET),8qxp)
-    BOARD_OTA_BOOTLOADERIMAGE := out/target/product/mek_8q/obj/UBOOT_COLLECTION/bootloader-imx8qxp.img
+    BOARD_OTA_BOOTLOADERIMAGE := $(OUT_DIR)/target/product/$(PRODUCT_DEVICE)/obj/UBOOT_COLLECTION/bootloader-imx8qxp.img
   else ifeq ($(OTA_TARGET),8qxp-c0)
-    BOARD_OTA_BOOTLOADERIMAGE := out/target/product/mek_8q/obj/UBOOT_COLLECTION/bootloader-imx8qxp-c0.img
+    BOARD_OTA_BOOTLOADERIMAGE := $(OUT_DIR)/target/product/$(PRODUCT_DEVICE)/obj/UBOOT_COLLECTION/bootloader-imx8qxp-c0.img
   endif
 endif
 
-include device/nxp/imx8q/BoardConfigCommon.mk
+include $(CONFIG_REPO_PATH)/imx8q/BoardConfigCommon.mk
 
 BUILD_TARGET_FS ?= ext4
 TARGET_USERIMAGES_USE_EXT4 := true
@@ -28,33 +26,33 @@ endif # PRODUCT_IMX_CAR
 # Support gpt
 ifeq ($(PRODUCT_IMX_DUAL_BOOTLOADER),true)
   ifeq ($(TARGET_USE_DYNAMIC_PARTITIONS),true)
-    BOARD_BPT_INPUT_FILES += device/nxp/common/partition/device-partitions-13GB-ab-dual-bootloader_super.bpt
-    ADDITION_BPT_PARTITION = partition-table-28GB:device/nxp/common/partition/device-partitions-28GB-ab-dual-bootloader_super.bpt
+    BOARD_BPT_INPUT_FILES += $(CONFIG_REPO_PATH)/common/partition/device-partitions-13GB-ab-dual-bootloader_super.bpt
+    ADDITION_BPT_PARTITION = partition-table-28GB:$(CONFIG_REPO_PATH)/common/partition/device-partitions-28GB-ab-dual-bootloader_super.bpt
   else
     ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
-      BOARD_BPT_INPUT_FILES += device/nxp/common/partition/device-partitions-13GB-ab-dual-bootloader-no-product.bpt
-      ADDITION_BPT_PARTITION = partition-table-28GB:device/nxp/common/partition/device-partitions-28GB-ab-dual-bootloader-no-product.bpt
+      BOARD_BPT_INPUT_FILES += $(CONFIG_REPO_PATH)/common/partition/device-partitions-13GB-ab-dual-bootloader-no-product.bpt
+      ADDITION_BPT_PARTITION = partition-table-28GB:$(CONFIG_REPO_PATH)/common/partition/device-partitions-28GB-ab-dual-bootloader-no-product.bpt
     else
-      BOARD_BPT_INPUT_FILES += device/nxp/common/partition/device-partitions-13GB-ab-dual-bootloader.bpt
-      ADDITION_BPT_PARTITION = partition-table-28GB:device/nxp/common/partition/device-partitions-28GB-ab-dual-bootloader.bpt
+      BOARD_BPT_INPUT_FILES += $(CONFIG_REPO_PATH)/common/partition/device-partitions-13GB-ab-dual-bootloader.bpt
+      ADDITION_BPT_PARTITION = partition-table-28GB:$(CONFIG_REPO_PATH)/common/partition/device-partitions-28GB-ab-dual-bootloader.bpt
     endif
   endif
 else
   ifeq ($(TARGET_USE_DYNAMIC_PARTITIONS),true)
     ifeq ($(PRODUCT_IMX_CAR),true)
-      BOARD_BPT_INPUT_FILES += device/nxp/common/partition/device-partitions-13GB-ab-no-vb_super.bpt
-      ADDITION_BPT_PARTITION = partition-table-28GB:device/nxp/common/partition/device-partitions-28GB-ab-no-vb_super.bpt
+      BOARD_BPT_INPUT_FILES += $(CONFIG_REPO_PATH)/common/partition/device-partitions-13GB-ab-no-vb_super.bpt
+      ADDITION_BPT_PARTITION = partition-table-28GB:$(CONFIG_REPO_PATH)/common/partition/device-partitions-28GB-ab-no-vb_super.bpt
     else
-      BOARD_BPT_INPUT_FILES += device/nxp/common/partition/device-partitions-13GB-ab_super.bpt
-      ADDITION_BPT_PARTITION = partition-table-28GB:device/nxp/common/partition/device-partitions-28GB-ab_super.bpt
+      BOARD_BPT_INPUT_FILES += $(CONFIG_REPO_PATH)/common/partition/device-partitions-13GB-ab_super.bpt
+      ADDITION_BPT_PARTITION = partition-table-28GB:$(CONFIG_REPO_PATH)/common/partition/device-partitions-28GB-ab_super.bpt
     endif
   else
     ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
-      BOARD_BPT_INPUT_FILES += device/nxp/common/partition/device-partitions-13GB-ab-no-product.bpt
-      ADDITION_BPT_PARTITION = partition-table-28GB:device/nxp/common/partition/device-partitions-28GB-ab-no-product.bpt
+      BOARD_BPT_INPUT_FILES += $(CONFIG_REPO_PATH)/common/partition/device-partitions-13GB-ab-no-product.bpt
+      ADDITION_BPT_PARTITION = partition-table-28GB:$(CONFIG_REPO_PATH)/common/partition/device-partitions-28GB-ab-no-product.bpt
     else
-      BOARD_BPT_INPUT_FILES += device/nxp/common/partition/device-partitions-13GB-ab.bpt
-      ADDITION_BPT_PARTITION = partition-table-28GB:device/nxp/common/partition/device-partitions-28GB-ab.bpt
+      BOARD_BPT_INPUT_FILES += $(CONFIG_REPO_PATH)/common/partition/device-partitions-13GB-ab.bpt
+      ADDITION_BPT_PARTITION = partition-table-28GB:$(CONFIG_REPO_PATH)/common/partition/device-partitions-28GB-ab.bpt
     endif
   endif
 endif
@@ -137,12 +135,12 @@ $(error "TARGET_USERIMAGES_USE_UBIFS and TARGET_USERIMAGES_USE_EXT4 config open 
 endif
 endif
 
-BOARD_PREBUILT_DTBOIMAGE := out/target/product/mek_8q/dtbo-imx8qm.img
+BOARD_PREBUILT_DTBOIMAGE := $(OUT_DIR)/target/product/$(PRODUCT_DEVICE)/dtbo-imx8qm.img
 ifeq ($(OTA_TARGET),8qxp)
-BOARD_PREBUILT_DTBOIMAGE := out/target/product/mek_8q/dtbo-imx8qxp.img
+BOARD_PREBUILT_DTBOIMAGE := $(OUT_DIR)/target/product/$(PRODUCT_DEVICE)/dtbo-imx8qxp.img
 endif
 ifeq ($(OTA_TARGET),8qxp-c0)
-BOARD_PREBUILT_DTBOIMAGE := out/target/product/mek_8q/dtbo-imx8qxp.img
+BOARD_PREBUILT_DTBOIMAGE := $(OUT_DIR)/target/product/$(PRODUCT_DEVICE)/dtbo-imx8qxp.img
 endif
 
 # For Android Auto with M4 EVS, fstab entries in dtb are in the form of non-dynamic partition by default
@@ -229,13 +227,13 @@ endif #PRODUCT_IMX_CAR
 
 
 BOARD_SEPOLICY_DIRS := \
-       device/nxp/imx8q/sepolicy \
+       $(CONFIG_REPO_PATH)/imx8q/sepolicy \
        $(IMX_DEVICE_PATH)/sepolicy
 
 ifeq ($(PRODUCT_IMX_CAR),true)
 BOARD_SEPOLICY_DIRS += \
      packages/services/Car/car_product/sepolicy \
-     device/nxp/imx8q/sepolicy_car \
+     $(CONFIG_REPO_PATH)/imx8q/sepolicy_car \
      $(IMX_DEVICE_PATH)/sepolicy_car \
      device/generic/car/common/sepolicy \
      vendor/nxp-opensource/imx/evs/sepolicy \
@@ -251,7 +249,7 @@ BOARD_AVB_ENABLE := true
 
 BOARD_AVB_ALGORITHM := SHA256_RSA4096
 # The testkey_rsa4096.pem is copied from external/avb/test/data/testkey_rsa4096.pem
-BOARD_AVB_KEY_PATH := device/nxp/common/security/testkey_rsa4096.pem
+BOARD_AVB_KEY_PATH := $(CONFIG_REPO_PATH)/common/security/testkey_rsa4096.pem
 
 ifneq ($(PRODUCT_IMX_CAR),true)
 BOARD_AVB_BOOT_KEY_PATH := external/avb/test/data/testkey_rsa2048.pem
@@ -261,14 +259,11 @@ endif
 
 TARGET_USES_MKE2FS := true
 
-TARGET_BOARD_KERNEL_HEADERS := device/nxp/common/kernel-headers
+TARGET_BOARD_KERNEL_HEADERS := $(CONFIG_REPO_PATH)/common/kernel-headers
 
 ifeq ($(PRODUCT_IMX_CAR),true)
 BOARD_HAVE_IMX_EVS := true
 endif
-
-# define board type
-BOARD_TYPE := MEK
 
 ALL_DEFAULT_INSTALLED_MODULES += $(BOARD_VENDOR_KERNEL_MODULES)
 

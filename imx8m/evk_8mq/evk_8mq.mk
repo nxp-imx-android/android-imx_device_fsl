@@ -1,13 +1,15 @@
 # This is a FSL Android Reference Design platform based on i.MX8QP ARD board
 # It will inherit from FSL core product which in turn inherit from Google generic
 
-IMX_DEVICE_PATH := device/nxp/imx8m/evk_8mq
+CONFIG_REPO_PATH := device/nxp
+CURRENT_FILE_PATH :=  $(lastword $(MAKEFILE_LIST))
+IMX_DEVICE_PATH := $(strip $(patsubst %/, %, $(dir $(CURRENT_FILE_PATH))))
 
 # configs shared between uboot, kernel and Android rootfs
 include $(IMX_DEVICE_PATH)/SharedBoardConfig.mk
 
--include device/nxp/common/imx_path/ImxPathConfig.mk
-include device/nxp/imx8m/ProductConfigCommon.mk
+-include $(CONFIG_REPO_PATH)/common/imx_path/ImxPathConfig.mk
+include $(CONFIG_REPO_PATH)/imx8m/ProductConfigCommon.mk
 
 ifneq ($(wildcard $(IMX_DEVICE_PATH)/fstab_nand.nxp),)
 $(shell touch $(IMX_DEVICE_PATH)/fstab_nand.nxp)
@@ -62,9 +64,9 @@ PRODUCT_COPY_FILES += \
     $(IMX_DEVICE_PATH)/required_hardware.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/required_hardware.xml \
     $(IMX_DEVICE_PATH)/ueventd.nxp.rc:$(TARGET_COPY_OUT_VENDOR)/ueventd.rc \
     $(LINUX_FIRMWARE_IMX_PATH)/linux-firmware-imx/firmware/sdma/sdma-imx7d.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/imx/sdma/sdma-imx7d.bin \
-    device/nxp/common/init/init.insmod.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.insmod.sh \
-    device/nxp/common/wifi/p2p_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/p2p_supplicant_overlay.conf \
-    device/nxp/common/wifi/wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf
+    $(CONFIG_REPO_PATH)/common/init/init.insmod.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.insmod.sh \
+    $(CONFIG_REPO_PATH)/common/wifi/p2p_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/p2p_supplicant_overlay.conf \
+    $(CONFIG_REPO_PATH)/common/wifi/wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf
 
 # We load the fstab from device tree so this is not needed, but since no kernel modules are installed to vendor
 # boot ramdisk so far, we need this step to generate the vendor-ramdisk folder or build process would fail. This
@@ -77,18 +79,18 @@ endif
 
 # Audio card json
 PRODUCT_COPY_FILES += \
-    device/nxp/common/audio-json/wm8524_config.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/audio/wm8524_config.json \
-    device/nxp/common/audio-json/spdif_config.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/audio/spdif_config.json \
-    device/nxp/common/audio-json/cdnhdmi_config.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/audio/cdnhdmi_config.json \
-    device/nxp/common/audio-json/ak4458_config.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/audio/ak4458_config.json \
-    device/nxp/common/audio-json/ak5558_config.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/audio/ak5558_config.json \
-    device/nxp/common/audio-json/btsco_config.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/audio/btsco_config.json \
-    device/nxp/common/audio-json/readme.txt:$(TARGET_COPY_OUT_VENDOR)/etc/configs/audio/readme.txt
+    $(CONFIG_REPO_PATH)/common/audio-json/wm8524_config.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/audio/wm8524_config.json \
+    $(CONFIG_REPO_PATH)/common/audio-json/spdif_config.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/audio/spdif_config.json \
+    $(CONFIG_REPO_PATH)/common/audio-json/cdnhdmi_config.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/audio/cdnhdmi_config.json \
+    $(CONFIG_REPO_PATH)/common/audio-json/ak4458_config.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/audio/ak4458_config.json \
+    $(CONFIG_REPO_PATH)/common/audio-json/ak5558_config.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/audio/ak5558_config.json \
+    $(CONFIG_REPO_PATH)/common/audio-json/btsco_config.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/audio/btsco_config.json \
+    $(CONFIG_REPO_PATH)/common/audio-json/readme.txt:$(TARGET_COPY_OUT_VENDOR)/etc/configs/audio/readme.txt
 
 ifeq ($(PRODUCT_IMX_TRUSTY),true)
 PRODUCT_COPY_FILES += \
-    device/nxp/common/security/rpmb_key_test.bin:rpmb_key_test.bin \
-    device/nxp/common/security/testkey_public_rsa4096.bin:testkey_public_rsa4096.bin
+    $(CONFIG_REPO_PATH)/common/security/rpmb_key_test.bin:rpmb_key_test.bin \
+    $(CONFIG_REPO_PATH)/common/security/testkey_public_rsa4096.bin:testkey_public_rsa4096.bin
 endif
 
 # ONLY devices that meet the CDD's requirements may declare these features
@@ -128,19 +130,19 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(IMX_DEVICE_PATH)/seccomp/mediacodec-seccomp.policy:vendor/etc/seccomp_policy/mediacodec.policy \
     $(IMX_DEVICE_PATH)/seccomp/mediaextractor-seccomp.policy:vendor/etc/seccomp_policy/mediaextractor.policy \
-    device/nxp/common/seccomp_policy/codec2.vendor.base.policy:vendor/etc/seccomp_policy/codec2.vendor.base.policy \
-    device/nxp/common/seccomp_policy/codec2.vendor.ext.policy:vendor/etc/seccomp_policy/codec2.vendor.ext.policy
+    $(CONFIG_REPO_PATH)/common/seccomp_policy/codec2.vendor.base.policy:vendor/etc/seccomp_policy/codec2.vendor.base.policy \
+    $(CONFIG_REPO_PATH)/common/seccomp_policy/codec2.vendor.ext.policy:vendor/etc/seccomp_policy/codec2.vendor.ext.policy
 
 PRODUCT_COPY_FILES += \
-    device/nxp/imx8m/evk_8mq/powerhint_imx8mq.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/powerhint_imx8mq.json
+    $(IMX_DEVICE_PATH)/powerhint_imx8mq.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/powerhint_imx8mq.json
 
 # fastboot_imx_flashall scripts, fsl-sdcard-partition script and uuu_imx_android_flash scripts
 PRODUCT_COPY_FILES += \
-    device/nxp/common/tools/fastboot_imx_flashall.bat:fastboot_imx_flashall.bat \
-    device/nxp/common/tools/fastboot_imx_flashall.sh:fastboot_imx_flashall.sh \
-    device/nxp/common/tools/imx-sdcard-partition.sh:imx-sdcard-partition.sh \
-    device/nxp/common/tools/uuu_imx_android_flash.bat:uuu_imx_android_flash.bat \
-    device/nxp/common/tools/uuu_imx_android_flash.sh:uuu_imx_android_flash.sh
+    $(CONFIG_REPO_PATH)/common/tools/fastboot_imx_flashall.bat:fastboot_imx_flashall.bat \
+    $(CONFIG_REPO_PATH)/common/tools/fastboot_imx_flashall.sh:fastboot_imx_flashall.sh \
+    $(CONFIG_REPO_PATH)/common/tools/imx-sdcard-partition.sh:imx-sdcard-partition.sh \
+    $(CONFIG_REPO_PATH)/common/tools/uuu_imx_android_flash.bat:uuu_imx_android_flash.bat \
+    $(CONFIG_REPO_PATH)/common/tools/uuu_imx_android_flash.sh:uuu_imx_android_flash.sh
 
 
 DEVICE_PACKAGE_OVERLAYS := $(IMX_DEVICE_PATH)/overlay
@@ -229,7 +231,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.thermal@2.0-service.imx
 PRODUCT_COPY_FILES += \
-    device/nxp/imx8m/evk_8mq/thermal_info_config_imx8mq.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/thermal_info_config_imx8mq.json
+    $(IMX_DEVICE_PATH)/thermal_info_config_imx8mq.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/thermal_info_config_imx8mq.json
 
 # Neural Network HAL and lib
 PRODUCT_PACKAGES += \
@@ -276,8 +278,8 @@ PRODUCT_PACKAGES += \
 endif
 
 PRODUCT_COPY_FILES += \
-    device/nxp/imx8m/evk_8mq/camera_config_imx8mq.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/camera_config_imx8mq.json \
-    device/nxp/imx8m/evk_8mq/external_camera_config.xml:$(TARGET_COPY_OUT_VENDOR)/etc/external_camera_config.xml
+    $(IMX_DEVICE_PATH)/camera_config_imx8mq.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/camera_config_imx8mq.json \
+    $(IMX_DEVICE_PATH)/external_camera_config.xml:$(TARGET_COPY_OUT_VENDOR)/etc/external_camera_config.xml
 
 # Keymaster HAL
 PRODUCT_PACKAGES += \
@@ -386,5 +388,5 @@ ifneq ($(filter TRUE true 1,$(IMX_OTA_POSTINSTALL)),)
     POSTINSTALL_OPTIONAL_vendor=false
 
   PRODUCT_COPY_FILES += \
-    out/target/product/evk_8mq/obj/UBOOT_COLLECTION/u-boot-imx8mq.imx:$(TARGET_COPY_OUT_VENDOR)/etc/bootloader0.img
+    $(OUT_DIR)/target/product/$(firstword $(PRODUCT_DEVICE))/obj/UBOOT_COLLECTION/u-boot-imx8mq.imx:$(TARGET_COPY_OUT_VENDOR)/etc/bootloader0.img
 endif

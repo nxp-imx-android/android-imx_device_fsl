@@ -1,8 +1,8 @@
 LOCAL_PATH := $(call my-dir)
 
-include device/nxp/common/build/dtbo.mk
-include device/nxp/common/build/imx-recovery.mk
-include device/nxp/common/build/gpt.mk
+include $(CONFIG_REPO_PATH)/common/build/dtbo.mk
+include $(CONFIG_REPO_PATH)/common/build/imx-recovery.mk
+include $(CONFIG_REPO_PATH)/common/build/gpt.mk
 include $(FSL_PROPRIETARY_PATH)/fsl-proprietary/media-profile/media-profile.mk
 ifneq ($(PRODUCT_IMX_CAR),true)
 include $(FSL_PROPRIETARY_PATH)/fsl-proprietary/sensor/fsl-sensor.mk

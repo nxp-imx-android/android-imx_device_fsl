@@ -1,12 +1,14 @@
 # This is a FSL Android Reference Design platform based on i.MX8QP ARD board
 # It will inherit from FSL core product which in turn inherit from Google generic
 
-IMX_DEVICE_PATH := device/nxp/imx8q/mek_8q
+CONFIG_REPO_PATH := device/nxp
+CURRENT_FILE_PATH :=  $(lastword $(MAKEFILE_LIST))
+IMX_DEVICE_PATH := $(strip $(patsubst %/, %, $(dir $(CURRENT_FILE_PATH))))
 
 # configs shared between uboot, kernel and Android rootfs
 include $(IMX_DEVICE_PATH)/SharedBoardConfig.mk
 
--include device/nxp/common/imx_path/ImxPathConfig.mk
+-include $(CONFIG_REPO_PATH)/common/imx_path/ImxPathConfig.mk
 
 ifneq ($(IMX8_BUILD_32BIT_ROOTFS),true)
 ifeq ($(PRODUCT_IMX_CAR),true)
@@ -15,9 +17,9 @@ else
 $(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
 endif # PRODUCT_IMX_CAR
 endif # IMX8_BUILD_32BIT_ROOTFS
-$(call inherit-product, device/nxp/imx8q/ProductConfigCommon.mk)
+$(call inherit-product, $(CONFIG_REPO_PATH)/imx8q/ProductConfigCommon.mk)
 
-include device/nxp/imx8q/ProductConfigCommon.mk
+include $(CONFIG_REPO_PATH)/imx8q/ProductConfigCommon.mk
 
 ifneq ($(wildcard $(IMX_DEVICE_PATH)/fstab_nand.nxp),)
 $(shell touch $(IMX_DEVICE_PATH)/fstab_nand.nxp)
@@ -72,46 +74,46 @@ PRODUCT_COPY_FILES += \
     $(IMX_DEVICE_PATH)/init.imx8qxp.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.nxp.imx8qxp.rc \
     $(IMX_DEVICE_PATH)/init.usb.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.nxp.usb.rc \
     $(IMX_DEVICE_PATH)/ueventd.nxp.rc:$(TARGET_COPY_OUT_VENDOR)/ueventd.rc \
-    device/nxp/common/init/init.insmod.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.insmod.sh \
-    device/nxp/common/wifi/p2p_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/p2p_supplicant_overlay.conf \
-    device/nxp/common/wifi/wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf
+    $(CONFIG_REPO_PATH)/common/init/init.insmod.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.insmod.sh \
+    $(CONFIG_REPO_PATH)/common/wifi/p2p_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/p2p_supplicant_overlay.conf \
+    $(CONFIG_REPO_PATH)/common/wifi/wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf
 
 # To support multiple pcm device on cs42888, need delete below two lines:
-#    device/nxp/common/audio-json/wm8960_config.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/audio/wm8960_config.json \
-#    device/nxp/common/audio-json/cs42888_config.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/audio/cs42888_config.json \
+#    $(CONFIG_REPO_PATH)/common/audio-json/wm8960_config.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/audio/wm8960_config.json \
+#    $(CONFIG_REPO_PATH)/common/audio-json/cs42888_config.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/audio/cs42888_config.json \
 # Then add below line:
-#    device/nxp/common/audio-json/cs42888_multi_device_config.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/audio/cs42888_config.json \
+#    $(CONFIG_REPO_PATH)/common/audio-json/cs42888_multi_device_config.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/audio/cs42888_config.json \
 
 # Audio card json
 PRODUCT_COPY_FILES += \
-    device/nxp/common/audio-json/wm8960_config.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/audio/wm8960_config.json \
-    device/nxp/common/audio-json/cdnhdmi_config.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/audio/cdnhdmi_config.json \
-    device/nxp/common/audio-json/btsco_config.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/audio/btsco_config.json \
-    device/nxp/common/audio-json/readme.txt:$(TARGET_COPY_OUT_VENDOR)/etc/configs/audio/readme.txt
+    $(CONFIG_REPO_PATH)/common/audio-json/wm8960_config.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/audio/wm8960_config.json \
+    $(CONFIG_REPO_PATH)/common/audio-json/cdnhdmi_config.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/audio/cdnhdmi_config.json \
+    $(CONFIG_REPO_PATH)/common/audio-json/btsco_config.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/audio/btsco_config.json \
+    $(CONFIG_REPO_PATH)/common/audio-json/readme.txt:$(TARGET_COPY_OUT_VENDOR)/etc/configs/audio/readme.txt
 
 # Copy rpmb test key and AVB test public key
 ifeq ($(PRODUCT_IMX_TRUSTY),true)
 PRODUCT_COPY_FILES += \
-    device/nxp/common/security/rpmb_key_test.bin:rpmb_key_test.bin \
-    device/nxp/common/security/testkey_public_rsa4096.bin:testkey_public_rsa4096.bin
+    $(CONFIG_REPO_PATH)/common/security/rpmb_key_test.bin:rpmb_key_test.bin \
+    $(CONFIG_REPO_PATH)/common/security/testkey_public_rsa4096.bin:testkey_public_rsa4096.bin
 endif
 
 PRODUCT_COPY_FILES += \
-    device/nxp/imx8q/mek_8q/camera_config_imx8qm.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/camera_config_imx8qm.json \
-    device/nxp/imx8q/mek_8q/camera_config_imx8qxp.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/camera_config_imx8qxp.json \
-    device/nxp/imx8q/mek_8q/external_camera_config.xml:$(TARGET_COPY_OUT_VENDOR)/etc/external_camera_config.xml
+    $(IMX_DEVICE_PATH)/camera_config_imx8qm.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/camera_config_imx8qm.json \
+    $(IMX_DEVICE_PATH)/camera_config_imx8qxp.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/camera_config_imx8qxp.json \
+    $(IMX_DEVICE_PATH)/external_camera_config.xml:$(TARGET_COPY_OUT_VENDOR)/etc/external_camera_config.xml
 
 ifeq ($(PRODUCT_IMX_CAR),true)
 PRODUCT_COPY_FILES += \
     $(IMX_DEVICE_PATH)/audio_effects_car.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_effects.xml \
-    device/nxp/common/audio-json/cs42888_car_config.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/audio/cs42888_config.json \
+    $(CONFIG_REPO_PATH)/common/audio-json/cs42888_car_config.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/audio/cs42888_config.json \
     $(IMX_DEVICE_PATH)/audio_policy_configuration_car.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_configuration.xml \
     $(IMX_DEVICE_PATH)/car_audio_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/car_audio_configuration.xml \
     $(IMX_DEVICE_PATH)/car_display_settings.xml:$(TARGET_COPY_OUT_VENDOR)/etc/display_settings.xml
 else
 PRODUCT_COPY_FILES += \
     $(IMX_DEVICE_PATH)/audio_effects.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_effects.xml \
-    device/nxp/common/audio-json/cs42888_config.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/audio/cs42888_config.json \
+    $(CONFIG_REPO_PATH)/common/audio-json/cs42888_config.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/audio/cs42888_config.json \
     $(IMX_DEVICE_PATH)/audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_configuration.xml
 endif
 
@@ -199,8 +201,8 @@ endif
 PRODUCT_COPY_FILES += \
     $(IMX_DEVICE_PATH)/seccomp/mediaextractor-seccomp.policy:vendor/etc/seccomp_policy/mediaextractor.policy \
     $(IMX_DEVICE_PATH)/seccomp/mediacodec-seccomp.policy:vendor/etc/seccomp_policy/mediacodec.policy \
-    device/nxp/common/seccomp_policy/codec2.vendor.base.policy:vendor/etc/seccomp_policy/codec2.vendor.base.policy \
-    device/nxp/common/seccomp_policy/codec2.vendor.ext.policy:vendor/etc/seccomp_policy/codec2.vendor.ext.policy
+    $(CONFIG_REPO_PATH)/common/seccomp_policy/codec2.vendor.base.policy:vendor/etc/seccomp_policy/codec2.vendor.base.policy \
+    $(CONFIG_REPO_PATH)/common/seccomp_policy/codec2.vendor.ext.policy:vendor/etc/seccomp_policy/codec2.vendor.ext.policy
 
 
 # VPU files
@@ -210,23 +212,23 @@ PRODUCT_COPY_FILES += \
 
 # fastboot_imx_flashall scripts, fsl-sdcard-partition and uuu_imx_android_flash scripts
 PRODUCT_COPY_FILES += \
-    device/nxp/common/tools/fastboot_imx_flashall.bat:fastboot_imx_flashall.bat \
-    device/nxp/common/tools/fastboot_imx_flashall.sh:fastboot_imx_flashall.sh \
-    device/nxp/common/tools/uuu_imx_android_flash.bat:uuu_imx_android_flash.bat \
-    device/nxp/common/tools/uuu_imx_android_flash.sh:uuu_imx_android_flash.sh
+    $(CONFIG_REPO_PATH)/common/tools/fastboot_imx_flashall.bat:fastboot_imx_flashall.bat \
+    $(CONFIG_REPO_PATH)/common/tools/fastboot_imx_flashall.sh:fastboot_imx_flashall.sh \
+    $(CONFIG_REPO_PATH)/common/tools/uuu_imx_android_flash.bat:uuu_imx_android_flash.bat \
+    $(CONFIG_REPO_PATH)/common/tools/uuu_imx_android_flash.sh:uuu_imx_android_flash.sh
 
 PRODUCT_COPY_FILES += \
-     device/nxp/imx8q/mek_8q/powerhint_imx8qxp.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/powerhint_imx8qxp.json \
-     device/nxp/imx8q/mek_8q/powerhint_imx8qm.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/powerhint_imx8qm.json
+     $(IMX_DEVICE_PATH)/powerhint_imx8qxp.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/powerhint_imx8qxp.json \
+     $(IMX_DEVICE_PATH)/powerhint_imx8qm.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/powerhint_imx8qm.json
 
 ifneq ($(PRODUCT_IMX_CAR),true)
 # Set permission for GMS packages
 PRODUCT_COPY_FILES += \
-	  device/nxp/imx8q/permissions/privapp-permissions-imx.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/privapp.permissions-imx.xml \
+	  $(CONFIG_REPO_PATH)/imx8q/permissions/privapp-permissions-imx.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/privapp.permissions-imx.xml \
 
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.screen.portrait.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.screen.portrait.xml \
-    device/nxp/common/tools/imx-sdcard-partition.sh:imx-sdcard-partition.sh
+    $(CONFIG_REPO_PATH)/common/tools/imx-sdcard-partition.sh:imx-sdcard-partition.sh
 endif
 
 
@@ -326,17 +328,17 @@ PRODUCT_PACKAGES += \
 
 ifneq ($(PRODUCT_IMX_CAR),true)
 PRODUCT_COPY_FILES += \
-    device/nxp/imx8q/mek_8q/thermal_info_config_imx8qxp.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/thermal_info_config_imx8qxp.json \
-    device/nxp/imx8q/mek_8q/thermal_info_config_imx8qm.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/thermal_info_config_imx8qm.json
+    $(IMX_DEVICE_PATH)/thermal_info_config_imx8qxp.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/thermal_info_config_imx8qxp.json \
+    $(IMX_DEVICE_PATH)/thermal_info_config_imx8qm.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/thermal_info_config_imx8qm.json
 else
 ifneq ($(PRODUCT_IMX_CAR_M4),true)
 PRODUCT_COPY_FILES += \
-    device/nxp/imx8q/mek_8q/thermal_info_config_imx8qxp_car2.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/thermal_info_config_imx8qxp.json \
-    device/nxp/imx8q/mek_8q/thermal_info_config_imx8qm_car2.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/thermal_info_config_imx8qm.json
+    $(IMX_DEVICE_PATH)/thermal_info_config_imx8qxp_car2.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/thermal_info_config_imx8qxp.json \
+    $(IMX_DEVICE_PATH)/thermal_info_config_imx8qm_car2.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/thermal_info_config_imx8qm.json
 else
 PRODUCT_COPY_FILES += \
-    device/nxp/imx8q/mek_8q/thermal_info_config_imx8qxp.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/thermal_info_config_imx8qxp.json \
-    device/nxp/imx8q/mek_8q/thermal_info_config_imx8qm.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/thermal_info_config_imx8qm.json
+    $(IMX_DEVICE_PATH)/thermal_info_config_imx8qxp.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/thermal_info_config_imx8qxp.json \
+    $(IMX_DEVICE_PATH)/thermal_info_config_imx8qm.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/thermal_info_config_imx8qm.json
 endif
 endif
 
@@ -531,26 +533,26 @@ ifneq ($(filter TRUE true 1,$(IMX_OTA_POSTINSTALL)),)
   ifeq ($(OTA_TARGET),8qxp)
     ifneq ($(TARGET_PRODUCT),mek_8q_car)
       PRODUCT_COPY_FILES += \
-        out/target/product/mek_8q/obj/UBOOT_COLLECTION/u-boot-imx8qxp.imx:$(TARGET_COPY_OUT_VENDOR)/etc/bootloader0.img
+        $(OUT_DIR)/target/product/$(firstword $(PRODUCT_DEVICE))/obj/UBOOT_COLLECTION/u-boot-imx8qxp.imx:$(TARGET_COPY_OUT_VENDOR)/etc/bootloader0.img
     else
       PRODUCT_COPY_FILES += \
-        out/target/product/mek_8q/obj/UBOOT_COLLECTION/spl-imx8qxp.bin:$(TARGET_COPY_OUT_VENDOR)/etc/bootloader0.img
+        $(OUT_DIR)/target/product/$(firstword $(PRODUCT_DEVICE))/obj/UBOOT_COLLECTION/spl-imx8qxp.bin:$(TARGET_COPY_OUT_VENDOR)/etc/bootloader0.img
     endif
   else ifeq ($(OTA_TARGET),8qxp-c0)
     ifneq ($(TARGET_PRODUCT),mek_8q_car)
       PRODUCT_COPY_FILES += \
-        out/target/product/mek_8q/obj/UBOOT_COLLECTION/u-boot-imx8qxp-c0.imx:$(TARGET_COPY_OUT_VENDOR)/etc/bootloader0.img
+        $(OUT_DIR)/target/product/$(firstword $(PRODUCT_DEVICE))/obj/UBOOT_COLLECTION/u-boot-imx8qxp-c0.imx:$(TARGET_COPY_OUT_VENDOR)/etc/bootloader0.img
     else
       PRODUCT_COPY_FILES += \
-        out/target/product/mek_8q/obj/UBOOT_COLLECTION/spl-imx8qxp-c0.bin:$(TARGET_COPY_OUT_VENDOR)/etc/bootloader0.img
+        $(OUT_DIR)/target/product/$(firstword $(PRODUCT_DEVICE))/obj/UBOOT_COLLECTION/spl-imx8qxp-c0.bin:$(TARGET_COPY_OUT_VENDOR)/etc/bootloader0.img
     endif
   else
     ifneq ($(TARGET_PRODUCT),mek_8q_car)
       PRODUCT_COPY_FILES += \
-        out/target/product/mek_8q/obj/UBOOT_COLLECTION/u-boot-imx8qm.imx:$(TARGET_COPY_OUT_VENDOR)/etc/bootloader0.img
+        $(OUT_DIR)/target/product/$(firstword $(PRODUCT_DEVICE))/obj/UBOOT_COLLECTION/u-boot-imx8qm.imx:$(TARGET_COPY_OUT_VENDOR)/etc/bootloader0.img
     else
       PRODUCT_COPY_FILES += \
-        out/target/product/mek_8q/obj/UBOOT_COLLECTION/spl-imx8qm.bin:$(TARGET_COPY_OUT_VENDOR)/etc/bootloader0.img
+        $(OUT_DIR)/target/product/$(firstword $(PRODUCT_DEVICE))/obj/UBOOT_COLLECTION/spl-imx8qm.bin:$(TARGET_COPY_OUT_VENDOR)/etc/bootloader0.img
     endif
   endif
 endif

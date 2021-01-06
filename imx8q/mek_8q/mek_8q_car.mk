@@ -1,7 +1,9 @@
 # This is a FSL Android Reference Design platform based on i.MX6Q board
 # It will inherit from FSL core product which in turn inherit from Google generic
 
-IMX_DEVICE_PATH := device/nxp/imx8q/mek_8q
+CONFIG_REPO_PATH := device/nxp
+CURRENT_FILE_PATH :=  $(lastword $(MAKEFILE_LIST))
+IMX_DEVICE_PATH := $(strip $(patsubst %/, %, $(dir $(CURRENT_FILE_PATH))))
 
 # Don't enable vendor boot for Android Auto with M4 EVS for now
 TARGET_USE_VENDOR_BOOT ?= false
