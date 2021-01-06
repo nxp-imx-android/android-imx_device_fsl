@@ -59,7 +59,6 @@ PRODUCT_PACKAGES += \
     copybit.imx \
     gralloc.imx \
     hwcomposer.imx \
-    lights.imx \
     overlay.imx \
     power.imx
 
