@@ -88,9 +88,6 @@ on early-boot && property:vendor.skip.charger_not_need=0
     setprop ro.lmk.downgrade_pressure 95
     setprop ro.lmk.critical_upgrade true
 
-    # Set permission for IIM node
-    symlink /dev/mxs_viim /dev/mxc_mem
-
     setprop vendor.hwc.stretch.filter  1
 
     # fsl omx graphic manager media framework property

@@ -11,10 +11,6 @@ include $(IMX_DEVICE_PATH)/SharedBoardConfig.mk
 -include $(CONFIG_REPO_PATH)/common/imx_path/ImxPathConfig.mk
 include $(CONFIG_REPO_PATH)/imx8m/ProductConfigCommon.mk
 
-ifneq ($(wildcard $(IMX_DEVICE_PATH)/fstab.nxp),)
-$(shell touch $(IMX_DEVICE_PATH)/fstab.nxp)
-endif
-
 # Overrides
 PRODUCT_NAME := evk_8mp
 PRODUCT_DEVICE := evk_8mp
@@ -292,11 +288,6 @@ PRODUCT_PACKAGES += \
 # new gatekeeper HAL
 PRODUCT_PACKAGES += \
     android.hardware.gatekeeper@1.0-service.software-imx
-
-ifneq ($(BUILD_TARGET_FS),ubifs)
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.frp.pst=/dev/block/by-name/presistdata
-endif
 
 PRODUCT_PACKAGES += \
     libg1 \

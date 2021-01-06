@@ -290,9 +290,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.incremental.enable=1
 
-# we have enough storage space to hold precise GC data
-PRODUCT_TAGS += dalvik.gc.type-precise
-
 PRODUCT_DEFAULT_DEV_CERTIFICATE := \
 	$(CONFIG_REPO_PATH)/common/security/testkey
 

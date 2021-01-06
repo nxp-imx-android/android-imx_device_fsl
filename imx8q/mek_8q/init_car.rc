@@ -39,9 +39,6 @@ on init && property:ro.product.system.device=generic_arm64
 on early-boot
     wait_for_prop vendor.all.early_init.ready 1
 
-    # Set permission for IIM node
-    symlink /dev/mxs_viim /dev/mxc_mem
-
     setprop vendor.sys.hwc.disable     0
     setprop vendor.2d.composition 0
     setprop vendor.hwc.stretch.filter  1
