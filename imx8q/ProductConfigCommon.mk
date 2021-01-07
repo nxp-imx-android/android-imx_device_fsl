@@ -30,8 +30,7 @@ PRODUCT_PACKAGES += \
     charger_res_images \
     charger \
     libedid \
-    libion \
-    verity_warning_images
+    libion
 
 
 ifneq ($(PRODUCT_IMX_CAR),true)
@@ -40,11 +39,6 @@ PRODUCT_PACKAGES += \
 else
 PRODUCT_PACKAGES += \
     MultiDisplaySecondaryHomeTestLauncher
-endif
-
-ifneq ($(PRODUCT_IMX_CAR),true)
-PRODUCT_PACKAGES += \
-    slideshow
 endif
 
 ifneq ($(PRODUCT_IMX_CAR),true)

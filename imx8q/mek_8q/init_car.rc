@@ -159,9 +159,6 @@ on fs
     # Update dm-verity state and set partition.*.verified properties
     verity_update_state
 
-on verity-logging
-    exec u:r:slideshow:s0 -- /sbin/slideshow warning/verity_red_1 warning/verity_red_2
-
 on late-fs
     # Start keymaster/gatekeeper service
     start vendor.gatekeeper-1-0-${ro.boot.keystore}

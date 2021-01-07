@@ -192,9 +192,6 @@ on fs && property:vendor.skip.charger_not_need=0
     # Update dm-verity state and set partition.*.verified properties
     verity_update_state
 
-on verity-logging && property:vendor.skip.charger_not_need=0
-    exec u:r:slideshow:s0 -- /sbin/slideshow warning/verity_red_1 warning/verity_red_2
-
 on post-fs && property:vendor.skip.charger_not_need=0
     # Set netd memlock rlimit to 8MB
     setrlimit 8 8388608 8388608

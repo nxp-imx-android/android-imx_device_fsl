@@ -31,9 +31,7 @@ PRODUCT_PACKAGES += \
     charger \
     ethernet \
     libedid \
-    libion \
-    slideshow \
-    verity_warning_images
+    libion
 
 ifneq ($(PRODUCT_IMX_CAR),true)
 PRODUCT_PACKAGES += \
