@@ -136,6 +136,20 @@ endif
 
 ifneq ($(IMX8MP_USES_GKI),)
 BOARD_VENDOR_RAMDISK_KERNEL_MODULES +=     \
+    $(KERNEL_OUT)/drivers/clocksource/timer-imx-sysctr.ko \
+    $(KERNEL_OUT)/drivers/soc/imx/busfreq-imx8mq.ko \
+    $(KERNEL_OUT)/drivers/irqchip/irq-imx-irqsteer.ko \
+    $(KERNEL_OUT)/drivers/pinctrl/freescale/pinctrl-imx.ko \
+    $(KERNEL_OUT)/drivers/pinctrl/freescale/pinctrl-imx8mp.ko \
+    $(KERNEL_OUT)/drivers/gpio/gpio-mxc.ko \
+    $(KERNEL_OUT)/drivers/tty/serial/imx.ko \
+    $(KERNEL_OUT)/drivers/watchdog/imx2_wdt.ko \
+    $(KERNEL_OUT)/drivers/i2c/busses/i2c-imx.ko \
+    $(KERNEL_OUT)/drivers/regulator/pca9450-regulator.ko \
+    $(KERNEL_OUT)/drivers/pwm/pwm-imx27.ko \
+    $(KERNEL_OUT)/drivers/video/backlight/pwm_bl.ko \
+    $(KERNEL_OUT)/drivers/mmc/host/cqhci.ko \
+    $(KERNEL_OUT)/drivers/mmc/host/sdhci-esdhc-imx.ko \
     $(KERNEL_OUT)/drivers/staging/android/ion/heaps/ion_cma_heap.ko \
     $(KERNEL_OUT)/drivers/reset/reset-imx7.ko \
     $(KERNEL_OUT)/drivers/phy/freescale/phy-fsl-imx8mp-lvds.ko \
