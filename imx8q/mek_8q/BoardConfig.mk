@@ -73,7 +73,6 @@ DEVICE_MATRIX_FILE := $(IMX_DEVICE_PATH)/compatibility_matrix.xml
 
 TARGET_BOOTLOADER_BOARD_NAME := MEK
 
-USE_OPENGL_RENDERER := true
 TARGET_CPU_SMP := true
 
 BOARD_WLAN_DEVICE            := nxp
