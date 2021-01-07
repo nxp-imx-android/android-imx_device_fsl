@@ -46,11 +46,6 @@ on init && property:vendor.skip.charger_not_need=0
     symlink /sdcard /mnt/sdcard
     symlink /sdcard /storage/sdcard0
 
-    # setup the global environment
-    export CORE_REGISTER_FILE /vendor/etc/core_register
-    export COMPONENT_REGISTER_FILE /vendor/etc/component_register
-    export CONTENTPIPE_REGISTER_FILE /vendor/etc/contentpipe_register
-
     # disable cursor blink for fbcon, if no splash screen support
     write /sys/class/graphics/fbcon/cursor_blink 0
 
@@ -165,46 +160,6 @@ service sensor_fusion /vendor/bin/fsl_sensor_fusion
 service watchdogd /system/bin/watchdogd 10 20
     class core
     seclabel u:r:watchdogd:s0
-
-service dhcpcd_wlan0 /system/bin/dhcpcd -aABDKL
-    class main
-    disabled
-    oneshot
-
-service dhcpcd_p2p /system/bin/dhcpcd -aABKL
-    class main
-    disabled
-    oneshot
-
-service dhcpcd_eth0 /system/bin/dhcpcd -ABKL eth0
-    class main
-    disabled
-    oneshot
-
-service dhcpcd_bt-pan /system/bin/dhcpcd -ABKL
-    class main
-    disabled
-    oneshot
-
-service iprenew_wlan0 /system/bin/dhcpcd -n
-    class main
-    disabled
-    oneshot
-
-service iprenew_p2p /system/bin/dhcpcd -n
-    class main
-    disabled
-    oneshot
-
-service iprenew_eth0 /system/bin/dhcpcd -n eth0
-    class main
-    disabled
-    oneshot
-
-service iprenew_bt-pan /system/bin/dhcpcd -n
-    class main
-    disabled
-    oneshot
 
 # bugreport is triggered by holding down volume down, volume up and power
 service bugreport /system/bin/dumpstate -d -p -B -z \

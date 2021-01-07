@@ -46,9 +46,7 @@ endif
 
 ifneq ($(PRODUCT_IMX_CAR),true)
 PRODUCT_PACKAGES += \
-    Camera \
     CubeLiveWallpapers \
-    Email \
     ethernet \
     Gallery2 \
     LiveWallpapersPicker \
@@ -57,12 +55,9 @@ endif
 
 # HAL
 PRODUCT_PACKAGES += \
-    copybit.imx \
     gralloc.imx \
     hwcomposer.imx \
-    lights.imx \
-    overlay.imx \
-    power.imx
+    lights.imx
 
 # A/B OTA
 PRODUCT_PACKAGES += \
