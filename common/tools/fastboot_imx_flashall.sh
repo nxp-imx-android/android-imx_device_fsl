@@ -330,7 +330,7 @@ imx8mn_dtb_feature=(mipi-panel rpmsg ddr4 ddr4-mipi-panel ddr4-rpmsg)
 imx8mq_dtb_feature=(dual mipi-panel mipi)
 imx8mp_dtb_feature=(rpmsg hdmi lvds-panel lvds mipi-panel basler)
 imx8qxp_dtb_feature=()
-imx8qm_dtb_feature=(hdmi mipi-panel md xen esai)
+imx8qm_dtb_feature=(hdmi hdmi-rx mipi-panel md xen esai)
 imx7ulp_dtb_feature=(evk-mipi evk mipi)
 
 # an array to collect the supported soc_names

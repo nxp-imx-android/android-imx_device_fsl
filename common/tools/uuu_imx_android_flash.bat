@@ -92,7 +92,7 @@ set imx8mn_dtb_feature=mipi-panel rpmsg ddr4 ddr4-mipi-panel ddr4-rpmsg
 set imx8mp_dtb_feature=rpmsg hdmi lvds-panel lvds mipi-panel basler
 set imx8mq_dtb_feature=dual mipi-panel mipi
 set imx8qxp_dtb_feature=
-set imx8qm_dtb_feature=hdmi mipi-panel md xen esai
+set imx8qm_dtb_feature=hdmi hdmi-rx mipi-panel md xen esai
 set imx7ulp_dtb_feature=evk-mipi evk mipi
 
 ::---------------------------------------------------------------------------------
