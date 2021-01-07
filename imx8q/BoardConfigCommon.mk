@@ -21,8 +21,6 @@ ENABLE_CFI=false
 # Product-specific compile-time definitions.
 #
 
-TARGET_BOARD_PLATFORM := imx
-
 SOONG_CONFIG_NAMESPACES += IMXPLUGIN
 SOONG_CONFIG_IMXPLUGIN += BOARD_PLATFORM \
 IMX_CAR \

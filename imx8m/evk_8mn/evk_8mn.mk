@@ -201,14 +201,14 @@ PRODUCT_PACKAGES += \
     libEGL_VIVANTE \
     libGLESv1_CM_VIVANTE \
     libGLESv2_VIVANTE \
-    gralloc_viv.imx \
+    gralloc_viv.$(TARGET_BOARD_PLATFORM) \
     libGAL \
     libGLSLC \
     libVSC \
     libgpuhelper \
     libSPIRV_viv \
     libvulkan_VIVANTE \
-    vulkan.imx \
+    vulkan.$(TARGET_BOARD_PLATFORM) \
     libCLC \
     libLLVM_viv \
     libOpenCL \

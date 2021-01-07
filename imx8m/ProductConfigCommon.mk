@@ -19,6 +19,9 @@ PRODUCT_PACKAGES += \
 PRODUCT_BRAND := Android
 PRODUCT_MANUFACTURER := nxp
 
+# related to the definition and load of library modules
+TARGET_BOARD_PLATFORM := imx
+
 # Android infrastructures
 PRODUCT_PACKAGES += \
     CactusPlayer \
