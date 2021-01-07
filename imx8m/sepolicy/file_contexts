@@ -94,6 +94,17 @@
 
 # partitions of boot device
 /dev/block/by-name/vendor_boot_[ab]          u:object_r:boot_block_device:s0
+/dev/block/by-name/dtbo_[ab]                 u:object_r:dtbo_block_device:s0
+/dev/block/by-name/boot_[ab]                 u:object_r:boot_block_device:s0
+/dev/block/by-name/system_[ab]               u:object_r:system_block_device:s0
+/dev/block/by-name/vendor_[ab]               u:object_r:system_block_device:s0
+/dev/block/by-name/product_[ab]              u:object_r:system_block_device:s0
+/dev/block/by-name/misc                      u:object_r:misc_block_device:s0
+/dev/block/by-name/metadata                  u:object_r:metadata_block_device:s0
+/dev/block/by-name/presistdata               u:object_r:frp_block_device:s0
+/dev/block/by-name/userdata                  u:object_r:userdata_block_device:s0
+/dev/block/by-name/vbmeta_[ab]               u:object_r:vbmeta_block_device:s0
+/dev/block/by-name/super                     u:object_r:super_block_device:s0
 
 /vendor/bin/hw/android\.hardware\.camera\.provider@2\.6-service-google       u:object_r:hal_camera_default_exec:s0
 
