@@ -159,7 +159,6 @@ PRODUCT_COPY_FILES += \
     device/nxp/common/tools/uuu_imx_android_flash.bat:uuu_imx_android_flash.bat \
     device/nxp/common/tools/uuu_imx_android_flash.sh:uuu_imx_android_flash.sh
 
-USE_XML_AUDIO_POLICY_CONF := 1
 
 DEVICE_PACKAGE_OVERLAYS := $(IMX_DEVICE_PATH)/overlay
 

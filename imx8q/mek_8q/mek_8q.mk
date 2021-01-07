@@ -219,7 +219,6 @@ PRODUCT_COPY_FILES += \
     device/nxp/common/seccomp_policy/codec2.vendor.base.policy:vendor/etc/seccomp_policy/codec2.vendor.base.policy \
     device/nxp/common/seccomp_policy/codec2.vendor.ext.policy:vendor/etc/seccomp_policy/codec2.vendor.ext.policy
 
-USE_XML_AUDIO_POLICY_CONF := 1
 
 # VPU files
 PRODUCT_COPY_FILES += \
