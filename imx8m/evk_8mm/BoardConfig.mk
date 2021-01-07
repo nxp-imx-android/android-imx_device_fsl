@@ -95,9 +95,6 @@ BOARD_USE_SENSOR_FUSION := true
 # we don't support sparse image.
 TARGET_USERIMAGES_SPARSE_EXT_DISABLED := false
 
-BOARD_HAVE_USB_CAMERA := true
-BOARD_HAVE_USB_MJPEG_CAMERA := false
-
 USE_ION_ALLOCATOR := true
 USE_GPU_ALLOCATOR := false
 

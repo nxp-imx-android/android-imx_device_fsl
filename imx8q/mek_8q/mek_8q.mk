@@ -521,10 +521,6 @@ BOARD_AVB_BOOT_ROLLBACK_INDEX := 0
 endif
 endif
 
-#set default lib name for g2d, which will be linked
-#in OpenMAX repo
-IMX-DEFAULT-G2D-LIB := libg2d-dpu
-
 ifeq ($(PREBUILT_FSL_IMX_CODEC),true)
 ifneq ($(IMX8_BUILD_32BIT_ROOTFS),true)
 INSTALL_64BIT_LIBRARY := true

@@ -67,11 +67,8 @@ endif
 BOARD_MKBOOTIMG_ARGS = --kernel_offset $(BOARD_KERNEL_OFFSET) --ramdisk_offset $(BOARD_RAMDISK_OFFSET) --header_version $(BOARD_BOOT_HEADER_VERSION)
 
 BOARD_HAVE_BLUETOOTH := true
-USE_CAMERA_STUB := false
 
 BOARD_HAVE_IMX_CAMERA := true
-BOARD_HAVE_USB_CAMERA := false
-BOARD_HAVE_USB_MJPEG_CAMERA := false
 
 # Enable dex-preoptimization to speed up first boot sequence
 ifeq ($(HOST_OS),linux)
