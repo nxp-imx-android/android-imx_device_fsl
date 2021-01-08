@@ -46,8 +46,7 @@ endif
 # HAL
 PRODUCT_PACKAGES += \
     gralloc.imx \
-    hwcomposer.imx \
-    lights.imx
+    hwcomposer.imx
 
 # A/B OTA
 PRODUCT_PACKAGES += \
