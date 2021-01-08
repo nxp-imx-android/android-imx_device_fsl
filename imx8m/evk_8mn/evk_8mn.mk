@@ -30,29 +30,12 @@ TARGET_USE_VENDOR_BOOT ?= true
 
 #Enable this to use dynamic partitions for the readonly partitions not touched by bootloader
 TARGET_USE_DYNAMIC_PARTITIONS ?= true
-#If the device is retrofit to have dynamic partition feature, set this variable to true to build
-#the images and OTA package. Here is a demo to update 10.0.0_1.0.0 to 10.0.0_2.0.0 or higher
-TARGET_USE_RETROFIT_DYNAMIC_PARTITION ?= false
 
 ifeq ($(TARGET_USE_DYNAMIC_PARTITIONS),true)
   $(call inherit-product, $(SRC_TARGET_DIR)/product/virtual_ab_ota.mk)
   PRODUCT_USE_DYNAMIC_PARTITIONS := true
   BOARD_BUILD_SUPER_IMAGE_BY_DEFAULT := true
   BOARD_SUPER_IMAGE_IN_UPDATE_PACKAGE := true
-  ifeq ($(TARGET_USE_RETROFIT_DYNAMIC_PARTITION),true)
-    PRODUCT_RETROFIT_DYNAMIC_PARTITIONS := true
-    BOARD_SUPER_PARTITION_METADATA_DEVICE := system
-    ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
-      BOARD_SUPER_PARTITION_BLOCK_DEVICES := system vendor
-      BOARD_SUPER_PARTITION_SYSTEM_DEVICE_SIZE := 2952790016
-      BOARD_SUPER_PARTITION_VENDOR_DEVICE_SIZE := 536870912
-    else
-      BOARD_SUPER_PARTITION_BLOCK_DEVICES := system vendor product
-      BOARD_SUPER_PARTITION_SYSTEM_DEVICE_SIZE := 1610612736
-      BOARD_SUPER_PARTITION_VENDOR_DEVICE_SIZE := 536870912
-      BOARD_SUPER_PARTITION_PRODUCT_DEVICE_SIZE := 1879048192
-    endif
-  endif
 endif
 
 # Include keystore attestation keys and certificates.
