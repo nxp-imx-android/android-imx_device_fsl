@@ -193,5 +193,10 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES +=     \
     $(KERNEL_OUT)/drivers/staging/media/imx/imx8-isi-cap.ko \
     $(KERNEL_OUT)/drivers/staging/media/imx/imx8-isi-hw.ko \
     $(KERNEL_OUT)/drivers/staging/media/imx/imx8-isi-m2m.ko \
-    $(KERNEL_OUT)/drivers/staging/media/imx/imx8-mipi-csi2-sam.ko
+    $(KERNEL_OUT)/drivers/staging/media/imx/imx8-mipi-csi2-sam.ko \
+    $(KERNEL_OUT)/drivers/trusty/trusty-core.ko \
+    $(KERNEL_OUT)/drivers/trusty/trusty-irq.ko \
+    $(KERNEL_OUT)/drivers/trusty/trusty-log.ko \
+    $(KERNEL_OUT)/drivers/trusty/trusty-virtio.ko \
+    $(KERNEL_OUT)/drivers/trusty/trusty-ipc.ko
 endif
