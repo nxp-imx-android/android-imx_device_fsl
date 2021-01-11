@@ -38,7 +38,7 @@ options:
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                            │   imx8mn       │  dual trusty-dual evk-uuu trusty-secure-unlock trusty ddr4-evk-uuu ddr4                              │
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
-                           │   imx8mp       │  dual trusty-dual evk-uuu trusty-secure-unlock trusty                                                │
+                           │   imx8mp       │  dual trusty-dual evk-uuu trusty-secure-unlock trusty powersave                                      │
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                            │   imx8mq       │  dual trusty-dual evk-uuu trusty-secure-unlock trusty                                                │
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
@@ -61,7 +61,7 @@ options:
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                            │   imx8mq       │  dual mipi-panel mipi                                                                                │
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
-                           │   imx8mp       │  rpmsg hdmi lvds-panel lvds mipi-panel basler                                                        │
+                           │   imx8mp       │  rpmsg hdmi lvds-panel lvds mipi-panel basler powersave                                              │
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                            │   imx8qxp      │                                                                                                      │
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
@@ -320,7 +320,7 @@ result_value=0
 imx8mm_uboot_feature=(dual trusty-dual 4g-evk-uuu 4g ddr4-evk-uuu ddr4 evk-uuu trusty-4g trusty-secure-unlock trusty)
 imx8mn_uboot_feature=(dual trusty-dual evk-uuu trusty-secure-unlock trusty ddr4-evk-uuu ddr4)
 imx8mq_uboot_feature=(dual trusty-dual evk-uuu trusty-secure-unlock trusty)
-imx8mp_uboot_feature=(dual trusty-dual evk-uuu trusty-secure-unlock trusty)
+imx8mp_uboot_feature=(dual trusty-dual evk-uuu trusty-secure-unlock trusty powersave)
 imx8qxp_uboot_feature=(mek-uuu trusty-secure-unlock trusty secure-unlock c0 trusty-c0 mek-c0-uuu)
 imx8qm_uboot_feature=(mek-uuu trusty-secure-unlock trusty secure-unlock md hdmi xen)
 imx7ulp_uboot_feature=(evk-uuu)
@@ -328,7 +328,7 @@ imx7ulp_uboot_feature=(evk-uuu)
 imx8mm_dtb_feature=(ddr4 m4 mipi-panel)
 imx8mn_dtb_feature=(mipi-panel rpmsg ddr4 ddr4-mipi-panel ddr4-rpmsg)
 imx8mq_dtb_feature=(dual mipi-panel mipi)
-imx8mp_dtb_feature=(rpmsg hdmi lvds-panel lvds mipi-panel basler)
+imx8mp_dtb_feature=(rpmsg hdmi lvds-panel lvds mipi-panel basler powersave)
 imx8qxp_dtb_feature=()
 imx8qm_dtb_feature=(hdmi mipi-panel md xen esai)
 imx7ulp_dtb_feature=(evk-mipi evk mipi)
