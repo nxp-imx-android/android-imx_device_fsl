@@ -74,7 +74,8 @@
 # trusty ipc target
 /dev/trusty-ipc-dev0        u:object_r:tee_device:s0
 
-/vendor/bin/hw/android\.hardware\.power@1\.3-service\.imx  u:object_r:hal_power_default_exec:s0
+/vendor/bin/hw/android\.hardware\.power-service\.imx         u:object_r:hal_power_default_exec:s0
+/dev/socket/pps                                              u:object_r:pps_socket:s0
 # mmc rpmb
 /dev/mmcblk0rpmb      u:object_r:mmc_rpmb_char_device:s0
 
