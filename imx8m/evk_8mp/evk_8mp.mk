@@ -308,12 +308,6 @@ endif
 PRODUCT_PACKAGES += \
     android.hardware.keymaster@4.0-service-imx
 
-# DRM HAL
-TARGET_ENABLE_MEDIADRM_64 := true
-PRODUCT_PACKAGES += \
-    android.hardware.drm@1.0-impl \
-    android.hardware.drm@1.0-service
-
 # new gatekeeper HAL
 PRODUCT_PACKAGES += \
     android.hardware.gatekeeper@1.0-service.software-imx
@@ -390,8 +384,6 @@ endif
 
 #DRM Widevine 1.2 L3 support
 PRODUCT_PACKAGES += \
-    android.hardware.drm@1.0-impl \
-    android.hardware.drm@1.0-service \
     android.hardware.drm@1.3-service.widevine \
     android.hardware.drm@1.3-service.clearkey \
     libwvdrmcryptoplugin \
