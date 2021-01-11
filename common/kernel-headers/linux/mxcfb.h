@@ -18,7 +18,9 @@
  ****************************************************************************/
 #ifndef __ASM_ARCH_MXCFB_H__
 #define __ASM_ARCH_MXCFB_H__
+#include <linux/types.h>
 #include <linux/fb.h>
+#include <stdint.h>
 #define FB_SYNC_OE_LOW_ACT 0x80000000
 #define FB_SYNC_CLK_LAT_FALL 0x40000000
 #define FB_SYNC_DATA_INVERT 0x20000000
