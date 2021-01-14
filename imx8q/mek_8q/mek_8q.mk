@@ -338,8 +338,8 @@ PRODUCT_PACKAGES += \
 
 # Thermal HAL
 
-# PRODUCT_PACKAGES += \
-#    android.hardware.thermal@2.0-service.imx
+PRODUCT_PACKAGES += \
+    android.hardware.thermal@2.0-service.imx
 
 ifneq ($(PRODUCT_IMX_CAR),true)
 PRODUCT_COPY_FILES += \
