@@ -25,7 +25,7 @@ TARGET_BOOTLOADER_CONFIG += imx8mm-evk-uuu:imx8mm_evk_android_uuu_defconfig
 TARGET_BOOTLOADER_CONFIG += imx8mm-4g-evk-uuu:imx8mm_evk_4g_android_uuu_defconfig
 
 # imx8mm kernel defconfig
-ifneq ($(IMX8MM_USES_GKI),)
+ifeq ($(IMX8MM_USES_GKI),true)
 TARGET_KERNEL_DEFCONFIG := gki_defconfig
 TARGET_KERNEL_GKI_DEFCONF:= android_gki_defconfig
 else

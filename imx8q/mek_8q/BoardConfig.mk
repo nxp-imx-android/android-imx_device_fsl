@@ -1,7 +1,4 @@
-#
-# Product-specific compile-time definitions.
-#
-
+# -------@block_storage-------
 ifeq ($(PRODUCT_IMX_DUAL_BOOTLOADER),true)
   AB_OTA_PARTITIONS += bootloader
   BOARD_OTA_BOOTLOADERIMAGE := $(OUT_DIR)/target/product/$(PRODUCT_DEVICE)/obj/UBOOT_COLLECTION/bootloader-imx8qm.img
@@ -12,15 +9,10 @@ ifeq ($(PRODUCT_IMX_DUAL_BOOTLOADER),true)
   endif
 endif
 
-include $(CONFIG_REPO_PATH)/imx8q/BoardConfigCommon.mk
-
 TARGET_USERIMAGES_USE_EXT4 := true
 
-ifeq ($(PRODUCT_IMX_CAR),true)
-TARGET_RECOVERY_FSTAB = $(IMX_DEVICE_PATH)/fstab.nxp.car
-else
-TARGET_RECOVERY_FSTAB = $(IMX_DEVICE_PATH)/fstab.nxp
-endif # PRODUCT_IMX_CAR
+# use sparse image.
+TARGET_USERIMAGES_SPARSE_EXT_DISABLED := false
 
 # Support gpt
 ifeq ($(PRODUCT_IMX_DUAL_BOOTLOADER),true)
@@ -56,7 +48,38 @@ else
   endif
 endif
 
+BOARD_PREBUILT_DTBOIMAGE := $(OUT_DIR)/target/product/$(PRODUCT_DEVICE)/dtbo-imx8qm.img
+ifeq ($(OTA_TARGET),8qxp)
+BOARD_PREBUILT_DTBOIMAGE := $(OUT_DIR)/target/product/$(PRODUCT_DEVICE)/dtbo-imx8qxp.img
+endif
+ifeq ($(OTA_TARGET),8qxp-c0)
+BOARD_PREBUILT_DTBOIMAGE := $(OUT_DIR)/target/product/$(PRODUCT_DEVICE)/dtbo-imx8qxp.img
+endif
 
+BOARD_USES_METADATA_PARTITION := true
+BOARD_ROOT_EXTRA_FOLDERS += metadata
+
+# -------@block_infrastructure-------
+include $(CONFIG_REPO_PATH)/imx8q/BoardConfigCommon.mk
+
+# -------@block_memory-------
+USE_ION_ALLOCATOR := true
+USE_GPU_ALLOCATOR := false
+
+# -------@block_security-------
+BOARD_AVB_ENABLE := true
+
+BOARD_AVB_ALGORITHM := SHA256_RSA4096
+# The testkey_rsa4096.pem is copied from external/avb/test/data/testkey_rsa4096.pem
+BOARD_AVB_KEY_PATH := $(CONFIG_REPO_PATH)/common/security/testkey_rsa4096.pem
+
+ifneq ($(PRODUCT_IMX_CAR),true)
+BOARD_AVB_BOOT_KEY_PATH := external/avb/test/data/testkey_rsa2048.pem
+BOARD_AVB_BOOT_ALGORITHM := SHA256_RSA2048
+BOARD_AVB_BOOT_ROLLBACK_INDEX_LOCATION := 2
+endif
+
+# -------@block_treble-------
 # Vendor Interface Manifest
 ifeq ($(PRODUCT_IMX_CAR),true)
 DEVICE_MANIFEST_FILE := $(IMX_DEVICE_PATH)/manifest_car.xml
@@ -68,10 +91,7 @@ DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE := $(IMX_DEVICE_PATH)/device_framewor
 # Vendor compatibility matrix
 DEVICE_MATRIX_FILE := $(IMX_DEVICE_PATH)/compatibility_matrix.xml
 
-TARGET_BOOTLOADER_BOARD_NAME := MEK
-
-TARGET_CPU_SMP := true
-
+# -------@block_wifi-------
 BOARD_WLAN_DEVICE            := nxp
 WPA_SUPPLICANT_VERSION       := VER_0_8_X
 BOARD_WPA_SUPPLICANT_DRIVER  := NL80211
@@ -82,12 +102,13 @@ BOARD_WPA_SUPPLICANT_PRIVATE_LIB        := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
 
 WIFI_HIDL_FEATURE_DUAL_INTERFACE := true
 
+# -------@block_bluetooth-------
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(IMX_DEVICE_PATH)/bluetooth
 
 # NXP 8997 BLUETOOTH
 BOARD_HAVE_BLUETOOTH_NXP := true
 
-# sensor configs
+# -------@block_sensor-------
 BOARD_USE_SENSOR_FUSION := true
 BOARD_USE_SENSOR_PEDOMETER := false
 ifeq ($(PRODUCT_IMX_CAR),true)
@@ -96,11 +117,7 @@ else
     BOARD_USE_LEGACY_SENSOR :=true
 endif
 
-# we don't support sparse image.
-TARGET_USERIMAGES_SPARSE_EXT_DISABLED := false
-
-USE_ION_ALLOCATOR := true
-USE_GPU_ALLOCATOR := false
+# -------@block_kernel_bootimg-------
 
 # NXP default config
 BOARD_KERNEL_CMDLINE := init=/init androidboot.hardware=nxp firmware_class.path=/vendor/firmware loop.max_part=7
@@ -126,14 +143,6 @@ endif
 
 ifneq (,$(filter userdebug eng,$(TARGET_BUILD_VARIANT)))
 BOARD_KERNEL_CMDLINE += androidboot.vendor.sysrq=1
-endif
-
-BOARD_PREBUILT_DTBOIMAGE := $(OUT_DIR)/target/product/$(PRODUCT_DEVICE)/dtbo-imx8qm.img
-ifeq ($(OTA_TARGET),8qxp)
-BOARD_PREBUILT_DTBOIMAGE := $(OUT_DIR)/target/product/$(PRODUCT_DEVICE)/dtbo-imx8qxp.img
-endif
-ifeq ($(OTA_TARGET),8qxp-c0)
-BOARD_PREBUILT_DTBOIMAGE := $(OUT_DIR)/target/product/$(PRODUCT_DEVICE)/dtbo-imx8qxp.img
 endif
 
 # For Android Auto with M4 EVS, fstab entries in dtb are in the form of non-dynamic partition by default
@@ -218,7 +227,9 @@ else
   endif
 endif #PRODUCT_IMX_CAR
 
+ALL_DEFAULT_INSTALLED_MODULES += $(BOARD_VENDOR_KERNEL_MODULES)
 
+# -------@block_sepolicy-------
 BOARD_SEPOLICY_DIRS := \
        $(CONFIG_REPO_PATH)/imx8q/sepolicy \
        $(IMX_DEVICE_PATH)/sepolicy
@@ -233,30 +244,8 @@ BOARD_SEPOLICY_DIRS += \
      packages/services/Car/surround_view/sepolicy
 endif
 
-ifeq ($(PRODUCT_IMX_CAR),true)
-TARGET_BOARD_RECOVERY_FORMAT_SKIP := true
-TARGET_BOARD_RECOVERY_SBIN_SKIP := true
-endif
-
-BOARD_AVB_ENABLE := true
-
-BOARD_AVB_ALGORITHM := SHA256_RSA4096
-# The testkey_rsa4096.pem is copied from external/avb/test/data/testkey_rsa4096.pem
-BOARD_AVB_KEY_PATH := $(CONFIG_REPO_PATH)/common/security/testkey_rsa4096.pem
-
-ifneq ($(PRODUCT_IMX_CAR),true)
-BOARD_AVB_BOOT_KEY_PATH := external/avb/test/data/testkey_rsa2048.pem
-BOARD_AVB_BOOT_ALGORITHM := SHA256_RSA2048
-BOARD_AVB_BOOT_ROLLBACK_INDEX_LOCATION := 2
-endif
-
-TARGET_BOARD_KERNEL_HEADERS := $(CONFIG_REPO_PATH)/common/kernel-headers
-
+# -------@block_camera-------
 ifeq ($(PRODUCT_IMX_CAR),true)
 BOARD_HAVE_IMX_EVS := true
 endif
 
-ALL_DEFAULT_INSTALLED_MODULES += $(BOARD_VENDOR_KERNEL_MODULES)
-
-BOARD_USES_METADATA_PARTITION := true
-BOARD_ROOT_EXTRA_FOLDERS += metadata

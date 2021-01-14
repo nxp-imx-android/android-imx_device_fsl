@@ -1,15 +1,7 @@
+# -------@block_kernel_bootimg-------
 KERNEL_NAME := Image
 TARGET_KERNEL_ARCH := arm64
 IMX8MP_USES_GKI := true
-
-#Enable this to config 1GB ddr on evk_imx8mp
-#LOW_MEMORY := true
-
-#Enable this to include trusty support
-PRODUCT_IMX_TRUSTY := true
-
-#Enable this to disable product partition build.
-#IMX_NO_PRODUCT_PARTITION := true
 
 #NXP 8997 wifi driver module
 BOARD_VENDOR_KERNEL_MODULES += \
@@ -38,7 +30,7 @@ BOARD_VENDOR_KERNEL_MODULES += \
 # CONFIG_MXC_HANTRO_VC8000E: hx280enc_vc8000e.ko, vpu encoder driver
 # CONFIG_MXC_HANTRO_845: hantrodec_845s.ko, vpu decoder driver
 
-ifneq ($(IMX8MP_USES_GKI),)
+ifeq ($(IMX8MP_USES_GKI),true)
 BOARD_VENDOR_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/mxc/gpu-viv/galcore.ko \
     $(KERNEL_OUT)/drivers/dma/imx-sdma.ko \
@@ -134,7 +126,7 @@ endif
 # CONFIG_VIDEO_OV5640: ov5640.ko, ov5640 sensor driver
 # CONFIG_VIDEO_IMX_CAPTURE: imx8-media-dev.ko, imx8-isi-cap.ko, imx8-isi-hw.ko, imx8-isi-m2m.ko, imx8-mipi-csi2-sam.ko, imx isi and mipi driver
 
-ifneq ($(IMX8MP_USES_GKI),)
+ifeq ($(IMX8MP_USES_GKI),true)
 BOARD_VENDOR_RAMDISK_KERNEL_MODULES +=     \
     $(KERNEL_OUT)/drivers/clocksource/timer-imx-sysctr.ko \
     $(KERNEL_OUT)/drivers/soc/imx/busfreq-imx8mq.ko \
@@ -203,3 +195,11 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES +=     \
     $(TARGET_OUT_INTERMEDIATES)/VVCAM_OBJ/vvcam-dwe.ko \
     $(TARGET_OUT_INTERMEDIATES)/VVCAM_OBJ/basler-camera-driver-vvcam.ko
 endif
+
+# -------@block_memory-------
+#Enable this to config 1GB ddr on evk_imx8mp
+LOW_MEMORY := false
+
+# -------@block_security-------
+#Enable this to include trusty support
+PRODUCT_IMX_TRUSTY := true

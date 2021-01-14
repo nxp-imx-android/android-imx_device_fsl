@@ -1,3 +1,4 @@
+# -------@block_common_config-------
 SOONG_CONFIG_NAMESPACES += IMXPLUGIN
 SOONG_CONFIG_IMXPLUGIN += BOARD_PLATFORM \
 NUM_FRAMEBUFFER_SURFACE_BUFFERS \
@@ -9,16 +10,13 @@ TARGET_GRALLOC_VERSION \
 PREBUILT_FSL_IMX_GPU \
 BOARD_SOC_TYPE \
 PRODUCT_MANUFACTURER \
-BOARD_VPU_ONLY
+BOARD_VPU_ONLY \
+BOARD_HAVE_VPU
 
 SOONG_CONFIG_IMXPLUGIN_BOARD_PLATFORM = imx8
-SOONG_CONFIG_IMXPLUGIN_NUM_FRAMEBUFFER_SURFACE_BUFFERS = 3
 SOONG_CONFIG_IMXPLUGIN_BOARD_USE_SENSOR_FUSION = true
 SOONG_CONFIG_IMXPLUGIN_BOARD_SOC_CLASS = IMX8
 SOONG_CONFIG_IMXPLUGIN_HAVE_FSL_IMX_GPU3D = true
-SOONG_CONFIG_IMXPLUGIN_TARGET_HWCOMPOSER_VERSION = v2.0
-SOONG_CONFIG_IMXPLUGIN_TARGET_GRALLOC_VERSION = v4
-SOONG_CONFIG_IMXPLUGIN_PRODUCT_MANUFACTURER = nxp
 
 #
 # Product-specific compile-time definitions.
@@ -45,11 +43,15 @@ TARGET_2ND_CPU_ABI2 := armeabi
 TARGET_2ND_CPU_VARIANT := cortex-a9
 endif
 
+BOARD_SOC_CLASS := IMX8
+SOONG_CONFIG_IMXPLUGIN_PRODUCT_MANUFACTURER = nxp
+
+# -------@block_kernel_bootimg-------
 TARGET_NO_BOOTLOADER := true
 TARGET_NO_KERNEL := false
+TARGET_NO_RECOVERY := true
 TARGET_NO_RADIOIMAGE := true
 
-BOARD_SOC_CLASS := IMX8
 
 BOARD_KERNEL_OFFSET := 0x00080000
 BOARD_RAMDISK_OFFSET := 0x04280000
@@ -62,45 +64,27 @@ endif
 
 BOARD_MKBOOTIMG_ARGS = --kernel_offset $(BOARD_KERNEL_OFFSET) --ramdisk_offset $(BOARD_RAMDISK_OFFSET) --header_version $(BOARD_BOOT_HEADER_VERSION)
 
-BOARD_HAVE_BLUETOOTH := true
+BOARD_USES_RECOVERY_AS_BOOT := true
 
-BOARD_HAVE_IMX_CAMERA := true
+# kernel module's copy to vendor need this folder setting
+KERNEL_OUT ?= $(OUT_DIR)/target/product/$(PRODUCT_DEVICE)/obj/KERNEL_OBJ
 
+PRODUCT_COPY_FILES += \
+    $(KERNEL_OUT)/arch/$(TARGET_KERNEL_ARCH)/boot/$(KERNEL_NAME):kernel
+
+TARGET_BOARD_KERNEL_HEADERS := $(CONFIG_REPO_PATH)/common/kernel-headers
+
+# -------@block_app-------
 # Enable dex-preoptimization to speed up first boot sequence
 ifeq ($(HOST_OS),linux)
-   ifeq ($(TARGET_BUILD_VARIANT),user)
-	ifeq ($(WITH_DEXPREOPT),)
-	    WITH_DEXPREOPT := true
-	endif
-   endif
+  ifeq ($(TARGET_BUILD_VARIANT),user)
+    ifeq ($(WITH_DEXPREOPT),)
+      WITH_DEXPREOPT := true
+    endif
+  endif
 endif
 
-PREBUILT_FSL_IMX_GPU := true
-PREBUILT_FSL_IMX_SENSOR_FUSION := true
-SOONG_CONFIG_IMXPLUGIN_PREBUILT_FSL_IMX_GPU = true
-
-# override some prebuilt setting if DISABLE_FSL_PREBUILT is define
-ifeq ($(DISABLE_FSL_PREBUILT),GPU)
-PREBUILT_FSL_IMX_GPU := false
-SOONG_CONFIG_IMXPLUGIN_PREBUILT_FSL_IMX_GPU = false
-else ifeq ($(DISABLE_FSL_PREBUILT),SENSOR_FUSION)
-PREBUILT_FSL_IMX_SENSOR_FUSION := false
-else ifeq ($(DISABLE_FSL_PREBUILT),ALL)
-PREBUILT_FSL_IMX_GPU := false
-PREBUILT_FSL_IMX_SENSOR_FUSION := false
-SOONG_CONFIG_IMXPLUGIN_PREBUILT_FSL_IMX_GPU = false
-endif
-
-# Indicate use vivante drm based egl and gralloc
-BOARD_GPU_DRIVERS := vivante
-
-# Indicate use NXP libdrm-imx or Android external/libdrm
-BOARD_GPU_LIBDRM := libdrm_imx
-
-# for kernel/user space split
-# comment out for 1g/3g space split
-# TARGET_KERNEL_2G := true
-
+# -------@block_storage-------
 AB_OTA_UPDATER := true
 ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
 AB_OTA_PARTITIONS += dtbo boot system system_ext vendor vbmeta
@@ -111,9 +95,6 @@ else
 AB_OTA_PARTITIONS += dtbo boot system system_ext vendor vbmeta product
 endif
 endif
-TARGET_NO_RECOVERY := true
-BOARD_USES_RECOVERY_AS_BOOT := true
-TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
 
 BOARD_DTBOIMG_PARTITION_SIZE := 4194304
 BOARD_BOOTIMAGE_PARTITION_SIZE := 67108864
@@ -136,10 +117,6 @@ BOARD_SYSTEM_EXTIMAGE_FILE_SYSTEM_TYPE := ext4
 TARGET_COPY_OUT_SYSTEM_EXT := system_ext
 
 BOARD_FLASH_BLOCK_SIZE := 4096
-TARGET_RECOVERY_UI_LIB := librecovery_ui_imx
-
-BOARD_VNDK_VERSION := current
-
 
 ifeq ($(TARGET_USE_DYNAMIC_PARTITIONS),true)
   BOARD_SUPER_PARTITION_GROUPS := nxp_dynamic_partitions
@@ -164,12 +141,53 @@ else
   endif
 endif
 
-# kernel module's copy to vendor need this folder setting
-KERNEL_OUT ?= $(OUT_DIR)/target/product/$(PRODUCT_DEVICE)/obj/KERNEL_OBJ
+# -------@block_bluetooth-------
+BOARD_HAVE_BLUETOOTH := true
 
-PRODUCT_COPY_FILES += \
-    $(KERNEL_OUT)/arch/$(TARGET_KERNEL_ARCH)/boot/$(KERNEL_NAME):kernel
+# -------@block_camera-------
+BOARD_HAVE_IMX_CAMERA := true
 
+# -------@block_display-------
+TARGET_GRALLOC_VERSION := v4
+TARGET_HWCOMPOSER_VERSION := v2.0
+
+SOONG_CONFIG_IMXPLUGIN_NUM_FRAMEBUFFER_SURFACE_BUFFERS = 3
+SOONG_CONFIG_IMXPLUGIN_TARGET_HWCOMPOSER_VERSION = v2.0
+SOONG_CONFIG_IMXPLUGIN_TARGET_GRALLOC_VERSION = v4
+
+TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
+
+TARGET_RECOVERY_UI_LIB := librecovery_ui_imx
+
+
+# -------@block_gpu-------
+# Indicate use vivante drm based egl and gralloc
+BOARD_GPU_DRIVERS := vivante
+
+# Indicate use NXP libdrm-imx or Android external/libdrm
+BOARD_GPU_LIBDRM := libdrm_imx
+
+PREBUILT_FSL_IMX_GPU := true
+SOONG_CONFIG_IMXPLUGIN_PREBUILT_FSL_IMX_GPU = true
+
+# override some prebuilt setting if DISABLE_FSL_PREBUILT is define
+ifneq (,$(filter GPU ALL,$(DISABLE_FSL_PREBUILT)))
+    PREBUILT_FSL_IMX_GPU := false
+    SOONG_CONFIG_IMXPLUGIN_PREBUILT_FSL_IMX_GPU = false
+endif
+
+# -------@block_sensor-------
+PREBUILT_FSL_IMX_SENSOR_FUSION := true
+
+# override some prebuilt setting if DISABLE_FSL_PREBUILT is define
+ifneq (,$(filter SENSOR_FUSION ALL,$(DISABLE_FSL_PREBUILT)))
+    PREBUILT_FSL_IMX_SENSOR_FUSION := false
+endif
+
+# -------@block_treble-------
+BOARD_VNDK_VERSION := current
+
+# -------@block_multimedia_codec-------
 
 -include $(FSL_RESTRICTED_CODEC_PATH)/fsl-restricted-codec/fsl_ms_codec/BoardConfig.mk
 -include $(FSL_RESTRICTED_CODEC_PATH)/fsl-restricted-codec/fsl_real_dec/BoardConfig.mk

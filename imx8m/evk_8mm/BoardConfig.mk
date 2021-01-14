@@ -1,6 +1,16 @@
+# -------@block_infrastructure-------
+#
+# Product-specific compile-time definitions.
+#
+
+include $(CONFIG_REPO_PATH)/imx8m/BoardConfigCommon.mk
+
+# -------@block_common_config-------
 #
 # SoC-specific compile-time definitions.
 #
+
+# value assigned in this part should be fixed for an SoC, right?
 
 BOARD_SOC_TYPE := IMX8MM
 BOARD_HAVE_VPU := true
@@ -9,15 +19,10 @@ FSL_VPU_OMX_ONLY := true
 HAVE_FSL_IMX_GPU2D := true
 HAVE_FSL_IMX_GPU3D := true
 HAVE_FSL_IMX_PXP := false
-BOARD_KERNEL_BASE := 0x40400000
-TARGET_GRALLOC_VERSION := v4
 TARGET_USES_HWC2 := true
-TARGET_HWCOMPOSER_VERSION := v2.0
 TARGET_HAVE_VULKAN := true
-ENABLE_CFI=false
 
 SOONG_CONFIG_IMXPLUGIN += \
-                          BOARD_HAVE_VPU \
                           BOARD_VPU_TYPE
 
 SOONG_CONFIG_IMXPLUGIN_BOARD_SOC_TYPE = IMX8MM
@@ -25,15 +30,15 @@ SOONG_CONFIG_IMXPLUGIN_BOARD_HAVE_VPU = true
 SOONG_CONFIG_IMXPLUGIN_BOARD_VPU_TYPE = hantro
 SOONG_CONFIG_IMXPLUGIN_BOARD_VPU_ONLY = false
 
-#
-# Product-specific compile-time definitions.
-#
+# -------@block_memory-------
+USE_ION_ALLOCATOR := true
+USE_GPU_ALLOCATOR := false
 
-include $(CONFIG_REPO_PATH)/imx8m/BoardConfigCommon.mk
-
+# -------@block_storage-------
 TARGET_USERIMAGES_USE_EXT4 := true
 
-TARGET_RECOVERY_FSTAB = $(IMX_DEVICE_PATH)/fstab.nxp
+# use sparse image
+TARGET_USERIMAGES_SPARSE_EXT_DISABLED := false
 
 # Support gpt
 ifeq ($(TARGET_USE_DYNAMIC_PARTITIONS),true)
@@ -55,13 +60,31 @@ else
   endif
 endif
 
+BOARD_PREBUILT_DTBOIMAGE := $(OUT_DIR)/target/product/$(PRODUCT_DEVICE)/dtbo-imx8mm.img
+
+BOARD_USES_METADATA_PARTITION := true
+BOARD_ROOT_EXTRA_FOLDERS += metadata
+
+# -------@block_security-------
+ENABLE_CFI=false
+
+BOARD_AVB_ENABLE := true
+BOARD_AVB_ALGORITHM := SHA256_RSA4096
+# The testkey_rsa4096.pem is copied from external/avb/test/data/testkey_rsa4096.pem
+BOARD_AVB_KEY_PATH := $(CONFIG_REPO_PATH)/common/security/testkey_rsa4096.pem
+
+BOARD_AVB_BOOT_KEY_PATH := external/avb/test/data/testkey_rsa2048.pem
+BOARD_AVB_BOOT_ALGORITHM := SHA256_RSA2048
+BOARD_AVB_BOOT_ROLLBACK_INDEX_LOCATION := 2
+
+# -------@block_treble-------
 # Vendor Interface manifest and compatibility
 DEVICE_MANIFEST_FILE := $(IMX_DEVICE_PATH)/manifest.xml
 DEVICE_MATRIX_FILE := $(IMX_DEVICE_PATH)/compatibility_matrix.xml
 DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE := $(IMX_DEVICE_PATH)/device_framework_matrix.xml
 
-TARGET_BOOTLOADER_BOARD_NAME := EVK
 
+# -------@block_wifi-------
 # 8mm LPDDR4 board use NXP 8987 wifi
 BOARD_WLAN_DEVICE            := nxp
 WPA_SUPPLICANT_VERSION       := VER_0_8_X
@@ -78,26 +101,17 @@ BOARD_VENDOR_KERNEL_MODULES += \
   $(KERNEL_OUT)/drivers/net/wireless/nxp/mxm_wifiex/wlan_src/mlan.ko \
   $(KERNEL_OUT)/drivers/net/wireless/nxp/mxm_wifiex/wlan_src/moal.ko
 
+# -------@block_bluetooth-------
 # NXP 8987 bluetooth
 BOARD_HAVE_BLUETOOTH_NXP := true
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(IMX_DEVICE_PATH)/bluetooth
 
+# -------@block_sensor-------
 BOARD_USE_SENSOR_FUSION := true
 
-# we don't support sparse image.
-TARGET_USERIMAGES_SPARSE_EXT_DISABLED := false
 
-USE_ION_ALLOCATOR := true
-USE_GPU_ALLOCATOR := false
-
-BOARD_AVB_ENABLE := true
-BOARD_AVB_ALGORITHM := SHA256_RSA4096
-# The testkey_rsa4096.pem is copied from external/avb/test/data/testkey_rsa4096.pem
-BOARD_AVB_KEY_PATH := $(CONFIG_REPO_PATH)/common/security/testkey_rsa4096.pem
-
-BOARD_AVB_BOOT_KEY_PATH := external/avb/test/data/testkey_rsa2048.pem
-BOARD_AVB_BOOT_ALGORITHM := SHA256_RSA2048
-BOARD_AVB_BOOT_ROLLBACK_INDEX_LOCATION := 2
+# -------@block_kernel_bootimg-------
+BOARD_KERNEL_BASE := 0x40400000
 
 ifeq ($(PRODUCT_IMX_DRM),true)
 CMASIZE=736M
@@ -128,8 +142,6 @@ ifneq (,$(filter userdebug eng,$(TARGET_BUILD_VARIANT)))
 BOARD_KERNEL_CMDLINE += androidboot.vendor.sysrq=1
 endif
 
-BOARD_PREBUILT_DTBOIMAGE := $(OUT_DIR)/target/product/$(PRODUCT_DEVICE)/dtbo-imx8mm.img
-
 ifeq ($(TARGET_USE_DYNAMIC_PARTITIONS),true)
   # dts target for imx8mm_evk with DDR4 on board
   ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
@@ -155,6 +167,9 @@ else
   endif
 endif
 
+ALL_DEFAULT_INSTALLED_MODULES += $(BOARD_VENDOR_KERNEL_MODULES)
+
+# -------@block_sepolicy-------
 BOARD_SEPOLICY_DIRS := \
        $(CONFIG_REPO_PATH)/imx8m/sepolicy \
        $(IMX_DEVICE_PATH)/sepolicy
@@ -164,9 +179,3 @@ BOARD_SEPOLICY_DIRS += \
        $(IMX_DEVICE_PATH)/sepolicy_drm
 endif
 
-TARGET_BOARD_KERNEL_HEADERS := $(CONFIG_REPO_PATH)/common/kernel-headers
-
-ALL_DEFAULT_INSTALLED_MODULES += $(BOARD_VENDOR_KERNEL_MODULES)
-
-BOARD_USES_METADATA_PARTITION := true
-BOARD_ROOT_EXTRA_FOLDERS += metadata

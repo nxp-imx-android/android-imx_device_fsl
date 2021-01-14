@@ -1,19 +1,9 @@
+# -------@block_kernel_bootimg-------
+
 KERNEL_NAME := Image
 TARGET_KERNEL_ARCH := arm64
-# IMX8MM_USES_GKI := true
-# after selecting the target by "lunch" command, TARGET_PRODUCT will be set
-ifeq ($(TARGET_PRODUCT),evk_8mm_ddr4)
-  PRODUCT_8MM_DDR4 := true
-endif
 
-#Enable this to config 1GB ddr on evk_imx8mm
-#LOW_MEMORY := true
-
-#Enable this to include trusty support
-PRODUCT_IMX_TRUSTY := true
-
-#Enable this to disable product partition build.
-#IMX_NO_PRODUCT_PARTITION := true
+IMX8MM_USES_GKI := false
 
 # CONFIG_TOUCHSCREEN_SYNAPTICS_DSX_I2C: synaptics_dsx_i2c.ko, mipi-panel touch driver module
 # CONFIG_VIDEO_MXC_CSI_CAMERA: mx6s_capture.ko, it's csi adapt driver which is the input of v4l2 framework
@@ -36,7 +26,7 @@ PRODUCT_IMX_TRUSTY := true
 # CONFIG_FEC: fec.ko which depend on pps_core.ko and ptp.ko
 # CONFIG_AT803X_PHY: ethernet phy driver at803x.ko
 
-ifneq ($(IMX8MM_USES_GKI),)
+ifeq ($(IMX8MM_USES_GKI),true)
 BOARD_VENDOR_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/mxc/gpu-viv/galcore.ko \
     $(KERNEL_OUT)/drivers/media/platform/mxc/capture/mx6s_capture.ko \
@@ -87,7 +77,7 @@ endif
 # CONFIG_TYPEC_TCPCI: tcpci.ko
 # CONFIG_USB_EHCI_HCD: ehci-hcd.ko
 
-ifneq ($(IMX8MM_USES_GKI),)
+ifeq ($(IMX8MM_USES_GKI),true)
 BOARD_VENDOR_RAMDISK_KERNEL_MODULES +=     \
     $(KERNEL_OUT)/drivers/clk/imx/clk-imx8mm.ko \
     $(KERNEL_OUT)/drivers/soc/imx/imx8m_pm_domains.ko \
@@ -127,3 +117,12 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES +=     \
     $(KERNEL_OUT)/drivers/trusty/trusty-mem.ko \
     $(KERNEL_OUT)/drivers/trusty/trusty-virtio.ko
 endif
+
+
+# -------@block_memory-------
+#Enable this to config 1GB ddr on evk_imx8mm
+LOW_MEMORY := false
+
+# -------@block_security-------
+#Enable this to include trusty support
+PRODUCT_IMX_TRUSTY := true

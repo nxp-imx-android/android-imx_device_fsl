@@ -1,3 +1,4 @@
+# -------@block_common_config-------
 # after selecting the target by "lunch" command, TARGET_PRODUCT will be set
 ifeq ($(TARGET_PRODUCT),mek_8q_car)
   PRODUCT_IMX_CAR := true
@@ -17,18 +18,13 @@ ifeq ($(TARGET_PRODUCT),mek_8q_car2)
   IMX8QM_A72_BOOT := true
 endif
 
+# -------@block_kernel_bootimg-------
 ifeq ($(PRODUCT_IMX_CAR),true)
   KERNEL_NAME := Image.lz4
 else
   KERNEL_NAME := Image
 endif
 TARGET_KERNEL_ARCH := arm64
-
-#Enable this to include trusty support
-PRODUCT_IMX_TRUSTY := true
-
-#Enable this to disable product partition build.
-#IMX_NO_PRODUCT_PARTITION := true
 
 # NXP 8997 mxmdriver wifi driver module
 BOARD_VENDOR_KERNEL_MODULES += \
@@ -57,3 +53,6 @@ ifeq ($(PRODUCT_IMX_CAR_M4),true)
 endif
 endif
 
+# -------@block_security-------
+#Enable this to include trusty support
+PRODUCT_IMX_TRUSTY := true
