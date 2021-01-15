@@ -189,7 +189,6 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES +=     \
     $(KERNEL_OUT)/drivers/media/v4l2-core/v4l2-fwnode.ko \
     $(KERNEL_OUT)/drivers/media/i2c/ov5640.ko \
     $(KERNEL_OUT)/drivers/staging/media/imx/imx8-capture.ko \
-    $(KERNEL_OUT)/drivers/media/common/videobuf2/videobuf2-dma-contig.ko \
     $(KERNEL_OUT)/drivers/staging/media/imx/imx8-isi-cap.ko \
     $(KERNEL_OUT)/drivers/staging/media/imx/imx8-isi-hw.ko \
     $(KERNEL_OUT)/drivers/staging/media/imx/imx8-isi-m2m.ko \
