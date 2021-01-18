@@ -61,7 +61,7 @@ options:
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                            │   imx8mq       │  dual mipi-panel mipi                                                                                │
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
-                           │   imx8mp       │  rpmsg hdmi lvds-panel lvds mipi-panel basler powersave                                              │
+                           │   imx8mp       │  rpmsg hdmi lvds-panel lvds mipi-panel basler powersave powersave-non-rpmsg                          │
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                            │   imx8qxp      │                                                                                                      │
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
@@ -377,7 +377,7 @@ imx7ulp_uboot_feature=(evk-uuu)
 imx8mm_dtb_feature=(ddr4 m4 mipi-panel)
 imx8mn_dtb_feature=(mipi-panel rpmsg ddr4 ddr4-mipi-panel ddr4-rpmsg)
 imx8mq_dtb_feature=(dual mipi-panel mipi)
-imx8mp_dtb_feature=(rpmsg hdmi lvds-panel lvds mipi-panel basler powersave)
+imx8mp_dtb_feature=(rpmsg hdmi lvds-panel lvds mipi-panel basler powersave powersave-non-rpmsg)
 imx8qxp_dtb_feature=()
 imx8qm_dtb_feature=(hdmi hdmi-rx mipi-panel md xen esai)
 imx7ulp_dtb_feature=(evk-mipi evk mipi)
