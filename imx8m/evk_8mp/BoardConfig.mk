@@ -162,6 +162,8 @@ ifeq ($(TARGET_USE_DYNAMIC_PARTITIONS),true)
     TARGET_BOARD_DTS_CONFIG += imx8mp-mipi-panel:imx8mp-evk-rm67191.dtb
     #Used to support powersave
     TARGET_BOARD_DTS_CONFIG += imx8mp-powersave:imx8mp-evk-powersave.dtb
+    #Used to support powersave and mcu image
+    TARGET_BOARD_DTS_CONFIG += imx8mp-powersave-non-rpmsg:imx8mp-evk-powersave-non-rpmsg.dtb
   endif
 else # no dynamic parition feature
   ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
