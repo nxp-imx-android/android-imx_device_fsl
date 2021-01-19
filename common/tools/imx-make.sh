@@ -144,7 +144,7 @@ soc_path=${soc_path} product_path=${product_path} nxp_git_path=${nxp_git_path} c
 if [ ${build_kernel_module_flag} -eq 1 ]; then
     soc_path=${soc_path} product_path=${product_path} nxp_git_path=${nxp_git_path} clean_build=${clean_build} \
         make -C ./ -f ${nxp_git_path}/common/build/Makefile ${parallel_option} \
-        ${build_galcore} </dev/null || exit
+        ${build_vvcam} ${build_galcore} </dev/null || exit
 fi
 
 if [ ${build_android_flag} -eq 1 ]; then

@@ -197,5 +197,9 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES +=     \
     $(KERNEL_OUT)/drivers/trusty/trusty-irq.ko \
     $(KERNEL_OUT)/drivers/trusty/trusty-log.ko \
     $(KERNEL_OUT)/drivers/trusty/trusty-virtio.ko \
-    $(KERNEL_OUT)/drivers/trusty/trusty-ipc.ko
+    $(KERNEL_OUT)/drivers/trusty/trusty-ipc.ko \
+    $(TARGET_OUT_INTERMEDIATES)/VVCAM_OBJ/vvcam-video.ko \
+    $(TARGET_OUT_INTERMEDIATES)/VVCAM_OBJ/vvcam-isp.ko \
+    $(TARGET_OUT_INTERMEDIATES)/VVCAM_OBJ/vvcam-dwe.ko \
+    $(TARGET_OUT_INTERMEDIATES)/VVCAM_OBJ/basler-camera-driver-vvcam.ko
 endif
