@@ -11,6 +11,7 @@
     {
       "camera_type": "back",
       "camera_name": "mx6s-csi",
+      "bus_info": "platform:32e20000.csi1_bridge",
       "orientation": "0",
       "buffer_type": "mmap",
       "ActiveArrayWidth": "2592",
