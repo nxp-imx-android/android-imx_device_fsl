@@ -128,6 +128,12 @@ endif
 
 ifeq ($(IMX8MP_USES_GKI),true)
 BOARD_VENDOR_RAMDISK_KERNEL_MODULES +=     \
+    $(KERNEL_OUT)/drivers/soc/imx/soc-imx8m.ko \
+    $(KERNEL_OUT)/drivers/soc/imx/mu/mx8_mu.ko \
+    $(KERNEL_OUT)/drivers/clk/imx/mxc-clk.ko \
+    $(KERNEL_OUT)/drivers/clk/imx/clk-imx8mp.ko \
+    $(KERNEL_OUT)/drivers/clk/imx/clk-blk-ctrl.ko \
+    $(KERNEL_OUT)/drivers/soc/imx/imx8m_pm_domains.ko \
     $(KERNEL_OUT)/drivers/clocksource/timer-imx-sysctr.ko \
     $(KERNEL_OUT)/drivers/soc/imx/busfreq-imx8mq.ko \
     $(KERNEL_OUT)/drivers/irqchip/irq-imx-irqsteer.ko \
@@ -145,6 +151,7 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES +=     \
     $(KERNEL_OUT)/drivers/staging/android/ion/heaps/ion_cma_heap.ko \
     $(KERNEL_OUT)/drivers/reset/reset-imx7.ko \
     $(KERNEL_OUT)/drivers/phy/freescale/phy-fsl-imx8mp-lvds.ko \
+    $(KERNEL_OUT)/drivers/phy/freescale/phy-fsl-samsung-hdmi.ko \
     $(KERNEL_OUT)/drivers/phy/freescale/phy-fsl-imx8mq-usb.ko \
     $(KERNEL_OUT)/drivers/phy/freescale/phy-fsl-imx8-pcie.ko \
     $(KERNEL_OUT)/drivers/input/keyboard/snvs_pwrkey.ko \
@@ -170,7 +177,6 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES +=     \
     $(KERNEL_OUT)/drivers/usb/dwc3/dwc3-imx8mp.ko \
     $(KERNEL_OUT)/drivers/usb/dwc3/dwc3.ko \
     $(KERNEL_OUT)/drivers/usb/typec/mux/gpio-switch.ko \
-    $(KERNEL_OUT)/drivers/usb/typec/tcpm/tcpci.ko \
     $(KERNEL_OUT)/drivers/power/supply/dummy_battery.ko \
     $(KERNEL_OUT)/drivers/nvmem/nvmem-imx-ocotp.ko \
     $(KERNEL_OUT)/drivers/thermal/device_cooling.ko \
