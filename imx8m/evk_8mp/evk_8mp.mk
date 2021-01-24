@@ -362,6 +362,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
                     tflitecamerademo
 
+# ISP camera feature demo
+PRODUCT_PACKAGES += \
+    CameraXBasic
+
 # Multi-Display launcher
 PRODUCT_PACKAGES += \
     MultiClientInputMethod \
