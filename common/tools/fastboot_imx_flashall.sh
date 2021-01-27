@@ -239,7 +239,7 @@ function flash_android
     # full uboot is flashed to the board and active slot is set, reboot to u-boot fastboot boot command
     # XEN images on mek_8qm, it can't reboot
     if [ "${dtb_feature}" != "xen" ]; then
-        ${fastboot_tool} reboot bootloader
+        ${fastboot_tool} reboot bootloader || :
         sleep 5
     fi
 
