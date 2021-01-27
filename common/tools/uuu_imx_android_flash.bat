@@ -1,7 +1,7 @@
 :: Do not output the command
 @echo off
 
-echo This script is validated with uuu 1.3.124 version, it is recommended to align with this version.
+echo This script is validated with uuu 1.4.72 version, it is recommended to align with this version.
 
 ::---------------------------------------------------------------------------------
 ::Variables
@@ -510,9 +510,9 @@ goto :eof
 
 :help
 echo.
-echo Version: 1.7
-echo Last change: generate super.img when flash images with dynamic partition feature
-echo currently suported platforms: evk_7ulp, evk_8mm, evk_8mq, evk_8mn, evk_8mp, aiy_8mq, mek_8q, mek_8q_car
+echo Version: 1.8
+echo Last change: recommend new version of uuu
+echo currently suported platforms: evk_7ulp, evk_8mm, evk_8mq, evk_8mn, evk_8mp, mek_8q, mek_8q_car
 echo.
 echo eg: uuu_imx_android_flash.bat -f imx8qm -a -e -D C:\Users\user_01\images\android10\mek_8q\ -t emmc -u trusty -d mipi-panel
 echo.
@@ -634,7 +634,7 @@ if [%board%] == [] (
 goto :eof
 
 :uuu_load_uboot
-echo uuu_version 1.3.74 > %tmp_dir%uuu.lst
+echo uuu_version 1.4.72 > %tmp_dir%uuu.lst
 
 if exist %tmp_dir%%bootloader_used_by_uuu%.link (
     del %tmp_dir%%bootloader_used_by_uuu%.link
