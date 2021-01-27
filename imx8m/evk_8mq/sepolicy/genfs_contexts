@@ -10,9 +10,7 @@ genfscon sysfs /devices/platform/soc@0/30800000.bus/30a00000.mipi_dsi/30a00000.m
 
 #/sys/class/net
 genfscon sysfs /devices/platform/soc@0/30800000.bus/30be0000.ethernet/net               u:object_r:sysfs_net:s0
-genfscon sysfs /devices/platform/soc@0/33800000.pcie/pci0000:00/0000:00:00.0/0000:01:00.0/net u:object_r:sysfs_net:s0
-genfscon sysfs /devices/platform/soc@0/33c00000.pcie/pci0000:00/0000:00:00.0/0000:01:00.0/net u:object_r:sysfs_net:s0
-
+genfscon sysfs /devices/platform/soc@0/33c00000.pcie/pci0001:00/0001:00:00.0/0001:01:00.0/net u:object_r:sysfs_net:s0
 
 # android.system.suspend@1.0-service
 genfscon sysfs /devices/platform/soc@0/30800000.bus/30be0000.ethernet/net/eth0/wakeup0                                       u:object_r:sysfs_wakeup:s0
