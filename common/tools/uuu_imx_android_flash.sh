@@ -5,9 +5,9 @@ help() {
 bn=`basename $0`
 cat << EOF
 
-Version: 1.7
-Last change: generate super.img when flash images with dynamic partition feature
-currently suported platforms: evk_7ulp, evk_8mm, evk_8mq, evk_8mn, aiy_8mq, evk_8mp, mek_8q, mek_8q_car
+Version: 1.8
+Last change: recommend new version of uuu
+currently suported platforms: evk_7ulp, evk_8mm, evk_8mq, evk_8mn, evk_8mp, mek_8q, mek_8q_car
 
 eg: ./uuu_imx_android_flash.sh -f imx8qm -a -e -D ~/android10/mek_8q/ -t emmc -u trusty -d mipi-panel
 
@@ -113,7 +113,7 @@ function whether_in_array
 
 function uuu_load_uboot
 {
-    echo uuu_version 1.3.124 > /tmp/uuu.lst
+    echo uuu_version 1.4.72 > /tmp/uuu.lst
     rm -f /tmp/${bootloader_used_by_uuu}
     ln -s ${sym_link_directory}${bootloader_used_by_uuu} /tmp/${bootloader_used_by_uuu}
     echo ${sdp}: boot -f ${bootloader_used_by_uuu} >> /tmp/uuu.lst
@@ -383,7 +383,7 @@ imx8qm_dtb_feature=(hdmi hdmi-rx mipi-panel md xen esai)
 imx7ulp_dtb_feature=(evk-mipi evk mipi)
 
 
-echo -e This script is validated with ${RED}uuu 1.3.124${STD} version, it is recommended to align with this version.
+echo -e This script is validated with ${RED}uuu 1.4.72${STD} version, it is recommended to align with this version.
 
 if [ $# -eq 0 ]; then
     echo -e >&2 ${RED}please provide more information with command script options${STD}
