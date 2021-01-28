@@ -104,7 +104,7 @@ BOARD_USE_SENSOR_FUSION := true
 # -------@block_kernel_bootimg-------
 BOARD_KERNEL_BASE := 0x40400000
 
-CMASIZE=800M
+CMASIZE=960M
 # NXP default config
 BOARD_KERNEL_CMDLINE := init=/init androidboot.console=ttymxc1 androidboot.hardware=nxp firmware_class.path=/vendor/firmware loop.max_part=7
 
@@ -122,7 +122,7 @@ BOARD_KERNEL_CMDLINE += androidboot.wificountrycode=CN moal.mod_para=wifi_mod_pa
 ifeq ($(LOW_MEMORY),true)
 BOARD_KERNEL_CMDLINE += cma=320M@0x400M-0xb80M androidboot.displaymode=720p galcore.contiguousSize=33554432
 else
-BOARD_KERNEL_CMDLINE += cma=$(CMASIZE)@0x400M-0xb80M
+BOARD_KERNEL_CMDLINE += cma=$(CMASIZE)@0x400M-0x1000M
 endif
 
 ifneq (,$(filter userdebug eng,$(TARGET_BUILD_VARIANT)))
