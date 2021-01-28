@@ -5,8 +5,8 @@ TARGET_KERNEL_ARCH := arm64
 
 #NXP 8997 wifi driver module
 BOARD_VENDOR_KERNEL_MODULES += \
-    $(KERNEL_OUT)/drivers/net/wireless/nxp/mxm_wifiex/wlan_src/mlan.ko \
-    $(KERNEL_OUT)/drivers/net/wireless/nxp/mxm_wifiex/wlan_src/moal.ko
+    $(TARGET_OUT_INTERMEDIATES)/MXMWIFI_OBJ/mlan.ko \
+    $(TARGET_OUT_INTERMEDIATES)/MXMWIFI_OBJ/moal.ko
 
 # mipi-panel touch driver module
 BOARD_VENDOR_KERNEL_MODULES += \

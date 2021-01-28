@@ -98,8 +98,8 @@ WIFI_HIDL_FEATURE_DUAL_INTERFACE := true
 
 # NXP 8987 wifi driver module
 BOARD_VENDOR_KERNEL_MODULES += \
-  $(KERNEL_OUT)/drivers/net/wireless/nxp/mxm_wifiex/wlan_src/mlan.ko \
-  $(KERNEL_OUT)/drivers/net/wireless/nxp/mxm_wifiex/wlan_src/moal.ko
+    $(TARGET_OUT_INTERMEDIATES)/MXMWIFI_OBJ/mlan.ko \
+    $(TARGET_OUT_INTERMEDIATES)/MXMWIFI_OBJ/moal.ko
 
 # -------@block_bluetooth-------
 # NXP 8987 bluetooth

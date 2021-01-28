@@ -5,8 +5,8 @@ IMX8MP_USES_GKI := true
 
 #NXP 8997 wifi driver module
 BOARD_VENDOR_KERNEL_MODULES += \
-    $(KERNEL_OUT)/drivers/net/wireless/nxp/mxm_wifiex/wlan_src/mlan.ko \
-    $(KERNEL_OUT)/drivers/net/wireless/nxp/mxm_wifiex/wlan_src/moal.ko
+    $(TARGET_OUT_INTERMEDIATES)/MXMWIFI_OBJ/mlan.ko \
+    $(TARGET_OUT_INTERMEDIATES)/MXMWIFI_OBJ/moal.ko
 
 # CONFIG_IMX_SDMA: imx-sdma.ko, sdma used for audio
 # CONFIG_SND_SOC_IMX_PCM_DMA: imx-pcm-dma-common.ko, used for fsl_micfil
