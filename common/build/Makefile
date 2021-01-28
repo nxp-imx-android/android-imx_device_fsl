@@ -18,3 +18,4 @@ include ${nxp_git_path}/common/build/uboot.mk
 -include ${product_path}/AndroidTee.mk
 -include ${GPU_VIV6_PATH}/gpu-viv6/driver/hal/kernel/galcore.mk
 -include ${VVCAM_PATH}/vvcam/vvcam.mk
+-include ${MXMWIFI_PATH}/mxm_wifiex/mxmwifi.mk

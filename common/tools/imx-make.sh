@@ -15,6 +15,7 @@ cat << EOF
            kernel                  kernel, include related dts will be compiled
            galcore                 galcore.ko in GPU repo will be compiled
            vvcam                   vvcam.ko, the ISP driver will be compiled
+           mxmwifi                 mlan.ko moal.ko, the MXMWifi driver will be compiled
            dtboimage               dtbo images will be built out
            bootimage               boot.img will be built out
            vendorbootimage         vendor_boot.img will be built out
@@ -69,6 +70,7 @@ build_kernel=""
 build_kernel_module_flag=0
 build_galcore=""
 build_vvcam=""
+build_mxmwifi=""
 build_bootimage=""
 build_vendorbootimage=""
 build_dtboimage=""
@@ -93,6 +95,9 @@ for arg in ${args[*]} ; do
         vvcam) build_bootloader_kernel_flag=1;
                     build_kernel_module_flag=1
                     build_vvcam="vvcam";;
+        mxmwifi) build_bootloader_kernel_flag=1;
+                    build_kernel_module_flag=1
+                    build_mxmwifi="mxmwifi";;
         bootimage) build_bootloader_kernel_flag=1;
                     build_android_flag=1;
                     build_kernel="${OUT}/kernel";
@@ -126,6 +131,12 @@ if [ -n "${build_kernel}" ] && [ ${TARGET_PRODUCT} = "evk_8mp" ]; then
     build_kernel_module_flag=1;
 fi
 
+# mlan.ko and moal.ko need build with kernel each time to make sure "insmod mlan.ko" and "insmod moal.ko" works
+if [ -n "${build_kernel}" ]; then
+    build_mxmwifi="mxmwifi";
+    build_kernel_module_flag=1;
+fi
+
 product_makefile=`pwd`/`find device/nxp -maxdepth 4 -name "${TARGET_PRODUCT}.mk"`;
 product_path=${product_makefile%/*}
 soc_path=${product_path%/*}
@@ -144,7 +155,7 @@ soc_path=${soc_path} product_path=${product_path} nxp_git_path=${nxp_git_path} c
 if [ ${build_kernel_module_flag} -eq 1 ]; then
     soc_path=${soc_path} product_path=${product_path} nxp_git_path=${nxp_git_path} clean_build=${clean_build} \
         make -C ./ -f ${nxp_git_path}/common/build/Makefile ${parallel_option} \
-        ${build_vvcam} ${build_galcore} </dev/null || exit
+        ${build_vvcam} ${build_galcore} ${build_mxmwifi} </dev/null || exit
 fi
 
 if [ ${build_android_flag} -eq 1 ]; then
