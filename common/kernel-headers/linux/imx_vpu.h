@@ -18,6 +18,7 @@
  ****************************************************************************/
 #ifndef _UAPI__LINUX_IMX_VPU_H
 #define _UAPI__LINUX_IMX_VPU_H
+#include <linux/videodev2.h>
 #include <linux/v4l2-controls.h>
 #define V4L2_CID_NON_FRAME (V4L2_CID_USER_IMX_BASE)
 #define V4L2_CID_DIS_REORDER (V4L2_CID_USER_IMX_BASE + 1)
@@ -54,4 +55,14 @@ struct v4l2_enc_ipcm_params {
 #define V4L2_DEC_CMD_RESET (V4L2_DEC_CMD_IMX_BASE + 1)
 #define V4L2_EVENT_CODEC_ERROR (V4L2_EVENT_PRIVATE_START + 1)
 #define V4L2_EVENT_SKIP (V4L2_EVENT_PRIVATE_START + 2)
+#define V4L2_EVENT_CROPCHANGE (V4L2_EVENT_PRIVATE_START + 3)
+#define V4L2_EVENT_INVALID_OPTION (V4L2_EVENT_PRIVATE_START + 4)
+#define V4L2_PIX_FMT_BGR565 v4l2_fourcc('B', 'G', 'R', 'P')
+#define V4L2_PIX_FMT_NV12X v4l2_fourcc('N', 'V', 'X', '2')
+#define V4L2_PIX_FMT_DTRC v4l2_fourcc('D', 'T', 'R', 'C')
+#define V4L2_PIX_FMT_P010 v4l2_fourcc('P', '0', '1', '0')
+#define V4L2_PIX_FMT_TILEX v4l2_fourcc('D', 'T', 'R', 'X')
+#define V4L2_PIX_FMT_AV1 v4l2_fourcc('A', 'V', '1', '0')
+#define V4L2_PIX_FMT_RV v4l2_fourcc('R', 'V', '0', '0')
+#define V4L2_PIX_FMT_AVS v4l2_fourcc('A', 'V', 'S', '0')
 #endif
