@@ -489,7 +489,7 @@ endif
 PRODUCT_PACKAGES += \
     libovxlib \
     libnnrt \
-    android.hardware.neuralnetworks@1.2-service-vsi-npu-server
+    android.hardware.neuralnetworks@1.3-service-vsi-npu-server
 
 ifneq ($(PRODUCT_IMX_CAR),true)
 # Tensorflow lite camera demo

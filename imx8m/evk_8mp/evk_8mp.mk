@@ -439,7 +439,7 @@ endif
 PRODUCT_PACKAGES += \
     libovxlib \
     libnnrt \
-    android.hardware.neuralnetworks@1.2-service-vsi-npu-server
+    android.hardware.neuralnetworks@1.3-service-vsi-npu-server
 
 # Tensorflow lite camera demo
 PRODUCT_PACKAGES += \
