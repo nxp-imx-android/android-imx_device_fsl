@@ -1,4 +1,9 @@
 {
+    "HotplugCPUs":[
+            "cpu3",
+            "cpu4",
+            "cpu5"
+    ],
     "Sensors":[
         {
             "Name":"cpu-thermal0",
@@ -6,7 +11,7 @@
             "HotThreshold":[
                 "NAN",
                 "NAN",
-                "NAN",
+                102,
                 107,
                 127,
                 "NAN",
@@ -31,7 +36,7 @@
             "HotThreshold":[
                 "NAN",
                 "NAN",
-                "NAN",
+                102,
                 107,
                 127,
                 "NAN",
