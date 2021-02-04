@@ -1,3 +1,4 @@
+include $(CONFIG_REPO_PATH)/common/build/build_info.mk
 # -------@block_infrastructure-------
 ifneq ($(IMX8_BUILD_32BIT_ROOTFS),true)
 ifeq ($(PRODUCT_IMX_CAR),true)
@@ -377,4 +378,3 @@ PRODUCT_PACKAGES += \
 # vndservicemanager
 PRODUCT_PACKAGES += \
     vndservicemanager
-

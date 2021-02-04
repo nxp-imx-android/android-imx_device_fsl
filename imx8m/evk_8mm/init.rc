@@ -39,7 +39,6 @@ on early-init && property:ro.boot.mode=charger
 
 on init && property:vendor.skip.charger_not_need=0
     start watchdogd
-    setprop vendor.imx.build_id "android-11.0_2.0.0-rc2"
 
     # Support legacy paths
     symlink /sdcard /mnt/sdcard
