@@ -59,6 +59,8 @@ PRODUCT_PACKAGES += \
     lib_mp3_dec_v2_arm12_elinux \
     lib_mp3d_wrap_arm12_elinux_android \
     media_codecs.xml \
+    media_codecs_8qm.xml \
+    media_codecs_8qxp.xml \
     media_codecs_performance.xml \
     media_codecs_c2_ac3.xml \
     media_codecs_c2_ddp.xml \
@@ -71,7 +73,9 @@ PRODUCT_PACKAGES += \
     media_codecs_c2_dsp_wma.xml \
     media_profiles_V1_0.xml \
     media_codecs_c2.xml \
-    media_codecs_performance_c2.xml
+    media_codecs_performance_c2.xml \
+    media_codecs_performance_c2_8qm.xml \
+    media_codecs_performance_c2_8qxp.xml
 
 #parser
 PRODUCT_PACKAGES += \
