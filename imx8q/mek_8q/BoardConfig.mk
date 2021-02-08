@@ -212,9 +212,13 @@ else
       TARGET_BOARD_DTS_CONFIG += imx8qm-hdmi-rx:imx8qm-mek-hdmi-rx.dtb
       # imx8qm standard android; Multiple display
       TARGET_BOARD_DTS_CONFIG += imx8qm-md:imx8qm-mek-md.dtb
+      # imx8qm standard android; LVDS1 panel display
+      TARGET_BOARD_DTS_CONFIG += imx8qm-lvds1-panel:imx8qm-mek-jdi-wuxga-lvds1-panel.dtb
       # imx8qxp standard android; MIPI-HDMI display
       TARGET_BOARD_DTS_CONFIG += imx8qxp:imx8qxp-mek-ov5640-rpmsg.dtb
       TARGET_BOARD_DTS_CONFIG += imx8dx:imx8dx-mek-ov5640.dtb
+      # imx8qxp standard android; LVDS panel display
+      TARGET_BOARD_DTS_CONFIG += imx8qxp-lvds0-panel:imx8qxp-mek-jdi-wuxga-lvds0-panel-rpmsg.dtb
     endif #IMX_NO_PRODUCT_PARTITION
   else
     ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
