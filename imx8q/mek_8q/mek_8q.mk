@@ -158,7 +158,10 @@ ifneq ($(filter TRUE true 1,$(IMX_OTA_POSTINSTALL)),)
     POSTINSTALL_OPTIONAL_vendor=false
 
   ifeq ($(OTA_TARGET),8qxp)
-    ifneq ($(TARGET_PRODUCT),mek_8q_car)
+    ifeq ($(TARGET_PRODUCT),mek_8q)
+      PRODUCT_COPY_FILES += \
+        $(OUT_DIR)/target/product/$(firstword $(PRODUCT_DEVICE))/obj/UBOOT_COLLECTION/u-boot-imx8qxp-trusty.imx:$(TARGET_COPY_OUT_VENDOR)/etc/bootloader0.img
+    else ifeq ($(TARGET_PRODUCT),mek_8q_car2)
       PRODUCT_COPY_FILES += \
         $(OUT_DIR)/target/product/$(firstword $(PRODUCT_DEVICE))/obj/UBOOT_COLLECTION/u-boot-imx8qxp.imx:$(TARGET_COPY_OUT_VENDOR)/etc/bootloader0.img
     else
@@ -166,7 +169,10 @@ ifneq ($(filter TRUE true 1,$(IMX_OTA_POSTINSTALL)),)
         $(OUT_DIR)/target/product/$(firstword $(PRODUCT_DEVICE))/obj/UBOOT_COLLECTION/spl-imx8qxp.bin:$(TARGET_COPY_OUT_VENDOR)/etc/bootloader0.img
     endif
   else ifeq ($(OTA_TARGET),8qxp-c0)
-    ifneq ($(TARGET_PRODUCT),mek_8q_car)
+    ifeq ($(TARGET_PRODUCT),mek_8q)
+      PRODUCT_COPY_FILES += \
+        $(OUT_DIR)/target/product/$(firstword $(PRODUCT_DEVICE))/obj/UBOOT_COLLECTION/u-boot-imx8qxp-trusty-c0.imx:$(TARGET_COPY_OUT_VENDOR)/etc/bootloader0.img
+    else ifeq ($(TARGET_PRODUCT),mek_8q_car2)
       PRODUCT_COPY_FILES += \
         $(OUT_DIR)/target/product/$(firstword $(PRODUCT_DEVICE))/obj/UBOOT_COLLECTION/u-boot-imx8qxp-c0.imx:$(TARGET_COPY_OUT_VENDOR)/etc/bootloader0.img
     else
@@ -174,7 +180,10 @@ ifneq ($(filter TRUE true 1,$(IMX_OTA_POSTINSTALL)),)
         $(OUT_DIR)/target/product/$(firstword $(PRODUCT_DEVICE))/obj/UBOOT_COLLECTION/spl-imx8qxp-c0.bin:$(TARGET_COPY_OUT_VENDOR)/etc/bootloader0.img
     endif
   else
-    ifneq ($(TARGET_PRODUCT),mek_8q_car)
+    ifeq ($(TARGET_PRODUCT),mek_8q)
+      PRODUCT_COPY_FILES += \
+        $(OUT_DIR)/target/product/$(firstword $(PRODUCT_DEVICE))/obj/UBOOT_COLLECTION/u-boot-imx8qm-trusty.imx:$(TARGET_COPY_OUT_VENDOR)/etc/bootloader0.img
+    else ifeq ($(TARGET_PRODUCT),mek_8q_car2)
       PRODUCT_COPY_FILES += \
         $(OUT_DIR)/target/product/$(firstword $(PRODUCT_DEVICE))/obj/UBOOT_COLLECTION/u-boot-imx8qm.imx:$(TARGET_COPY_OUT_VENDOR)/etc/bootloader0.img
     else
