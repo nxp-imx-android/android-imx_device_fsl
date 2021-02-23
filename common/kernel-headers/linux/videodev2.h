@@ -1328,11 +1328,11 @@ struct v4l2_event_subscription {
   __u32 reserved[5];
 };
 #define V4L2_CHIP_MATCH_BRIDGE 0
+#define V4L2_CHIP_MATCH_SUBDEV 4
 #define V4L2_CHIP_MATCH_HOST V4L2_CHIP_MATCH_BRIDGE
 #define V4L2_CHIP_MATCH_I2C_DRIVER 1
 #define V4L2_CHIP_MATCH_I2C_ADDR 2
 #define V4L2_CHIP_MATCH_AC97 3
-#define V4L2_CHIP_MATCH_SUBDEV 4
 struct v4l2_dbg_match {
   __u32 type;
   union {
@@ -1345,11 +1345,6 @@ struct v4l2_dbg_register {
   __u32 size;
   __u64 reg;
   __u64 val;
-} __attribute__((packed));
-struct v4l2_dbg_chip_ident {
-  struct v4l2_dbg_match match;
-  __u32 ident;
-  __u32 revision;
 } __attribute__((packed));
 #define V4L2_CHIP_FL_READABLE (1 << 0)
 #define V4L2_CHIP_FL_WRITABLE (1 << 1)
@@ -1431,7 +1426,6 @@ struct v4l2_create_buffers {
 #define VIDIOC_TRY_ENCODER_CMD _IOWR('V', 78, struct v4l2_encoder_cmd)
 #define VIDIOC_DBG_S_REGISTER _IOW('V', 79, struct v4l2_dbg_register)
 #define VIDIOC_DBG_G_REGISTER _IOWR('V', 80, struct v4l2_dbg_register)
-#define VIDIOC_DBG_G_CHIP_IDENT _IOWR('V', 81, struct v4l2_dbg_chip_ident)
 #define VIDIOC_S_HW_FREQ_SEEK _IOW('V', 82, struct v4l2_hw_freq_seek)
 #define VIDIOC_S_DV_TIMINGS _IOWR('V', 87, struct v4l2_dv_timings)
 #define VIDIOC_G_DV_TIMINGS _IOWR('V', 88, struct v4l2_dv_timings)
