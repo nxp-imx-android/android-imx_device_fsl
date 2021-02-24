@@ -20,7 +20,6 @@ BOARD_VENDOR_KERNEL_MODULES += \
 # CONFIG_SND_SOC_BT_SCO: snd-soc-bt-sco.ko, bt sco driver
 # CONFIG_SND_SIMPLE_CARD: snd-soc-simple-card-utils.ko snd-soc-simple-card.ko, simple audio card used for bt sco
 # CONFIG_RTC_DRV_SNVS: rtc-snvs.ko, snvs rtc driver
-# CONFIG_USB_XHCI_HCD: xhci-hcd.ko xhci-pci.ko xhci-plat-hcd.ko, usb host driver
 # CONFIG_STAGING_MEDIA: able to build drivers/staging/media/
 # CONFIG_IMX_MBOX: imx-mailbox.ko, imx mailbox driver
 # CONFIG_I2C_RPBUS: virtio_rpmsg_bus.ko, virtio rpmsg bus driver
@@ -67,9 +66,6 @@ BOARD_VENDOR_KERNEL_MODULES += \
     $(KERNEL_OUT)/sound/soc/codecs/snd-soc-rpmsg-wm8960-i2c.ko \
     $(KERNEL_OUT)/sound/soc/fsl/snd-soc-imx-rpmsg.ko \
     $(KERNEL_OUT)/drivers/rtc/rtc-snvs.ko \
-    $(KERNEL_OUT)/drivers/usb/host/xhci-hcd.ko \
-    $(KERNEL_OUT)/drivers/usb/host/xhci-pci.ko \
-    $(KERNEL_OUT)/drivers/usb/host/xhci-plat-hcd.ko \
     $(KERNEL_OUT)/drivers/pci/controller/dwc/pci-imx6.ko \
     $(KERNEL_OUT)/drivers/ptp/ptp.ko \
     $(KERNEL_OUT)/drivers/pps/pps_core.ko \
@@ -112,6 +108,7 @@ endif
 # CONFIG_TYPEC_TCPCI: tcpci.ko
 # CONFIG_PHY_FSL_IMX8MQ_USB: phy-fsl-imx8mq-usb.ko
 # CONFIG_PHY_FSL_IMX_PCIE: phy-fsl-imx8-pcie.ko
+# CONFIG_USB_XHCI_HCD: xhci-hcd.ko xhci-pci.ko xhci-plat-hcd.ko, usb host driver
 # CONFIG_KEYBOARD_SNVS_PWRKEY: snvs_pwrkey.ko, snvs power key driver
 # CONFIG_RESET_IMX7: reset-imx7.ko
 # CONFIG_RESET_IMX_HDMIMIX: reset-imx-audiomix.ko
@@ -177,6 +174,9 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES +=     \
     $(KERNEL_OUT)/drivers/usb/dwc3/dwc3-imx8mp.ko \
     $(KERNEL_OUT)/drivers/usb/dwc3/dwc3.ko \
     $(KERNEL_OUT)/drivers/usb/typec/mux/gpio-switch.ko \
+    $(KERNEL_OUT)/drivers/usb/host/xhci-hcd.ko \
+    $(KERNEL_OUT)/drivers/usb/host/xhci-pci.ko \
+    $(KERNEL_OUT)/drivers/usb/host/xhci-plat-hcd.ko \
     $(KERNEL_OUT)/drivers/power/supply/dummy_battery.ko \
     $(KERNEL_OUT)/drivers/nvmem/nvmem-imx-ocotp.ko \
     $(KERNEL_OUT)/drivers/thermal/device_cooling.ko \
