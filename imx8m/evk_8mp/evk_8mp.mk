@@ -152,6 +152,13 @@ endif
 PRODUCT_PACKAGES += \
     android.hardware.keymaster@4.0-service-imx
 
+# Confirmation UI
+ifeq ($(PRODUCT_IMX_TRUSTY),true)
+PRODUCT_PACKAGES += \
+    android.hardware.confirmationui@1.0-service.trusty \
+    securedisplayd-imx
+endif
+
 # new gatekeeper HAL
 PRODUCT_PACKAGES += \
     android.hardware.gatekeeper@1.0-service.software-imx
