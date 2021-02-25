@@ -1,4 +1,4 @@
-/dev/block/mmcblk2boot0                      u:object_r:emmc_boot0:s0
+/dev/block/mmcblk0boot0                      u:object_r:emmc_boot0:s0
 /dev/block/mmcblk1                           u:object_r:sdcard:s0
 
 #peripheral
