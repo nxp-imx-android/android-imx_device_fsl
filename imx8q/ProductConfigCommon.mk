@@ -260,6 +260,7 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_PACKAGES += \
     libdrm_android \
+    libdisplayutils \
     libfsldisplay
 
 PRODUCT_SOONG_NAMESPACES += external/mesa3d

@@ -98,6 +98,7 @@ PRODUCT_PACKAGES += \
 # display
 PRODUCT_PACKAGES += \
     libdrm_android \
+    libdisplayutils \
     libfsldisplay \
     nxp.hardware.display@1.0
 

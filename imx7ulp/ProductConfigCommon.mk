@@ -74,6 +74,7 @@ PRODUCT_PACKAGES += \
 # display libs
 PRODUCT_PACKAGES += \
     libdrm_android \
+    libdisplayutils \
     libfsldisplay
 
 PRODUCT_HOST_PACKAGES += \

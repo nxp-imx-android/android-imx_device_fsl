@@ -205,6 +205,7 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_PACKAGES += \
     libdrm_android \
+    libdisplayutils \
     libfsldisplay
 
 PRODUCT_HOST_PACKAGES += \
