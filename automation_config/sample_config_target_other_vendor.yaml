@@ -1,0 +1,71 @@
+# The order of "AndroidProducts.mk", "BoardConfig.mk" and "AndroidBoard.mk" being included
+# by AOSP core makefiles:
+#
+# 1. First, "AndroidProducts.mk" is included, in this file "PRODUCT_MAKEFILES" is assigned
+# with the value of product makefile path, variable "PRODUCT_DEVICE" should be defined in
+# the product makefile or files included by this file.
+#
+# 2. second, "BoardConfig.mk" is included. This file should be found under "build/make/target/"
+# or "device/" or "vendor/" with $(PRODUCT_DEVICE) in its subpath.
+#
+# 3. third, "AndroidBoard.mk" is included, this file is not a must, if it exists, it should
+# be under the same directory as "BoardConfig.mk"
+
+
+# In this sample config file, "AndroidProducts_root" is the directory under which
+# "AndroidProducts.mk" can be found.
+#
+# "device" in this configuration file corresponds to "PRODUCT_DEVICE" variable defined in
+# makefile, it's a substring of the path under which "BoardConfig.mk" and "AndroidBoard.mk"
+# can be found. Although these files can be put in other path under "device/" or "vendor/"
+# with $(PRODUCT_DEVICE) as subpath, we put these files under the path represented by
+# "AndroidProducts_root", so in this example, the path should be:
+#     device/vendor_name/product_family/board_name
+#
+# "name" corresponds to "PRODUCT_NAME" in makefile. the name of product makefile(used in
+# "AndroidProducts.mk") can be deduced from "name", in this example, it's "product_name.mk".
+# Although it can be put in any other path, we put this file under the same directory as
+# "BoardConfig.mk", so the path should be:
+#     device/vendor_name/product_family/board_name/product_name.mk
+
+# To disable any module in the target product, change the "y" after the module name to other
+# value.
+
+
+reference_product:
+  name: evk_8mm
+  device: evk_8mm
+  soc_type: IMX8MM
+  AndroidProducts_root: device/nxp/imx8m
+
+target_product:
+  name: product_name
+  device: board_name
+  soc_type: IMX8MM
+  repo_path: device/vendor_name
+  AndroidProducts_root: device/vendor_name/product_family
+  manufacturer: vendor_full_name
+
+modules:
+  app: y
+  audio: y
+  bluetooth: y
+  camera: y
+  common_config: y
+  display: y
+  ethernet: n
+  gpu: y
+  infrastructure: y
+  input: y
+  kernel_bootimg: y
+  memory: y
+  miscellaneous: y
+  multimedia_codec: y
+  power: y
+  security: y
+  sensor: n
+  sepolicy: y
+  storage: y
+  treble: y
+  usb: y
+  wifi: y

@@ -1,0 +1,37 @@
+reference_product:
+  name: evk_8mm
+  device: evk_8mm
+  soc_type: IMX8MM
+  AndroidProducts_root: device/nxp/imx8m
+
+target_product:
+  name: evk_8ulp
+  device: evk_8ulp
+  soc_type: IMX8ULP
+  repo_path: device/nxp
+  AndroidProducts_root: device/nxp/imx8ulp
+  manufacturer: nxp
+
+modules:
+  app: y
+  audio: y
+  bluetooth: y
+  camera: y
+  common_config: y
+  display: y
+  ethernet: n
+  gpu: y
+  infrastructure: y
+  input: y
+  kernel_bootimg: y
+  memory: y
+  miscellaneous: y
+  multimedia_codec: y
+  power: y
+  security: y
+  sensor: n
+  sepolicy: y
+  storage: y
+  treble: y
+  usb: y
+  wifi: y
