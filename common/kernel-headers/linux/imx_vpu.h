@@ -20,9 +20,6 @@
 #define _UAPI__LINUX_IMX_VPU_H
 #include <linux/videodev2.h>
 #include <linux/v4l2-controls.h>
-#define VSI_V4L2_CMPTYPE_ROI (V4L2_CTRL_COMPOUND_TYPES + 100)
-#define VSI_V4L2_CMPTYPE_IPCM (V4L2_CTRL_COMPOUND_TYPES + 101)
-#define VSI_V4L2_CMPTYPE_HDR10META (V4L2_CTRL_COMPOUND_TYPES + 102)
 #define V4L2_CID_NON_FRAME (V4L2_CID_USER_IMX_BASE)
 #define V4L2_CID_DIS_REORDER (V4L2_CID_USER_IMX_BASE + 1)
 #define V4L2_CID_ROI_COUNT (V4L2_CID_USER_IMX_BASE + 2)
@@ -56,6 +53,7 @@ struct v4l2_enc_ipcm_params {
   __u32 reserved[2];
 };
 struct v4l2_hdr10_meta {
+  __u32 hasHdr10Meta;
   __u32 redPrimary[2];
   __u32 greenPrimary[2];
   __u32 bluePrimary[2];
