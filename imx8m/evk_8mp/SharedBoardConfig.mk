@@ -72,6 +72,7 @@ BOARD_VENDOR_KERNEL_MODULES += \
     $(KERNEL_OUT)/sound/soc/codecs/snd-soc-rpmsg-wm8960-i2c.ko \
     $(KERNEL_OUT)/sound/soc/codecs/snd-soc-rpmsg-pcm512x.ko \
     $(KERNEL_OUT)/sound/soc/codecs/snd-soc-rpmsg-pcm512x-i2c.ko \
+    $(KERNEL_OUT)/sound/soc/codecs/snd-soc-tpa6130a2.ko \
     $(KERNEL_OUT)/sound/soc/fsl/snd-soc-imx-rpmsg.ko \
     $(KERNEL_OUT)/sound/soc/fsl/snd-soc-rpmsg-imx-pcm512x.ko \
     $(KERNEL_OUT)/drivers/rtc/rtc-snvs.ko \
