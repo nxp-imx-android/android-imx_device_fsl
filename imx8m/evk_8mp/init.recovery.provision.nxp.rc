@@ -1,0 +1,33 @@
+on init
+    # disable cursor blink for fbcon, if no splash screen support
+    write /sys/class/graphics/fbcon/cursor_blink 0
+
+    setprop sys.usb.configfs 1
+
+on post-fs-data
+    setprop sys.usb.controller "38100000.dwc3"
+
+on fs
+    mkdir /data/vendor 0770 system system
+    mkdir /data/vendor/ss 0770 system system
+    chmod 0766 /dev/mmcblk2rpmb
+    chmod 0766 /dev/trusty-ipc-dev0
+
+service storageproxyd /system/bin/storageproxyd_recovery -p /data/vendor/ss -r /dev/mmcblk2rpmb -d /dev/trusty-ipc-dev0
+    user root
+    group root system
+    seclabel u:r:recovery:s0
+
+on boot
+    start storageproxyd
+
+service console /system/bin/sh
+    class core
+    console
+    disabled
+    user root
+    group root shell log readproc
+    seclabel u:r:su:s0
+
+on init && property:ro.debuggable=1
+    start console

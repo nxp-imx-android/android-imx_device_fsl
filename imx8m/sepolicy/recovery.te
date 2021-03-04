@@ -6,5 +6,8 @@ recovery_only(`
   allow recovery cache_file:dir { mounton }; 
   allow recovery debug_prop:property_service { set }; 
   allow recovery ffs_prop:property_service { set };
+  allow recovery tee_data_file:dir { read open search};
+  allow recovery tee_device:chr_file { read write open ioctl};
+  allow recovery mmc_rpmb_char_device:chr_file { read write open ioctl};
 ')
 

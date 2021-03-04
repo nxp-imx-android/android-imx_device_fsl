@@ -58,7 +58,6 @@ PRODUCT_COPY_FILES += \
     $(IMX_DEVICE_PATH)/input-port-associations.xml:$(TARGET_COPY_OUT_VENDOR)/etc/input-port-associations.xml \
     $(IMX_DEVICE_PATH)/fstab.nxp:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.nxp \
     $(IMX_DEVICE_PATH)/init.imx8mp.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.nxp.imx8mp.rc \
-    $(IMX_DEVICE_PATH)/init.recovery.nxp.rc:root/init.recovery.nxp.rc \
     $(IMX_DEVICE_PATH)/early.init.cfg:$(TARGET_COPY_OUT_VENDOR)/etc/early.init.cfg \
     $(IMX_DEVICE_PATH)/init.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.nxp.rc \
     $(IMX_DEVICE_PATH)/init.usb.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.nxp.usb.rc \
@@ -67,6 +66,14 @@ PRODUCT_COPY_FILES += \
     device/nxp/common/init/init.insmod.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.insmod.sh \
     device/nxp/common/wifi/p2p_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/p2p_supplicant_overlay.conf \
     device/nxp/common/wifi/wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf
+
+ifeq ($(KEY_PROVISION),true)
+PRODUCT_COPY_FILES += \
+    $(IMX_DEVICE_PATH)/init.recovery.provision.nxp.rc:root/init.recovery.nxp.rc
+else
+PRODUCT_COPY_FILES += \
+    $(IMX_DEVICE_PATH)/init.recovery.nxp.rc:root/init.recovery.nxp.rc
+endif
 
 ifeq ($(POWERSAVE),true)
 PRODUCT_COPY_FILES += \
@@ -453,4 +460,12 @@ ifneq ($(filter TRUE true 1,$(IMX_OTA_POSTINSTALL)),)
 
   PRODUCT_COPY_FILES += \
     out/target/product/evk_8mp/obj/UBOOT_COLLECTION/u-boot-imx8mp.imx:$(TARGET_COPY_OUT_VENDOR)/etc/bootloader0.img
+endif
+
+
+ifeq ($(KEY_PROVISION),true)
+PRODUCT_PACKAGES += \
+    trusty_keymaster_set_attestation_key \
+    trusty_keymaster_set_attestation_key_recovery \
+    storageproxyd_recovery
 endif
