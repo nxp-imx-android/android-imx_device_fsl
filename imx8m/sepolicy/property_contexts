@@ -183,7 +183,6 @@ ro.boot.gui_resolution              u:object_r:vendor_default_prop:s0
 ro.boot.primary_display             u:object_r:vendor_default_prop:s0
 vendor.hwc.drm.device               u:object_r:vendor_default_prop:s0
 vendor.hwc.enable.overlay           u:object_r:vendor_default_prop:s0
-ro.boot.fake.ui_resolution          u:object_r:vendor_default_prop:s0
 ro.boot.displaymode                 u:object_r:vendor_default_prop:s0
 ro.hardware.lightsensor             u:object_r:vendor_default_prop:s0
 vendor.ro.lightsensor.threshold     u:object_r:vendor_default_prop:s0
