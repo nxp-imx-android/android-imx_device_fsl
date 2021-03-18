@@ -169,7 +169,8 @@ ifeq ($(TARGET_USE_DYNAMIC_PARTITIONS),true)
     # Used to support mcu image
     TARGET_BOARD_DTS_CONFIG += imx8mp-pcm512x-rpmsg:imx8mp-evk-hifiberry-dacpp-m-rpmsg.dtb
     TARGET_BOARD_DTS_CONFIG += imx8mp-wm8960-rpmsg:imx8mp-evk-rpmsg.dtb
-    TARGET_BOARD_DTS_CONFIG += imx8mp-rpmsg:imx8mp-evk-hifiberry-dacpp-m-rpmsg.dtb
+    TARGET_BOARD_DTS_CONFIG += imx8mp-wm8960-pcm512x-rpmsg:imx8mp-evk-wm8960-hifiberry-dacpp-m-rpmsg.dtb
+    TARGET_BOARD_DTS_CONFIG += imx8mp-rpmsg:imx8mp-evk-wm8960-hifiberry-dacpp-m-rpmsg.dtb
     # Support LVDS interface
     TARGET_BOARD_DTS_CONFIG += imx8mp-lvds:imx8mp-evk-it6263-lvds-dual-channel.dtb
     # Support LVDS panel
