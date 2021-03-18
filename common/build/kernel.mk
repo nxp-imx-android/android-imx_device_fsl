@@ -52,7 +52,7 @@ KERNEL_AFLAGS :=
 TARGET_KERNEL_SRC := $(KERNEL_IMX_PATH)/kernel_imx
 
 CLANG_TO_COMPILE := LLVM=1 LLVM_IAS=1
-CLANG_TOOL_CHAIN_ABS := $(realpath prebuilts/clang/host/linux-x86/clang-r383902b/bin)
+CLANG_TOOL_CHAIN_ABS := $(realpath prebuilts/clang/host/linux-x86/clang-r412851/bin)
 
 ifeq ($(TARGET_KERNEL_ARCH), arm)
 KERNEL_CFLAGS :=
