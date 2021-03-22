@@ -156,6 +156,7 @@ on late-fs
     # Start keymaster/gatekeeper service
     start vendor.gatekeeper-1-0-${ro.boot.keystore}
     start vendor.keymint-${ro.boot.keystore}
+    setprop vendor.powerhal.init 1
     start servicemanager
     start surfaceflinger
 
