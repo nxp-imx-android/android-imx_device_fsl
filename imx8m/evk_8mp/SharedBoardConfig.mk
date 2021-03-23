@@ -145,6 +145,8 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES +=     \
     $(KERNEL_OUT)/drivers/video/backlight/pwm_bl.ko \
     $(KERNEL_OUT)/drivers/mmc/host/cqhci.ko \
     $(KERNEL_OUT)/drivers/mmc/host/sdhci-esdhc-imx.ko \
+    $(KERNEL_OUT)/drivers/staging/android/ion/ion-alloc.ko \
+    $(KERNEL_OUT)/drivers/staging/android/ion/heaps/ion_sys_heap.ko \
     $(KERNEL_OUT)/drivers/staging/android/ion/heaps/ion_cma_heap.ko \
     $(KERNEL_OUT)/drivers/reset/reset-imx7.ko \
     $(KERNEL_OUT)/drivers/phy/freescale/phy-fsl-imx8mp-lvds.ko \
