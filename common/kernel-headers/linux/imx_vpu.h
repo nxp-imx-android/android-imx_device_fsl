@@ -27,6 +27,7 @@
 #define V4L2_CID_IPCM_COUNT (V4L2_CID_USER_IMX_BASE + 4)
 #define V4L2_CID_IPCM (V4L2_CID_USER_IMX_BASE + 5)
 #define V4L2_CID_HDR10META (V4L2_CID_USER_IMX_BASE + 6)
+#define V4L2_CID_SECUREMODE (V4L2_CID_USER_IMX_BASE + 7)
 #define V4L2_MAX_ROI_REGIONS 8
 struct v4l2_enc_roi_param {
   struct v4l2_rect rect;
@@ -82,10 +83,7 @@ enum {
 #define V4L2_PIX_FMT_TILEX v4l2_fourcc('D', 'T', 'R', 'X')
 #define V4L2_PIX_FMT_RFC v4l2_fourcc('R', 'F', 'C', '0')
 #define V4L2_PIX_FMT_RFCX v4l2_fourcc('R', 'F', 'C', 'X')
-#define V4L2_PIX_FMT_400 v4l2_fourcc('4', '0', 'S', 'P')
 #define V4L2_PIX_FMT_411SP v4l2_fourcc('4', '1', 'S', 'P')
-#define V4L2_PIX_FMT_422SP v4l2_fourcc('4', '2', 'S', 'P')
-#define V4L2_PIX_FMT_444SP v4l2_fourcc('4', '4', 'S', 'P')
 #define V4L2_PIX_FMT_AV1 v4l2_fourcc('A', 'V', '1', '0')
 #define V4L2_PIX_FMT_RV v4l2_fourcc('R', 'V', '0', '0')
 #define V4L2_PIX_FMT_AVS v4l2_fourcc('A', 'V', 'S', '0')
