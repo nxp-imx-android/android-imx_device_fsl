@@ -148,6 +148,7 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES +=     \
     $(KERNEL_OUT)/drivers/staging/android/ion/ion-alloc.ko \
     $(KERNEL_OUT)/drivers/staging/android/ion/heaps/ion_sys_heap.ko \
     $(KERNEL_OUT)/drivers/staging/android/ion/heaps/ion_cma_heap.ko \
+    $(KERNEL_OUT)/drivers/staging/android/ion/heaps/ion_unmapped_heap.ko \
     $(KERNEL_OUT)/drivers/reset/reset-imx7.ko \
     $(KERNEL_OUT)/drivers/phy/freescale/phy-fsl-imx8mp-lvds.ko \
     $(KERNEL_OUT)/drivers/phy/freescale/phy-fsl-samsung-hdmi.ko \
