@@ -126,6 +126,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 -include $(FSL_RESTRICTED_CODEC_PATH)/fsl-restricted-codec/fsl_ms_codec/fsl_ms_codec.mk
 
 PREBUILT_FSL_IMX_CODEC := true
+
+# -------@enable isp copy-------
+PREBUILT_FSL_IMX_ISP := true
+
 # -------@block_storage-------
 
 PRODUCT_PACKAGES += \
