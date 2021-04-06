@@ -52,7 +52,23 @@ KERNEL_AFLAGS :=
 TARGET_KERNEL_SRC := $(KERNEL_IMX_PATH)/kernel_imx
 
 CLANG_TO_COMPILE := LLVM=1 LLVM_IAS=1
-CLANG_TOOL_CHAIN_ABS := $(realpath prebuilts/clang/host/linux-x86/clang-r383902b/bin)
+
+# Uncomment below line to use prebuilt clang tool in android platform code
+CLANG_PATH := $(realpath prebuilts/clang/host/linux-x86)
+
+# Or use external clang
+ifeq ($(CLANG_PATH),)
+$(error shell env CLANG_PATH is not set. Please follow user guide doc to set correct CLANG_PATH)
+endif
+
+# This clang version need align with $(kernel_source)/build.config.common
+CLANG_BIN := $(CLANG_PATH)/clang-r383902b/bin
+
+ifeq (,$(wildcard $(CLANG_BIN)))
+$(error CLANG_BIN:$(CLANG_BIN) does not exist. Please update clang to latest version: \
+cd $(CLANG_PATH); sudo git remote update; sudo git checkout origin/master )
+endif
+
 
 ifeq ($(TARGET_KERNEL_ARCH), arm)
 KERNEL_CFLAGS :=
@@ -71,7 +87,7 @@ endif
 ifeq ($(ENABLE_GCC_BUILD), true)
 CLANG_TRIPLE :=
 CLANG_TO_COMPILE :=
-CLANG_TOOL_CHAIN_ABS :=
+CLANG_BIN :=
 # prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9/bin/aarch64-linux-androidkernel-gcc have been remove in android11
 # android do not support internal gcc in android11 anymore, export external gcc for imx device. you can asign one local gcc here.
 ifeq ($(TARGET_KERNEL_ARCH), arm)
@@ -89,7 +105,7 @@ KERNEL_CROSS_COMPILE_WRAPPER := $(realpath $(KERNEL_CC_WRAPPER)) $(KERNEL_CROSS_
 ifeq ($(CLANG_TO_COMPILE),)
 KERNEL_GCC_NOANDROID_CHK := $(shell (echo "int main() {return 0;}" | $(KERNEL_CROSS_COMPILE)gcc -E -mno-android - > /dev/null 2>&1 ; echo $$?))
 else
-KERNEL_GCC_NOANDROID_CHK := $(shell (echo "int main() {return 0;}" | $(CLANG_TOOL_CHAIN_ABS)clang --target=$(CLANG_TRIPLE:%-=%) \
+KERNEL_GCC_NOANDROID_CHK := $(shell (echo "int main() {return 0;}" | $(CLANG_BIN)clang --target=$(CLANG_TRIPLE:%-=%) \
   -E -mno-android - > /dev/null 2>&1 ; echo $$?))
 endif
 
@@ -151,7 +167,7 @@ $(KERNEL_CONFIG_REQUIRED): $(KERNEL_CONFIG_REQUIRED_SRC) | $(KERNEL_OUT)
 	$(hide) cat $^ > $@
 
 # use deferred expansion
-kernel_build_shell_env = PATH=$(CLANG_TOOL_CHAIN_ABS):$(realpath prebuilts/misc/linux-x86/lz4):$${PATH} \
+kernel_build_shell_env = PATH=$(CLANG_BIN):$(realpath prebuilts/misc/linux-x86/lz4):$${PATH} \
         $(CLANG_TRIPLE) CCACHE_NODIRECT="true"
 ifeq ($(CLANG_TO_COMPILE),)
 kernel_build_common_env = ARCH=$(KERNEL_ARCH) CROSS_COMPILE=$(strip $(KERNEL_CROSS_COMPILE_WRAPPER)) \
