@@ -42,10 +42,6 @@ on early-init && property:ro.boot.mode=charger
 on init && property:vendor.skip.charger_not_need=0
     start watchdogd
 
-    # Support legacy paths
-    symlink /sdcard /mnt/sdcard
-    symlink /sdcard /storage/sdcard0
-
     # disable cursor blink for fbcon, if no splash screen support
     write /sys/class/graphics/fbcon/cursor_blink 0
 
