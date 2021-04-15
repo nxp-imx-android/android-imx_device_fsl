@@ -174,11 +174,7 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES +=     \
     $(KERNEL_OUT)/drivers/gpu/drm/panel/panel-raydium-rm67191.ko \
     $(KERNEL_OUT)/drivers/gpu/drm/panel/panel-simple.ko \
     $(KERNEL_OUT)/drivers/usb/dwc3/dwc3-imx8mp.ko \
-    $(KERNEL_OUT)/drivers/usb/dwc3/dwc3.ko \
     $(KERNEL_OUT)/drivers/usb/typec/mux/gpio-switch.ko \
-    $(KERNEL_OUT)/drivers/usb/host/xhci-hcd.ko \
-    $(KERNEL_OUT)/drivers/usb/host/xhci-pci.ko \
-    $(KERNEL_OUT)/drivers/usb/host/xhci-plat-hcd.ko \
     $(KERNEL_OUT)/drivers/power/supply/dummy_battery.ko \
     $(KERNEL_OUT)/drivers/nvmem/nvmem-imx-ocotp.ko \
     $(KERNEL_OUT)/drivers/thermal/device_cooling.ko \
