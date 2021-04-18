@@ -167,6 +167,7 @@ vendor.DISABLE_FLOAT_FEATURE                     u:object_r:vendor_public_defaul
 vendor.MODEL_BLOCK_LEVEL                         u:object_r:vendor_public_default_prop:s0
 vendor.USE_GPU_INFERENCE                         u:object_r:vendor_public_default_prop:s0
 
+ro.boot.lpa.enable                  u:object_r:vendor_public_default_prop:s0
 vendor.audio.lpa.enable             u:object_r:vendor_public_default_prop:s0
 vendor.gralloc.drm.device           u:object_r:vendor_public_default_prop:s0
 vendor.gralloc.trace                u:object_r:vendor_public_default_prop:s0
