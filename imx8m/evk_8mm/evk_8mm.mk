@@ -278,6 +278,9 @@ PRODUCT_PACKAGES += \
     libGAL \
     libGLSLC \
     libVSC \
+    libCLC \
+    libLLVM_viv \
+    libOpenCL \
     libg2d-viv \
     libgpuhelper \
 
