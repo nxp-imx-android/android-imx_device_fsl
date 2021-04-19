@@ -253,7 +253,8 @@ endif
 
 # ISP camera feature demo
 PRODUCT_PACKAGES += \
-    CameraXBasic
+    CameraXBasic \
+    Camera2Basic
 
 # -------@block_display-------
 
