@@ -304,4 +304,4 @@ on property:ro.boot.lpa.enable=1
     setprop vendor.audio.lpa.hold_second 20
     setprop vendor.audio.lpa.period_ms 500
     setprop vendor.audio.lpa.enable 1
-    write /sys/power/lpa 1
+    write /sys/lpa_ctrl/lpa 1
