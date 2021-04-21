@@ -99,3 +99,5 @@
 
 # allocator 4.0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.graphics\.allocator@4\.0-service.imx   u:object_r:hal_graphics_allocator_default_exec:s0
+
+/dev/ion_imx                           u:object_r:ion_device:s0

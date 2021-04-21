@@ -160,6 +160,7 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES +=     \
     $(KERNEL_OUT)/drivers/mmc/host/cqhci.ko \
     $(KERNEL_OUT)/drivers/mmc/host/sdhci-esdhc-imx.ko \
     $(KERNEL_OUT)/drivers/staging/android/ion/heaps/ion_cma_heap.ko \
+    $(KERNEL_OUT)/drivers/staging/android/ion/ion_imx.ko \
     $(KERNEL_OUT)/drivers/mfd/imx-audiomix.ko \
     $(KERNEL_OUT)/drivers/reset/reset-imx7.ko \
     $(KERNEL_OUT)/drivers/reset/reset-imx-audiomix.ko \
