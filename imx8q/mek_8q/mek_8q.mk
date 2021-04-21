@@ -345,7 +345,7 @@ PRODUCT_PACKAGES += \
 
 # define frame buffer count
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
-    ro.surface_flinger.max_frame_buffer_acquired_buffers=3
+    ro.surface_flinger.max_frame_buffer_acquired_buffers=4
 
 # Gralloc HAL
 PRODUCT_PACKAGES += \
