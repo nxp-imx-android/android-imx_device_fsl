@@ -8,3 +8,4 @@ allow hal_confirmationui tee_device:chr_file {ioctl open read write};
 allow hal_confirmationui input_device:dir {read open search};
 allow hal_confirmationui input_device:chr_file {read write open ioctl};
 allow hal_confirmationui keystore:binder {call};
+allow hal_confirmationui ion_device:chr_file {read open ioctl};
