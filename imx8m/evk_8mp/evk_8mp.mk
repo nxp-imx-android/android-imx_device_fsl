@@ -341,6 +341,7 @@ PRODUCT_PACKAGES += \
     c2_component_register_ra
 
 # dsp decoder
+ifneq ($(POWERSAVE),true)
 PRODUCT_PACKAGES += \
     media_codecs_c2_dsp.xml \
     media_codecs_c2_dsp_aacp.xml \
@@ -358,7 +359,7 @@ PRODUCT_PACKAGES += \
     c2_component_register_dsp \
     c2_component_register_dsp_wma \
     c2_component_register_dsp_aacp
-
+endif
 
 PRODUCT_PACKAGES += \
     DirectAudioPlayer
