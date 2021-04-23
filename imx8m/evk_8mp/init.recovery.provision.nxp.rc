@@ -3,6 +3,7 @@ on init
     write /sys/class/graphics/fbcon/cursor_blink 0
 
     setprop sys.usb.configfs 1
+    setprop vendor.storageproxyd ${ro.boot.keystore}
 
 on post-fs-data
     setprop sys.usb.controller "38100000.dwc3"
@@ -18,7 +19,7 @@ service storageproxyd /system/bin/storageproxyd_recovery -p /data/vendor/ss -r /
     group root system
     seclabel u:r:recovery:s0
 
-on boot
+on boot && property:vendor.storageproxyd=trusty
     start storageproxyd
 
 service console /system/bin/sh
