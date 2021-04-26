@@ -33,6 +33,7 @@ on property:sys.boot_completed=1
     write /sys/devices/platform/soc@0/30c00000.bus/30e20000.audio-blk-ctrl/power/control auto
     write /sys/devices/platform/soc@0/32c00000.bus/32ec0000.media-blk-ctrl/power/control auto
     write /sys/devices/platform/soc@0/30c00000.bus/32fc0000.hdmi-blk-ctrl/power/control auto
+    write /sys/clk_ctrl/enable_clk_disable_unused 1
 
 on property:sys.boot_completed=1
     # update cpuset now that processors are up
