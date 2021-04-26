@@ -189,6 +189,7 @@ ro.boot.boot_device_root                   u:object_r:vendor_public_default_prop
 vendor.media.fsl_codec.flag                u:object_r:vendor_public_default_prop:s0
 vendor.media.amphion_vpu.enable-tile       u:object_r:vendor_public_default_prop:s0
 vendor.bluetooth.rfkill_initialized        u:object_r:vendor_public_default_prop:s0
+ro.vendor.build_id                  u:object_r:vendor_public_default_prop:s0
 
 ro.boot.gui_resolution                     u:object_r:vendor_default_prop:s0
 ro.boot.primary_display                    u:object_r:vendor_default_prop:s0

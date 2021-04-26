@@ -1,3 +1,4 @@
+include device/nxp/common/build/build_info.mk
 ifneq ($(IMX8_BUILD_32BIT_ROOTFS),true)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
 endif
