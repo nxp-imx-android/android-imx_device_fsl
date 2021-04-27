@@ -177,6 +177,7 @@ PRODUCT_PACKAGES += \
 
 # -------@block_camera-------
 ifneq ($(PRODUCT_IMX_CAR),true)
+ifneq ($(POWERSAVE),true)
 PRODUCT_PACKAGES += \
     android.hardware.camera.provider@2.6-service-google \
     android.hardware.camera.provider@2.6-impl-google \
@@ -190,6 +191,7 @@ PRODUCT_PACKAGES += \
     android.hardware.camera.provider@2.4-impl \
     camera.device@1.0-impl \
     camera.device@3.2-impl
+endif
 endif
 
 # -------@block_display-------
