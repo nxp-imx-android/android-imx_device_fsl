@@ -79,7 +79,12 @@ BOARD_AVB_BOOT_ROLLBACK_INDEX_LOCATION := 2
 
 # -------@block_treble-------
 # Vendor Interface manifest and compatibility
-DEVICE_MANIFEST_FILE := $(IMX_DEVICE_PATH)/manifest.xml
+ifeq ($(POWERSAVE),true)
+    DEVICE_MANIFEST_FILE := $(IMX_DEVICE_PATH)/manifest_powersave.xml
+else
+    DEVICE_MANIFEST_FILE := $(IMX_DEVICE_PATH)/manifest.xml
+endif
+
 DEVICE_MATRIX_FILE := $(IMX_DEVICE_PATH)/compatibility_matrix.xml
 DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE := $(IMX_DEVICE_PATH)/device_framework_matrix.xml
 
@@ -116,13 +121,22 @@ BOARD_KERNEL_CMDLINE += swiotlb=65536
 BOARD_KERNEL_CMDLINE += androidboot.lcd_density=240 androidboot.primary_display=imx-drm
 
 # wifi config
-BOARD_KERNEL_CMDLINE += androidboot.wificountrycode=CN moal.mod_para=wifi_mod_para.conf
+ifeq ($(POWERSAVE),true)
+    BOARD_KERNEL_CMDLINE += androidboot.wificountrycode=CN moal.mod_para=wifi_mod_para_powersave.conf
+else
+    BOARD_KERNEL_CMDLINE += androidboot.wificountrycode=CN moal.mod_para=wifi_mod_para.conf
+endif
 
 # low memory device build config
 ifeq ($(LOW_MEMORY),true)
 BOARD_KERNEL_CMDLINE += cma=320M@0x400M-0xb80M androidboot.displaymode=720p galcore.contiguousSize=33554432
 else
 BOARD_KERNEL_CMDLINE += cma=$(CMASIZE)@0x400M-0x1000M
+endif
+
+# powersave config
+ifeq ($(POWERSAVE),true)
+    BOARD_KERNEL_CMDLINE += androidboot.powersave.usb=true
 endif
 
 ifneq (,$(filter userdebug eng,$(TARGET_BUILD_VARIANT)))
