@@ -210,6 +210,8 @@ PRODUCT_PACKAGES += \
     libwvdrmengine \
     liboemcrypto \
 
+$(call inherit-product-if-exists, vendor/nxp-private/widevine/nxp_widevine_tee.mk)
+
 # -------@block_audio-------
 
 # Audio card json
@@ -513,5 +515,4 @@ PRODUCT_COPY_FILES += \
 # Included GMS package
 $(call inherit-product-if-exists, vendor/partner_gms/products/gms.mk)
 PRODUCT_SOONG_NAMESPACES += vendor/partner_gms
-
 
