@@ -1,0 +1,3 @@
+# android.system.suspend@1.0-service
+/sys/devices/platform/bus@5a000000/5a800000.i2c/i2c-2/2-0051/power_supply/tcpm-source-psy-2-0051/wakeup[0-9]*(/.*)?                     u:object_r:sysfs_wakeup:s0
+/sys/devices/platform/bus@5a000000/5a800000.i2c/i2c-4/4-0051/power_supply/tcpm-source-psy-4-0051/wakeup[0-9]*(/.*)?                     u:object_r:sysfs_wakeup:s0
