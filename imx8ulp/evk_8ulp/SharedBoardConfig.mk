@@ -3,7 +3,7 @@
 KERNEL_NAME := Image
 TARGET_KERNEL_ARCH := arm64
 
-IMX8MM_USES_GKI := false
+IMX8ULP_USES_GKI := false
 
 # CONFIG_TOUCHSCREEN_SYNAPTICS_DSX_I2C: synaptics_dsx_i2c.ko, mipi-panel touch driver module
 # CONFIG_VIDEO_MXC_CSI_CAMERA: mx6s_capture.ko, it's csi adapt driver which is the input of v4l2 framework
@@ -26,7 +26,7 @@ IMX8MM_USES_GKI := false
 # CONFIG_FEC: fec.ko which depend on pps_core.ko and ptp.ko
 # CONFIG_AT803X_PHY: ethernet phy driver at803x.ko
 
-ifeq ($(IMX8MM_USES_GKI),true)
+ifeq ($(IMX8ULP_USES_GKI),true)
 BOARD_VENDOR_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/mxc/gpu-viv/galcore.ko \
     $(KERNEL_OUT)/drivers/media/platform/mxc/capture/mx6s_capture.ko \
@@ -54,9 +54,9 @@ BOARD_VENDOR_KERNEL_MODULES +=     \
     $(KERNEL_OUT)/drivers/input/touchscreen/synaptics_dsx/synaptics_dsx_i2c.ko
 endif
 
-# CONFIG_CLK_IMX8MM: clk-imx8mm.ko
+# CONFIG_CLK_IMX8ULP: clk-imx8ulp.ko
 # CONFIG_IMX8M_PM_DOMAINS: imx8m_pm_domains.ko, this driver still not upstream
-# CONFIG_PINCTRL_IMX8MM: pinctrl-imx8mm.ko
+# CONFIG_PINCTRL_IMX8ULP: pinctrl-imx8ulp.ko
 # CONFIG_SERIAL_IMX: imx.ko
 # CONFIG_IMX2_WDT: imx2_wdt.ko
 # CONFIG_MFD_ROHM_BD718XX: rohm-bd718x7.ko
@@ -77,11 +77,11 @@ endif
 # CONFIG_TYPEC_TCPCI: tcpci.ko
 # CONFIG_USB_EHCI_HCD: ehci-hcd.ko
 
-ifeq ($(IMX8MM_USES_GKI),true)
+ifeq ($(IMX8ULP_USES_GKI),true)
 BOARD_VENDOR_RAMDISK_KERNEL_MODULES +=     \
-    $(KERNEL_OUT)/drivers/clk/imx/clk-imx8mm.ko \
+    $(KERNEL_OUT)/drivers/clk/imx/clk-imx8ulp.ko \
     $(KERNEL_OUT)/drivers/soc/imx/imx8m_pm_domains.ko \
-    $(KERNEL_OUT)/drivers/pinctrl/freescale/pinctrl-imx8mm.ko \
+    $(KERNEL_OUT)/drivers/pinctrl/freescale/pinctrl-imx8ulp.ko \
     $(KERNEL_OUT)/drivers/tty/serial/imx.ko \
     $(KERNEL_OUT)/drivers/watchdog/imx2_wdt.ko \
     $(KERNEL_OUT)/drivers/mfd/rohm-bd718x7.ko \
@@ -120,7 +120,7 @@ endif
 
 
 # -------@block_memory-------
-#Enable this to config 1GB ddr on evk_imx8mm
+#Enable this to config 1GB ddr on evk_imx8ulp
 LOW_MEMORY := false
 
 # -------@block_security-------

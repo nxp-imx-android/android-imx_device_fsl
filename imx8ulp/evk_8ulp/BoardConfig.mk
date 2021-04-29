@@ -85,7 +85,7 @@ DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE := $(IMX_DEVICE_PATH)/device_framewor
 
 
 # -------@block_wifi-------
-# 8mm LPDDR4 board use NXP 8987 wifi
+# 8ulp LPDDR4 board use NXP 8987 wifi
 BOARD_WLAN_DEVICE            := nxp
 WPA_SUPPLICANT_VERSION       := VER_0_8_X
 BOARD_WPA_SUPPLICANT_DRIVER  := NL80211
@@ -143,21 +143,17 @@ BOARD_KERNEL_CMDLINE += androidboot.vendor.sysrq=1
 endif
 
 ifeq ($(TARGET_USE_DYNAMIC_PARTITIONS),true)
-  # dts target for imx8mm_evk with DDR4 on board
   ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
     # dts without product partition
-    TARGET_BOARD_DTS_CONFIG ?= imx8mm:imx8mm-evk-no-product.dtb
-    TARGET_BOARD_DTS_CONFIG += imx8mm-ddr4:imx8mm-ddr4-evk-no-product.dtb
+    TARGET_BOARD_DTS_CONFIG ?= imx8ulp:imx8ulp-evk-no-product.dtb
   else
     TARGET_BOARD_DTS_CONFIG += imx8ulp:imx8ulp-evk.dtb
   endif
 else
   ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
-    TARGET_BOARD_DTS_CONFIG ?= imx8mm:imx8mm-evk-no-product-no-dynamic_partition.dtb
-    TARGET_BOARD_DTS_CONFIG += imx8mm-ddr4:imx8mm-ddr4-evk-no-product-no-dynamic_partition.dtb
+    TARGET_BOARD_DTS_CONFIG ?= imx8ulp:imx8ulp-evk-no-product-no-dynamic_partition.dtb
   else
-    TARGET_BOARD_DTS_CONFIG ?= imx8mm:imx8mm-evk-no-dynamic_partition.dtb
-    TARGET_BOARD_DTS_CONFIG += imx8mm-ddr4:imx8mm-ddr4-evk-no-dynamic_partition.dtb
+    TARGET_BOARD_DTS_CONFIG ?= imx8ulp:imx8ulp-evk-no-dynamic_partition.dtb
   endif
 endif
 
