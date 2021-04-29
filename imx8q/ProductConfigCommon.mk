@@ -297,6 +297,12 @@ PRODUCT_PACKAGES += \
 PRODUCT_DEFAULT_DEV_CERTIFICATE := \
     $(CONFIG_REPO_PATH)/common/security/testkey
 
+ifeq ($(PRODUCT_IMX_TRUSTY),true)
+PRODUCT_PACKAGES += \
+    trusty_apploader \
+
+endif
+
 #OEM Unlock reporting
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     ro.oem_unlock_supported=1

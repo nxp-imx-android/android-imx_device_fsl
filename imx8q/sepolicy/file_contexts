@@ -82,6 +82,7 @@
 
 # secure os storage
 /vendor/bin/storageproxyd   u:object_r:tee_exec:s0
+/vendor/bin/trusty_apploader u:object_r:tee_exec:s0
 
 /vendor/bin/hw/android\.hardware\.drm@1\.2-service\.widevine u:object_r:hal_drm_widevine_exec:s0
 /vendor/bin/hw/android\.hardware\.drm@1\.3-service\.widevine u:object_r:hal_drm_widevine_exec:s0
