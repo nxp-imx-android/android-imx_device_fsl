@@ -279,6 +279,9 @@ def copy_product_file():
         else:
             break
 
+    for entry in entries:
+        if reference_product['soc_type'].lower() in entry:
+            modified_file_list.append(entry)
 
     for entry in entries:
         if entry in device_mkfile_dict and device_mkfile_dict[entry] == 1:
@@ -294,7 +297,6 @@ def copy_product_file():
 
         if reference_product['soc_type'].lower() in entry:
             renamed_entry = entry.replace(reference_product['soc_type'].lower(), target_product['soc_type'].lower())
-            modified_file_list.append(entry)
 
         target_file = os.path.join(android_root_path, target_product['AndroidProducts_root'], target_product['device'], renamed_entry)
 
