@@ -1,5 +1,24 @@
 #!/bin/bash
 
+# Below steps show how to change the file in ramdisk in bootimage
+# * unzip the bootimage
+#   ./unpack_bootimg --boot_img gki_boot.img --out unpack_out
+# * unzip ramdisk.
+#   if the bootimage is GKI bootimage, the ramdisk type is lz4:
+#   lz4 -d ../unpack_out/ramdisk | cpio -imd
+#   if the bootimage is nxp bootimage, the ramdisk type is gunzip:
+#   gunzip -c boot.img-ramdisk.gz | cpio -i
+# * change file in ramdisk
+# * pack the ramdisk file
+#   gzip: "find . ! -name . | LC_ALL=C sort | cpio -o -H newc -R root:root | gzip > ../new-boot.img-ramdisk.gz"
+#   lz4: "find . ! -name . | LC_ALL=C sort | cpio -o -H newc -R root:root | lz4 > ../new-boot.img-ramdisk.lz4"
+# * add below patch in replace_kernel.sh
+#    +cp  /home/sanshan/imx_android-11.0/new-boot.img-ramdisk.gz ${unpack_out_dir}/ramdisk
+#	 echo "Replace ${Image} in ${boot_img} ..."
+# * generate new bootimage which include new ramdisk
+#   ./device/nxp/common/tools/replace_kernel.sh -b gki_boot.img -i ~/Image -o only_replace_new_ramdisk_boot.img
+#
+
 BOARD_KERNEL_OFFSET=0x00080000
 help()
 {
