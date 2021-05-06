@@ -67,12 +67,23 @@ PRODUCT_COPY_FILES += \
     device/nxp/common/wifi/p2p_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/p2p_supplicant_overlay.conf \
     device/nxp/common/wifi/wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf
 
-ifeq ($(KEY_PROVISION),true)
-PRODUCT_COPY_FILES += \
-    $(IMX_DEVICE_PATH)/init.recovery.provision.nxp.rc:root/init.recovery.nxp.rc
+
+ifeq ($(TARGET_USE_VENDOR_BOOT),true)
+  ifeq ($(KEY_PROVISION),true)
+    PRODUCT_COPY_FILES += \
+      $(IMX_DEVICE_PATH)/init.recovery.provision.nxp.rc:$(TARGET_COPY_OUT_VENDOR_RAMDISK)/init.recovery.nxp.rc
+  else
+    PRODUCT_COPY_FILES += \
+      $(IMX_DEVICE_PATH)/init.recovery.nxp.rc:$(TARGET_COPY_OUT_VENDOR_RAMDISK)/init.recovery.nxp.rc
+  endif
 else
-PRODUCT_COPY_FILES += \
-    $(IMX_DEVICE_PATH)/init.recovery.nxp.rc:root/init.recovery.nxp.rc
+  ifeq ($(KEY_PROVISION),true)
+    PRODUCT_COPY_FILES += \
+      $(IMX_DEVICE_PATH)/init.recovery.provision.nxp.rc:root/init.recovery.nxp.rc
+  else
+    PRODUCT_COPY_FILES += \
+      $(IMX_DEVICE_PATH)/init.recovery.nxp.rc:root/init.recovery.nxp.rc
+  endif
 endif
 
 ifeq ($(POWERSAVE),true)
