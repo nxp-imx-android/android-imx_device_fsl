@@ -38,6 +38,15 @@ BOARD_VENDOR_KERNEL_MODULES += \
 # CONFIG_MXC_HANTRO_845: hantrodec_845s.ko, vpu decoder driver
 
 ifneq ($(IMX8MP_USES_GKI),)
+
+ifeq ($(POWERSAVE),true)
+BOARD_VENDOR_KERNEL_MODULES += \
+    $(KERNEL_OUT)/drivers/rpmsg/imx_rpmsg.ko
+else
+BOARD_VENDOR_KERNEL_MODULES += \
+    $(KERNEL_OUT)/drivers/remoteproc/imx_rproc.ko
+endif
+
 BOARD_VENDOR_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/mxc/gpu-viv/galcore.ko \
     $(KERNEL_OUT)/drivers/dma/imx-sdma.ko \
@@ -63,7 +72,6 @@ BOARD_VENDOR_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/mxc/hantro_845/hantrodec_845s.ko \
     $(KERNEL_OUT)/drivers/mailbox/imx-mailbox.ko \
     $(KERNEL_OUT)/drivers/rpmsg/virtio_rpmsg_bus.ko \
-    $(KERNEL_OUT)/drivers/rpmsg/imx_rpmsg.ko \
     $(KERNEL_OUT)/drivers/i2c/busses/i2c-rpmsg-imx.ko \
     $(KERNEL_OUT)/sound/soc/fsl/imx-pcm-rpmsg.ko \
     $(KERNEL_OUT)/sound/soc/fsl/snd-soc-fsl-rpmsg-i2s.ko \
