@@ -106,6 +106,9 @@ BOARD_GPU_DRIVERS := vivante
 # Indicate use NXP libdrm-imx or Android external/libdrm
 BOARD_GPU_LIBDRM := libdrm_imx
 
+# build ramdisk for bootimage and vendorbootimage as lz4, the default one is gzip
+BOARD_RAMDISK_USE_LZ4 := true
+
 # for kernel/user space split
 # comment out for 1g/3g space split
 # TARGET_KERNEL_2G := true
