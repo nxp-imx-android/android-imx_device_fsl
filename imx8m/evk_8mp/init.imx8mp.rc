@@ -57,6 +57,6 @@ on early-boot
     export VSI_LOG_LEVEL 0
     start isp_media_server
 
-service isp_media_server /vendor/bin/isp_media_server CAMERA0
+service isp_media_server /vendor/bin/isp_media_server DUAL_CAMERA
     group camera
     oneshot

@@ -147,8 +147,10 @@ ifeq ($(TARGET_USE_DYNAMIC_PARTITIONS),true)
   ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
     TARGET_BOARD_DTS_CONFIG := imx8mp:imx8mp-evk-no-product.dtb
   else
-    # Default use basler + ov5640
-    TARGET_BOARD_DTS_CONFIG := imx8mp:imx8mp-evk-basler-ov5640.dtb
+    # Default dual basler
+    TARGET_BOARD_DTS_CONFIG := imx8mp:imx8mp-evk-dual-basler.dtb
+    # basler + ov5640
+    TARGET_BOARD_DTS_CONFIG += imx8mp-basler-ov5640:imx8mp-evk-basler-ov5640.dtb
     # Only ov5640
     TARGET_BOARD_DTS_CONFIG += imx8mp-ov5640:imx8mp-evk.dtb
     # Only basler
