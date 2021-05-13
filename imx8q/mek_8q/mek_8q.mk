@@ -332,6 +332,10 @@ PRODUCT_COPY_FILES += \
 PRODUCT_SOONG_NAMESPACES += hardware/google/camera
 PRODUCT_SOONG_NAMESPACES += vendor/nxp-opensource/imx/camera
 
+# external camera feature demo
+PRODUCT_PACKAGES += \
+     Camera2Basic
+
 PRODUCT_PACKAGES += \
         imx_evs_app \
         imx_evs_app_default_resources

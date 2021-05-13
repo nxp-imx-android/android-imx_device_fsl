@@ -194,6 +194,10 @@ PRODUCT_PACKAGES += \
 endif
 endif
 
+# external camera feature demo
+PRODUCT_PACKAGES += \
+     Camera2Basic
+
 # -------@block_display-------
 ifneq ($(PRODUCT_IMX_CAR),true)
 PRODUCT_PACKAGES += \
