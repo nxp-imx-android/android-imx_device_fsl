@@ -11,3 +11,5 @@ allow isp isp_file:dir { add_name write search };
 allow isp isp_file:file { create lock open read write };
 allow isp video_device:chr_file { open read write ioctl map getattr };
 allow isp self:capability { sys_nice };
+allow isp sysfs:dir { open read };
+allow isp sysfs:file { open read };
