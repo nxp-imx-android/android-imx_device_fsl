@@ -54,9 +54,9 @@ on post-fs-data
     mkdir /data/vendor/isp 0771 system camera
 
 on early-boot
-    export VSI_LOG_LEVEL 0
+    export ISP_LOG_LEVEL 4
     start isp_media_server
 
-service isp_media_server /vendor/bin/isp_media_server DUAL_CAMERA
+service isp_media_server /vendor/bin/isp_media_server
     group camera
     oneshot
