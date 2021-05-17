@@ -23,10 +23,11 @@ BOARD_KERNEL_OFFSET=0x00080000
 help()
 {
     echo "Usage: Using Image to replace old one in boot.img, then generate new_boot.img"
-    echo "       $0 -b boot.img -i Image -o new_boot.img"
+    echo "       $0 -b boot.img -i Image -o new_boot.img [-r ramdisk]"
     echo "           boot.img    : old android boot image"
     echo "           Image       : new kernel Image"
     echo "           new_boot.img: new android boot image"
+    echo "           ramdisk     : new ramdisk [optional]"
     echo " "
     echo "       Note:"
     echo "           This script depends on two binaries: unpack_bootimg and mkbootimg."
@@ -39,13 +40,17 @@ if [ $# -lt 6 ]; then
     exit 1;
 fi
 
-while getopts 'b:i:o:h' OPTION; do
+new_ramdisk=0
+while getopts 'b:i:o:r:h' OPTION; do
   case "$OPTION" in
     b) boot_img="$OPTARG"
        ;;
     i) Image="$OPTARG"
        ;;
     o) new_boot_img="$OPTARG"
+       ;;
+    r) ramdisk="$OPTARG"
+       new_ramdisk=1
        ;;
     h) help
       exit 1;
@@ -57,6 +62,13 @@ if [ ! -f ${boot_img} -o ! -f ${Image} ]; then
     echo "Can't find ${boot_img} or ${Image}"
 	help
 	exit 1;
+fi
+
+if [ ${new_ramdisk} -eq 1 ]; then
+    if [ ! -f "${ramdisk}" ]; then
+        echo "ramdisk: ${ramdisk} not found."
+        exit 1;
+    fi
 fi
 
 unpack_out_dir="unpack_out"
@@ -95,6 +107,11 @@ ramdisk_offset=$((${ramdisk_load_address}-${board_kernel_base}))
 echo "os version: $os_version"
 echo "os patch level: $os_patch_level"
 echo "header version: $header_version"
+
+if [ -f "${ramdisk}" ]; then
+    echo "New ramdisk: ${ramdisk}"
+    cp ${ramdisk} ${unpack_out_dir}/ramdisk
+fi
 
 echo "Replace ${Image} in ${boot_img} ..."
 if [ ${header_version} != "3" ]; then
