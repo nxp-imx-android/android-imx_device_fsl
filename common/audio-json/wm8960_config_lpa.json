@@ -1,7 +1,7 @@
 {
   "driver_name": "wm8960-audio",
   "bus_name": "bus1_system_sound_out",
-  "supported_out_devices": ["speaker", "wired_headphone", "wired_headset", "bus", "line"],
+  "supported_out_devices": ["speaker"],
   "supported_in_devices": ["builtin_mic", "wired_headset"],
   "support_lpa": 1,
 
