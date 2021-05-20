@@ -3,7 +3,7 @@
 KERNEL_NAME := Image
 TARGET_KERNEL_ARCH := arm64
 
-IMX8MM_USES_GKI := false
+IMX8MM_USES_GKI ?= true
 
 # CONFIG_TOUCHSCREEN_SYNAPTICS_DSX_I2C: synaptics_dsx_i2c.ko, mipi-panel touch driver module
 # CONFIG_VIDEO_MXC_CSI_CAMERA: mx6s_capture.ko, it's csi adapt driver which is the input of v4l2 framework
@@ -32,15 +32,22 @@ BOARD_VENDOR_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/media/platform/mxc/capture/mx6s_capture.ko \
     $(KERNEL_OUT)/drivers/media/platform/mxc/capture/mxc_mipi_csi.ko \
     $(KERNEL_OUT)/drivers/media/platform/mxc/capture/ov5640_camera_mipi_v2.ko \
-    $(KERNEL_OUT)/drivers/bluetooth/mx8_bt_rfkill.ko \
-    $(KERNEL_OUT)/sound/soc/codecs/snd-soc-wm8524.ko \
     $(KERNEL_OUT)/drivers/dma/imx-sdma.ko \
-    $(KERNEL_OUT)/sound/soc/generic/snd-soc-simple-card.ko \
-    $(KERNEL_OUT)/sound/soc/generic/snd-soc-simple-card-utils.ko \
-    $(KERNEL_OUT)/sound/soc/fsl/snd-soc-fsl-sai.ko \
-    $(KERNEL_OUT)/sound/soc/fsl/imx-pcm-dma-common.ko \
+    $(KERNEL_OUT)/sound/soc/fsl/imx-pcm-dma.ko \
+    $(KERNEL_OUT)/sound/soc/fsl/imx-pcm-dma-v2.ko \
     $(KERNEL_OUT)/sound/soc/fsl/snd-soc-fsl-micfil.ko \
     $(KERNEL_OUT)/sound/soc/fsl/snd-soc-imx-micfil.ko \
+    $(KERNEL_OUT)/sound/soc/fsl/snd-soc-fsl-asrc.ko \
+    $(KERNEL_OUT)/sound/soc/fsl/snd-soc-fsl-easrc.ko \
+    $(KERNEL_OUT)/sound/soc/fsl/snd-soc-fsl-sai.ko \
+    $(KERNEL_OUT)/sound/soc/fsl/snd-soc-fsl-spdif.ko \
+    $(KERNEL_OUT)/sound/soc/fsl/snd-soc-imx-spdif.ko \
+    $(KERNEL_OUT)/sound/soc/codecs/snd-soc-wm8524.ko \
+    $(KERNEL_OUT)/sound/soc/codecs/snd-soc-ak5558.ko \
+    $(KERNEL_OUT)/sound/soc/codecs/snd-soc-bt-sco.ko \
+    $(KERNEL_OUT)/sound/soc/codecs/snd-soc-hdmi-codec.ko \
+    $(KERNEL_OUT)/sound/soc/generic/snd-soc-simple-card.ko \
+    $(KERNEL_OUT)/sound/soc/generic/snd-soc-simple-card-utils.ko \
     $(KERNEL_OUT)/drivers/mxc/hantro/hantrodec.ko \
     $(KERNEL_OUT)/drivers/mxc/hantro_845/hantrodec_845s.ko \
     $(KERNEL_OUT)/drivers/mxc/hantro_845_h1/hx280enc.ko \
@@ -79,42 +86,58 @@ endif
 
 ifeq ($(IMX8MM_USES_GKI),true)
 BOARD_VENDOR_RAMDISK_KERNEL_MODULES +=     \
+    $(KERNEL_OUT)/drivers/soc/imx/soc-imx8m.ko \
+    $(KERNEL_OUT)/drivers/clk/imx/mxc-clk.ko \
     $(KERNEL_OUT)/drivers/clk/imx/clk-imx8mm.ko \
     $(KERNEL_OUT)/drivers/soc/imx/imx8m_pm_domains.ko \
+    $(KERNEL_OUT)/drivers/soc/imx/busfreq-imx8mq.ko \
+    $(KERNEL_OUT)/drivers/pinctrl/freescale/pinctrl-imx.ko \
     $(KERNEL_OUT)/drivers/pinctrl/freescale/pinctrl-imx8mm.ko \
     $(KERNEL_OUT)/drivers/tty/serial/imx.ko \
     $(KERNEL_OUT)/drivers/watchdog/imx2_wdt.ko \
-    $(KERNEL_OUT)/drivers/mfd/rohm-bd718x7.ko \
-    $(KERNEL_OUT)/drivers/gpio/gpio-generic.ko \
+    $(KERNEL_OUT)/drivers/regulator/pca9450-regulator.ko \
     $(KERNEL_OUT)/drivers/gpio/gpio-mxc.ko \
+    $(KERNEL_OUT)/drivers/thermal/device_cooling.ko \
+    $(KERNEL_OUT)/drivers/thermal/imx8mm_thermal.ko \
+    $(KERNEL_OUT)/drivers/perf/fsl_imx8_ddr_perf.ko \
+    $(KERNEL_OUT)/drivers/cpufreq/cpufreq-dt.ko \
+    $(KERNEL_OUT)/drivers/cpufreq/imx-cpufreq-dt.ko \
+    $(KERNEL_OUT)/drivers/nvmem/nvmem-imx-ocotp.ko \
     $(KERNEL_OUT)/drivers/mmc/host/sdhci-esdhc-imx.ko \
     $(KERNEL_OUT)/drivers/mmc/host/cqhci.ko \
     $(KERNEL_OUT)/drivers/i2c/busses/i2c-imx.ko \
+    $(KERNEL_OUT)/drivers/spi/spidev.ko \
+    $(KERNEL_OUT)/drivers/spi/spi-bitbang.ko \
+    $(KERNEL_OUT)/drivers/spi/spi-nxp-fspi.ko \
+    $(KERNEL_OUT)/drivers/spi/spi-imx.ko \
+    $(KERNEL_OUT)/drivers/dma/mxs-dma.ko \
+    $(KERNEL_OUT)/drivers/mmc/core/pwrseq_simple.ko \
+    $(KERNEL_OUT)/drivers/mailbox/imx-mailbox.ko \
+    $(KERNEL_OUT)/drivers/staging/android/ion/ion-alloc.ko \
+    $(KERNEL_OUT)/drivers/staging/android/ion/heaps/ion_sys_heap.ko \
     $(KERNEL_OUT)/drivers/staging/android/ion/heaps/ion_cma_heap.ko \
-    $(KERNEL_OUT)/drivers/reset/reset-dispmix.ko \
+    $(KERNEL_OUT)/drivers/staging/android/ion/heaps/ion_unmapped_heap.ko \
     $(KERNEL_OUT)/drivers/input/keyboard/snvs_pwrkey.ko \
     $(KERNEL_OUT)/drivers/input/touchscreen/synaptics_dsx/synaptics_dsx_i2c.ko \
+    $(KERNEL_OUT)/drivers/reset/reset-dispmix.ko \
+    $(KERNEL_OUT)/drivers/reset/reset-imx7.ko \
     $(KERNEL_OUT)/drivers/gpu/imx/lcdif/imx-lcdif-core.ko \
-    $(KERNEL_OUT)/drivers/gpu/drm/imx/lcdif/imx-lcdif-crtc.ko \
-    $(KERNEL_OUT)/drivers/gpu/drm/imx/imxdrm.ko \
+    $(KERNEL_OUT)/drivers/gpu/drm/bridge/adv7511/adv7511.ko \
     $(KERNEL_OUT)/drivers/gpu/drm/bridge/sec-dsim.ko \
+    $(KERNEL_OUT)/drivers/gpu/drm/imx/imxdrm.ko \
+    $(KERNEL_OUT)/drivers/gpu/drm/imx/lcdif/imx-lcdif-crtc.ko \
     $(KERNEL_OUT)/drivers/gpu/drm/imx/sec_mipi_dsim-imx.ko \
     $(KERNEL_OUT)/drivers/gpu/drm/panel/panel-raydium-rm67191.ko \
-    $(KERNEL_OUT)/drivers/gpu/drm/bridge/adv7511/adv7511.ko \
     $(KERNEL_OUT)/drivers/usb/chipidea/usbmisc_imx.ko \
     $(KERNEL_OUT)/drivers/usb/common/ulpi.ko \
     $(KERNEL_OUT)/drivers/usb/chipidea/ci_hdrc_imx.ko \
     $(KERNEL_OUT)/drivers/usb/chipidea/ci_hdrc.ko \
     $(KERNEL_OUT)/drivers/usb/phy/phy-generic.ko \
-    $(KERNEL_OUT)/drivers/usb/typec/tcpm/tcpci.ko \
     $(KERNEL_OUT)/drivers/power/supply/dummy_battery.ko \
-    $(KERNEL_OUT)/drivers/trusty/trusty.ko \
-    $(KERNEL_OUT)/drivers/trusty/trusty-fiq.ko \
-    $(KERNEL_OUT)/drivers/trusty/trusty-arm64-fiq.ko \
     $(KERNEL_OUT)/drivers/trusty/trusty-ipc.ko \
+    $(KERNEL_OUT)/drivers/trusty/trusty-core.ko \
     $(KERNEL_OUT)/drivers/trusty/trusty-irq.ko \
     $(KERNEL_OUT)/drivers/trusty/trusty-log.ko \
-    $(KERNEL_OUT)/drivers/trusty/trusty-mem.ko \
     $(KERNEL_OUT)/drivers/trusty/trusty-virtio.ko
 endif
 
