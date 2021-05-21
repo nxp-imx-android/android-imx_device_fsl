@@ -816,7 +816,6 @@ if not [%dtb_feature%] == [xen] (
 call :flash_partition gpt || set /A error_level=1 && goto :exit
 :: force to load the gpt just flashed, since for imx6 and imx7, we use uboot from BSP team,
 :: so partition table is not automatically loaded after gpt partition is flashed.
-echo FB: ucmd setenv fastboot_dev sata >> %tmp_dir%uuu.lst
 echo FB: ucmd setenv fastboot_dev mmc >> %tmp_dir%uuu.lst
 
 if %support_dualslot% == 0 (
