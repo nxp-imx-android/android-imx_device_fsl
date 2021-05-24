@@ -13,21 +13,15 @@ include $(CONFIG_REPO_PATH)/imx8ulp/BoardConfigCommon.mk
 # value assigned in this part should be fixed for an SoC, right?
 
 BOARD_SOC_TYPE := IMX8ULP
-BOARD_HAVE_VPU := true
-BOARD_VPU_TYPE := hantro
-FSL_VPU_OMX_ONLY := true
+BOARD_HAVE_VPU := false
 HAVE_FSL_IMX_GPU2D := true
 HAVE_FSL_IMX_GPU3D := true
 HAVE_FSL_IMX_PXP := false
 TARGET_USES_HWC2 := true
 TARGET_HAVE_VULKAN := true
 
-SOONG_CONFIG_IMXPLUGIN += \
-                          BOARD_VPU_TYPE
-
 SOONG_CONFIG_IMXPLUGIN_BOARD_SOC_TYPE = IMX8ULP
-SOONG_CONFIG_IMXPLUGIN_BOARD_HAVE_VPU = true
-SOONG_CONFIG_IMXPLUGIN_BOARD_VPU_TYPE = hantro
+SOONG_CONFIG_IMXPLUGIN_BOARD_HAVE_VPU = false
 SOONG_CONFIG_IMXPLUGIN_BOARD_VPU_ONLY = false
 
 # -------@block_memory-------
