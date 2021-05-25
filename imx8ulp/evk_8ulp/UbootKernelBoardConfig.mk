@@ -3,6 +3,7 @@ UBOOT_POST_PROCESS := true
 
 # u-boot target for imx8ulp_evk board
 TARGET_BOOTLOADER_CONFIG := imx8ulp:imx8ulp_evk_android_defconfig
+TARGET_BOOTLOADER_CONFIG += imx8ulp-evk-uuu:imx8ulp_evk_android_uuu_defconfig
 
 # imx8ulp kernel defconfig
 ifeq ($(IMX8ULP_USES_GKI),true)

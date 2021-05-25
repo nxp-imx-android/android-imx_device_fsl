@@ -42,6 +42,8 @@ options:
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                            │   imx8mp       │  dual trusty-dual evk-uuu trusty-secure-unlock trusty powersave trusty-powersave                     │
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
+                           │   imx8ulp      │  dual trusty-dual evk-uuu trusty-secure-unlock trusty                                                │
+                           ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                            │   imx8qxp      │  mek-uuu trusty-secure-unlock trusty secure-unlock c0 trusty-c0 mek-c0-uuu                           │
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                            │   imx8qm       │  mek-uuu trusty-secure-unlock trusty secure-unlock md hdmi xen                                       │
@@ -370,6 +372,7 @@ imx8mm_uboot_feature=(dual trusty-dual 4g-evk-uuu 4g ddr4-evk-uuu ddr4 evk-uuu t
 imx8mn_uboot_feature=(dual trusty-dual evk-uuu trusty-secure-unlock trusty ddr4-evk-uuu ddr4)
 imx8mq_uboot_feature=(dual trusty-dual evk-uuu trusty-secure-unlock trusty)
 imx8mp_uboot_feature=(dual trusty-dual evk-uuu trusty-secure-unlock trusty powersave trusty-powersave)
+imx8ulp_uboot_feature=(dual trusty-dual evk-uuu trusty-secure-unlock trusty)
 imx8qxp_uboot_feature=(mek-uuu trusty-secure-unlock trusty secure-unlock c0 trusty-c0 mek-c0-uuu)
 imx8qm_uboot_feature=(mek-uuu trusty-secure-unlock trusty secure-unlock md hdmi xen)
 imx7ulp_uboot_feature=(evk-uuu)
@@ -550,6 +553,11 @@ case ${soc_name%%-*} in
             uboot_env_start=0x2000; uboot_env_len=0x8;
             emmc_num=2; sd_num=1;
             board=evk ;;
+    imx8ulp)
+            vid=0x1fc9; pid=0x014a; chip=MX8ULP;
+            uboot_env_start=0x2000; uboot_env_len=0x8;
+            emmc_num=0; sd_num=2;
+            board=evk ;;
     imx7ulp)
             vid=0x1fc9; pid=0x0126; chip=MX7ULP;
             uboot_env_start=0x700; uboot_env_len=0x10;
@@ -632,7 +640,7 @@ if [ -n "${dtb_feature}" ]; then
 fi
 
 # set sdp command name based on soc_name
-if [[ ${soc_name#imx8q} != ${soc_name} ]] || [[ ${soc_name} == "imx8mn" ]] || [[ ${soc_name} == "imx8mp" ]]; then
+if [[ ${soc_name#imx8q} != ${soc_name} ]] || [[ ${soc_name} == "imx8mn" ]] || [[ ${soc_name} == "imx8mp" ]] || [[ ${soc_name} == "imx8ulp" ]]; then
     sdp="SDPS"
 fi
 
