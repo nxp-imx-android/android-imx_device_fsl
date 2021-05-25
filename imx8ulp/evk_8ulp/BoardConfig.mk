@@ -105,7 +105,7 @@ BOARD_USE_SENSOR_FUSION := true
 
 
 # -------@block_kernel_bootimg-------
-BOARD_KERNEL_BASE := 0x40400000
+BOARD_KERNEL_BASE := 0x80400000
 
 ifeq ($(PRODUCT_IMX_DRM),true)
 CMASIZE=736M
