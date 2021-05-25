@@ -277,12 +277,29 @@ PRODUCT_PACKAGES += \
     libGAL \
     libGLSLC \
     libVSC \
+    libgpuhelper \
+    libSPIRV_viv \
+    libvulkan_VIVANTE \
+    vulkan.$(TARGET_BOARD_PLATFORM) \
     libCLC \
     libLLVM_viv \
     libOpenCL \
     libg2d-viv \
-    libgpuhelper \
-
+    libOpenVX \
+    libOpenVXU \
+    libNNVXCBinary-evis \
+    libNNVXCBinary-evis2 \
+    libNNVXCBinary-lite \
+    libOvx12VXCBinary-evis \
+    libOvx12VXCBinary-evis2 \
+    libOvx12VXCBinary-lite \
+    libNNGPUBinary-evis \
+    libNNGPUBinary-evis2 \
+    libNNGPUBinary-lite \
+    libNNGPUBinary-ulite \
+    libNNGPUBinary-nano \
+    libNNArchPerf \
+    libarchmodelSw
 
 # -------@block_wifi-------
 
@@ -380,6 +397,18 @@ ifeq ($(LOW_MEMORY),true)
   $(call inherit-product, build/target/product/go_defaults.mk)
 endif
 
+# -------@block_neural_network-------
+
+# Neural Network HAL and lib
+PRODUCT_PACKAGES += \
+    libovxlib \
+    libnnrt \
+    android.hardware.neuralnetworks@1.3-service-vsi-npu-server
+
+# Tensorflow lite camera demo
+PRODUCT_PACKAGES += \
+    tflitecamerademo
+
 # -------@block_miscellaneous-------
 
 # Copy device related config and binary to board
@@ -411,6 +440,8 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.touchscreen.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.touchscreen.xml \
     frameworks/native/data/etc/android.hardware.usb.accessory.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.usb.accessory.xml \
     frameworks/native/data/etc/android.hardware.usb.host.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.usb.host.xml \
+    frameworks/native/data/etc/android.hardware.vulkan.level-0.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.vulkan.level-0.xml \
+    frameworks/native/data/etc/android.hardware.vulkan.version-1_1.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.vulkan.version-1_1.xml \
     frameworks/native/data/etc/android.software.vulkan.deqp.level-2020-03-01.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.vulkan.deqp.level-2020-03-01.xml \
     frameworks/native/data/etc/android.hardware.wifi.direct.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.direct.xml \
     frameworks/native/data/etc/android.hardware.wifi.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.xml \

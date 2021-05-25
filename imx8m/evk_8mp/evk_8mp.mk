@@ -319,6 +319,7 @@ PRODUCT_PACKAGES += \
     libNNGPUBinary-evis2 \
     libNNGPUBinary-lite \
     libNNGPUBinary-ulite \
+    libNNGPUBinary-nano \
     libNNArchPerf \
     libarchmodelSw
 
