@@ -127,9 +127,7 @@ BOARD_KERNEL_CMDLINE += androidboot.wificountrycode=CN moal.mod_para=wifi_mod_pa
 
 # low memory device build config
 ifeq ($(LOW_MEMORY),true)
-BOARD_KERNEL_CMDLINE += cma=320M@0x400M-0xb80M androidboot.displaymode=720p galcore.contiguousSize=33554432
-else
-BOARD_KERNEL_CMDLINE += cma=$(CMASIZE)@0x400M-0xb80M
+BOARD_KERNEL_CMDLINE += androidboot.displaymode=720p galcore.contiguousSize=33554432
 endif
 
 ifneq (,$(filter userdebug eng,$(TARGET_BUILD_VARIANT)))
