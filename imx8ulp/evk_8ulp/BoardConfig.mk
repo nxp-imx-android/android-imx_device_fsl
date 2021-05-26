@@ -141,7 +141,7 @@ ifeq ($(TARGET_USE_DYNAMIC_PARTITIONS),true)
     # dts without product partition
     TARGET_BOARD_DTS_CONFIG ?= imx8ulp:imx8ulp-evk-no-product.dtb
   else
-    TARGET_BOARD_DTS_CONFIG += imx8ulp:imx8ulp-evk.dtb
+    TARGET_BOARD_DTS_CONFIG += imx8ulp:imx8ulp-evk-rk055hdmipi4m.dtb
   endif
 else
   ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
