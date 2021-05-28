@@ -371,7 +371,6 @@ ifeq ($(PREBUILT_FSL_IMX_CODEC),true)
 ifneq ($(IMX8_BUILD_32BIT_ROOTFS),true)
 INSTALL_64BIT_LIBRARY := true
 endif
--include $(FSL_CODEC_PATH)/fsl-codec/fsl-codec.mk
 endif
 
 # -------@block_memory-------
