@@ -91,10 +91,6 @@ PRODUCT_PACKAGES += \
     lib_asf_parser_arm11_elinux.3.0 \
     lib_ddpd_wrap_arm12_elinux_android \
     lib_ddplus_dec_v2_arm12_elinux \
-    lib_omx_ac3_dec_v2_arm11_elinux \
-    lib_omx_ra_dec_v2_arm11_elinux \
-    lib_omx_wma_dec_v2_arm11_elinux \
-    lib_omx_wmv_dec_v2_arm11_elinux \
     lib_realad_wrap_arm11_elinux_android \
     lib_realaudio_dec_v2_arm11_elinux \
     lib_rm_parser_arm11_elinux.3.0 \
