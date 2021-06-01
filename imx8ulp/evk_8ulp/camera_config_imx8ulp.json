@@ -10,27 +10,20 @@
   "camera_metadata": [
     {
       "camera_type": "back",
-      "camera_name": "mx6s-csi",
-      "bus_info": "platform:32e20000.csi1_bridge",
+      "camera_name": "mxc_isi.0.capture",
       "orientation": "0",
-      "buffer_type": "mmap",
-      "ActiveArrayWidth": "2592",
-      "ActiveArrayHeight": "1944",
-      "PixelArrayWidth": "2592",
-      "PixelArrayHeight": "1944",
-      "PhysicalWidth": "3.6288",
-      "PhysicalHeight": "2.7216",
-      "FocalLength": "3.37",
+      "mplane": "1",
+      "buffer_type": "dma",
+      "ActiveArrayWidth": "1920",
+      "ActiveArrayHeight": "1080",
+      "PixelArrayWidth": "1920",
+      "PixelArrayHeight": "1080",
+      "PhysicalWidth": "2.688",
+      "PhysicalHeight": "1.512",
+      "FocalLength": "3.42",
       "MaxJpegSize": "8388608",
       "MinFrameDuration": "33331760",
-      "MaxFrameDuration": "300000000",
-      "OmitFrame": [
-          {
-              "width": "2592",
-              "height": "1944",
-              "omit_num": "2"
-          }
-      ]
+      "MaxFrameDuration": "300000000"
     }
   ]
 }
