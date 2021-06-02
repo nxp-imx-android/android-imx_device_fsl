@@ -3,7 +3,7 @@
 
 #peripheral
 /vendor/bin/fsl_sensor_fusion   u:object_r:sensors_exec:s0
-/dev/ttymxc[0-9]*               u:object_r:tty_device:s0
+/dev/ttyLP[0-9]*               u:object_r:tty_device:s0
 /dev/sda[0-8]*                  u:object_r:fuse:s0
 
 #Thermal HAL service
