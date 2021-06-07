@@ -5,11 +5,10 @@ help() {
 bn=`basename $0`
 cat << EOF
 
-Version: 1.5
-Last change: generate super.img when flash images with dynamic partition feature
+Version: 1.6
+Last change: update the parameters which can be followed with "-d" option
 
-eg: sudo ./fastboot_imx_flashall.sh -f imx8mm -a -D ~/android10/evk_8mm/
-eg: sudo ./fastboot_imx_flashall.sh -f imx7ulp -D ~/android10/evk_7ulp/
+eg: sudo ./fastboot_imx_flashall.sh -f imx8mm -a -D ~/evk_8mm/
 
 Usage: $bn <option>
 
@@ -63,7 +62,7 @@ options:
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                            │   imx8mq       │  dual mipi-panel mipi                                                                                │
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
-                           │   imx8mp       │  rpmsg hdmi lvds-panel lvds mipi-panel basler powersave powersave-non-rpmsg                          │
+                           │   imx8mp       │  rpmsg lvds-panel lvds mipi-panel basler powersave powersave-non-rpmsg basler-ov5640 ov5640          │
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                            │   imx8qxp      │                                                                                                      │
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
@@ -331,7 +330,7 @@ imx7ulp_uboot_feature=(evk-uuu)
 imx8mm_dtb_feature=(ddr4 m4 mipi-panel)
 imx8mn_dtb_feature=(mipi-panel rpmsg ddr4 ddr4-mipi-panel ddr4-rpmsg)
 imx8mq_dtb_feature=(dual mipi-panel mipi)
-imx8mp_dtb_feature=(rpmsg hdmi lvds-panel lvds mipi-panel basler powersave powersave-non-rpmsg)
+imx8mp_dtb_feature=(rpmsg lvds-panel lvds mipi-panel basler powersave powersave-non-rpmsg basler-ov5640 ov5640)
 imx8qxp_dtb_feature=()
 imx8qm_dtb_feature=(hdmi hdmi-rx mipi-panel md xen esai)
 imx7ulp_dtb_feature=(evk-mipi evk mipi)
