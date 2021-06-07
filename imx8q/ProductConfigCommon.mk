@@ -369,7 +369,7 @@ PRODUCT_COPY_FILES += \
     $(CONFIG_REPO_PATH)/common/input/eGalax_Touch_Screen.idc:$(TARGET_COPY_OUT_VENDOR)/usr/idc/Novatek_NT11003_Touch_Screen.idc \
     $(CONFIG_REPO_PATH)/common/input/eGalax_Touch_Screen.idc:$(TARGET_COPY_OUT_VENDOR)/usr/idc/eGalax_Touch_Screen.idc
 
-# -------@block_debug-------
+# -------@block_profile-------
 # In userdebug, add minidebug info the the boot image and the system server to support
 # diagnosing native crashes.
 ifneq (,$(filter userdebug, $(TARGET_BUILD_VARIANT)))

@@ -23,11 +23,14 @@ modules:
   gpu: y
   infrastructure: y
   input: y
+  isp: n
   kernel_bootimg: y
   memory: y
   miscellaneous: y
   multimedia_codec: y
+  neural_network: n
   power: y
+  profile: y
   security: y
   sensor: n
   sepolicy: y

@@ -329,22 +329,22 @@ PRODUCT_COPY_FILES += \
     $(CONFIG_REPO_PATH)/common/input/eGalax_Touch_Screen.idc:$(TARGET_COPY_OUT_VENDOR)/usr/idc/Novatek_NT11003_Touch_Screen.idc \
     $(CONFIG_REPO_PATH)/common/input/eGalax_Touch_Screen.idc:$(TARGET_COPY_OUT_VENDOR)/usr/idc/eGalax_Touch_Screen.idc
 
-# -------@block_debug-------
+# -------@block_profile-------
 # In userdebug, add minidebug info the the boot image and the system server to support
 # diagnosing native crashes.
-#ifneq (,$(filter userdebug, $(TARGET_BUILD_VARIANT)))
-#    # Boot image.
-#    PRODUCT_DEX_PREOPT_BOOT_FLAGS += --generate-mini-debug-info
-#    # System server and some of its services.
-#    # Note: we cannot use PRODUCT_SYSTEM_SERVER_JARS, as it has not been expanded at this point.
-#    $(call add-product-dex-preopt-module-config,services,--generate-mini-debug-info)
-#    $(call add-product-dex-preopt-module-config,wifi-service,--generate-mini-debug-info)
-#endif
-#
+ifneq (,$(filter userdebug, $(TARGET_BUILD_VARIANT)))
+    # Boot image.
+    PRODUCT_DEX_PREOPT_BOOT_FLAGS += --generate-mini-debug-info
+    # System server and some of its services.
+    # Note: we cannot use PRODUCT_SYSTEM_SERVER_JARS, as it has not been expanded at this point.
+    $(call add-product-dex-preopt-module-config,services,--generate-mini-debug-info)
+    $(call add-product-dex-preopt-module-config,wifi-service,--generate-mini-debug-info)
+endif
+
 #Dumpstate HAL 1.1 support
-#PRODUCT_PACKAGES += \
-#    android.hardware.dumpstate@1.1-service.imx
-#
+PRODUCT_PACKAGES += \
+    android.hardware.dumpstate@1.1-service.imx
+
 # -------@block_treble-------
 # vndservicemanager
 PRODUCT_PACKAGES += \
