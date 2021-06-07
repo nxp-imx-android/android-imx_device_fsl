@@ -9,7 +9,7 @@ Version: 1.8
 Last change: recommend new version of uuu
 currently suported platforms: evk_7ulp, evk_8mm, evk_8mq, evk_8mn, evk_8mp, mek_8q, mek_8q_car
 
-eg: ./uuu_imx_android_flash.sh -f imx8qm -a -e -D ~/android10/mek_8q/ -t emmc -u trusty -d mipi-panel
+eg: ./uuu_imx_android_flash.sh -f imx8mm -a -e -D ~/evk_8mm/ -t emmc -u trusty -d mipi-panel
 
 Usage: $bn <option>
 
@@ -63,7 +63,7 @@ options:
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                            │   imx8mq       │  dual mipi-panel mipi                                                                                │
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
-                           │   imx8mp       │  rpmsg hdmi lvds-panel lvds mipi-panel basler powersave powersave-non-rpmsg                          │
+                           │   imx8mp       │  rpmsg lvds-panel lvds mipi-panel basler powersave powersave-non-rpmsg basler-ov5640 ov5640.img      │
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                            │   imx8qxp      │                                                                                                      │
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
@@ -115,7 +115,7 @@ function whether_in_array
 
 function uuu_load_uboot
 {
-    echo uuu_version 1.4.72 > /tmp/uuu.lst
+    echo uuu_version 1.4.139 > /tmp/uuu.lst
     rm -f /tmp/${bootloader_used_by_uuu}
     ln -s ${sym_link_directory}${bootloader_used_by_uuu} /tmp/${bootloader_used_by_uuu}
     echo ${sdp}: boot -f ${bootloader_used_by_uuu} >> /tmp/uuu.lst
@@ -382,13 +382,13 @@ imx7ulp_uboot_feature=(evk-uuu)
 imx8mm_dtb_feature=(ddr4 m4 mipi-panel)
 imx8mn_dtb_feature=(mipi-panel rpmsg ddr4 ddr4-mipi-panel ddr4-rpmsg)
 imx8mq_dtb_feature=(dual mipi-panel mipi)
-imx8mp_dtb_feature=(rpmsg hdmi lvds-panel lvds mipi-panel basler powersave powersave-non-rpmsg)
+imx8mp_dtb_feature=(rpmsg lvds-panel lvds mipi-panel basler powersave powersave-non-rpmsg basler-ov5640 ov5640)
 imx8qxp_dtb_feature=()
 imx8qm_dtb_feature=(hdmi hdmi-rx mipi-panel md xen esai)
 imx7ulp_dtb_feature=(evk-mipi evk mipi)
 
 
-echo -e This script is validated with ${RED}uuu 1.4.72${STD} version, it is recommended to align with this version.
+echo -e This script is validated with ${RED}uuu 1.4.139${STD} version, it is recommended to align with this version.
 
 if [ $# -eq 0 ]; then
     echo -e >&2 ${RED}please provide more information with command script options${STD}

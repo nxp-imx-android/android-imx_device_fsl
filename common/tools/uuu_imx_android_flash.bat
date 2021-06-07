@@ -1,7 +1,7 @@
 :: Do not output the command
 @echo off
 
-echo This script is validated with uuu 1.4.72 version, it is recommended to align with this version.
+echo This script is validated with uuu 1.4.139 version, it is recommended to align with this version.
 
 ::---------------------------------------------------------------------------------
 ::Variables
@@ -91,7 +91,7 @@ set imx7ulp_uboot_feature=evk-uuu
 
 set imx8mm_dtb_feature=ddr4 m4 mipi-panel
 set imx8mn_dtb_feature=mipi-panel rpmsg ddr4 ddr4-mipi-panel ddr4-rpmsg
-set imx8mp_dtb_feature=rpmsg hdmi lvds-panel lvds mipi-panel basler powersave powersave-non-rpmsg
+set imx8mp_dtb_feature=rpmsg lvds-panel lvds mipi-panel basler powersave powersave-non-rpmsg basler-ov5640 ov5640
 set imx8mq_dtb_feature=dual mipi-panel mipi
 set imx8qxp_dtb_feature=
 set imx8qm_dtb_feature=hdmi hdmi-rx mipi-panel md xen esai
@@ -524,7 +524,7 @@ echo Version: 1.8
 echo Last change: recommend new version of uuu
 echo currently suported platforms: evk_7ulp, evk_8mm, evk_8mq, evk_8mn, evk_8mp, mek_8q, mek_8q_car
 echo.
-echo eg: uuu_imx_android_flash.bat -f imx8qm -a -e -D C:\Users\user_01\images\android10\mek_8q\ -t emmc -u trusty -d mipi-panel
+echo eg: uuu_imx_android_flash.bat -f imx8mm -a -e -D C:\Users\user_01\images\evk_8mm\ -t emmc -u trusty -d mipi-panel
 echo.
 echo Usage: %script_name% ^<option^>
 echo.
@@ -576,7 +576,7 @@ echo                           ©¦   imx8mm       ©¦  ddr4 m4 mipi-panel         
 echo                           ©À©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©à©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©È
 echo                           ©¦   imx8mn       ©¦  mipi-panel rpmsg ddr4 ddr4-mipi-panel ddr4-rpmsg                                                    ©¦
 echo                           ©À©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©à©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©È
-echo                           ©¦   imx8mp       ©¦  rpmsg hdmi lvds-panel lvds mipi-panel basler powersave powersave-non-rpmsg                          ©¦
+echo                           ©¦   imx8mp       ©¦  rpmsg lvds-panel lvds mipi-panel basler powersave powersave-non-rpmsg basler-ov5640 ov5640          ©¦
 echo                           ©À©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©à©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©È
 echo                           ©¦   imx8mq       ©¦  dual mipi-panel mipi                                                                                ©¦
 echo                           ©À©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©à©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©È
@@ -646,7 +646,7 @@ if [%board%] == [] (
 goto :eof
 
 :uuu_load_uboot
-echo uuu_version 1.4.72 > %tmp_dir%uuu.lst
+echo uuu_version 1.4.139 > %tmp_dir%uuu.lst
 
 if exist %tmp_dir%%bootloader_used_by_uuu%.link (
     del %tmp_dir%%bootloader_used_by_uuu%.link
