@@ -11,9 +11,9 @@ endif
 
 define build_imx_uboot
 	$(hide) echo Building i.MX U-Boot with firmware; \
-	cp $(IMX_PATH)/uboot-imx/firmware/m33_image.bin $(BOARD_MKIMAGE_PATH); \
-	cp $(IMX_PATH)/uboot-imx/firmware/upower.bin $(BOARD_MKIMAGE_PATH); \
-	cp $(IMX_PATH)/uboot-imx/firmware/mx8ulp*ahab-container.img $(BOARD_MKIMAGE_PATH); \
+	cp $(FSL_PROPRIETARY_PATH)/fsl-proprietary/mcu-sdk/imx8ulp/imx8ulp_mcu_demo.img $(BOARD_MKIMAGE_PATH)/m33_image.bin; \
+	cp $(FSL_PROPRIETARY_PATH)/fsl-proprietary/uboot-firmware/imx8ulp/upower.bin $(BOARD_MKIMAGE_PATH); \
+	cp $(FSL_PROPRIETARY_PATH)/fsl-proprietary/uboot-firmware/imx8ulp/mx8ulp*ahab-container.img $(BOARD_MKIMAGE_PATH); \
 	cp $(UBOOT_OUT)/u-boot.$(strip $(1)) $(BOARD_MKIMAGE_PATH); \
 	cp $(UBOOT_OUT)/spl/u-boot-spl.bin  $(BOARD_MKIMAGE_PATH); \
 	cp $(UBOOT_OUT)/tools/mkimage  $(BOARD_MKIMAGE_PATH)/mkimage_uboot; \
