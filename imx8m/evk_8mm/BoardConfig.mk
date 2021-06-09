@@ -120,7 +120,7 @@ CMASIZE=800M
 endif
 
 # NXP default config
-BOARD_KERNEL_CMDLINE := init=/init androidboot.console=ttymxc1 androidboot.hardware=nxp loop.max_part=7
+BOARD_KERNEL_CMDLINE := init=/init androidboot.console=ttymxc1 androidboot.hardware=nxp firmware_class.path=/vendor/firmware loop.max_part=7
 
 # memory config
 BOARD_KERNEL_CMDLINE += transparent_hugepage=never
