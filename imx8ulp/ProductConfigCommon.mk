@@ -295,7 +295,11 @@ PRODUCT_PACKAGES += \
     hostapd \
     hostapd_cli \
     wpa_supplicant \
+    wpa_cli \
     wpa_supplicant.conf
+
+PRODUCT_PACKAGES += \
+    mlanutl
 
 PRODUCT_PACKAGES += \
     netutils-wrapper-1.0
