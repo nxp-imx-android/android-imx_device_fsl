@@ -295,10 +295,14 @@ PRODUCT_PACKAGES += \
     hostapd \
     hostapd_cli \
     wpa_supplicant \
+    wpa_cli \
     wpa_supplicant.conf
 
 PRODUCT_PACKAGES += \
     netutils-wrapper-1.0
+
+PRODUCT_PACKAGES += \
+    mlanutl
 
 # wifionly device
 PRODUCT_PROPERTY_OVERRIDES += \
