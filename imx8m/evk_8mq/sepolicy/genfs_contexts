@@ -11,3 +11,6 @@ genfscon sysfs /devices/platform/soc@0/30800000.bus/30a00000.mipi-dsi/30a00000.m
 #/sys/class/net
 genfscon sysfs /devices/platform/soc@0/30800000.bus/30be0000.ethernet/net               u:object_r:sysfs_net:s0
 genfscon sysfs /devices/platform/soc@0/33c00000.pcie/pci0001:00/0001:00:00.0/0001:01:00.0/net u:object_r:sysfs_net:s0
+
+# for usb gadget HAL to add watch on the sysfs path of usb controller
+genfscon sysfs /devices/platform/soc@0/38100000.usb                                     u:object_r:sysfs_usb_device:s0
