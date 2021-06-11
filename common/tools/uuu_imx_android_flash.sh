@@ -258,7 +258,10 @@ function flash_android
     flash_partition "gpt"
     # force to load the gpt just flashed, since for imx6 and imx7, we use uboot from BSP team,
     # so partition table is not automatically loaded after gpt partition is flashed.
-    echo FB: ucmd setenv fastboot_dev mmc >> /tmp/uuu.lst
+    if [[ "${soc_name}" = "imx6"* ]] || [[ "${soc_name}" = "imx7"* ]]; then
+        echo FB: ucmd setenv fastboot_dev sata >> /tmp/uuu.lst
+        echo FB: ucmd setenv fastboot_dev mmc >> /tmp/uuu.lst
+    fi
 
     # if a platform doesn't support dual slot but a slot is selected, ignore it.
     if [ ${support_dualslot} -eq 0 ] && [ "${slot}" != "" ]; then
