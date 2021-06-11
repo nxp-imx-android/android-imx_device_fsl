@@ -74,6 +74,7 @@ set tmp_dir=%TMP%
 if not [%tmp_dir%] == [] (
     set tmp_dir=%tmp_dir%\
 )
+set /A shared_uuu_uboot=0
 
 
 :: We want to detect illegal feature input to some extent. Here it's based on SoC names. Since an SoC may be on a
@@ -827,8 +828,13 @@ if not [%dtb_feature%] == [xen] (
 call :flash_partition gpt || set /A error_level=1 && goto :exit
 :: force to load the gpt just flashed, since for imx6 and imx7, we use uboot from BSP team,
 :: so partition table is not automatically loaded after gpt partition is flashed.
-echo FB: ucmd setenv fastboot_dev sata >> %tmp_dir%uuu.lst
-echo FB: ucmd setenv fastboot_dev mmc >> %tmp_dir%uuu.lst
+if not [%soc_name:imx6=%] == [%soc_name%] set /A shared_uuu_uboot=1
+if not [%soc_name:imx7=%] == [%soc_name%] set /A shared_uuu_uboot=1
+
+if [%shared_uuu_uboot%] equ [1] (
+    echo FB: ucmd setenv fastboot_dev sata >> %tmp_dir%uuu.lst
+    echo FB: ucmd setenv fastboot_dev mmc >> %tmp_dir%uuu.lst
+)
 
 if %support_dualslot% == 0 (
     if not [%slot%] == [] (
