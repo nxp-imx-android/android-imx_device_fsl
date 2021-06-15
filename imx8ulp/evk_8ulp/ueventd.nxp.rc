@@ -9,7 +9,7 @@
 /dev/galcore	          0666 	 system     graphics
 /dev/graphics/fb0         0660   system     graphics
 /dev/watchdog             0660   system     root
-/dev/mmcblk2rpmb    0600   system     system
+/dev/mmcblk0rpmb    0600   system     system
 /dev/trusty-ipc-dev0      0660   system     drmrpc
 /dev/block/pmem0          0660 system system
 

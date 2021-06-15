@@ -37,8 +37,8 @@ define build_imx_uboot
 	if [ `echo $(2) | rev | cut -d '-' -f1 | rev` != "dual" ]; then \
 		cp $(BOARD_MKIMAGE_PATH)/flash.bin $(UBOOT_COLLECTION)/u-boot-$(strip $(2)).imx; \
 	else \
-		cp $(BOARD_MKIMAGE_PATH)/flash.bin $(UBOOT_COLLECTION)/spl-$(strip $(2)).bin; \
-		cp $(BOARD_MKIMAGE_PATH)/u-boot-ivt.itb $(UBOOT_COLLECTION)/bootloader-$(strip $(2)).img; \
+		cp $(BOARD_MKIMAGE_PATH)/boot-spl-container.img $(UBOOT_COLLECTION)/spl-$(strip $(2)).bin; \
+		cp $(BOARD_MKIMAGE_PATH)/u-boot-atf-container.img $(UBOOT_COLLECTION)/bootloader-$(strip $(2)).img; \
 	fi;
 endef
 

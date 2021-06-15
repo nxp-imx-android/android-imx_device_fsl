@@ -176,9 +176,9 @@ if %card_size% neq 14 set /A statisc+=1
 if %card_size% neq 28 set /A statisc+=1
 if %statisc% == 4 echo card_size is not a legal value & set /A error_level=1 && goto :exit
 
-:: dual bootloader support will use different gpt, this is only for imx8m
+:: dual bootloader support will use different gpt, this is for imx8m and imx8ulp
 if [%support_dual_bootloader%] equ [1] (
-    if not [%soc_name:imx8m=%] == [%soc_name%] (
+    if [%soc_name:imx8q=%] == [%soc_name%] (
         if %card_size% == 0 (
             set partition_file=partition-table-dual.img
         )else (
