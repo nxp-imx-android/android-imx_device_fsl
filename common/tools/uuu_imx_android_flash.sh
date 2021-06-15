@@ -479,8 +479,8 @@ if [ ${card_size} -ne 0 ] && [ ${card_size} -ne 7 ] && [ ${card_size} -ne 14 ] &
     help; exit 1;
 fi
 
-# dual bootloader support will use different gpt, this is only for imx8m
-if [ ${support_dual_bootloader} -eq 1 ] && [[ ${soc_name#imx8m} != ${soc_name} ]]; then
+# dual bootloader support will use different gpt, this is for imx8m and imx8ulp
+if [ ${support_dual_bootloader} -eq 1 ] && [[ ${soc_name#imx8m} != ${soc_name} || ${soc_name#imx8ulp} != ${soc_name} ]]; then
     if [ ${card_size} -gt 0 ]; then
         partition_file="partition-table-${card_size}GB-dual.img";
     else
