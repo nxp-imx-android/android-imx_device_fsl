@@ -44,6 +44,10 @@ PRODUCT_PACKAGES += \
     Gallery2
 endif
 
+# add dmabufheap debug info
+PRODUCT_PROPERTY_OVERRIDES += \
+    debug.c2.use_dmabufheaps=1
+
 PRODUCT_PACKAGES += \
     vsidaemon \
     CactusPlayer

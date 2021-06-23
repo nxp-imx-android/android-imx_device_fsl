@@ -12,6 +12,9 @@
 /dev/trusty-ipc-dev0      0660   system     drmrpc
 /dev/mmcblk0rpmb    0600   system     system
 /dev/block/pmem0          0660 system system
+/dev/dma_heap/reserved    0666   system     system
+/dev/dma_heap/reserved-uncached    0666   system     system
+/dev/dma_heap/secure      0666   system     system
 
 # sensors sysfs
 /dev/FreescaleAccelerometer                     0660  system   system

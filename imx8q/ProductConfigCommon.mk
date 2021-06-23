@@ -39,6 +39,10 @@ PRODUCT_SHIPPING_API_LEVEL := 30
 PRODUCT_PROPERTY_OVERRIDES += \
     pm.dexopt.boot=quicken
 
+# add dmabufheap debug info
+PRODUCT_PROPERTY_OVERRIDES += \
+    debug.c2.use_dmabufheaps=1
+
 # Enforce privapp-permissions whitelist
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.control_privapp_permissions=enforce

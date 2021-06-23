@@ -88,7 +88,9 @@ endif
 # CONFIG_PWM_IMX27: pwm-imx27.ko
 # CONFIG_BACKLIGHT_PWM : pwm_bl.ko
 # CONFIG_MMC_SDHCI_ESDHC_IMX: sdhci-esdhc-imx.ko, cqhci.ko
-# CONFIG_ION_CMA_HEAP: ion_cma_heap.ko
+# CONFIG_DMABUF_HEAPS_SYSTEM: system_heap.ko
+# CONFIG_DMABUF_HEAPS_CMA: cma_heap.ko
+# CONFIG_DMABUF_HEAPS_SECURE: secure_heap.ko
 # CONFIG_MFD_IMX_AUDIOMIX: imx-audiomix.ko
 # CONFIG_PHY_FSL_IMX8MP_LVDS: phy-fsl-imx8mp-lvds.ko
 # CONFIG_PHY_SAMSUNG_HDMI_PHY: phy-fsl-samsung-hdmi.ko
@@ -148,10 +150,9 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES +=     \
     $(KERNEL_OUT)/drivers/video/backlight/pwm_bl.ko \
     $(KERNEL_OUT)/drivers/mmc/host/cqhci.ko \
     $(KERNEL_OUT)/drivers/mmc/host/sdhci-esdhc-imx.ko \
-    $(KERNEL_OUT)/drivers/staging/android/ion/ion-alloc.ko \
-    $(KERNEL_OUT)/drivers/staging/android/ion/heaps/ion_sys_heap.ko \
-    $(KERNEL_OUT)/drivers/staging/android/ion/heaps/ion_cma_heap.ko \
-    $(KERNEL_OUT)/drivers/staging/android/ion/heaps/ion_unmapped_heap.ko \
+    $(KERNEL_OUT)/drivers/dma-buf/heaps/system_heap.ko \
+    $(KERNEL_OUT)/drivers/dma-buf/heaps/cma_heap.ko \
+    $(KERNEL_OUT)/drivers/dma-buf/heaps/secure_heap.ko \
     $(KERNEL_OUT)/drivers/reset/reset-imx7.ko \
     $(KERNEL_OUT)/drivers/phy/freescale/phy-fsl-imx8mp-lvds.ko \
     $(KERNEL_OUT)/drivers/phy/freescale/phy-fsl-samsung-hdmi.ko \
