@@ -125,8 +125,8 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES +=     \
     $(KERNEL_OUT)/drivers/gpu/drm/bridge/sec-dsim.ko \
     $(KERNEL_OUT)/drivers/gpu/drm/imx/imxdrm.ko \
     $(KERNEL_OUT)/drivers/gpu/drm/imx/lcdif/imx-lcdif-crtc.ko \
-    $(KERNEL_OUT)/drivers/gpu/drm/imx/sec_mipi_dsim-imx.ko \
     $(KERNEL_OUT)/drivers/gpu/drm/panel/panel-raydium-rm67191.ko \
+    $(KERNEL_OUT)/drivers/gpu/drm/imx/sec_mipi_dsim-imx.ko \
     $(KERNEL_OUT)/drivers/usb/chipidea/usbmisc_imx.ko \
     $(KERNEL_OUT)/drivers/usb/common/ulpi.ko \
     $(KERNEL_OUT)/drivers/usb/chipidea/ci_hdrc_imx.ko \
