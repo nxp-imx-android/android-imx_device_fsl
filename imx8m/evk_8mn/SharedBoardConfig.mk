@@ -119,6 +119,7 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/spi/spi-bitbang.ko \
     $(KERNEL_OUT)/drivers/spi/spi-nxp-fspi.ko \
     $(KERNEL_OUT)/drivers/spi/spi-imx.ko \
+    $(KERNEL_OUT)/lib/stmp_device.ko \
     $(KERNEL_OUT)/drivers/dma/mxs-dma.ko \
     $(KERNEL_OUT)/drivers/mmc/core/pwrseq_simple.ko \
     $(KERNEL_OUT)/drivers/mailbox/imx-mailbox.ko \
