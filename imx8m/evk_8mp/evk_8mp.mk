@@ -523,3 +523,64 @@ PRODUCT_COPY_FILES += \
 $(call inherit-product-if-exists, vendor/partner_gms/products/gms.mk)
 PRODUCT_SOONG_NAMESPACES += vendor/partner_gms
 
+
+# isp block
+# lib
+PRODUCT_PACKAGES += \
+    DAA3840_30MC_1080P \
+    libdewarp_parser \
+    libjsoncpp-1.8.4 \
+    libmedia_buffer \
+    libviv_fpga_driver \
+    libyuv2rgb \
+    liboslayer \
+    libbase64 \
+    libebase \
+    libversion \
+    libcommon \
+    libbufferpool \
+    libfpga \
+    libhal \
+    libcameric_drv \
+    libcameric_reg_drv \
+    liba2dnr \
+    liba3dnr \
+    libadpcc \
+    libadpf \
+    libaec \
+    libaee \
+    libaflt \
+    libaf \
+    libahdr \
+    libavs \
+    libawb \
+    libawdr3 \
+    libbufsync_ctrl \
+    libcam_calibdb \
+    libcam_device \
+    libcam_engine \
+    libdewarp_hal \
+    libi2c_drv \
+    libisi \
+    libmedia_server \
+    libmim_ctrl \
+    libmipi_drv \
+    libmom_ctrl \
+    libtinyxml2-6.2.0 \
+    libvvdisplay
+
+# bin
+PRODUCT_PACKAGES += \
+    isp_media_server \
+    vvext \
+    video_test
+
+# config
+PRODUCT_PACKAGES += \
+    DAA3840_30MC_1080P.xml \
+    DAA3840_30MC_4K.xml \
+    Sensor0_Entry.cfg \
+    Sensor1_Entry.cfg \
+    Sensor0_Entry-4K.cfg \
+    daA3840_30mc_1080P.json \
+    daA3840_30mc_4K.json
