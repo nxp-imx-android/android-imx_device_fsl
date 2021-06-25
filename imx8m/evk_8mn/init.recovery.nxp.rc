@@ -3,6 +3,3 @@ on init
     write /sys/class/graphics/fbcon/cursor_blink 0
 
     setprop sys.usb.configfs 1
-
-on post-fs-data
-    setprop sys.usb.controller "ci_hdrc.0"
