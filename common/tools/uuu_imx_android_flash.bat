@@ -75,6 +75,7 @@ if not [%tmp_dir%] == [] (
     set tmp_dir=%tmp_dir%\
 )
 set /A shared_uuu_uboot=0
+set usb_paths=
 
 
 :: We want to detect illegal feature input to some extent. Here it's based on SoC names. Since an SoC may be on a
@@ -126,6 +127,7 @@ if %1 == -y set yocto_image=%2&shift &shift & goto :parse_loop
 if %1 == -i set /A intervene=1 & shift & goto :parse_loop
 if %1 == -daemon set /A daemon_mode=1 & shift & goto :parse_loop
 if %1 == -dryrun set /A dryrun=1 & shift & goto :parse_loop
+if %1 == -usb set usb_paths=%usb_paths% -m %2&shift &shift & goto :parse_loop
 echo unknown option "%1", please check it.
 call :help & set /A error_level=1 && goto :exit
 :parse_end
@@ -500,9 +502,9 @@ if [%dryrun%] == [1] (
 echo uuu script generated, start to invoke uuu with the generated uuu script
 
 if %daemon_mode% equ 1 (
-    uuu -d %tmp_dir%uuu.lst
+    uuu %usb_paths% -d %tmp_dir%uuu.lst
 ) else (
-    uuu %tmp_dir%uuu.lst
+    uuu %usb_paths% %tmp_dir%uuu.lst
     del %tmp_dir%*.link
     del %tmp_dir%uuu.lst
 )
@@ -521,7 +523,7 @@ goto :eof
 :help
 echo.
 echo Version: 1.8
-echo Last change: recommend new version of uuu
+echo Last change: support -usb option to specify the usb path to monitor
 echo currently suported platforms: evk_7ulp, evk_8mm, evk_8mq, evk_8mn, evk_8mp, mek_8q, mek_8q_car
 echo.
 echo eg: uuu_imx_android_flash.bat -f imx8mm -a -e -D C:\Users\user_01\images\evk_8mm\ -t emmc -u trusty -d mipi-panel
@@ -601,6 +603,7 @@ echo  -i                with this option used, after uboot for uuu loaded and ex
 echo                        This option is for users to manually flash the images to partitions they want to
 echo  -daemon           after uuu script generated, uuu will be invoked with daemon mode. It is used for flash multi boards
 echo  -dryrun           only generate the uuu script under /tmp direcbory but not flash images
+echo  -usb usb_path     specify a usb path like 1:1 to monitor. It can be used multiple times to specify more than one path
 goto :eof
 
 
@@ -683,7 +686,7 @@ if [%target_dev%] == [emmc] (
 if %intervene% == 1 (
 :: in fact, it's not an error, but to align the behaviour of cmd and powershell, a non-zero error value is used.
     echo FB: done >> %tmp_dir%uuu.lst
-    uuu %tmp_dir%uuu.lst
+    uuu %usb_paths% %tmp_dir%uuu.lst
     set /A error_level=1 && goto :exit
 )
 

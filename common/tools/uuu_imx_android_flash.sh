@@ -6,7 +6,7 @@ bn=`basename $0`
 cat << EOF
 
 Version: 1.8
-Last change: recommend new version of uuu
+Last change: support -usb option to specify the usb path to monitor
 currently suported platforms: evk_7ulp, evk_8mm, evk_8mq, evk_8mn, evk_8mp, mek_8q, mek_8q_car
 
 eg: ./uuu_imx_android_flash.sh -f imx8mm -a -e -D ~/evk_8mm/ -t emmc -u trusty -d mipi-panel
@@ -86,6 +86,7 @@ options:
                         This option is for users to manually flash the images to partitions they want to
   -daemon           after uuu script generated, uuu will be invoked with daemon mode. It is used for flash multi boards
   -dryrun           only generate the uuu script under /tmp direcbory but not flash images
+  -usb usb_path     specify a usb path like 1:1 to monitor. It can be used multiple times to specify more than one path
 EOF
 
 }
@@ -146,7 +147,7 @@ function uuu_load_uboot
 
     if [[ ${intervene} -eq 1 ]]; then
         echo FB: done >> /tmp/uuu.lst
-        uuu /tmp/uuu.lst
+        uuu ${usb_paths} /tmp/uuu.lst
         exit 0
     fi
 }
@@ -366,6 +367,7 @@ yocto_image_sym_link=""
 daemon_mode=0
 dryrun=0
 result_value=0
+usb_paths=""
 
 # We want to detect illegal feature input to some extent. Here it's based on SoC names. Since an SoC may be on a
 # board running different set of images(android and automative for a example), so misuse the features of one set of
@@ -414,6 +416,7 @@ while [ $# -gt 0 ]; do
         -i) intervene=1 ;;
         -daemon) daemon_mode=1 ;;
         -dryrun) dryrun=1 ;;
+        -usb) usb_paths="${usb_paths} -m $2"; shift;;
         *)  echo -e >&2 ${RED}the option \"${1}\"  you specified is not supported, please check it${STD}
             help; exit;;
     esac
@@ -747,9 +750,9 @@ fi
 
 echo "uuu script generated, start to invoke uuu with the generated uuu script"
 if [ ${daemon_mode} -eq 1 ]; then
-    uuu -d /tmp/uuu.lst
+    uuu ${usb_paths} -d /tmp/uuu.lst
 else
-    uuu /tmp/uuu.lst
+    uuu ${usb_paths} /tmp/uuu.lst
 fi
 
 exit 0
