@@ -117,3 +117,5 @@
 
 # hantro v4l2 daemon
 /dev/vsi_daemon_ctrl                          u:object_r:vsi_daemon_ctrl_device:s0
+
+/dev/dmabuf_imx                              u:object_r:ion_device:s0
