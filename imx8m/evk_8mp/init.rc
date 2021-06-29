@@ -97,9 +97,6 @@ on early-boot && property:vendor.skip.charger_not_need=0
 
     setprop camera.disable_zsl_mode 1
 
-    #Enable GPU 2D do CSC on imx8mp platform
-    setprop vendor.camera.2d.enable true
-
    # Tweak the mmc device read ahead buffer size
     write /sys/block/mmcblk1/queue/read_ahead_kb 2048
     write /sys/block/mmcblk2/queue/read_ahead_kb 2048
