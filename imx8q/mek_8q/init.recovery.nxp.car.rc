@@ -12,3 +12,6 @@ on early-init
     write /sys/devices/platform/vehicle_rpmsg_m4/register 1
     # register the vehicle_rpmsg_m4 which will relase display module in XEN
     write /sys/devices/platform/passthrough/passthrough\:vehicle_rpmsg_m4/register  1
+
+on post-fs-data
+    setprop sys.usb.controller "5b130000.usb"
