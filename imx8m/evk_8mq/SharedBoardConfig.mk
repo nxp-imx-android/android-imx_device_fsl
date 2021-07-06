@@ -87,7 +87,9 @@ endif
 # CONFIG_I2C_IMX: i2c-imx.ko
 # CONFIG_IMX_MBOX: imx-mailbox.ko, imx mailbox driver
 # CONFIG_SND_IMX_SOC: SoC Audio for Freescale i.MX CPUs
-# CONFIG_ION_CMA_HEAP: ion_cma_heap.ko
+# CONFIG_DMABUF_HEAPS_SYSTEM: system_heap.ko
+# CONFIG_DMABUF_HEAPS_CMA: cma_heap.ko
+# CONFIG_DMABUF_IMX: dma-buf-imx.ko
 # CONFIG_RESET_IMX7: reset-imx7.ko
 # CONFIG_PHY_FSL_IMX8MQ_USB: phy-fsl-imx8mq-usb.ko
 # CONFIG_KEYBOARD_SNVS_PWRKEY: snvs_pwrkey.ko, snvs power key driver
@@ -134,10 +136,9 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES += \
     $(KERNEL_OUT)/lib/stmp_device.ko \
     $(KERNEL_OUT)/drivers/dma/mxs-dma.ko \
     $(KERNEL_OUT)/drivers/mailbox/imx-mailbox.ko \
-    $(KERNEL_OUT)/drivers/staging/android/ion/ion-alloc.ko \
-    $(KERNEL_OUT)/drivers/staging/android/ion/heaps/ion_sys_heap.ko \
-    $(KERNEL_OUT)/drivers/staging/android/ion/heaps/ion_cma_heap.ko \
-    $(KERNEL_OUT)/drivers/staging/android/ion/heaps/ion_unmapped_heap.ko \
+    $(KERNEL_OUT)/drivers/dma-buf/heaps/system_heap.ko \
+    $(KERNEL_OUT)/drivers/dma-buf/heaps/cma_heap.ko \
+    $(KERNEL_OUT)/drivers/dma-buf/dma-buf-imx.ko \
     $(KERNEL_OUT)/drivers/reset/gpio-reset.ko \
     $(KERNEL_OUT)/drivers/reset/reset-imx7.ko \
     $(KERNEL_OUT)/drivers/phy/freescale/phy-fsl-imx8-mipi-dphy.ko \

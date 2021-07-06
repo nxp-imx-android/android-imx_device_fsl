@@ -75,7 +75,9 @@ endif
 # CONFIG_GPIO_MXC: gpio-generic.ko gpio-mxc.ko
 # CONFIG_MMC_SDHCI_ESDHC_IMX: sdhci-esdhc-imx.ko cqhci.ko
 # CONFIG_I2C_IMX:i2c-imx.ko
-# CONFIG_ION_CMA_HEAP: ion_cma_heap.ko
+# CONFIG_DMABUF_HEAPS_SYSTEM: system_heap.ko
+# CONFIG_DMABUF_HEAPS_CMA: cma_heap.ko
+# CONFIG_DMABUF_IMX: dma-buf-imx.ko
 # depend on clk module: reset-dispmix.ko, it will been select as m if clk build as m.
 # CONFIG_KEYBOARD_SNVS_PWRKEY: snvs_pwrkey.ko, snvs power key driver
 # CONFIG_IMX_LCDIF_CORE: imx-lcdif-core.ko
@@ -125,10 +127,9 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/dma/mxs-dma.ko \
     $(KERNEL_OUT)/drivers/mmc/core/pwrseq_simple.ko \
     $(KERNEL_OUT)/drivers/mailbox/imx-mailbox.ko \
-    $(KERNEL_OUT)/drivers/staging/android/ion/ion-alloc.ko \
-    $(KERNEL_OUT)/drivers/staging/android/ion/heaps/ion_sys_heap.ko \
-    $(KERNEL_OUT)/drivers/staging/android/ion/heaps/ion_cma_heap.ko \
-    $(KERNEL_OUT)/drivers/staging/android/ion/heaps/ion_unmapped_heap.ko \
+    $(KERNEL_OUT)/drivers/dma-buf/heaps/system_heap.ko \
+    $(KERNEL_OUT)/drivers/dma-buf/heaps/cma_heap.ko \
+    $(KERNEL_OUT)/drivers/dma-buf/dma-buf-imx.ko \
     $(KERNEL_OUT)/drivers/reset/gpio-reset.ko \
     $(KERNEL_OUT)/drivers/reset/reset-imx7.ko \
     $(KERNEL_OUT)/drivers/input/keyboard/snvs_pwrkey.ko \
