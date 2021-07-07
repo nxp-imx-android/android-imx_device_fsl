@@ -82,6 +82,8 @@ endif
 # CONFIG_NOP_USB_XCEIV: phy-generic.ko
 # CONFIG_TYPEC_TCPCI: tcpci.ko
 # CONFIG_USB_EHCI_HCD: ehci-hcd.ko
+# CONFIG_CFG80211: cfg80211.ko, cfg80211 - wireless configuration API
+# CONFIG_MAC80211: mac80211.ko, Generic IEEE 802.11 Networking Stack
 
 ifeq ($(IMX8MM_USES_GKI),true)
 BOARD_VENDOR_RAMDISK_KERNEL_MODULES +=     \
@@ -139,7 +141,9 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES +=     \
     $(KERNEL_OUT)/drivers/trusty/trusty-core.ko \
     $(KERNEL_OUT)/drivers/trusty/trusty-irq.ko \
     $(KERNEL_OUT)/drivers/trusty/trusty-log.ko \
-    $(KERNEL_OUT)/drivers/trusty/trusty-virtio.ko
+    $(KERNEL_OUT)/drivers/trusty/trusty-virtio.ko \
+    $(KERNEL_OUT)/net/wireless/cfg80211.ko \
+    $(KERNEL_OUT)/net/mac80211/mac80211.ko
 endif
 
 

@@ -89,6 +89,8 @@ endif
 # CONFIG_TYPEC_TCPCI: tcpci.ko
 # CONFIG_USB_EHCI_HCD: ehci-hcd.ko
 # CONFIG_VIDEO_IMX_CAPTURE: imx8-media-dev.ko, imx8-isi-cap.ko, imx8-isi-hw.ko, imx8-isi-m2m.ko, imx8-mipi-csi2-sam.ko, imx isi and mipi driver
+# CONFIG_CFG80211: cfg80211.ko, cfg80211 - wireless configuration API
+# CONFIG_MAC80211: mac80211.ko, Generic IEEE 802.11 Networking Stack
 
 ifeq ($(IMX8MN_USES_GKI),true)
 BOARD_VENDOR_RAMDISK_KERNEL_MODULES += \
@@ -158,7 +160,9 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/trusty/trusty-irq.ko \
     $(KERNEL_OUT)/drivers/trusty/trusty-log.ko \
     $(KERNEL_OUT)/drivers/trusty/trusty-virtio.ko \
-    $(KERNEL_OUT)/drivers/staging/media/imx/imx8-media-dev.ko
+    $(KERNEL_OUT)/drivers/staging/media/imx/imx8-media-dev.ko \
+    $(KERNEL_OUT)/net/wireless/cfg80211.ko \
+    $(KERNEL_OUT)/net/mac80211/mac80211.ko
 endif
 
 # -------@block_memory-------
