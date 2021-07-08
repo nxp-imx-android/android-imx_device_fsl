@@ -80,7 +80,6 @@
 # secure os storage
 /vendor/bin/storageproxyd   u:object_r:tee_exec:s0
 /vendor/bin/trusty_apploader u:object_r:tee_exec:s0
-/vendor/bin/securedisplayd-imx    u:object_r:securedisplayd_exec:s0
 
 /vendor/bin/init\.insmod\.sh                u:object_r:init-insmod-sh_exec:s0
 /vendor/etc/early\.init\.cfg                  u:object_r:init-insmod-sh_exec:s0
