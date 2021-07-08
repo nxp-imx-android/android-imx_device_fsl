@@ -1,4 +1,4 @@
-get_prop(system_server, vendor_default_prop)
+#get_prop(system_server, vendor_default_prop)
 
 allow system_server unlabeled:dir {relabelfrom rw_dir_perms};
 allow system_server unlabeled:sock_file {link unlink rw_file_perms};

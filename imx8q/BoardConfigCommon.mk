@@ -73,6 +73,9 @@ BOARD_SOC_CLASS := IMX8
 BOARD_SOC_TYPE := IMX8Q
 SOONG_CONFIG_IMXPLUGIN_PRODUCT_MANUFACTURER = nxp
 
+# -------@block_sepolicy-------
+BUILD_BROKEN_ENFORCE_SYSPROP_OWNER := true
+
 # -------@block_security-------
 ENABLE_CFI=false
 
