@@ -32,6 +32,7 @@ BOARD_VENDOR_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/media/platform/mxc/capture/mx6s_capture.ko \
     $(KERNEL_OUT)/drivers/media/platform/mxc/capture/mxc_mipi_csi.ko \
     $(KERNEL_OUT)/drivers/media/platform/mxc/capture/ov5640_camera_mipi_v2.ko \
+    $(KERNEL_OUT)/drivers/gpio/gpio-pca953x.ko \
     $(KERNEL_OUT)/sound/soc/fsl/imx-pcm-dma.ko \
     $(KERNEL_OUT)/sound/soc/fsl/imx-pcm-dma-v2.ko \
     $(KERNEL_OUT)/sound/soc/fsl/snd-soc-fsl-micfil.ko \
@@ -42,11 +43,13 @@ BOARD_VENDOR_KERNEL_MODULES += \
     $(KERNEL_OUT)/sound/soc/fsl/snd-soc-fsl-spdif.ko \
     $(KERNEL_OUT)/sound/soc/fsl/snd-soc-imx-spdif.ko \
     $(KERNEL_OUT)/sound/soc/codecs/snd-soc-wm8524.ko \
+    $(KERNEL_OUT)/sound/soc/codecs/snd-soc-ak4458.ko \
     $(KERNEL_OUT)/sound/soc/codecs/snd-soc-ak5558.ko \
     $(KERNEL_OUT)/sound/soc/codecs/snd-soc-bt-sco.ko \
     $(KERNEL_OUT)/sound/soc/codecs/snd-soc-hdmi-codec.ko \
     $(KERNEL_OUT)/sound/soc/generic/snd-soc-simple-card.ko \
     $(KERNEL_OUT)/sound/soc/generic/snd-soc-simple-card-utils.ko \
+    $(KERNEL_OUT)/sound/soc/fsl/snd-soc-imx-ak4458.ko \
     $(KERNEL_OUT)/drivers/mxc/hantro/hantrodec.ko \
     $(KERNEL_OUT)/drivers/mxc/hantro_845/hantrodec_845s.ko \
     $(KERNEL_OUT)/drivers/mxc/hantro_845_h1/hx280enc.ko \
