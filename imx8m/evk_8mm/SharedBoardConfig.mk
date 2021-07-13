@@ -50,6 +50,15 @@ BOARD_VENDOR_KERNEL_MODULES += \
     $(KERNEL_OUT)/sound/soc/generic/snd-soc-simple-card.ko \
     $(KERNEL_OUT)/sound/soc/generic/snd-soc-simple-card-utils.ko \
     $(KERNEL_OUT)/sound/soc/fsl/snd-soc-imx-ak4458.ko \
+    $(KERNEL_OUT)/drivers/rpmsg/virtio_rpmsg_bus.ko \
+    $(KERNEL_OUT)/drivers/remoteproc/imx_rproc.ko \
+    $(KERNEL_OUT)/drivers/i2c/busses/i2c-rpmsg-imx.ko \
+    $(KERNEL_OUT)/sound/soc/fsl/imx-pcm-rpmsg.ko \
+    $(KERNEL_OUT)/sound/soc/fsl/snd-soc-fsl-rpmsg-i2s.ko \
+    $(KERNEL_OUT)/sound/soc/fsl/imx-i2s-rpmsg.ko \
+    $(KERNEL_OUT)/sound/soc/codecs/snd-soc-rpmsg-ak4497.ko \
+    $(KERNEL_OUT)/sound/soc/fsl/snd-soc-imx-rpmsg.ko \
+    $(KERNEL_OUT)/sound/soc/fsl/snd-soc-imx-ak4497.ko \
     $(KERNEL_OUT)/drivers/mxc/hantro/hantrodec.ko \
     $(KERNEL_OUT)/drivers/mxc/hantro_845/hantrodec_845s.ko \
     $(KERNEL_OUT)/drivers/mxc/hantro_845_h1/hx280enc.ko \
