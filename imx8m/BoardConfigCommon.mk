@@ -53,10 +53,6 @@ endif
 BOARD_SOC_CLASS := IMX8
 SOONG_CONFIG_IMXPLUGIN_PRODUCT_MANUFACTURER = nxp
 
-
-# -------@block_sepolicy-------
-BUILD_BROKEN_ENFORCE_SYSPROP_OWNER := true
-
 # -------@block_kernel_bootimg-------
 TARGET_NO_BOOTLOADER := true
 TARGET_NO_KERNEL := false
