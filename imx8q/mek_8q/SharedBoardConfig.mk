@@ -39,6 +39,7 @@ BOARD_VENDOR_KERNEL_MODULES += \
                             $(KERNEL_OUT)/drivers/usb/common/ulpi.ko \
                             $(KERNEL_OUT)/drivers/usb/host/ehci-hcd.ko \
                             $(KERNEL_OUT)/drivers/usb/storage/usb-storage.ko \
+                            $(KERNEL_OUT)/block/t10-pi.ko \
                             $(KERNEL_OUT)/drivers/scsi/sd_mod.ko \
                             $(KERNEL_OUT)/drivers/hid/hid-multitouch.ko
 
