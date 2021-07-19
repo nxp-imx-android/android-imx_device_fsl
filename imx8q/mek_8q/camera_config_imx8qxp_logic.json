@@ -22,7 +22,7 @@
       "PhysicalHeight": "2.7216",
       "FocalLength": "3.37",
       "MaxJpegSize": "6291456",
-      "MinFrameDuration": "33331760",
+      "MinFrameDuration": "33333333",
       "MaxFrameDuration": "300000000",
       "AvailableCapabilities":"11",
       "PhysicalNames":["mxc_isi.0.capture", "mxc_isi.4.capture"],
@@ -47,7 +47,7 @@
       "PhysicalHeight": "2.7216",
       "FocalLength": "3.37",
       "MaxJpegSize": "6291456",
-      "MinFrameDuration": "33331760",
+      "MinFrameDuration": "33333333",
       "MaxFrameDuration": "300000000",
       "OmitFrame": [
           {
@@ -70,7 +70,7 @@
       "PhysicalHeight": "2.7216",
       "FocalLength": "3.37",
       "MaxJpegSize": "6291456",
-      "MinFrameDuration": "33331760",
+      "MinFrameDuration": "33333333",
       "MaxFrameDuration": "300000000",
       "OmitFrame": [
           {
