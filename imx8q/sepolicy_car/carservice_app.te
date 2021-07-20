@@ -1,4 +1,4 @@
-get_prop(carservice_app, vendor_default_prop)
+get_prop(carservice_app, vendor_public_default_prop)
 
 allow carservice_app sysfs:file { getattr };
 allow carservice_app sysfs_emmc_info:file { r_file_perms };
