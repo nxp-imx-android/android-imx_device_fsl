@@ -132,14 +132,25 @@ ifeq ($(TARGET_USE_DYNAMIC_PARTITIONS),true)
   ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
     TARGET_BOARD_DTS_CONFIG ?= imx8mq:imx8mq-evk-no-product.dtb
   else
-    # imx8mq with HDMI display
-    TARGET_BOARD_DTS_CONFIG ?= imx8mq:imx8mq-evk-pcie1-m2.dtb
-    # imx8mq with MIPI-HDMI display
-    TARGET_BOARD_DTS_CONFIG += imx8mq-mipi:imx8mq-evk-lcdif-adv7535.dtb
-    # imx8mq with HDMI and MIPI-HDMI display
-    TARGET_BOARD_DTS_CONFIG += imx8mq-dual:imx8mq-evk-dual-display.dtb
-    # imx8mq with MIPI panel display
-    TARGET_BOARD_DTS_CONFIG += imx8mq-mipi-panel:imx8mq-evk-dcss-rm67191.dtb
+    ifeq ($(IMX8MQ_USES_GKI),true)
+      # imx8mq gki with HDMI display
+      TARGET_BOARD_DTS_CONFIG ?= imx8mq-gki:imx8mq-evk-pcie1-m2-gki.dtb
+      # imx8mq with MIPI-HDMI display
+      TARGET_BOARD_DTS_CONFIG += imx8mq-mipi-gki:imx8mq-evk-lcdif-adv7535-gki.dtb
+      # imx8mq with HDMI and MIPI-HDMI display
+      TARGET_BOARD_DTS_CONFIG += imx8mq-dual-gki:imx8mq-evk-dual-display-gki.dtb
+      # imx8mq with MIPI panel display
+      TARGET_BOARD_DTS_CONFIG += imx8mq-mipi-panel-gki:imx8mq-evk-dcss-rm67191-gki.dtb
+    else
+      # imx8mq with HDMI display
+      TARGET_BOARD_DTS_CONFIG ?= imx8mq:imx8mq-evk-pcie1-m2.dtb
+      # imx8mq with MIPI-HDMI display
+      TARGET_BOARD_DTS_CONFIG += imx8mq-mipi:imx8mq-evk-lcdif-adv7535.dtb
+      # imx8mq with HDMI and MIPI-HDMI display
+      TARGET_BOARD_DTS_CONFIG += imx8mq-dual:imx8mq-evk-dual-display.dtb
+      # imx8mq with MIPI panel display
+      TARGET_BOARD_DTS_CONFIG += imx8mq-mipi-panel:imx8mq-evk-dcss-rm67191.dtb
+    endif
   endif
 else # no dynamic parition feature
   ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
@@ -161,3 +172,6 @@ BOARD_SEPOLICY_DIRS += \
        $(IMX_DEVICE_PATH)/sepolicy_drm
 endif
 
+ifeq ($(IMX8MQ_USES_GKI),true)
+    BOARD_KERNEL_CMDLINE += cpuidle.off=1
+endif
