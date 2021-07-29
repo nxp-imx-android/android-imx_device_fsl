@@ -59,11 +59,7 @@ else
   endif
 endif
 
-ifeq ($(IMX8MQ_USES_GKI),true)
-  BOARD_PREBUILT_DTBOIMAGE := $(OUT_DIR)/target/product/$(PRODUCT_DEVICE)/dtbo-imx8mq-gki.img
-else
-  BOARD_PREBUILT_DTBOIMAGE := $(OUT_DIR)/target/product/$(PRODUCT_DEVICE)/dtbo-imx8mq.img
-endif
+BOARD_PREBUILT_DTBOIMAGE := $(OUT_DIR)/target/product/$(PRODUCT_DEVICE)/dtbo-imx8mq.img
 
 BOARD_USES_METADATA_PARTITION := true
 BOARD_ROOT_EXTRA_FOLDERS += metadata
@@ -138,13 +134,13 @@ ifeq ($(TARGET_USE_DYNAMIC_PARTITIONS),true)
   else
     ifeq ($(IMX8MQ_USES_GKI),true)
       # imx8mq gki with HDMI display
-      TARGET_BOARD_DTS_CONFIG ?= imx8mq-gki:imx8mq-evk-pcie1-m2-gki.dtb
+      TARGET_BOARD_DTS_CONFIG ?= imx8mq:imx8mq-evk-pcie1-m2-gki.dtb
       # imx8mq with MIPI-HDMI display
-      TARGET_BOARD_DTS_CONFIG += imx8mq-mipi-gki:imx8mq-evk-lcdif-adv7535-gki.dtb
+      TARGET_BOARD_DTS_CONFIG += imx8mq-mipi:imx8mq-evk-lcdif-adv7535-gki.dtb
       # imx8mq with HDMI and MIPI-HDMI display
-      TARGET_BOARD_DTS_CONFIG += imx8mq-dual-gki:imx8mq-evk-dual-display-gki.dtb
+      TARGET_BOARD_DTS_CONFIG += imx8mq-dual:imx8mq-evk-dual-display-gki.dtb
       # imx8mq with MIPI panel display
-      TARGET_BOARD_DTS_CONFIG += imx8mq-mipi-panel-gki:imx8mq-evk-dcss-rm67191-gki.dtb
+      TARGET_BOARD_DTS_CONFIG += imx8mq-mipi-panel:imx8mq-evk-dcss-rm67191-gki.dtb
     else
       # imx8mq with HDMI display
       TARGET_BOARD_DTS_CONFIG ?= imx8mq:imx8mq-evk-pcie1-m2.dtb
