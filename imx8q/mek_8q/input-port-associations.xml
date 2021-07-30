@@ -7,18 +7,18 @@ Display 18309706364381699 (HWC display 3): port=3 pnpId=PHL displayName="PHL 245
 
 Use below commands to get touch input location:
 # getevent -i | grep location
-location: "usb-xhci-cdns3-1.3.4/input0"
-location: "usb-xhci-cdns3-1.2.4/input0"
+location: "usb-xhci-hcd.1.auto-1.3.4/input0"
+location: "usb-xhci-hcd.1.auto-1.2.4/input0"
 
 Then bind the display port and input location with below table. This table need
 to modify according to actual connection.
 One display can link with multi-input.
 -->
 <ports>
-	<port display="0" input="usb-xhci-cdns3-1.1.4/input0" />
-	<port display="1" input="usb-xhci-cdns3-1.2.4/input0" />
-	<port display="2" input="usb-xhci-cdns3-1.3.4/input0" />
-	<port display="3" input="usb-xhci-cdns3-1.4.4/input0" />
-	<port display="0" input="usb-xhci-cdns3-1.4/input0" />
+	<port display="0" input="usb-xhci-hcd.1.auto-1.1.4/input0" />
+	<port display="1" input="usb-xhci-hcd.1.auto-1.2.4/input0" />
+	<port display="2" input="usb-xhci-hcd.1.auto-1.3.4/input0" />
+	<port display="3" input="usb-xhci-hcd.1.auto-1.4.4/input0" />
+	<port display="0" input="usb-xhci-hcd.1.auto-1.4/input0" />
 	<port display="0" input="usb-ci_hdrc.0-1.4/input0" />
 </ports>
