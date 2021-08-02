@@ -12,3 +12,6 @@ LOW_MEMORY := false
 # -------@block_security-------
 #Enable this to include trusty support
 PRODUCT_IMX_TRUSTY := true
+
+BOARD_VENDOR_RAMDISK_KERNEL_MODULES += \
+    $(KERNEL_OUT)/drivers/input/touchscreen/goodix.ko
