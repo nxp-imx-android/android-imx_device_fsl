@@ -37,9 +37,16 @@ PRODUCT_FULL_TREBLE_OVERRIDE := true
 PRODUCT_SOONG_NAMESPACES += vendor/nxp-opensource/imx/power
 PRODUCT_SOONG_NAMESPACES += hardware/google/pixel
 
+# This code is valid for Android Car only
+ifeq ($(IMX8QM_A72_BOOT),true)
+PRODUCT_COPY_FILES += \
+     $(IMX_DEVICE_PATH)/powerhint_imx8qxp.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/powerhint_imx8qxp.json \
+     $(IMX_DEVICE_PATH)/powerhint_imx8qm_car2.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/powerhint_imx8qm.json
+else
 PRODUCT_COPY_FILES += \
      $(IMX_DEVICE_PATH)/powerhint_imx8qxp.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/powerhint_imx8qxp.json \
      $(IMX_DEVICE_PATH)/powerhint_imx8qm.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/powerhint_imx8qm.json
+endif
 
 # Charger Mode
 PRODUCT_PRODUCT_PROPERTIES += \
