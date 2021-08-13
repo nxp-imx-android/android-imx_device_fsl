@@ -202,9 +202,6 @@ endif
 # -------@block_treble-------
 BOARD_VNDK_VERSION := current
 
-# -------@block_build-------
-BUILD_BROKEN_MISSING_REQUIRED_MODULES := true
-
 # -------@block_multimedia_codec-------
 
 -include $(FSL_RESTRICTED_CODEC_PATH)/fsl-restricted-codec/fsl_ms_codec/BoardConfig.mk
