@@ -56,8 +56,8 @@ BOARD_VENDOR_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/mxc/hantro_vc8000e/hx280enc_vc8000e.ko \
     $(KERNEL_OUT)/drivers/mxc/hantro_845/hantrodec_845s.ko \
     $(KERNEL_OUT)/drivers/mailbox/imx-mailbox.ko \
-    $(KERNEL_OUT)/drivers/rpmsg/rpmsg_ns.ko \
     $(KERNEL_OUT)/drivers/rpmsg/virtio_rpmsg_bus.ko \
+    $(KERNEL_OUT)/drivers/rpmsg/rpmsg_raw.ko \
     $(KERNEL_OUT)/drivers/remoteproc/imx_rproc.ko \
     $(KERNEL_OUT)/drivers/remoteproc/imx_dsp_rproc.ko \
     $(KERNEL_OUT)/drivers/i2c/busses/i2c-rpmsg-imx.ko \
