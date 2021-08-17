@@ -584,8 +584,7 @@ PRODUCT_PACKAGES += \
 # bin
 PRODUCT_PACKAGES += \
     isp_media_server \
-    vvext \
-    video_test
+    vvext
 
 # config
 PRODUCT_PACKAGES += \
