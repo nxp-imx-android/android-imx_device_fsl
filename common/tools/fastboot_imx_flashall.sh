@@ -68,6 +68,8 @@ options:
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                            │   imx8qm       │  hdmi mipi-panel md xen esai                                                                         │
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
+                           │   imx8ulp      │  hdmi                                                                                                │
+                           ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                            │   imx7ulp      │  evk-mipi evk mipi                                                                                   │
                            └────────────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────┘
 
@@ -333,6 +335,7 @@ imx8mq_dtb_feature=(dual mipi-panel mipi)
 imx8mp_dtb_feature=(rpmsg lvds-panel lvds mipi-panel basler powersave powersave-non-rpmsg basler-ov5640 ov5640)
 imx8qxp_dtb_feature=()
 imx8qm_dtb_feature=(hdmi hdmi-rx mipi-panel md xen esai)
+imx8ulp_dtb_feature=(hdmi)
 imx7ulp_dtb_feature=(evk-mipi evk mipi)
 
 # an array to collect the supported soc_names
