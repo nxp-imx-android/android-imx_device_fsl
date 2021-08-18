@@ -19,9 +19,9 @@ IMX8MM_USES_GKI ?= true
 # CONFIG_SND_SOC_FSL_MICFIL: snd-soc-fsl-micfil.ko, used in audio mic
 # CONFIG_SND_SOC_IMX_MICFIL: snd-soc-imx-micfil.ko, used in audio mic
 # CONFIG_SND_SOC_IMX_PCM_DMA: imx-pcm-dma-common.ko, used in fsl_micfil
-# CONFIG_MXC_HANTRO: hantrodec.ko vpu decoder
 # CONFIG_MXC_HANTRO_845: hantrodec_845s.ko vpu decodder
 # CONFIG_MXC_HANTRO_845_H1: hx280enc.ko vpu encoder
+# CONFIG_MXC_HANTRO_V4L2: vsiv4l2.ko  vpu v4l2 driver
 # CONFIG_RTC_DRV_SNVS: rtc-snvs.ko, snvs driver
 # CONFIG_FEC: fec.ko which depend on pps_core.ko and ptp.ko
 # CONFIG_AT803X_PHY: ethernet phy driver at803x.ko
@@ -59,9 +59,9 @@ BOARD_VENDOR_KERNEL_MODULES += \
     $(KERNEL_OUT)/sound/soc/codecs/snd-soc-rpmsg-ak4497.ko \
     $(KERNEL_OUT)/sound/soc/fsl/snd-soc-imx-rpmsg.ko \
     $(KERNEL_OUT)/sound/soc/fsl/snd-soc-imx-ak4497.ko \
-    $(KERNEL_OUT)/drivers/mxc/hantro/hantrodec.ko \
     $(KERNEL_OUT)/drivers/mxc/hantro_845/hantrodec_845s.ko \
     $(KERNEL_OUT)/drivers/mxc/hantro_845_h1/hx280enc.ko \
+    $(KERNEL_OUT)/drivers/mxc/hantro_v4l2/vsiv4l2.ko \
     $(KERNEL_OUT)/drivers/rtc/rtc-snvs.ko \
     $(KERNEL_OUT)/drivers/pps/pps_core.ko \
     $(KERNEL_OUT)/drivers/ptp/ptp.ko \

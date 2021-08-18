@@ -28,6 +28,7 @@ BOARD_VENDOR_KERNEL_MODULES += \
 # CONFIG_SND_SOC_FSL_DSP: snd-soc-fsl-dsp.ko snd-soc-fsl-dsp-audiomix.ko, dsp audio driver
 # CONFIG_MXC_HANTRO_VC8000E: hx280enc_vc8000e.ko, vpu encoder driver
 # CONFIG_MXC_HANTRO_845: hantrodec_845s.ko, vpu decoder driver
+# CONFIG_MXC_HANTRO_V4L2: vsiv4l2.ko, vpu v4l2 driver
 
 ifeq ($(IMX8MP_USES_GKI),true)
 BOARD_VENDOR_KERNEL_MODULES += \
@@ -55,6 +56,7 @@ BOARD_VENDOR_KERNEL_MODULES += \
     $(KERNEL_OUT)/sound/soc/fsl/snd-soc-fsl-dsp.ko \
     $(KERNEL_OUT)/drivers/mxc/hantro_vc8000e/hx280enc_vc8000e.ko \
     $(KERNEL_OUT)/drivers/mxc/hantro_845/hantrodec_845s.ko \
+    $(KERNEL_OUT)/drivers/mxc/hantro_v4l2/vsiv4l2.ko \
     $(KERNEL_OUT)/drivers/mailbox/imx-mailbox.ko \
     $(KERNEL_OUT)/drivers/rpmsg/virtio_rpmsg_bus.ko \
     $(KERNEL_OUT)/drivers/rpmsg/rpmsg_raw.ko \
