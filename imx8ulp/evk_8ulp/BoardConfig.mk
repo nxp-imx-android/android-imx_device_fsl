@@ -139,7 +139,10 @@ ifeq ($(TARGET_USE_DYNAMIC_PARTITIONS),true)
     # dts without product partition
     TARGET_BOARD_DTS_CONFIG ?= imx8ulp:imx8ulp-evk-no-product.dtb
   else
+    # Support MIPI panel
     TARGET_BOARD_DTS_CONFIG += imx8ulp:imx8ulp-evk-rk055hdmipi4m.dtb
+    # Support HDMI
+    TARGET_BOARD_DTS_CONFIG += imx8ulp-hdmi:imx8ulp-evk.dtb
   endif
 else
   ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
