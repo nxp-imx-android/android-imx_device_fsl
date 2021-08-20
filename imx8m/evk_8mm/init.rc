@@ -158,6 +158,10 @@ service bugreport /system/bin/dumpstate -d -p -z
     oneshot
     keycodes 114 115 116
 
+service vsidaemon /vendor/bin/vsidaemon
+    class main
+    user root
+
 on boot && property:vendor.skip.charger_not_need=0
     start audioserver
     start mediadrm

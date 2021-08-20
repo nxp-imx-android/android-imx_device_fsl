@@ -132,6 +132,10 @@ on early-boot && property:vendor.skip.charger_not_need=0
     # Enlarge limition of audio buffer allocation
     setprop ro.af.client_heap_size_kbyte 32768
 
+service vsidaemon /vendor/bin/vsidaemon
+    class main
+    user root
+
 on boot && property:vendor.skip.charger_not_need=0
     start audioserver
     start mediadrm
