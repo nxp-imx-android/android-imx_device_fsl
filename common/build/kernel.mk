@@ -167,7 +167,7 @@ $(KERNEL_CONFIG_REQUIRED): $(KERNEL_CONFIG_REQUIRED_SRC) | $(KERNEL_OUT)
 	$(hide) cat $^ > $@
 
 # use deferred expansion
-kernel_build_shell_env = PATH=$(CLANG_BIN):$(realpath prebuilts/misc/linux-x86/lz4):$${PATH} \
+kernel_build_shell_env = PATH=$(CLANG_BIN):$${PATH} \
         $(CLANG_TRIPLE) CCACHE_NODIRECT="true"
 ifeq ($(CLANG_TO_COMPILE),)
 kernel_build_common_env = ARCH=$(KERNEL_ARCH) CROSS_COMPILE=$(strip $(KERNEL_CROSS_COMPILE_WRAPPER)) \
