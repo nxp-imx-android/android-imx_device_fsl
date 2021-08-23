@@ -74,6 +74,7 @@ endif
 
 # CONFIG_CLK_IMX8MM: clk-imx8mm.ko
 # CONFIG_IMX8M_PM_DOMAINS: imx8m_pm_domains.ko, this driver still not upstream
+# CONFIG_TIMER_IMX_SYS_CTR: timer-imx-sysctr.ko
 # CONFIG_PINCTRL_IMX8MM: pinctrl-imx8mm.ko
 # CONFIG_SERIAL_IMX: imx.ko
 # CONFIG_IMX2_WDT: imx2_wdt.ko
@@ -103,6 +104,7 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES +=     \
     $(KERNEL_OUT)/drivers/clk/imx/mxc-clk.ko \
     $(KERNEL_OUT)/drivers/clk/imx/clk-imx8mm.ko \
     $(KERNEL_OUT)/drivers/soc/imx/imx8m_pm_domains.ko \
+    $(KERNEL_OUT)/drivers/clocksource/timer-imx-sysctr.ko \
     $(KERNEL_OUT)/drivers/soc/imx/busfreq-imx8mq.ko \
     $(KERNEL_OUT)/drivers/pinctrl/freescale/pinctrl-imx.ko \
     $(KERNEL_OUT)/drivers/pinctrl/freescale/pinctrl-imx8mm.ko \
