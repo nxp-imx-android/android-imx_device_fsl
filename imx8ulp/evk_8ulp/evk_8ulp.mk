@@ -53,6 +53,9 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     $(IMX_DEVICE_PATH)/thermal_info_config_imx8ulp.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/thermal_info_config_imx8ulp.json
 
+# Task Profiles
+PRODUCT_COPY_FILES += \
+    $(IMX_DEVICE_PATH)/task_profiles.json:$(TARGET_COPY_OUT_VENDOR)/etc/task_profiles.json
 
 # -------@block_app-------
 
