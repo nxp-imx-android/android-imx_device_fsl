@@ -65,6 +65,7 @@ fi
 # global variables
 build_bootloader_kernel_flag=0
 build_android_flag=0
+build_whole_android_flag=0
 build_bootloader=""
 build_kernel=""
 build_kernel_module_flag=0
@@ -122,7 +123,7 @@ done
 if [ ${build_bootloader_kernel_flag} -eq 0 ] && [ ${build_android_flag} -eq 0 ]; then
     build_bootloader="bootloader";
     build_kernel="${OUT}/kernel";
-    build_android_flag=1
+    build_whole_android_flag=1
 fi
 
 # vvcam.ko need build with kernel each time to make sure "insmod vvcam.ko" works
@@ -141,6 +142,7 @@ product_makefile=`pwd`/`find device/nxp -maxdepth 4 -name "${TARGET_PRODUCT}.mk"
 product_path=${product_makefile%/*}
 soc_path=${product_path%/*}
 nxp_git_path=${soc_path%/*}
+gki_bootimage=`pwd`/vendor/nxp/fsl-proprietary/gki/boot.img
 
 # if uboot is to be compiled, remove the UBOOT_COLLECTION directory
 if [ -n "${build_bootloader}" ]; then
@@ -158,11 +160,18 @@ if [ ${build_kernel_module_flag} -eq 1 ]; then
         ${build_vvcam} ${build_galcore} ${build_mxmwifi} </dev/null || exit
 fi
 
-if [ ${build_android_flag} -eq 1 ]; then
+if [ ${build_android_flag} -eq 1 ] || [ ${build_whole_android_flag} -eq 1 ]; then
     # source envsetup.sh before building Android rootfs, the time spent on building uboot/kernel
     # before this does not count in the final result
     source build/envsetup.sh
     make ${parallel_option} ${build_bootimage} ${build_vendorbootimage} ${build_dtboimage} ${build_vendorimage}
+    if [ -n "${build_bootimage}" ] || [ ${build_whole_android_flag} -eq 1 ]; then
+        if [ ${TARGET_PRODUCT} = "evk_8mp" ] || [ ${TARGET_PRODUCT} = "evk_8mn" ] \
+        || [ ${TARGET_PRODUCT} = "evk_8mm" ] || [ ${TARGET_PRODUCT} = "evk_8mq" ]; then
+            mv ${OUT}/boot.img ${OUT}/boot-imx.img
+            cp ${gki_bootimage} ${OUT}/boot.img
+        fi
+    fi
 fi
 
 # copy the uboot output to ${OUT_DIR}
