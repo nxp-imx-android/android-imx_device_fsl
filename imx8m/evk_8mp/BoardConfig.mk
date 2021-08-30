@@ -138,7 +138,7 @@ endif
 
 # powersave config
 ifeq ($(POWERSAVE),true)
-    BOARD_KERNEL_CMDLINE += androidboot.powersave.usb=true
+    BOARD_KERNEL_CMDLINE += androidboot.powersave.usb=true androidboot.powersave.uclamp=true
 endif
 
 ifneq (,$(filter userdebug eng,$(TARGET_BUILD_VARIANT)))
