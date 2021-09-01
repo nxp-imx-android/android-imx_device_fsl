@@ -85,15 +85,25 @@ ifeq ($(HOST_OS),linux)
 endif
 
 # -------@block_storage-------
-AB_OTA_UPDATER := true
-ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
-AB_OTA_PARTITIONS += dtbo boot system system_ext vendor vbmeta
-else
-ifeq ($(TARGET_USE_VENDOR_BOOT),true)
-AB_OTA_PARTITIONS += dtbo boot vendor_boot system system_ext vendor vbmeta product
-else
-AB_OTA_PARTITIONS += dtbo boot system system_ext vendor vbmeta product
+# Build a separate system_ext.img partition
+BOARD_USES_SYSTEM_EXTIMAGE := true
+ifeq ($(BOARD_USES_SYSTEM_EXTIMAGE),true)
+  BOARD_SYSTEM_EXTIMAGE_FILE_SYSTEM_TYPE := ext4
+  TARGET_COPY_OUT_SYSTEM_EXT := system_ext
 endif
+
+AB_OTA_UPDATER := true
+AB_OTA_PARTITIONS += dtbo boot system vendor vbmeta
+ifneq ($(IMX_NO_PRODUCT_PARTITION),true)
+  AB_OTA_PARTITIONS += product
+endif
+
+ifeq ($(TARGET_USE_VENDOR_BOOT),true)
+  AB_OTA_PARTITIONS += vendor_boot
+endif
+
+ifeq ($(BOARD_USES_SYSTEM_EXTIMAGE),true)
+  AB_OTA_PARTITIONS += system_ext
 endif
 
 BOARD_DTBOIMG_PARTITION_SIZE := 4194304
@@ -111,27 +121,26 @@ ifneq ($(IMX_NO_PRODUCT_PARTITION),true)
   TARGET_COPY_OUT_PRODUCT := product
 endif
 
-# Build a separate system_ext.img partition
-BOARD_USES_SYSTEM_EXTIMAGE := true
-BOARD_SYSTEM_EXTIMAGE_FILE_SYSTEM_TYPE := ext4
-TARGET_COPY_OUT_SYSTEM_EXT := system_ext
-
 BOARD_FLASH_BLOCK_SIZE := 4096
 
 ifeq ($(TARGET_USE_DYNAMIC_PARTITIONS),true)
   BOARD_SUPER_PARTITION_GROUPS := nxp_dynamic_partitions
   BOARD_SUPER_PARTITION_SIZE := 4294967296
   BOARD_NXP_DYNAMIC_PARTITIONS_SIZE := 4284481536
-  ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
-    BOARD_NXP_DYNAMIC_PARTITIONS_PARTITION_LIST := system system_ext vendor
-  else
-    BOARD_NXP_DYNAMIC_PARTITIONS_PARTITION_LIST := system system_ext vendor product
 
+  BOARD_NXP_DYNAMIC_PARTITIONS_PARTITION_LIST := system vendor
+  ifneq ($(IMX_NO_PRODUCT_PARTITION),true)
+    BOARD_NXP_DYNAMIC_PARTITIONS_PARTITION_LIST += product
+  endif
+  ifeq ($(BOARD_USES_SYSTEM_EXTIMAGE),true)
+    BOARD_NXP_DYNAMIC_PARTITIONS_PARTITION_LIST += system_ext
   endif
 else
   BOARD_BUILD_SYSTEM_ROOT_IMAGE := true
   BOARD_VENDORIMAGE_PARTITION_SIZE := 671088640
-  BOARD_SYSTEM_EXTIMAGE_PARTITION_SIZE := 134217728
+  ifeq ($(BOARD_USES_SYSTEM_EXTIMAGE),true)
+    BOARD_SYSTEM_EXTIMAGE_PARTITION_SIZE := 134217728
+  endif
   ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
     BOARD_SYSTEMIMAGE_PARTITION_SIZE := 2952790016
   else
