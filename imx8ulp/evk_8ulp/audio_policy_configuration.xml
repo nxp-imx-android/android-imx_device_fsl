@@ -52,6 +52,14 @@
                     <profile name="" format="AUDIO_FORMAT_PCM_16_BIT"
                              samplingRates="16000" channelMasks="AUDIO_CHANNEL_OUT_STEREO"/>
                 </mixPort>
+                <mixPort name="hdmi output" role="source">
+                    <profile name="" format="AUDIO_FORMAT_PCM_8_24_BIT"
+                             samplingRates="48000" channelMasks="AUDIO_CHANNEL_OUT_STEREO"/>
+                </mixPort>
+                <mixPort name="passthrough output" role="source" flags="AUDIO_OUTPUT_FLAG_DIRECT">
+                    <profile name="" format="AUDIO_FORMAT_PCM_16_BIT"
+                             samplingRates="32000,44100,48000,88200,96000,176400,192000" channelMasks="AUDIO_CHANNEL_NONE"/>
+                </mixPort>
 
                 <mixPort name="primary input" role="sink">
                     <profile name="" format="AUDIO_FORMAT_PCM_16_BIT"
@@ -71,6 +79,8 @@
                 <devicePort tagName="BT SCO CarKit" type="AUDIO_DEVICE_OUT_BLUETOOTH_SCO_CARKIT" role="sink">
                 </devicePort>
                 <devicePort tagName="BT SCO" type="AUDIO_DEVICE_OUT_BLUETOOTH_SCO" role="sink">
+                </devicePort>
+                <devicePort tagName="HDMI Out" type="AUDIO_DEVICE_OUT_AUX_DIGITAL" role="sink">
                 </devicePort>
 
                 <devicePort tagName="Built-In Mic" type="AUDIO_DEVICE_IN_BUILTIN_MIC" role="source">
@@ -93,6 +103,8 @@
                        sources="bt sco output"/>
                 <route type="mix" sink="BT SCO"
                        sources="bt sco output"/>
+                <route type="mix" sink="HDMI Out"
+                       sources="passthrough output,hdmi output"/>
 
                 <route type="mix" sink="primary input"
                        sources="Built-In Mic,Spdif-In,BT SCO Headset Mic"/>
