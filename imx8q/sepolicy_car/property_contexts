@@ -5,4 +5,3 @@ vendor.evs.cpu.render.enable u:object_r:vendor_evs_prop:s0
 vendor.evs.fake.enable u:object_r:vendor_evs_prop:s0
 vendor.evs.video.dev   u:object_r:vendor_evs_prop:s0
 vendor.evs.isi.name    u:object_r:vendor_evs_prop:s0
-ro.config.media_vol_default u:object_r:vendor_public_default_prop:s0
