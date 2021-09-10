@@ -100,26 +100,29 @@ BOARD_KERNEL_BASE := 0x40400000
 CMASIZE=800M
 
 # NXP default config
-BOARD_KERNEL_CMDLINE := init=/init androidboot.console=ttymxc1 androidboot.hardware=nxp firmware_class.path=/vendor/firmware loop.max_part=7
+BOARD_KERNEL_CMDLINE := init=/init firmware_class.path=/vendor/firmware loop.max_part=7 bootconfig
+BOARD_BOOTCONFIG += androidboot.console=ttymxc1 androidboot.hardware=nxp
 
 # memory config
 BOARD_KERNEL_CMDLINE += transparent_hugepage=never
 
 # display config
-BOARD_KERNEL_CMDLINE += androidboot.lcd_density=240 androidboot.primary_display=imx-drm
+BOARD_BOOTCONFIG += androidboot.lcd_density=240 androidboot.primary_display=imx-drm
 
 # wifi config
-BOARD_KERNEL_CMDLINE += androidboot.wificountrycode=CN moal.mod_para=wifi_mod_para_sd8987.conf
+BOARD_BOOTCONFIG += androidboot.wificountrycode=CN
+BOARD_KERNEL_CMDLINE += moal.mod_para=wifi_mod_para_sd8987.conf
 
 # low memory device build config
 ifeq ($(LOW_MEMORY),true)
-BOARD_KERNEL_CMDLINE += cma=320M@0x400M-0xb80M androidboot.displaymode=720p galcore.contiguousSize=33554432
+BOARD_BOOTCONFIG += androidboot.displaymode=720p
+BOARD_KERNEL_CMDLINE += cma=320M@0x400M-0xb80M galcore.contiguousSize=33554432
 else
 BOARD_KERNEL_CMDLINE += cma=$(CMASIZE)@0x400M-0xb80M
 endif
 
 ifneq (,$(filter userdebug eng,$(TARGET_BUILD_VARIANT)))
-BOARD_KERNEL_CMDLINE += androidboot.vendor.sysrq=1
+BOARD_BOOTCONFIG += androidboot.vendor.sysrq=1
 endif
 
 

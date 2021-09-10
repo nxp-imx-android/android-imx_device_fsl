@@ -110,22 +110,24 @@ CMASIZE=1280M
 endif
 
 # NXP default config
-BOARD_KERNEL_CMDLINE := init=/init androidboot.console=ttymxc0 androidboot.hardware=nxp firmware_class.path=/vendor/firmware loop.max_part=7
+BOARD_KERNEL_CMDLINE := init=/init firmware_class.path=/vendor/firmware loop.max_part=7 bootconfig
+BOARD_BOOTCONFIG += androidboot.console=ttymxc0 androidboot.hardware=nxp
 
 # framebuffer config
-BOARD_KERNEL_CMDLINE += androidboot.fbTileSupport=enable
+BOARD_BOOTCONFIG += androidboot.fbTileSupport=enable
 
 # memory config
 BOARD_KERNEL_CMDLINE += transparent_hugepage=never cma=$(CMASIZE)
 
 # display config
-BOARD_KERNEL_CMDLINE += androidboot.lcd_density=240 androidboot.primary_display=imx-dcss androidboot.gui_resolution=1080p
+BOARD_BOOTCONFIG += androidboot.lcd_density=240 androidboot.primary_display=imx-dcss androidboot.gui_resolution=1080p
 
 # wifi config
-BOARD_KERNEL_CMDLINE += androidboot.wificountrycode=CN moal.mod_para=wifi_mod_para.conf
+BOARD_BOOTCONFIG += androidboot.wificountrycode=CN
+BOARD_KERNEL_CMDLINE += moal.mod_para=wifi_mod_para.conf
 
 ifneq (,$(filter userdebug eng,$(TARGET_BUILD_VARIANT)))
-BOARD_KERNEL_CMDLINE += androidboot.vendor.sysrq=1
+BOARD_BOOTCONFIG += androidboot.vendor.sysrq=1
 endif
 
 ifeq ($(TARGET_USE_DYNAMIC_PARTITIONS),true)
