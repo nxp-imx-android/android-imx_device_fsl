@@ -54,7 +54,7 @@ TARGET_KERNEL_SRC := $(KERNEL_IMX_PATH)/kernel_imx
 CLANG_TO_COMPILE := LLVM=1 LLVM_IAS=1
 
 # Uncomment below line to use prebuilt clang tool in android platform code
-# CLANG_PATH := $(realpath prebuilts/clang/host/linux-x86)
+CLANG_PATH := $(realpath prebuilts/clang/host/linux-x86)
 
 # Or use external clang
 ifeq ($(CLANG_PATH),)
