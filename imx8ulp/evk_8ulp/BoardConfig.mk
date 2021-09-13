@@ -120,7 +120,7 @@ BOARD_KERNEL_CMDLINE := init=/init androidboot.hardware=nxp firmware_class.path=
 BOARD_KERNEL_CMDLINE += transparent_hugepage=never
 
 # display config
-BOARD_KERNEL_CMDLINE += androidboot.lcd_density=240 androidboot.primary_display=imx-drm
+BOARD_KERNEL_CMDLINE += androidboot.lcd_density=240 androidboot.primary_display=imx-dcnano
 
 # wifi config
 BOARD_KERNEL_CMDLINE += androidboot.wificountrycode=CN moal.mod_para=wifi_mod_para_sd8987.conf
