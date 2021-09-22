@@ -29,25 +29,58 @@ on init
     # deattch the fbcon as hdmi hotplug conflict with fbcon
     write /sys/class/vtconsole/vtcon1/bind 0
 
-    # create schedtune.boost fake device until EAS will be supported by kernel 5.10
-    chown system system /dev/stune/top-app/schedtune.boost
-    chmod 664 /dev/stune/top-app/schedtune.boost
-    chown system system /dev/stune/top-app/schedtune.prefer_idle
-    chmod 664 /dev/stune/top-app/schedtune.prefer_idle
-    chown system system /dev/stune/foreground/schedtune.boost
-    chmod 664 /dev/stune/foreground/schedtune.boost
-    chown system system /dev/stune/foreground/schedtune.prefer_idle
-    chmod 664 /dev/stune/foreground/schedtune.prefer_idle
-    chown system system /dev/stune/schedtune.boost
-    chmod 664 /dev/stune/schedtune.boost
+    # cpuctl hierarchy for devices using utilclamp
+    mkdir /dev/cpuctl/foreground
+    mkdir /dev/cpuctl/background
+    mkdir /dev/cpuctl/top-app
+    mkdir /dev/cpuctl/rt
+    mkdir /dev/cpuctl/system
+    mkdir /dev/cpuctl/system-background
+    chown system system /dev/cpuctl
+    chown system system /dev/cpuctl/foreground
+    chown system system /dev/cpuctl/background
+    chown system system /dev/cpuctl/top-app
+    chown system system /dev/cpuctl/rt
+    chown system system /dev/cpuctl/system
+    chown system system /dev/cpuctl/system-background
+    chown system system /dev/cpuctl/tasks
+    chown system system /dev/cpuctl/foreground/tasks
+    chown system system /dev/cpuctl/background/tasks
+    chown system system /dev/cpuctl/top-app/tasks
+    chown system system /dev/cpuctl/rt/tasks
+    chown system system /dev/cpuctl/system/tasks
+    chown system system /dev/cpuctl/system-background/tasks
+    chmod 0664 /dev/cpuctl/tasks
+    chmod 0664 /dev/cpuctl/foreground/tasks
+    chmod 0664 /dev/cpuctl/background/tasks
+    chmod 0664 /dev/cpuctl/top-app/tasks
+    chmod 0664 /dev/cpuctl/rt/tasks
+    chmod 0664 /dev/cpuctl/system/tasks
+    chmod 0664 /dev/cpuctl/system-background/tasks
 
-    # set default schedTune value for foreground/top-app (only affects EAS)
-    write /dev/stune/foreground/schedtune.boost 10
-    write /dev/stune/foreground/schedtune.prefer_idle 1
-    write /dev/stune/top-app/schedtune.boost 40
-    write /dev/stune/top-app/schedtune.prefer_idle 1
-    write /dev/stune/rt/schedtune.boost 50
-    write /dev/stune/rt/schedtune.prefer_idle 1
+    chown system system /dev/cpuctl/top-app/cpu.uclamp.min
+    chmod 664 /dev/cpuctl/top-app/cpu.uclamp.min
+    chown system system /dev/cpuctl/top-app/cpu.uclamp.latency_sensitive
+    chmod 664 /dev/cpuctl/top-app/cpu.uclamp.latency_sensitive
+    chown system system /dev/cpuctl/foreground/cpu.uclamp.min
+    chmod 664 /dev/cpuctl/foreground/cpu.uclamp.min
+    chown system system /dev/cpuctl/foreground/cpu.uclamp.latency_sensitive
+    chmod 664 /dev/cpuctl/foreground/cpu.uclamp.latency_sensitive
+    chown system system /dev/cpuctl/rt/cpu.uclamp.min
+    chmod 664 /dev/cpuctl/rt/cpu.uclamp.min
+    chown system system /dev/cpuctl/rt/cpu.uclamp.latency_sensitive
+    chmod 664 /dev/cpuctl/rt/cpu.uclamp.latency_sensitive
+    chown system system /dev/cpuctl/background/cpu.uclamp.max
+    chmod 664 /dev/cpuctl/background/cpu.uclamp.max
+
+    # set default uclamp value for foreground/top-app/rt/background (only affects EAS)
+    write /dev/cpuctl/foreground/cpu.uclamp.min 20
+    write /dev/cpuctl/foreground/cpu.uclamp.latency_sensitive 1
+    write /dev/cpuctl/top-app/cpu.uclamp.min 50
+    write /dev/cpuctl/top-app/cpu.uclamp.latency_sensitive 1
+    write /dev/cpuctl/rt/cpu.uclamp.min 60
+    write /dev/cpuctl/rt/cpu.uclamp.latency_sensitive 1
+    write /dev/cpuctl/background/cpu.uclamp.max 50
 
 on init && property:ro.product.system.device=generic_arm64
     start boot_completed_main_sh
