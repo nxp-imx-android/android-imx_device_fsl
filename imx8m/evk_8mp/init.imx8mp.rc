@@ -62,6 +62,12 @@ on early-boot
     export ISP_LOG_LEVEL 4
     start isp_media_server
 
+on property:vendor.rw.camera.isp.control=0
+    stop isp_media_server
+
+on property:vendor.rw.camera.isp.control=1
+    start isp_media_server
+
 service isp_media_server /vendor/bin/isp_media_server
     group camera
     oneshot
