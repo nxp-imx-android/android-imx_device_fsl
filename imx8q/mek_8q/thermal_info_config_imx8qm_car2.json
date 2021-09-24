@@ -13,9 +13,9 @@
                 "NAN",
                 102,
                 107,
-                127,
+                112,
                 "NAN",
-                "NAN"
+                122
             ],
             "HotHysteresis":[
                 2.0,
@@ -38,9 +38,9 @@
                 "NAN",
                 102,
                 107,
-                127,
+                112,
                 "NAN",
-                "NAN"
+                122
             ],
             "HotHysteresis":[
                 2.0,
@@ -63,9 +63,9 @@
                 "NAN",
                 "NAN",
                 107,
-                127,
+                112,
                 "NAN",
-                "NAN"
+                122
             ],
             "HotHysteresis":[
                 2.0,
@@ -88,9 +88,9 @@
                 "NAN",
                 "NAN",
                 107,
-                127,
+                112,
                 "NAN",
-                "NAN"
+                122
             ],
             "HotHysteresis":[
                 2.0,
@@ -113,9 +113,9 @@
                 "NAN",
                 "NAN",
                 107,
-                127,
+                112,
                 "NAN",
-                "NAN"
+                122
             ],
             "HotHysteresis":[
                 2.0,
@@ -137,10 +137,10 @@
                 "NAN",
                 "NAN",
                 "NAN",
-                110,
-                125,
+                108,
+                112,
                 "NAN",
-                "NAN"
+                122
             ],
             "HotHysteresis":[
                 2.0,
