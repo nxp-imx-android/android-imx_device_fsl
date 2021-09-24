@@ -86,7 +86,11 @@ PRODUCT_COPY_FILES += \
 TARGET_USE_DYNAMIC_PARTITIONS ?= true
 
 ifeq ($(TARGET_USE_DYNAMIC_PARTITIONS),true)
-  $(call inherit-product, $(SRC_TARGET_DIR)/product/virtual_ab_ota.mk)
+  ifeq ($(TARGET_USE_VENDOR_BOOT),true)
+    $(call inherit-product, $(SRC_TARGET_DIR)/product/virtual_ab_ota/compression_with_xor.mk)
+  else
+    $(call inherit-product, $(SRC_TARGET_DIR)/product/virtual_ab_ota.mk)
+  endif
   PRODUCT_USE_DYNAMIC_PARTITIONS := true
   BOARD_BUILD_SUPER_IMAGE_BY_DEFAULT := true
   BOARD_SUPER_IMAGE_IN_UPDATE_PACKAGE := true

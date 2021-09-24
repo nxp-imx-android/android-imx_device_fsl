@@ -57,7 +57,7 @@ $(IMX_INSTALLED_VBMETAIMAGE_TARGET): $(PRODUCT_OUT)/vbmeta.img $(BOARD_PREBUILT_
 		DTBO_IMG=`echo $(PRODUCT_OUT)/dtbo-$${DTS_PLATFORM}.img`; \
 		VBMETA_IMG=`echo $(PRODUCT_OUT)/vbmeta-$${DTS_PLATFORM}.img`; \
 		RECOVERY_IMG=`echo $(PRODUCT_OUT)/recovery-$${DTS_PLATFORM}.img`; \
-		$(if $(filter true, $(BOARD_USES_RECOVERY_AS_BOOT)), \
+		$(if $(strip $(filter true, $(BOARD_USES_RECOVERY_AS_BOOT) $(BOARD_MOVE_RECOVERY_RESOURCES_TO_VENDOR_BOOT))), \
 			$(AVBTOOL) make_vbmeta_image \
 				--algorithm $(BOARD_AVB_ALGORITHM) --key $(BOARD_AVB_KEY_PATH)  \
 				$(BOARD_AVB_MAKE_VBMETA_IMAGE_ARGS) \

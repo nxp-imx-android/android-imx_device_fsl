@@ -101,7 +101,11 @@ ifeq ($(BOARD_BOOT_HEADER_VERSION),2)
     BOARD_MKBOOTIMG_ARGS += --dtb $(word 1,$(TARGET_DTB))
 endif
 
-BOARD_USES_RECOVERY_AS_BOOT := true
+ifeq ($(TARGET_USE_VENDOR_BOOT),true)
+  BOARD_MOVE_RECOVERY_RESOURCES_TO_VENDOR_BOOT := true
+else
+  BOARD_USES_RECOVERY_AS_BOOT := true
+endif
 
 # kernel module's copy to vendor need this folder setting
 KERNEL_OUT ?= $(OUT_DIR)/target/product/$(PRODUCT_DEVICE)/obj/KERNEL_OBJ

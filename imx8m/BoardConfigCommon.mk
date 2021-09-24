@@ -71,7 +71,11 @@ endif
 
 BOARD_MKBOOTIMG_ARGS = --kernel_offset $(BOARD_KERNEL_OFFSET) --ramdisk_offset $(BOARD_RAMDISK_OFFSET) --header_version $(BOARD_BOOT_HEADER_VERSION)
 
-BOARD_USES_RECOVERY_AS_BOOT := true
+ifeq ($(TARGET_USE_VENDOR_BOOT),true)
+  BOARD_MOVE_RECOVERY_RESOURCES_TO_VENDOR_BOOT := true
+else
+  BOARD_USES_RECOVERY_AS_BOOT := true
+endif
 
 # kernel module's copy to vendor need this folder setting
 KERNEL_OUT ?= $(OUT_DIR)/target/product/$(PRODUCT_DEVICE)/obj/KERNEL_OBJ
