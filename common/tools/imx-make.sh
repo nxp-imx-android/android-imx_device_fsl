@@ -164,6 +164,9 @@ if [ ${build_android_flag} -eq 1 ] || [ ${build_whole_android_flag} -eq 1 ]; the
     # source envsetup.sh before building Android rootfs, the time spent on building uboot/kernel
     # before this does not count in the final result
     source build/envsetup.sh
+    if [ -n "${build_bootimage}" ] || [ ${build_whole_android_flag} -eq 1 ]; then
+        rm -rf ${OUT}/boot.img
+    fi
     make ${parallel_option} ${build_bootimage} ${build_vendorbootimage} ${build_dtboimage} ${build_vendorimage}
     if [ -n "${build_bootimage}" ] || [ ${build_whole_android_flag} -eq 1 ]; then
         if [ ${TARGET_PRODUCT} = "evk_8mp" ] || [ ${TARGET_PRODUCT} = "evk_8mn" ] \
