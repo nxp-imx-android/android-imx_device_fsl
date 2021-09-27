@@ -235,3 +235,5 @@ BOARD_VNDK_VERSION := current
 # -------@block_multimedia_codec-------
 -include $(FSL_RESTRICTED_CODEC_PATH)/fsl-restricted-codec/fsl_ms_codec/BoardConfig.mk
 -include $(FSL_RESTRICTED_CODEC_PATH)/fsl-restricted-codec/fsl_real_dec/BoardConfig.mk
+
+BOARD_MOVE_GSI_AVB_KEYS_TO_VENDOR_BOOT := true
