@@ -87,7 +87,7 @@ TARGET_USE_DYNAMIC_PARTITIONS ?= true
 
 ifeq ($(TARGET_USE_DYNAMIC_PARTITIONS),true)
   ifeq ($(TARGET_USE_VENDOR_BOOT),true)
-    $(call inherit-product, $(SRC_TARGET_DIR)/product/virtual_ab_ota/compression_with_xor.mk)
+    $(call inherit-product, $(SRC_TARGET_DIR)/product/virtual_ab_ota/compression.mk)
   else
     $(call inherit-product, $(SRC_TARGET_DIR)/product/virtual_ab_ota.mk)
   endif
