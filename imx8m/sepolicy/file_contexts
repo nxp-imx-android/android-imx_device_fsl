@@ -113,7 +113,7 @@
 /dev/block/by-name/super                     u:object_r:super_block_device:s0
 /dev/block/by-name/bootloader_[ab]           u:object_r:bootloader_block_device:s0
 
-/vendor/bin/hw/android\.hardware\.camera\.provider@2\.6-service-google       u:object_r:hal_camera_default_exec:s0
+/vendor/bin/hw/android\.hardware\.camera\.provider@2\.7-service-google       u:object_r:hal_camera_default_exec:s0
 
 # allocator 4.0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.graphics\.allocator@4\.0-service.imx   u:object_r:hal_graphics_allocator_default_exec:s0

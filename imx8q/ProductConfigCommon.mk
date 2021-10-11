@@ -213,8 +213,8 @@ endif
 # -------@block_camera-------
 ifneq ($(PRODUCT_IMX_CAR),true)
 PRODUCT_PACKAGES += \
-    android.hardware.camera.provider@2.6-service-google \
-    android.hardware.camera.provider@2.6-impl-google \
+    android.hardware.camera.provider@2.7-service-google \
+    android.hardware.camera.provider@2.7-impl-google \
     libgooglecamerahal \
     libgooglecamerahalutils \
     lib_profiler \
