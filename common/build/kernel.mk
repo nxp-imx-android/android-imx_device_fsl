@@ -150,6 +150,9 @@ KERNEL_HEADERS_INSTALL := $(KERNEL_OUT)/usr
 #KERNEL_MODULES_INSTALL := $(TARGET_OUT)/lib/modules
 KERNEL_MODULES_INSTALL := $(BOARD_VENDOR_KERNEL_MODULES)
 
+$(KERNEL_OUT):
+	mkdir -p $@
+
 KERNEL_FIRMWARE_DIR_CONFIG := $(KERNEL_OUT)/firmware.kconf
 
 $(KERNEL_FIRMWARE_DIR_CONFIG):
@@ -158,9 +161,6 @@ $(KERNEL_FIRMWARE_DIR_CONFIG):
 ifdef TARGET_KERNEL_EXTRA_FIRMWARE_DIR
 KERNEL_CONFIG_SRC += $(KERNEL_FIRMWARE_DIR_CONFIG)
 endif
-
-$(KERNEL_OUT):
-	mkdir -p $@
 
 # Merge the required kernel config elements into a single file.
 $(KERNEL_CONFIG_REQUIRED): $(KERNEL_CONFIG_REQUIRED_SRC) | $(KERNEL_OUT)
@@ -182,18 +182,30 @@ merge_config_params = -p "$(CLANG_TO_COMPILE)" -O $(realpath $(KERNEL_OUT)) $(KE
 
 # Merge the final target kernel config.
 $(KERNEL_CONFIG): $(KERNEL_CONFIG_SRC) $(TARGET_KERNEL_SRC) | $(KERNEL_OUT)
-	$(hide) if [ ${clean_build} = 1 ]; then \
-		PATH=$$PATH $(MAKE) -C $(TARGET_KERNEL_SRC) O=$(realpath $(KERNEL_OUT)) clean; \
+	$(hide) if [ "${skip_config_or_clean}" != "1" ]; then \
+		if [ "${clean_build}" = "1" ]; then \
+			PATH=$$PATH $(MAKE) -C $(TARGET_KERNEL_SRC) O=$(realpath $(KERNEL_OUT)) clean; \
+		fi; \
+		echo Merging KERNEL config srcs: $(KERNEL_CONFIG_SRC); \
+		rm -f $(KERNEL_CONFIG); \
+		cd $(TARGET_KERNEL_SRC) && $(merge_config_env) $(KERNEL_MERGE_CONFIG) $(merge_config_params); \
 	fi
-	$(hide) echo Merging KERNEL config srcs: $(KERNEL_CONFIG_SRC)
-	$(hide) rm -f $(KERNEL_CONFIG)
-	$(hide) cd $(TARGET_KERNEL_SRC) && $(merge_config_env) $(KERNEL_MERGE_CONFIG) $(merge_config_params)
 
 $(KERNEL_BIN): $(KERNEL_CONFIG) $(TARGET_KERNEL_SRC) | $(KERNEL_OUT)
 	$(hide) echo "Building $(KERNEL_ARCH) $(KERNEL_VERSION) kernel ..."
 	$(hide) $(kernel_build_shell_env) $(MAKE) $(kernel_build_make_env) syncconfig
 	$(hide) $(kernel_build_shell_env) $(MAKE) $(kernel_build_make_env) $(KERNEL_NAME)
+
+.PHONY: KERNEL_MODULES KERNEL_DTB
+
+KERNEL_MODULES: $(KERNEL_CONFIG) $(TARGET_KERNEL_SRC) | $(KERNEL_OUT)
+	$(hide) echo "Building $(KERNEL_ARCH) $(KERNEL_VERSION) kernel modules ..."
+	$(hide) $(kernel_build_shell_env) $(MAKE) $(kernel_build_make_env) syncconfig
 	$(hide) $(kernel_build_shell_env) $(MAKE) $(kernel_build_make_env) modules
+
+KERNEL_DTB: $(KERNEL_CONFIG) $(TARGET_KERNEL_SRC) | $(KERNEL_OUT)
+	$(hide) echo "Building $(KERNEL_ARCH) $(KERNEL_VERSION) device trees ..."
+	$(hide) $(kernel_build_shell_env) $(MAKE) $(kernel_build_make_env) syncconfig
 	$(hide) $(kernel_build_shell_env) $(MAKE) $(kernel_build_make_env) dtbs
 
 $(KERNEL_OUT)/vmlinux: $(KERNEL_BIN)
