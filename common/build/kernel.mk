@@ -182,15 +182,15 @@ merge_config_params = -p "$(CLANG_TO_COMPILE)" -O $(realpath $(KERNEL_OUT)) $(KE
 
 # Merge the final target kernel config.
 $(KERNEL_CONFIG): $(KERNEL_CONFIG_SRC) $(TARGET_KERNEL_SRC) | $(KERNEL_OUT)
+	$(hide) if [ ${clean_build} = 1 ]; then \
+		PATH=$$PATH $(MAKE) -C $(TARGET_KERNEL_SRC) O=$(realpath $(KERNEL_OUT)) clean; \
+	fi
 	$(hide) echo Merging KERNEL config srcs: $(KERNEL_CONFIG_SRC)
 	$(hide) rm -f $(KERNEL_CONFIG)
 	$(hide) cd $(TARGET_KERNEL_SRC) && $(merge_config_env) $(KERNEL_MERGE_CONFIG) $(merge_config_params)
 
 $(KERNEL_BIN): $(KERNEL_CONFIG) $(TARGET_KERNEL_SRC) | $(KERNEL_OUT)
 	$(hide) echo "Building $(KERNEL_ARCH) $(KERNEL_VERSION) kernel ..."
-	$(hide) if [ ${clean_build} = 1 ]; then \
-		PATH=$$PATH $(MAKE) -C $(TARGET_KERNEL_SRC) O=$(realpath $(KERNEL_OUT)) clean; \
-	fi
 	$(hide) $(kernel_build_shell_env) $(MAKE) $(kernel_build_make_env) syncconfig
 	$(hide) $(kernel_build_shell_env) $(MAKE) $(kernel_build_make_env) $(KERNEL_NAME)
 	$(hide) $(kernel_build_shell_env) $(MAKE) $(kernel_build_make_env) modules
