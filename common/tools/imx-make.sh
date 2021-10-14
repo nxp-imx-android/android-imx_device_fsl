@@ -12,7 +12,7 @@ cat << EOF
            -h/--help               display this help info
            -j[<num>]               specify the number of parallel jobs when build the target, the number after -j should be greater than 0
            bootloader              bootloader will be compiled
-           kernel                  kernel, not include the modules and device tree files
+           kernel                  kernel, include the kernel modules and device tree files will be compiled
            galcore                 galcore.ko in GPU repo will be compiled
            vvcam                   vvcam.ko, the ISP driver will be compiled
            mxmwifi                 mlan.ko moal.ko, the MXMWifi driver will be compiled
@@ -89,7 +89,9 @@ for arg in ${args[*]} ; do
         --help) help;;
         -c) clean_build=1;;
         bootloader) build_bootloader="bootloader";;
-        kernel) build_kernel="${OUT}/kernel";;
+        kernel) build_kernel="${OUT}/kernel";
+                    build_kernel_modules="KERNEL_MODULES";
+                    build_kernel_dts="KERNEL_DTB";;
         galcore) build_kernel_oot_module_flag=1;
                     build_galcore="galcore";;
         vvcam) build_kernel_oot_module_flag=1
