@@ -72,6 +72,8 @@
 /vendor/lib(64)?/extractors/libimxextractor\.so              u:object_r:same_process_hal_file:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.keymaster@4\.0-service.trusty u:object_r:hal_keymaster_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.keymaster@4\.0-service-imx u:object_r:hal_keymaster_default_exec:s0
+/(vendor|system/vendor)/bin/hw/android\.hardware\.security\.keymint-service\.trusty u:object_r:hal_keymint_default_exec:s0
+/(vendor|system/vendor)/bin/hw/android\.hardware\.security\.keymint-service-imx u:object_r:hal_keymint_default_exec:s0
 /vendor/bin/hw/android\.hardware\.gatekeeper@1\.0-service\.software-imx    u:object_r:hal_gatekeeper_default_exec:s0
 /vendor/bin/hw/android\.hardware\.gatekeeper@1\.0-service\.trusty    u:object_r:hal_gatekeeper_default_exec:s0
 

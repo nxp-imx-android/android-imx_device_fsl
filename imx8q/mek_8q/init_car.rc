@@ -155,7 +155,7 @@ on fs
 on late-fs
     # Start keymaster/gatekeeper service
     start vendor.gatekeeper-1-0-${ro.boot.keystore}
-    start vendor.keymaster-4-0-${ro.boot.keystore}
+    start vendor.keymint-${ro.boot.keystore}
     start servicemanager
     start surfaceflinger
 
@@ -203,9 +203,6 @@ on post-fs-data
     setprop vendor.TMPDIR /data/vendor/.opencl-cache
     mkdir /data/vendor/.opencl-cache 0771 system camera
 
-    # create temp node for secure storage proxy
-    mkdir /data/vendor/ss 0700 system system
-
 on zygote-start
     # Create the directories used by the Wireless subsystem
     mkdir /data/vendor/wifi 0771 wifi wifi
@@ -213,6 +210,8 @@ on zygote-start
     mkdir /data/vendor/wifi/wpa/sockets 0770 wifi wifi
 
 on post-fs-data && property:vendor.storageproxyd=trusty
+    # create temp node for secure storage proxy
+    mkdir /data/vendor/ss 0700 system system
     start storageproxyd
 
 service storageproxyd /vendor/bin/storageproxyd -p /data/vendor/ss -r /dev/mmcblk0rpmb -d /dev/trusty-ipc-dev0
