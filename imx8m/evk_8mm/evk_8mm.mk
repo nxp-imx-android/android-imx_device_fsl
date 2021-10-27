@@ -79,6 +79,8 @@ TARGET_USE_VENDOR_BOOT ?= true
 ifeq ($(IMX8MM_USES_GKI),true)
 PRODUCT_PROPERTY_OVERRIDES += \
     vendor.gki.enable=true
+
+BOARD_RAMDISK_USE_LZ4 := true
 endif
 
 # We load the fstab from device tree so this is not needed, but since no kernel modules are installed to vendor
