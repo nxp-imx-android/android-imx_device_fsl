@@ -212,7 +212,7 @@ service early_init_sh /vendor/bin/init.insmod.sh /vendor/etc/early.init.cfg vend
     disabled
     oneshot
 
-on property:sys.boot_completed=1 && property:vendor.storageproxyd=trusty && property:vendor.skip.charger_not_need=0
+on post-fs && property:vendor.storageproxyd=trusty && property:vendor.skip.charger_not_need=0
     start storageproxyd
 
 # set freq coefficient to 3 for get better performance in i.MX8Q series SoC

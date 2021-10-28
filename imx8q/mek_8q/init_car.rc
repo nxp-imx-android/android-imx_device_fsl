@@ -212,7 +212,7 @@ on zygote-start
     mkdir /data/vendor/wifi/wpa 0770 wifi wifi
     mkdir /data/vendor/wifi/wpa/sockets 0770 wifi wifi
 
-on property:sys.boot_completed=1 && property:vendor.storageproxyd=trusty
+on post-fs && property:vendor.storageproxyd=trusty
     start storageproxyd
 
 service storageproxyd /vendor/bin/storageproxyd -p /data/vendor/ss -r /dev/mmcblk0rpmb -d /dev/trusty-ipc-dev0
