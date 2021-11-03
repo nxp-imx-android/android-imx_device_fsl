@@ -164,6 +164,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.incremental.enable=1
 
+# enable FUSE passthrough
+PRODUCT_PRODUCT_PROPERTIES += \
+    persist.sys.fuse.passthrough.enable=true
+
 # -------@block_power-------
 
 PRODUCT_PACKAGES += \
