@@ -224,7 +224,7 @@ service early_init_sh /vendor/bin/init.insmod.sh /vendor/etc/early.init.cfg vend
     disabled
     oneshot
 
-on post-fs && property:vendor.storageproxyd=trusty && property:vendor.skip.charger_not_need=0
+on post-fs-data && property:vendor.storageproxyd=trusty && property:vendor.skip.charger_not_need=0
     start storageproxyd
 
 service storageproxyd /vendor/bin/storageproxyd -p /data/vendor/ss -r /dev/mmcblk0rpmb -d /dev/trusty-ipc-dev0
