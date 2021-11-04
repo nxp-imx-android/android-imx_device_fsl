@@ -123,7 +123,7 @@ BOARD_KERNEL_CMDLINE += cma=800M transparent_hugepage=never
 BOARD_KERNEL_CMDLINE += androidboot.lcd_density=240 androidboot.primary_display=imx-dcnano
 
 # wifi config
-BOARD_KERNEL_CMDLINE += androidboot.wificountrycode=CN moal.mod_para=wifi_mod_para_sd8987.conf
+BOARD_KERNEL_CMDLINE += androidboot.wificountrycode=CN moal.mod_para=wifi_mod_para_sd416.conf
 
 # low memory device build config
 ifeq ($(LOW_MEMORY),true)
