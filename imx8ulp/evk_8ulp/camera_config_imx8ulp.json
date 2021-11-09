@@ -11,7 +11,7 @@
     {
       "camera_type": "back",
       "camera_name": "mxc_isi.0.capture",
-      "orientation": "0",
+      "orientation": "90",
       "mplane": "1",
       "buffer_type": "dma",
       "ActiveArrayWidth": "2592",
