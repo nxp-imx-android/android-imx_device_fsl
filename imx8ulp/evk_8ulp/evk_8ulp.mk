@@ -323,6 +323,10 @@ PRODUCT_COPY_FILES += \
     external/wireless-regdb/regulatory.db:vendor/firmware/regulatory.db \
     external/wireless-regdb/regulatory.db.p7s:vendor/firmware/regulatory.db.p7s
 
+# EPDC firmware
+PRODUCT_COPY_FILES += \
+    $(LINUX_FIRMWARE_IMX_PATH)/linux-firmware-imx/firmware/epdc/epdc_ED060XH2C1.fw.nonrestricted:$(TARGET_COPY_OUT_VENDOR)/firmware/imx/epdc/epdc_ED060XH2C1.fw
+
 # -------@block_bluetooth-------
 
 # Bluetooth HAL
