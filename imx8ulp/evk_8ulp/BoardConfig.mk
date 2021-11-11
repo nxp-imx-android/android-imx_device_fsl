@@ -120,7 +120,7 @@ BOARD_KERNEL_CMDLINE := init=/init androidboot.hardware=nxp firmware_class.path=
 BOARD_KERNEL_CMDLINE += cma=800M transparent_hugepage=never
 
 # display config
-BOARD_KERNEL_CMDLINE += androidboot.lcd_density=240 androidboot.primary_display=imx-dcnano
+BOARD_KERNEL_CMDLINE += androidboot.lcd_density=240
 
 # wifi config
 BOARD_KERNEL_CMDLINE += androidboot.wificountrycode=CN moal.mod_para=wifi_mod_para_sd416.conf
@@ -143,6 +143,8 @@ ifeq ($(TARGET_USE_DYNAMIC_PARTITIONS),true)
     TARGET_BOARD_DTS_CONFIG += imx8ulp:imx8ulp-evk-rk055hdmipi4m.dtb
     # Support HDMI
     TARGET_BOARD_DTS_CONFIG += imx8ulp-hdmi:imx8ulp-evk.dtb
+    # Support EPDC
+    TARGET_BOARD_DTS_CONFIG += imx8ulp-epdc:imx8ulp-evk-epdc.dtb
   endif
 else
   ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
