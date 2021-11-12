@@ -77,7 +77,7 @@ on init
     write /dev/cpuctl/foreground/cpu.uclamp.min 20
     write /dev/cpuctl/foreground/cpu.uclamp.latency_sensitive 1
     write /dev/cpuctl/top-app/cpu.uclamp.min 50
-    write /dev/cpuctl/top-app/cpu.uclamp.latency_sensitive 1
+    write /dev/cpuctl/top-app/cpu.uclamp.latency_sensitive 0
     write /dev/cpuctl/rt/cpu.uclamp.min 60
     write /dev/cpuctl/rt/cpu.uclamp.latency_sensitive 1
     write /dev/cpuctl/background/cpu.uclamp.max 50
