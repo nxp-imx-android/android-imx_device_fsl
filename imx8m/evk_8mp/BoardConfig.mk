@@ -165,7 +165,11 @@ ifeq ($(TARGET_USE_DYNAMIC_PARTITIONS),true)
     # Only basler
     TARGET_BOARD_DTS_CONFIG += imx8mp-basler:imx8mp-evk-basler.dtb
     # Used to support mcu image
+    ifeq ($(POWERSAVE),true)
+    TARGET_BOARD_DTS_CONFIG += imx8mp-rpmsg:imx8mp-evk-hifiberry-dacpp-m-rpmsg.dtb
+    else
     TARGET_BOARD_DTS_CONFIG += imx8mp-rpmsg:imx8mp-evk-rpmsg.dtb
+    endif
     # Support LVDS interface
     TARGET_BOARD_DTS_CONFIG += imx8mp-lvds:imx8mp-evk-it6263-lvds-dual-channel.dtb
     # Support LVDS panel

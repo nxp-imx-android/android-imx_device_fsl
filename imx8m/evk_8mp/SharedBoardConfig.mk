@@ -80,6 +80,14 @@ BOARD_VENDOR_KERNEL_MODULES +=     \
     $(KERNEL_OUT)/drivers/input/touchscreen/synaptics_dsx/synaptics_dsx_i2c.ko
 endif
 
+ifeq ($(POWERSAVE),true)
+BOARD_VENDOR_KERNEL_MODULES += \
+    $(KERNEL_OUT)/sound/soc/codecs/snd-soc-rpmsg-pcm512x.ko \
+    $(KERNEL_OUT)/sound/soc/codecs/snd-soc-rpmsg-pcm512x-i2c.ko \
+    $(KERNEL_OUT)/sound/soc/codecs/snd-soc-tpa6130a2.ko \
+    $(KERNEL_OUT)/sound/soc/fsl/snd-soc-imx-pcm512x-rpmsg.ko
+endif
+
 # CONFIG_CLK_IMX8MP: clk-imx8mp.ko, clk-audiomix.ko, clk-gate-shared.ko, clk-hdmimix.ko
 # CONFIG_IMX8M_PM_DOMAINS: imx8m_pm_domains.ko
 # CONFIG_PINCTRL_IMX: pinctrl-imx.ko
