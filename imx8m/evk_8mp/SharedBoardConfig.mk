@@ -82,6 +82,7 @@ endif
 
 ifeq ($(POWERSAVE),true)
 BOARD_VENDOR_KERNEL_MODULES += \
+    $(KERNEL_OUT)/drivers/soc/imx/lpa_ctrl.ko \
     $(KERNEL_OUT)/sound/soc/codecs/snd-soc-rpmsg-pcm512x.ko \
     $(KERNEL_OUT)/sound/soc/codecs/snd-soc-rpmsg-pcm512x-i2c.ko \
     $(KERNEL_OUT)/sound/soc/codecs/snd-soc-tpa6130a2.ko \

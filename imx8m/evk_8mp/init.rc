@@ -265,6 +265,10 @@ on property:ro.boot.lpa.enable=1
     setprop vendor.audio.lpa.period_ms 500
     setprop vendor.audio.lpa.enable 1
 
+# setenv append_bootargs androidboot.powersave.lpa=true
+on property:ro.boot.lpa.enable=1 && property:ro.boot.powersave.lpa=true
+    write /sys/lpa_ctrl/lpa 1
+
 service confirmationui_ta_load /vendor/bin/trusty_apploader /vendor/firmware/tee/confirmationui.app
     user root
     group root system
