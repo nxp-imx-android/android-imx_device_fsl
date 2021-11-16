@@ -191,6 +191,7 @@ vendor.ro.lightsensor.threshold     u:object_r:vendor_public_default_prop:s0
 vendor.rw.camera.test               u:object_r:vendor_public_default_prop:s0
 vendor.audio.lpa.hold_second        u:object_r:vendor_public_default_prop:s0
 vendor.audio.lpa.period_ms          u:object_r:vendor_public_default_prop:s0
+vendor.audio.dump                   u:object_r:vendor_public_default_prop:s0
 vendor.qcom.bluetooth.soc           u:object_r:vendor_public_default_prop:s0
 vendor.hwc.debug.dump_compose              u:object_r:vendor_public_default_prop:s0
 vendor.hwc.debug.dump_bitmap               u:object_r:vendor_public_default_prop:s0
