@@ -214,7 +214,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.rebootescrow.device=/dev/block/pmem0
 
-#DRM Widevine 1.3 L1 support
+#DRM Widevine 1.4 L1 support
 PRODUCT_PACKAGES += \
     android.hardware.drm@1.4-service.widevine \
     android.hardware.drm@1.4-service.clearkey \
@@ -223,7 +223,7 @@ PRODUCT_PACKAGES += \
     libwvdrmengine \
     liboemcrypto \
 
-$(call inherit-product-if-exists, vendor/nxp-private/widevine/nxp_widevine_tee.mk)
+$(call inherit-product-if-exists, vendor/nxp-private/widevine/nxp_widevine_tee_8mp.mk)
 
 # -------@block_audio-------
 
