@@ -161,7 +161,7 @@ PRODUCT_PACKAGES += \
     android.hardware.confirmationui@1.0-service.trusty
 endif
 
-#DRM Widevine 1.2 L3 support
+#DRM Clearkey 1.4 L3 support
 PRODUCT_PACKAGES += \
     android.hardware.drm@1.4-service.clearkey \
 
