@@ -71,6 +71,8 @@ BOARD_VENDOR_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/input/touchscreen/synaptics_dsx/synaptics_dsx_i2c.ko
 endif
 
+# CONFIG_ZRAM: zram.ko, lzo.ko, lzo-rle.ko compressed ram using LZ coding.
+# CONFIG_ZSMALLOC: zsmalloc.ko
 # CONFIG_CLK_IMX8MP: clk-imx8mq.ko
 # CONFIG_TIMER_IMX_SYS_CTR: timer-imx-sysctr.ko
 # CONFIG_IMX8M_BUSFREQ: busfreq-imx8mq.ko
@@ -107,6 +109,10 @@ endif
 
 ifeq ($(IMX8MQ_USES_GKI),true)
 BOARD_VENDOR_RAMDISK_KERNEL_MODULES += \
+    $(KERNEL_OUT)/mm/zsmalloc.ko \
+    $(KERNEL_OUT)/crypto/lzo.ko \
+    $(KERNEL_OUT)/crypto/lzo-rle.ko \
+    $(KERNEL_OUT)/drivers/block/zram/zram.ko \
     $(KERNEL_OUT)/drivers/soc/imx/soc-imx8m.ko \
     $(KERNEL_OUT)/drivers/clk/imx/mxc-clk.ko \
     $(KERNEL_OUT)/drivers/clk/imx/clk-imx8mq.ko \

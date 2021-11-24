@@ -89,6 +89,8 @@ BOARD_VENDOR_KERNEL_MODULES += \
     $(KERNEL_OUT)/sound/soc/fsl/snd-soc-imx-pcm512x-rpmsg.ko
 endif
 
+# CONFIG_ZRAM: zram.ko, lzo.ko, lzo-rle.ko compressed ram using LZ coding.
+# CONFIG_ZSMALLOC: zsmalloc.ko
 # CONFIG_CLK_IMX8MP: clk-imx8mp.ko, clk-audiomix.ko, clk-gate-shared.ko, clk-hdmimix.ko
 # CONFIG_IMX8M_PM_DOMAINS: imx8m_pm_domains.ko
 # CONFIG_PINCTRL_IMX: pinctrl-imx.ko
@@ -144,6 +146,10 @@ endif
 
 ifeq ($(IMX8MP_USES_GKI),true)
 BOARD_VENDOR_RAMDISK_KERNEL_MODULES +=     \
+    $(KERNEL_OUT)/mm/zsmalloc.ko \
+    $(KERNEL_OUT)/crypto/lzo.ko \
+    $(KERNEL_OUT)/crypto/lzo-rle.ko \
+    $(KERNEL_OUT)/drivers/block/zram/zram.ko \
     $(KERNEL_OUT)/drivers/soc/imx/soc-imx8m.ko \
     $(KERNEL_OUT)/drivers/soc/imx/mu/mx8_mu.ko \
     $(KERNEL_OUT)/drivers/clk/imx/mxc-clk.ko \
