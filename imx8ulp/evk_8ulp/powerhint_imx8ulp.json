@@ -8,8 +8,7 @@
         "1600000",
         "1200000"
       ],
-      "DefaultIndex": 0,
-      "ResetOnInit": true
+      "DefaultIndex": 0
     },
     {
       "Name": "CPULittleClusterMinFreq",
@@ -18,8 +17,7 @@
         "1800000",
         "1600000",
         "1200000"
-      ],
-      "ResetOnInit": true
+      ]
     },
     {
       "Name": "TASchedtuneBoost",
