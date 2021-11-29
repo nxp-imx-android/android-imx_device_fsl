@@ -599,8 +599,10 @@ PRODUCT_PACKAGES += \
 
 # config
 PRODUCT_PACKAGES += \
-    DAA3840_30MC_1080P.xml \
-    DAA3840_30MC_4K.xml \
+    DAA3840_30MC_1080P-linear.xml \
+    DAA3840_30MC_1080P-hdr.xml \
+    DAA3840_30MC_4K-linear.xml \
+    DAA3840_30MC_4K-hdr.xml \
     Sensor0_Entry.cfg \
     Sensor1_Entry.cfg \
     Sensor0_Entry-4K.cfg \
