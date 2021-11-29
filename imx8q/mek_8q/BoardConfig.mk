@@ -134,7 +134,7 @@ BOARD_BOOTCONFIG += androidboot.lcd_density=240 androidboot.primary_display=imx-
 
 # wifi config
 BOARD_BOOTCONFIG += androidboot.wificountrycode=CN
-BOARD_KERNEL_CMDLINE += moal.mod_para=wifi_mod_para.conf
+BOARD_KERNEL_CMDLINE += moal.mod_para=wifi_mod_para.conf pci=nomsi
 
 ifeq ($(PRODUCT_IMX_CAR),true)
 # automotive config
