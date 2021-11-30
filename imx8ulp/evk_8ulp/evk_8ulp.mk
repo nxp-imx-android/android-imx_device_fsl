@@ -210,11 +210,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 #DRM Widevine 1.2 L3 support
 PRODUCT_PACKAGES += \
-    android.hardware.drm@1.3-service.widevine \
-    android.hardware.drm@1.3-service.clearkey \
-    libwvdrmcryptoplugin \
-    libwvhidl \
-    libwvdrmengine
+    android.hardware.drm@1.4-service.clearkey
 
 # -------@block_audio-------
 
