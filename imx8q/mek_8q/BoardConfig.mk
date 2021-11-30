@@ -232,6 +232,9 @@ endif #PRODUCT_IMX_CAR
 ALL_DEFAULT_INSTALLED_MODULES += $(BOARD_VENDOR_KERNEL_MODULES)
 
 # -------@block_sepolicy-------
+SYSTEM_EXT_PRIVATE_SEPOLICY_DIRS += \
+    $(CONFIG_REPO_PATH)/imx8q/system_ext_pri_sepolicy
+
 BOARD_SEPOLICY_DIRS := \
        $(CONFIG_REPO_PATH)/imx8q/sepolicy \
        $(IMX_DEVICE_PATH)/sepolicy
