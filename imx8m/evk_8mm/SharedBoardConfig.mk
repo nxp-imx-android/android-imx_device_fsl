@@ -29,6 +29,7 @@ IMX8MM_USES_GKI ?= true
 ifeq ($(IMX8MM_USES_GKI),true)
 BOARD_VENDOR_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/mxc/gpu-viv/galcore.ko \
+    $(KERNEL_OUT)/drivers/thermal/imx8mm_thermal.ko \
     $(KERNEL_OUT)/drivers/media/platform/mxc/capture/mx6s_capture.ko \
     $(KERNEL_OUT)/drivers/media/platform/mxc/capture/mxc_mipi_csi.ko \
     $(KERNEL_OUT)/drivers/media/platform/mxc/capture/ov5640_camera_mipi_v2.ko \
@@ -121,7 +122,6 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES +=     \
     $(KERNEL_OUT)/drivers/regulator/pca9450-regulator.ko \
     $(KERNEL_OUT)/drivers/gpio/gpio-mxc.ko \
     $(KERNEL_OUT)/drivers/thermal/device_cooling.ko \
-    $(KERNEL_OUT)/drivers/thermal/imx8mm_thermal.ko \
     $(KERNEL_OUT)/drivers/perf/fsl_imx8_ddr_perf.ko \
     $(KERNEL_OUT)/drivers/cpufreq/cpufreq-dt.ko \
     $(KERNEL_OUT)/drivers/cpufreq/imx-cpufreq-dt.ko \
