@@ -34,6 +34,7 @@ PRODUCT_IMX_TRUSTY := true
 # CONFIG_MXC_PXP_CLIENT_DEVICE: pxp_device.ko
 # CONFIG_MXC_PXP_V3: pxp_dma_v3.ko
 # CONFIG_FSL_EDMA_V3: fsl-edma-v3.ko
+# CONFIG_CLKSRC_IMX_TPM: timer-imx-tpm.ko
 # CONFIG_MXS_DMA: stmp_device.ko, mxs-dma.ko
 # CONFIG_PWRSEQ_SIMPLE: pwrseq_simple.ko
 # CONFIG_MMC_SDHCI_ESDHC_IMX cqhci.ko, sdhci-esdhc-imx.ko
@@ -94,6 +95,7 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/dma/pxp/pxp_device.ko \
     $(KERNEL_OUT)/drivers/dma/pxp/pxp_dma_v3.ko \
     $(KERNEL_OUT)/drivers/dma/fsl-edma-v3.ko \
+    $(KERNEL_OUT)/drivers/clocksource/timer-imx-tpm.ko \
     $(KERNEL_OUT)/lib/stmp_device.ko \
     $(KERNEL_OUT)/drivers/dma/mxs-dma.ko \
     $(KERNEL_OUT)/drivers/mmc/core/pwrseq_simple.ko \
