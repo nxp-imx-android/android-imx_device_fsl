@@ -5,9 +5,6 @@ vendor.usb.config                   u:object_r:vendor_usb_config_prop:s0
 vendor.usb.sysfs_path               u:object_r:vendor_usb_config_prop:s0
 vendor.display.state                u:object_r:vendor_public_default_prop:s0
 
-persist.adb.notify                  u:object_r:usb_notify_prop:s0
-persist.charging.notify             u:object_r:usb_notify_prop:s0
-
 ro.boot.vendor.sysrq                u:object_r:vendor_public_default_prop:s0
 vendor.all.early_init.ready         u:object_r:vendor_public_default_prop:s0
 vendor.all.car                      u:object_r:vendor_public_default_prop:s0
