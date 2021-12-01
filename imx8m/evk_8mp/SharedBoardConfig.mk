@@ -33,6 +33,7 @@ BOARD_VENDOR_KERNEL_MODULES += \
 ifeq ($(IMX8MP_USES_GKI),true)
 BOARD_VENDOR_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/mxc/gpu-viv/galcore.ko \
+    $(KERNEL_OUT)/drivers/thermal/imx8mm_thermal.ko \
     $(KERNEL_OUT)/drivers/dma/imx-sdma.ko \
     $(KERNEL_OUT)/sound/soc/fsl/imx-pcm-dma.ko \
     $(KERNEL_OUT)/sound/soc/fsl/imx-pcm-dma-v2.ko \
@@ -205,7 +206,6 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES +=     \
     $(KERNEL_OUT)/drivers/power/supply/dummy_battery.ko \
     $(KERNEL_OUT)/drivers/nvmem/nvmem-imx-ocotp.ko \
     $(KERNEL_OUT)/drivers/thermal/device_cooling.ko \
-    $(KERNEL_OUT)/drivers/thermal/imx8mm_thermal.ko \
     $(KERNEL_OUT)/drivers/cpufreq/cpufreq-dt.ko \
     $(KERNEL_OUT)/drivers/cpufreq/imx-cpufreq-dt.ko \
     $(KERNEL_OUT)/drivers/media/v4l2-core/v4l2-fwnode.ko \
