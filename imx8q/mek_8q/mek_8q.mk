@@ -30,6 +30,8 @@ else
   SOONG_CONFIG_IMXPLUGIN_IMX_CAR = false
 endif
 
+PRODUCT_VENDOR_PROPERTIES += ro.soc.manufacturer=nxp
+PRODUCT_VENDOR_PROPERTIES += ro.soc.model=IMX8Q
 # -------@block_treble-------
 PRODUCT_FULL_TREBLE_OVERRIDE := true
 
