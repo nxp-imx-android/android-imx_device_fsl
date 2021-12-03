@@ -203,6 +203,7 @@ on post-fs-data && property:vendor.skip.charger_not_need=0
 on zygote-start && property:vendor.skip.charger_not_need=0
     # Create the directories used by the Wireless subsystem
     mkdir /data/vendor/wifi 0771 wifi wifi
+    mkdir /data/vendor/wifi/wifi_dumps 0770 wifi wifi
     mkdir /data/vendor/wifi/wpa 0770 wifi wifi
     mkdir /data/vendor/wifi/wpa/sockets 0770 wifi wifi
 
