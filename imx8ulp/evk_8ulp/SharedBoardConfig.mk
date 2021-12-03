@@ -145,6 +145,13 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES +=     \
     $(KERNEL_OUT)/drivers/input/touchscreen/goodix.ko
 endif
 
+# CONFIG_MFD_FP9931: fp9931-core.ko
+# CONFIG_REGULATOR_FP9931: fp9931-regulator.ko
+# CONFIG_SENSORS_FP9931: fp9931-hwmon.ko
+# CONFIG_FB: cfbcopyarea.ko, cfbfillrect.ko, cfbimgblt.ko, fb.ko
+# CONFIG_FB_NOTIFY: fb_notify.ko
+# CONFIG_FB_FENCE: fb_fence.ko
+# CONFIG_FB_MXC, CONFIG_FB_MXC_EINK_V2_PANEL: mxc_edid.ko, mxc_epdc_v2_fb.ko
 # CONFIG_SND_SOC_BT_SCO: snd-soc-bt-sco.ko
 # CONFIG_SND_IMX_SOC: imx-pcm-dma.ko, imx-pcm-dma-v2.ko
 # CONFIG_SND_SOC_FSL_SPDIF: snd-soc-fsl-spdif.ko
@@ -173,6 +180,17 @@ endif
 # CONFIG_FEC: fec.ko
 ifeq ($(IMX8ULP_USES_GKI),true)
 BOARD_VENDOR_KERNEL_MODULES += \
+    $(KERNEL_OUT)/drivers/mfd/fp9931-core.ko \
+    $(KERNEL_OUT)/drivers/regulator/fp9931-regulator.ko \
+    $(KERNEL_OUT)/drivers/hwmon/fp9931-hwmon.ko \
+    $(KERNEL_OUT)/drivers/video/fbdev/core/cfbcopyarea.ko \
+    $(KERNEL_OUT)/drivers/video/fbdev/core/cfbfillrect.ko \
+    $(KERNEL_OUT)/drivers/video/fbdev/core/cfbimgblt.ko \
+    $(KERNEL_OUT)/drivers/video/fbdev/core/fb_notify.ko \
+    $(KERNEL_OUT)/drivers/video/fbdev/core/fb.ko \
+    $(KERNEL_OUT)/drivers/video/fbdev/mxc/fb_fence.ko \
+    $(KERNEL_OUT)/drivers/video/fbdev/mxc/mxc_epdc_v2_fb.ko \
+    $(KERNEL_OUT)/drivers/video/fbdev/mxc/mxc_edid.ko \
     $(KERNEL_OUT)/sound/soc/codecs/snd-soc-bt-sco.ko \
     $(KERNEL_OUT)/sound/soc/fsl/imx-pcm-dma.ko \
     $(KERNEL_OUT)/sound/soc/fsl/imx-pcm-dma-v2.ko \
