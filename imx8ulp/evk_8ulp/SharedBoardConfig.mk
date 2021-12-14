@@ -1,6 +1,6 @@
 # -------@block_kernel_bootimg-------
 
-KERNEL_NAME := Image
+KERNEL_NAME := Image.lz4
 TARGET_KERNEL_ARCH := arm64
 
 IMX8ULP_USES_GKI := true
