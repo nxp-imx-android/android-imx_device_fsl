@@ -16,3 +16,6 @@ allow init-insmod-sh vendor_file:system module_load;
 
 allow init-insmod-sh vendor_wc_prop:property_service { set };
 allow init-insmod-sh proc_cmdline:file { read open getattr };
+
+allow init-insmod-sh debugfs_wifi_tracing:dir { search };
+allow init-insmod-sh debugfs_bootreceiver_tracing:dir { search };
