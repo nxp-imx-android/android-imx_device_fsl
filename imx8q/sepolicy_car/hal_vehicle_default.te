@@ -1,1 +1,5 @@
+typeattribute hal_vehicle_default hal_automotive_socket_exemption;
+allow hal_vehicle_default self:tcp_socket { bind create accept listen };
+allow hal_vehicle_default node:tcp_socket node_bind;
+
 allow hal_vehicle_default self:netlink_socket { write create bind read };
