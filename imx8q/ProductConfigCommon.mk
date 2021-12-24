@@ -398,6 +398,11 @@ ifneq (,$(filter userdebug, $(TARGET_BUILD_VARIANT)))
     # Note: we cannot use PRODUCT_SYSTEM_SERVER_JARS, as it has not been expanded at this point.
     $(call add-product-dex-preopt-module-config,services,--generate-mini-debug-info)
     $(call add-product-dex-preopt-module-config,wifi-service,--generate-mini-debug-info)
+
+    PRODUCT_PROPERTY_OVERRIDES += \
+      logd.logpersistd.rotate_kbytes=51200 \
+      logd.logpersistd=logcatd \
+      logd.logpersistd.size=3
 endif
 
 #Dumpstate HAL 1.1 support
