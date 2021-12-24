@@ -6,7 +6,7 @@ bn=`basename $0`
 cat << EOF
 
 Version: 1.8
-Last change: support -usb option to specify the usb path to monitor
+Last change: change the recommended uuu version as VID/PID values used in uboot are changed
 currently suported platforms: evk_7ulp, evk_8mm, evk_8mq, evk_8mn, evk_8mp, mek_8q, mek_8q_car
 
 eg: ./uuu_imx_android_flash.sh -f imx8mm -a -e -D ~/evk_8mm/ -t emmc -u trusty -d mipi-panel
@@ -118,7 +118,7 @@ function whether_in_array
 
 function uuu_load_uboot
 {
-    echo uuu_version 1.4.139 > /tmp/uuu.lst
+    echo uuu_version 1.4.182 > /tmp/uuu.lst
     rm -f /tmp/${bootloader_used_by_uuu}
     ln -s ${sym_link_directory}${bootloader_used_by_uuu} /tmp/${bootloader_used_by_uuu}
     echo ${sdp}: boot -f ${bootloader_used_by_uuu} >> /tmp/uuu.lst
@@ -393,7 +393,7 @@ imx8ulp_dtb_feature=(hdmi epdc)
 imx7ulp_dtb_feature=(evk-mipi evk mipi)
 
 
-echo -e This script is validated with ${RED}uuu 1.4.139${STD} version, it is recommended to align with this version.
+echo -e This script is validated with ${RED}uuu 1.4.182${STD} version, it is recommended to align with this version.
 
 if [ $# -eq 0 ]; then
     echo -e >&2 ${RED}please provide more information with command script options${STD}

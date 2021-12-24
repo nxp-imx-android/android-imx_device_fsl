@@ -1,7 +1,7 @@
 :: Do not output the command
 @echo off
 
-echo This script is validated with uuu 1.4.139 version, it is recommended to align with this version.
+echo This script is validated with uuu 1.4.182 version, it is recommended to align with this version.
 
 ::---------------------------------------------------------------------------------
 ::Variables
@@ -524,7 +524,7 @@ goto :eof
 :help
 echo.
 echo Version: 1.8
-echo Last change: support -usb option to specify the usb path to monitor
+echo Last change: change the recommended uuu version as VID/PID values used in uboot are changed
 echo currently suported platforms: evk_7ulp, evk_8mm, evk_8mq, evk_8mn, evk_8mp, mek_8q, mek_8q_car
 echo.
 echo eg: uuu_imx_android_flash.bat -f imx8mm -a -e -D C:\Users\user_01\images\evk_8mm\ -t emmc -u trusty -d mipi-panel
@@ -652,7 +652,7 @@ if [%board%] == [] (
 goto :eof
 
 :uuu_load_uboot
-echo uuu_version 1.4.139 > %tmp_dir%uuu.lst
+echo uuu_version 1.4.182 > %tmp_dir%uuu.lst
 
 if exist %tmp_dir%%bootloader_used_by_uuu%.link (
     del %tmp_dir%%bootloader_used_by_uuu%.link
