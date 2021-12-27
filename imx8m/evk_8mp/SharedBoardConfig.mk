@@ -68,6 +68,7 @@ BOARD_VENDOR_KERNEL_MODULES += \
     $(KERNEL_OUT)/sound/soc/fsl/imx-audio-rpmsg.ko \
     $(KERNEL_OUT)/sound/soc/codecs/snd-soc-rpmsg-wm8960.ko \
     $(KERNEL_OUT)/sound/soc/codecs/snd-soc-rpmsg-wm8960-i2c.ko \
+    $(KERNEL_OUT)/sound/soc/fsl/snd-soc-imx-pcm512x-rpmsg.ko \
     $(KERNEL_OUT)/sound/soc/fsl/snd-soc-imx-rpmsg.ko \
     $(KERNEL_OUT)/drivers/rtc/rtc-snvs.ko \
     $(KERNEL_OUT)/drivers/pci/controller/dwc/pci-imx6.ko \
@@ -85,8 +86,7 @@ BOARD_VENDOR_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/soc/imx/lpa_ctrl.ko \
     $(KERNEL_OUT)/sound/soc/codecs/snd-soc-rpmsg-pcm512x.ko \
     $(KERNEL_OUT)/sound/soc/codecs/snd-soc-rpmsg-pcm512x-i2c.ko \
-    $(KERNEL_OUT)/sound/soc/codecs/snd-soc-tpa6130a2.ko \
-    $(KERNEL_OUT)/sound/soc/fsl/snd-soc-imx-pcm512x-rpmsg.ko
+    $(KERNEL_OUT)/sound/soc/codecs/snd-soc-tpa6130a2.ko
 endif
 
 # CONFIG_ZRAM: zram.ko, lzo.ko, lzo-rle.ko compressed ram using LZ coding.
