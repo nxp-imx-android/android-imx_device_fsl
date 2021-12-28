@@ -29,7 +29,7 @@
       "ae_comp_step_nummerator": "1",
       "ae_comp_step_denominator": "2",
       "exposure_ns_min": "68000",
-      "exposure_ns_max": "33360000",
+      "exposure_ns_max": "16632000",
       "MaxWidth": "1920",
       "MaxHeight": "1080",
       "OmitFrame": [
@@ -66,7 +66,7 @@
       "ae_comp_step_nummerator": "1",
       "ae_comp_step_denominator": "2",
       "exposure_ns_min": "68000",
-      "exposure_ns_max": "33360000",
+      "exposure_ns_max": "16632000",
       "MaxWidth": "1920",
       "MaxHeight": "1080",
       "OmitFrame": [
