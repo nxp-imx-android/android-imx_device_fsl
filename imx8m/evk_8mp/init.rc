@@ -82,6 +82,7 @@ on late-fs && property:vendor.skip.charger_not_need=0
     # Start keymaster/gatekeeper service
     start vendor.gatekeeper-1-0-${ro.boot.keystore}
     start vendor.keymint-${ro.boot.keystore}
+    start storageproxyd
     setprop vendor.powerhal.init 1
 
     # Wait for keymaster
@@ -239,7 +240,7 @@ service early_init_sh /vendor/bin/init.insmod.sh /vendor/etc/early.init.cfg vend
 on post-fs-data && property:vendor.storageproxyd=trusty && property:vendor.skip.charger_not_need=0
     # create temp node for secure storage proxy
     mkdir /data/vendor/ss 0700 system system
-    start storageproxyd
+    restart storageproxyd
 
 service storageproxyd /vendor/bin/storageproxyd -p /data/vendor/ss -r /dev/mmcblk2rpmb -d /dev/trusty-ipc-dev0
    group system

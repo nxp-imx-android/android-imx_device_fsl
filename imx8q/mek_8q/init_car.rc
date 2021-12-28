@@ -156,6 +156,7 @@ on late-fs
     # Start keymaster/gatekeeper service
     start vendor.gatekeeper-1-0-${ro.boot.keystore}
     start vendor.keymint-${ro.boot.keystore}
+    start storageproxyd
     start servicemanager
     start surfaceflinger
 
@@ -212,7 +213,7 @@ on zygote-start
 on post-fs-data && property:vendor.storageproxyd=trusty
     # create temp node for secure storage proxy
     mkdir /data/vendor/ss 0700 system system
-    start storageproxyd
+    restart storageproxyd
 
 service storageproxyd /vendor/bin/storageproxyd -p /data/vendor/ss -r /dev/mmcblk0rpmb -d /dev/trusty-ipc-dev0
    group system
