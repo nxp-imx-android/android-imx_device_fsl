@@ -268,10 +268,6 @@ PRODUCT_PACKAGES += \
     media_profiles_8mp-ov5640.xml \
     media_profiles_8mp-basler-ov5640.xml
 
-# ISP camera feature demo
-PRODUCT_PACKAGES += \
-    CameraXBasic
-
 # -------@block_display-------
 
 PRODUCT_AAPT_CONFIG += xlarge large tvdpi hdpi xhdpi xxhdpi
