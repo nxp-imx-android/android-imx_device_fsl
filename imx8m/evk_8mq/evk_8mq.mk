@@ -4,6 +4,8 @@ CONFIG_REPO_PATH := device/nxp
 CURRENT_FILE_PATH :=  $(lastword $(MAKEFILE_LIST))
 IMX_DEVICE_PATH := $(strip $(patsubst %/, %, $(dir $(CURRENT_FILE_PATH))))
 
+PRODUCT_ENFORCE_ARTIFACT_PATH_REQUIREMENTS := true
+
 # configs shared between uboot, kernel and Android rootfs
 include $(IMX_DEVICE_PATH)/SharedBoardConfig.mk
 
@@ -71,6 +73,9 @@ TARGET_USE_VENDOR_BOOT ?= true
 
 ifeq ($(IMX8MQ_USES_GKI),true)
   BOARD_RAMDISK_USE_LZ4 := true
+
+  BOARD_USES_GENERIC_KERNEL_IMAGE := true
+  $(call inherit-product, $(SRC_TARGET_DIR)/product/generic_ramdisk.mk)
 endif
 
 # We load the fstab from device tree so this is not needed, but since no kernel modules are installed to vendor
@@ -88,6 +93,14 @@ PRODUCT_COPY_FILES += \
     $(CONFIG_REPO_PATH)/common/init/init.insmod.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.insmod.sh
 
 # -------@block_storage-------
+# support metadata checksum during first stage mount
+ifeq ($(TARGET_USE_VENDOR_BOOT),true)
+PRODUCT_PACKAGES += \
+    linker.vendor_ramdisk \
+    resizefs.vendor_ramdisk \
+    tune2fs.vendor_ramdisk
+endif
+
 #Enable this to use dynamic partitions for the readonly partitions not touched by bootloader
 TARGET_USE_DYNAMIC_PARTITIONS ?= true
 
