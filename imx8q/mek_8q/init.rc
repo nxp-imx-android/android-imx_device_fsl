@@ -72,20 +72,20 @@ on init && property:vendor.skip.charger_not_need=0
     write /dev/cpuctl/rt/cpu.uclamp.latency_sensitive 1
     write /dev/cpuctl/background/cpu.uclamp.max 50
 
+on late-fs && property:vendor.storageproxyd=trusty && property:vendor.skip.charger_not_need=0
+    start storageproxyd
+    start vendor.oemlock-1-0
+
 on late-fs && property:vendor.skip.charger_not_need=0
     # Start keymaster/gatekeeper service
     start vendor.gatekeeper-1-0-${ro.boot.keystore}
     start vendor.keymint-${ro.boot.keystore}
-    start storageproxyd
     setprop vendor.powerhal.init 1
 
     # Wait for keymaster
     exec_start wait_for_keymaster
 
     mount_all /vendor/etc/fstab.nxp --late
-
-on late-fs && property:vendor.storageproxyd=trusty && property:vendor.skip.charger_not_need=0
-    start vendor.oemlock-1-0
 
 on early-boot && property:vendor.skip.charger_not_need=0
     setprop vendor.sys.hwc.disable     0
