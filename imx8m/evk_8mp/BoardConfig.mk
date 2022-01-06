@@ -115,7 +115,7 @@ BOARD_USE_SENSOR_FUSION := true
 # -------@block_kernel_bootimg-------
 BOARD_KERNEL_BASE := 0x40400000
 
-CMASIZE=960M
+CMASIZE=1184M
 # NXP default config
 BOARD_KERNEL_CMDLINE := init=/init firmware_class.path=/vendor/firmware loop.max_part=7 bootconfig
 BOARD_BOOTCONFIG += androidboot.console=ttymxc1 androidboot.hardware=nxp
