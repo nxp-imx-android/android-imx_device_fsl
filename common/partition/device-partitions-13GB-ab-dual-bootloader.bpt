@@ -36,7 +36,7 @@
         {
             "ab": true,
             "label": "system_ext",
-            "size": "136 MiB",
+            "size": "148 MiB",
             "guid": "auto",
             "type_guid": "031044ba-5430-4137-9fb0-4c27a19e816a"
         },
