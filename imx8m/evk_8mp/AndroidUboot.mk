@@ -11,6 +11,42 @@ ifeq ($(POWERSAVE),true)
   POWERSAVE_STATE = ENABLE
 endif
 
+MCU_SDK_IMX8MP_DEMO_PATH := $(IMX_MCU_SDK_PATH)/mcu-sdk/imx8mp/boards/evkmimx8mp/demo_apps/sai_low_power_audio_low_ddr/armgcc
+MCU_SDK_IMX8MP_CMAKE_FILE := ../../../../../tools/cmake_toolchain_files/armgcc.cmake
+
+UBOOT_MCU_OUT := $(TARGET_OUT_INTERMEDIATES)/MCU_OBJ
+UBOOT_MCU_BUILD_TYPE := release
+
+define build_mcu_image_core
+	mkdir -p $(UBOOT_MCU_OUT)/$2; \
+	/usr/local/bin/cmake -DCMAKE_TOOLCHAIN_FILE="$4" -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=$3 -S $1 -B $(UBOOT_MCU_OUT)/$2 1>/dev/null; \
+	$(MAKE) -C $(UBOOT_MCU_OUT)/$2 1>/dev/null
+endef
+
+ifeq ($(POWERSAVE),true)
+ifeq ($(ARMGCC_DIR),)
+$(error please install arm-none-eabi-gcc toolchain and set the installed path to ARMGCC_DIR)
+endif
+
+define build_m4_image
+	rm -rf $(UBOOT_MCU_OUT); \
+	mkdir -p $(UBOOT_MCU_OUT); \
+	cmake_version=$(shell /usr/local/bin/cmake --version | head -n 1 | tr " " "\n" | tail -n 1); \
+	req_version="3.13.0"; \
+	if [ "`echo "$$cmake_version $$req_version" | tr " " "\n" | sort -V | head -n 1`" != "$$req_version" ]; then \
+		echo "please upgrade cmake version to 3.13.0 or newer"; \
+		exit 1; \
+	fi; \
+	$(call build_mcu_image_core,$(MCU_SDK_IMX8MP_DEMO_PATH),MIMX8MP,$(UBOOT_MCU_BUILD_TYPE),$(MCU_SDK_IMX8MP_CMAKE_FILE)); \
+	cp $(MCU_SDK_IMX8MP_DEMO_PATH)/$(UBOOT_MCU_BUILD_TYPE)/*.bin $(OUT)/imx8mp_mcu_demo.img
+endef
+else # POWERSAVE != true
+define build_m4_image
+	echo "android build without building MCU image"
+endef
+
+endif # POWERSAVE
+
 define build_imx_uboot
 	$(hide) echo Building i.MX U-Boot with firmware; \
 	cp $(UBOOT_OUT)/u-boot-nodtb.$(strip $(1)) $(IMX_MKIMAGE_PATH)/imx-mkimage/iMX8M/.; \
