@@ -182,28 +182,8 @@
             "Type":"CPU"
         },
         {
-            "Name":"thermal-devfreq-0",
-            "Type":"CPU"
-        },
-        {
-            "Name":"thermal-devfreq-1",
-            "Type":"CPU"
-        },
-        {
-            "Name":"thermal-devfreq-2",
+            "Name":"thermal-gpufreq-0",
             "Type":"GPU"
-        },
-        {
-            "Name":"thermal-devfreq-3",
-            "Type":"GPU"
-        },
-        {
-            "Name":"thermal-devfreq-4",
-            "Type":"UNKNOWN"
-        },
-        {
-            "Name":"thermal-devfreq-5",
-            "Type":"CPU"
         }
     ]
 }

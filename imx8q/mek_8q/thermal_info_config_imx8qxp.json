@@ -77,12 +77,8 @@
             "Type":"CPU"
         },
         {
-            "Name":"thermal-devfreq-0",
-            "Type":"BATTERY"
-        },
-        {
-            "Name":"thermal-devfreq-1",
-            "Type":"BATTERY"
+            "Name":"thermal-gpufreq-0",
+            "Type":"GPU"
         }
     ]
 }
