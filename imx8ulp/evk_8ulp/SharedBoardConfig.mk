@@ -126,7 +126,6 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/gpu/drm/bridge/it6161.ko \
     $(KERNEL_OUT)/drivers/gpu/drm/imx/dcnano/imx-dcnano-drm.ko \
     $(KERNEL_OUT)/drivers/gpu/drm/panel/panel-raydium-rm68200.ko \
-    $(KERNEL_OUT)/drivers/mxc/gpu-viv/galcore.ko \
     $(KERNEL_OUT)/drivers/media/v4l2-core/v4l2-fwnode.ko \
     $(KERNEL_OUT)/drivers/media/i2c/ov5640.ko \
     $(KERNEL_OUT)/drivers/staging/media/imx/imx8-isi-hw.ko \
@@ -182,6 +181,7 @@ endif
 # CONFIG_FEC: fec.ko
 ifeq ($(IMX8ULP_USES_GKI),true)
 BOARD_VENDOR_KERNEL_MODULES += \
+    $(KERNEL_OUT)/drivers/mxc/gpu-viv/galcore.ko \
     $(KERNEL_OUT)/drivers/mfd/fp9931-core.ko \
     $(KERNEL_OUT)/drivers/regulator/fp9931-regulator.ko \
     $(KERNEL_OUT)/drivers/hwmon/fp9931-hwmon.ko \
