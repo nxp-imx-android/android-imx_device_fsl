@@ -38,7 +38,7 @@ define build_m4_image
 		exit 1; \
 	fi; \
 	$(call build_mcu_image_core,$(MCU_SDK_IMX8MP_DEMO_PATH),MIMX8MP,$(UBOOT_MCU_BUILD_TYPE),$(MCU_SDK_IMX8MP_CMAKE_FILE)); \
-	cp $(MCU_SDK_IMX8MP_DEMO_PATH)/$(UBOOT_MCU_BUILD_TYPE)/*.bin $(OUT)/imx8mp_mcu_demo.img
+	cp $(MCU_SDK_IMX8MP_DEMO_PATH)/$(UBOOT_MCU_BUILD_TYPE)/*.bin $(PRODUCT_OUT)/imx8mp_mcu_demo.bin
 endef
 else # POWERSAVE != true
 define build_m4_image
