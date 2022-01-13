@@ -258,6 +258,7 @@ PRODUCT_COPY_FILES += \
 
 ifeq ($(POWERSAVE),true)
 PRODUCT_COPY_FILES += \
+    $(OUT_DIR)/target/product/$(firstword $(PRODUCT_DEVICE))/imx8mp_mcu_demo.bin:imx8mp_mcu_demo.img \
     $(IMX_DEVICE_PATH)/audio_policy_configuration_pcm512x.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_configuration.xml
 else
 PRODUCT_COPY_FILES += \
