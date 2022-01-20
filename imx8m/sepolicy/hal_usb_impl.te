@@ -20,3 +20,6 @@ wakelock_use(hal_usb_impl)
 set_prop(hal_usb_impl, vendor_usb_config_prop)
 
 allow hal_usb_impl sysfs_usb_device:dir { watch watch_reads };
+
+# persist.adb.notify, persist.charging.notify
+set_prop(hal_usb_impl, usb_notify_prop)
