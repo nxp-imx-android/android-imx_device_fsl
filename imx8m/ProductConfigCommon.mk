@@ -194,12 +194,12 @@ PRODUCT_PACKAGES += \
     android.hardware.camera.provider@2.4-impl \
     camera.device@1.0-impl \
     camera.device@3.2-impl
-endif
-endif
 
 # external camera feature demo
 PRODUCT_PACKAGES += \
      Camera2Basic
+endif
+endif
 
 # -------@block_display-------
 ifneq ($(PRODUCT_IMX_CAR),true)
