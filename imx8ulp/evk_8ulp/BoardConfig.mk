@@ -160,6 +160,9 @@ endif
 ALL_DEFAULT_INSTALLED_MODULES += $(BOARD_VENDOR_KERNEL_MODULES)
 
 # -------@block_sepolicy-------
+SYSTEM_EXT_PRIVATE_SEPOLICY_DIRS += \
+    $(CONFIG_REPO_PATH)/imx8ulp/system_ext_pri_sepolicy
+
 BOARD_SEPOLICY_DIRS := \
        $(CONFIG_REPO_PATH)/imx8ulp/sepolicy \
        $(IMX_DEVICE_PATH)/sepolicy
