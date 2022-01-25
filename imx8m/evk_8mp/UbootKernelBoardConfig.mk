@@ -16,7 +16,11 @@ endif
 
 ifeq ($(IMX8MP_USES_GKI),true)
 TARGET_KERNEL_DEFCONFIG := gki_defconfig
-TARGET_KERNEL_GKI_DEFCONF:= imx8mp_gki.fragment
+  ifeq ($(POWERSAVE),true)
+    TARGET_KERNEL_GKI_DEFCONF:= imx8mp_powersave_gki.fragment
+  else
+    TARGET_KERNEL_GKI_DEFCONF:= imx8mp_gki.fragment
+  endif
 else
 TARGET_KERNEL_DEFCONFIG := imx_v8_android_defconfig
 endif
