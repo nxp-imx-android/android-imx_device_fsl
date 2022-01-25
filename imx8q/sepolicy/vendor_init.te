@@ -12,6 +12,7 @@ set_prop(vendor_init, vendor_bluetooth_prop)
 set_prop(vendor_init, vendor_public_default_prop)
 set_prop(vendor_init, system_prop)
 set_prop(vendor_init, vendor_logging_prop)
+set_prop(vendor_init, vendor_camera_prop)
 
 userdebug_or_eng(`
   set_prop(vendor_init, logpersistd_logging_prop)
