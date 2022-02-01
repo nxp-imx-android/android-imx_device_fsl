@@ -79,7 +79,7 @@ set usb_paths=
 
 
 :: We want to detect illegal feature input to some extent. Here it's based on SoC names. Since an SoC may be on a
-:: board running different set of images(android and automative for a example), so misuse the features of one set of
+:: board running different set of images(android and automotive for a example), so misuse the features of one set of
 :: images when flash another set of images can not be detect early with this scenario.
 set imx8mm_uboot_feature=dual trusty-dual 4g-evk-uuu 4g ddr4-evk-uuu ddr4 evk-uuu trusty-4g trusty-secure-unlock trusty
 set imx8mn_uboot_feature=dual trusty-dual evk-uuu trusty-secure-unlock trusty ddr4-evk-uuu ddr4
@@ -546,7 +546,7 @@ echo  -u uboot_feature  flash uboot or spl&bootloader image with "uboot_feature"
 echo                        For Standard Android:
 echo                            If the parameter after "-u" option contains the string of "dual", then spl&bootloader image will be flashed,
 echo                            otherwise uboot image will be flashed
-echo                        For Android Automative:
+echo                        For Android Automotive:
 echo                            only dual bootloader feature is supported, by default spl&bootloader image will be flashed
 echo                        Below table lists the legal value supported now based on the soc_name provided:
 echo                           +-------------+----------------------------------------------------------------------------------------------------+

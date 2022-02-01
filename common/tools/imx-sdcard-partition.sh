@@ -144,7 +144,7 @@ if [[ "${uboot_feature}" = *"dual"* ]]; then
 fi
 
 
-# dual bootloader support will use different gpt. Android Automative only boot from eMMC, judgement here is complete
+# dual bootloader support will use different gpt. Android Automotive only boot from eMMC, judgement here is complete
 if [ ${support_dual_bootloader} -eq 1 ]; then
     if [ ${card_size} -gt 0 ]; then
         partition_file="partition-table-${card_size}GB-dual.img";

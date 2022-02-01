@@ -28,7 +28,7 @@ options:
                         For Standard Android:
                             If the parameter after "-u" option contains the string of "dual", then spl&bootloader image will be flashed,
                             otherwise uboot image will be flashed
-                        For Android Automative:
+                        For Android Automotive:
                             only dual bootloader feature is supported, by default spl&bootloader image will be flashed
                         Below table lists the legal value supported now based on the soc_name provided:
                            ┌────────────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────┐
@@ -372,7 +372,7 @@ result_value=0
 usb_paths=""
 
 # We want to detect illegal feature input to some extent. Here it's based on SoC names. Since an SoC may be on a
-# board running different set of images(android and automative for a example), so misuse the features of one set of
+# board running different set of images(android and automotive for a example), so misuse the features of one set of
 # images when flash another set of images can not be detect early with this scenario.
 imx8mm_uboot_feature=(dual trusty-dual 4g-evk-uuu 4g ddr4-evk-uuu ddr4 evk-uuu trusty-4g trusty-secure-unlock trusty)
 imx8mn_uboot_feature=(dual trusty-dual evk-uuu trusty-secure-unlock trusty ddr4-evk-uuu ddr4)
