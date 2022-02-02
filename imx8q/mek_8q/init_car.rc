@@ -98,7 +98,7 @@ on property:vendor.vehicle.event=1 && property:vendor.evs.video.ready=1
 on property:vendor.vehicle.event=0
     stop evs_app
 
-on property:vendor.all.system_server.start=1
+on boot
     start audioserver
     start mediadrm
     start media
