@@ -194,7 +194,8 @@ if [ ${build_android_flag} -eq 1 ] || [ ${build_whole_android_flag} -eq 1 ]; the
         || [ ${TARGET_PRODUCT} = "evk_8ulp" ] \
         || [ ${TARGET_PRODUCT} = "evk_8mm" ] || [ ${TARGET_PRODUCT} = "evk_8mq" ]; then
             mv ${OUT}/boot.img ${OUT}/boot-imx.img
-            cp ${gki_bootimage} ${OUT}/boot.img
+            # sign prebuilt gki boot.img
+            IMX_SIGN_GKI=true make bootimage
         fi
     fi
 fi
