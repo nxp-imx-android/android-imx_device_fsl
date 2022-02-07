@@ -83,6 +83,11 @@ PRODUCT_COPY_FILES += \
 
 TARGET_BOARD_KERNEL_HEADERS := $(CONFIG_REPO_PATH)/common/kernel-headers
 
+ifeq ($(IMX_SIGN_GKI),true)
+BOARD_PREBUILT_BOOTIMAGE := vendor/nxp/fsl-proprietary/gki/boot.img
+TARGET_NO_KERNEL := true
+endif
+
 # -------@block_app-------
 # Enable dex-preoptimization to speed up first boot sequence
 ifeq ($(HOST_OS),linux)
