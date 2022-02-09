@@ -3,7 +3,7 @@
 KERNEL_NAME := Image.lz4
 TARGET_KERNEL_ARCH := arm64
 
-IMX8ULP_USES_GKI := true
+IMX8ULP_USES_GKI := false
 
 # -------@block_memory-------
 #Enable this to config 1GB ddr on evk_imx8ulp
