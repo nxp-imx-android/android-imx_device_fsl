@@ -51,7 +51,7 @@ KERNEL_CC_WRAPPER := $(CC_WRAPPER)
 KERNEL_AFLAGS :=
 TARGET_KERNEL_SRC := $(KERNEL_IMX_PATH)/kernel_imx
 
-CLANG_TO_COMPILE := LLVM=1 LLVM_IAS=1
+CLANG_TO_COMPILE := LLVM=1
 
 # Uncomment below line to use prebuilt clang tool in android platform code
 CLANG_PATH := $(realpath prebuilts/clang/host/linux-x86)
@@ -173,7 +173,7 @@ ifeq ($(CLANG_TO_COMPILE),)
 kernel_build_common_env = ARCH=$(KERNEL_ARCH) CROSS_COMPILE=$(strip $(KERNEL_CROSS_COMPILE_WRAPPER)) \
         KCFLAGS="$(KERNEL_CFLAGS)" KAFLAGS="$(KERNEL_AFLAGS)"
 else
-kernel_build_common_env = ARCH=$(KERNEL_ARCH) CROSS_COMPILE=aarch64-linux-gnu- \
+kernel_build_common_env = ARCH=$(KERNEL_ARCH) \
         KCFLAGS="$(KERNEL_CFLAGS)" KAFLAGS="$(KERNEL_AFLAGS)"
 endif
 kernel_build_make_env = $(kernel_build_common_env) $(CLANG_TO_COMPILE) -C $(TARGET_KERNEL_SRC) O=$(realpath $(KERNEL_OUT))
