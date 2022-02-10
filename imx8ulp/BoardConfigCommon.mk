@@ -84,7 +84,13 @@ PRODUCT_COPY_FILES += \
 TARGET_BOARD_KERNEL_HEADERS := $(CONFIG_REPO_PATH)/common/kernel-headers
 
 ifeq ($(IMX_SIGN_GKI),true)
+# boot-debug.img is built by IMX, with Google released kernel Image
+# boot.img is released by Google
+ifneq (,$(filter userdebug eng,$(TARGET_BUILD_VARIANT)))
+BOARD_PREBUILT_BOOTIMAGE := vendor/nxp/fsl-proprietary/gki/boot-debug.img
+else
 BOARD_PREBUILT_BOOTIMAGE := vendor/nxp/fsl-proprietary/gki/boot.img
+endif
 TARGET_NO_KERNEL := true
 endif
 
