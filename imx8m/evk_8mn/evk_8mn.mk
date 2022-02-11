@@ -406,6 +406,10 @@ else
     $(IMX_DEVICE_PATH)/init.recovery.nxp.rc:root/init.recovery.nxp.rc
 endif
 
+# Display Device Config
+PRODUCT_COPY_FILES += \
+    device/nxp/imx8m/displayconfig/display_port_0.xml:$(TARGET_COPY_OUT_VENDOR)/etc/displayconfig/display_port_0.xml
+
 # ONLY devices that meet the CDD's requirements may declare these features
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.audio.output.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.audio.output.xml \
