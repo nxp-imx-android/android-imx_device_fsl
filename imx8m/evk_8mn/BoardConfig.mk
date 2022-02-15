@@ -121,6 +121,9 @@ else
 BOARD_KERNEL_CMDLINE += cma=$(CMASIZE)@0x400M-0xb80M
 endif
 
+# Disable fw_devlink
+BOARD_KERNEL_CMDLINE += fw_devlink=off
+
 ifneq (,$(filter userdebug eng,$(TARGET_BUILD_VARIANT)))
 BOARD_BOOTCONFIG += androidboot.vendor.sysrq=1
 endif
