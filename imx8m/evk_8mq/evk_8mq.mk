@@ -173,6 +173,12 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.gatekeeper@1.0-service.software-imx
 
+# Confirmation UI
+ifeq ($(PRODUCT_IMX_TRUSTY),true)
+PRODUCT_PACKAGES += \
+    android.hardware.confirmationui@1.0-service.trusty
+endif
+
 # Add Trusty OS backed gatekeeper and secure storage proxy
 
 ifeq ($(PRODUCT_IMX_TRUSTY),true)
@@ -461,3 +467,10 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.software.activities_on_secondary_displays.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.activities_on_secondary_displays.xml \
     frameworks/native/data/etc/android.software.picture_in_picture.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.picture_in_picture.xml
 
+# Set CCodec property in default
+PRODUCT_PROPERTY_OVERRIDES += \
+    debug.stagefright.ccodec_delayed_params=true
+
+# trusty loadable apps
+PRODUCT_COPY_FILES += \
+    vendor/nxp/fsl-proprietary/uboot-firmware/imx8m/confirmationui.app:/vendor/firmware/tee/confirmationui.app
