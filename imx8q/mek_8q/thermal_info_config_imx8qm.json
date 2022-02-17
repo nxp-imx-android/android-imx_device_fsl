@@ -174,11 +174,11 @@
     ],
     "CoolingDevices":[
         {
-            "Name":"thermal-cpufreq-0",
+            "Name":"cpufreq-cpu0",
             "Type": "CPU"
         },
         {
-            "Name":"thermal-cpufreq-1",
+            "Name":"cpufreq-cpu4",
             "Type":"CPU"
         },
         {
