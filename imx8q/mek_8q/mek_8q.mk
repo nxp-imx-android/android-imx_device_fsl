@@ -493,7 +493,7 @@ PRODUCT_PACKAGES += \
 # -------@block_usb-------
 # Usb HAL
 PRODUCT_PACKAGES += \
-    android.hardware.usb@1.1-service.imx \
+    android.hardware.usb@1.3-service.imx \
     android.hardware.usb.gadget@1.2-service.imx
 
 PRODUCT_COPY_FILES += \
