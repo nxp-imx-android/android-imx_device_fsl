@@ -44,6 +44,10 @@ on property:sys.boot_completed=1
     chmod 0660 /sys/class/remoteproc/remoteproc0/state
     chown mediacodec mediacodec /sys/class/remoteproc/remoteproc0/name
     chmod 0660 /sys/class/remoteproc/remoteproc0/name
+    chown mediacodec mediacodec /sys/class/remoteproc/remoteproc1/state
+    chmod 0660 /sys/class/remoteproc/remoteproc1/state
+    chown mediacodec mediacodec /sys/class/remoteproc/remoteproc1/name
+    chmod 0660 /sys/class/remoteproc/remoteproc1/name
 
 on property:sys.boot_completed=1
     # update cpuset now that processors are up
