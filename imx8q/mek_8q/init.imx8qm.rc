@@ -56,6 +56,10 @@ on property:sys.boot_completed=1
     chmod 0660 /sys/class/remoteproc/remoteproc0/state
     chown mediacodec mediacodec /sys/class/remoteproc/remoteproc0/name
     chmod 0660 /sys/class/remoteproc/remoteproc0/name
+    chown mediacodec mediacodec /sys/class/remoteproc/remoteproc2/state
+    chmod 0660 /sys/class/remoteproc/remoteproc2/state
+    chown mediacodec mediacodec /sys/class/remoteproc/remoteproc2/name
+    chmod 0660 /sys/class/remoteproc/remoteproc2/name
 
 # Android Automotve have boot time tuning
 # which set the A72 core as CPU0 and CPU1
