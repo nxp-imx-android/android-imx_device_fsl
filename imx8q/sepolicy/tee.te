@@ -12,3 +12,5 @@ allow tee tee_data_file:dir create_dir_perms;
 
 # trusty_apploader operations
 allow tee vendor_file:file { read open map };
+allow tee metadata_file:dir { search };
+allow tee gsi_metadata_file:dir { search };
