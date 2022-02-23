@@ -2,7 +2,7 @@
 
 KERNEL_NAME := Image.lz4
 TARGET_KERNEL_ARCH := arm64
-IMX8MQ_USES_GKI := false
+IMX8MQ_USES_GKI := true
 
 #NXP 8997 wifi driver module
 BOARD_VENDOR_KERNEL_MODULES += \
@@ -19,13 +19,12 @@ BOARD_VENDOR_KERNEL_MODULES += \
 # CONFIG_MXC_MIPI_CSI: mxc_mipi_csi.ko, mipi driver which get the sensor data and send data to csi
 # CONFIG_MXC_CAMERA_OV5640_MIPI_V2: ov5640_camera_mipi_v2.ko, sensor ov5640 driver, the input of mipi
 # CONFIG_IMX_SDMA: imx-sdma.ko, sdma used for audio
-# CONFIG_SND_SOC_IMX_PCM_DMA: imx-pcm-dma.ko imx-pcm-dma-v2.ko
+# CONFIG_SND_SOC_IMX_PCM_DMA: imx-pcm-dma.ko
 # CONFIG_SND_SOC_FSL_SAI: snd-soc-fsl-sai.ko, imx core audio
 # CONFIG_SND_SOC_IMX_SPDIF: snd-soc-imx-spdif.ko snd-soc-fsl-spdif.ko, sound spdif code
-# CONFIG_SND_SOC_IMX_AK4458: snd-soc-imx-ak4458.o
-# CONFIG_SND_SOC_IMX_AK5558: snd-soc-imx-ak5558.o snd-soc-fsl-utils.ko snd-soc-ak5558.ko
+# CONFIG_SND_SOC_IMX_AK5558: snd-soc-ak5558.ko
 # CONFIG_SND_SOC_BT_SCO: snd-soc-bt-sco.ko, audio hdmi code
-# CONFIG_SND_SOC_IMX_CDNHDMI: snd-soc-hdmi-codec.ko snd-soc-imx-cdnhdmi.ko snd-soc-fsl-aud2htx.ko, used for hdmi audio
+# CONFIG_SND_SOC_IMX_CDNHDMI: snd-soc-hdmi-codec.ko snd-soc-imx-hdmi.ko snd-soc-fsl-aud2htx.ko, used for hdmi audio
 # CONFIG_SND_SIMPLE_CARD: snd-soc-simple-card.ko snd-soc-simple-card-utils.ko, connect cpu and codec
 # CONFIG_MXC_HANTRO: hantrodec.ko vpu decoder
 # CONFIG_MXC_HANTRO_V4L2: vsiv4l2.ko vpu decodder
@@ -43,19 +42,16 @@ BOARD_VENDOR_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/media/platform/mxc/capture/ov5640_camera_mipi_v2.ko \
     $(KERNEL_OUT)/drivers/dma/imx-sdma.ko \
     $(KERNEL_OUT)/sound/soc/fsl/imx-pcm-dma.ko \
-    $(KERNEL_OUT)/sound/soc/fsl/imx-pcm-dma-v2.ko \
     $(KERNEL_OUT)/sound/soc/fsl/snd-soc-fsl-aud2htx.ko \
-    $(KERNEL_OUT)/sound/soc/fsl/snd-soc-fsl-utils.ko \
     $(KERNEL_OUT)/sound/soc/fsl/snd-soc-fsl-sai.ko \
     $(KERNEL_OUT)/sound/soc/codecs/snd-soc-hdmi-codec.ko \
-    $(KERNEL_OUT)/sound/soc/fsl/snd-soc-imx-cdnhdmi.ko \
+    $(KERNEL_OUT)/sound/soc/fsl/snd-soc-imx-hdmi.ko \
     $(KERNEL_OUT)/sound/soc/fsl/snd-soc-fsl-spdif.ko \
     $(KERNEL_OUT)/sound/soc/fsl/snd-soc-imx-spdif.ko \
+    $(KERNEL_OUT)/sound/soc/fsl/snd-soc-imx-card.ko \
     $(KERNEL_OUT)/sound/soc/codecs/snd-soc-wm8524.ko \
     $(KERNEL_OUT)/sound/soc/codecs/snd-soc-ak5558.ko \
     $(KERNEL_OUT)/sound/soc/codecs/snd-soc-ak4458.ko \
-    $(KERNEL_OUT)/sound/soc/fsl/snd-soc-imx-ak4458.ko \
-    $(KERNEL_OUT)/sound/soc/fsl/snd-soc-imx-ak5558.ko \
     $(KERNEL_OUT)/sound/soc/codecs/snd-soc-bt-sco.ko \
     $(KERNEL_OUT)/sound/soc/generic/snd-soc-simple-card.ko \
     $(KERNEL_OUT)/sound/soc/generic/snd-soc-simple-card-utils.ko \
@@ -72,7 +68,7 @@ BOARD_VENDOR_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/input/touchscreen/synaptics_dsx/synaptics_dsx_i2c.ko
 endif
 
-# CONFIG_ZRAM: zram.ko, lzo.ko, lzo-rle.ko compressed ram using LZ coding.
+# CONFIG_ZRAM: zram.ko compressed ram using LZ coding.
 # CONFIG_ZSMALLOC: zsmalloc.ko
 # CONFIG_CLK_IMX8MP: clk-imx8mq.ko
 # CONFIG_TIMER_IMX_SYS_CTR: timer-imx-sysctr.ko
@@ -104,15 +100,13 @@ endif
 # CONFIG_DRM_IMX: imxdrm.ko, imx-lcdif-crtc.ko
 # CONFIG_USB_DWC3: dwc3-imx8mp.ko
 # CONFIG_TYPEC_SWITCH_GPIO: gpio-switch.ko
-# CONFIG_VIDEO_IMX_CAPTURE: imx8-media-dev.ko, imx8-isi-cap.ko, imx8-isi-hw.ko, imx8-isi-m2m.ko, imx8-mipi-csi2-sam.ko, imx isi and mipi driver
+# CONFIG_VIDEO_IMX_CAPTURE: imx8-media-dev.ko, imx8-isi-capture.ko, imx8-isi-hw.ko, imx8-isi-mem2mem.ko, imx8-mipi-csi2-sam.ko, imx isi and mipi driver
 # CONFIG_CFG80211: cfg80211.ko, cfg80211 - wireless configuration API
 # CONFIG_MAC80211: mac80211.ko, Generic IEEE 802.11 Networking Stack
 
 ifeq ($(IMX8MQ_USES_GKI),true)
 BOARD_VENDOR_RAMDISK_KERNEL_MODULES += \
     $(KERNEL_OUT)/mm/zsmalloc.ko \
-    $(KERNEL_OUT)/crypto/lzo.ko \
-    $(KERNEL_OUT)/crypto/lzo-rle.ko \
     $(KERNEL_OUT)/drivers/block/zram/zram.ko \
     $(KERNEL_OUT)/drivers/soc/imx/soc-imx8m.ko \
     $(KERNEL_OUT)/drivers/clk/imx/mxc-clk.ko \
@@ -171,10 +165,11 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/usb/typec/mux/gpio-switch.ko \
     $(KERNEL_OUT)/drivers/power/supply/dummy_battery.ko \
     $(KERNEL_OUT)/drivers/media/rc/gpio-ir-recv.ko \
+    $(KERNEL_OUT)/drivers/media/v4l2-core/v4l2-async.ko \
     $(KERNEL_OUT)/drivers/media/v4l2-core/v4l2-fwnode.ko \
-    $(KERNEL_OUT)/drivers/staging/media/imx/imx8-isi-cap.ko \
+    $(KERNEL_OUT)/drivers/staging/media/imx/imx8-isi-capture.ko \
     $(KERNEL_OUT)/drivers/staging/media/imx/imx8-isi-hw.ko \
-    $(KERNEL_OUT)/drivers/staging/media/imx/imx8-isi-m2m.ko \
+    $(KERNEL_OUT)/drivers/staging/media/imx/imx8-isi-mem2mem.ko \
     $(KERNEL_OUT)/drivers/staging/media/imx/imx8-mipi-csi2-sam.ko \
     $(KERNEL_OUT)/drivers/trusty/trusty-ipc.ko \
     $(KERNEL_OUT)/drivers/trusty/trusty-core.ko \
