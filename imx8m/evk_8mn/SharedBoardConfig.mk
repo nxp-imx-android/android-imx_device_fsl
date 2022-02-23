@@ -1,7 +1,7 @@
 # -------@block_kernel_bootimg-------
 KERNEL_NAME := Image.lz4
 TARGET_KERNEL_ARCH := arm64
-IMX8MN_USES_GKI := false
+IMX8MN_USES_GKI := true
 
 # NXP 8987 wifi driver module
 BOARD_VENDOR_KERNEL_MODULES += \
@@ -20,7 +20,6 @@ BOARD_VENDOR_KERNEL_MODULES += \
 # CONFIG_SND_SOC_FSL_SAI: snd-soc-fsl-sai.ko, audio cpu, privide i2s
 # CONFIG_IMX_SDMA: imx-sdma.ko, sdma used for audio
 # CONFIG_SND_SOC_FSL_MICFIL: snd-soc-fsl-micfil.ko, used in audio mic
-# CONFIG_SND_SOC_IMX_MICFIL: snd-soc-imx-micfil.ko, used in audio mic
 # CONFIG_SND_SOC_IMX_PCM_DMA: imx-pcm-dma-common.ko, used in fsl_micfil
 # CONFIG_MXC_HANTRO: hantrodec.ko vpu decoder
 # CONFIG_MXC_HANTRO_845: hantrodec_845s.ko vpu decodder
@@ -39,9 +38,7 @@ BOARD_VENDOR_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/media/platform/mxc/capture/ov5640_camera_mipi_v2.ko \
     $(KERNEL_OUT)/drivers/dma/imx-sdma.ko \
     $(KERNEL_OUT)/sound/soc/fsl/imx-pcm-dma.ko \
-    $(KERNEL_OUT)/sound/soc/fsl/imx-pcm-dma-v2.ko \
     $(KERNEL_OUT)/sound/soc/fsl/snd-soc-fsl-micfil.ko \
-    $(KERNEL_OUT)/sound/soc/fsl/snd-soc-imx-micfil.ko \
     $(KERNEL_OUT)/sound/soc/fsl/snd-soc-fsl-asrc.ko \
     $(KERNEL_OUT)/sound/soc/fsl/snd-soc-fsl-easrc.ko \
     $(KERNEL_OUT)/sound/soc/fsl/snd-soc-fsl-sai.ko \
@@ -50,14 +47,12 @@ BOARD_VENDOR_KERNEL_MODULES += \
     $(KERNEL_OUT)/sound/soc/codecs/snd-soc-wm8524.ko \
     $(KERNEL_OUT)/sound/soc/codecs/snd-soc-ak5558.ko \
     $(KERNEL_OUT)/sound/soc/codecs/snd-soc-ak4458.ko \
-    $(KERNEL_OUT)/sound/soc/fsl/snd-soc-imx-ak4458.ko \
-    $(KERNEL_OUT)/sound/soc/fsl/snd-soc-imx-ak5558.ko \
     $(KERNEL_OUT)/sound/soc/codecs/snd-soc-bt-sco.ko \
-    $(KERNEL_OUT)/sound/soc/codecs/snd-soc-hdmi-codec.ko \
     $(KERNEL_OUT)/sound/soc/generic/snd-soc-simple-card.ko \
     $(KERNEL_OUT)/sound/soc/generic/snd-soc-simple-card-utils.ko \
     $(KERNEL_OUT)/sound/soc/fsl/snd-soc-imx-audmux.ko \
     $(KERNEL_OUT)/sound/soc/fsl/snd-soc-fsl-asoc-card.ko \
+    $(KERNEL_OUT)/sound/soc/fsl/snd-soc-imx-card.ko \
     $(KERNEL_OUT)/drivers/rtc/rtc-snvs.ko \
     $(KERNEL_OUT)/drivers/pps/pps_core.ko \
     $(KERNEL_OUT)/drivers/ptp/ptp.ko \
@@ -68,7 +63,7 @@ BOARD_VENDOR_KERNEL_MODULES +=     \
     $(KERNEL_OUT)/drivers/input/touchscreen/synaptics_dsx/synaptics_dsx_i2c.ko
 endif
 
-# CONFIG_ZRAM: zram.ko, lzo.ko, lzo-rle.ko compressed ram using LZ coding.
+# CONFIG_ZRAM: zram.ko compressed ram using LZ coding.
 # CONFIG_ZSMALLOC: zsmalloc.ko
 # CONFIG_CLK_IMX8MM: clk-imx8mm.ko
 # CONFIG_IMX8M_PM_DOMAINS: imx8m_pm_domains.ko, this driver still not upstream
@@ -94,15 +89,13 @@ endif
 # CONFIG_NOP_USB_XCEIV: phy-generic.ko
 # CONFIG_TYPEC_TCPCI: tcpci.ko
 # CONFIG_USB_EHCI_HCD: ehci-hcd.ko
-# CONFIG_VIDEO_IMX_CAPTURE: imx8-media-dev.ko, imx8-isi-cap.ko, imx8-isi-hw.ko, imx8-isi-m2m.ko, imx8-mipi-csi2-sam.ko, imx isi and mipi driver
+# CONFIG_VIDEO_IMX_CAPTURE: imx8-media-dev.ko, imx8-isi-capture.ko, imx8-isi-hw.ko, imx8-isi-mem2mem.ko, imx8-mipi-csi2-sam.ko, imx isi and mipi driver
 # CONFIG_CFG80211: cfg80211.ko, cfg80211 - wireless configuration API
 # CONFIG_MAC80211: mac80211.ko, Generic IEEE 802.11 Networking Stack
 
 ifeq ($(IMX8MN_USES_GKI),true)
 BOARD_VENDOR_RAMDISK_KERNEL_MODULES += \
     $(KERNEL_OUT)/mm/zsmalloc.ko \
-    $(KERNEL_OUT)/crypto/lzo.ko \
-    $(KERNEL_OUT)/crypto/lzo-rle.ko \
     $(KERNEL_OUT)/drivers/block/zram/zram.ko \
     $(KERNEL_OUT)/drivers/soc/imx/soc-imx8m.ko \
     $(KERNEL_OUT)/drivers/clk/imx/mxc-clk.ko \
@@ -156,12 +149,13 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/usb/phy/phy-generic.ko \
     $(KERNEL_OUT)/drivers/power/supply/dummy_battery.ko \
     $(KERNEL_OUT)/drivers/media/rc/gpio-ir-recv.ko \
+    $(KERNEL_OUT)/drivers/media/v4l2-core/v4l2-async.ko \
     $(KERNEL_OUT)/drivers/media/v4l2-core/v4l2-fwnode.ko \
     $(KERNEL_OUT)/drivers/media/i2c/ov5640.ko \
     $(KERNEL_OUT)/drivers/staging/media/imx/imx8-capture.ko \
-    $(KERNEL_OUT)/drivers/staging/media/imx/imx8-isi-cap.ko \
+    $(KERNEL_OUT)/drivers/staging/media/imx/imx8-isi-capture.ko \
     $(KERNEL_OUT)/drivers/staging/media/imx/imx8-isi-hw.ko \
-    $(KERNEL_OUT)/drivers/staging/media/imx/imx8-isi-m2m.ko \
+    $(KERNEL_OUT)/drivers/staging/media/imx/imx8-isi-mem2mem.ko \
     $(KERNEL_OUT)/drivers/staging/media/imx/imx8-mipi-csi2-sam.ko \
     $(KERNEL_OUT)/drivers/trusty/trusty-ipc.ko \
     $(KERNEL_OUT)/drivers/trusty/trusty-core.ko \

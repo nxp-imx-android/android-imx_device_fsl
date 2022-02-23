@@ -3,7 +3,7 @@
 KERNEL_NAME := Image.lz4
 TARGET_KERNEL_ARCH := arm64
 
-IMX8ULP_USES_GKI := false
+IMX8ULP_USES_GKI := true
 
 # -------@block_memory-------
 #Enable this to config 1GB ddr on evk_imx8ulp
@@ -13,7 +13,7 @@ LOW_MEMORY := false
 #Enable this to include trusty support
 PRODUCT_IMX_TRUSTY := true
 
-# CONFIG_ZRAM: zram.ko, lzo.ko, lzo-rle.ko compressed ram using LZ coding.
+# CONFIG_ZRAM: zram.ko, compressed ram using LZ coding.
 # CONFIG_ZSMALLOC: zsmalloc.ko
 # CONFIG_HWMON: hwmon.ko, hardware monitor
 # CONFIG_SENSORS_ARM_SCMI: scmi-hwmon.ko, ARM SCMI sensors
@@ -22,8 +22,8 @@ PRODUCT_IMX_TRUSTY := true
 # CONFIG_CLK_IMX8ULP: clk-imx8ulp.ko
 # CONFIG_IMX_MBOX: imx-mailbox.ko
 # CONFIG_IMX_REMOTEPROC: imx_rproc.ko
-# CONFIG_IMX_SENTNL_MU: sentnl-mu.ko, sentnl firmware driver
-# CONFIG_RPMSG_VIRTIO: virtio_rpmsg_bus.ko
+# CONFIG_IMX_SENCLAVE_MU: sentnl-mu.ko, sentnl firmware driver
+# CONFIG_RPMSG_VIRTIO: virtio_rpmsg_bus.ko, rpmsg_ns.ko
 # CONFIG_PINCTRL_IMX8ULP: pinctrl-imx.ko, pinctrl-imx8ulp.ko
 # CONFIG_SERIAL_FSL_LPUART: fsl_lpuart.ko
 # CONFIG_I2C_IMX_LPI2C: i2c-imx-lpi2c.ko
@@ -49,7 +49,6 @@ PRODUCT_IMX_TRUSTY := true
 # CONFIG_DMABUF_HEAPS_DSP: dsp_heap.ko
 # CONFIG_DMABUF_HEAPS_SYSTEM: system_heap.ko
 # CONFIG_DMABUF_HEAPS_CMA: cma_heap.ko
-# CONFIG_DMABUF_HEAPS_SECURE: secure_heap.ko
 # CONFIG_DMABUF_IMX: dma-buf-imx.ko
 # CONFIG_USB_MXS_PHY: phy-mxs-usb.ko
 # CONFIG_USB_CHIPIDEA_IMX: usbmisc_imx.ko, ci_hdrc_imx.ko
@@ -73,8 +72,6 @@ PRODUCT_IMX_TRUSTY := true
 ifeq ($(IMX8ULP_USES_GKI),true)
 BOARD_VENDOR_RAMDISK_KERNEL_MODULES += \
     $(KERNEL_OUT)/mm/zsmalloc.ko \
-    $(KERNEL_OUT)/crypto/lzo.ko \
-    $(KERNEL_OUT)/crypto/lzo-rle.ko \
     $(KERNEL_OUT)/drivers/block/zram/zram.ko \
     $(KERNEL_OUT)/drivers/hwmon/hwmon.ko \
     $(KERNEL_OUT)/drivers/hwmon/scmi-hwmon.ko \
@@ -83,7 +80,8 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/clk/imx/clk-imx8ulp.ko \
     $(KERNEL_OUT)/drivers/mailbox/imx-mailbox.ko \
     $(KERNEL_OUT)/drivers/remoteproc/imx_rproc.ko \
-    $(KERNEL_OUT)/drivers/firmware/imx/sentnl-mu.ko \
+    $(KERNEL_OUT)/drivers/firmware/imx/el_enclave.ko \
+    $(KERNEL_OUT)/drivers/rpmsg/rpmsg_ns.ko \
     $(KERNEL_OUT)/drivers/rpmsg/virtio_rpmsg_bus.ko \
     $(KERNEL_OUT)/drivers/pinctrl/freescale/pinctrl-imx.ko \
     $(KERNEL_OUT)/drivers/pinctrl/freescale/pinctrl-imx8ulp.ko \
@@ -112,7 +110,6 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/power/supply/dummy_battery.ko \
     $(KERNEL_OUT)/drivers/dma-buf/heaps/system_heap.ko \
     $(KERNEL_OUT)/drivers/dma-buf/heaps/cma_heap.ko \
-    $(KERNEL_OUT)/drivers/dma-buf/heaps/secure_heap.ko \
     $(KERNEL_OUT)/drivers/dma-buf/heaps/dsp_heap.ko \
     $(KERNEL_OUT)/drivers/dma-buf/dma-buf-imx.ko \
     $(KERNEL_OUT)/drivers/usb/chipidea/usbmisc_imx.ko \
@@ -127,11 +124,12 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/gpu/drm/bridge/it6161.ko \
     $(KERNEL_OUT)/drivers/gpu/drm/imx/dcnano/imx-dcnano-drm.ko \
     $(KERNEL_OUT)/drivers/gpu/drm/panel/panel-rocktech-hx8394f.ko \
+    $(KERNEL_OUT)/drivers/media/v4l2-core/v4l2-async.ko \
     $(KERNEL_OUT)/drivers/media/v4l2-core/v4l2-fwnode.ko \
     $(KERNEL_OUT)/drivers/media/i2c/ov5640.ko \
     $(KERNEL_OUT)/drivers/staging/media/imx/imx8-isi-hw.ko \
-    $(KERNEL_OUT)/drivers/staging/media/imx/imx8-isi-cap.ko \
-    $(KERNEL_OUT)/drivers/staging/media/imx/imx8-isi-m2m.ko \
+    $(KERNEL_OUT)/drivers/staging/media/imx/imx8-isi-capture.ko \
+    $(KERNEL_OUT)/drivers/staging/media/imx/imx8-isi-mem2mem.ko \
     $(KERNEL_OUT)/drivers/staging/media/imx/imx8-capture.ko \
     $(KERNEL_OUT)/drivers/staging/media/imx/imx8-mipi-csi2.ko \
     $(KERNEL_OUT)/drivers/staging/media/imx/imx8-media-dev.ko \
@@ -156,7 +154,7 @@ endif
 # CONFIG_FB_FENCE: fb_fence.ko
 # CONFIG_FB_MXC, CONFIG_FB_MXC_EINK_V2_PANEL: mxc_edid.ko, mxc_epdc_v2_fb.ko
 # CONFIG_SND_SOC_BT_SCO: snd-soc-bt-sco.ko
-# CONFIG_SND_IMX_SOC: imx-pcm-dma.ko, imx-pcm-dma-v2.ko
+# CONFIG_SND_IMX_SOC: imx-pcm-dma.ko
 # CONFIG_SND_SOC_FSL_SPDIF: snd-soc-fsl-spdif.ko
 # CONFIG_SND_SOC_IMX_SPDIF: snd-soc-imx-spdif.ko
 # CONFIG_SND_SIMPLE_CARD: snd-soc-simple-card-utils.ko, snd-soc-simple-card.ko
@@ -169,8 +167,7 @@ endif
 # CONFIG_SND_SOC_RPMSG_WM8960_I2C: snd-soc-rpmsg-wm8960-i2c.ko
 # CONFIG_IMX_DSP_REMOTEPROC: imx_dsp_rproc.ko
 # CONFIG_TOUCHSCREEN_GOODIX: goodix.ko
-# CONFIG_INPUT_POLLDEV: input-polldev.ko
-# CONFIG_INPUT_MPL3115: mpl3115.ko
+# CONFIG_MPL3115: mpl3115.ko
 # CONFIG_KEYBOARD_RPMSG: rpmsg-keys.ko
 # CONFIG_IIO_ST_LSM6DSX: st_lsm6dsx.ko
 # CONFIG_IIO_ST_LSM6DSX_I2C: st_lsm6dsx_i2c.ko
@@ -197,7 +194,6 @@ BOARD_VENDOR_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/video/fbdev/mxc/mxc_edid.ko \
     $(KERNEL_OUT)/sound/soc/codecs/snd-soc-bt-sco.ko \
     $(KERNEL_OUT)/sound/soc/fsl/imx-pcm-dma.ko \
-    $(KERNEL_OUT)/sound/soc/fsl/imx-pcm-dma-v2.ko \
     $(KERNEL_OUT)/sound/soc/fsl/snd-soc-fsl-spdif.ko \
     $(KERNEL_OUT)/sound/soc/fsl/snd-soc-imx-spdif.ko \
     $(KERNEL_OUT)/sound/soc/generic/snd-soc-simple-card-utils.ko \
@@ -211,12 +207,11 @@ BOARD_VENDOR_KERNEL_MODULES += \
     $(KERNEL_OUT)/sound/soc/codecs/snd-soc-rpmsg-wm8960-i2c.ko \
     $(KERNEL_OUT)/drivers/remoteproc/imx_dsp_rproc.ko \
     $(KERNEL_OUT)/drivers/input/touchscreen/goodix.ko \
-    $(KERNEL_OUT)/drivers/input/input-polldev.ko \
-    $(KERNEL_OUT)/drivers/input/misc/mpl3115.ko \
     $(KERNEL_OUT)/drivers/input/keyboard/rpmsg-keys.ko \
     $(KERNEL_OUT)/drivers/iio/buffer/kfifo_buf.ko \
     $(KERNEL_OUT)/drivers/iio/imu/st_lsm6dsx/st_lsm6dsx.ko \
     $(KERNEL_OUT)/drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_i2c.ko \
+    $(KERNEL_OUT)/drivers/iio/pressure/mpl3115.ko \
     $(KERNEL_OUT)/drivers/mtd/mtd.ko \
     $(KERNEL_OUT)/drivers/mtd/chips/chipreg.ko \
     $(KERNEL_OUT)/drivers/mtd/parsers/ofpart.ko \

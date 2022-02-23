@@ -3,7 +3,7 @@
 KERNEL_NAME := Image.lz4
 TARGET_KERNEL_ARCH := arm64
 
-IMX8MM_USES_GKI ?= false
+IMX8MM_USES_GKI ?= true
 
 # CONFIG_TOUCHSCREEN_SYNAPTICS_DSX_I2C: synaptics_dsx_i2c.ko, mipi-panel touch driver module
 # CONFIG_VIDEO_MXC_CSI_CAMERA: mx6s_capture.ko, it's csi adapt driver which is the input of v4l2 framework
@@ -17,7 +17,6 @@ IMX8MM_USES_GKI ?= false
 # CONFIG_SND_SOC_FSL_SAI: snd-soc-fsl-sai.ko, audio cpu, privide i2s
 # CONFIG_IMX_SDMA: imx-sdma.ko, sdma used for audio
 # CONFIG_SND_SOC_FSL_MICFIL: snd-soc-fsl-micfil.ko, used in audio mic
-# CONFIG_SND_SOC_IMX_MICFIL: snd-soc-imx-micfil.ko, used in audio mic
 # CONFIG_SND_SOC_IMX_PCM_DMA: imx-pcm-dma-common.ko, used in fsl_micfil
 # CONFIG_MXC_HANTRO_845: hantrodec_845s.ko vpu decodder
 # CONFIG_MXC_HANTRO_845_H1: hx280enc.ko vpu encoder
@@ -32,12 +31,11 @@ BOARD_VENDOR_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/thermal/imx8mm_thermal.ko \
     $(KERNEL_OUT)/drivers/media/platform/mxc/capture/mx6s_capture.ko \
     $(KERNEL_OUT)/drivers/media/platform/mxc/capture/mxc_mipi_csi.ko \
+    $(KERNEL_OUT)/drivers/media/v4l2-core/v4l2-async.ko \
     $(KERNEL_OUT)/drivers/media/platform/mxc/capture/ov5640_camera_mipi_v2.ko \
     $(KERNEL_OUT)/drivers/gpio/gpio-pca953x.ko \
     $(KERNEL_OUT)/sound/soc/fsl/imx-pcm-dma.ko \
-    $(KERNEL_OUT)/sound/soc/fsl/imx-pcm-dma-v2.ko \
     $(KERNEL_OUT)/sound/soc/fsl/snd-soc-fsl-micfil.ko \
-    $(KERNEL_OUT)/sound/soc/fsl/snd-soc-imx-micfil.ko \
     $(KERNEL_OUT)/sound/soc/fsl/snd-soc-fsl-asrc.ko \
     $(KERNEL_OUT)/sound/soc/fsl/snd-soc-fsl-easrc.ko \
     $(KERNEL_OUT)/sound/soc/fsl/snd-soc-fsl-sai.ko \
@@ -47,10 +45,9 @@ BOARD_VENDOR_KERNEL_MODULES += \
     $(KERNEL_OUT)/sound/soc/codecs/snd-soc-ak4458.ko \
     $(KERNEL_OUT)/sound/soc/codecs/snd-soc-ak5558.ko \
     $(KERNEL_OUT)/sound/soc/codecs/snd-soc-bt-sco.ko \
-    $(KERNEL_OUT)/sound/soc/codecs/snd-soc-hdmi-codec.ko \
     $(KERNEL_OUT)/sound/soc/generic/snd-soc-simple-card.ko \
     $(KERNEL_OUT)/sound/soc/generic/snd-soc-simple-card-utils.ko \
-    $(KERNEL_OUT)/sound/soc/fsl/snd-soc-imx-ak4458.ko \
+    $(KERNEL_OUT)/drivers/rpmsg/rpmsg_ns.ko \
     $(KERNEL_OUT)/drivers/rpmsg/virtio_rpmsg_bus.ko \
     $(KERNEL_OUT)/drivers/remoteproc/imx_rproc.ko \
     $(KERNEL_OUT)/drivers/i2c/busses/i2c-rpmsg-imx.ko \
@@ -59,7 +56,7 @@ BOARD_VENDOR_KERNEL_MODULES += \
     $(KERNEL_OUT)/sound/soc/fsl/imx-audio-rpmsg.ko \
     $(KERNEL_OUT)/sound/soc/codecs/snd-soc-rpmsg-ak4497.ko \
     $(KERNEL_OUT)/sound/soc/fsl/snd-soc-imx-rpmsg.ko \
-    $(KERNEL_OUT)/sound/soc/fsl/snd-soc-imx-ak4497.ko \
+    $(KERNEL_OUT)/sound/soc/fsl/snd-soc-imx-card.ko \
     $(KERNEL_OUT)/drivers/mxc/hantro_845/hantrodec_845s.ko \
     $(KERNEL_OUT)/drivers/mxc/hantro_845_h1/hx280enc.ko \
     $(KERNEL_OUT)/drivers/mxc/hantro_v4l2/vsiv4l2.ko \
@@ -73,7 +70,7 @@ BOARD_VENDOR_KERNEL_MODULES +=     \
     $(KERNEL_OUT)/drivers/input/touchscreen/synaptics_dsx/synaptics_dsx_i2c.ko
 endif
 
-# CONFIG_ZRAM: zram.ko, lzo.ko, lzo-rle.ko compressed ram using LZ coding.
+# CONFIG_ZRAM: zram.ko compressed ram using LZ coding.
 # CONFIG_ZSMALLOC: zsmalloc.ko
 # CONFIG_CLK_IMX8MM: clk-imx8mm.ko
 # CONFIG_IMX8M_PM_DOMAINS: imx8m_pm_domains.ko, this driver still not upstream
@@ -106,8 +103,6 @@ endif
 ifeq ($(IMX8MM_USES_GKI),true)
 BOARD_VENDOR_RAMDISK_KERNEL_MODULES +=     \
     $(KERNEL_OUT)/mm/zsmalloc.ko \
-    $(KERNEL_OUT)/crypto/lzo.ko \
-    $(KERNEL_OUT)/crypto/lzo-rle.ko \
     $(KERNEL_OUT)/drivers/block/zram/zram.ko \
     $(KERNEL_OUT)/drivers/soc/imx/soc-imx8m.ko \
     $(KERNEL_OUT)/drivers/clk/imx/mxc-clk.ko \
