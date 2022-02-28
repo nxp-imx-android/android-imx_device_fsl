@@ -193,4 +193,7 @@
 
     <!-- Boolean indicating whether system support sustained performance mode. -->
     <bool name="config_sustainedPerformanceModeSupported">true</bool>
+
+    <!-- show global actions menu when long press power button -->
+    <integer name="config_longPressOnPowerBehavior">1</integer>
 </resources>

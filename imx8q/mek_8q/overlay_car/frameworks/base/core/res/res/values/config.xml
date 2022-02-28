@@ -42,4 +42,7 @@
 
     <!-- Car uses hardware amplifier for volume. -->
     <bool name="config_useFixedVolume">true</bool>
+
+    <!-- show global actions menu when long press power button -->
+    <integer name="config_longPressOnPowerBehavior">1</integer>
 </resources>
