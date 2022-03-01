@@ -143,7 +143,8 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES += \
     $(KERNEL_OUT)/net/mac80211/mac80211.ko
 else
 BOARD_VENDOR_RAMDISK_KERNEL_MODULES +=     \
-    $(KERNEL_OUT)/drivers/input/touchscreen/goodix.ko
+    $(KERNEL_OUT)/drivers/input/touchscreen/goodix.ko \
+    $(KERNEL_OUT)/drivers/staging/media/imx/imx8-media-dev.ko
 endif
 
 # CONFIG_MFD_FP9931: fp9931-core.ko
