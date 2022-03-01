@@ -53,6 +53,9 @@ ifeq ($(PRODUCT_IMX_CAR_M4),true)
 endif
 endif
 
+BOARD_VENDOR_RAMDISK_KERNEL_MODULES += \
+    $(KERNEL_OUT)/drivers/staging/media/imx/imx8-media-dev.ko
+
 # -------@block_security-------
 #Enable this to include trusty support
 PRODUCT_IMX_TRUSTY := true
