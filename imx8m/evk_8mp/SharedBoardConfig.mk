@@ -77,17 +77,16 @@ BOARD_VENDOR_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/ptp/ptp.ko \
     $(KERNEL_OUT)/drivers/pps/pps_core.ko \
     $(KERNEL_OUT)/drivers/net/ethernet/freescale/fec.ko
-else
-BOARD_VENDOR_KERNEL_MODULES +=     \
-    $(KERNEL_OUT)/drivers/input/touchscreen/synaptics_dsx/synaptics_dsx_i2c.ko
-endif
-
 ifeq ($(POWERSAVE),true)
 BOARD_VENDOR_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/soc/imx/lpa_ctrl.ko \
     $(KERNEL_OUT)/sound/soc/codecs/snd-soc-rpmsg-pcm512x.ko \
     $(KERNEL_OUT)/sound/soc/codecs/snd-soc-rpmsg-pcm512x-i2c.ko \
     $(KERNEL_OUT)/sound/soc/codecs/snd-soc-tpa6130a2.ko
+endif
+else
+BOARD_VENDOR_KERNEL_MODULES +=     \
+    $(KERNEL_OUT)/drivers/input/touchscreen/synaptics_dsx/synaptics_dsx_i2c.ko
 endif
 
 # CONFIG_ZRAM: zram.ko, lzo.ko, lzo-rle.ko compressed ram using LZ coding.
