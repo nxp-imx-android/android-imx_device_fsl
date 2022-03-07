@@ -143,7 +143,7 @@ ifeq ($(TARGET_USE_DYNAMIC_PARTITIONS),true)
     TARGET_BOARD_DTS_CONFIG ?= imx8ulp:imx8ulp-evk-no-product.dtb
   else
     # Support MIPI panel
-    TARGET_BOARD_DTS_CONFIG += imx8ulp:imx8ulp-evk-rk055hdmipi4m.dtb
+    TARGET_BOARD_DTS_CONFIG += imx8ulp:imx8ulp-evk-rk055hdmipi4mv2.dtb
     # Support HDMI
     TARGET_BOARD_DTS_CONFIG += imx8ulp-hdmi:imx8ulp-evk.dtb
     # Support EPDC

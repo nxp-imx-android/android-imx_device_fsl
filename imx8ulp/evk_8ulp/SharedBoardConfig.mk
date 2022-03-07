@@ -59,7 +59,7 @@ PRODUCT_IMX_TRUSTY := true
 # CONFIG_DRM_NWL_MIPI_DSI: nwl-dsi.ko
 # CONFIG_DRM_ITE_IT6263: it6161.ko
 # CONFIG_DRM_IMX_DCNANO: imx-dcnano-drm.ko
-# CONFIG_DRM_PANEL_RAYDIUM_RM68200: panel-raydium-rm68200.ko
+# CONFIG_DRM_PANEL_ROCKTECK_HIMAX8394F: panel-rocktech-hx8394f.ko
 # CONFIG_MXC_GPU_VIV: galcore.ko
 # CONFIG_VIDEO_OV5640: ov5640.ko
 # CONFIG_IMX8_ISI_CAPTURE: imx8-capture.ko
@@ -69,6 +69,7 @@ PRODUCT_IMX_TRUSTY := true
 # CONFIG_TRUSTY: trusty-core.ko, trusty-irq.ko, trusty-log.ko, trusty-virtio.ko, trusty-ipc.ko
 # CONFIG_CFG80211: cfg80211.ko
 # CONFIG_MAC80211: mac80211.ko
+
 ifeq ($(IMX8ULP_USES_GKI),true)
 BOARD_VENDOR_RAMDISK_KERNEL_MODULES += \
     $(KERNEL_OUT)/mm/zsmalloc.ko \
@@ -125,7 +126,7 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/gpu/drm/bridge/nwl-dsi.ko \
     $(KERNEL_OUT)/drivers/gpu/drm/bridge/it6161.ko \
     $(KERNEL_OUT)/drivers/gpu/drm/imx/dcnano/imx-dcnano-drm.ko \
-    $(KERNEL_OUT)/drivers/gpu/drm/panel/panel-raydium-rm68200.ko \
+    $(KERNEL_OUT)/drivers/gpu/drm/panel/panel-rocktech-hx8394f.ko \
     $(KERNEL_OUT)/drivers/media/v4l2-core/v4l2-fwnode.ko \
     $(KERNEL_OUT)/drivers/media/i2c/ov5640.ko \
     $(KERNEL_OUT)/drivers/staging/media/imx/imx8-isi-hw.ko \
