@@ -16,17 +16,14 @@ endif
 
 ifeq ($(IMX8MP_USES_GKI),true)
 TARGET_KERNEL_DEFCONFIG := gki_defconfig
-  ifeq ($(POWERSAVE),true)
-    TARGET_KERNEL_GKI_DEFCONF:= imx8mp_powersave_gki.fragment
-  else
-    TARGET_KERNEL_GKI_DEFCONF:= imx8mp_gki.fragment
-  endif
+TARGET_KERNEL_GKI_DEFCONF:= imx8mp_gki.fragment
 else
 TARGET_KERNEL_DEFCONFIG := imx_v8_android_defconfig
 endif
 
+ifeq ($(POWERSAVE),true)
 TARGET_KERNEL_ADDITION_DEFCONF := android_addition_defconfig
-
+endif
 
 # absolute path is used, not the same as relative path used in AOSP make
 TARGET_DEVICE_DIR := $(patsubst %/, %, $(dir $(realpath $(lastword $(MAKEFILE_LIST)))))
