@@ -259,7 +259,7 @@ on property:ro.boot.powersave.usb=true
 
     #enable platform/32f10108.usb runtime_pm
     write /sys/devices/platform/soc@0/32f10108.usb/38200000.usb/power/control auto
-    write /sys/devices/platform/soc@0/32f10108.usb/38200000.usb/xhci-hcd.0.auto/power/control auto
+    write /sys/devices/platform/soc@0/32f10108.usb/38200000.usb/xhci-hcd.2.auto/power/control auto
 
 # setenv append_bootargs androidboot.lpa.enable=1
 on property:ro.boot.lpa.enable=1
