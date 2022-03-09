@@ -33,7 +33,7 @@ PRODUCT_MANUFACTURER := nxp
 # related to the definition and load of library modules
 TARGET_BOARD_PLATFORM := imx
 
-PRODUCT_SHIPPING_API_LEVEL := 30
+PRODUCT_SHIPPING_API_LEVEL := 31
 
 # -------@block_app-------
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -406,6 +406,13 @@ endif
 #Dumpstate HAL 1.1 support
 PRODUCT_PACKAGES += \
     android.hardware.dumpstate@1.1-service.imx
+
+# for userdebug or eng build, do not apply the debugfs restrictions
+ifneq (,$(filter user, $(TARGET_BUILD_VARIANT)))
+    PRODUCT_SET_DEBUGFS_RESTRICTIONS := true
+else
+    PRODUCT_SET_DEBUGFS_RESTRICTIONS := false
+endif
 
 # -------@block_treble-------
 # vndservicemanager
