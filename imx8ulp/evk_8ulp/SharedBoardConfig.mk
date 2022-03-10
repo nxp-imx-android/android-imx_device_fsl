@@ -54,6 +54,7 @@ PRODUCT_IMX_TRUSTY := true
 # CONFIG_USB_CHIPIDEA_IMX: usbmisc_imx.ko, ci_hdrc_imx.ko
 # CONFIG_USB_CHIPIDEA: ci_hdrc.ko
 # CONFIG_MUX_MMIO: mux-core.ko, mux-mmio.ko
+# CONFIG_TOUCHSCREEN_GOODIX: goodix.ko
 # CONFIG_PHY_MIXEL_MIPI_DPHY: phy-fsl-imx8-mipi-dphy.ko
 # CONFIG_DRM_NWL_MIPI_DSI: nwl-dsi.ko
 # CONFIG_DRM_ITE_IT6263: it6161.ko
@@ -119,6 +120,7 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/usb/chipidea/ci_hdrc_imx.ko \
     $(KERNEL_OUT)/drivers/mux/mux-core.ko \
     $(KERNEL_OUT)/drivers/mux/mux-mmio.ko \
+    $(KERNEL_OUT)/drivers/input/touchscreen/goodix.ko \
     $(KERNEL_OUT)/drivers/phy/freescale/phy-fsl-imx8-mipi-dphy.ko \
     $(KERNEL_OUT)/drivers/gpu/drm/bridge/nwl-dsi.ko \
     $(KERNEL_OUT)/drivers/gpu/drm/bridge/it6161.ko \
@@ -166,7 +168,6 @@ endif
 # CONFIG_SND_SOC_RPMSG_WM8960: snd-soc-rpmsg-wm8960.ko
 # CONFIG_SND_SOC_RPMSG_WM8960_I2C: snd-soc-rpmsg-wm8960-i2c.ko
 # CONFIG_IMX_DSP_REMOTEPROC: imx_dsp_rproc.ko
-# CONFIG_TOUCHSCREEN_GOODIX: goodix.ko
 # CONFIG_MPL3115: mpl3115.ko
 # CONFIG_KEYBOARD_RPMSG: rpmsg-keys.ko
 # CONFIG_IIO_ST_LSM6DSX: st_lsm6dsx.ko
@@ -206,7 +207,6 @@ BOARD_VENDOR_KERNEL_MODULES += \
     $(KERNEL_OUT)/sound/soc/codecs/snd-soc-rpmsg-wm8960.ko \
     $(KERNEL_OUT)/sound/soc/codecs/snd-soc-rpmsg-wm8960-i2c.ko \
     $(KERNEL_OUT)/drivers/remoteproc/imx_dsp_rproc.ko \
-    $(KERNEL_OUT)/drivers/input/touchscreen/goodix.ko \
     $(KERNEL_OUT)/drivers/input/keyboard/rpmsg-keys.ko \
     $(KERNEL_OUT)/drivers/iio/buffer/kfifo_buf.ko \
     $(KERNEL_OUT)/drivers/iio/imu/st_lsm6dsx/st_lsm6dsx.ko \
