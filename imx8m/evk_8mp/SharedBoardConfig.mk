@@ -80,11 +80,10 @@ BOARD_VENDOR_KERNEL_MODULES += \
     $(KERNEL_OUT)/sound/soc/codecs/snd-soc-rpmsg-pcm512x-i2c.ko \
     $(KERNEL_OUT)/sound/soc/codecs/snd-soc-tpa6130a2.ko
 endif
-else
-BOARD_VENDOR_KERNEL_MODULES +=     \
-    $(KERNEL_OUT)/drivers/input/touchscreen/synaptics_dsx/synaptics_dsx_i2c.ko
 endif
 
+# CONFIG_TOUCHSCREEN_GOODIX: goodix.ko, rm67199 mipi-panel touch driver module
+# CONFIG_TOUCHSCREEN_SYNAPTICS_DSX_I2C: synaptics_dsx_i2c.ko, rm67191 mipi-panel touch driver module
 # CONFIG_ZRAM: zram.ko, compressed ram using LZ coding.
 # CONFIG_ZSMALLOC: zsmalloc.ko
 # CONFIG_CLK_IMX8MP: clk-imx8mp.ko, clk-audiomix.ko, clk-gate-shared.ko, clk-hdmimix.ko
@@ -175,6 +174,7 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES +=     \
     $(KERNEL_OUT)/drivers/phy/freescale/phy-fsl-imx8mq-usb.ko \
     $(KERNEL_OUT)/drivers/phy/freescale/phy-fsl-imx8-pcie.ko \
     $(KERNEL_OUT)/drivers/input/keyboard/snvs_pwrkey.ko \
+    $(KERNEL_OUT)/drivers/input/touchscreen/goodix.ko \
     $(KERNEL_OUT)/drivers/input/touchscreen/synaptics_dsx/synaptics_dsx_i2c.ko \
     $(KERNEL_OUT)/drivers/gpu/imx/lcdif/imx-lcdif-core.ko \
     $(KERNEL_OUT)/drivers/gpu/drm/bridge/adv7511/adv7511.ko \
@@ -224,6 +224,8 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES +=     \
     $(KERNEL_OUT)/net/mac80211/mac80211.ko
 else
 BOARD_VENDOR_RAMDISK_KERNEL_MODULES +=     \
+    $(KERNEL_OUT)/drivers/input/touchscreen/goodix.ko \
+    $(KERNEL_OUT)/drivers/input/touchscreen/synaptics_dsx/synaptics_dsx_i2c.ko \
     $(TARGET_OUT_INTERMEDIATES)/VVCAM_OBJ/basler-camera-driver-vvcam.ko \
     $(TARGET_OUT_INTERMEDIATES)/VVCAM_OBJ/vvcam-video.ko \
     $(TARGET_OUT_INTERMEDIATES)/VVCAM_OBJ/vvcam-dwe.ko \

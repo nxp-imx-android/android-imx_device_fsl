@@ -63,11 +63,10 @@ BOARD_VENDOR_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/ptp/ptp.ko \
     $(KERNEL_OUT)/drivers/net/phy/at803x.ko \
     $(KERNEL_OUT)/drivers/net/ethernet/freescale/fec.ko
-else
-BOARD_VENDOR_KERNEL_MODULES += \
-    $(KERNEL_OUT)/drivers/input/touchscreen/synaptics_dsx/synaptics_dsx_i2c.ko
 endif
 
+# CONFIG_TOUCHSCREEN_GOODIX: goodix.ko, rm67199 mipi-panel touch driver module
+# CONFIG_TOUCHSCREEN_SYNAPTICS_DSX_I2C: synaptics_dsx_i2c.ko, rm67191 mipi-panel touch driver module
 # CONFIG_ZRAM: zram.ko compressed ram using LZ coding.
 # CONFIG_ZSMALLOC: zsmalloc.ko
 # CONFIG_CLK_IMX8MP: clk-imx8mq.ko
@@ -93,7 +92,6 @@ endif
 # CONFIG_RESET_IMX7: reset-imx7.ko
 # CONFIG_PHY_FSL_IMX8MQ_USB: phy-fsl-imx8mq-usb.ko
 # CONFIG_KEYBOARD_SNVS_PWRKEY: snvs_pwrkey.ko, snvs power key driver
-# mipi-panel touch driver module
 # CONFIG_IMX_LCDIF_CORE: imx-lcdif-core.ko
 # CONFIG_DRM_I2C_ADV7511: adv7511.ko
 # CONFIG_DRM_IMX_CDNS_MHDP: cdns_mhdp_drmcore.ko cdns_mhdp_imx.ko
@@ -148,6 +146,7 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/phy/freescale/phy-fsl-imx8-mipi-dphy.ko \
     $(KERNEL_OUT)/drivers/phy/freescale/phy-fsl-imx8mq-usb.ko \
     $(KERNEL_OUT)/drivers/input/keyboard/snvs_pwrkey.ko \
+    $(KERNEL_OUT)/drivers/input/touchscreen/goodix.ko \
     $(KERNEL_OUT)/drivers/input/touchscreen/synaptics_dsx/synaptics_dsx_i2c.ko \
     $(KERNEL_OUT)/drivers/gpu/drm/panel/panel-raydium-rm67191.ko \
     $(KERNEL_OUT)/drivers/gpu/drm/imx/dcss/imx-dcss.ko \
@@ -179,6 +178,10 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/staging/media/imx/imx8-media-dev.ko \
     $(KERNEL_OUT)/net/wireless/cfg80211.ko \
     $(KERNEL_OUT)/net/mac80211/mac80211.ko
+else
+BOARD_VENDOR_RAMDISK_KERNEL_MODULES += \
+    $(KERNEL_OUT)/drivers/input/touchscreen/goodix.ko \
+    $(KERNEL_OUT)/drivers/input/touchscreen/synaptics_dsx/synaptics_dsx_i2c.ko
 endif
 
 # -------@block_security-------

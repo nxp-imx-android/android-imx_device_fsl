@@ -174,8 +174,10 @@ ifeq ($(TARGET_USE_DYNAMIC_PARTITIONS),true)
     TARGET_BOARD_DTS_CONFIG += imx8mp-lvds:imx8mp-evk-it6263-lvds-dual-channel.dtb
     # Support LVDS panel
     TARGET_BOARD_DTS_CONFIG += imx8mp-lvds-panel:imx8mp-evk-jdi-wuxga-lvds-panel.dtb
-    # Support MIPI panel
-    TARGET_BOARD_DTS_CONFIG += imx8mp-mipi-panel:imx8mp-evk-rm67191.dtb
+    # Support rm67199 MIPI panel
+    TARGET_BOARD_DTS_CONFIG += imx8mp-mipi-panel:imx8mp-evk-rm67199.dtb
+    # Support rm67191 MIPI panel
+    TARGET_BOARD_DTS_CONFIG += imx8mp-mipi-panel-rm67191:imx8mp-evk-rm67191.dtb
     ifeq ($(POWERSAVE),true)
     #Used to support powersave
     TARGET_BOARD_DTS_CONFIG += imx8mp-powersave:imx8mp-evk-powersave.dtb

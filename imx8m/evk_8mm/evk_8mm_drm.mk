@@ -38,7 +38,7 @@ DECODED_BUFFER_LEN		:= 0x05C00000
 endif
 endif
 
-TARGET_BOARD_DTS_CONFIG := imx8mm:imx8mm-evk-drm.dtb imx8mm-mipi-panel:imx8mm-evk-rm67191.dtb imx8mm-m4:imx8mm-evk-m4.dtb
+TARGET_BOARD_DTS_CONFIG := imx8mm:imx8mm-evk-drm.dtb imx8mm-mipi-panel:imx8mm-evk-rm67199.dtb imx8mm-mipi-panel-rm67191:imx8mm-evk-rm67191.dtb imx8mm-m4:imx8mm-evk-m4.dtb
 
 # Exoplayer
 PRODUCT_PACKAGES += \

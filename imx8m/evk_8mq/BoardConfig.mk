@@ -147,8 +147,10 @@ ifeq ($(TARGET_USE_DYNAMIC_PARTITIONS),true)
       TARGET_BOARD_DTS_CONFIG += imx8mq-mipi:imx8mq-evk-lcdif-adv7535-gki.dtb
       # imx8mq with HDMI and MIPI-HDMI display
       TARGET_BOARD_DTS_CONFIG += imx8mq-dual:imx8mq-evk-dual-display-gki.dtb
-      # imx8mq with MIPI panel display
-      TARGET_BOARD_DTS_CONFIG += imx8mq-mipi-panel:imx8mq-evk-dcss-rm67191-gki.dtb
+      # imx8mq with rm67199 MIPI panel display
+      TARGET_BOARD_DTS_CONFIG += imx8mq-mipi-panel:imx8mq-evk-dcss-rm67199-gki.dtb
+      # imx8mq with rm67191 MIPI panel display
+      TARGET_BOARD_DTS_CONFIG += imx8mq-mipi-panel-rm67191:imx8mq-evk-dcss-rm67191-gki.dtb
     else
       # imx8mq with HDMI display
       TARGET_BOARD_DTS_CONFIG ?= imx8mq:imx8mq-evk-pcie1-m2.dtb
@@ -156,8 +158,10 @@ ifeq ($(TARGET_USE_DYNAMIC_PARTITIONS),true)
       TARGET_BOARD_DTS_CONFIG += imx8mq-mipi:imx8mq-evk-lcdif-adv7535.dtb
       # imx8mq with HDMI and MIPI-HDMI display
       TARGET_BOARD_DTS_CONFIG += imx8mq-dual:imx8mq-evk-dual-display.dtb
-      # imx8mq with MIPI panel display
-      TARGET_BOARD_DTS_CONFIG += imx8mq-mipi-panel:imx8mq-evk-dcss-rm67191.dtb
+      # imx8mq with rm67199 MIPI panel display
+      TARGET_BOARD_DTS_CONFIG += imx8mq-mipi-panel:imx8mq-evk-dcss-rm67199.dtb
+      # imx8mq with rm67191 MIPI panel display
+      TARGET_BOARD_DTS_CONFIG += imx8mq-mipi-panel-rm67191:imx8mq-evk-dcss-rm67191.dtb
     endif
   endif
 else # no dynamic parition feature
