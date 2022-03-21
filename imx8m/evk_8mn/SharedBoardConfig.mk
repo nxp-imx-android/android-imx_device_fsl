@@ -55,8 +55,6 @@ BOARD_VENDOR_KERNEL_MODULES += \
     $(KERNEL_OUT)/sound/soc/fsl/snd-soc-fsl-asoc-card.ko \
     $(KERNEL_OUT)/sound/soc/fsl/snd-soc-imx-card.ko \
     $(KERNEL_OUT)/drivers/rtc/rtc-snvs.ko \
-    $(KERNEL_OUT)/drivers/pps/pps_core.ko \
-    $(KERNEL_OUT)/drivers/ptp/ptp.ko \
     $(KERNEL_OUT)/drivers/net/phy/at803x.ko \
     $(KERNEL_OUT)/drivers/net/ethernet/freescale/fec.ko
 endif
@@ -161,9 +159,7 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/trusty/trusty-irq.ko \
     $(KERNEL_OUT)/drivers/trusty/trusty-log.ko \
     $(KERNEL_OUT)/drivers/trusty/trusty-virtio.ko \
-    $(KERNEL_OUT)/drivers/staging/media/imx/imx8-media-dev.ko \
-    $(KERNEL_OUT)/net/wireless/cfg80211.ko \
-    $(KERNEL_OUT)/net/mac80211/mac80211.ko
+    $(KERNEL_OUT)/drivers/staging/media/imx/imx8-media-dev.ko
 else
 BOARD_VENDOR_RAMDISK_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/input/touchscreen/goodix.ko \

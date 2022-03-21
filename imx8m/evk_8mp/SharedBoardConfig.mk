@@ -70,8 +70,6 @@ BOARD_VENDOR_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/rtc/rtc-snvs.ko \
     $(KERNEL_OUT)/drivers/pci/controller/dwc/pci-imx6.ko \
     $(KERNEL_OUT)/drivers/net/phy/realtek.ko \
-    $(KERNEL_OUT)/drivers/ptp/ptp.ko \
-    $(KERNEL_OUT)/drivers/pps/pps_core.ko \
     $(KERNEL_OUT)/drivers/net/ethernet/freescale/fec.ko
 ifeq ($(POWERSAVE),true)
 BOARD_VENDOR_KERNEL_MODULES += \
@@ -219,9 +217,7 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES +=     \
     $(TARGET_OUT_INTERMEDIATES)/VVCAM_OBJ/vvcam-video.ko \
     $(TARGET_OUT_INTERMEDIATES)/VVCAM_OBJ/vvcam-dwe.ko \
     $(TARGET_OUT_INTERMEDIATES)/VVCAM_OBJ/vvcam-isp.ko \
-    $(KERNEL_OUT)/drivers/staging/media/imx/imx8-media-dev.ko \
-    $(KERNEL_OUT)/net/wireless/cfg80211.ko \
-    $(KERNEL_OUT)/net/mac80211/mac80211.ko
+    $(KERNEL_OUT)/drivers/staging/media/imx/imx8-media-dev.ko
 else
 BOARD_VENDOR_RAMDISK_KERNEL_MODULES +=     \
     $(KERNEL_OUT)/drivers/input/touchscreen/goodix.ko \

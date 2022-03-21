@@ -139,9 +139,7 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/trusty/trusty-irq.ko \
     $(KERNEL_OUT)/drivers/trusty/trusty-log.ko \
     $(KERNEL_OUT)/drivers/trusty/trusty-virtio.ko \
-    $(KERNEL_OUT)/drivers/trusty/trusty-ipc.ko \
-    $(KERNEL_OUT)/net/wireless/cfg80211.ko \
-    $(KERNEL_OUT)/net/mac80211/mac80211.ko
+    $(KERNEL_OUT)/drivers/trusty/trusty-ipc.ko
 else
 BOARD_VENDOR_RAMDISK_KERNEL_MODULES +=     \
     $(KERNEL_OUT)/drivers/input/touchscreen/goodix.ko \
@@ -221,7 +219,5 @@ BOARD_VENDOR_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/spi/spi-nxp-fspi.ko \
     $(KERNEL_OUT)/drivers/mtd/spi-nor/spi-nor.ko \
     $(KERNEL_OUT)/drivers/net/phy/micrel.ko \
-    $(KERNEL_OUT)/drivers/pps/pps_core.ko \
-    $(KERNEL_OUT)/drivers/ptp/ptp.ko \
     $(KERNEL_OUT)/drivers/net/ethernet/freescale/fec.ko
 endif
