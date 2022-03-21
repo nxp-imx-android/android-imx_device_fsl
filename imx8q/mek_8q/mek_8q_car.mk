@@ -17,7 +17,7 @@ include $(IMX_DEVICE_PATH)/mek_8q.mk
 # -------@block_common_config-------
 # Overrides
 PRODUCT_NAME := mek_8q_car
-PRODUCT_PACKAGE_OVERLAYS += $(IMX_DEVICE_PATH)/overlay_car
+PRODUCT_PACKAGE_OVERLAYS := $(IMX_DEVICE_PATH)/overlay_car $(PRODUCT_PACKAGE_OVERLAYS)
 
 # -------@block_app-------
 PRODUCT_COPY_FILES += \
