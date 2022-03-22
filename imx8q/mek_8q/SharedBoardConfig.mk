@@ -58,4 +58,4 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES += \
 
 # -------@block_security-------
 #Enable this to include trusty support
-PRODUCT_IMX_TRUSTY := true
+PRODUCT_IMX_TRUSTY := false
