@@ -112,6 +112,17 @@ PRODUCT_PACKAGES += \
     tune2fs.vendor_ramdisk
 endif
 
+# IIO sensor HAL
+# The implementations use SCMI, which only works on arm architecture
+PRODUCT_PACKAGES += \
+    android.hardware.sensors@2.0-service.multihal \
+    android.hardware.sensors@2.0-service.multihal.rc \
+    android.hardware.sensors@2.0-nxp-IIO-Subhal
+
+PRODUCT_COPY_FILES += \
+    vendor/nxp-opensource/imx/iio_sensor/hals.conf:$(TARGET_COPY_OUT_VENDOR)/etc/sensors/hals.conf \
+    vendor/nxp-opensource/imx/iio_sensor/config/sensor_hal_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/sensors/sensor_hal_configuration.xml
+
 #Enable this to use dynamic partitions for the readonly partitions not touched by bootloader
 TARGET_USE_DYNAMIC_PARTITIONS ?= true
 
@@ -446,6 +457,8 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.ethernet.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.ethernet.xml \
     frameworks/native/data/etc/android.hardware.screen.landscape.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.screen.landscape.xml \
     frameworks/native/data/etc/android.hardware.screen.portrait.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.screen.portrait.xml \
+    frameworks/native/data/etc/android.hardware.sensor.stepcounter.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.sensor.stepcounter.xml \
+    frameworks/native/data/etc/android.hardware.sensor.stepdetector.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.sensor.stepdetector.xml \
     frameworks/native/data/etc/android.hardware.touchscreen.multitouch.distinct.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.touchscreen.multitouch.distinct.xml \
     frameworks/native/data/etc/android.hardware.touchscreen.multitouch.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.touchscreen.multitouch.xml \
     frameworks/native/data/etc/android.hardware.touchscreen.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.touchscreen.xml \

@@ -1,7 +1,6 @@
 /dev/block/mmcblk0boot0                      u:object_r:emmc_boot0:s0
 
 #peripheral
-/vendor/bin/fsl_sensor_fusion   u:object_r:sensors_exec:s0
 /dev/ttyLP[0-9]*               u:object_r:tty_device:s0
 /dev/sda[0-8]*                  u:object_r:fuse:s0
 
