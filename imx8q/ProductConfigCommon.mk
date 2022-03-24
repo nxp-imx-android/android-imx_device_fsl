@@ -289,12 +289,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libion
 
-# memtrack
-PRODUCT_PACKAGES += \
-    android.hardware.memtrack@1.0-impl \
-    android.hardware.memtrack@1.0-service \
-    memtrack.imx
-
 # include a google recommand heap config file.
 include frameworks/native/build/tablet-10in-xhdpi-2048-dalvik-heap.mk
 
