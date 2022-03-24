@@ -167,6 +167,7 @@ endif
 # CONFIG_SND_SOC_RPMSG_WM8960_I2C: snd-soc-rpmsg-wm8960-i2c.ko
 # CONFIG_IMX_DSP_REMOTEPROC: imx_dsp_rproc.ko
 # CONFIG_MPL3115: mpl3115.ko
+# CONFIG_RPMSG_IIO_PEDOMETER: rpmsg_iio_pedometer.ko
 # CONFIG_KEYBOARD_RPMSG: rpmsg-keys.ko
 # CONFIG_IIO_ST_LSM6DSX: st_lsm6dsx.ko
 # CONFIG_IIO_ST_LSM6DSX_I2C: st_lsm6dsx_i2c.ko
@@ -211,6 +212,7 @@ BOARD_VENDOR_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_i2c.ko \
     $(KERNEL_OUT)/drivers/iio/buffer/industrialio-triggered-buffer.ko \
     $(KERNEL_OUT)/drivers/iio/pressure/mpl3115.ko \
+    $(KERNEL_OUT)/drivers/iio/imu/rpmsg_iio_pedometer.ko \
     $(KERNEL_OUT)/drivers/mtd/mtd.ko \
     $(KERNEL_OUT)/drivers/mtd/chips/chipreg.ko \
     $(KERNEL_OUT)/drivers/mtd/parsers/ofpart.ko \
