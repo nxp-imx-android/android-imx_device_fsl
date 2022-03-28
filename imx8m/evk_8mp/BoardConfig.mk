@@ -183,6 +183,8 @@ ifeq ($(TARGET_USE_DYNAMIC_PARTITIONS),true)
     TARGET_BOARD_DTS_CONFIG += imx8mp-mipi-panel:imx8mp-evk-rm67199.dtb
     # Support rm67191 MIPI panel
     TARGET_BOARD_DTS_CONFIG += imx8mp-mipi-panel-rm67191:imx8mp-evk-rm67191.dtb
+    # Support sof
+    TARGET_BOARD_DTS_CONFIG += imx8mp-sof:imx8mp-evk-sof-wm8960.dtb
     ifeq ($(POWERSAVE),true)
     #Used to support powersave
     TARGET_BOARD_DTS_CONFIG += imx8mp-powersave:imx8mp-evk-powersave.dtb
