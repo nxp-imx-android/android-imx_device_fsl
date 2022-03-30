@@ -208,12 +208,6 @@ PRODUCT_PACKAGES += \
     android.hardware.health@2.1-service \
     android.hardware.health@2.1-impl-imx
 
-# -------@block_ethernet-------
-ifneq ($(PRODUCT_IMX_CAR),true)
-PRODUCT_PACKAGES += \
-    ethernet
-endif
-
 # -------@block_camera-------
 ifneq ($(PRODUCT_IMX_CAR),true)
 PRODUCT_PACKAGES += \
