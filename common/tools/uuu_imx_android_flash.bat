@@ -96,7 +96,7 @@ set imx8mp_dtb_feature=rpmsg lvds-panel lvds mipi-panel mipi-panel-rm67191 basle
 set imx8mq_dtb_feature=dual mipi-panel mipi-panel-rm67191 mipi
 set imx8qxp_dtb_feature=
 set imx8qm_dtb_feature=hdmi hdmi-rx mipi-panel mipi-panel-rm67191 md xen esai
-set imx8ulp_dtb_feature=hdmi epdc 9x9 9x9-hdmi
+set imx8ulp_dtb_feature=hdmi epdc 9x9 9x9-hdmi sof
 set imx7ulp_dtb_feature=evk-mipi evk mipi
 
 ::---------------------------------------------------------------------------------
@@ -593,8 +593,8 @@ echo                           ^|   imx8qxp   ^|                                
 echo                           +-------------+----------------------------------------------------------------------------------------------------+
 echo                           ^|   imx8qm    ^|  hdmi mipi-panel md xen esai                                                                       ^|
 echo                           +-------------+----------------------------------------------------------------------------------------------------+
-echo                           ^|   imx8ulp   ^|  hdmi epdc                                                                                         ^|
-echo                           ^|   imx8ulp   ^|  hdmi epdc 9x9 9x9-hdmi                                                                            ^|
+echo                           ^|   imx8ulp   ^|  hdmi epdc 9x9 9x9-hdmi sof                                                                        ^|
+echo                           +-------------+----------------------------------------------------------------------------------------------------+
 echo                           ^|   imx7ulp   ^|  evk-mipi evk mipi                                                                                 ^|
 echo                           +-------------+----------------------------------------------------------------------------------------------------+
 echo
