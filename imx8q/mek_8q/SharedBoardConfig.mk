@@ -31,6 +31,14 @@ BOARD_VENDOR_KERNEL_MODULES += \
     $(TARGET_OUT_INTERMEDIATES)/MXMWIFI_OBJ/mlan.ko \
     $(TARGET_OUT_INTERMEDIATES)/MXMWIFI_OBJ/moal.ko
 
+# Support SOF modules
+BOARD_VENDOR_KERNEL_MODULES += \
+    $(KERNEL_OUT)/sound/soc/sof/snd-sof.ko \
+    $(KERNEL_OUT)/sound/soc/sof/snd-sof-of.ko \
+    $(KERNEL_OUT)/sound/soc/sof/xtensa/snd-sof-xtensa-dsp.ko \
+    $(KERNEL_OUT)/sound/soc/sof/imx/imx-common.ko \
+    $(KERNEL_OUT)/sound/soc/sof/imx/snd-sof-imx8.ko
+
 ifeq ($(PRODUCT_IMX_CAR),true)
 BOARD_VENDOR_KERNEL_MODULES += \
                             $(KERNEL_OUT)/drivers/usb/chipidea/ci_hdrc.ko \

@@ -77,7 +77,7 @@ set imx8mn_dtb_feature=mipi-panel mipi-panel-rm67191 rpmsg ddr4 ddr4-mipi-panel 
 set imx8mp_dtb_feature=rpmsg lvds-panel lvds mipi-panel mipi-panel-rm67191 basler powersave powersave-non-rpmsg basler-ov5640 ov5640
 set imx8mq_dtb_feature=dual mipi-panel mipi-panel-rm67191 mipi
 set imx8qxp_dtb_feature=
-set imx8qm_dtb_feature=hdmi hdmi-rx mipi-panel mipi-panel-rm67191 md xen esai
+set imx8qm_dtb_feature=hdmi hdmi-rx mipi-panel mipi-panel-rm67191 md xen esai sof
 set imx8ulp_dtb_feature=hdmi epdc 9x9 9x9-hdmi sof
 set imx7ulp_dtb_feature=evk-mipi evk mipi
 
@@ -287,7 +287,7 @@ echo                           ^|   imx8mq    ^|  dual mipi-panel mipi          
 echo                           +-------------+----------------------------------------------------------------------------------------------------+
 echo                           ^|   imx8qxp   ^|                                                                                                    ^|
 echo                           +-------------+----------------------------------------------------------------------------------------------------+
-echo                           ^|   imx8qm    ^|  hdmi mipi-panel md xen esai                                                                       ^|
+echo                           ^|   imx8qm    ^|  hdmi mipi-panel mipi-panel-rm67191 md xen esai sof                                                ^|
 echo                           +-------------+----------------------------------------------------------------------------------------------------+
 echo                           ^|   imx8ulp   ^|  hdmi epdc 9x9 9x9-hdmi sof                                                                        ^|
 echo                           +-------------+----------------------------------------------------------------------------------------------------+
