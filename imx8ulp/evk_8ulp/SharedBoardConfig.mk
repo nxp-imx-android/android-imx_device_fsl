@@ -206,6 +206,12 @@ BOARD_VENDOR_KERNEL_MODULES += \
     $(KERNEL_OUT)/sound/soc/codecs/snd-soc-rpmsg-wm8960.ko \
     $(KERNEL_OUT)/sound/soc/codecs/snd-soc-rpmsg-wm8960-i2c.ko \
     $(KERNEL_OUT)/drivers/remoteproc/imx_dsp_rproc.ko \
+    $(KERNEL_OUT)/drivers/firmware/imx/imx-dsp.ko \
+    $(KERNEL_OUT)/sound/soc/sof/snd-sof.ko \
+    $(KERNEL_OUT)/sound/soc/sof/snd-sof-of.ko \
+    $(KERNEL_OUT)/sound/soc/sof/xtensa/snd-sof-xtensa-dsp.ko \
+    $(KERNEL_OUT)/sound/soc/sof/imx/imx-common.ko \
+    $(KERNEL_OUT)/sound/soc/sof/imx/snd-sof-imx8ulp.ko \
     $(KERNEL_OUT)/drivers/input/keyboard/rpmsg-keys.ko \
     $(KERNEL_OUT)/drivers/iio/buffer/kfifo_buf.ko \
     $(KERNEL_OUT)/drivers/iio/imu/st_lsm6dsx/st_lsm6dsx.ko \

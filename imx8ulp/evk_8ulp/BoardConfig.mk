@@ -157,6 +157,8 @@ ifeq ($(TARGET_USE_DYNAMIC_PARTITIONS),true)
     #TARGET_BOARD_DTS_CONFIG += imx8ulp-9x9:imx8ulp-9x9-evk-rk055hdmipi4mv2.dtb
     # Support HDMI on 9x9 board
     TARGET_BOARD_DTS_CONFIG += imx8ulp-9x9-hdmi:imx8ulp-9x9-evk.dtb
+    # Support sof
+    TARGET_BOARD_DTS_CONFIG += imx8ulp-sof:imx8ulp-evk-sof-btsco.dtb
   endif
 else
   ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
