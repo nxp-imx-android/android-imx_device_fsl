@@ -226,6 +226,10 @@ else
       TARGET_BOARD_DTS_CONFIG += imx8dx:imx8dx-mek-ov5640.dtb
       # imx8qxp standard android; LVDS panel display
       TARGET_BOARD_DTS_CONFIG += imx8qxp-lvds0-panel:imx8qxp-mek-jdi-wuxga-lvds0-panel-rpmsg.dtb
+      # imx8qm support SOF
+      TARGET_BOARD_DTS_CONFIG += imx8qm-sof:imx8qm-mek-sof-wm8960.dtb
+      # imx8qxp support SOF
+      TARGET_BOARD_DTS_CONFIG += imx8qxp-sof:imx8qxp-mek-sof-wm8960.dtb
     endif #IMX_NO_PRODUCT_PARTITION
   else
     ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
