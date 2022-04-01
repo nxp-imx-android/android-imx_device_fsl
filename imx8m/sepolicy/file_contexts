@@ -102,6 +102,7 @@
 /dev/block/by-name/vendor_boot_[ab]          u:object_r:boot_block_device:s0
 /dev/block/by-name/dtbo_[ab]                 u:object_r:dtbo_block_device:s0
 /dev/block/by-name/boot_[ab]                 u:object_r:boot_block_device:s0
+/dev/block/by-name/init_boot_[ab]            u:object_r:boot_block_device:s0
 /dev/block/by-name/system_[ab]               u:object_r:system_block_device:s0
 /dev/block/by-name/vendor_[ab]               u:object_r:system_block_device:s0
 /dev/block/by-name/product_[ab]              u:object_r:system_block_device:s0

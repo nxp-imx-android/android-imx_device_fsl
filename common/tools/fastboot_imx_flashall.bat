@@ -26,6 +26,7 @@ set product_file=product.img
 set partition_file=partition-table.img
 set super_file=super.img
 set vendorboot_file=vendor_boot.img
+set initboot_file=init_boot.img
 set /A support_dtbo=0
 set /A support_recovery=0
 set /A support_dualslot=0
@@ -33,6 +34,7 @@ set /A support_mcu_os=0
 set /A support_dual_bootloader=0
 set /A support_dynamic_partition=0
 set /A support_vendor_boot=0
+set /A support_init_boot=0
 set dual_bootloader_partition=
 set bootloader_flashed_to_board=
 set uboot_proper_to_be_flashed=
@@ -48,6 +50,7 @@ set dtbo_partition=dtbo
 set mcu_os_partition=mcu_os
 set super_partition=super
 set vendor_boot_partition=vendor_boot
+set init_boot_partition=init_boot
 set /A flash_mcu=0
 set /A statisc=0
 set /A lock=0
@@ -343,6 +346,11 @@ if not [%partition_to_be_flashed:vendor_boot=%] == [%partition_to_be_flashed%] (
     goto :start_to_flash
 )
 
+if not [%partition_to_be_flashed:init_boot=%] == [%partition_to_be_flashed%] (
+    set img_name=%initboot_file%
+    goto :start_to_flash
+)
+
 if not [%partition_to_be_flashed:system_ext=%] == [%partition_to_be_flashed%] (
     set img_name=%system_extimage_file%
     goto :start_to_flash
@@ -412,6 +420,7 @@ goto :eof
 if %support_dtbo% == 1 call :flash_partition %dtbo_partition% || set /A error_level=1 && goto :exit
 if %support_recovery% == 1 call :flash_partition %recovery_partition% || set /A error_level=1 && goto :exit
 if %support_vendor_boot% == 1 call :flash_partition %vendor_boot_partition% || set /A error_level=1 && goto :exit
+if %support_init_boot% == 1 call :flash_partition %init_boot_partition% || set /A error_level=1 && goto :exit
 call :flash_partition %boot_partition% || set /A error_level=1 && goto :exit
 if %support_dynamic_partition% == 0 (
     call :flash_partition %system_partition% || set /A error_level=1 && goto :exit
@@ -435,6 +444,7 @@ set product_partition=product%1
 set vbmeta_partition=vbmeta%1
 set dtbo_partition=dtbo%1
 set vendor_boot_partition=vendor_boot%1
+set init_boot_partition=init_boot%1
 goto :eof
 
 :flash_android
@@ -450,6 +460,7 @@ find "recovery" fastboot_var.log > nul && set /A support_recovery=1
 find "boot_b" fastboot_var.log > nul && set /A support_dualslot=1
 find "super" fastboot_var.log > nul && set /A support_dynamic_partition=1
 find "vendor_boot" fastboot_var.log > nul && set /A support_vendor_boot=1
+find "init_boot" fastboot_var.log > nul && set /A support_init_boot=1
 find "system_ext" fastboot_var.log > nul && set /A has_system_ext_partition=1
 del fastboot_var.log
 

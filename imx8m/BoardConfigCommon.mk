@@ -64,12 +64,14 @@ BOARD_KERNEL_OFFSET := 0x00080000
 BOARD_RAMDISK_OFFSET := 0x04280000
 ifeq ($(TARGET_USE_VENDOR_BOOT),true)
 BOARD_BOOT_HEADER_VERSION := 4
+BOARD_INIT_BOOT_HEADER_VERSION := 4
 BOARD_INCLUDE_DTB_IN_BOOTIMG := false
 else
 BOARD_BOOT_HEADER_VERSION := 1
 endif
 
 BOARD_MKBOOTIMG_ARGS = --kernel_offset $(BOARD_KERNEL_OFFSET) --ramdisk_offset $(BOARD_RAMDISK_OFFSET) --header_version $(BOARD_BOOT_HEADER_VERSION)
+BOARD_MKBOOTIMG_INIT_ARGS += --header_version $(BOARD_INIT_BOOT_HEADER_VERSION)
 
 ifeq ($(TARGET_USE_VENDOR_BOOT),true)
   BOARD_MOVE_RECOVERY_RESOURCES_TO_VENDOR_BOOT := true
@@ -113,7 +115,7 @@ ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
 AB_OTA_PARTITIONS += dtbo boot system system_ext vendor vbmeta
 else
 ifeq ($(TARGET_USE_VENDOR_BOOT),true)
-AB_OTA_PARTITIONS += dtbo boot vendor_boot system system_ext vendor vbmeta product
+AB_OTA_PARTITIONS += dtbo boot init_boot vendor_boot system system_ext vendor vbmeta product
 else
 AB_OTA_PARTITIONS += dtbo boot system system_ext vendor vbmeta product
 endif
@@ -121,6 +123,7 @@ endif
 
 BOARD_DTBOIMG_PARTITION_SIZE := 4194304
 BOARD_BOOTIMAGE_PARTITION_SIZE := 67108864
+BOARD_INIT_BOOT_IMAGE_PARTITION_SIZE := 8388608
 ifeq ($(TARGET_USE_VENDOR_BOOT),true)
 BOARD_VENDOR_BOOTIMAGE_PARTITION_SIZE := 67108864
 endif

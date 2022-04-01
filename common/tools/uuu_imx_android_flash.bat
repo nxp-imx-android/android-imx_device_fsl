@@ -27,6 +27,7 @@ set product_file=product.img
 set partition_file=partition-table.img
 set super_file=super.img
 set vendorboot_file=vendor_boot.img
+set initboot_file=init_boot.img
 set /A support_dtbo=0
 set /A support_recovery=0
 set /A support_dualslot=0
@@ -34,6 +35,7 @@ set /A support_mcu_os=0
 set /A support_trusty=0
 set /A support_dynamic_partition=0
 set /A support_vendor_boot=0
+set /A support_init_boot=0
 set boot_partition=boot
 set recovery_partition=recovery
 set system_partition=system
@@ -43,6 +45,7 @@ set product_partition=product
 set vbmeta_partition=vbmeta
 set dtbo_partition=dtbo
 set vendor_boot_partition=vendor_boot
+set init_boot_partition=init_boot
 set mcu_os_partition=mcu_os
 set super_partition=super
 set /A flash_mcu=0
@@ -223,6 +226,8 @@ find "b.o.o.t._.b." %tmp_dir%partition-table_3.txt > nul && set /A support_duals
 find "s.u.p.e.r." %tmp_dir%partition-table_3.txt > nul && set /A support_dynamic_partition=1 && echo dynamic partition is supported
 :: check whether there is "vendor_boot" in partition table
 find "v.e.n.d.o.r._.b.o.o.t." %tmp_dir%partition-table_3.txt > nul && set /A support_vendor_boot=1 && echo vendor_boot is supported
+:: check whether there is "init_boot" in partition table
+find "i.n.i.t._.b.o.o.t." %tmp_dir%partition-table_3.txt > nul && set /A support_init_boot=1 && echo init_boot is supported
 :: check whether there is system_ext in partition table
 find "s.y.s.t.e.m._.e.x.t." %tmp_dir%partition-table_3.txt > nul && set /A has_system_ext_partition=1
 
@@ -714,6 +719,10 @@ if not [%partition_to_be_flashed:vendor_boot=%] == [%partition_to_be_flashed%] (
     set img_name=%vendorboot_file%
     goto :start_to_flash
 )
+if not [%partition_to_be_flashed:init_boot=%] == [%partition_to_be_flashed%] (
+    set img_name=%initboot_file%
+    goto :start_to_flash
+)
 if not [%partition_to_be_flashed:system_ext=%] == [%partition_to_be_flashed%] (
     set img_name=%system_extimage_file%
     goto :start_to_flash
@@ -783,6 +792,7 @@ if %support_dual_bootloader% == 1 call :flash_partition %dual_bootloader_partiti
 if %support_dtbo% == 1 call :flash_partition %dtbo_partition% || set /A error_level=1 && goto :exit
 if %support_recovery% == 1 call :flash_partition %recovery_partition% || set /A error_level=1 && goto :exit
 if %support_vendor_boot% == 1 call :flash_partition %vendor_boot_partition% || set /A error_level=1 && goto :exit
+if %support_init_boot% == 1 call :flash_partition %init_boot_partition% || set /A error_level=1 && goto :exit
 call :flash_partition %boot_partition% || set /A error_level=1 && goto :exit
 if %support_dynamic_partition% == 0 ( 
     call :flash_partition %system_partition% || set /A error_level=1 && goto :exit
@@ -806,6 +816,7 @@ set product_partition=product%1
 set vbmeta_partition=vbmeta%1
 set dtbo_partition=dtbo%1
 set vendor_boot_partition=vendor_boot%1
+set init_boot_partition=init_boot%1
 if %support_dual_bootloader% == 1 set dual_bootloader_partition=bootloader%1
 goto :eof
 

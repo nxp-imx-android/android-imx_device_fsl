@@ -161,6 +161,8 @@ function flash_partition
         img_name=${uboot_proper_to_be_flashed}
     elif [ ${support_vendor_boot} -eq 1 ] && [ "$(echo ${1} | grep "vendor_boot")" != "" ]; then
             img_name="vendor_boot.img"
+    elif [ ${support_init_boot} -eq 1 ] && [ "$(echo ${1} | grep "init_boot")" != "" ]; then
+            img_name="init_boot.img"
     elif [ "$(echo ${1} | grep "system_ext")" != "" ]; then
         img_name=${system_extimage_file}
     elif [ "$(echo ${1} | grep "system")" != "" ]; then
@@ -207,6 +209,10 @@ function flash_userpartitions
         flash_partition ${vendor_boot_partition}
     fi
 
+    if [ ${support_init_boot} -eq 1 ]; then
+        flash_partition ${init_boot_partition}
+    fi
+
     if [ ${support_recovery} -eq 1 ]; then
         flash_partition ${recovery_partition}
     fi
@@ -233,6 +239,7 @@ function flash_partition_name
     vbmeta_partition="vbmeta"${1}
     dtbo_partition="dtbo"${1}
     vendor_boot_partition="vendor_boot"${1}
+    init_boot_partition="init_boot"${1}
     if [ ${support_dual_bootloader} -eq 1 ]; then
         dual_bootloader_partition=bootloader${1}
     fi
@@ -330,6 +337,7 @@ support_mcu_os=0
 support_trusty=0
 support_dynamic_partition=0
 support_vendor_boot=0
+support_init_boot=0
 boot_partition="boot"
 recovery_partition="recovery"
 system_partition="system"
@@ -340,6 +348,7 @@ product_partition="product"
 vbmeta_partition="vbmeta"
 dtbo_partition="dtbo"
 vendor_boot_partition="vendor_boot"
+init_boot_partition="init_boot"
 mcu_os_partition="mcu_os"
 super_partition="super"
 
@@ -524,6 +533,10 @@ grep "73 00 75 00 70 00 65 00 72 00" /tmp/partition-table_3.txt > /dev/null \
 # check whether there is "vendor_boot" in partition table
 grep "76 00 65 00 6e 00 64 00 6f 00 72 00 5f 00 62 00 6f 00 6f 00 74 00 5f 00" /tmp/partition-table_3.txt > /dev/null \
         && support_vendor_boot=1 && echo vendor_boot parttition is supported
+
+# check whether there is "init_boot" in partition table
+grep "69 00 6e 00 69 00 74 00 5f 00 62 00 6f 00 6f 00 74 00 5f 00" /tmp/partition-table_3.txt > /dev/null \
+        && support_init_boot=1 && echo init_boot parttition is supported
 
 grep "73 00 79 00 73 00 74 00 65 00 6d 00 5f 00 65 00 78 00 74 00" /tmp/partition-table_3.txt > /dev/null \
 && has_system_ext_partition=1 && echo has system_ext partition
