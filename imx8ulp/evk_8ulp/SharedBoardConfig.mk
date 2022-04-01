@@ -11,7 +11,7 @@ LOW_MEMORY := false
 
 # -------@block_security-------
 #Enable this to include trusty support
-PRODUCT_IMX_TRUSTY := false
+PRODUCT_IMX_TRUSTY := true
 
 # CONFIG_ZRAM: zram.ko, compressed ram using LZ coding.
 # CONFIG_ZSMALLOC: zsmalloc.ko

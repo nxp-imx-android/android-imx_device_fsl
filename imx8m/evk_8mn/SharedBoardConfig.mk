@@ -173,4 +173,4 @@ LOW_MEMORY := false
 
 # -------@block_security-------
 #Enable this to include trusty support
-PRODUCT_IMX_TRUSTY := false
+PRODUCT_IMX_TRUSTY := true
