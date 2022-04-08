@@ -153,6 +153,10 @@ ifeq ($(TARGET_USE_DYNAMIC_PARTITIONS),true)
     TARGET_BOARD_DTS_CONFIG += imx8ulp-hdmi:imx8ulp-evk.dtb
     # Support EPDC
     TARGET_BOARD_DTS_CONFIG += imx8ulp-epdc:imx8ulp-evk-epdc.dtb
+    # Support MIPI panel on 9x9 board
+    #TARGET_BOARD_DTS_CONFIG += imx8ulp-9x9:imx8ulp-9x9-evk-rk055hdmipi4mv2.dtb
+    # Support HDMI on 9x9 board
+    TARGET_BOARD_DTS_CONFIG += imx8ulp-9x9-hdmi:imx8ulp-9x9-evk.dtb
   endif
 else
   ifeq ($(IMX_NO_PRODUCT_PARTITION),true)

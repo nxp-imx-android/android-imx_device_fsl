@@ -66,7 +66,7 @@ set /A flag=1
 set imx8mm_uboot_feature=dual trusty-dual 4g-evk-uuu 4g ddr4-evk-uuu ddr4 evk-uuu trusty-4g trusty-secure-unlock trusty
 set imx8mn_uboot_feature=dual trusty-dual evk-uuu trusty-secure-unlock trusty ddr4-evk-uuu ddr4
 set imx8mp_uboot_feature=dual trusty-dual evk-uuu trusty-secure-unlock trusty powersave trusty-powersave
-set imx8ulp_uboot_feature=dual trusty-dual evk-uuu trusty-secure-unlock trusty
+set imx8ulp_uboot_feature=dual trusty-dual evk-uuu trusty-secure-unlock trusty 9x9-evk-uuu 9x9 9x9-trusty
 set imx8mq_uboot_feature=dual trusty-dual evk-uuu trusty-secure-unlock trusty
 set imx8qxp_uboot_feature=mek-uuu trusty-secure-unlock trusty secure-unlock c0 trusty-c0 mek-c0-uuu
 set imx8qm_uboot_feature=mek-uuu trusty-secure-unlock trusty secure-unlock md hdmi xen
@@ -78,7 +78,7 @@ set imx8mp_dtb_feature=rpmsg lvds-panel lvds mipi-panel mipi-panel-rm67191 basle
 set imx8mq_dtb_feature=dual mipi-panel mipi-panel-rm67191 mipi
 set imx8qxp_dtb_feature=
 set imx8qm_dtb_feature=hdmi hdmi-rx mipi-panel mipi-panel-rm67191 md xen esai
-set imx8ulp_dtb_feature=hdmi epdc
+set imx8ulp_dtb_feature=hdmi epdc 9x9 9x9-hdmi
 set imx7ulp_dtb_feature=evk-mipi evk mipi
 
 :: an array to collect the supported soc_names
@@ -260,7 +260,7 @@ echo                           ^|   imx8mn    ^|  dual trusty-dual evk-uuu trust
 echo                           +-------------+----------------------------------------------------------------------------------------------------+
 echo                           ^|   imx8mp    ^|  dual trusty-dual evk-uuu trusty-secure-unlock trusty powersave trusty-powersave                   ^|
 echo                           +-------------+----------------------------------------------------------------------------------------------------+
-echo                           ^|   imx8ulp   ^|  dual trusty-dual evk-uuu trusty-secure-unlock                                                     ^|
+echo                           ^|   imx8ulp   ^|  dual trusty-dual evk-uuu trusty-secure-unlock 9x9-evk-uuu 9x9 9x9-trusty                          ^|
 echo                           +-------------+----------------------------------------------------------------------------------------------------+
 echo                           ^|   imx8mq    ^|  dual trusty-dual evk-uuu trusty-secure-unlock trusty                                              ^|
 echo                           +-------------+----------------------------------------------------------------------------------------------------+
@@ -290,7 +290,7 @@ echo                           +-------------+----------------------------------
 echo                           ^|   imx8qm    ^|  hdmi mipi-panel md xen esai                                                                       ^|
 echo                           +-------------+----------------------------------------------------------------------------------------------------+
 echo                           ^|   imx8ulp   ^|  hdmi epdc                                                                                         ^|
-echo                           +-------------+----------------------------------------------------------------------------------------------------+
+echo                           ^|   imx8ulp   ^|  hdmi epdc 9x9 9x9-hdmi                                                                            ^|
 echo                           ^|   imx7ulp   ^|  evk-mipi evk mipi                                                                                 ^|
 echo                           +-------------+----------------------------------------------------------------------------------------------------+
 echo
