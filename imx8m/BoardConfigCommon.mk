@@ -85,7 +85,7 @@ PRODUCT_COPY_FILES += \
 
 TARGET_BOARD_KERNEL_HEADERS := $(CONFIG_REPO_PATH)/common/kernel-headers
 
-TARGET_IMX_KERNEL ?= true
+TARGET_IMX_KERNEL ?= false
 ifeq ($(TARGET_IMX_KERNEL),false)
 # boot-debug.img is built by IMX, with Google released kernel Image
 # boot.img is released by Google
