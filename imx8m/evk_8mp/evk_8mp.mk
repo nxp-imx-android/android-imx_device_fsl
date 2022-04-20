@@ -555,7 +555,7 @@ PRODUCT_COPY_FILES += \
 
 # trusty loadable apps
 PRODUCT_COPY_FILES += \
-    vendor/nxp/fsl-proprietary/uboot-firmware/imx8m/confirmationui.app:/vendor/firmware/tee/confirmationui.app
+    vendor/nxp/fsl-proprietary/uboot-firmware/imx8m/confirmationui-imx8mp.app:/vendor/firmware/tee/confirmationui.app
 
 # Included GMS package
 $(call inherit-product-if-exists, vendor/partner_gms/products/gms.mk)
