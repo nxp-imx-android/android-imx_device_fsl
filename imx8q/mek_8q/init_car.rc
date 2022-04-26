@@ -204,6 +204,9 @@ on post-fs-data
     setprop vendor.TMPDIR /data/vendor/.opencl-cache
     mkdir /data/vendor/.opencl-cache 0771 system camera
 
+    # dir for g2d opencl bin
+    mkdir /data/vendor/.opencl-g2d-bin 0771 mediacodec camera
+
 on zygote-start
     # Create the directories used by the Wireless subsystem
     mkdir /data/vendor/wifi 0771 wifi wifi
