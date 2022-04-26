@@ -1,3 +1,4 @@
+type opencl_g2d-bin_file, file_type, data_file_type;
 allow mediacodec sysfs:file { read write open getattr };
 allow mediacodec tmpfs:dir { search write add_name create};
 allow mediacodec tmpfs:file { create open read write };
@@ -16,3 +17,5 @@ allow mediacodec dmabuf_heap_device:chr_file { ioctl read write open };
 get_prop(mediacodec, vendor_public_default_prop)
 allow mediacodec dmabuf_heap_device:chr_file { open ioctl map read write };
 allow mediacodec dmabuf_heap_device:dir { read open search };
+allow mediacodec opencl_g2d-bin_file:dir create_dir_perms;
+allow mediacodec opencl_g2d-bin_file:file create_file_perms;
