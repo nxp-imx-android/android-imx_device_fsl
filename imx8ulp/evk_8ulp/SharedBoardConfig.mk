@@ -219,5 +219,6 @@ BOARD_VENDOR_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/spi/spi-nxp-fspi.ko \
     $(KERNEL_OUT)/drivers/mtd/spi-nor/spi-nor.ko \
     $(KERNEL_OUT)/drivers/net/phy/micrel.ko \
-    $(KERNEL_OUT)/drivers/net/ethernet/freescale/fec.ko
+    $(KERNEL_OUT)/drivers/net/ethernet/freescale/fec.ko \
+    $(KERNEL_OUT)/drivers/soc/imx/imx8ulp_lpm.ko
 endif
