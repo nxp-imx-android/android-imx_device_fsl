@@ -171,6 +171,12 @@ ifeq ($(TARGET_USE_DYNAMIC_PARTITIONS),true)
     TARGET_BOARD_DTS_CONFIG += imx8mp-ov5640:imx8mp-evk.dtb
     # Only basler
     TARGET_BOARD_DTS_CONFIG += imx8mp-basler:imx8mp-evk-basler.dtb
+    # Only os08a20
+    TARGET_BOARD_DTS_CONFIG += imx8mp-os08a20:imx8mp-evk-os08a20.dtb
+    # Dual os08a20
+    TARGET_BOARD_DTS_CONFIG += imx8mp-dual-os08a20:imx8mp-evk-dual-os08a20.dtb
+    # os08a20 + ov5640
+    TARGET_BOARD_DTS_CONFIG += imx8mp-os08a20-ov5640:imx8mp-evk-os08a20-ov5640.dtb
     # Used to support mcu image
     ifeq ($(POWERSAVE),true)
     TARGET_BOARD_DTS_CONFIG += imx8mp-rpmsg:imx8mp-evk-hifiberry-dacpp-m-rpmsg.dtb
