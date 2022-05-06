@@ -6,7 +6,7 @@
   "support_multi_chn": 1,
   "in_period_size": 768,
   "in_period_count": 8,
-  "out_period_size": 768,
+  "out_period_size": 384,
   "out_volume_ctl": [
     "DAC1 Playback Volume"
   ]
