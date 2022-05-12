@@ -22,6 +22,7 @@
 /vendor/bin/isp_media_server                u:object_r:isp_exec:s0
 /dev/v4l-subdev[0-9]*                       u:object_r:video_device:s0
 /data/vendor/isp(/.*)?                      u:object_r:isp_file:s0
+/vendor/vendor_overlay_sensor/(basler|os08a20)/vendor/etc/configs/isp(/.*)?         u:object_r:vendor_configs_file:s0
 
 # android.system.suspend@1.0-service
 /sys/devices/virtual/wakeup/wakeup[0-9]*(/.*)?                                                                                                        u:object_r:sysfs_wakeup:s0
