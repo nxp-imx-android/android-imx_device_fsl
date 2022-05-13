@@ -339,10 +339,10 @@ PRODUCT_COPY_FILES += \
 endif
 
 # AudioControl service
-#ifeq ($(PRODUCT_IMX_CAR),true)
-#PRODUCT_PACKAGES += \
-#    android.hardware.automotive.audiocontrol-service.example
-#endif
+ifeq ($(PRODUCT_IMX_CAR),true)
+PRODUCT_PACKAGES += \
+    android.hardware.automotive.audiocontrol-service.example
+endif
 
 # Audio SOF firmware and tplg files
 PRODUCT_COPY_FILES += \

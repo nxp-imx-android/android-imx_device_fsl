@@ -22,7 +22,7 @@
   See also packages/services/Car/service/res/values/config.xml
 -->
 <resources>
-    <bool name="audioUseDynamicRouting">false</bool>
+    <bool name="audioUseDynamicRouting">true</bool>
 
     <!--
         Lists all occupant (= driver + passenger) zones available in the car.
