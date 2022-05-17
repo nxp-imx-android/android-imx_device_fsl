@@ -144,13 +144,6 @@ service wpa_supplicant /vendor/bin/hw/wpa_supplicant \
     disabled
     oneshot
 
-service sensor_fusion /vendor/bin/fsl_sensor_fusion
-    class main
-    seclabel u:r:sensors:s0
-    user system
-    group system uhid
-    oneshot
-
 # Set watchdog timer to 30 seconds and pet it every 10 seconds to get a 20 second margin
 service watchdogd /system/bin/watchdogd 10 20
     class core
@@ -186,6 +179,15 @@ on post-fs && property:vendor.skip.charger_not_need=0
     # Grant permission for fetching available_pages info of statsd
     chown system system /proc/pagetypeinfo
     chmod 0440 /proc/pagetypeinfo
+
+    setprop vendor.sensor.trigger "hrtimer_trigger"
+    chown system system /config/iio/triggers/hrtimer
+    chmod 0770 /config/iio/triggers/hrtimer
+
+    chown system  system /sys/devices/iio_sysfs_trigger/add_trigger
+    chmod 0660 /sys/devices/iio_sysfs_trigger/add_trigger
+    chown system  system /sys/devices/iio_sysfs_trigger/remove_trigger
+    chmod 0660 /sys/devices/iio_sysfs_trigger/remove_trigger
 
 on post-fs-data && property:vendor.skip.charger_not_need=0
     setprop vold.post_fs_data_done 1

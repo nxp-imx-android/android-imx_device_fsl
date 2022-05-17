@@ -19,21 +19,29 @@
 /dev/dma_heap/reserved-uncached    0666   system     system
 /dev/dma_heap/secure      0666   system     system
 
-# sensors sysfs
-/dev/FreescaleAccelerometer                     0660  system   system
-/dev/FreescaleMagnetometer                      0660  system   system
-/dev/FreescaleGyroscope                         0660  system   system
-
-/sys/devices/virtual/input/input*   name        0660  system system
-/sys/devices/virtual/input/input*   max         0660  system system
-/sys/devices/virtual/input/input*   min         0660  system system
-/sys/devices/virtual/input/input*   poll        0660  system system
-/sys/devices/virtual/input/input*   enable      0660  system system
-
-/sys/devices/virtual/misc/Freescale*          poll        0660  system   system
-/sys/devices/virtual/misc/Freescale*          poll_delay  0660  system   system
-/sys/devices/virtual/misc/Freescale*          enable      0660  system   system
-/sys/devices/virtual/misc/Freescale*          position    0660  system   system
+# iio sensor sysfs properities
+/dev/iio:device*                                                         0660    system  system
+/sys/bus/iio/devices/iio:device*        buffer/enable                    0660    system  system
+/sys/bus/iio/devices/iio:device*        buffer/length                    0660    system  system
+/sys/bus/iio/devices/iio:device*        in_accel_sampling_frequency      0660    system  system
+/sys/bus/iio/devices/iio:device*        in_anglvel_sampling_frequency    0660    system  system
+/sys/bus/iio/devices/iio:device*        in_magn_sampling_frequency       0660    system  system
+/sys/bus/iio/devices/iio:device*        scan_elements/in_timestamp_en    0660    system  system
+/sys/bus/iio/devices/iio:device*        scan_elements/in_accel_x_en      0660    system  system
+/sys/bus/iio/devices/iio:device*        scan_elements/in_accel_y_en      0660    system  system
+/sys/bus/iio/devices/iio:device*        scan_elements/in_accel_z_en      0660    system  system
+/sys/bus/iio/devices/iio:device*        scan_elements/in_magn_x_en       0660    system  system
+/sys/bus/iio/devices/iio:device*        scan_elements/in_magn_y_en       0660    system  system
+/sys/bus/iio/devices/iio:device*        scan_elements/in_magn_z_en       0660    system  system
+/sys/bus/iio/devices/iio:device*        scan_elements/in_anglvel_x_en    0660    system  system
+/sys/bus/iio/devices/iio:device*        scan_elements/in_anglvel_y_en    0660    system  system
+/sys/bus/iio/devices/iio:device*        scan_elements/in_anglvel_z_en    0660    system  system
+/sys/bus/iio/devices/iio:device*        scan_elements/in_pressure_en     0660    system  system
+/sys/bus/iio/devices/iio:device*        scan_elements/in_temp_en         0660    system  system
+/sys/bus/iio/devices/iio:device*        trigger/current_trigger          0660    system  system
+/sys/devices/iio_sysfs_trigger/trigger*                                  0660    system  system
+/sys/devices/iio_sysfs_trigger/trigger* name                             0660    system  system
+/sys/devices/iio_sysfs_trigger/trigger* trigger_now                      0660    system  system
 
 # light sensor sysfs properities for 8qm_mek
 /sys/class/i2c-dev/i2c-2/device/2-0044 mode                          0660 system system

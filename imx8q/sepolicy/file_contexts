@@ -25,6 +25,9 @@
 /data/vendor/ss(/.*)?           u:object_r:tee_data_file:s0
 /data/vendor/.opencl-cache(/.*)?       u:object_r:opencl_cache_file:s0
 
+# Sensor HAL
+/sys/bus/iio/devices/iio:device[0-9]+  u:object_r:sysfs_iio_devices:s0
+
 ###############################################
 # same-process HAL files and their dependencies
 #

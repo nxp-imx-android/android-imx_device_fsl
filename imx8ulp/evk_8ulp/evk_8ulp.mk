@@ -112,6 +112,14 @@ PRODUCT_PACKAGES += \
     tune2fs.vendor_ramdisk
 endif
 
+# IIO sensor HAL
+PRODUCT_PACKAGES += \
+    android.hardware.sensors@2.1-service.multihal \
+    android.hardware.sensors@2.1-nxp-IIO-Subhal
+
+PRODUCT_COPY_FILES += \
+    vendor/nxp-opensource/imx/iio_sensor/hals.conf:$(TARGET_COPY_OUT_VENDOR)/etc/sensors/hals.conf
+
 #Enable this to use dynamic partitions for the readonly partitions not touched by bootloader
 TARGET_USE_DYNAMIC_PARTITIONS ?= true
 

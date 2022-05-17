@@ -535,23 +535,21 @@ PRODUCT_PACKAGES += \
                     tflitecamerademo
 endif
 
-# -------@block_sensor-------
 ifeq ($(PRODUCT_IMX_CAR),true)
   SOONG_CONFIG_IMXPLUGIN_BOARD_USE_LEGACY_SENSOR = false
 else
   SOONG_CONFIG_IMXPLUGIN_BOARD_USE_LEGACY_SENSOR = true
 endif
-# imx8 sensor HAL libs.
-PRODUCT_PACKAGES += \
-        sensors.imx
 
+# imx8 sensor HAL libs.
 ifneq ($(PRODUCT_IMX_CAR),true)
 PRODUCT_PACKAGES += \
-    android.hardware.sensors@1.0-impl \
-    android.hardware.sensors@1.0-service
-endif
+    android.hardware.sensors@2.1-service.multihal \
+    android.hardware.sensors@2.1-nxp-IIO-Subhal
 
-# -------@block_miscellaneous-------
+PRODUCT_COPY_FILES += \
+    $(IMX_PATH)/imx/iio_sensor/hals.conf:$(TARGET_COPY_OUT_VENDOR)/etc/sensors/hals.conf
+endif
 
 # Copy device related config and binary to board
 PRODUCT_COPY_FILES += \
