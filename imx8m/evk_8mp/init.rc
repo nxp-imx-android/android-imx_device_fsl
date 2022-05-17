@@ -286,6 +286,9 @@ on property:ro.boot.camera.layout=only-ov5640
 on property:ro.boot.camera.layout=os08a20-ov5640
     mount overlay overlay /vendor/etc/configs/isp ro lowerdir=/vendor/vendor_overlay_sensor/os08a20/vendor/etc/configs/isp:/vendor/etc/configs/isp,override_creds=off
 
+on property:ro.boot.camera.layout=dual-os08a20
+    mount overlay overlay /vendor/etc/configs/isp ro lowerdir=/vendor/vendor_overlay_sensor/os08a20/vendor/etc/configs/isp:/vendor/etc/configs/isp,override_creds=off
+
 service confirmationui_ta_load /vendor/bin/trusty_apploader /vendor/firmware/tee/confirmationui.app
     user root
     group root system
