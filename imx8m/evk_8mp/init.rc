@@ -263,7 +263,7 @@ on property:ro.boot.powersave.usb=true
 
 # setenv append_bootargs androidboot.lpa.enable=1
 on property:ro.boot.lpa.enable=1
-    setprop vendor.audio.lpa.hold_second 10
+    setprop vendor.audio.lpa.hold_second 20
     setprop vendor.audio.lpa.period_ms 500
     setprop vendor.audio.lpa.enable 1
 
