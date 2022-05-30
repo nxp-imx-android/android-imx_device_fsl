@@ -86,8 +86,8 @@ set imx8mn_uboot_feature=dual trusty-dual evk-uuu trusty-secure-unlock trusty dd
 set imx8mp_uboot_feature=dual trusty-dual evk-uuu trusty-secure-unlock trusty powersave trusty-powersave
 set imx8ulp_uboot_feature=dual trusty-dual evk-uuu trusty-secure-unlock trusty 9x9-evk-uuu 9x9 trusty-9x9
 set imx8mq_uboot_feature=dual trusty-dual evk-uuu trusty-secure-unlock trusty
-set imx8qxp_uboot_feature=mek-uuu trusty-secure-unlock trusty secure-unlock c0 trusty-c0 mek-c0-uuu
-set imx8qm_uboot_feature=mek-uuu trusty-secure-unlock trusty secure-unlock md hdmi xen
+set imx8qxp_uboot_feature=dual trusty-dual mek-uuu trusty-secure-unlock trusty secure-unlock c0 trusty-c0 mek-c0-uuu
+set imx8qm_uboot_feature=dual trusty-dual mek-uuu trusty-secure-unlock trusty secure-unlock md hdmi xen
 set imx7ulp_uboot_feature=evk-uuu
 
 set imx8mm_dtb_feature=ddr4 m4 mipi-panel mipi-panel-rm67191
@@ -179,14 +179,10 @@ if %statisc% == 4 echo card_size is not a legal value & set /A error_level=1 && 
 
 :: dual bootloader support will use different gpt, this is for imx8m and imx8ulp
 if [%support_dual_bootloader%] equ [1] (
-    if [%soc_name:imx8q=%] == [%soc_name%] (
-        if %card_size% == 0 (
-            set partition_file=partition-table-dual.img
-        )else (
-            set partition_file=partition-table-%card_size%GB-dual.img
-        )
+    if %card_size% == 0 (
+        set partition_file=partition-table-dual.img
     )else (
-        if %card_size% gtr 0 set partition_file=partition-table-%card_size%GB.img
+        set partition_file=partition-table-%card_size%GB-dual.img
     )
 )else (
     if %card_size% gtr 0 set partition_file=partition-table-%card_size%GB.img
@@ -568,9 +564,9 @@ echo                           ^|   imx8ulp   ^|  dual trusty-dual evk-uuu trust
 echo                           +-------------+----------------------------------------------------------------------------------------------------+
 echo                           ^|   imx8mq    ^|  dual trusty-dual evk-uuu trusty-secure-unlock                                                     ^|
 echo                           +-------------+----------------------------------------------------------------------------------------------------+
-echo                           ^|   imx8qxp   ^|  mek-uuu trusty-secure-unlock trusty secure-unlock c0 trusty-c0 mek-c0-uuu                         ^|
+echo                           ^|   imx8qxp   ^|  dual trusty-dual mek-uuu trusty-secure-unlock trusty secure-unlock c0 trusty-c0 mek-c0-uuu        ^|
 echo                           +-------------+----------------------------------------------------------------------------------------------------+
-echo                           ^|   imx8qm    ^|  mek-uuu trusty-secure-unlock trusty secure-unlock md hdmi xen                                     ^|
+echo                           ^|   imx8qm     ^|  dual trusty-dual mek-uuu trusty-secure-unlock trusty secure-unlock md hdmi xen                    ^|
 echo                           +-------------+----------------------------------------------------------------------------------------------------+
 echo                           ^|  imx7ulp    ^|  evk-uuu                                                                                           ^|
 echo                           +-------------+----------------------------------------------------------------------------------------------------+

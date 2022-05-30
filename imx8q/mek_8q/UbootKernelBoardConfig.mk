@@ -30,11 +30,14 @@ ifeq ($(PRODUCT_IMX_CAR),true)
 else
   # u-boot target for imx8qm_mek standard android
   TARGET_BOOTLOADER_CONFIG := imx8qm:imx8qm_mek_android_defconfig
+  TARGET_BOOTLOADER_CONFIG += imx8qm-dual:imx8qm_mek_android_dual_defconfig
   TARGET_BOOTLOADER_CONFIG += imx8qm-hdmi:imx8qm_mek_android_hdmi_defconfig
   TARGET_BOOTLOADER_CONFIG += imx8qm-md:imx8qm_mek_android_hdmi_defconfig
   # u-boot target for imx8qxp_mek standard android
   TARGET_BOOTLOADER_CONFIG += imx8qxp:imx8qxp_mek_android_defconfig
+  TARGET_BOOTLOADER_CONFIG += imx8qxp-dual:imx8qxp_mek_android_dual_defconfig
   TARGET_BOOTLOADER_CONFIG += imx8qxp-c0:imx8qxp_mek_android_defconfig
+  TARGET_BOOTLOADER_CONFIG += imx8qxp-c0-dual:imx8qxp_mek_android_dual_defconfig
   # u-boot target for imx8dx_mek standard android
   TARGET_BOOTLOADER_CONFIG += imx8dx:imx8dx_mek_android_defconfig
   # u-boot target used by uuu for imx8dx_mek
@@ -43,10 +46,13 @@ else
   ifeq ($(PRODUCT_IMX_TRUSTY),true)
     # u-boot target for imx8qm_mek standard android with trusty support
     TARGET_BOOTLOADER_CONFIG += imx8qm-trusty:imx8qm_mek_android_trusty_defconfig
+    TARGET_BOOTLOADER_CONFIG += imx8qm-trusty-dual:imx8qm_mek_android_trusty_dual_defconfig
     TARGET_BOOTLOADER_CONFIG += imx8qm-trusty-secure-unlock:imx8qm_mek_android_trusty_secure_unlock_defconfig
     # u-boot target for imx8qxp_mek standard android with trusty support
     TARGET_BOOTLOADER_CONFIG += imx8qxp-trusty:imx8qxp_mek_android_trusty_defconfig
+    TARGET_BOOTLOADER_CONFIG += imx8qxp-trusty-dual:imx8qxp_mek_android_trusty_dual_defconfig
     TARGET_BOOTLOADER_CONFIG += imx8qxp-trusty-c0:imx8qxp_mek_android_trusty_defconfig
+    TARGET_BOOTLOADER_CONFIG += imx8qxp-trusty-c0-dual:imx8qxp_mek_android_trusty_dual_defconfig
     TARGET_BOOTLOADER_CONFIG += imx8qxp-trusty-secure-unlock:imx8qxp_mek_android_trusty_secure_unlock_defconfig
   endif
 endif #PRODUCT_IMX_CAR
