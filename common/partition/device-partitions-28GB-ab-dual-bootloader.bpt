@@ -8,7 +8,7 @@
         {
             "ab": true,
             "label": "bootloader",
-            "size": "4 MiB",
+            "size": "16 MiB",
             "guid": "auto",
             "type_guid": "91af7174-0ecd-483f-8a51-5a46197a4cc3"
         },
