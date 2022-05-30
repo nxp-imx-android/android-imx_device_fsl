@@ -210,7 +210,7 @@ else
       # imx8qm standard android; HDMI display
       TARGET_BOARD_DTS_CONFIG += imx8qm-hdmi:imx8qm-mek-hdmi.dtb
       # imx8qm standard android; HDMI and HDMI RX
-      TARGET_BOARD_DTS_CONFIG += imx8qm-hdmi-rx:imx8qm-mek-hdmi-rx.dtb
+      TARGET_BOARD_DTS_CONFIG += imx8qm-hdmi-rx:imx8qm-mek-hdmi-rx-ov5640.dtb
       # imx8qm standard android; Multiple display
       TARGET_BOARD_DTS_CONFIG += imx8qm-md:imx8qm-mek-md.dtb
       # imx8qm standard android; LVDS1 panel display
