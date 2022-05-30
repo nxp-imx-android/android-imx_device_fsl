@@ -44,9 +44,9 @@ options:
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                            │   imx8ulp      │  dual trusty-dual evk-uuu trusty-secure-unlock trusty 9x9-evk-uuu 9x9 trusty-9x9                     │
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
-                           │   imx8qxp      │  mek-uuu trusty-secure-unlock trusty secure-unlock c0 trusty-c0 mek-c0-uuu                           │
+                           │   imx8qxp      │  dual trusty-dual mek-uuu trusty-secure-unlock trusty secure-unlock c0 trusty-c0 mek-c0-uuu          │
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
-                           │   imx8qm       │  mek-uuu trusty-secure-unlock trusty secure-unlock md hdmi xen                                       │
+                           │   imx8qm       │  dual trusty-dual mek-uuu trusty-secure-unlock trusty secure-unlock md hdmi xen                      │
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                            │   imx7ulp      │  evk-uuu                                                                                             │
                            └────────────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────┘
@@ -389,8 +389,8 @@ imx8mn_uboot_feature=(dual trusty-dual evk-uuu trusty-secure-unlock trusty ddr4-
 imx8mq_uboot_feature=(dual trusty-dual evk-uuu trusty-secure-unlock trusty)
 imx8mp_uboot_feature=(dual trusty-dual evk-uuu trusty-secure-unlock trusty powersave trusty-powersave)
 imx8ulp_uboot_feature=(dual trusty-dual evk-uuu trusty-secure-unlock trusty 9x9-evk-uuu 9x9 trusty-9x9)
-imx8qxp_uboot_feature=(mek-uuu trusty-secure-unlock trusty secure-unlock c0 trusty-c0 mek-c0-uuu)
-imx8qm_uboot_feature=(mek-uuu trusty-secure-unlock trusty secure-unlock md hdmi xen)
+imx8qxp_uboot_feature=(dual trusty-dual mek-uuu trusty-secure-unlock trusty secure-unlock c0 trusty-c0 mek-c0-uuu)
+imx8qm_uboot_feature=(dual trusty-dual mek-uuu trusty-secure-unlock trusty secure-unlock md hdmi xen)
 imx7ulp_uboot_feature=(evk-uuu)
 
 imx8mm_dtb_feature=(ddr4 m4 mipi-panel mipi-panel-rm67191)
@@ -493,7 +493,7 @@ if [ ${card_size} -ne 0 ] && [ ${card_size} -ne 7 ] && [ ${card_size} -ne 14 ] &
 fi
 
 # dual bootloader support will use different gpt, this is for imx8m and imx8ulp
-if [ ${support_dual_bootloader} -eq 1 ] && [[ ${soc_name#imx8m} != ${soc_name} || ${soc_name#imx8ulp} != ${soc_name} ]]; then
+if [ ${support_dual_bootloader} -eq 1 ]; then
     if [ ${card_size} -gt 0 ]; then
         partition_file="partition-table-${card_size}GB-dual.img";
     else
