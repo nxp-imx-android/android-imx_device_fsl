@@ -287,7 +287,8 @@ PRODUCT_SOONG_NAMESPACES += vendor/nxp-opensource/imx/camera
 
 PRODUCT_PACKAGES += \
     media_profiles_8mp-ov5640.xml \
-    media_profiles_8mp-basler-ov5640.xml
+    media_profiles_8mp-basler-ov5640.xml \
+    media_profiles_8mp-os08a20-ov5640.xml
 
 # -------@block_display-------
 
