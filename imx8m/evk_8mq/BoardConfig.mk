@@ -195,3 +195,7 @@ endif
 ifeq ($(IMX8MQ_USES_GKI),true)
     BOARD_KERNEL_CMDLINE += cpuidle.off=1
 endif
+
+AB_OTA_PARTITIONS += bootloader
+PRODUCT_COPY_FILES += \
+    $(OUT_DIR)/target/product/$(PRODUCT_DEVICE)/obj/UBOOT_COLLECTION/bootloader-imx8mq-trusty-dual.img:bootloader.img
