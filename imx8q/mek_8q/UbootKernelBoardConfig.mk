@@ -83,3 +83,11 @@ ifeq ($(PRODUCT_IMX_CAR),true)
   BOOTLOADER_RBINDEX ?= 0
 endif
 
+ifeq ($(TARGET_PRODUCT),mek_8q_car)
+  export PRODUCT_IMX_DUAL_BOOTLOADER
+endif
+
+export IMX8QM_A72_BOOT
+export PRODUCT_IMX_CAR
+export PRODUCT_IMX_CAR_M4
+

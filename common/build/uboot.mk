@@ -101,6 +101,9 @@ UBOOT_COLLECTION := $(TARGET_OUT_INTERMEDIATES)/UBOOT_COLLECTION
 UBOOT_BIN := $(PRODUCT_OUT)/$(TARGET_UBOOT_BUILD_TARGET)
 UBOOT_ENV_OUT := $(PRODUCT_OUT)/uboot.env
 
+export UBOOT_OUT
+export UBOOT_COLLECTION
+
 # Figure out which U-Boot version is being built (disregard -stable version).
 UBOOT_VERSION := $(shell $(MAKE) -j1 --no-print-directory -C $(UBOOT_IMX_PATH)/uboot-imx -s SUBLEVEL="" ubootversion)
 
@@ -120,7 +123,8 @@ $(UBOOTENVSH): | $(UBOOT_OUT)
 
 $(UBOOT_BIN): $(UBOOTENVSH) | $(UBOOT_COLLECTION) $(UBOOT_OUT)
 	$(hide) echo "Building $(UBOOT_ARCH) $(UBOOT_VERSION) U-Boot ..."
-	$(hide) $(call build_m4_image)
+		. ${product_path}/AndroidUboot.sh; \
+		build_m4_image
 	$(hide) for ubootplat in $(TARGET_BOOTLOADER_CONFIG); do \
 		UBOOT_PLATFORM=`echo $$ubootplat | cut -d':' -f1`; \
 		UBOOT_CONFIG=`echo $$ubootplat | cut -d':' -f2`; \
@@ -130,7 +134,8 @@ $(UBOOT_BIN): $(UBOOTENVSH) | $(UBOOT_COLLECTION) $(UBOOT_OUT)
 		if [ "$(UBOOT_POST_PROCESS)" = "true" ]; then \
 			echo "build post process" ; \
 			. $(UBOOTENVSH); \
-		    $(call build_imx_uboot, $(TARGET_BOOTLOADER_POSTFIX), $$UBOOT_PLATFORM) \
+			. ${product_path}/AndroidUboot.sh; \
+		    build_imx_uboot $(TARGET_BOOTLOADER_POSTFIX) $$UBOOT_PLATFORM \
 		    echo "===================Finish building `echo $$ubootplat` ==================="; \
 		else \
 			install -D $(UBOOT_OUT)/u-boot$(TARGET_DTB_POSTFIX).$(TARGET_BOOTLOADER_POSTFIX) $(UBOOT_COLLECTION)/u-boot-$$UBOOT_PLATFORM.imx; \
