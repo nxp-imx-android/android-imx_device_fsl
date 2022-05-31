@@ -1,11 +1,21 @@
 # -------@block_storage-------
-ifeq ($(PRODUCT_IMX_DUAL_BOOTLOADER),true)
+ifneq ($(TARGET_PRODUCT),mek_8q_car2)
   AB_OTA_PARTITIONS += bootloader
-  BOARD_OTA_BOOTLOADERIMAGE := $(OUT_DIR)/target/product/$(PRODUCT_DEVICE)/obj/UBOOT_COLLECTION/bootloader-imx8qm.img
-  ifeq ($(OTA_TARGET),8qxp)
-    BOARD_OTA_BOOTLOADERIMAGE := $(OUT_DIR)/target/product/$(PRODUCT_DEVICE)/obj/UBOOT_COLLECTION/bootloader-imx8qxp.img
-  else ifeq ($(OTA_TARGET),8qxp-c0)
-    BOARD_OTA_BOOTLOADERIMAGE := $(OUT_DIR)/target/product/$(PRODUCT_DEVICE)/obj/UBOOT_COLLECTION/bootloader-imx8qxp-c0.img
+
+  ifeq ($(PRODUCT_IMX_CAR),true)
+    BOARD_OTA_BOOTLOADERIMAGE := $(OUT_DIR)/target/product/$(PRODUCT_DEVICE)/obj/UBOOT_COLLECTION/bootloader-imx8qm.img
+    ifeq ($(OTA_TARGET),8qxp)
+      BOARD_OTA_BOOTLOADERIMAGE := $(OUT_DIR)/target/product/$(PRODUCT_DEVICE)/obj/UBOOT_COLLECTION/bootloader-imx8qxp.img
+    else ifeq ($(OTA_TARGET),8qxp-c0)
+      BOARD_OTA_BOOTLOADERIMAGE := $(OUT_DIR)/target/product/$(PRODUCT_DEVICE)/obj/UBOOT_COLLECTION/bootloader-imx8qxp-c0.img
+    endif
+  else
+    BOARD_OTA_BOOTLOADERIMAGE := $(OUT_DIR)/target/product/$(PRODUCT_DEVICE)/obj/UBOOT_COLLECTION/bootloader-imx8qm-trusty-dual.img
+    ifeq ($(OTA_TARGET),8qxp)
+      BOARD_OTA_BOOTLOADERIMAGE := $(OUT_DIR)/target/product/$(PRODUCT_DEVICE)/obj/UBOOT_COLLECTION/bootloader-imx8qxp-trusty-dual.img
+    else ifeq ($(OTA_TARGET),8qxp-c0)
+      BOARD_OTA_BOOTLOADERIMAGE := $(OUT_DIR)/target/product/$(PRODUCT_DEVICE)/obj/UBOOT_COLLECTION/bootloader-imx8qxp-c0-trusty-dual.img
+    endif
   endif
 endif
 

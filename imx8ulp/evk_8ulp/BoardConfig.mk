@@ -183,3 +183,6 @@ BOARD_SEPOLICY_DIRS += \
        $(IMX_DEVICE_PATH)/sepolicy_drm
 endif
 
+AB_OTA_PARTITIONS += bootloader
+PRODUCT_COPY_FILES += \
+    $(OUT_DIR)/target/product/$(PRODUCT_DEVICE)/obj/UBOOT_COLLECTION/bootloader-imx8ulp-trusty-dual.img:bootloader.img
