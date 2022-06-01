@@ -278,8 +278,10 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(IMX_DEVICE_PATH)/camera_config_imx8mp.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/camera_config_imx8mp.json \
     $(IMX_DEVICE_PATH)/camera_config_imx8mp-basler-ov5640.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/camera_config_imx8mp-basler-ov5640.json \
+    $(IMX_DEVICE_PATH)/camera_config_imx8mp-4k-basler-ov5640.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/camera_config_imx8mp-4k-basler-ov5640.json \
     $(IMX_DEVICE_PATH)/camera_config_imx8mp-only-ov5640.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/camera_config_imx8mp-only-ov5640.json \
     $(IMX_DEVICE_PATH)/camera_config_imx8mp-os08a20-ov5640.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/camera_config_imx8mp-os08a20-ov5640.json \
+    $(IMX_DEVICE_PATH)/camera_config_imx8mp-4k-os08a20-ov5640.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/camera_config_imx8mp-4k-os08a20-ov5640.json \
     $(IMX_DEVICE_PATH)/camera_config_imx8mp-dual-os08a20.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/camera_config_imx8mp-dual-os08a20.json \
     $(IMX_DEVICE_PATH)/external_camera_config.xml:$(TARGET_COPY_OUT_VENDOR)/etc/external_camera_config.xml
 
@@ -288,8 +290,7 @@ PRODUCT_SOONG_NAMESPACES += vendor/nxp-opensource/imx/camera
 
 PRODUCT_PACKAGES += \
     media_profiles_8mp-ov5640.xml \
-    media_profiles_8mp-basler-ov5640.xml \
-    media_profiles_8mp-os08a20-ov5640.xml
+    media_profiles_8mp-ispsensor-ov5640.xml
 
 # -------@block_display-------
 
