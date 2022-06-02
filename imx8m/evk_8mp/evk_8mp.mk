@@ -628,17 +628,17 @@ PRODUCT_PACKAGES += \
     DAA3840_30MC_4K-hdr.xml \
     basler-Sensor0_Entry.cfg \
     basler-Sensor1_Entry.cfg \
-    basler-Sensor0_Entry-4K.cfg \
     daA3840_30mc_1080P.json \
     daA3840_30mc_4K.json
 
 # config for os08a20
 PRODUCT_PACKAGES += \
-    OS08a20_8M_10_1080p.xml \
-    OS08a20_8M_10_4k.xml \
+    OS08a20_8M_10_1080p_linear.xml \
+    OS08a20_8M_10_1080p_hdr.xml \
+    OS08a20_8M_10_4k_linear.xml \
+    OS08a20_8M_10_4k_hdr.xml \
     os08a20-Sensor0_Entry.cfg \
     os08a20-Sensor1_Entry.cfg \
-    os08a20-Sensor0_Entry-4K.cfg \
     sensor_dwe_bypass_1080P_config.json \
     sensor_dwe_bypass_4K_config.json
 
