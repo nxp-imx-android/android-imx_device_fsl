@@ -1,11 +1,7 @@
 include $(CONFIG_REPO_PATH)/common/build/build_info.mk
 # -------@block_infrastructure-------
 ifneq ($(IMX8_BUILD_32BIT_ROOTFS),true)
-ifeq ($(PRODUCT_IMX_CAR),true)
-$(call inherit-product, $(IMX_DEVICE_PATH)/core_64_bit_car.mk)
-else
 $(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
-endif # PRODUCT_IMX_CAR
 endif # IMX8_BUILD_32BIT_ROOTFS
 
 $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
