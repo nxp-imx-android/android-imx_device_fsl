@@ -136,6 +136,8 @@ PRODUCT_PACKAGES += \
     lib_imx_c2_process \
     lib_imx_c2_process_isi_pre \
     lib_imx_c2_process_g2d_post \
+    lib_imx_c2_g2d_filter \
+    libc2filterplugin \
     lib_c2_imx_store \
     lib_c2_imx_audio_dec_common \
     lib_c2_imx_aac_dec \
