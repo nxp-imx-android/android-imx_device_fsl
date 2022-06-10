@@ -21,7 +21,7 @@
       "PhysicalWidth": "8.064",
       "PhysicalHeight": "4.536",
       "FocalLength": "4.0",
-      "MaxJpegSize": "6291456",
+      "MaxJpegSize": "12582912",
       "MinFrameDuration": "16666666",
       "MaxFrameDuration": "300000000",
       "ae_comp_min": "-4",
