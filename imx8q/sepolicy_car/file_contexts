@@ -1,4 +1,1 @@
 /vendor/bin/evs_service                 u:object_r:evs_service_exec:s0
-
-# partitions of boot device
-/dev/block/by-name/bootloader_[ab]           u:object_r:bootloader_block_device:s0
