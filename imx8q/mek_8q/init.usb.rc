@@ -53,3 +53,6 @@ on early-boot
 
 on boot
     setprop sys.usb.configfs 2
+
+on boot && property:ro.boot.soc_rev=revb
+    setprop sys.usb.ffs.aio_compat 1
