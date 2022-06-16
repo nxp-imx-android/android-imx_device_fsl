@@ -67,6 +67,10 @@ BOARD_PREBUILT_DTBOIMAGE := $(OUT_DIR)/target/product/$(PRODUCT_DEVICE)/dtbo-imx
 BOARD_USES_METADATA_PARTITION := true
 BOARD_ROOT_EXTRA_FOLDERS += metadata
 
+AB_OTA_PARTITIONS += bootloader
+PRODUCT_COPY_FILES += \
+    $(OUT_DIR)/target/product/$(PRODUCT_DEVICE)/obj/UBOOT_COLLECTION/bootloader-imx8mm-trusty-dual.img:bootloader.img
+
 # -------@block_security-------
 ENABLE_CFI=false
 
@@ -196,7 +200,3 @@ ifeq ($(PRODUCT_IMX_DRM),true)
 BOARD_SEPOLICY_DIRS += \
        $(IMX_DEVICE_PATH)/sepolicy_drm
 endif
-
-AB_OTA_PARTITIONS += bootloader
-PRODUCT_COPY_FILES += \
-    $(OUT_DIR)/target/product/$(PRODUCT_DEVICE)/obj/UBOOT_COLLECTION/bootloader-imx8mm-trusty-dual.img:bootloader.img
