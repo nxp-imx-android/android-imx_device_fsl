@@ -226,3 +226,7 @@ BOARD_VENDOR_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/net/ethernet/freescale/fec.ko \
     $(KERNEL_OUT)/drivers/soc/imx/imx8ulp_lpm.ko
 endif
+
+# -------@block_storage-------
+# the bootloader image used in dual-bootloader OTA
+BOARD_OTA_BOOTLOADERIMAGE := bootloader-imx8ulp-trusty-dual.img

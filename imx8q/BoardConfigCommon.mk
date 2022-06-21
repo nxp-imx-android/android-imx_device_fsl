@@ -112,9 +112,6 @@ endif
 # kernel module's copy to vendor need this folder setting
 KERNEL_OUT ?= $(OUT_DIR)/target/product/$(PRODUCT_DEVICE)/obj/KERNEL_OBJ
 
-PRODUCT_COPY_FILES += \
-    $(KERNEL_OUT)/arch/$(TARGET_KERNEL_ARCH)/boot/$(KERNEL_NAME):kernel
-
 TARGET_BOARD_KERNEL_HEADERS := $(CONFIG_REPO_PATH)/common/kernel-headers
 
 # -------@block_app-------
@@ -185,11 +182,6 @@ else
 
     BOARD_PRODUCTIMAGE_PARTITION_SIZE := 1879048192
   endif
-endif
-
-ifneq ($(BOARD_OTA_BOOTLOADERIMAGE),)
-  PRODUCT_COPY_FILES += \
-      $(BOARD_OTA_BOOTLOADERIMAGE):bootloader.img
 endif
 
 # -------@block_bluetooth-------

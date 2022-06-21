@@ -59,3 +59,24 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES += \
 # -------@block_security-------
 #Enable this to include trusty support
 PRODUCT_IMX_TRUSTY := true
+
+# -------@block_storage-------
+ifneq ($(TARGET_PRODUCT),mek_8q_car2)
+  AB_OTA_PARTITIONS += bootloader
+
+  ifeq ($(PRODUCT_IMX_CAR),true)
+    BOARD_OTA_BOOTLOADERIMAGE := bootloader-imx8qm.img
+    ifeq ($(OTA_TARGET),8qxp)
+      BOARD_OTA_BOOTLOADERIMAGE := bootloader-imx8qxp.img
+    else ifeq ($(OTA_TARGET),8qxp-c0)
+      BOARD_OTA_BOOTLOADERIMAGE := bootloader-imx8qxp-c0.img
+    endif
+  else
+    BOARD_OTA_BOOTLOADERIMAGE := bootloader-imx8qm-trusty-dual.img
+    ifeq ($(OTA_TARGET),8qxp)
+      BOARD_OTA_BOOTLOADERIMAGE := bootloader-imx8qxp-trusty-dual.img
+    else ifeq ($(OTA_TARGET),8qxp-c0)
+      BOARD_OTA_BOOTLOADERIMAGE := bootloader-imx8qxp-c0-trusty-dual.img
+    endif
+  endif
+endif
