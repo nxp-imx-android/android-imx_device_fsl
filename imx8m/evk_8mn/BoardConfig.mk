@@ -59,8 +59,6 @@ BOARD_USES_METADATA_PARTITION := true
 BOARD_ROOT_EXTRA_FOLDERS += metadata
 
 AB_OTA_PARTITIONS += bootloader
-PRODUCT_COPY_FILES += \
-    $(OUT_DIR)/target/product/$(PRODUCT_DEVICE)/obj/UBOOT_COLLECTION/bootloader-imx8mn-trusty-dual.img:bootloader.img
 
 # -------@block_security-------
 ENABLE_CFI=true
