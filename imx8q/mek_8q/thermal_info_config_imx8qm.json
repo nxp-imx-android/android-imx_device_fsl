@@ -178,7 +178,7 @@
             "Type": "CPU"
         },
         {
-            "Name":"cpufreq-cpu4",
+            "Name":"cpufreq-cpu2",
             "Type":"CPU"
         },
         {

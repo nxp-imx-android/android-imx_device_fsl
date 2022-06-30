@@ -65,21 +65,9 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.thermal@2.0-service.imx
 
-ifneq ($(PRODUCT_IMX_CAR),true)
 PRODUCT_COPY_FILES += \
     $(IMX_DEVICE_PATH)/thermal_info_config_imx8qxp.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/thermal_info_config_imx8qxp.json \
     $(IMX_DEVICE_PATH)/thermal_info_config_imx8qm.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/thermal_info_config_imx8qm.json
-else
-ifneq ($(PRODUCT_IMX_CAR_M4),true)
-PRODUCT_COPY_FILES += \
-    $(IMX_DEVICE_PATH)/thermal_info_config_imx8qxp_car2.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/thermal_info_config_imx8qxp.json \
-    $(IMX_DEVICE_PATH)/thermal_info_config_imx8qm_car2.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/thermal_info_config_imx8qm.json
-else
-PRODUCT_COPY_FILES += \
-    $(IMX_DEVICE_PATH)/thermal_info_config_imx8qxp.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/thermal_info_config_imx8qxp.json \
-    $(IMX_DEVICE_PATH)/thermal_info_config_imx8qm.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/thermal_info_config_imx8qm.json
-endif
-endif
 
 # Task Profiles
 PRODUCT_COPY_FILES += \
