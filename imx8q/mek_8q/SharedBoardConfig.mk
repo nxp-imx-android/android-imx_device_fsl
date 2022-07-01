@@ -49,20 +49,9 @@ BOARD_VENDOR_KERNEL_MODULES += \
                             $(KERNEL_OUT)/drivers/usb/storage/usb-storage.ko \
                             $(KERNEL_OUT)/block/t10-pi.ko \
                             $(KERNEL_OUT)/drivers/scsi/sd_mod.ko \
-                            $(KERNEL_OUT)/drivers/hid/hid-multitouch.ko
-
-ifeq ($(PRODUCT_IMX_CAR_M4),true)
-#BOARD_VENDOR_KERNEL_MODULES += \
-                            $(KERNEL_OUT)/drivers/staging/media/imx/gmsl-max9286.ko \
-                            $(KERNEL_OUT)/drivers/staging/media/imx/imx8-mipi-csi2.ko \
-                            $(KERNEL_OUT)/drivers/staging/media/imx/imx8-media-dev.ko \
-                            $(KERNEL_OUT)/drivers/staging/media/imx/imx8-capture.ko
-
+                            $(KERNEL_OUT)/drivers/hid/hid-multitouch.ko \
+                            $(KERNEL_OUT)/drivers/staging/media/imx/imx8-media-dev.ko
 endif
-endif
-
-BOARD_VENDOR_RAMDISK_KERNEL_MODULES += \
-    $(KERNEL_OUT)/drivers/staging/media/imx/imx8-media-dev.ko
 
 # -------@block_security-------
 #Enable this to include trusty support
