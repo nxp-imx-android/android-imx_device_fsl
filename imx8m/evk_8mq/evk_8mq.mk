@@ -71,9 +71,10 @@ PRODUCT_COPY_FILES += \
 # Enable this to support vendor boot and boot header v3, this would be a MUST for GKI
 TARGET_USE_VENDOR_BOOT ?= true
 
-ifeq ($(IMX8MQ_USES_GKI),true)
-  BOARD_RAMDISK_USE_LZ4 := true
+# Allow LZ4 compression
+BOARD_RAMDISK_USE_LZ4 := true
 
+ifeq ($(IMX8MQ_USES_GKI),true)
   BOARD_USES_GENERIC_KERNEL_IMAGE := true
   $(call inherit-product, $(SRC_TARGET_DIR)/product/generic_ramdisk.mk)
 endif
