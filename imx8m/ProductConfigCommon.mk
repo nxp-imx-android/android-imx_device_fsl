@@ -105,6 +105,7 @@ PRODUCT_PACKAGES += \
     android.hardware.media.c2@1.0-service \
     libsfplugin_ccodec \
     lib_imx_c2_componentbase \
+    lib_imx_utils \
     lib_imx_ts_manager \
     lib_c2_imx_store \
     lib_c2_imx_audio_dec_common \

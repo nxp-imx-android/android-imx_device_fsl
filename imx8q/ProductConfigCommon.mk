@@ -126,6 +126,7 @@ PRODUCT_PACKAGES += \
     android.hardware.media.c2@1.0-service \
     libsfplugin_ccodec \
     lib_imx_c2_componentbase \
+    lib_imx_utils \
     lib_imx_c2_videodec_common \
     lib_imx_c2_videodec \
     lib_imx_c2_videoenc_common \
@@ -137,6 +138,7 @@ PRODUCT_PACKAGES += \
     lib_imx_c2_process_isi_pre \
     lib_imx_c2_process_g2d_post \
     lib_imx_c2_g2d_filter \
+    lib_imx_c2_isi_filter \
     libc2filterplugin \
     lib_c2_imx_store \
     lib_c2_imx_audio_dec_common \
