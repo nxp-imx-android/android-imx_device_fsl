@@ -269,8 +269,8 @@ endif
 
 # Audio SOF firmware and tplg files
 PRODUCT_COPY_FILES += \
-    $(FSL_PROPRIETARY_PATH)/fsl-proprietary/sof/sof-tplg/sof-imx8mp-wm8960.tplg:$(TARGET_COPY_OUT_VENDOR)/firmware/imx/sof-tplg/sof-imx8mp-wm8960.tplg \
-    $(FSL_PROPRIETARY_PATH)/fsl-proprietary/sof/sof-tplg/sof-imx8mp-compr-mp3-wm8960.tplg:$(TARGET_COPY_OUT_VENDOR)/firmware/imx/sof-tplg/sof-imx8mp-compr-mp3-wm8960.tplg \
+    $(FSL_PROPRIETARY_PATH)/fsl-proprietary/sof/sof-tplg/sof-imx8mp-wm8960.tplg:$(TARGET_COPY_OUT_VENDOR)/firmware/imx/sof-tplg/sof-imx8mp-pcm-wm8960.tplg \
+    $(FSL_PROPRIETARY_PATH)/fsl-proprietary/sof/sof-tplg/sof-imx8mp-compr-mp3-wm8960.tplg:$(TARGET_COPY_OUT_VENDOR)/firmware/imx/sof-tplg/sof-imx8mp-wm8960.tplg \
     $(FSL_PROPRIETARY_PATH)/fsl-proprietary/sof/sof-tplg/sof-imx8mp-compr-aac-wm8960.tplg:$(TARGET_COPY_OUT_VENDOR)/firmware/imx/sof-tplg/sof-imx8mp-compr-aac-wm8960.tplg \
     $(FSL_PROPRIETARY_PATH)/fsl-proprietary/sof/sof/sof-imx8m.ri:$(TARGET_COPY_OUT_VENDOR)/firmware/imx/sof/sof-imx8m.ri
 
