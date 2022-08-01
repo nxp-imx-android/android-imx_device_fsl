@@ -11,6 +11,8 @@ $(call inherit-product, packages/services/Car/car_product/build/car.mk)
 endif
 ifneq ($(TARGET_PRODUCT),mek_8q_car)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/updatable_apex.mk)
+else
+PRODUCT_PROPERTY_OVERRIDES += ro.apex.updatable=false
 endif
 $(call inherit-product, $(TOPDIR)frameworks/base/data/sounds/AllAudio.mk)
 
