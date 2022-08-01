@@ -377,6 +377,7 @@ PRODUCT_PACKAGES += \
     lib_imx_c2_videodec \
     lib_imx_c2_videodec_common \
     lib_imx_c2_videoenc_common \
+    lib_imx_c2_videoenc \
     lib_imx_c2_v4l2_dev \
     lib_imx_c2_v4l2_dec \
     lib_imx_c2_v4l2_enc \
