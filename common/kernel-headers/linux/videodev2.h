@@ -309,6 +309,8 @@ struct v4l2_pix_format {
 #define V4L2_PIX_FMT_YVU422M v4l2_fourcc('Y', 'M', '6', '1')
 #define V4L2_PIX_FMT_YUV444M v4l2_fourcc('Y', 'M', '2', '4')
 #define V4L2_PIX_FMT_YVU444M v4l2_fourcc('Y', 'M', '4', '2')
+#define V4L2_PIX_FMT_NV12_8L128 v4l2_fourcc('A', 'T', '1', '2')
+#define V4L2_PIX_FMT_NV12_10BE_8L128 v4l2_fourcc_be('A', 'X', '1', '2')
 #define V4L2_PIX_FMT_NV12M_8L128 v4l2_fourcc('N', 'A', '1', '2')
 #define V4L2_PIX_FMT_NV12M_10BE_8L128 v4l2_fourcc_be('N', 'T', '1', '2')
 #define V4L2_PIX_FMT_SBGGR8 v4l2_fourcc('B', 'A', '8', '1')
