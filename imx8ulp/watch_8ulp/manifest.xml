@@ -1,5 +1,5 @@
-<manifest version="1.0" type="device" target-level="6">
-    <kernel  target-level="6" />
+<manifest version="1.0" type="device" target-level="5">
+    <kernel  target-level="7" />
     <hal format="hidl">
 	<name>android.hardware.graphics.allocator</name>
         <transport>hwbinder</transport>
@@ -66,6 +66,15 @@
         </interface>
         <interface>
             <name>IOmxStore</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+    <hal format="hidl">
+        <name>android.hardware.memtrack</name>
+        <transport>hwbinder</transport>
+        <version>1.0</version>
+        <interface>
+            <name>IMemtrack</name>
             <instance>default</instance>
         </interface>
     </hal>
