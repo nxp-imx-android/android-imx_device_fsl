@@ -26,6 +26,7 @@
       "MinFrameDuration": "33333333",
       "MaxFrameDuration": "300000000",
       "MinFrameDurationBlob5M": "600000000",
+      "v4l2_format": "nv12",
       "OmitFrame": [
           {
               "width": "2592",
