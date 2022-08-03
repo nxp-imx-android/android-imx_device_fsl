@@ -4,7 +4,7 @@ UBOOT_POST_PROCESS := true
 
 # u-boot target
 TARGET_BOOTLOADER_CONFIG := imx8mp:imx8mp_evk_android_defconfig
-TARGET_BOOTLOADER_CONFIG += imx8mp-trusty-secure-unlock:imx8mp_evk_android_trusty_secure_unlock_defconfig
+TARGET_BOOTLOADER_CONFIG += imx8mp-trusty-secure-unlock-dual:imx8mp_evk_android_trusty_secure_unlock_dual_defconfig
 TARGET_BOOTLOADER_CONFIG += imx8mp-dual:imx8mp_evk_android_dual_defconfig
 TARGET_BOOTLOADER_CONFIG += imx8mp-trusty-dual:imx8mp_evk_android_trusty_dual_defconfig
 ifeq ($(POWERSAVE),true)
