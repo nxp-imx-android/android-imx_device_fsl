@@ -38,7 +38,11 @@ build_m4_image()
 build_imx_uboot()
 {
 	echo Building i.MX U-Boot with firmware
-	cp ${FSL_PROPRIETARY_PATH}/fsl-proprietary/mcu-sdk/imx8ulp/imx8ulp_mcu_demo.img ${BOARD_MKIMAGE_PATH}/m33_image.bin
+	if [ `echo $2 | cut -d '-' -f3` = "lpa" ]; then
+		cp ${FSL_PROPRIETARY_PATH}/fsl-proprietary/mcu-sdk/imx8ulp/imx8ulp_mcu_demo_lpa.img ${BOARD_MKIMAGE_PATH}/m33_image.bin
+	else
+		cp ${FSL_PROPRIETARY_PATH}/fsl-proprietary/mcu-sdk/imx8ulp/imx8ulp_mcu_demo.img ${BOARD_MKIMAGE_PATH}/m33_image.bin
+	fi
 	if [ `echo $2 | cut -d '-' -f2` = "9x9" ] || [ `echo $2 | cut -d '-' -f3` = "9x9" ]; then
 		cp ${FSL_PROPRIETARY_PATH}/fsl-proprietary/uboot-firmware/imx8ulp/upower_a0.bin ${BOARD_MKIMAGE_PATH}/upower.bin
 		cp ${FSL_PROPRIETARY_PATH}/sentinel/mx8ulpa0-ahab-container.img ${BOARD_MKIMAGE_PATH}
