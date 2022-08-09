@@ -24,6 +24,11 @@ on early-boot
     chown root system /sys/devices/system/cpu/cpu3/online
     chmod 0664 /sys/devices/system/cpu/cpu3/online
 
+    # default vibrator device
+    setprop vendor.hw.vibrator.dev "vibrator"
+    chown system system /sys/class/leds/vibrator/brightness
+    chmod 0660 /sys/class/leds/vibrator/brightness
+
 on property:sys.boot_completed=1
     # Set default CPU frequency governor
     # configure governor settings for little cluster

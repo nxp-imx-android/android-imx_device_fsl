@@ -225,7 +225,8 @@ BOARD_VENDOR_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/mtd/spi-nor/spi-nor.ko \
     $(KERNEL_OUT)/drivers/net/phy/micrel.ko \
     $(KERNEL_OUT)/drivers/net/ethernet/freescale/fec.ko \
-    $(KERNEL_OUT)/drivers/soc/imx/imx8ulp_lpm.ko
+    $(KERNEL_OUT)/drivers/soc/imx/imx8ulp_lpm.ko \
+    $(KERNEL_OUT)/drivers/leds/leds-pwm.ko
 endif
 
 # -------@block_storage-------

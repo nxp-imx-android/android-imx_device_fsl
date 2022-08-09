@@ -13,6 +13,9 @@
 
 /dev/block/pmem0  u:object_r:rebootescrow_device:s0
 
+# vibrator
+ /(vendor|system/vendor)/bin/hw/android\.hardware\.vibrator-service.imx   u:object_r:hal_vibrator_default_exec:s0
+
 # android.system.suspend@1.0-service
 /sys/devices/platform/soc@0/30000000.bus/30370000.snvs/30370000.snvs:snvs-powerkey/wakeup/wakeup[0-9]*(/.*)?                                  u:object_r:sysfs_wakeup:s0
 /sys/devices/platform/soc@0/30000000.bus/30370000.snvs/30370000.snvs:snvs-rtc-lp/wakeup/wakeup[0-9]*(/.*)?                                    u:object_r:sysfs_wakeup:s0
