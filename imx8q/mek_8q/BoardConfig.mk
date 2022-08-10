@@ -184,8 +184,6 @@ ifeq ($(PRODUCT_IMX_CAR),true)
         # imx8qm auto android with multi-display
         TARGET_BOARD_DTS_CONFIG += imx8qm-md:imx8qm-mek-car-md.dtb
       endif
-      # imx8qm auto android virtualization
-      TARGET_BOARD_DTS_CONFIG += imx8qm-xen:imx8qm-mek-domu-car.dtb
       # imx8qxp auto android
       TARGET_BOARD_DTS_CONFIG += imx8qxp:imx8qxp-mek-car.dtb
       TARGET_BOARD_DTS_CONFIG += imx8qxp-sof:imx8qxp-mek-car-sof.dtb
@@ -211,8 +209,6 @@ ifeq ($(PRODUCT_IMX_CAR),true)
       # imx8qxp auto android without m4 image
       TARGET_BOARD_DTS_CONFIG += imx8qxp:imx8qxp-mek-car2.dtb
       TARGET_BOARD_DTS_CONFIG += imx8qxp-sof:imx8qxp-mek-car2-sof.dtb
-      # imx8qm auto android without m4 image in xen
-      TARGET_BOARD_DTS_CONFIG += imx8qm-xen:imx8qm-mek-car2-domu.dtb
     endif #IMX_NO_PRODUCT_PARTITION
   endif #PRODUCT_IMX_CAR_M4
 else
