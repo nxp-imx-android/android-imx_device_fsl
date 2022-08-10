@@ -27,8 +27,11 @@
 # Copied from build/target/product/AndroidProducts.mk
 
 PRODUCT_MAKEFILES := \
+  $(LOCAL_DIR)/watch_8ulp/watch_8ulp.mk \
   $(LOCAL_DIR)/evk_8ulp/evk_8ulp.mk
 
 COMMON_LUNCH_CHOICES := \
+  watch_8ulp-user \
+  watch_8ulp-userdebug \
   evk_8ulp-user \
   evk_8ulp-userdebug

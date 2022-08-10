@@ -33,7 +33,6 @@ ifeq ($(IMX8MP_USES_GKI),true)
 BOARD_VENDOR_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/mxc/gpu-viv/galcore.ko \
     $(KERNEL_OUT)/drivers/thermal/imx8mm_thermal.ko \
-    $(KERNEL_OUT)/drivers/dma/imx-sdma.ko \
     $(KERNEL_OUT)/sound/soc/fsl/imx-pcm-dma.ko \
     $(KERNEL_OUT)/sound/soc/fsl/snd-soc-fsl-micfil.ko \
     $(KERNEL_OUT)/sound/soc/fsl/snd-soc-fsl-aud2htx.ko \
@@ -215,6 +214,7 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES +=     \
     $(KERNEL_OUT)/drivers/staging/media/imx/imx8-isi-hw.ko \
     $(KERNEL_OUT)/drivers/staging/media/imx/imx8-isi-mem2mem.ko \
     $(KERNEL_OUT)/drivers/staging/media/imx/imx8-mipi-csi2-sam.ko \
+    $(KERNEL_OUT)/drivers/dma/imx-sdma.ko \
     $(KERNEL_OUT)/drivers/trusty/trusty-core.ko \
     $(KERNEL_OUT)/drivers/trusty/trusty-irq.ko \
     $(KERNEL_OUT)/drivers/trusty/trusty-log.ko \
@@ -223,9 +223,9 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES +=     \
     $(TARGET_OUT_INTERMEDIATES)/VVCAM_OBJ/basler-camera-driver-vvcam.ko \
     $(TARGET_OUT_INTERMEDIATES)/VVCAM_OBJ/os08a20.ko \
     $(KERNEL_OUT)/drivers/staging/media/imx/imx8-media-dev.ko \
+    $(TARGET_OUT_INTERMEDIATES)/VVCAM_OBJ/vvcam-dwe.ko \
     $(TARGET_OUT_INTERMEDIATES)/VVCAM_OBJ/vvcam-isp.ko \
     $(TARGET_OUT_INTERMEDIATES)/VVCAM_OBJ/vvcam-video.ko \
-    $(TARGET_OUT_INTERMEDIATES)/VVCAM_OBJ/vvcam-dwe.ko \
     $(KERNEL_OUT)/net/wireless/cfg80211.ko \
     $(KERNEL_OUT)/net/mac80211/mac80211.ko
 else
@@ -246,3 +246,7 @@ LOW_MEMORY := false
 # -------@block_security-------
 #Enable this to include trusty support
 PRODUCT_IMX_TRUSTY := true
+
+# -------@block_storage-------
+# the bootloader image used in dual-bootloader OTA
+BOARD_OTA_BOOTLOADERIMAGE := bootloader-imx8mp-trusty-dual.img

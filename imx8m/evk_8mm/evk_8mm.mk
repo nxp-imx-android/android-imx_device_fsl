@@ -80,12 +80,12 @@ PRODUCT_COPY_FILES += \
 # Enable this to support vendor boot and boot header v3, this would be a MUST for GKI
 TARGET_USE_VENDOR_BOOT ?= true
 
+# Allow LZ4 compression
+BOARD_RAMDISK_USE_LZ4 := true
+
 ifeq ($(IMX8MM_USES_GKI),true)
 PRODUCT_PROPERTY_OVERRIDES += \
     vendor.gki.enable=true
-
-BOARD_RAMDISK_USE_LZ4 := true
-
 BOARD_USES_GENERIC_KERNEL_IMAGE := true
 $(call inherit-product, $(SRC_TARGET_DIR)/product/generic_ramdisk.mk)
 endif
@@ -375,14 +375,17 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     lib_vpu_wrapper \
     lib_imx_c2_videodec \
-    lib_imx_c2_vpuwrapper_dec \
     lib_imx_c2_videodec_common \
     lib_imx_c2_videoenc_common \
-    lib_imx_c2_vpuwrapper_enc \
     lib_imx_c2_videoenc \
+    lib_imx_c2_v4l2_dev \
+    lib_imx_c2_v4l2_dec \
+    lib_imx_c2_v4l2_enc \
     lib_imx_c2_process \
     lib_imx_c2_process_dummy_post \
     lib_imx_c2_process_g2d_pre \
+    lib_imx_c2_g2d_pre_filter \
+    libc2filterplugin \
     c2_component_register \
     c2_component_register_ms \
     c2_component_register_ra

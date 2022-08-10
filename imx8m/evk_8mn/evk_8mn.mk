@@ -72,9 +72,10 @@ PRODUCT_COPY_FILES += \
 # Enable this to support vendor boot and boot header v3, this would be a MUST for GKI
 TARGET_USE_VENDOR_BOOT ?= true
 
-ifeq ($(IMX8MN_USES_GKI),true)
-  BOARD_RAMDISK_USE_LZ4 := true
+# Allow LZ4 compression
+BOARD_RAMDISK_USE_LZ4 := true
 
+ifeq ($(IMX8MN_USES_GKI),true)
   BOARD_USES_GENERIC_KERNEL_IMAGE := true
   $(call inherit-product, $(SRC_TARGET_DIR)/product/generic_ramdisk.mk)
 endif
@@ -90,7 +91,7 @@ endif
 PRODUCT_COPY_FILES += \
     $(IMX_DEVICE_PATH)/early.init.cfg:$(TARGET_COPY_OUT_VENDOR)/etc/early.init.cfg \
     $(IMX_DEVICE_PATH)/ueventd.nxp.rc:$(TARGET_COPY_OUT_VENDOR)/ueventd.rc \
-    $(LINUX_FIRMWARE_IMX_PATH)/linux-firmware-imx/firmware/sdma/sdma-imx7d.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/imx/sdma/sdma-imx7d.bin \
+    $(LINUX_FIRMWARE_IMX_PATH)/linux-firmware-imx/firmware/sdma/sdma-imx7d.bin:$(TARGET_COPY_OUT_VENDOR_RAMDISK)/lib/firmware/imx/sdma/sdma-imx7d.bin \
     $(CONFIG_REPO_PATH)/common/init/init.insmod.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.insmod.sh
 
 # -------@block_storage-------

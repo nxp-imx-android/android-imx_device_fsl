@@ -105,6 +105,7 @@ PRODUCT_PACKAGES += \
     android.hardware.media.c2@1.0-service \
     libsfplugin_ccodec \
     lib_imx_c2_componentbase \
+    lib_imx_utils \
     lib_imx_ts_manager \
     lib_c2_imx_store \
     lib_c2_imx_audio_dec_common \
@@ -292,6 +293,11 @@ PRODUCT_COPY_FILES += \
     frameworks/av/services/audiopolicy/config/default_volume_tables.xml:$(TARGET_COPY_OUT_VENDOR)/etc/default_volume_tables.xml \
     frameworks/av/services/audiopolicy/config/r_submix_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/r_submix_audio_policy_configuration.xml \
     frameworks/av/services/audiopolicy/config/usb_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/usb_audio_policy_configuration.xml
+
+# compress offload audio playback support
+PRODUCT_PACKAGES += \
+    libtinycompress \
+    cplay
 
 # -------@block_wifi-------
 PRODUCT_PACKAGES += \

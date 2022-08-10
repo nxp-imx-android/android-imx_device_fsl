@@ -26,21 +26,12 @@
       "MinFrameDuration": "33333333",
       "MaxFrameDuration": "300000000",
       "MinFrameDurationBlob5M": "600000000",
+      "v4l2_format": "nv12",
       "OmitFrame": [
           {
               "width": "2592",
               "height": "1944",
               "omit_num": "2"
-          },
-          {
-              "width": "1280",
-              "height": "720",
-              "omit_num": "1"
-          },
-          {
-              "width": "640",
-              "height": "480",
-              "omit_num": "1"
           }
       ]
     }

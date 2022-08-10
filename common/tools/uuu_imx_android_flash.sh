@@ -34,13 +34,13 @@ options:
                            ┌────────────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────┐
                            │   soc_name     │  legal parameter after "-u"                                                                          │
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
-                           │   imx8mm       │  dual trusty-dual 4g-evk-uuu 4g ddr4-evk-uuu ddr4 evk-uuu trusty-4g trusty-secure-unlock trusty      │
+                           │   imx8mm       │  dual trusty-dual 4g-evk-uuu 4g ddr4-evk-uuu ddr4 evk-uuu trusty-secure-unlock-dual                  │
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
-                           │   imx8mn       │  dual trusty-dual evk-uuu trusty-secure-unlock trusty ddr4-evk-uuu ddr4                              │
+                           │   imx8mn       │  dual trusty-dual evk-uuu trusty-secure-unlock-dual ddr4-evk-uuu ddr4                                │
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
-                           │   imx8mq       │  dual trusty-dual evk-uuu trusty-secure-unlock trusty                                                │
+                           │   imx8mq       │  dual trusty-dual evk-uuu trusty-secure-unlock-dual                                                  │
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
-                           │   imx8mp       │  dual trusty-dual evk-uuu trusty-secure-unlock trusty powersave trusty-powersave                     │
+                           │   imx8mp       │  dual trusty-dual evk-uuu trusty-secure-unlock-dual powersave trusty-powersave-dual                  │
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                            │   imx8ulp      │  dual trusty-dual evk-uuu trusty-secure-unlock trusty 9x9-evk-uuu 9x9 trusty-9x9                     │
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤

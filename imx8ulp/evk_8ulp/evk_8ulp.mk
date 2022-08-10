@@ -78,12 +78,12 @@ PRODUCT_COPY_FILES += \
 # Enable this to support vendor boot and boot header v3, this would be a MUST for GKI
 TARGET_USE_VENDOR_BOOT ?= true
 
+# Allow LZ4 compression
+BOARD_RAMDISK_USE_LZ4 := true
+
 ifeq ($(IMX8ULP_USES_GKI),true)
 PRODUCT_PROPERTY_OVERRIDES += \
     vendor.gki.enable=true
-
-BOARD_RAMDISK_USE_LZ4 := true
-
 BOARD_USES_GENERIC_KERNEL_IMAGE := true
 $(call inherit-product, $(SRC_TARGET_DIR)/product/generic_ramdisk.mk)
 endif
@@ -98,7 +98,6 @@ endif
 
 PRODUCT_COPY_FILES += \
     $(IMX_DEVICE_PATH)/early.init.cfg:$(TARGET_COPY_OUT_VENDOR)/etc/early.init.cfg \
-    $(LINUX_FIRMWARE_IMX_PATH)/linux-firmware-imx/firmware/sdma/sdma-imx7d.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/imx/sdma/sdma-imx7d.bin \
     $(CONFIG_REPO_PATH)/common/init/init.insmod.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.insmod.sh \
     $(IMX_DEVICE_PATH)/ueventd.nxp.rc:$(TARGET_COPY_OUT_VENDOR)/ueventd.rc
 
@@ -192,6 +191,12 @@ PRODUCT_PACKAGES += \
 # new gatekeeper HAL
 PRODUCT_PACKAGES += \
     android.hardware.gatekeeper@1.0-service.software-imx
+
+# ConfirmationUi HAL
+ifeq ($(PRODUCT_IMX_TRUSTY),true)
+PRODUCT_PACKAGES += \
+    android.hardware.confirmationui@1.0-service.trusty
+endif
 
 # Add Trusty OS backed gatekeeper and secure storage proxy
 ifeq ($(PRODUCT_IMX_TRUSTY),true)
@@ -485,3 +490,5 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.software.activities_on_secondary_displays.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.activities_on_secondary_displays.xml \
     frameworks/native/data/etc/android.software.picture_in_picture.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.picture_in_picture.xml
 
+PRODUCT_COPY_FILES += \
+     vendor/nxp/fsl-proprietary/uboot-firmware/imx8ulp/confirmationui-imx8ulp.app:/vendor/firmware/tee/confirmationui.app

@@ -7,9 +7,8 @@ TARGET_BOOTLOADER_CONFIG := imx8mn-ddr4:imx8mn_ddr4_evk_android_defconfig
 TARGET_BOOTLOADER_CONFIG += imx8mn:imx8mn_evk_android_defconfig
 TARGET_BOOTLOADER_CONFIG += imx8mn-dual:imx8mn_evk_android_dual_defconfig
 ifeq ($(PRODUCT_IMX_TRUSTY),true)
-  TARGET_BOOTLOADER_CONFIG += imx8mn-trusty:imx8mn_evk_android_trusty_defconfig
   TARGET_BOOTLOADER_CONFIG += imx8mn-trusty-dual:imx8mn_evk_android_trusty_dual_defconfig
-  TARGET_BOOTLOADER_CONFIG += imx8mn-trusty-secure-unlock:imx8mn_evk_android_trusty_secure_unlock_defconfig
+  TARGET_BOOTLOADER_CONFIG += imx8mn-trusty-secure-unlock-dual:imx8mn_evk_android_trusty_secure_unlock_dual_defconfig
 endif
 
 # u-boot target used by uuu for imx8mn_evk

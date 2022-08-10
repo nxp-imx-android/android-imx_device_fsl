@@ -309,6 +309,10 @@ struct v4l2_pix_format {
 #define V4L2_PIX_FMT_YVU422M v4l2_fourcc('Y', 'M', '6', '1')
 #define V4L2_PIX_FMT_YUV444M v4l2_fourcc('Y', 'M', '2', '4')
 #define V4L2_PIX_FMT_YVU444M v4l2_fourcc('Y', 'M', '4', '2')
+#define V4L2_PIX_FMT_NV12_8L128 v4l2_fourcc('A', 'T', '1', '2')
+#define V4L2_PIX_FMT_NV12_10BE_8L128 v4l2_fourcc_be('A', 'X', '1', '2')
+#define V4L2_PIX_FMT_NV12M_8L128 v4l2_fourcc('N', 'A', '1', '2')
+#define V4L2_PIX_FMT_NV12M_10BE_8L128 v4l2_fourcc_be('N', 'T', '1', '2')
 #define V4L2_PIX_FMT_SBGGR8 v4l2_fourcc('B', 'A', '8', '1')
 #define V4L2_PIX_FMT_SGBRG8 v4l2_fourcc('G', 'B', 'R', 'G')
 #define V4L2_PIX_FMT_SGRBG8 v4l2_fourcc('G', 'R', 'B', 'G')
@@ -373,6 +377,7 @@ struct v4l2_pix_format {
 #define V4L2_PIX_FMT_FWHT v4l2_fourcc('F', 'W', 'H', 'T')
 #define V4L2_PIX_FMT_FWHT_STATELESS v4l2_fourcc('S', 'F', 'W', 'H')
 #define V4L2_PIX_FMT_H264_SLICE v4l2_fourcc('S', '2', '6', '4')
+#define V4L2_PIX_FMT_SPK v4l2_fourcc('S', 'P', 'K', '0')
 #define V4L2_PIX_FMT_CPIA1 v4l2_fourcc('C', 'P', 'I', 'A')
 #define V4L2_PIX_FMT_WNVA v4l2_fourcc('W', 'N', 'V', 'A')
 #define V4L2_PIX_FMT_SN9C10X v4l2_fourcc('S', '9', '1', '0')
@@ -603,6 +608,7 @@ struct v4l2_buffer {
 #define V4L2_BUF_FLAG_TSTAMP_SRC_EOF 0x00000000
 #define V4L2_BUF_FLAG_TSTAMP_SRC_SOE 0x00010000
 #define V4L2_BUF_FLAG_LAST 0x00100000
+#define V4L2_BUF_FLAG_HEADERS_ONLY 0x00200000
 #define V4L2_BUF_FLAG_REQUEST_FD 0x00800000
 struct v4l2_exportbuffer {
   __u32 type;

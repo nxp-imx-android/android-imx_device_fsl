@@ -126,6 +126,9 @@ on early-boot && property:vendor.skip.charger_not_need=0
     # Set light sensor threshold lux value
     setprop vendor.ro.lightsensor.threshold  20
 
+    # Set external camera mjpeg decoder type
+    setprop vendor.camera.mjpg.decoder hardware
+
 on boot && property:vendor.skip.charger_not_need=0
     start audioserver
     start mediadrm
