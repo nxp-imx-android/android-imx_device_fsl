@@ -163,6 +163,8 @@ ifeq ($(TARGET_USE_DYNAMIC_PARTITIONS),true)
     TARGET_BOARD_DTS_CONFIG += imx8ulp-sof:imx8ulp-evk-sof-btsco.dtb
     # Support lpa
     TARGET_BOARD_DTS_CONFIG += imx8ulp-lpa:imx8ulp-evk-lpa.dtb
+    # Support Nominal Drive Mode
+    TARGET_BOARD_DTS_CONFIG += imx8ulp-ndm:imx8ulp-evk-nd.dtb
   endif
 else
   ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
