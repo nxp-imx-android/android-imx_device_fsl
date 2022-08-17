@@ -209,7 +209,7 @@ PRODUCT_PACKAGES += \
 
 # -------@block_ethernet-------
 ifneq ($(PRODUCT_IMX_CAR),true)
-PRODUCT_PACKAGES += \
+#PRODUCT_PACKAGES += \
     ethernet
 endif
 

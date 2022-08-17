@@ -179,7 +179,7 @@ PRODUCT_PACKAGES += \
     android.hardware.health@2.1-impl-imx
 # -------@block_ethernet-------
 
-PRODUCT_PACKAGES += \
+#PRODUCT_PACKAGES += \
     ethernet
 
 # -------@block_camera-------
@@ -202,7 +202,7 @@ endif
 endif
 
 # external camera feature demo
-PRODUCT_PACKAGES += \
+#PRODUCT_PACKAGES += \
      Camera2Basic
 
 # -------@block_display-------
