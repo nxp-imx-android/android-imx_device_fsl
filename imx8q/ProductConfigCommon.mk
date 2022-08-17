@@ -327,7 +327,6 @@ endif
 
 # audio
 PRODUCT_PACKAGES += \
-    audio.a2dp.default \
     audio.primary.imx \
     audio.r_submix.default \
     audio.usb.default \
