@@ -287,6 +287,10 @@ PRODUCT_PACKAGES += \
     gmem_info \
     gpu-top
 
+# -------@block_memtrack-------
+PRODUCT_PACKAGES += \
+    android.hardware.memtrack-service.imx
+
 # -------@block_memory-------
 PRODUCT_PACKAGES += \
     libion
