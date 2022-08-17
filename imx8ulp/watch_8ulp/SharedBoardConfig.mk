@@ -121,6 +121,7 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/mux/mux-core.ko \
     $(KERNEL_OUT)/drivers/mux/mux-mmio.ko \
     $(KERNEL_OUT)/drivers/input/touchscreen/goodix.ko \
+    $(KERNEL_OUT)/drivers/input/touchscreen/elants_i2c.ko\
     $(KERNEL_OUT)/drivers/phy/freescale/phy-fsl-imx8-mipi-dphy.ko \
     $(KERNEL_OUT)/drivers/gpu/drm/bridge/nwl-dsi.ko \
     $(KERNEL_OUT)/drivers/gpu/drm/bridge/it6161.ko \
@@ -146,6 +147,7 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES += \
 else
 BOARD_VENDOR_RAMDISK_KERNEL_MODULES +=     \
     $(KERNEL_OUT)/drivers/input/touchscreen/goodix.ko \
+    $(KERNEL_OUT)/drivers/input/touchscreen/elants_i2c.ko\
     $(KERNEL_OUT)/drivers/staging/media/imx/imx8-media-dev.ko
 endif
 
