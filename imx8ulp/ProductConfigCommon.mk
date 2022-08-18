@@ -25,7 +25,7 @@ PRODUCT_MANUFACTURER := nxp
 # related to the definition and load of library modules
 TARGET_BOARD_PLATFORM := imx
 
-PRODUCT_SHIPPING_API_LEVEL := 31
+PRODUCT_SHIPPING_API_LEVEL := 32
 
 # -------@block_app-------
 
