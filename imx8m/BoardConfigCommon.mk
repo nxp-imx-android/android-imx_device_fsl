@@ -84,15 +84,9 @@ KERNEL_OUT ?= $(OUT_DIR)/target/product/$(PRODUCT_DEVICE)/obj/KERNEL_OBJ
 
 TARGET_BOARD_KERNEL_HEADERS := $(CONFIG_REPO_PATH)/common/kernel-headers
 
-TARGET_IMX_KERNEL ?= true
+TARGET_IMX_KERNEL ?= false
 ifeq ($(TARGET_IMX_KERNEL),false)
-# boot-debug.img is built by IMX, with Google released kernel Image
-# boot.img is released by Google
-ifneq (,$(filter userdebug eng,$(TARGET_BUILD_VARIANT)))
-BOARD_PREBUILT_BOOTIMAGE := vendor/nxp/fsl-proprietary/gki/boot-debug.img
-else
 BOARD_PREBUILT_BOOTIMAGE := vendor/nxp/fsl-proprietary/gki/boot.img
-endif
 TARGET_NO_KERNEL := true
 endif
 
