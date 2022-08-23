@@ -273,7 +273,7 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
 
 # -------@block_audio-------
 PRODUCT_PACKAGES += \
-    android.hardware.audio@7.0-impl:32 \
+    android.hardware.audio@7.1-impl \
     android.hardware.audio.service \
     android.hardware.audio.effect@7.0-impl:32
 
