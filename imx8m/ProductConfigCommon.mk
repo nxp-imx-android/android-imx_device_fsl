@@ -280,6 +280,7 @@ PRODUCT_PACKAGES += \
 endif
 
 PRODUCT_PACKAGES += \
+    android.hardware.bluetooth.audio-impl \
     audio.primary.imx \
     audio.r_submix.default \
     audio.usb.default \
