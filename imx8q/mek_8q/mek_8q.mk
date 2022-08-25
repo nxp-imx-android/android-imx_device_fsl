@@ -368,7 +368,7 @@ PRODUCT_SOONG_NAMESPACES += hardware/google/camera
 PRODUCT_SOONG_NAMESPACES += vendor/nxp-opensource/imx/camera
 
 # external camera feature demo
-#PRODUCT_PACKAGES += \
+PRODUCT_PACKAGES += \
      Camera2Basic
 
 # PRODUCT_PACKAGES += \

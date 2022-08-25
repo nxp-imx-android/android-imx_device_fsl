@@ -202,7 +202,7 @@ endif
 endif
 
 # external camera feature demo
-#PRODUCT_PACKAGES += \
+PRODUCT_PACKAGES += \
      Camera2Basic
 
 # -------@block_display-------

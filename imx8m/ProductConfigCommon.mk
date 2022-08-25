@@ -197,7 +197,7 @@ PRODUCT_PACKAGES += \
     camera.device@3.2-impl
 
 # external camera feature demo
-#PRODUCT_PACKAGES += \
+PRODUCT_PACKAGES += \
      Camera2Basic
 endif
 endif
