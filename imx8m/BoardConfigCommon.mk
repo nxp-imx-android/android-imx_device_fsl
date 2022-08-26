@@ -103,12 +103,12 @@ endif
 # -------@block_storage-------
 AB_OTA_UPDATER := true
 ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
-AB_OTA_PARTITIONS += dtbo boot system system_ext vendor vbmeta
+AB_OTA_PARTITIONS += dtbo boot system system_ext vendor vendor_dlkm vbmeta
 else
 ifeq ($(TARGET_USE_VENDOR_BOOT),true)
-AB_OTA_PARTITIONS += dtbo boot init_boot vendor_boot system system_ext vendor vbmeta product
+AB_OTA_PARTITIONS += dtbo boot init_boot vendor_boot system system_ext vendor vendor_dlkm vbmeta product
 else
-AB_OTA_PARTITIONS += dtbo boot system system_ext vendor vbmeta product
+AB_OTA_PARTITIONS += dtbo boot system system_ext vendor vendor_dlkm vbmeta product
 endif
 endif
 
@@ -135,6 +135,11 @@ BOARD_USES_SYSTEM_EXTIMAGE := true
 BOARD_SYSTEM_EXTIMAGE_FILE_SYSTEM_TYPE := erofs
 TARGET_COPY_OUT_SYSTEM_EXT := system_ext
 
+# Build a separate vendor_dlkm partition
+BOARD_USES_VENDOR_DLKMIMAGE := true
+BOARD_VENDOR_DLKMIMAGE_FILE_SYSTEM_TYPE := erofs
+TARGET_COPY_OUT_VENDOR_DLKM := vendor_dlkm
+
 BOARD_FLASH_BLOCK_SIZE := 4096
 
 ifeq ($(TARGET_USE_DYNAMIC_PARTITIONS),true)
@@ -142,9 +147,9 @@ ifeq ($(TARGET_USE_DYNAMIC_PARTITIONS),true)
   BOARD_SUPER_PARTITION_SIZE := 4294967296
   BOARD_NXP_DYNAMIC_PARTITIONS_SIZE := 4284481536
   ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
-    BOARD_NXP_DYNAMIC_PARTITIONS_PARTITION_LIST := system system_ext vendor
+    BOARD_NXP_DYNAMIC_PARTITIONS_PARTITION_LIST := system system_ext vendor vendor_dlkm
   else
-    BOARD_NXP_DYNAMIC_PARTITIONS_PARTITION_LIST := system system_ext vendor product
+    BOARD_NXP_DYNAMIC_PARTITIONS_PARTITION_LIST := system system_ext vendor vendor_dlkm product
 
   endif
 else
