@@ -1,7 +1,7 @@
 
 # Set supported Bluetooth profiles to enabled
 bluetooth.profile.asha.central.enabled?=false
-bluetooth.profile.a2dp.source.enabled?=false
+bluetooth.profile.a2dp.source.enabled?=true
 bluetooth.profile.avrcp.target.enabled?=false
 bluetooth.profile.bas.client.enabled?=false
 bluetooth.profile.gatt.enabled?=true
