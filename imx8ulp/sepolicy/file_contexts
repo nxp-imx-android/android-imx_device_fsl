@@ -124,6 +124,9 @@
 # memtrack
 /(vendor|system/vendor)/bin/hw/android\.hardware\.memtrack-service\.imx       u:object_r:hal_memtrack_default_exec:s0
 
+# secureime
+/(vendor|system/vendor)/bin/hw/nxp\.hardware\.secureime-service       u:object_r:hal_secureime_default_exec:s0
+
 # hantro v4l2 daemon
 /dev/vsi_daemon_ctrl                          u:object_r:vsi_daemon_ctrl_device:s0
 

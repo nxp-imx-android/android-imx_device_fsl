@@ -496,3 +496,8 @@ PRODUCT_COPY_FILES += \
 
 PRODUCT_COPY_FILES += \
      vendor/nxp/fsl-proprietary/uboot-firmware/imx8ulp/confirmationui-imx8ulp.app:/vendor/firmware/tee/confirmationui.app
+
+PRODUCT_PACKAGES += \
+    SecureIME \
+    nxp.hardware.secureime \
+    nxp.hardware.secureime-service
