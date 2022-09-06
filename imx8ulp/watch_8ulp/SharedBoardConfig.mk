@@ -225,6 +225,7 @@ BOARD_VENDOR_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/iio/pressure/mpl3115.ko \
     $(KERNEL_OUT)/drivers/iio/imu/rpmsg_iio_pedometer.ko \
     $(KERNEL_OUT)/drivers/iio/health/max30102.ko \
+    $(KERNEL_OUT)/drivers/iio/light/tsl2540.ko \
     $(KERNEL_OUT)/drivers/mtd/mtd.ko \
     $(KERNEL_OUT)/drivers/mtd/chips/chipreg.ko \
     $(KERNEL_OUT)/drivers/mtd/parsers/ofpart.ko \
