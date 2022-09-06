@@ -230,6 +230,9 @@ PRODUCT_HOST_PACKAGES += \
 
 PRODUCT_SOONG_NAMESPACES += external/mesa3d
 
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.sys.sf.color_saturation=1.0
+
 # -------@block_gpu-------
 # vivante libdrm support
 PRODUCT_PACKAGES += \
