@@ -350,6 +350,11 @@ PRODUCT_COPY_FILES += \
     frameworks/av/services/audiopolicy/config/bluetooth_audio_policy_configuration_7_0.xml:$(TARGET_COPY_OUT_VENDOR)/etc/bluetooth_audio_policy_configuration_7_0.xml \
     frameworks/av/services/audiopolicy/config/usb_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/usb_audio_policy_configuration.xml
 
+# compress offload audio playback support
+PRODUCT_PACKAGES += \
+    libtinycompress \
+    cplay
+
 # -------@block_wifi-------
 # wifi
 PRODUCT_PACKAGES += \
