@@ -372,7 +372,7 @@ PRODUCT_SOONG_NAMESPACES += vendor/nxp-opensource/imx/camera
 PRODUCT_PACKAGES += \
      Camera2Basic
 
-# PRODUCT_PACKAGES += \
+PRODUCT_PACKAGES += \
     MultiCamera
 
 PRODUCT_PACKAGES += \
