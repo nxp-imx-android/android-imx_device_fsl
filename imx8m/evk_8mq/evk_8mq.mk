@@ -222,11 +222,10 @@ $(call  inherit-product-if-exists, vendor/nxp-private/security/nxp_security.mk)
 
 #DRM Widevine L1 1.4 support
 PRODUCT_PACKAGES += \
-    android.hardware.drm@1.4-service.widevine \
-    android.hardware.drm@1.4-service.clearkey \
+    android.hardware.drm-service.widevine \
+    android.hardware.drm-service.clearkey \
     libwvdrmcryptoplugin \
-    libwvhidl \
-    libwvdrmengine \
+    libwvaidl \
     liboemcrypto \
 
 $(call inherit-product-if-exists, vendor/nxp-private/widevine/nxp_widevine_tee_8mq.mk)
