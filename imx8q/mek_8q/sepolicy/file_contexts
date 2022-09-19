@@ -16,11 +16,14 @@
 /vendor/bin/hw/android\.hardware\.media\.c2@1\.0-service    u:object_r:mediacodec_exec:s0
 
 # android.system.suspend@1.0-service
-/sys/devices/platform/sc-powerkey/wakeup/wakeup[0-9]*(/.*)?                                                                          u:object_r:sysfs_wakeup:s0
-/sys/devices/platform/scu/scu:rtc/wakeup/wakeup[0-9]*(/.*)?                                                                          u:object_r:sysfs_wakeup:s0
-/sys/devices/platform/scu/scu:rtc/rtc/rtc0/alarmtimer.0.auto/wakeup/wakeup[0-9]*(/.*)?                                               u:object_r:sysfs_wakeup:s0
+/sys/devices/platform/sc-powerkey/wakeup                                                                                             u:object_r:sysfs_wakeup:s0
+/sys/devices/platform/scu/scu:rtc/wakeup                                                                                             u:object_r:sysfs_wakeup:s0
+/sys/devices/platform/scu/scu:rtc/rtc/rtc0/alarmtimer.[0-9].auto/wakeup                                                              u:object_r:sysfs_wakeup:s0
 /sys/devices/virtual/power_supply/battery/wakeup[0-9]*(/.*)?                                                                         u:object_r:sysfs_wakeup:s0
 /sys/devices/virtual/power_supply/usb/wakeup[0-9]*(/.*)?                                                                             u:object_r:sysfs_wakeup:s0
 /sys/devices/platform/bus@5a000000/bus@5a000000:i2c-rpbus-1/i2c-1/1-0050/power_supply/tcpm-source-psy-1-0050/wakeup[0-9]*(/.*)?      u:object_r:sysfs_wakeup:s0
+/sys/devices/platform/bus@5a000000/5a800000.i2c/i2c-4/4-0051/power_supply/tcpm-source-psy-4-0051/wakeup[0-9]*(/.*)?                  u:object_r:sysfs_wakeup:s0
 /sys/devices/virtual/wakeup/wakeup[0-9]*(/.*)?                                                                                       u:object_r:sysfs_wakeup:s0
 /sys/devices/platform/bus@5b000000/5b040000.ethernet/net/eth0/wakeup[0-9]*(/.*)?                                                     u:object_r:sysfs_wakeup:s0
+/sys/devices/platform/bus@5f000000/5f000000.pcie/pci0000:00/0000:00:00.0/0000:01:00.0/wakeup                                         u:object_r:sysfs_wakeup:s0
+/sys/devices/platform/bus@5f000000/5f010000.pcie/pci0000:00/0000:00:00.0/0000:01:00.0/wakeup                                         u:object_r:sysfs_wakeup:s0
