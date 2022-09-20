@@ -307,7 +307,7 @@ function flash_partition
 function format_android
 {
     echo "formating android images"
-    format_partition metadata
+    format_partition metadata f2fs
     format_partition cache
     erase_partition presistdata
     erase_partition fbmisc

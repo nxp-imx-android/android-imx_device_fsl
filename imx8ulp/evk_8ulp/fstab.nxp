@@ -5,7 +5,7 @@
 
 /devices/platform/soc@0/29800000.bus/299[02]0000.usb/* auto auto defaults voldmanaged=usb:auto
 /dev/block/by-name/userdata    /data        f2fs    nodev,noatime,nosuid,inlinecrypt,reserve_root=32768 latemount,wait,check,quota,formattable,fileencryption=aes-256-xts:aes-256-cts:v2+inlinecrypt_optimized,fscompress,keydirectory=/metadata/vold/metadata_encryption,checkpoint=fs
-/dev/block/by-name/metadata    /metadata    ext4    noatime,nosuid,nodev,discard,sync                                                wait,formattable,first_stage_mount,check
+/dev/block/by-name/metadata    /metadata    f2fs    noatime,nosuid,nodev,discard,sync,fsync_mode=nobarrier                           wait,formattable,first_stage_mount,check
 /dev/block/by-name/misc        /misc        emmc    defaults                                                                         defaults
 /dev/block/zram0 none swap defaults zramsize=629145600
 
