@@ -208,8 +208,8 @@ PRODUCT_PACKAGES += \
 
 # health
 PRODUCT_PACKAGES += \
-    android.hardware.health@2.1-service \
-    android.hardware.health@2.1-impl-imx
+    android.hardware.health-service.example \
+    android.hardware.health-service.example_recovery
 
 # -------@block_ethernet-------
 ifneq ($(PRODUCT_IMX_CAR),true)
@@ -416,7 +416,7 @@ endif
 
 #Dumpstate HAL 1.1 support
 PRODUCT_PACKAGES += \
-    android.hardware.dumpstate@1.1-service.imx
+    android.hardware.dumpstate-service.example
 
 # for userdebug or eng build, do not apply the debugfs restrictions
 ifneq (,$(filter user, $(TARGET_BUILD_VARIANT)))
