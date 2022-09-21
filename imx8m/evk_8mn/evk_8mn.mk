@@ -177,9 +177,9 @@ PRODUCT_PACKAGES += \
     android.hardware.confirmationui@1.0-service.trusty
 endif
 
-#DRM Clearkey 1.4 L3 support
+#DRM Clearkey aidl version 1 support
 PRODUCT_PACKAGES += \
-    android.hardware.drm@1.4-service.clearkey \
+    android.hardware.drm-service.clearkey \
 
 # new gatekeeper HAL
 PRODUCT_PACKAGES += \
