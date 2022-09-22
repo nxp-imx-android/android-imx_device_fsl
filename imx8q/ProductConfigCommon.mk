@@ -410,9 +410,9 @@ ifneq (,$(filter userdebug, $(TARGET_BUILD_VARIANT)))
       logd.logpersistd.size=3
 endif
 
-#Dumpstate HAL 1.1 support
+#Dumpstate AIDL support
 PRODUCT_PACKAGES += \
-    android.hardware.dumpstate-service.example
+    android.hardware.dumpstate-service.imx
 
 # for userdebug or eng build, do not apply the debugfs restrictions
 ifneq (,$(filter user, $(TARGET_BUILD_VARIANT)))
