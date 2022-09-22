@@ -201,15 +201,11 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PRODUCT_PROPERTIES += \
     persist.sys.fuse.passthrough.enable=true
 
-# -------@block_power-------
-PRODUCT_PACKAGES += \
-    charger_res_images \
-    charger
-
 # health
 PRODUCT_PACKAGES += \
     android.hardware.health-service.example \
-    android.hardware.health-service.example_recovery
+    android.hardware.health-service.example_recovery \
+    charger_res_images_vendor
 
 # -------@block_ethernet-------
 ifneq ($(PRODUCT_IMX_CAR),true)
