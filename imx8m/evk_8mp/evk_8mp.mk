@@ -643,8 +643,8 @@ PRODUCT_PACKAGES += \
     OS08a20_8M_10_4k_hdr.xml \
     os08a20-Sensor0_Entry.cfg \
     os08a20-Sensor1_Entry.cfg \
-    sensor_dwe_bypass_1080P_config.json \
-    sensor_dwe_bypass_4K_config.json
+    sensor_dwe_os08a20_1080P_config.json \
+    sensor_dwe_os08a20_4K_config.json
 
 # make sure /vendor/etc/configs/isp/ is created
     PRODUCT_PACKAGES += hollow
