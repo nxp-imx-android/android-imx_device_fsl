@@ -231,6 +231,9 @@ PRODUCT_HOST_PACKAGES += \
 
 PRODUCT_SOONG_NAMESPACES += external/mesa3d
 
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.hw_timeout_multiplier=2
+
 # -------@block_gpu-------
 # vivante libdrm support
 PRODUCT_PACKAGES += \
