@@ -168,6 +168,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PREBUILT_FSL_IMX_CODEC := true
 
 # -------@block_storage-------
+
+TARGET_USERIMAGES_USE_F2FS := true
+
 PRODUCT_PACKAGES += \
     SystemUpdaterSample
 
