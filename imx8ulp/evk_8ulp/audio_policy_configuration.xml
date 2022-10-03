@@ -29,6 +29,10 @@
                     <profile name="" format="AUDIO_FORMAT_PCM_16_BIT"
                              samplingRates="48000" channelMasks="AUDIO_CHANNEL_OUT_STEREO"/>
                 </mixPort>
+                <mixPort name="lpa output" role="source" flags="AUDIO_OUTPUT_FLAG_DIRECT AUDIO_OUTPUT_FLAG_HW_AV_SYNC">
+                    <profile name="" format="AUDIO_FORMAT_PCM_16_BIT"
+                             samplingRates="48000" channelMasks="AUDIO_CHANNEL_OUT_STEREO"/>
+                </mixPort>
                 <mixPort name="bt sco output" role="source">
                     <profile name="" format="AUDIO_FORMAT_PCM_16_BIT"
                              samplingRates="16000" channelMasks="AUDIO_CHANNEL_OUT_STEREO"/>
@@ -59,6 +63,8 @@
                 </devicePort>
                 <devicePort tagName="HDMI Out" type="AUDIO_DEVICE_OUT_AUX_DIGITAL" role="sink">
                 </devicePort>
+                <devicePort tagName="Line-Out" type="AUDIO_DEVICE_OUT_LINE" role="sink">
+                </devicePort>
 
                 <devicePort tagName="Built-In Mic" type="AUDIO_DEVICE_IN_BUILTIN_MIC" role="source">
                 </devicePort>
@@ -74,6 +80,8 @@
                        sources="primary output"/>
                  <route type="mix" sink="BT SCO Headset"
                         sources="bt sco output"/>
+                <route type="mix" sink="Line-Out"
+                       sources="lpa output,primary output"/>
                 <route type="mix" sink="BT SCO CarKit"
                        sources="bt sco output"/>
                 <route type="mix" sink="BT SCO"

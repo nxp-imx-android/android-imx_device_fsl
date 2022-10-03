@@ -121,6 +121,7 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/mux/mux-core.ko \
     $(KERNEL_OUT)/drivers/mux/mux-mmio.ko \
     $(KERNEL_OUT)/drivers/input/touchscreen/goodix.ko \
+    $(KERNEL_OUT)/drivers/input/touchscreen/elants_i2c.ko\
     $(KERNEL_OUT)/drivers/phy/freescale/phy-fsl-imx8-mipi-dphy.ko \
     $(KERNEL_OUT)/drivers/gpu/drm/bridge/nwl-dsi.ko \
     $(KERNEL_OUT)/drivers/gpu/drm/bridge/it6161.ko \
@@ -146,6 +147,7 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES += \
 else
 BOARD_VENDOR_RAMDISK_KERNEL_MODULES +=     \
     $(KERNEL_OUT)/drivers/input/touchscreen/goodix.ko \
+    $(KERNEL_OUT)/drivers/input/touchscreen/elants_i2c.ko\
     $(KERNEL_OUT)/drivers/staging/media/imx/imx8-media-dev.ko
 endif
 
@@ -222,6 +224,8 @@ BOARD_VENDOR_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/iio/buffer/industrialio-triggered-buffer.ko \
     $(KERNEL_OUT)/drivers/iio/pressure/mpl3115.ko \
     $(KERNEL_OUT)/drivers/iio/imu/rpmsg_iio_pedometer.ko \
+    $(KERNEL_OUT)/drivers/iio/health/max30102.ko \
+    $(KERNEL_OUT)/drivers/iio/light/tsl2540.ko \
     $(KERNEL_OUT)/drivers/mtd/mtd.ko \
     $(KERNEL_OUT)/drivers/mtd/chips/chipreg.ko \
     $(KERNEL_OUT)/drivers/mtd/parsers/ofpart.ko \

@@ -215,6 +215,12 @@ on property:ro.boot.vendor.sysrq=1 && property:vendor.skip.charger_not_need=0
 on property:ro.boot.usb.debugging=1
     setprop persist.sys.usb.config adb
 
+# setenv append_bootargs androidboot.lpa.enable=1
+on property:ro.boot.lpa.enable=1
+    setprop vendor.audio.lpa.hold_second 20
+    setprop vendor.audio.lpa.period_ms 500
+    setprop vendor.audio.lpa.enable 1
+
 # apploader load confirmationUI TA
 service confirmationui_ta_load /vendor/bin/trusty_apploader /vendor/firmware/tee/confirmationui.app
     user root

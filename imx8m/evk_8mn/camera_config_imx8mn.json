@@ -32,6 +32,16 @@
               "width": "2592",
               "height": "1944",
               "omit_num": "2"
+          },
+          {
+              "width": "1280",
+              "height": "720",
+              "omit_num": "1"
+          },
+          {
+              "width": "640",
+              "height": "480",
+              "omit_num": "1"
           }
       ]
     }

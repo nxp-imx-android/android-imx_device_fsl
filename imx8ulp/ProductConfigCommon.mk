@@ -25,7 +25,7 @@ PRODUCT_MANUFACTURER := nxp
 # related to the definition and load of library modules
 TARGET_BOARD_PLATFORM := imx
 
-PRODUCT_SHIPPING_API_LEVEL := 31
+PRODUCT_SHIPPING_API_LEVEL := 32
 
 # -------@block_app-------
 
@@ -231,6 +231,9 @@ PRODUCT_HOST_PACKAGES += \
 
 PRODUCT_SOONG_NAMESPACES += external/mesa3d
 
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.hw_timeout_multiplier=2
+
 # -------@block_gpu-------
 # vivante libdrm support
 PRODUCT_PACKAGES += \
@@ -241,6 +244,10 @@ PRODUCT_PACKAGES += \
     gmem_info \
     gpu-top
 
+
+# -------@block_memtrack-------
+PRODUCT_PACKAGES += \
+    android.hardware.memtrack-service.imx
 
 # -------@block_memory-------
 PRODUCT_PACKAGES += \

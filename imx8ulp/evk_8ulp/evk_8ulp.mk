@@ -99,7 +99,7 @@ endif
 PRODUCT_COPY_FILES += \
     $(IMX_DEVICE_PATH)/early.init.cfg:$(TARGET_COPY_OUT_VENDOR)/etc/early.init.cfg \
     $(CONFIG_REPO_PATH)/common/init/init.insmod.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.insmod.sh \
-    $(IMX_DEVICE_PATH)/ueventd.nxp.rc:$(TARGET_COPY_OUT_VENDOR)/ueventd.rc
+    $(IMX_DEVICE_PATH)/ueventd.nxp.rc:$(TARGET_COPY_OUT_VENDOR)/etc/ueventd.rc
 
 # -------@block_storage-------
 
@@ -257,7 +257,7 @@ PRODUCT_COPY_FILES += \
 # Audio SOF firmware and tplg files
 PRODUCT_COPY_FILES += \
     $(FSL_PROPRIETARY_PATH)/fsl-proprietary/sof/sof-tplg/sof-imx8ulp-btsco.tplg:$(TARGET_COPY_OUT_VENDOR)/firmware/imx/sof-tplg/sof-imx8ulp-btsco.tplg \
-    $(FSL_PROPRIETARY_PATH)/fsl-proprietary/sof/sof/sof-imx8ulp.ri:$(TARGET_COPY_OUT_VENDOR)/firmware/imx/sof/sof-imx8ulp.ri
+    $(FSL_PROPRIETARY_PATH)/fsl-proprietary/sof/sof-gcc/sof-imx8ulp.ri:$(TARGET_COPY_OUT_VENDOR)/firmware/imx/sof/sof-imx8ulp.ri
 
 # -------@block_camera-------
 PRODUCT_COPY_FILES += \
