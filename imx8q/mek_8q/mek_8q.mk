@@ -54,6 +54,10 @@ endif
 PRODUCT_PRODUCT_PROPERTIES += \
     ro.charger.no_ui=false
 
+# VHAL heart beat configuration
+PRODUCT_PRODUCT_PROPERTIES += \
+    ro.carwatchdog.vhal_healthcheck.interval=4 \
+
 # Do not skip charger_not_need trigger by default
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     vendor.skip.charger_not_need=0
