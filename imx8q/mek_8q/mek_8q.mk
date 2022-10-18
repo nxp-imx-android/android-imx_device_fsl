@@ -50,6 +50,10 @@ PRODUCT_COPY_FILES += \
      $(IMX_DEVICE_PATH)/powerhint_imx8qm.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/powerhint_imx8qm.json
 endif
 
+# VHAL heart beat configuration
+PRODUCT_PRODUCT_PROPERTIES += \
+    ro.carwatchdog.vhal_healthcheck.interval=4 \
+
 # Do not skip charger_not_need trigger by default
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     vendor.skip.charger_not_need=0
