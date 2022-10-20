@@ -549,7 +549,7 @@ endif
 # imx8 sensor HAL libs.
 ifneq ($(PRODUCT_IMX_CAR),true)
 PRODUCT_PACKAGES += \
-    android.hardware.sensors@2.1-service.multihal \
+    android.hardware.sensors-service.multihal \
     android.hardware.sensors@2.1-nxp-IIO-Subhal
 
 PRODUCT_COPY_FILES += \
