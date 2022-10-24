@@ -9,3 +9,9 @@
 /dev/block/by-name/misc        /misc        emmc    defaults                                                                         defaults
 /dev/block/zram0 none swap defaults zramsize=629145600
 
+system                         /system       erofs ro                                                              wait,slotselect,avb,avb_keys=/avb,logical,first_stage_mount
+system                         /system       ext4  noatime,errors=panic,ro,barrier=1,inode_readahead_blks=8        wait,slotselect,avb,avb_keys=/avb,logical,first_stage_mount
+system_ext                     /system_ext   erofs ro                                                              wait,slotselect,avb,logical,first_stage_mount
+vendor                         /vendor       erofs ro                                                              wait,slotselect,avb,logical,first_stage_mount
+vendor_dlkm                    /vendor_dlkm  erofs ro                                                              wait,slotselect,avb,logical,first_stage_mount
+product                        /product      erofs ro                                                              wait,slotselect,avb,logical,first_stage_mount
