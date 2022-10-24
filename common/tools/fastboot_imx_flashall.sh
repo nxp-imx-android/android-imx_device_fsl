@@ -453,6 +453,7 @@ if [ ${erase} -eq 1 ]; then
     fi
     ${fastboot_tool} erase misc
     ${fastboot_tool} erase metadata
+    ${fastboot_tool} oem erase_uboot_env
     ${fastboot_tool} erase userdata
 fi
 
