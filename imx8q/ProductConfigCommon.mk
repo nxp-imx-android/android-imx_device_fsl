@@ -249,7 +249,6 @@ PRODUCT_PACKAGES += \
 endif
 
 PRODUCT_PACKAGES += \
-    MultiClientInputMethod \
     libedid
 
 ifneq ($(PRODUCT_IMX_CAR),true)

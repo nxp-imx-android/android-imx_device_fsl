@@ -316,7 +316,6 @@ PRODUCT_PACKAGES += \
 
 # Multi-Display launcher
 PRODUCT_PACKAGES += \
-    MultiClientInputMethod \
     MultiDisplay
 
 PRODUCT_COPY_FILES += \
