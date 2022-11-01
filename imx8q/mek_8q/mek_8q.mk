@@ -343,7 +343,9 @@ endif
 PRODUCT_COPY_FILES += \
     $(FSL_PROPRIETARY_PATH)/fsl-proprietary/sof/sof-tplg/sof-imx8-wm8960.tplg:$(TARGET_COPY_OUT_VENDOR)/firmware/imx/sof-tplg/sof-imx8-pcm-wm8960.tplg \
     $(FSL_PROPRIETARY_PATH)/fsl-proprietary/sof/sof-tplg/sof-imx8-compr-mp3-wm8960.tplg:$(TARGET_COPY_OUT_VENDOR)/firmware/imx/sof-tplg/sof-imx8-wm8960.tplg \
+    $(FSL_PROPRIETARY_PATH)/fsl-proprietary/sof/sof-gcc/sof-imx8x.ldc:$(TARGET_COPY_OUT_VENDOR)/firmware/imx/sof/sof-imx8x.ldc \
     $(FSL_PROPRIETARY_PATH)/fsl-proprietary/sof/sof-gcc/sof-imx8x.ri:$(TARGET_COPY_OUT_VENDOR)/firmware/imx/sof/sof-imx8x.ri \
+    $(FSL_PROPRIETARY_PATH)/fsl-proprietary/sof/sof-gcc/sof-imx8.ldc:$(TARGET_COPY_OUT_VENDOR)/firmware/imx/sof/sof-imx8.ldc \
     $(FSL_PROPRIETARY_PATH)/fsl-proprietary/sof/sof-gcc/sof-imx8.ri:$(TARGET_COPY_OUT_VENDOR)/firmware/imx/sof/sof-imx8.ri
 
 
