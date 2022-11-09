@@ -15,6 +15,3 @@ genfscon sysfs /devices/platform/soc@0/30800000.bus/30a30000.i2c/i2c-1/1-0050/ex
 
 # for dumpstate to access the stat file
 genfscon sysfs /devices/platform/94400000.pmem/ndbus0/region0/namespace0.0/block/pmem0                                       u:object_r:sysfs_block_devices:s0
-
-# for usb gadget HAL to add watch on the sysfs path of usb controller
-genfscon sysfs /devices/platform/soc@0/32f10100.usb                                                                          u:object_r:sysfs_usb_device:s0
