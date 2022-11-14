@@ -77,14 +77,21 @@ BOARD_AVB_ALGORITHM := SHA256_RSA4096
 # The testkey_rsa4096.pem is copied from external/avb/test/data/testkey_rsa4096.pem
 BOARD_AVB_KEY_PATH := $(CONFIG_REPO_PATH)/common/security/testkey_rsa4096.pem
 
-BOARD_AVB_BOOT_KEY_PATH := external/avb/test/data/testkey_rsa2048.pem
-BOARD_AVB_BOOT_ALGORITHM := SHA256_RSA2048
+BOARD_AVB_BOOT_KEY_PATH := external/avb/test/data/testkey_rsa4096.pem
+BOARD_AVB_BOOT_ALGORITHM := SHA256_RSA4096
 BOARD_AVB_BOOT_ROLLBACK_INDEX_LOCATION := 2
 
+# Enable chained vbmeta for init_boot images
+BOARD_AVB_INIT_BOOT_KEY_PATH := external/avb/test/data/testkey_rsa4096.pem
+BOARD_AVB_INIT_BOOT_ALGORITHM := SHA256_RSA4096
+BOARD_AVB_INIT_BOOT_ROLLBACK_INDEX_LOCATION := 3
+
+# Use sha256 hashtree
 BOARD_AVB_SYSTEM_ADD_HASHTREE_FOOTER_ARGS += --hash_algorithm sha256
 BOARD_AVB_SYSTEM_EXT_ADD_HASHTREE_FOOTER_ARGS += --hash_algorithm sha256
 BOARD_AVB_PRODUCT_ADD_HASHTREE_FOOTER_ARGS += --hash_algorithm sha256
 BOARD_AVB_VENDOR_ADD_HASHTREE_FOOTER_ARGS += --hash_algorithm sha256
+BOARD_AVB_VENDOR_DLKM_ADD_HASHTREE_FOOTER_ARGS += --hash_algorithm sha256
 
 # -------@block_treble-------
 # Vendor Interface manifest and compatibility

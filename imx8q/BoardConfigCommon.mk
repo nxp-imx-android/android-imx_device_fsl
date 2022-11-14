@@ -87,15 +87,17 @@ TARGET_NO_RADIOIMAGE := true
 
 BOARD_KERNEL_BASE := 0x80200000
 BOARD_KERNEL_OFFSET := 0x00080000
-BOARD_RAMDISK_OFFSET := 0x06200000
+BOARD_RAMDISK_OFFSET := 0x7BE00000
 ifeq ($(TARGET_USE_VENDOR_BOOT),true)
 BOARD_BOOT_HEADER_VERSION := 4
+BOARD_INIT_BOOT_HEADER_VERSION := 4
 BOARD_INCLUDE_DTB_IN_BOOTIMG := false
 else
 BOARD_BOOT_HEADER_VERSION := 2
 endif
 
 BOARD_MKBOOTIMG_ARGS = --kernel_offset $(BOARD_KERNEL_OFFSET) --ramdisk_offset $(BOARD_RAMDISK_OFFSET) --header_version $(BOARD_BOOT_HEADER_VERSION)
+BOARD_MKBOOTIMG_INIT_ARGS += --header_version $(BOARD_INIT_BOOT_HEADER_VERSION)
 
 ifeq ($(BOARD_BOOT_HEADER_VERSION),2)
     BOARD_MKBOOTIMG_ARGS += --dtb $(word 1,$(TARGET_DTB))
@@ -109,9 +111,6 @@ endif
 
 # kernel module's copy to vendor need this folder setting
 KERNEL_OUT ?= $(OUT_DIR)/target/product/$(PRODUCT_DEVICE)/obj/KERNEL_OBJ
-
-PRODUCT_COPY_FILES += \
-    $(KERNEL_OUT)/arch/$(TARGET_KERNEL_ARCH)/boot/$(KERNEL_NAME):kernel
 
 TARGET_BOARD_KERNEL_HEADERS := $(CONFIG_REPO_PATH)/common/kernel-headers
 
@@ -128,34 +127,42 @@ endif
 # -------@block_storage-------
 AB_OTA_UPDATER := true
 ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
-AB_OTA_PARTITIONS += dtbo boot system system_ext vendor vbmeta
+AB_OTA_PARTITIONS += dtbo boot system system_ext vendor vendor_dlkm vbmeta
 else
 ifeq ($(TARGET_USE_VENDOR_BOOT),true)
-AB_OTA_PARTITIONS += dtbo boot vendor_boot system system_ext vendor vbmeta product
+AB_OTA_PARTITIONS += dtbo boot init_boot vendor_boot system system_ext vendor vendor_dlkm vbmeta product
 else
-AB_OTA_PARTITIONS += dtbo boot system system_ext vendor vbmeta product
+AB_OTA_PARTITIONS += dtbo boot system system_ext vendor vendor_dlkm vbmeta product
 endif
 endif
 
 BOARD_DTBOIMG_PARTITION_SIZE := 4194304
 BOARD_BOOTIMAGE_PARTITION_SIZE := 67108864
+BOARD_INIT_BOOT_IMAGE_PARTITION_SIZE := 8388608
 ifeq ($(TARGET_USE_VENDOR_BOOT),true)
 BOARD_VENDOR_BOOTIMAGE_PARTITION_SIZE := 67108864
 endif
 
-BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE = ext4
+BOARD_SYSTEMIMAGE_FILE_SYSTEM_TYPE := erofs
+
+BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := erofs
 TARGET_COPY_OUT_VENDOR := vendor
 
 ifneq ($(IMX_NO_PRODUCT_PARTITION),true)
   BOARD_USES_PRODUCTIMAGE := true
-  BOARD_PRODUCTIMAGE_FILE_SYSTEM_TYPE := ext4
+  BOARD_PRODUCTIMAGE_FILE_SYSTEM_TYPE := erofs
   TARGET_COPY_OUT_PRODUCT := product
 endif
 
 # Build a separate system_ext.img partition
 BOARD_USES_SYSTEM_EXTIMAGE := true
-BOARD_SYSTEM_EXTIMAGE_FILE_SYSTEM_TYPE := ext4
+BOARD_SYSTEM_EXTIMAGE_FILE_SYSTEM_TYPE := erofs
 TARGET_COPY_OUT_SYSTEM_EXT := system_ext
+
+# Build a separate vendor_dlkm partition
+BOARD_USES_VENDOR_DLKMIMAGE := true
+BOARD_VENDOR_DLKMIMAGE_FILE_SYSTEM_TYPE := erofs
+TARGET_COPY_OUT_VENDOR_DLKM := vendor_dlkm
 
 BOARD_FLASH_BLOCK_SIZE := 4096
 
@@ -164,9 +171,9 @@ ifeq ($(TARGET_USE_DYNAMIC_PARTITIONS),true)
   BOARD_SUPER_PARTITION_SIZE := 4294967296
   BOARD_NXP_DYNAMIC_PARTITIONS_SIZE := 4284481536
   ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
-    BOARD_NXP_DYNAMIC_PARTITIONS_PARTITION_LIST := system system_ext vendor
+    BOARD_NXP_DYNAMIC_PARTITIONS_PARTITION_LIST := system system_ext vendor vendor_dlkm
   else
-    BOARD_NXP_DYNAMIC_PARTITIONS_PARTITION_LIST := system system_ext vendor product
+    BOARD_NXP_DYNAMIC_PARTITIONS_PARTITION_LIST := system system_ext vendor vendor_dlkm product
 
   endif
 else
@@ -180,11 +187,6 @@ else
 
     BOARD_PRODUCTIMAGE_PARTITION_SIZE := 1879048192
   endif
-endif
-
-ifneq ($(BOARD_OTA_BOOTLOADERIMAGE),)
-  PRODUCT_COPY_FILES += \
-      $(BOARD_OTA_BOOTLOADERIMAGE):bootloader.img
 endif
 
 # -------@block_bluetooth-------

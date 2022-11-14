@@ -50,16 +50,14 @@ PRODUCT_COPY_FILES += \
      $(IMX_DEVICE_PATH)/powerhint_imx8qm.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/powerhint_imx8qm.json
 endif
 
-# Charger Mode
-PRODUCT_PRODUCT_PROPERTIES += \
-    ro.charger.no_ui=false
-
 # Do not skip charger_not_need trigger by default
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     vendor.skip.charger_not_need=0
 
 PRODUCT_PACKAGES += \
     android.hardware.power-service.imx
+
+TARGET_VENDOR_PROP := $(LOCAL_PATH)/product.prop
 
 # Thermal HAL
 PRODUCT_PACKAGES += \
@@ -137,7 +135,7 @@ TARGET_USE_DYNAMIC_PARTITIONS ?= true
 
 ifeq ($(TARGET_USE_DYNAMIC_PARTITIONS),true)
   ifeq ($(TARGET_USE_VENDOR_BOOT),true)
-    $(call inherit-product, $(SRC_TARGET_DIR)/product/virtual_ab_ota/compression.mk)
+    $(call inherit-product, $(SRC_TARGET_DIR)/product/virtual_ab_ota/compression_with_xor.mk)
   else
     $(call inherit-product, $(SRC_TARGET_DIR)/product/virtual_ab_ota.mk)
   endif
@@ -169,7 +167,7 @@ ifneq ($(filter TRUE true 1,$(IMX_OTA_POSTINSTALL)),)
   AB_OTA_POSTINSTALL_CONFIG += \
     RUN_POSTINSTALL_vendor=true \
     POSTINSTALL_PATH_vendor=bin/imx_ota_postinstall \
-    FILESYSTEM_TYPE_vendor=ext4 \
+    FILESYSTEM_TYPE_vendor=erofs \
     POSTINSTALL_OPTIONAL_vendor=false
 
   ifeq ($(OTA_TARGET),8qxp)
@@ -277,6 +275,14 @@ BOARD_AVB_BOOT_ROLLBACK_INDEX := 0
 endif
 endif
 
+ifneq ($(PRODUCT_IMX_CAR),true)
+ifneq ($(AVB_INIT_BOOT_RBINDEX),)
+BOARD_AVB_INIT_BOOT_ROLLBACK_INDEX := $(AVB_INIT_BOOT_RBINDEX)
+else
+BOARD_AVB_INIT_BOOT_ROLLBACK_INDEX := 0
+endif
+endif
+
 $(call  inherit-product-if-exists, vendor/nxp-private/security/nxp_security.mk)
 
 # Resume on Reboot support
@@ -288,11 +294,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 #DRM Widevine 1.4 L3 support
 PRODUCT_PACKAGES += \
-    android.hardware.drm@1.4-service.widevine \
-    android.hardware.drm@1.4-service.clearkey \
+    android.hardware.drm-service.widevine \
+    android.hardware.drm-service.clearkey \
     libwvdrmcryptoplugin \
-    libwvhidl \
-    libwvdrmengine
+    libwvaidl
 
 # -------@block_audio-------
 # To support multiple pcm device on cs42888, need delete below two lines:
@@ -330,7 +335,7 @@ endif
 # AudioControl service
 ifeq ($(PRODUCT_IMX_CAR),true)
 PRODUCT_PACKAGES += \
-    android.hardware.automotive.audiocontrol-service.example
+    android.hardware.automotive.audiocontrol-service
 endif
 
 ifeq ($(PRODUCT_IMX_CAR),true)
@@ -480,6 +485,7 @@ PRODUCT_PACKAGES += \
 
 # NXP 8997 Wifi and Bluetooth Combo Firmware
 PRODUCT_COPY_FILES += \
+    vendor/nxp/imx-firmware/nxp/FwImage_9098_PCIE/pcieuart9098_combo_v1.bin:vendor/firmware/pcieuart9098_combo_v1.bin \
     vendor/nxp/imx-firmware/nxp/FwImage_8997/pcieuart8997_combo_v4.bin:vendor/firmware/pcieuart8997_combo_v4.bin \
     vendor/nxp/imx-firmware/nxp/android_wifi_mod_para.conf:vendor/firmware/wifi_mod_para.conf
 
@@ -548,8 +554,7 @@ PRODUCT_PACKAGES += \
     android.hardware.sensors@2.1-nxp-IIO-Subhal
 
 PRODUCT_COPY_FILES += \
-    $(IMX_PATH)/imx/iio_sensor/hals.conf:$(TARGET_COPY_OUT_VENDOR)/etc/sensors/hals.conf \
-    $(IMX_PATH)/imx/iio_sensor/config/sensor_hal_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/sensors/sensor_hal_configuration.xml
+    $(IMX_PATH)/imx/iio_sensor/hals.conf:$(TARGET_COPY_OUT_VENDOR)/etc/sensors/hals.conf
 endif
 
 # Copy device related config and binary to board
@@ -610,20 +615,21 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.usb.host.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.usb.host.xml \
     frameworks/native/data/etc/android.hardware.vulkan.level-0.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.vulkan.level-0.xml \
     frameworks/native/data/etc/android.hardware.vulkan.version-1_1.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.vulkan.version-1_1.xml \
-    frameworks/native/data/etc/android.software.vulkan.deqp.level-2021-03-01.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.vulkan.deqp.level.xml \
-    frameworks/native/data/etc/android.software.opengles.deqp.level-2021-03-01.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.opengles.deqp.level.xml \
+    frameworks/native/data/etc/android.software.vulkan.deqp.level-2022-03-01.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.vulkan.deqp.level.xml \
+    frameworks/native/data/etc/android.software.opengles.deqp.level-2022-03-01.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.opengles.deqp.level.xml \
     frameworks/native/data/etc/android.hardware.wifi.direct.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.direct.xml \
     frameworks/native/data/etc/android.hardware.wifi.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.xml \
     frameworks/native/data/etc/android.hardware.wifi.passpoint.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.passpoint.xml \
+    frameworks/native/data/etc/android.software.backup.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.backup.xml \
     frameworks/native/data/etc/android.software.midi.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.midi.xml \
     frameworks/native/data/etc/android.software.sip.voip.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.sip.voip.xml \
     frameworks/native/data/etc/android.software.verified_boot.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.verified_boot.xml \
     frameworks/native/data/etc/android.software.voice_recognizers.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.voice_recognizers.xml \
     frameworks/native/data/etc/android.software.activities_on_secondary_displays.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.activities_on_secondary_displays.xml \
+    frameworks/native/data/etc/android.software.picture_in_picture.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.picture_in_picture.xml
 
 ifneq ($(PRODUCT_IMX_CAR),true)
 PRODUCT_COPY_FILES += \
-    frameworks/native/data/etc/android.software.picture_in_picture.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.picture_in_picture.xml
     frameworks/native/data/etc/android.hardware.sensor.accelerometer.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.sensor.accelerometer.xml \
     frameworks/native/data/etc/android.hardware.sensor.ambient_temperature.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.sensor.ambient_temperature.xml \
     frameworks/native/data/etc/android.hardware.sensor.barometer.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.sensor.barometer.xml \
@@ -637,8 +643,11 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.software.device_admin.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.device_admin.xml \
     frameworks/native/data/etc/android.software.managed_users.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.managed_users.xml \
     frameworks/native/data/etc/android.software.print.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.print.xml
-    frameworks/native/data/etc/android.hardware.screen.portrait.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.screen.portrait.xml \
-    frameworks/native/data/etc/android.software.backup.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.backup.xml
+endif
+
+ifneq ($(PRODUCT_IMX_CAR),true)
+PRODUCT_COPY_FILES += \
+    frameworks/native/data/etc/android.hardware.screen.portrait.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.screen.portrait.xml
 endif
 
 

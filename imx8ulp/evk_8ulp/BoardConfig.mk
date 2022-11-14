@@ -62,21 +62,28 @@ BOARD_ROOT_EXTRA_FOLDERS += metadata
 AB_OTA_PARTITIONS += bootloader
 
 # -------@block_security-------
-ENABLE_CFI=true
+ENABLE_CFI=false
 
 BOARD_AVB_ENABLE := true
 BOARD_AVB_ALGORITHM := SHA256_RSA4096
 # The testkey_rsa4096.pem is copied from external/avb/test/data/testkey_rsa4096.pem
 BOARD_AVB_KEY_PATH := $(CONFIG_REPO_PATH)/common/security/testkey_rsa4096.pem
 
-BOARD_AVB_BOOT_KEY_PATH := external/avb/test/data/testkey_rsa2048.pem
-BOARD_AVB_BOOT_ALGORITHM := SHA256_RSA2048
+BOARD_AVB_BOOT_KEY_PATH := external/avb/test/data/testkey_rsa4096.pem
+BOARD_AVB_BOOT_ALGORITHM := SHA256_RSA4096
 BOARD_AVB_BOOT_ROLLBACK_INDEX_LOCATION := 2
 
+# Enable chained vbmeta for init_boot images
+BOARD_AVB_INIT_BOOT_KEY_PATH := external/avb/test/data/testkey_rsa4096.pem
+BOARD_AVB_INIT_BOOT_ALGORITHM := SHA256_RSA4096
+BOARD_AVB_INIT_BOOT_ROLLBACK_INDEX_LOCATION := 3
+
+# Use sha256 hashtree
 BOARD_AVB_SYSTEM_ADD_HASHTREE_FOOTER_ARGS += --hash_algorithm sha256
 BOARD_AVB_SYSTEM_EXT_ADD_HASHTREE_FOOTER_ARGS += --hash_algorithm sha256
 BOARD_AVB_PRODUCT_ADD_HASHTREE_FOOTER_ARGS += --hash_algorithm sha256
 BOARD_AVB_VENDOR_ADD_HASHTREE_FOOTER_ARGS += --hash_algorithm sha256
+BOARD_AVB_VENDOR_DLKM_ADD_HASHTREE_FOOTER_ARGS += --hash_algorithm sha256
 
 # -------@block_treble-------
 # Vendor Interface manifest and compatibility
@@ -163,8 +170,6 @@ ifeq ($(TARGET_USE_DYNAMIC_PARTITIONS),true)
     TARGET_BOARD_DTS_CONFIG += imx8ulp-sof:imx8ulp-evk-sof-btsco.dtb
     # Support lpa
     TARGET_BOARD_DTS_CONFIG += imx8ulp-lpa:imx8ulp-evk-lpa.dtb
-    # Support Nominal Drive Mode
-    TARGET_BOARD_DTS_CONFIG += imx8ulp-ndm:imx8ulp-evk-nd.dtb
   endif
 else
   ifeq ($(IMX_NO_PRODUCT_PARTITION),true)

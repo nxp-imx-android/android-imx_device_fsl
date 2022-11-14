@@ -74,21 +74,28 @@ BOARD_ROOT_EXTRA_FOLDERS += metadata
 AB_OTA_PARTITIONS += bootloader
 
 # -------@block_security-------
-ENABLE_CFI=true
+ENABLE_CFI=false
 
 BOARD_AVB_ENABLE := true
 BOARD_AVB_ALGORITHM := SHA256_RSA4096
 # The testkey_rsa4096.pem is copied from external/avb/test/data/testkey_rsa4096.pem
 BOARD_AVB_KEY_PATH := $(CONFIG_REPO_PATH)/common/security/testkey_rsa4096.pem
 
-BOARD_AVB_BOOT_KEY_PATH := external/avb/test/data/testkey_rsa2048.pem
-BOARD_AVB_BOOT_ALGORITHM := SHA256_RSA2048
+BOARD_AVB_BOOT_KEY_PATH := external/avb/test/data/testkey_rsa4096.pem
+BOARD_AVB_BOOT_ALGORITHM := SHA256_RSA4096
 BOARD_AVB_BOOT_ROLLBACK_INDEX_LOCATION := 2
 
+# Enable chained vbmeta for init_boot images
+BOARD_AVB_INIT_BOOT_KEY_PATH := external/avb/test/data/testkey_rsa4096.pem
+BOARD_AVB_INIT_BOOT_ALGORITHM := SHA256_RSA4096
+BOARD_AVB_INIT_BOOT_ROLLBACK_INDEX_LOCATION := 3
+
+# Use sha256 hashtree
 BOARD_AVB_SYSTEM_ADD_HASHTREE_FOOTER_ARGS += --hash_algorithm sha256
 BOARD_AVB_SYSTEM_EXT_ADD_HASHTREE_FOOTER_ARGS += --hash_algorithm sha256
 BOARD_AVB_PRODUCT_ADD_HASHTREE_FOOTER_ARGS += --hash_algorithm sha256
 BOARD_AVB_VENDOR_ADD_HASHTREE_FOOTER_ARGS += --hash_algorithm sha256
+BOARD_AVB_VENDOR_DLKM_ADD_HASHTREE_FOOTER_ARGS += --hash_algorithm sha256
 
 # -------@block_treble-------
 # Vendor Interface manifest and compatibility
@@ -163,20 +170,20 @@ ifeq ($(TARGET_USE_DYNAMIC_PARTITIONS),true)
   ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
     TARGET_BOARD_DTS_CONFIG := imx8mp:imx8mp-evk-no-product.dtb
   else
-    # Default dual basler
-    TARGET_BOARD_DTS_CONFIG := imx8mp:imx8mp-evk-dual-basler.dtb
-    # basler + ov5640
-    TARGET_BOARD_DTS_CONFIG += imx8mp-basler-ov5640:imx8mp-evk-basler-ov5640.dtb
-    # Only ov5640
-    TARGET_BOARD_DTS_CONFIG += imx8mp-ov5640:imx8mp-evk.dtb
-    # Only basler
-    TARGET_BOARD_DTS_CONFIG += imx8mp-basler:imx8mp-evk-basler.dtb
-    # Only os08a20
-    TARGET_BOARD_DTS_CONFIG += imx8mp-os08a20:imx8mp-evk-os08a20.dtb
-    # Dual os08a20
-    TARGET_BOARD_DTS_CONFIG += imx8mp-dual-os08a20:imx8mp-evk-dual-os08a20.dtb
+    # Default dual os08a20
+    TARGET_BOARD_DTS_CONFIG := imx8mp:imx8mp-evk-dual-os08a20.dtb
     # os08a20 + ov5640
     TARGET_BOARD_DTS_CONFIG += imx8mp-os08a20-ov5640:imx8mp-evk-os08a20-ov5640.dtb
+    # Only os08a20
+    TARGET_BOARD_DTS_CONFIG += imx8mp-os08a20:imx8mp-evk-os08a20.dtb
+    # Dual basler
+    TARGET_BOARD_DTS_CONFIG += imx8mp-dual-basler:imx8mp-evk-dual-basler.dtb
+    # basler + ov5640
+    TARGET_BOARD_DTS_CONFIG += imx8mp-basler-ov5640:imx8mp-evk-basler-ov5640.dtb
+    # Only basler
+    TARGET_BOARD_DTS_CONFIG += imx8mp-basler:imx8mp-evk-basler.dtb
+    # Only ov5640
+    TARGET_BOARD_DTS_CONFIG += imx8mp-ov5640:imx8mp-evk.dtb
     # Used to support mcu image
     ifeq ($(POWERSAVE),true)
     TARGET_BOARD_DTS_CONFIG += imx8mp-rpmsg:imx8mp-evk-hifiberry-dacpp-m-rpmsg.dtb

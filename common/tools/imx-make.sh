@@ -19,7 +19,7 @@ cat << EOF
            dtboimage               dtbo images will be built out
            bootimage               boot.img will be built out
            vendorbootimage         vendor_boot.img will be built out
-           vendorimage             vendor.img will be built out
+           vendor_dlkmimage        vendor_dlkm.img will be built out
            -c                      use clean build for kernel, not incremental build
 
 
@@ -76,7 +76,7 @@ build_mxmwifi=""
 build_bootimage=""
 build_vendorbootimage=""
 build_dtboimage=""
-build_vendorimage=""
+build_vendordlkmimage=""
 parallel_option=""
 clean_build=0
 skip_config_or_clean=0
@@ -109,10 +109,10 @@ for arg in ${args[*]} ; do
         dtboimage) build_android_flag=1;
                     build_kernel_dts="KERNEL_DTB";
                     build_dtboimage="dtboimage";;
-        vendorimage) build_android_flag=1;
+        vendor_dlkmimage) build_android_flag=1;
                     build_kernel_oot_module_flag=1;
                     build_kernel_modules="KERNEL_MODULES";
-                    build_vendorimage="vendorimage";;
+                    build_vendordlkmimage="vendor_dlkmimage";;
         *) handle_special_arg ${arg};;
     esac
 done
@@ -187,13 +187,12 @@ if [ ${build_android_flag} -eq 1 ] || [ ${build_whole_android_flag} -eq 1 ]; the
     if [ -n "${build_bootimage}" ] || [ ${build_whole_android_flag} -eq 1 ]; then
         rm -rf ${OUT}/boot.img
     fi
-    TARGET_IMX_KERNEL=true make ${parallel_option} ${build_bootimage} ${build_vendorbootimage} ${build_dtboimage} ${build_vendorimage} || exit
+    TARGET_IMX_KERNEL=true make ${parallel_option} ${build_bootimage} ${build_vendorbootimage} ${build_dtboimage} ${build_vendordlkmimage} || exit
     if [ -n "${build_bootimage}" ] || [ ${build_whole_android_flag} -eq 1 ]; then
         if [ ${TARGET_PRODUCT} = "evk_8mp" ] || [ ${TARGET_PRODUCT} = "evk_8mn" ] \
         || [ ${TARGET_PRODUCT} = "evk_8ulp" ] \
         || [ ${TARGET_PRODUCT} = "evk_8mm" ] || [ ${TARGET_PRODUCT} = "evk_8mq" ]; then
             mv ${OUT}/boot.img ${OUT}/boot-imx.img
-            # sign prebuilt gki boot.img
             make bootimage
         fi
     fi

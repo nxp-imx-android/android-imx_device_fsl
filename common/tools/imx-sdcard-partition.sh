@@ -62,6 +62,7 @@ product_file="product.img"
 partition_file="partition-table.img"
 super_file="super.img"
 vendorboot_file="vendor_boot.img"
+init_boot_file="init_boot.img"
 g_sizes=0
 support_dtbo=0
 flash_mcu=0
@@ -75,6 +76,7 @@ support_dual_bootloader=0
 support_dualslot=0
 support_dynamic_partition=0
 support_vendor_boot=0
+support_init_boot=0
 has_system_ext_partition=0
 node_device_major=""
 node_device_minor=0
@@ -100,7 +102,9 @@ while [ "$moreoptions" = 1 -a $# -gt 0 ]; do
         -D) image_directory=$2; shift;;
         *)  moreoptions=0; node=$1 ;;
     esac
-    [ "$moreoptions" = 0 ] && [ $# -gt 1 ] && help && exit
+    [ "$moreoptions" = 0 ] && [ $# -gt 1 ] \
+        && echo -e >&2 "${RED}An unkonwn option \"${node}\" is used or the target flash device is not correctly specified at the end of the command ${STD}" \
+        && help && exit
     [ "$moreoptions" = 1 ] && shift
 done
 
@@ -144,7 +148,7 @@ if [[ "${uboot_feature}" = *"dual"* ]]; then
 fi
 
 
-# dual bootloader support will use different gpt. Android Automotive only boot from eMMC, judgement here is complete
+# dual bootloader support will use different gpt. Android Automative only boot from eMMC, judgement here is complete
 if [ ${support_dual_bootloader} -eq 1 ]; then
     if [ ${card_size} -gt 0 ]; then
         partition_file="partition-table-${card_size}GB-dual.img";
@@ -223,8 +227,21 @@ function format_partition
     num=`gdisk -l ${node} | grep -w $1 | awk '{print $1}'`
     if [ ${num} -gt 0 ] 2>/dev/null; then
         get_current_device_base_name
-        echo "format_partition: $1:${current_device_base_name}${num} ext4"
-        mkfs.ext4 -F ${current_device_base_name}${num} -L$1
+
+        echo "format_partition: $1:${current_device_base_name}${num} ${2:-ext4}"
+        if [ "$2" != "f2fs" ]; then
+            mkfs.ext4 -F ${current_device_base_name}${num} -L$1
+        else
+            # check whether make_f2fs exists
+            command -v make_f2fs >/dev/null 2>&1 || { echo -e >&2 "${RED}Missing make_f2fs, fallback to erase the $1 partition ${STD}" ; erase_partition $1 ; return ; }
+
+            get_partition_size $1
+            randome_part=$RANDOM
+            # generate a sparse filesystem image with f2fs type and the size of the partition
+            make_f2fs -S $(( g_sizes*1024*1024 )) -g android /tmp/TemporaryFile_${randome_part}
+            simg2img /tmp/TemporaryFile_${randome_part} ${current_device_base_name}${num}
+            rm /tmp/TemporaryFile_${randome_part}
+        fi
     fi
 }
 
@@ -248,6 +265,8 @@ function flash_partition
                 img_name=${uboot_proper_file}
             elif [ ${support_vendor_boot} -eq 1 ] && [ $(echo ${1} | grep "vendor_boot") != "" ] 2>/dev/null; then
                 img_name="${vendorboot_file}"
+            elif [ ${support_init_boot} -eq 1 ] && [ $(echo ${1} | grep "init_boot") != "" ] 2>/dev/null; then
+                img_name="${init_boot_file}"
             elif [ "$(echo ${1} | grep "system_ext")" != "" ]; then
                 img_name=${system_extimage_file}
             elif [ "$(echo ${1} | grep "system")" != "" ]; then
@@ -288,12 +307,12 @@ function flash_partition
 function format_android
 {
     echo "formating android images"
-    format_partition metadata
+    format_partition metadata f2fs
     format_partition cache
     erase_partition presistdata
     erase_partition fbmisc
     erase_partition misc
-    format_partition userdata
+    format_partition userdata f2fs
 }
 
 function make_partition
@@ -304,69 +323,54 @@ function make_partition
 
 function flash_android
 {
+    boot_partition="boot"${slot}
+    recovery_partition="recovery"${slot}
+    system_partition="system"${slot}
+    system_ext_partition="system_ext"${slot}
+    vendor_partition="vendor"${slot}
+    product_partition="product"${slot}
+    vbmeta_partition="vbmeta"${slot}
+    dtbo_partition="dtbo"${slot}
+    super_partition="super"
+    vendor_boot_partition="vendor_boot"${slot}
+    init_boot_partition="init_boot"${slot}
     gdisk -l ${node} 2>/dev/null | grep -q "dtbo" && support_dtbo=1
     gdisk -l ${node} 2>/dev/null | grep -q "super" && support_dynamic_partition=1
     gdisk -l ${node} 2>/dev/null | grep -q "vendor_boot" && support_vendor_boot=1
+    gdisk -l ${node} 2>/dev/null | grep -q "init_boot" && support_init_boot=1
     gdisk -l ${node} 2>/dev/null | grep -q "system_ext" && has_system_ext_partition=1
-
-    super_partition="super"
 
     if [ ${support_dual_bootloader} -eq 1 ]; then
         bootloader_file=spl-${soc_name}${uboot_feature}.bin
         uboot_proper_file=bootloader-${soc_name}${uboot_feature}.img
+        bootloader_partition="bootloader"${slot}
+        flash_partition ${bootloader_partition} || exit 1
     else
         bootloader_file=u-boot-${soc_name}${uboot_feature}.imx
     fi
 
-
-    if [ "${support_dualslot}" -eq "1" ]; then
-        for slot_iter in ${slot:-_a _b}
-        do
-            boot_partition="boot"${slot_iter}
-            recovery_partition="recovery"${slot_iter}
-            system_partition="system"${slot_iter}
-            system_ext_partition="system_ext"${slot_iter}
-            vendor_partition="vendor"${slot_iter}
-            product_partition="product"${slot_iter}
-            vbmeta_partition="vbmeta"${slot_iter}
-            dtbo_partition="dtbo"${slot_iter}
-            vendor_boot_partition="vendor_boot"${slot_iter}
-
-            if [ ${support_dual_bootloader} -eq 1 ]; then
-                bootloader_partition="bootloader"${slot_iter}
-                flash_partition ${bootloader_partition} || exit 1
-            fi
-
-            flash_partition ${boot_partition}  || exit 1
-            flash_partition ${recovery_partition}  || exit 1
-
-
-            if [ ${support_dynamic_partition} -eq 0 ]; then
-                flash_partition ${system_partition} || exit 1
-                if [ ${has_system_ext_partition} -eq 1 ]; then
-                    flash_partition ${system_ext_partition} || exit 1
-                fi
-                flash_partition ${vendor_partition} || exit 1
-                flash_partition ${product_partition} || exit 1
-            fi
-
-            flash_partition ${vbmeta_partition} || exit 1
-
-
-            if [ "${support_dtbo}" -eq "1" ] ; then
-                flash_partition ${dtbo_partition} || exit 1
-            fi
-            if [ "${support_vendor_boot}" -eq "1" ] ; then
-                flash_partition ${vendor_boot_partition} || exit 1
-            fi
-
-        done
+    if [ "${support_dtbo}" -eq "1" ] ; then
+        flash_partition ${dtbo_partition} || exit 1
     fi
-
-
-    if [ ${support_dynamic_partition} -eq 1 ]; then
+    if [ "${support_vendor_boot}" -eq "1" ] ; then
+        flash_partition ${vendor_boot_partition} || exit 1
+    fi
+    if [ "${support_init_boot}" -eq "1" ] ; then
+        flash_partition ${init_boot_partition} || exit 1
+    fi
+    flash_partition ${boot_partition}  || exit 1
+    flash_partition ${recovery_partition}  || exit 1
+    if [ ${support_dynamic_partition} -eq 0 ]; then
+        flash_partition ${system_partition} || exit 1
+        if [ ${has_system_ext_partition} -eq 1 ]; then
+            flash_partition ${system_ext_partition} || exit 1
+        fi
+        flash_partition ${vendor_partition} || exit 1
+        flash_partition ${product_partition} || exit 1
+    else
         flash_partition ${super_partition} || exit 1
     fi
+    flash_partition ${vbmeta_partition} || exit 1
     echo "erase_partition: uboot : ${node}"
     echo "flash_partition: ${bootloader_file} ---> ${node}"
     first_partition_offset=`gdisk -l ${node} | grep ' 1 ' | awk '{print $2}'`

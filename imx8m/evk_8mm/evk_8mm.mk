@@ -39,16 +39,14 @@ PRODUCT_SOONG_NAMESPACES += hardware/google/pixel
 PRODUCT_COPY_FILES += \
     $(IMX_DEVICE_PATH)/powerhint_imx8mm.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/powerhint_imx8mm.json
 
-# Charger Mode
-PRODUCT_PRODUCT_PROPERTIES += \
-    ro.charger.no_ui=false
-
 # Do not skip charger_not_need trigger by default
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     vendor.skip.charger_not_need=0
 
 PRODUCT_PACKAGES += \
     android.hardware.power-service.imx
+
+TARGET_VENDOR_PROP := $(LOCAL_PATH)/product.prop
 
 # Thermal HAL
 PRODUCT_PACKAGES += \
@@ -119,7 +117,7 @@ TARGET_USE_DYNAMIC_PARTITIONS ?= true
 
 ifeq ($(TARGET_USE_DYNAMIC_PARTITIONS),true)
   ifeq ($(TARGET_USE_VENDOR_BOOT),true)
-    $(call inherit-product, $(SRC_TARGET_DIR)/product/virtual_ab_ota/compression.mk)
+    $(call inherit-product, $(SRC_TARGET_DIR)/product/virtual_ab_ota/compression_with_xor.mk)
   else
     $(call inherit-product, $(SRC_TARGET_DIR)/product/virtual_ab_ota.mk)
   endif
@@ -145,7 +143,7 @@ ifneq ($(filter TRUE true 1,$(IMX_OTA_POSTINSTALL)),)
   AB_OTA_POSTINSTALL_CONFIG += \
     RUN_POSTINSTALL_vendor=true \
     POSTINSTALL_PATH_vendor=bin/imx_ota_postinstall \
-    FILESYSTEM_TYPE_vendor=ext4 \
+    FILESYSTEM_TYPE_vendor=erofs \
     POSTINSTALL_OPTIONAL_vendor=false
 
   PRODUCT_COPY_FILES += \
@@ -222,6 +220,12 @@ else
 BOARD_AVB_BOOT_ROLLBACK_INDEX := 0
 endif
 
+ifneq ($(AVB_INIT_BOOT_RBINDEX),)
+BOARD_AVB_INIT_BOOT_ROLLBACK_INDEX := $(AVB_INIT_BOOT_RBINDEX)
+else
+BOARD_AVB_INIT_BOOT_ROLLBACK_INDEX := 0
+endif
+
 $(call  inherit-product-if-exists, vendor/nxp-private/security/nxp_security.mk)
 
 # Resume on Reboot support
@@ -233,11 +237,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 #DRM Widevine 1.4 L3 support
 PRODUCT_PACKAGES += \
-    android.hardware.drm@1.4-service.widevine \
-    android.hardware.drm@1.4-service.clearkey \
+    android.hardware.drm-service.widevine  \
+    android.hardware.drm-service.clearkey \
     libwvdrmcryptoplugin \
-    libwvhidl \
-    libwvdrmengine
+    libwvaidl \
 
 # -------@block_audio-------
 
@@ -438,8 +441,8 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.touchscreen.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.touchscreen.xml \
     frameworks/native/data/etc/android.hardware.usb.accessory.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.usb.accessory.xml \
     frameworks/native/data/etc/android.hardware.usb.host.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.usb.host.xml \
-    frameworks/native/data/etc/android.software.vulkan.deqp.level-2021-03-01.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.vulkan.deqp.level.xml \
-    frameworks/native/data/etc/android.software.opengles.deqp.level-2021-03-01.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.opengles.deqp.level.xml \
+    frameworks/native/data/etc/android.software.vulkan.deqp.level-2022-03-01.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.vulkan.deqp.level.xml \
+    frameworks/native/data/etc/android.software.opengles.deqp.level-2022-03-01.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.opengles.deqp.level.xml \
     frameworks/native/data/etc/android.hardware.wifi.direct.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.direct.xml \
     frameworks/native/data/etc/android.hardware.wifi.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.xml \
     frameworks/native/data/etc/android.hardware.wifi.passpoint.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.passpoint.xml \

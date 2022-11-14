@@ -37,6 +37,12 @@
                     <profile name="" format="AUDIO_FORMAT_PCM_16_BIT"
                              samplingRates="16000" channelMasks="AUDIO_CHANNEL_OUT_STEREO"/>
                 </mixPort>
+                <mixPort name="compressed_offload" role="source"
+                         flags="AUDIO_OUTPUT_FLAG_DIRECT AUDIO_OUTPUT_FLAG_COMPRESS_OFFLOAD">
+                    <profile name="" format="AUDIO_FORMAT_MP3"
+                             samplingRates="8000 11025 12000 16000 22050 24000 32000 44100 48000"
+                             channelMasks="AUDIO_CHANNEL_OUT_STEREO AUDIO_CHANNEL_OUT_MONO"/>
+                </mixPort>
 
                 <mixPort name="primary input" role="sink">
                     <profile name="" format="AUDIO_FORMAT_PCM_16_BIT"
@@ -58,6 +64,8 @@
                 <devicePort tagName="BT SCO CarKit" type="AUDIO_DEVICE_OUT_BLUETOOTH_SCO_CARKIT" role="sink">
                 </devicePort>
                 <devicePort tagName="BT SCO" type="AUDIO_DEVICE_OUT_BLUETOOTH_SCO" role="sink">
+                </devicePort>
+                <devicePort tagName="Line-Out" type="AUDIO_DEVICE_OUT_LINE" role="sink">
                 </devicePort>
 
                 <devicePort tagName="Built-In Mic" type="AUDIO_DEVICE_IN_BUILTIN_MIC" role="source">
@@ -84,20 +92,25 @@
                        sources="bt sco output"/>
                 <route type="mix" sink="BT SCO"
                        sources="bt sco output"/>
+                <route type="mix" sink="Line-Out"
+                       sources="compressed_offload,primary output"/>
 
                 <route type="mix" sink="primary input"
                        sources="Built-In Mic,Wired Headset Mic,Spdif-In,BT SCO Headset Mic"/>
             </routes>
         </module>
 
-        <!-- A2dp Audio HAL -->
-        <xi:include href="a2dp_audio_policy_configuration_7_0.xml"/>
+        <!-- A2dp Input Audio HAL -->
+        <xi:include href="a2dp_in_audio_policy_configuration_7_0.xml"/>
 
         <!-- Usb Audio HAL -->
         <xi:include href="usb_audio_policy_configuration.xml"/>
 
         <!-- Remote Submix Audio HAL -->
         <xi:include href="r_submix_audio_policy_configuration.xml"/>
+
+        <!-- Bluetooth Audio HAL -->
+        <xi:include href="bluetooth_audio_policy_configuration_7_0.xml"/>
 
     </modules>
 

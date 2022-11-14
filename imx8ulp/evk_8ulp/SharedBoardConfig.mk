@@ -89,6 +89,7 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/tty/serial/fsl_lpuart.ko \
     $(KERNEL_OUT)/drivers/i2c/busses/i2c-imx-lpi2c.ko \
     $(KERNEL_OUT)/drivers/i2c/busses/i2c-rpmsg-imx.ko \
+    $(KERNEL_OUT)/drivers/i2c/i2c-dev.ko \
     $(KERNEL_OUT)/drivers/gpio/gpio-pca953x.ko \
     $(KERNEL_OUT)/drivers/gpio/gpio-vf610.ko \
     $(KERNEL_OUT)/drivers/gpio/gpio-imx-rpmsg.ko \
@@ -111,6 +112,7 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/power/supply/dummy_battery.ko \
     $(KERNEL_OUT)/drivers/dma-buf/heaps/system_heap.ko \
     $(KERNEL_OUT)/drivers/dma-buf/heaps/cma_heap.ko \
+    $(KERNEL_OUT)/drivers/dma-buf/heaps/secure_heap.ko \
     $(KERNEL_OUT)/drivers/dma-buf/heaps/dsp_heap.ko \
     $(KERNEL_OUT)/drivers/dma-buf/dma-buf-imx.ko \
     $(KERNEL_OUT)/drivers/usb/chipidea/usbmisc_imx.ko \

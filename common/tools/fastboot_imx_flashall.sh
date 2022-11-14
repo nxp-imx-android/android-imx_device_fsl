@@ -43,10 +43,10 @@ options:
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                            │   imx8mq       │  dual trusty-dual evk-uuu trusty-secure-unlock-dual                                                  │
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
-                           │   imx8qxp      │  dual trusty-dual mek-uuu trusty-secure-unlock trusty secure-unlock c0 c0-dual trusty-c0             │
+                           │   imx8qxp      │  dual trusty-dual mek-uuu trusty-secure-unlock-dual secure-unlock c0 c0-dual                         │
                            │                │  trusty-c0-dual mek-c0-uuu                                                                           │
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
-                           │   imx8qm       │  dual trusty-dual mek-uuu trusty-secure-unlock trusty secure-unlock md hdmi xen                      │
+                           │   imx8qm       │  dual trusty-dual mek-uuu trusty-secure-unlock-dual secure-unlock md hdmi xen                        │
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                            │   imx7ulp      │  evk-uuu                                                                                             │
                            └────────────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────┘
@@ -64,7 +64,7 @@ options:
                            │   imx8mq       │  dual mipi-panel mipi-panel-rm67191 mipi                                                             │
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                            │   imx8mp       │  rpmsg lvds-panel lvds mipi-panel mipi-panel-rm67191 basler powersave powersave-non-rpmsg            │
-                           │                │  basler-ov5640 ov5640 sof dual-os08a20 os08a20-ov5640 os08a20                                        │
+                           │                │  basler-ov5640 ov5640 sof dual-basler os08a20-ov5640 os08a20                                         │
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                            │   imx8qxp      │  sof                                                                                                 │
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
@@ -117,6 +117,8 @@ function flash_partition
         img_name=${systemimage_file}
     elif [ ${support_vendor_boot} -eq 1 ] && [ "$(echo ${1} | grep "vendor_boot")" != "" ]; then
         img_name="vendor_boot.img"
+    elif [ ${support_init_boot} -eq 1 ] && [ "$(echo ${1} | grep "init_boot")" != "" ]; then
+        img_name="init_boot.img"
     elif [ "$(echo ${1} | grep "vendor")" != "" ]; then
         img_name=${vendor_file}
     elif [ "$(echo ${1} | grep "product")" != "" ]; then
@@ -157,6 +159,10 @@ function flash_userpartitions
         flash_partition ${vendor_boot_partition}
     fi
 
+    if [ ${support_init_boot} -eq 1 ]; then
+        flash_partition ${init_boot_partition}
+    fi
+
     if [ ${support_recovery} -eq 1 ]; then
         flash_partition ${recovery_partition}
     fi
@@ -183,6 +189,7 @@ function flash_partition_name
     vbmeta_partition="vbmeta"${1}
     dtbo_partition="dtbo"${1}
     vendor_boot_partition="vendor_boot"${1}
+    init_boot_partition="init_boot"${1}
 }
 
 function flash_android
@@ -199,6 +206,7 @@ function flash_android
     grep -q "boot_b" /tmp/fastboot_var.log && support_dualslot=1
     grep -q "super" /tmp/fastboot_var.log && support_dynamic_partition=1
     grep -q "vendor_boot" /tmp/fastboot_var.log && support_vendor_boot=1
+    grep -q "init_boot" /tmp/fastboot_var.log && support_init_boot=1
     grep -q "system_ext" /tmp/fastboot_var.log && has_system_ext_partition=1
 
     # some partitions are hard-coded in uboot, flash the uboot first and then reboot to check these partitions
@@ -292,6 +300,7 @@ support_mcu_os=0
 support_dual_bootloader=0
 support_dynamic_partition=0
 support_vendor_boot=0
+support_init_boot=0
 dual_bootloader_partition=""
 bootloader_flashed_to_board=""
 uboot_proper_to_be_flashed=""
@@ -307,6 +316,7 @@ dtbo_partition="dtbo"
 mcu_os_partition="mcu_os"
 super_partition="super"
 vendor_boot_partition="vendor_boot"
+init_boot_partition="init_boot"
 flash_mcu=0
 lock=0
 erase=0
@@ -334,7 +344,7 @@ imx7ulp_uboot_feature=(evk-uuu)
 imx8mm_dtb_feature=(ddr4 m4 mipi-panel mipi-panel-rm67191)
 imx8mn_dtb_feature=(mipi-panel mipi-panel-rm67191 rpmsg ddr4 ddr4-mipi-panel ddr4-mipi-panel-rm67191 ddr4-rpmsg)
 imx8mq_dtb_feature=(dual mipi-panel mipi-panel-rm67191 mipi)
-imx8mp_dtb_feature=(rpmsg lvds-panel lvds mipi-panel mipi-panel-rm67191 basler powersave powersave-non-rpmsg basler-ov5640 ov5640 sof dual-os08a20 os08a20-ov5640 os08a20)
+imx8mp_dtb_feature=(rpmsg lvds-panel lvds mipi-panel mipi-panel-rm67191 basler powersave powersave-non-rpmsg basler-ov5640 ov5640 sof dual-basler os08a20-ov5640 os08a20)
 imx8qxp_dtb_feature=(sof)
 imx8qm_dtb_feature=(hdmi hdmi-rx mipi-panel mipi-panel-rm67191 md xen esai sof)
 imx8ulp_dtb_feature=(hdmi epdc 9x9 9x9-hdmi sof lpa)

@@ -133,6 +133,7 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/mmc/host/sdhci-esdhc-imx.ko \
     $(KERNEL_OUT)/drivers/mmc/host/cqhci.ko \
     $(KERNEL_OUT)/drivers/i2c/busses/i2c-imx.ko \
+    $(KERNEL_OUT)/drivers/i2c/i2c-dev.ko \
     $(KERNEL_OUT)/drivers/spi/spi-fsl-qspi.ko \
     $(KERNEL_OUT)/drivers/spi/spi-bitbang.ko \
     $(KERNEL_OUT)/drivers/spi/spi-imx.ko \

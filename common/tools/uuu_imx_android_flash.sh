@@ -65,7 +65,7 @@ options:
                            │   imx8mq       │  dual mipi-panel mipi-panel-rm67191                                                                  │
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                            │   imx8mp       │  rpmsg lvds-panel lvds mipi-panel mipi-panel-rm67191 basler powersave powersave-non-rpmsg            │
-                           │                │  basler-ov5640 ov5640.img sof dual-os08a20 os08a20-ov5640 os08a20                                    │
+                           │                │  basler-ov5640 ov5640.img sof dual-basler os08a20-ov5640 os08a20                                     │
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                            │   imx8qxp      │  sof                                                                                                 │
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
@@ -162,6 +162,8 @@ function flash_partition
         img_name=${uboot_proper_to_be_flashed}
     elif [ ${support_vendor_boot} -eq 1 ] && [ "$(echo ${1} | grep "vendor_boot")" != "" ]; then
             img_name="vendor_boot.img"
+    elif [ ${support_init_boot} -eq 1 ] && [ "$(echo ${1} | grep "init_boot")" != "" ]; then
+            img_name="init_boot.img"
     elif [ "$(echo ${1} | grep "system_ext")" != "" ]; then
         img_name=${system_extimage_file}
     elif [ "$(echo ${1} | grep "system")" != "" ]; then
@@ -208,6 +210,10 @@ function flash_userpartitions
         flash_partition ${vendor_boot_partition}
     fi
 
+    if [ ${support_init_boot} -eq 1 ]; then
+        flash_partition ${init_boot_partition}
+    fi
+
     if [ ${support_recovery} -eq 1 ]; then
         flash_partition ${recovery_partition}
     fi
@@ -234,6 +240,7 @@ function flash_partition_name
     vbmeta_partition="vbmeta"${1}
     dtbo_partition="dtbo"${1}
     vendor_boot_partition="vendor_boot"${1}
+    init_boot_partition="init_boot"${1}
     if [ ${support_dual_bootloader} -eq 1 ]; then
         dual_bootloader_partition=bootloader${1}
     fi
@@ -331,6 +338,7 @@ support_mcu_os=0
 support_trusty=0
 support_dynamic_partition=0
 support_vendor_boot=0
+support_init_boot=0
 boot_partition="boot"
 recovery_partition="recovery"
 system_partition="system"
@@ -341,6 +349,7 @@ product_partition="product"
 vbmeta_partition="vbmeta"
 dtbo_partition="dtbo"
 vendor_boot_partition="vendor_boot"
+init_boot_partition="init_boot"
 mcu_os_partition="mcu_os"
 super_partition="super"
 
@@ -376,19 +385,19 @@ usb_paths=""
 # We want to detect illegal feature input to some extent. Here it's based on SoC names. Since an SoC may be on a
 # board running different set of images(android and automotive for a example), so misuse the features of one set of
 # images when flash another set of images can not be detect early with this scenario.
-imx8mm_uboot_feature=(dual trusty-dual 4g-evk-uuu 4g ddr4-evk-uuu ddr4 evk-uuu trusty-4g trusty-secure-unlock trusty)
-imx8mn_uboot_feature=(dual trusty-dual evk-uuu trusty-secure-unlock trusty ddr4-evk-uuu ddr4)
-imx8mq_uboot_feature=(dual trusty-dual evk-uuu trusty-secure-unlock trusty)
-imx8mp_uboot_feature=(dual trusty-dual evk-uuu trusty-secure-unlock trusty powersave trusty-powersave)
+imx8mm_uboot_feature=(dual trusty-dual 4g-evk-uuu 4g ddr4-evk-uuu ddr4 evk-uuu trusty-secure-unlock-dual)
+imx8mn_uboot_feature=(dual trusty-dual evk-uuu trusty-secure-unlock-dual ddr4-evk-uuu ddr4)
+imx8mq_uboot_feature=(dual trusty-dual evk-uuu trusty-secure-unlock-dual)
+imx8mp_uboot_feature=(dual trusty-dual evk-uuu trusty-secure-unlock-dual powersave trusty-powersave-dual)
 imx8ulp_uboot_feature=(dual trusty-dual evk-uuu trusty-secure-unlock-dual 9x9-evk-uuu 9x9 trusty-9x9-dual trusty-lpa-dual)
-imx8qxp_uboot_feature=(dual trusty-dual mek-uuu trusty-secure-unlock trusty secure-unlock c0 c0-dual trusty-c0 trusty-c0-dual mek-c0-uuu)
-imx8qm_uboot_feature=(dual trusty-dual mek-uuu trusty-secure-unlock trusty secure-unlock md hdmi xen)
+imx8qxp_uboot_feature=(dual trusty-dual mek-uuu trusty-secure-unlock-dual secure-unlock c0 c0-dual trusty-c0-dual mek-c0-uuu)
+imx8qm_uboot_feature=(dual trusty-dual mek-uuu trusty-secure-unlock-dual secure-unlock md hdmi xen)
 imx7ulp_uboot_feature=(evk-uuu)
 
 imx8mm_dtb_feature=(ddr4 m4 mipi-panel mipi-panel-rm67191)
 imx8mn_dtb_feature=(mipi-panel mipi-panel-rm67191 rpmsg ddr4 ddr4-mipi-panel ddr4-mipi-panel-rm67191 ddr4-rpmsg)
 imx8mq_dtb_feature=(dual mipi-panel mipi-panel-rm67191 mipi)
-imx8mp_dtb_feature=(rpmsg lvds-panel lvds mipi-panel mipi-panel-rm67191 basler powersave powersave-non-rpmsg basler-ov5640 ov5640 sof dual-os08a20 os08a20-ov5640 os08a20)
+imx8mp_dtb_feature=(rpmsg lvds-panel lvds mipi-panel mipi-panel-rm67191 basler powersave powersave-non-rpmsg basler-ov5640 ov5640 sof dual-basler os08a20-ov5640 os08a20)
 imx8qxp_dtb_feature=(sof)
 imx8qm_dtb_feature=(hdmi hdmi-rx mipi-panel mipi-panel-rm67191 md xen esai sof)
 imx8ulp_dtb_feature=(hdmi epdc 9x9 9x9-hdmi sof lpa)
@@ -525,6 +534,10 @@ grep "73 00 75 00 70 00 65 00 72 00" /tmp/partition-table_3.txt > /dev/null \
 # check whether there is "vendor_boot" in partition table
 grep "76 00 65 00 6e 00 64 00 6f 00 72 00 5f 00 62 00 6f 00 6f 00 74 00 5f 00" /tmp/partition-table_3.txt > /dev/null \
         && support_vendor_boot=1 && echo vendor_boot parttition is supported
+
+# check whether there is "init_boot" in partition table
+grep "69 00 6e 00 69 00 74 00 5f 00 62 00 6f 00 6f 00 74 00 5f 00" /tmp/partition-table_3.txt > /dev/null \
+        && support_init_boot=1 && echo init_boot parttition is supported
 
 grep "73 00 79 00 73 00 74 00 65 00 6d 00 5f 00 65 00 78 00 74 00" /tmp/partition-table_3.txt > /dev/null \
 && has_system_ext_partition=1 && echo has system_ext partition

@@ -63,12 +63,14 @@ BOARD_KERNEL_OFFSET := 0x00080000
 BOARD_RAMDISK_OFFSET := 0x04280000
 ifeq ($(TARGET_USE_VENDOR_BOOT),true)
 BOARD_BOOT_HEADER_VERSION := 4
+BOARD_INIT_BOOT_HEADER_VERSION := 4
 BOARD_INCLUDE_DTB_IN_BOOTIMG := false
 else
 BOARD_BOOT_HEADER_VERSION := 1
 endif
 
 BOARD_MKBOOTIMG_ARGS = --kernel_offset $(BOARD_KERNEL_OFFSET) --ramdisk_offset $(BOARD_RAMDISK_OFFSET) --header_version $(BOARD_BOOT_HEADER_VERSION)
+BOARD_MKBOOTIMG_INIT_ARGS += --header_version $(BOARD_INIT_BOOT_HEADER_VERSION)
 
 ifeq ($(TARGET_USE_VENDOR_BOOT),true)
   BOARD_MOVE_RECOVERY_RESOURCES_TO_VENDOR_BOOT := true
@@ -83,13 +85,7 @@ TARGET_BOARD_KERNEL_HEADERS := $(CONFIG_REPO_PATH)/common/kernel-headers
 
 TARGET_IMX_KERNEL ?= false
 ifeq ($(TARGET_IMX_KERNEL),false)
-# boot-debug.img is built by IMX, with Google released kernel Image
-# boot.img is released by Google
-ifneq (,$(filter userdebug eng,$(TARGET_BUILD_VARIANT)))
-BOARD_PREBUILT_BOOTIMAGE := vendor/nxp/fsl-proprietary/gki/boot-debug.img
-else
 BOARD_PREBUILT_BOOTIMAGE := vendor/nxp/fsl-proprietary/gki/boot.img
-endif
 TARGET_NO_KERNEL := true
 endif
 
@@ -106,34 +102,42 @@ endif
 # -------@block_storage-------
 AB_OTA_UPDATER := true
 ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
-AB_OTA_PARTITIONS += dtbo boot system system_ext vendor vbmeta
+AB_OTA_PARTITIONS += dtbo boot system system_ext vendor vendor_dlkm vbmeta
 else
 ifeq ($(TARGET_USE_VENDOR_BOOT),true)
-AB_OTA_PARTITIONS += dtbo boot vendor_boot system system_ext vendor vbmeta product
+AB_OTA_PARTITIONS += dtbo boot init_boot vendor_boot system system_ext vendor vendor_dlkm vbmeta product
 else
-AB_OTA_PARTITIONS += dtbo boot system system_ext vendor vbmeta product
+AB_OTA_PARTITIONS += dtbo boot system system_ext vendor vendor_dlkm vbmeta product
 endif
 endif
 
 BOARD_DTBOIMG_PARTITION_SIZE := 4194304
 BOARD_BOOTIMAGE_PARTITION_SIZE := 67108864
+BOARD_INIT_BOOT_IMAGE_PARTITION_SIZE := 8388608
 ifeq ($(TARGET_USE_VENDOR_BOOT),true)
 BOARD_VENDOR_BOOTIMAGE_PARTITION_SIZE := 67108864
 endif
 
-BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE = ext4
+BOARD_SYSTEMIMAGE_FILE_SYSTEM_TYPE := erofs
+
+BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := erofs
 TARGET_COPY_OUT_VENDOR := vendor
 
 ifneq ($(IMX_NO_PRODUCT_PARTITION),true)
   BOARD_USES_PRODUCTIMAGE := true
-  BOARD_PRODUCTIMAGE_FILE_SYSTEM_TYPE := ext4
+  BOARD_PRODUCTIMAGE_FILE_SYSTEM_TYPE := erofs
   TARGET_COPY_OUT_PRODUCT := product
 endif
 
 # Build a separate system_ext.img partition
 BOARD_USES_SYSTEM_EXTIMAGE := true
-BOARD_SYSTEM_EXTIMAGE_FILE_SYSTEM_TYPE := ext4
+BOARD_SYSTEM_EXTIMAGE_FILE_SYSTEM_TYPE := erofs
 TARGET_COPY_OUT_SYSTEM_EXT := system_ext
+
+# Build a separate vendor_dlkm partition
+BOARD_USES_VENDOR_DLKMIMAGE := true
+BOARD_VENDOR_DLKMIMAGE_FILE_SYSTEM_TYPE := erofs
+TARGET_COPY_OUT_VENDOR_DLKM := vendor_dlkm
 
 BOARD_FLASH_BLOCK_SIZE := 4096
 
@@ -142,9 +146,9 @@ ifeq ($(TARGET_USE_DYNAMIC_PARTITIONS),true)
   BOARD_SUPER_PARTITION_SIZE := 4294967296
   BOARD_NXP_DYNAMIC_PARTITIONS_SIZE := 4284481536
   ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
-    BOARD_NXP_DYNAMIC_PARTITIONS_PARTITION_LIST := system system_ext vendor
+    BOARD_NXP_DYNAMIC_PARTITIONS_PARTITION_LIST := system system_ext vendor vendor_dlkm
   else
-    BOARD_NXP_DYNAMIC_PARTITIONS_PARTITION_LIST := system system_ext vendor product
+    BOARD_NXP_DYNAMIC_PARTITIONS_PARTITION_LIST := system system_ext vendor vendor_dlkm product
 
   endif
 else

@@ -21,6 +21,13 @@
         },
         {
             "ab": true,
+            "label": "init_boot",
+            "size": "8 MiB",
+            "guid": "auto",
+            "type_guid": "6e94e64b-ed8b-4613-9d68-1937c14b88dc"
+        },
+        {
+            "ab": true,
             "label": "vendor_boot",
             "size": "64 MiB",
             "guid": "auto",
@@ -34,7 +41,7 @@
         },
         {
             "label": "metadata",
-            "size": "16 MiB",
+            "size": "64 MiB",
             "guid": "auto",
             "type_guid": "b598858a-5fe3-418e-b8c4-824b41f4adfc"
         },
