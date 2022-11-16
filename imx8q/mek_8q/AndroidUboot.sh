@@ -46,7 +46,7 @@ UBOOT_M4_BUILD_TYPE=ddr_release
 build_m4_image_core()
 {
 	mkdir -p ${UBOOT_M4_OUT}/$2
-	/usr/local/bin/cmake -DCMAKE_TOOLCHAIN_FILE="$4" -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=$3 $5 -S $1 -B ${UBOOT_M4_OUT}/$2 1>/dev/null
+	cmake -DCMAKE_TOOLCHAIN_FILE="$4" -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=$3 $5 -S $1 -B ${UBOOT_M4_OUT}/$2 1>/dev/null
 	make -C ${UBOOT_M4_OUT}/$2 1>/dev/null
 }
 
@@ -60,7 +60,7 @@ if [ "${PRODUCT_IMX_CAR_M4}" = "true" ]; then
 	{
 		rm -rf ${UBOOT_M4_OUT}
 		mkdir -p ${UBOOT_M4_OUT}
-		cmake_version=$(/usr/local/bin/cmake --version | head -n 1 | tr " " "\n" | tail -n 1)
+		cmake_version=$(cmake --version | head -n 1 | tr " " "\n" | tail -n 1)
 		req_version="3.13.0"
 		if [ "`echo "$cmake_version $req_version" | tr " " "\n" | sort -V | head -n 1`" != "$req_version" ]; then
 			echo "please upgrade cmake version to ${req_version} or newer";

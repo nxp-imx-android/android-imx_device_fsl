@@ -90,14 +90,17 @@ TARGET_USE_VENDOR_BOOT ?= true
 
 BOARD_RAMDISK_USE_LZ4 := true
 
-ifneq ($(PRODUCT_IMX_CAR),true)
 # We load the fstab from device tree so this is not needed, but since no kernel modules are installed to vendor
 # boot ramdisk so far, we need this step to generate the vendor-ramdisk folder or build process would fail. This
 # can be deleted once we figure out what kernel modules should be put into the vendor boot ramdisk.
 ifeq ($(TARGET_USE_VENDOR_BOOT),true)
+  ifeq ($(PRODUCT_IMX_CAR),true)
+PRODUCT_COPY_FILES += \
+    $(IMX_DEVICE_PATH)/fstab.nxp.car:$(TARGET_COPY_OUT_VENDOR_RAMDISK)/first_stage_ramdisk/fstab.nxp
+  else
 PRODUCT_COPY_FILES += \
     $(IMX_DEVICE_PATH)/fstab.nxp:$(TARGET_COPY_OUT_VENDOR_RAMDISK)/first_stage_ramdisk/fstab.nxp
-endif
+  endif
 endif
 
 ifeq ($(PRODUCT_IMX_CAR),true)
@@ -334,7 +337,7 @@ endif
 # AudioControl service
 ifeq ($(PRODUCT_IMX_CAR),true)
 PRODUCT_PACKAGES += \
-    android.hardware.automotive.audiocontrol-service
+    android.hardware.automotive.audiocontrol-service.example
 endif
 
 ifeq ($(PRODUCT_IMX_CAR),true)

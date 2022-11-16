@@ -150,6 +150,9 @@ $(UBOOT_BIN): $(UBOOTENVSH) | $(UBOOT_COLLECTION) $(UBOOT_OUT)
 .PHONY: bootloader $(UBOOT_BIN) $(UBOOTENVSH)
 
 bootloader: $(UBOOT_BIN)
+	if [ "$(PRODUCT_IMX_DUAL_BOOTLOADER)" = "true" ]; then \
+		cp -fp $(UBOOT_COLLECTION)/$(BOARD_OTA_BOOTLOADERIMAGE) $(PRODUCT_OUT)/bootloader.img; \
+	fi
 
 ifneq ($(TARGET_UBOOT_ENV),)
 $(UBOOT_ENV_OUT): $(TARGET_UBOOT_ENV) | $(UBOOT_BIN)

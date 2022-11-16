@@ -40,15 +40,10 @@ ifeq ($(PRODUCT_IMX_DUAL_BOOTLOADER),true)
   endif
 else
   ifeq ($(TARGET_USE_DYNAMIC_PARTITIONS),true)
-    ifeq ($(PRODUCT_IMX_CAR),true)
-      BOARD_BPT_INPUT_FILES += $(CONFIG_REPO_PATH)/common/partition/device-partitions-13GB-ab-no-vb_super.bpt
-      ADDITION_BPT_PARTITION = partition-table-28GB:$(CONFIG_REPO_PATH)/common/partition/device-partitions-28GB-ab-no-vb_super.bpt
-    else
       BOARD_BPT_INPUT_FILES += $(CONFIG_REPO_PATH)/common/partition/device-partitions-13GB-ab_super.bpt
       ADDITION_BPT_PARTITION = partition-table-28GB:$(CONFIG_REPO_PATH)/common/partition/device-partitions-28GB-ab_super.bpt \
                                partition-table-dual:$(CONFIG_REPO_PATH)/common/partition/device-partitions-13GB-ab-dual-bootloader_super.bpt \
                                partition-table-28GB-dual:$(CONFIG_REPO_PATH)/common/partition/device-partitions-28GB-ab-dual-bootloader_super.bpt
-    endif
   else
     ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
       BOARD_BPT_INPUT_FILES += $(CONFIG_REPO_PATH)/common/partition/device-partitions-13GB-ab-no-product.bpt
@@ -144,29 +139,31 @@ endif
 # -------@block_kernel_bootimg-------
 
 # NXP default config
-BOARD_KERNEL_CMDLINE := init=/init androidboot.hardware=nxp firmware_class.path=/vendor/firmware loop.max_part=7
+BOARD_KERNEL_CMDLINE := init=/init firmware_class.path=/vendor/firmware loop.max_part=7 bootconfig
+BOARD_BOOTCONFIG += androidboot.hardware=nxp
 
 # framebuffer config
-BOARD_KERNEL_CMDLINE += androidboot.fbTileSupport=enable
+BOARD_BOOTCONFIG += androidboot.fbTileSupport=enable
 
 # memory config
 BOARD_KERNEL_CMDLINE += cma=928M@0x960M-0xfc0M transparent_hugepage=never
 
 # display config
-BOARD_KERNEL_CMDLINE += androidboot.lcd_density=240 androidboot.primary_display=imx-drm
+BOARD_BOOTCONFIG += androidboot.lcd_density=240 androidboot.primary_display=imx-drm
 
 # wifi config
-BOARD_KERNEL_CMDLINE += androidboot.wificountrycode=CN moal.mod_para=wifi_mod_para.conf pci=nomsi
+BOARD_BOOTCONFIG += androidboot.wificountrycode=CN
+BOARD_KERNEL_CMDLINE += moal.mod_para=wifi_mod_para.conf pci=nomsi
 
 ifeq ($(PRODUCT_IMX_CAR),true)
 # automotive config
 BOARD_KERNEL_CMDLINE += video=HDMI-A-2:d
 else
-BOARD_KERNEL_CMDLINE += androidboot.console=ttyLP0
+BOARD_BOOTCONFIG += androidboot.console=ttyLP0
 endif
 
 ifneq (,$(filter userdebug eng,$(TARGET_BUILD_VARIANT)))
-BOARD_KERNEL_CMDLINE += androidboot.vendor.sysrq=1
+BOARD_BOOTCONFIG += androidboot.vendor.sysrq=1
 endif
 
 # For Android Auto with M4 EVS, fstab entries in dtb are in the form of non-dynamic partition by default

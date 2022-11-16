@@ -5,7 +5,7 @@ IMX_DEVICE_PATH := $(strip $(patsubst %/, %, $(dir $(CURRENT_FILE_PATH))))
 
 # -------@block_kernel_bootimg-------
 # Don't enable vendor boot for Android Auto without M4 EVS for now
-TARGET_USE_VENDOR_BOOT ?= false
+TARGET_USE_VENDOR_BOOT ?= true
 
 # -------@block_storage-------
 # Android Auto without M4 EVS uses dynamic partition
