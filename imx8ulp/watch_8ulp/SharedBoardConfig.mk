@@ -46,6 +46,8 @@ PRODUCT_IMX_TRUSTY := true
 # CONFIG_RTC_DRV_IMX_RPMSG: rtc-imx-rpmsg.ko
 # CONFIG_RPMSG_LIFE_CYCLE: rpmsg_life_cycle.ko
 # CONFIG_BATTERY_DUMMY: dummy_battery.ko
+# CONFIG_BATTERY_MAX17042: max17042_battery.ko
+# CONFIG_CHARGER_MP2662: mp2662_charger.ko
 # CONFIG_DMABUF_HEAPS_DSP: dsp_heap.ko
 # CONFIG_DMABUF_HEAPS_SYSTEM: system_heap.ko
 # CONFIG_DMABUF_HEAPS_CMA: cma_heap.ko
@@ -108,6 +110,8 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/rtc/rtc-imx-rpmsg.ko \
     $(KERNEL_OUT)/drivers/soc/imx/rpmsg_life_cycle.ko \
     $(KERNEL_OUT)/drivers/power/supply/dummy_battery.ko \
+    $(KERNEL_OUT)/drivers/power/supply/max17042_battery.ko \
+    $(KERNEL_OUT)/drivers/power/supply/mp2662_charger.ko \
     $(KERNEL_OUT)/drivers/dma-buf/heaps/system_heap.ko \
     $(KERNEL_OUT)/drivers/dma-buf/heaps/cma_heap.ko \
     $(KERNEL_OUT)/drivers/dma-buf/heaps/dsp_heap.ko \
