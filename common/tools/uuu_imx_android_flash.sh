@@ -120,38 +120,45 @@ function whether_in_array
 
 function uuu_load_uboot
 {
-    echo uuu_version 1.4.182 > /tmp/uuu.lst
-    rm -f /tmp/${bootloader_used_by_uuu}
-    ln -s ${sym_link_directory}${bootloader_used_by_uuu} /tmp/${bootloader_used_by_uuu}
-    echo ${sdp}: boot -f ${bootloader_used_by_uuu} >> /tmp/uuu.lst
+
+    while [ -f /tmp/uuu.lst${randome_part} ]; do
+        randome_part=$RANDOM
+    done
+
+    echo uuu_version 1.4.182 > /tmp/uuu.lst${randome_part}
+    tmp_files_in_uuu+=(uuu.lst${randome_part})
+
+    ln -s ${sym_link_directory}${bootloader_used_by_uuu} /tmp/${bootloader_used_by_uuu}${randome_part}
+    echo ${sdp}: boot -f ${bootloader_used_by_uuu}${randome_part} >> /tmp/uuu.lst${randome_part}
+    tmp_files_in_uuu+=(${bootloader_used_by_uuu}${randome_part})
     # for uboot by uuu which enabled SPL
     if [[ ${soc_name#imx8m} != ${soc_name} ]]; then
         # for images need SDPU
-        echo SDPU: delay 1000 >> /tmp/uuu.lst
-        echo SDPU: write -f ${bootloader_used_by_uuu} -offset 0x57c00 >> /tmp/uuu.lst
-        echo SDPU: jump >> /tmp/uuu.lst
+        echo SDPU: delay 1000 >> /tmp/uuu.lst${randome_part}
+        echo SDPU: write -f ${bootloader_used_by_uuu}${randome_part} -offset 0x57c00 >> /tmp/uuu.lst${randome_part}
+        echo SDPU: jump >> /tmp/uuu.lst${randome_part}
         # for images need SDPV
-        echo SDPV: delay 1000 >> /tmp/uuu.lst
-        echo SDPV: write -f ${bootloader_used_by_uuu} -skipspl >> /tmp/uuu.lst
-        echo SDPV: jump >> /tmp/uuu.lst
+        echo SDPV: delay 1000 >> /tmp/uuu.lst${randome_part}
+        echo SDPV: write -f ${bootloader_used_by_uuu}${randome_part} -skipspl >> /tmp/uuu.lst${randome_part}
+        echo SDPV: jump >> /tmp/uuu.lst${randome_part}
     fi
-    echo FB: ucmd setenv fastboot_dev mmc >> /tmp/uuu.lst
-    echo FB: ucmd setenv mmcdev ${target_num} >> /tmp/uuu.lst
-    echo FB: ucmd mmc dev ${target_num} >> /tmp/uuu.lst
+    echo FB: ucmd setenv fastboot_dev mmc >> /tmp/uuu.lst${randome_part}
+    echo FB: ucmd setenv mmcdev ${target_num} >> /tmp/uuu.lst${randome_part}
+    echo FB: ucmd mmc dev ${target_num} >> /tmp/uuu.lst${randome_part}
 
     # erase environment variables of uboot
     if [[ ${target_dev} = "emmc" ]]; then
-        echo FB: ucmd mmc dev ${target_num} 0 >> /tmp/uuu.lst
+        echo FB: ucmd mmc dev ${target_num} 0 >> /tmp/uuu.lst${randome_part}
     fi
-    echo FB: ucmd mmc erase ${uboot_env_start} ${uboot_env_len} >> /tmp/uuu.lst
+    echo FB: ucmd mmc erase ${uboot_env_start} ${uboot_env_len} >> /tmp/uuu.lst${randome_part}
 
     if [[ ${target_dev} = "emmc" ]]; then
-        echo FB: ucmd mmc partconf ${target_num} 1 1 1 >> /tmp/uuu.lst
+        echo FB: ucmd mmc partconf ${target_num} 1 1 1 >> /tmp/uuu.lst${randome_part}
     fi
 
     if [[ ${intervene} -eq 1 ]]; then
-        echo FB: done >> /tmp/uuu.lst
-        uuu ${usb_paths} /tmp/uuu.lst
+        echo FB: done >> /tmp/uuu.lst${randome_part}
+        uuu ${usb_paths} /tmp/uuu.lst${randome_part}
         exit 0
     fi
 }
@@ -190,9 +197,9 @@ function flash_partition
     fi
 
     echo -e generate lines to flash ${RED}${img_name}${STD} to the partition of ${RED}${1}${STD}
-    rm -f /tmp/${img_name}
-    ln -s ${sym_link_directory}${img_name} /tmp/${img_name}
-    echo FB[-t 600000]: flash ${1} ${img_name} >> /tmp/uuu.lst
+    ln -s ${sym_link_directory}${img_name} /tmp/${img_name}${randome_part}
+    tmp_files_in_uuu+=(${img_name}${randome_part})
+    echo FB[-t 600000]: flash ${1} ${img_name}${randome_part} >> /tmp/uuu.lst${randome_part}
 }
 
 function flash_userpartitions
@@ -271,8 +278,8 @@ function flash_android
     # force to load the gpt just flashed, since for imx6 and imx7, we use uboot from BSP team,
     # so partition table is not automatically loaded after gpt partition is flashed.
     if [[ "${soc_name}" = "imx6"* ]] || [[ "${soc_name}" = "imx7"* ]]; then
-        echo FB: ucmd setenv fastboot_dev sata >> /tmp/uuu.lst
-        echo FB: ucmd setenv fastboot_dev mmc >> /tmp/uuu.lst
+        echo FB: ucmd setenv fastboot_dev sata >> /tmp/uuu.lst${randome_part}
+        echo FB: ucmd setenv fastboot_dev mmc >> /tmp/uuu.lst${randome_part}
     fi
 
     # if a platform doesn't support dual slot but a slot is selected, ignore it.
@@ -284,18 +291,18 @@ function flash_android
     # since imx7ulp use uboot for uuu from BSP team,there is no hardcoded mcu_os partition. If m4 need to be flashed, flash it here.
     if [[ ${soc_name} == imx7ulp ]] && [[ ${flash_mcu} -eq 1 ]]; then
         # download m4 image to dram
-        rm -f /tmp/${soc_name}_m4_demo.img
-        ln -s ${sym_link_directory}${soc_name}_m4_demo.img /tmp/${soc_name}_m4_demo.img
+        ln -s ${sym_link_directory}${soc_name}_m4_demo.img /tmp/${soc_name}_m4_demo.img${randome_part}
+        tmp_files_in_uuu+=(${soc_name}_m4_demo.img${randome_part})
         echo -e generate lines to flash ${RED}${soc_name}_m4_demo.img${STD} to the partition of ${RED}m4_os${STD}
-        echo FB: ucmd setenv fastboot_buffer ${imx7ulp_stage_base_addr} >> /tmp/uuu.lst
-        echo FB: download -f ${soc_name}_m4_demo.img >> /tmp/uuu.lst
+        echo FB: ucmd setenv fastboot_buffer ${imx7ulp_stage_base_addr} >> /tmp/uuu.lst${randome_part}
+        echo FB: download -f ${soc_name}_m4_demo.img${randome_part} >> /tmp/uuu.lst${randome_part}
 
-        echo FB: ucmd sf probe >> /tmp/uuu.lst
+        echo FB: ucmd sf probe >> /tmp/uuu.lst${randome_part}
         echo FB[-t 30000]: ucmd sf erase `echo "obase=16;$((${imx7ulp_evk_m4_sf_start}*${imx7ulp_evk_sf_blksz}))" | bc` \
-                `echo "obase=16;$((${imx7ulp_evk_m4_sf_length}*${imx7ulp_evk_sf_blksz}))" | bc` >> /tmp/uuu.lst
+                `echo "obase=16;$((${imx7ulp_evk_m4_sf_length}*${imx7ulp_evk_sf_blksz}))" | bc` >> /tmp/uuu.lst${randome_part}
 
         echo FB[-t 30000]: ucmd sf write ${imx7ulp_stage_base_addr} `echo "obase=16;$((${imx7ulp_evk_m4_sf_start}*${imx7ulp_evk_sf_blksz}))" | bc` \
-                `echo "obase=16;$((${imx7ulp_evk_m4_sf_length}*${imx7ulp_evk_sf_blksz}))" | bc` >> /tmp/uuu.lst
+                `echo "obase=16;$((${imx7ulp_evk_m4_sf_length}*${imx7ulp_evk_sf_blksz}))" | bc` >> /tmp/uuu.lst${randome_part}
     else
         if [[ ${flash_mcu} -eq 1 ]]; then
             flash_partition ${mcu_os_partition}
@@ -316,6 +323,21 @@ function flash_android
     # super partition does not have a/b slot, handle it individually
     if [ ${support_dynamic_partition} -eq 1 ]; then
         flash_partition ${super_partition}
+    fi
+}
+
+function clean_tmp_files
+{
+    if [ "${1}" = "0" ]; then
+        for file in ${tmp_files_before_uuu[*]}
+        do
+            rm -rf /tmp/${file}
+        done
+    else
+        for file in ${tmp_files_in_uuu[*]}
+        do
+            rm -rf /tmp/${file}
+        done
     fi
 }
 
@@ -381,6 +403,7 @@ daemon_mode=0
 dryrun=0
 result_value=0
 usb_paths=""
+randome_part=0
 
 # We want to detect illegal feature input to some extent. Here it's based on SoC names. Since an SoC may be on a
 # board running different set of images(android and automotive for a example), so misuse the features of one set of
@@ -402,6 +425,9 @@ imx8qxp_dtb_feature=(sof)
 imx8qm_dtb_feature=(hdmi hdmi-rx mipi-panel mipi-panel-rm67191 md xen esai sof)
 imx8ulp_dtb_feature=(hdmi epdc 9x9 9x9-hdmi sof lpa)
 imx7ulp_dtb_feature=(evk-mipi evk mipi)
+
+tmp_files_before_uuu=()
+tmp_files_in_uuu=()
 
 
 echo -e This script is validated with ${RED}uuu 1.4.182${STD} version, it is recommended to align with this version.
@@ -508,39 +534,49 @@ else
     fi
 fi
 
-# dump the partition table image file into text file and check whether some partition names are in it
-hexdump -C -v ${image_directory}${partition_file} > /tmp/partition-table_1.txt
-# get the 2nd to 17th colunmns, it's hex value in text mode for partition table file
-awk '{for(i=2;i<=17;i++) printf $i" "; print ""}' /tmp/partition-table_1.txt > /tmp/partition-table_2.txt
-# put all the lines in a file into one line
-sed ':a;N;$!ba;s/\n//g' /tmp/partition-table_2.txt > /tmp/partition-table_3.txt
 
+randome_part=$RANDOM
+while [ -f /tmp/partition-table_1.txt${randome_part} ]; do
+    randome_part=$RANDOM
+done
+
+# dump the partition table image file into text file and check whether some partition names are in it
+hexdump -C -v ${image_directory}${partition_file} > /tmp/partition-table_1.txt${randome_part}
+tmp_files_before_uuu+=(partition-table_1.txt${randome_part})
+# get the 2nd to 17th colunmns, it's hex value in text mode for partition table file
+awk '{for(i=2;i<=17;i++) printf $i" "; print ""}' /tmp/partition-table_1.txt${randome_part} > /tmp/partition-table_2.txt${randome_part}
+tmp_files_before_uuu+=(partition-table_2.txt${randome_part})
+# put all the lines in a file into one line
+sed ':a;N;$!ba;s/\n//g' /tmp/partition-table_2.txt${randome_part} > /tmp/partition-table_3.txt${randome_part}
+tmp_files_before_uuu+=(partition-table_3.txt${randome_part})
 # check whether there is "bootloader_b" in partition file
-grep "62 00 6f 00 6f 00 74 00 6c 00 6f 00 61 00 64 00 65 00 72 00 5f 00 62 00" /tmp/partition-table_3.txt > /dev/null \
+grep "62 00 6f 00 6f 00 74 00 6c 00 6f 00 61 00 64 00 65 00 72 00 5f 00 62 00" /tmp/partition-table_3.txt${randome_part} > /dev/null \
         && support_dual_bootloader=1 && echo dual bootloader is supported
 # check whether there is "dtbo" in partition file
-grep "64 00 74 00 62 00 6f 00" /tmp/partition-table_3.txt > /dev/null \
+grep "64 00 74 00 62 00 6f 00" /tmp/partition-table_3.txt${randome_part} > /dev/null \
         && support_dtbo=1 && echo dtbo is supported
 # check whether there is "recovery" in partition file
-grep "72 00 65 00 63 00 6f 00 76 00 65 00 72 00 79 00" /tmp/partition-table_3.txt > /dev/null \
+grep "72 00 65 00 63 00 6f 00 76 00 65 00 72 00 79 00" /tmp/partition-table_3.txt${randome_part} > /dev/null \
         && support_recovery=1 && echo recovery is supported
 # check whether there is "boot_b" in partition file
-grep "62 00 6f 00 6f 00 74 00 5f 00 61 00" /tmp/partition-table_3.txt > /dev/null \
+grep "62 00 6f 00 6f 00 74 00 5f 00 61 00" /tmp/partition-table_3.txt${randome_part} > /dev/null \
         && support_dualslot=1 && echo dual slot is supported
 # check whether there is "super" in partition table
-grep "73 00 75 00 70 00 65 00 72 00" /tmp/partition-table_3.txt > /dev/null \
+grep "73 00 75 00 70 00 65 00 72 00" /tmp/partition-table_3.txt${randome_part} > /dev/null \
         && support_dynamic_partition=1 && echo dynamic parttition is supported
 
 # check whether there is "vendor_boot" in partition table
-grep "76 00 65 00 6e 00 64 00 6f 00 72 00 5f 00 62 00 6f 00 6f 00 74 00 5f 00" /tmp/partition-table_3.txt > /dev/null \
+grep "76 00 65 00 6e 00 64 00 6f 00 72 00 5f 00 62 00 6f 00 6f 00 74 00 5f 00" /tmp/partition-table_3.txt${randome_part} > /dev/null \
         && support_vendor_boot=1 && echo vendor_boot parttition is supported
 
 # check whether there is "init_boot" in partition table
-grep "69 00 6e 00 69 00 74 00 5f 00 62 00 6f 00 6f 00 74 00 5f 00" /tmp/partition-table_3.txt > /dev/null \
+grep "69 00 6e 00 69 00 74 00 5f 00 62 00 6f 00 6f 00 74 00 5f 00" /tmp/partition-table_3.txt${randome_part} > /dev/null \
         && support_init_boot=1 && echo init_boot parttition is supported
 
-grep "73 00 79 00 73 00 74 00 65 00 6d 00 5f 00 65 00 78 00 74 00" /tmp/partition-table_3.txt > /dev/null \
+grep "73 00 79 00 73 00 74 00 65 00 6d 00 5f 00 65 00 78 00 74 00" /tmp/partition-table_3.txt${randome_part} > /dev/null \
 && has_system_ext_partition=1 && echo has system_ext partition
+
+clean_tmp_files "0"
 
 # get device and board specific parameter
 case ${soc_name%%-*} in
@@ -705,67 +741,63 @@ if [[ "${yocto_image}" != "" ]]; then
     fi
 
     target_num=${sd_num}
-    echo FB: ucmd setenv fastboot_dev mmc >> /tmp/uuu.lst
-    echo FB: ucmd setenv mmcdev ${target_num} >> /tmp/uuu.lst
-    echo FB: ucmd mmc dev ${target_num} >> /tmp/uuu.lst
+    echo FB: ucmd setenv fastboot_dev mmc >> /tmp/uuu.lst${randome_part}
+    echo FB: ucmd setenv mmcdev ${target_num} >> /tmp/uuu.lst${randome_part}
+    echo FB: ucmd mmc dev ${target_num} >> /tmp/uuu.lst${randome_part}
     echo -e generate lines to flash ${RED}`basename ${yocto_image}`${STD} to the partition of ${RED}all${STD}
-    rm -f /tmp/`basename ${yocto_image}`
-    ln -s ${yocto_image_sym_link} /tmp/`basename ${yocto_image}`
-    echo FB[-t 600000]: flash -raw2sparse all `basename ${yocto_image}` >> /tmp/uuu.lst
+    ln -s ${yocto_image_sym_link} /tmp/`basename ${yocto_image}`${randome_part}
+    echo FB[-t 600000]: flash -raw2sparse all `basename ${yocto_image}`${randome_part} >> /tmp/uuu.lst${randome_part}
     # use "mmc part" to reload part info before "fatwrite"
-    echo FB: ucmd mmc list >> /tmp/uuu.lst
-    echo FB: ucmd mmc dev ${target_num} >> /tmp/uuu.lst
-    echo FB: ucmd mmc part >> /tmp/uuu.lst
+    echo FB: ucmd mmc list >> /tmp/uuu.lst${randome_part}
+    echo FB: ucmd mmc dev ${target_num} >> /tmp/uuu.lst${randome_part}
+    echo FB: ucmd mmc part >> /tmp/uuu.lst${randome_part}
 
     # replace uboot from yocto team with the one from android team
     echo -e generate lines to flash ${RED}u-boot-imx8qm-xen-dom0.imx${STD} to the partition of ${RED}bootloader0${STD} on SD card
-    rm -f /tmp/u-boot-imx8qm-xen-dom0.imx
-    ln -s ${sym_link_directory}u-boot-imx8qm-xen-dom0.imx /tmp/u-boot-imx8qm-xen-dom0.imx
-    echo FB: flash bootloader0 u-boot-imx8qm-xen-dom0.imx >> /tmp/uuu.lst
+    ln -s ${sym_link_directory}u-boot-imx8qm-xen-dom0.imx /tmp/u-boot-imx8qm-xen-dom0.imx${randome_part}
+    echo FB: flash bootloader0 u-boot-imx8qm-xen-dom0.imx${randome_part} >> /tmp/uuu.lst${randome_part}
 
     xen_uboot_size_dec=`wc -c ${image_directory}spl-${soc_name}-${dtb_feature}.bin | cut -d ' ' -f1`
     xen_uboot_size_hex=`echo "obase=16;${xen_uboot_size_dec}" | bc`
     # write the xen spl from android team to FAT on SD card
     echo -e generate lines to write ${RED}spl-${soc_name}-${dtb_feature}.bin${STD} to ${RED}FAT${STD}
-    rm -f /tmp/spl-${soc_name}-${dtb_feature}.bin
-    ln -s ${sym_link_directory}spl-${soc_name}-${dtb_feature}.bin /tmp/spl-${soc_name}-${dtb_feature}.bin
-    echo FB: ucmd setenv fastboot_buffer ${imx8qm_stage_base_addr} >> /tmp/uuu.lst
-    echo FB: download -f spl-${soc_name}-${dtb_feature}.bin >> /tmp/uuu.lst
-    echo FB: ucmd fatwrite mmc ${sd_num} ${imx8qm_stage_base_addr} spl-${soc_name}-${dtb_feature}.bin 0x${xen_uboot_size_hex} >> /tmp/uuu.lst
+    ln -s ${sym_link_directory}spl-${soc_name}-${dtb_feature}.bin /tmp/spl-${soc_name}-${dtb_feature}.bin${randome_part}
+    echo FB: ucmd setenv fastboot_buffer ${imx8qm_stage_base_addr} >> /tmp/uuu.lst${randome_part}
+    echo FB: download -f spl-${soc_name}-${dtb_feature}.bin${randome_part} >> /tmp/uuu.lst${randome_part}
+    echo FB: ucmd fatwrite mmc ${sd_num} ${imx8qm_stage_base_addr} spl-${soc_name}-${dtb_feature}.bin${randome_part} 0x${xen_uboot_size_hex} >> /tmp/uuu.lst${randome_part}
     xen_firmware_size_dec=`wc -c ${image_directory}xen | cut -d ' ' -f1`
     xen_firmware_size_hex=`echo "obase=16;${xen_firmware_size_dec}" | bc`
     echo -e generate lines to replace the ${RED}xen firmware${STD} on ${RED}FAT${STD}$
-    rm -f /tmp/xen
-    ln -s  ${sym_link_directory}xen /tmp/xen
-    echo FB: ucmd setenv fastboot_buffer ${imx8qm_stage_base_addr} >> /tmp/uuu.lst
-    echo FB: download -f xen >> /tmp/uuu.lst
-    echo FB: ucmd fatwrite mmc ${sd_num} ${imx8qm_stage_base_addr} xen 0x${xen_firmware_size_hex} >> /tmp/uuu.lst
+    ln -s  ${sym_link_directory}xen /tmp/xen${randome_part}
+    echo FB: ucmd setenv fastboot_buffer ${imx8qm_stage_base_addr} >> /tmp/uuu.lst${randome_part}
+    echo FB: download -f xen${randome_part} >> /tmp/uuu.lst${randome_part}
+    echo FB: ucmd fatwrite mmc ${sd_num} ${imx8qm_stage_base_addr} xen${randome_part} 0x${xen_firmware_size_hex} >> /tmp/uuu.lst${randome_part}
 
     target_num=${emmc_num}
-    echo FB: ucmd setenv fastboot_dev mmc >> /tmp/uuu.lst
-    echo FB: ucmd setenv mmcdev ${target_num} >> /tmp/uuu.lst
-    echo FB: ucmd mmc dev ${target_num} >> /tmp/uuu.lst
+    echo FB: ucmd setenv fastboot_dev mmc >> /tmp/uuu.lst${randome_part}
+    echo FB: ucmd setenv mmcdev ${target_num} >> /tmp/uuu.lst${randome_part}
+    echo FB: ucmd mmc dev ${target_num} >> /tmp/uuu.lst${randome_part}
 fi
 
-echo FB[-t 600000]: erase misc >> /tmp/uuu.lst
+echo FB[-t 600000]: erase misc >> /tmp/uuu.lst${randome_part}
 
 # make sure device is locked for boards don't use tee
-echo FB[-t 600000]: erase presistdata >> /tmp/uuu.lst
-echo FB[-t 600000]: erase fbmisc >> /tmp/uuu.lst
-echo FB[-t 600000]: erase metadata >> /tmp/uuu.lst
+echo FB[-t 600000]: erase presistdata >> /tmp/uuu.lst${randome_part}
+echo FB[-t 600000]: erase fbmisc >> /tmp/uuu.lst${randome_part}
+echo FB[-t 600000]: erase metadata >> /tmp/uuu.lst${randome_part}
 
 if [ "${slot}" != "" ] && [ ${support_dualslot} -eq 1 ]; then
-    echo FB: set_active ${slot#_} >> /tmp/uuu.lst
+    echo FB: set_active ${slot#_} >> /tmp/uuu.lst${randome_part}
 fi
 
 if [ ${erase} -eq 1 ]; then
     if [ ${support_recovery} -eq 1 ]; then
-        echo FB[-t 600000]: erase cache >> /tmp/uuu.lst
+        echo FB[-t 600000]: erase cache >> /tmp/uuu.lst${randome_part}
     fi
-    echo FB[-t 600000]: erase userdata >> /tmp/uuu.lst
+    echo FB[-t 600000]: erase userdata >> /tmp/uuu.lst${randome_part}
 fi
 
-echo FB: done >> /tmp/uuu.lst
+echo FB: done >> /tmp/uuu.lst${randome_part}
 
 if [ ${dryrun} -eq 1 ]; then
     exit
@@ -773,9 +805,11 @@ fi
 
 echo "uuu script generated, start to invoke uuu with the generated uuu script"
 if [ ${daemon_mode} -eq 1 ]; then
-    uuu ${usb_paths} -d /tmp/uuu.lst
+    uuu ${usb_paths} -d /tmp/uuu.lst${randome_part} || clean_tmp_files
+    clean_tmp_files
 else
-    uuu ${usb_paths} /tmp/uuu.lst
+    uuu ${usb_paths} /tmp/uuu.lst${randome_part} || clean_tmp_files
+    clean_tmp_files
 fi
 
 exit 0
