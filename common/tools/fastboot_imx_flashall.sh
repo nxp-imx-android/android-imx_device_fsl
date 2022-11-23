@@ -198,16 +198,23 @@ function flash_android
     # should be the same for the u-boot just boot up the board and the on to be flashed to the board
     flash_partition "gpt"
 
-    ${fastboot_tool} getvar all 2>/tmp/fastboot_var.log
-    grep -q "bootloader_a" /tmp/fastboot_var.log && support_dual_bootloader=1
-    grep -q "dtbo" /tmp/fastboot_var.log && support_dtbo=1
-    grep -q "recovery" /tmp/fastboot_var.log && support_recovery=1
+    randome_part=$RANDOM
+    while [ -f /tmp/fastboot_var.log${randome_part} ]; do
+        randome_part=$RANDOM
+    done
+    fastboot_var_file=fastboot_var.log${randome_part}
+
+    ${fastboot_tool} getvar all 2>/tmp/${fastboot_var_file}
+    grep -q "bootloader_a" /tmp/${fastboot_var_file} && support_dual_bootloader=1
+    grep -q "dtbo" /tmp/${fastboot_var_file} && support_dtbo=1
+    grep -q "recovery" /tmp/${fastboot_var_file} && support_recovery=1
     # use boot_b to check whether current gpt support a/b slot
-    grep -q "boot_b" /tmp/fastboot_var.log && support_dualslot=1
-    grep -q "super" /tmp/fastboot_var.log && support_dynamic_partition=1
-    grep -q "vendor_boot" /tmp/fastboot_var.log && support_vendor_boot=1
-    grep -q "init_boot" /tmp/fastboot_var.log && support_init_boot=1
-    grep -q "system_ext" /tmp/fastboot_var.log && has_system_ext_partition=1
+    grep -q "boot_b" /tmp/${fastboot_var_file} && support_dualslot=1
+    grep -q "super" /tmp/${fastboot_var_file} && support_dynamic_partition=1
+    grep -q "vendor_boot" /tmp/${fastboot_var_file} && support_vendor_boot=1
+    grep -q "init_boot" /tmp/${fastboot_var_file} && support_init_boot=1
+    grep -q "system_ext" /tmp/${fastboot_var_file} && has_system_ext_partition=1
+    rm -rf /tmp/${fastboot_var_file}
 
     # some partitions are hard-coded in uboot, flash the uboot first and then reboot to check these partitions
 
@@ -256,8 +263,15 @@ function flash_android
         sleep 5
     fi
 
-    ${fastboot_tool} getvar all 2>/tmp/fastboot_var.log
-    grep -q `echo ${mcu_os_partition}` /tmp/fastboot_var.log && support_mcu_os=1
+    randome_part=$RANDOM
+    while [ -f /tmp/fastboot_var.log${randome_part} ]; do
+        randome_part=$RANDOM
+    done
+    fastboot_var_file=fastboot_var.log${randome_part}
+
+    ${fastboot_tool} getvar all 2>/tmp/${fastboot_var_file}
+    grep -q `echo ${mcu_os_partition}` /tmp/${fastboot_var_file} && support_mcu_os=1
+    rm -rf /tmp/${fastboot_var_file}
 
     if [ ${flash_mcu} -eq 1 -a ${support_mcu_os} -eq 1 ]; then
         flash_partition ${mcu_os_partition}
