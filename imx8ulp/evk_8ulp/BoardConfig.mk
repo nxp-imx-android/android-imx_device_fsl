@@ -121,18 +121,12 @@ BOARD_USE_SENSOR_FUSION := true
 # -------@block_kernel_bootimg-------
 BOARD_KERNEL_BASE := 0x80400000
 
-ifeq ($(PRODUCT_IMX_DRM),true)
-CMASIZE=736M
-else
-CMASIZE=800M
-endif
-
 # NXP default config
 BOARD_KERNEL_CMDLINE := init=/init firmware_class.path=/vendor/firmware loop.max_part=7 bootconfig
 BOARD_BOOTCONFIG += androidboot.hardware=nxp
 
 # memory config
-BOARD_KERNEL_CMDLINE += cma=800M transparent_hugepage=never
+BOARD_KERNEL_CMDLINE += cma=640M transparent_hugepage=never
 
 # display config
 BOARD_BOOTCONFIG += androidboot.lcd_density=240
