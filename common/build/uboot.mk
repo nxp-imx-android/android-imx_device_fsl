@@ -119,6 +119,11 @@ $(UBOOTENVSH): | $(UBOOT_OUT)
 	else \
 		echo 'export ROLLBACK_INDEX_IN_FIT=' > $@; \
 		echo 'export ROLLBACK_INDEX_IN_CONTAINER=' >> $@; \
+	fi; \
+	if [ "$(USE_TEE_COMPRESS)" = "true" ]; then \
+		echo 'export TEE_COMPRESS_ENABLE=$(USE_TEE_COMPRESS)' >> $@; \
+	else \
+		echo 'export TEE_COMPRESS_ENABLE=' >> $@; \
 	fi
 
 $(UBOOT_BIN): $(UBOOTENVSH) | $(UBOOT_COLLECTION) $(UBOOT_OUT)
