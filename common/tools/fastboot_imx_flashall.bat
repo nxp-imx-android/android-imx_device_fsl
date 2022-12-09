@@ -244,12 +244,12 @@ echo                        If set to 14, use partition-table-14GB.img for 16GB 
 echo                        If set to 28, use partition-table-28GB.img/partition-table-28GB-dual.img for 32GB SD card
 echo                    Make sure the corresponding file exist for your platform
 echo  -m                flash mcu image
-echo  -u uboot_feature  flash uboot or spl&bootloader image with "uboot_feature" in their names
+echo  -u uboot_feature  flash uboot or spl and bootloader image with "uboot_feature" in their names
 echo                        For Standard Android:
-echo                            If the parameter after "-u" option contains the string of "dual", then spl&bootloader image will be flashed,
+echo                            If the parameter after "-u" option contains the string of "dual", then spl and bootloader image will be flashed,
 echo                            otherwise uboot image will be flashed
 echo                        For Android Automotive:
-echo                            only dual bootloader feature is supported, by default spl&bootloader image will be flashed
+echo                            only dual bootloader feature is supported, by default spl and bootloader image will be flashed
 echo                        Below table lists the legal value supported now based on the soc_name provided:
 echo                           +-------------+----------------------------------------------------------------------------------------------------+
 echo                           ^|   soc_name  ^|  legal parameter after "-u"                                                                        ^|
