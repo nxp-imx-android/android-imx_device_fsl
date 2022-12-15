@@ -125,7 +125,7 @@ service watchdogd /system/bin/watchdogd 10 20
     class core
     seclabel u:r:watchdogd:s0
 
-service evs_driver /vendor/bin/android.hardware.automotive.evs@1.1-EvsEnumeratorHw
+service evs_driver /vendor/bin/hw/android.hardware.automotive.evs@1.1-EvsEnumeratorHw
     user graphics
     group automotive_evs camera
     onrestart restart evs_manager

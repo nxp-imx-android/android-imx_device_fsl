@@ -235,9 +235,7 @@ endif
 
 ifeq ($(PRODUCT_IMX_CAR),true)
 PRODUCT_PACKAGES += \
-    android.hardware.automotive.evs@1.1-EvsEnumeratorHw
-
-PRODUCT_PACKAGES += \
+    android.hardware.automotive.evs@1.1-EvsEnumeratorHw \
     evs_service
 endif
 
