@@ -161,6 +161,12 @@
       "Value": "0"
     },
     {
+      "PowerHint": "AUDIO_LAUNCH",
+      "Node": "PMQoSCpuDmaLatency",
+      "Duration": 0,
+      "Value": "0"
+    },
+    {
       "PowerHint": "LOW_POWER",
       "Node": "CPULittleClusterMinFreq",
       "Duration": 0,
