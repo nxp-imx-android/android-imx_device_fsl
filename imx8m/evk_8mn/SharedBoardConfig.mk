@@ -1,7 +1,7 @@
 # -------@block_kernel_bootimg-------
 KERNEL_NAME := Image.lz4
 TARGET_KERNEL_ARCH := arm64
-IMX8MN_USES_GKI := true
+IMX8MN_USES_GKI := false
 
 # NXP 8987 wifi driver module
 BOARD_VENDOR_KERNEL_MODULES += \

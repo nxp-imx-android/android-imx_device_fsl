@@ -3,7 +3,7 @@
 KERNEL_NAME := Image.lz4
 TARGET_KERNEL_ARCH := arm64
 
-IMX8MM_USES_GKI ?= true
+IMX8MM_USES_GKI := false
 
 # CONFIG_VIDEO_MXC_CSI_CAMERA: mx6s_capture.ko, it's csi adapt driver which is the input of v4l2 framework
 # CONFIG_MXC_CAMERA_OV5640_MIPI_V2: ov5640_camera_mipi_v2.ko, sensor ov5640 driver, the input of mipi

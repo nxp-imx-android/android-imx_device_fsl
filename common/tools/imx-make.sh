@@ -80,7 +80,7 @@ build_vendordlkmimage=""
 parallel_option=""
 clean_build=0
 skip_config_or_clean=0
-sign_gki=1
+sign_gki=0
 
 # process of the arguments
 args=( "$@" )
