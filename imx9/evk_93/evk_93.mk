@@ -324,6 +324,14 @@ PRODUCT_PACKAGES += \
 #    libNNArchPerf \
 #    libarchmodelSw
 #
+
+# ANGLE OpenGL implementation based on SwiftShader Vulkan
+PRODUCT_PACKAGES += \
+    libEGL_angle \
+    libGLESv1_CM_angle \
+    libGLESv2_angle \
+    vulkan.pastel
+
 # -------@block_wifi-------
 
 #LPDDR4 board, NXP wifi supplicant overlay

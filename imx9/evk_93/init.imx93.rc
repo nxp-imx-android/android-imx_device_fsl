@@ -9,6 +9,10 @@ on early-boot
     # Set RenderEngine Backend
     setprop debug.renderengine.backend gles
 
+    # ANGLE OpenGL implementation based on SwiftShader Vulkan
+    setprop ro.hardware.egl angle
+    setprop ro.hardware.vulkan pastel
+
     # Set NN reject model by weights md5
     setprop vendor.MODEL_BLOCK_LEVEL 1
 
