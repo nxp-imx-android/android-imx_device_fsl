@@ -1,0 +1,26 @@
+/dev/block/mmcblk0boot0                      u:object_r:emmc_boot0:s0
+
+#peripheral
+/dev/ttyLP[0-9]*               u:object_r:tty_device:s0
+/dev/sda[0-8]*                  u:object_r:fuse:s0
+
+#Thermal HAL service
+/vendor/bin/hw/android\.hardware\.thermal@2\.0-service.imx         u:object_r:hal_thermal_default_exec:s0
+#Neural Network HAL service
+/vendor/bin/hw/android\.hardware\.neuralnetworks@1\.3-service-vsi-npu-server      u:object_r:hal_neuralnetworks_imx_exec:s0
+
+/vendor/bin/hw/android\.hardware\.media\.c2@1\.0-service    u:object_r:mediacodec_exec:s0
+
+/dev/block/pmem0  u:object_r:rebootescrow_device:s0
+
+# android.system.suspend@1.0-service
+/sys/devices/virtual/power_supply/battery/wakeup[0-9]*(/.*)?                                                                                  u:object_r:sysfs_wakeup:s0
+/sys/devices/virtual/power_supply/usb/wakeup[0-9]*(/.*)?                                                                                      u:object_r:sysfs_wakeup:s0
+/sys/devices/virtual/wakeup/wakeup[0-9]*(/.*)?                                                                                                u:object_r:sysfs_wakeup:s0
+
+/sys/devices/platform/rtc-rpmsg/wakeup                                                                    u:object_r:sysfs_wakeup:s0
+/sys/devices/platform/rtc-rpmsg/wakeup/wakeup[0-9]*(/.*)?                                                 u:object_r:sysfs_wakeup:s0
+/sys/devices/platform/rtc-rpmsg/rtc/rtc0/alarmtimer.[0-9].auto/wakeup                                     u:object_r:sysfs_wakeup:s0
+/sys/devices/platform/rtc-rpmsg/rtc/rtc0/alarmtimer.[0-9].auto/wakeup/wakeup[0-9]*(/.*)?                  u:object_r:sysfs_wakeup:s0
+/sys/devices/platform/soc@0/29800000.bus/298f0000.mmc/mmc_host/mmc2/mmc2:0001/mmc2:0001:1/wakeup          u:object_r:sysfs_wakeup:s0
+/sys/devices/platform/soc@0/29800000.bus/298f0000.mmc/mmc_host/mmc2/mmc2:0001/mmc2:0001:1/wakeup/wakeup[0-9]*(/.*)?          u:object_r:sysfs_wakeup:s0
