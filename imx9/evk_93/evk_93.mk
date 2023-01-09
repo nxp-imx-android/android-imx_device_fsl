@@ -261,6 +261,10 @@ PRODUCT_COPY_FILES += \
     $(FSL_PROPRIETARY_PATH)/fsl-proprietary/sof/sof-gcc/sof-imx8ulp.ldc:$(TARGET_COPY_OUT_VENDOR)/firmware/imx/sof/sof-imx8ulp.ldc \
     $(FSL_PROPRIETARY_PATH)/fsl-proprietary/sof/sof-gcc/sof-imx8ulp.ri:$(TARGET_COPY_OUT_VENDOR)/firmware/imx/sof/sof-imx8ulp.ri
 
+# mcu image
+PRODUCT_COPY_FILES += \
+    $(FSL_PROPRIETARY_PATH)/fsl-proprietary/mcu-sdk/imx93/imx93_mcu_demo.img:imx93_mcu_demo.img
+
 # -------@block_camera-------
 PRODUCT_COPY_FILES += \
     $(IMX_DEVICE_PATH)/camera_config_imx93.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/camera_config_imx93.json \

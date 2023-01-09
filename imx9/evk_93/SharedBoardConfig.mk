@@ -237,4 +237,5 @@ endif
 
 # -------@block_storage-------
 # the bootloader image used in dual-bootloader OTA
-BOARD_OTA_BOOTLOADERIMAGE := bootloader-imx8ulp-trusty-dual.img
+# TODO use the correct name for OTA
+BOARD_OTA_BOOTLOADERIMAGE := u-boot-imx93.imx

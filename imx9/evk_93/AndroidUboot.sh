@@ -27,7 +27,7 @@ else
 	exit 1
 fi
 
-MKIMAGE_SOC=iMX8ULP
+MKIMAGE_SOC=iMX9
 BOARD_MKIMAGE_PATH=${IMX_MKIMAGE_PATH}/imx-mkimage/${MKIMAGE_SOC}
 
 build_m4_image()
@@ -38,26 +38,18 @@ build_m4_image()
 build_imx_uboot()
 {
 	echo Building i.MX U-Boot with firmware
-	if [ `echo $2 | cut -d '-' -f3` = "lpa" ]; then
-		cp ${FSL_PROPRIETARY_PATH}/fsl-proprietary/mcu-sdk/imx8ulp/imx8ulp_mcu_demo_lpa.img ${BOARD_MKIMAGE_PATH}/m33_image.bin
-	else
-		cp ${FSL_PROPRIETARY_PATH}/fsl-proprietary/mcu-sdk/imx8ulp/imx8ulp_mcu_demo.img ${BOARD_MKIMAGE_PATH}/m33_image.bin
-	fi
-		cp ${FSL_PROPRIETARY_PATH}/fsl-proprietary/uboot-firmware/imx8ulp/upower.bin ${BOARD_MKIMAGE_PATH}/upower.bin
-		cp ${FSL_PROPRIETARY_PATH}/sentinel/mx8ulpa1-ahab-container.img ${BOARD_MKIMAGE_PATH}
+	cp ${FSL_PROPRIETARY_PATH}/sentinel/mx93a0-ahab-container.img ${BOARD_MKIMAGE_PATH}
 	cp ${UBOOT_OUT}/u-boot.$1 ${BOARD_MKIMAGE_PATH}
 	cp ${UBOOT_OUT}/spl/u-boot-spl.bin ${BOARD_MKIMAGE_PATH}
 	cp ${UBOOT_OUT}/tools/mkimage ${BOARD_MKIMAGE_PATH}/mkimage_uboot
+	cp ${FSL_PROPRIETARY_PATH}/linux-firmware-imx/firmware/ddr/synopsys/lpddr4_imem_* ${IMX_MKIMAGE_PATH}/imx-mkimage/iMX9/
+	cp ${FSL_PROPRIETARY_PATH}/linux-firmware-imx/firmware/ddr/synopsys/lpddr4_dmem_* ${IMX_MKIMAGE_PATH}/imx-mkimage/iMX9/
 
 	# build ATF based on whether tee is involved
 	make -C ${IMX_PATH}/arm-trusted-firmware/ PLAT=`echo $2 | cut -d '-' -f1` clean
 	if [ `echo $2 | cut -d '-' -f2` = "trusty" ] && [ `echo $2 | rev | cut -d '-' -f1` != "uuu" ]; then
-		cp ${FSL_PROPRIETARY_PATH}/fsl-proprietary/uboot-firmware/imx8ulp/tee-imx8ulp.bin ${BOARD_MKIMAGE_PATH}/tee.bin
-		if [ "`echo $2 | cut -d '-' -f3`" = "4g" ]; then
-			make -C ${IMX_PATH}/arm-trusted-firmware/ CROSS_COMPILE="${ATF_CROSS_COMPILE}" PLAT=`echo $2 | cut -d '-' -f1` bl31 -B BL32_BASE=0xfe000000 SPD=trusty 1>/dev/null || exit 1
-		else
-			make -C ${IMX_PATH}/arm-trusted-firmware/ CROSS_COMPILE="${ATF_CROSS_COMPILE}" PLAT=`echo $2 | cut -d '-' -f1` bl31 -B SPD=trusty 1>/dev/null || exit 1
-		fi
+		cp ${FSL_PROPRIETARY_PATH}/fsl-proprietary/uboot-firmware/imx93/tee-imx93.bin ${BOARD_MKIMAGE_PATH}/tee.bin
+		make -C ${IMX_PATH}/arm-trusted-firmware/ CROSS_COMPILE="${ATF_CROSS_COMPILE}" PLAT=`echo $2 | cut -d '-' -f1` bl31 -B SPD=trusty 1>/dev/null || exit 1
 	else
 		if [ -f ${BOARD_MKIMAGE_PATH}/tee.bin ] ; then
 			rm -rf ${BOARD_MKIMAGE_PATH}/tee.bin
@@ -73,7 +65,7 @@ build_imx_uboot()
 	# codebase, so mkimage_imx8 will be generated under Android codebase top dir.
 	pwd_backup=${PWD}
 	PWD=${PWD}/${IMX_MKIMAGE_PATH}/imx-mkimage/
-	make -C ${IMX_MKIMAGE_PATH}/imx-mkimage/ SOC=${MKIMAGE_SOC} REV=A1 flash_singleboot_m33 || exit 1
+	make -C ${IMX_MKIMAGE_PATH}/imx-mkimage/ SOC=${MKIMAGE_SOC} flash_singleboot || exit 1
 	PWD=${pwd_backup}
 
 	if [ `echo $2 | rev | cut -d '-' -f1 | rev` != "dual" ]; then
