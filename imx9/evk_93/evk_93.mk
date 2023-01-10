@@ -76,7 +76,7 @@ TARGET_USE_VENDOR_BOOT ?= true
 # Allow LZ4 compression
 BOARD_RAMDISK_USE_LZ4 := true
 
-ifeq ($(IMX8ULP_USES_GKI),true)
+ifeq ($(IMX93_USES_GKI),true)
 PRODUCT_PROPERTY_OVERRIDES += \
     vendor.gki.enable=true
 BOARD_USES_GENERIC_KERNEL_IMAGE := true

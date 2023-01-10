@@ -54,7 +54,7 @@ else
   endif
 endif
 
-BOARD_PREBUILT_DTBOIMAGE := $(OUT_DIR)/target/product/$(PRODUCT_DEVICE)/dtbo-imx8ulp.img
+BOARD_PREBUILT_DTBOIMAGE := $(OUT_DIR)/target/product/$(PRODUCT_DEVICE)/dtbo-imx93.img
 
 BOARD_USES_METADATA_PARTITION := true
 BOARD_ROOT_EXTRA_FOLDERS += metadata
@@ -145,33 +145,7 @@ ifneq (,$(filter userdebug eng,$(TARGET_BUILD_VARIANT)))
 BOARD_BOOTCONFIG += androidboot.vendor.sysrq=1
 endif
 
-ifeq ($(TARGET_USE_DYNAMIC_PARTITIONS),true)
-  ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
-    # dts without product partition
-    TARGET_BOARD_DTS_CONFIG ?= imx8ulp:imx8ulp-evk-no-product.dtb
-  else
-    # Support MIPI panel
-    TARGET_BOARD_DTS_CONFIG += imx8ulp:imx8ulp-evk-rk055hdmipi4mv2.dtb
-    # Support HDMI
-    TARGET_BOARD_DTS_CONFIG += imx8ulp-hdmi:imx8ulp-evk.dtb
-    # Support EPDC
-    TARGET_BOARD_DTS_CONFIG += imx8ulp-epdc:imx8ulp-evk-epdc.dtb
-    # Support MIPI panel on 9x9 board
-    TARGET_BOARD_DTS_CONFIG += imx8ulp-9x9:imx8ulp-9x9-evk-rk055hdmipi4mv2.dtb
-    # Support HDMI on 9x9 board
-    TARGET_BOARD_DTS_CONFIG += imx8ulp-9x9-hdmi:imx8ulp-9x9-evk.dtb
-    # Support sof
-    TARGET_BOARD_DTS_CONFIG += imx8ulp-sof:imx8ulp-evk-sof-btsco.dtb
-    # Support lpa
-    TARGET_BOARD_DTS_CONFIG += imx8ulp-lpa:imx8ulp-evk-lpa.dtb
-  endif
-else
-  ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
-    TARGET_BOARD_DTS_CONFIG ?= imx8ulp:imx8ulp-evk-no-product-no-dynamic_partition.dtb
-  else
-    TARGET_BOARD_DTS_CONFIG ?= imx8ulp:imx8ulp-evk-no-dynamic_partition.dtb
-  endif
-endif
+TARGET_BOARD_DTS_CONFIG += imx93:imx93-11x11-evk.dtb
 
 ALL_DEFAULT_INSTALLED_MODULES += $(BOARD_VENDOR_KERNEL_MODULES)
 
