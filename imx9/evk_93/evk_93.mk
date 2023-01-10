@@ -330,6 +330,10 @@ PRODUCT_PACKAGES += \
     libGLESv2_angle \
     vulkan.pastel
 
+# pxp g2d
+PRODUCT_PACKAGES += \
+    libg2d-pxp
+
 # -------@block_wifi-------
 
 #LPDDR4 board, NXP wifi supplicant overlay
@@ -492,3 +496,5 @@ PRODUCT_PACKAGES += \
     SecureIME \
     nxp.hardware.secureime \
     nxp.hardware.secureime-service
+
+IMX-DEFAULT-G2D-LIB := libg2d-pxp

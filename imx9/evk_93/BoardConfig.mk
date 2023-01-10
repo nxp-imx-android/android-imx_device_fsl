@@ -138,7 +138,6 @@ BOARD_KERNEL_CMDLINE += moal.mod_para=wifi_mod_para_sd416.conf
 # low memory device build config
 ifeq ($(LOW_MEMORY),true)
 BOARD_BOOTCONFIG += androidboot.displaymode=720p
-BOARD_KERNEL_CMDLINE += galcore.contiguousSize=33554432
 endif
 
 ifneq (,$(filter userdebug eng,$(TARGET_BUILD_VARIANT)))
