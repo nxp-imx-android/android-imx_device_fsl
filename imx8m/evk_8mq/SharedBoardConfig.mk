@@ -62,7 +62,7 @@ BOARD_VENDOR_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/net/ethernet/freescale/fec.ko
 endif
 
-# CONFIG_TOUCHSCREEN_GOODIX: goodix.ko, rm67199 mipi-panel touch driver module
+# CONFIG_TOUCHSCREEN_GOODIX: goodix_ts.ko, rm67199 mipi-panel touch driver module
 # CONFIG_TOUCHSCREEN_SYNAPTICS_DSX_I2C: synaptics_dsx_i2c.ko, rm67191 mipi-panel touch driver module
 # CONFIG_ZRAM: zram.ko compressed ram using LZ coding.
 # CONFIG_ZSMALLOC: zsmalloc.ko
@@ -149,7 +149,7 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/phy/freescale/phy-fsl-imx8-mipi-dphy.ko \
     $(KERNEL_OUT)/drivers/phy/freescale/phy-fsl-imx8mq-usb.ko \
     $(KERNEL_OUT)/drivers/input/keyboard/snvs_pwrkey.ko \
-    $(KERNEL_OUT)/drivers/input/touchscreen/goodix.ko \
+    $(KERNEL_OUT)/drivers/input/touchscreen/goodix_ts.ko \
     $(KERNEL_OUT)/drivers/input/touchscreen/synaptics_dsx/synaptics_dsx_i2c.ko \
     $(KERNEL_OUT)/drivers/gpu/drm/panel/panel-raydium-rm67191.ko \
     $(KERNEL_OUT)/drivers/gpu/drm/imx/dcss/imx-dcss.ko \
@@ -179,7 +179,7 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES += \
     $(KERNEL_OUT)/net/mac80211/mac80211.ko
 else
 BOARD_VENDOR_RAMDISK_KERNEL_MODULES += \
-    $(KERNEL_OUT)/drivers/input/touchscreen/goodix.ko \
+    $(KERNEL_OUT)/drivers/input/touchscreen/goodix_ts.ko \
     $(KERNEL_OUT)/drivers/input/touchscreen/synaptics_dsx/synaptics_dsx_i2c.ko
 endif
 
