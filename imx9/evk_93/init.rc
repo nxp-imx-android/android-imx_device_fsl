@@ -9,7 +9,7 @@ on early-init
 on early-init
     start early_init_sh
     # Set the host name which used in console
-    export HOSTNAME evk_8ulp
+    export HOSTNAME evk_93
 
     # Due keymaster start very early so set prop here
     # Also gatekeeper share same role for keymaster
@@ -74,7 +74,7 @@ on late-fs && property:vendor.skip.charger_not_need=0
     mount_all /vendor/etc/fstab.nxp --late
 
 on early-boot && property:vendor.skip.charger_not_need=0
-    # For evk_8ulp, when swap used about 400M, upgrade the level.
+    # For evk_93, when swap used about 400M, upgrade the level.
     setprop ro.lmk.upgrade_pressure 80
     setprop ro.lmk.downgrade_pressure 95
     setprop ro.lmk.critical_upgrade true
