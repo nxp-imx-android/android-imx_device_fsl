@@ -299,7 +299,10 @@ PRODUCT_PACKAGES += \
     android.hardware.drm-service.widevine \
     android.hardware.drm-service.clearkey \
     libwvdrmcryptoplugin \
-    libwvaidl
+    libwvaidl \
+    liboemcrypto
+
+$(call inherit-product-if-exists, vendor/nxp-private/widevine/nxp_widevine_tee_8qm.mk)
 
 # -------@block_audio-------
 # To support multiple pcm device on cs42888, need delete below two lines:

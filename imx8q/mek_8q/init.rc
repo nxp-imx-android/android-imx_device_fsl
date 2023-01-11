@@ -6,6 +6,9 @@ on early-init
     mount debugfs none /sys/kernel/debug/ mode=0755
 
     mount overlay overlay /vendor/etc ro lowerdir=/vendor/vendor_overlay_soc/${ro.boot.soc_type}/vendor/etc:/vendor/etc,override_creds=off
+
+    mount overlay overlay /vendor/lib64 ro lowerdir=/system/lib64/vendor_widevine_overlay_soc/${ro.boot.soc_type}/vendor/lib64:/vendor/lib64,override_creds=off
+    mount overlay overlay /vendor/firmware/tee ro lowerdir=/vendor/vendor_widevine_overlay_soc/${ro.boot.soc_type}/vendor/firmware/tee:/vendor/firmware/tee,override_creds=off
     setprop vendor.all.car false
 
 on early-init

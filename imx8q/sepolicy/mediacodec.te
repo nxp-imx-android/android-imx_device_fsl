@@ -21,3 +21,4 @@ allow mediacodec dmabuf_system_heap_device:dir { read open search };
 allow mediacodec opencl_g2d-bin_file:dir create_dir_perms;
 allow mediacodec opencl_g2d-bin_file:file create_file_perms;
 allow mediacodec opencl_cache_file:dir {search};
+allow mediacodec tee_device:chr_file {open read write ioctl};

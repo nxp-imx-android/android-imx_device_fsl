@@ -134,3 +134,4 @@
 /(vendor|system/vendor)/bin/hw/android\.hardware\.memtrack-service\.imx       u:object_r:hal_memtrack_default_exec:s0
 
 /dev/dmabuf_imx                              u:object_r:ion_device:s0
+/dev/dma_heap/secure                         u:object_r:dmabuf_system_secure_heap_device:s0
