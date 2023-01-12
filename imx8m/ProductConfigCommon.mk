@@ -27,6 +27,8 @@ TARGET_BOARD_PLATFORM := imx
 PRODUCT_SHIPPING_API_LEVEL := 33
 
 # -------@block_app-------
+PRODUCT_PACKAGES += \
+    imx-chip-tool \
 
 PRODUCT_PROPERTY_OVERRIDES += \
     pm.dexopt.boot=quicken
