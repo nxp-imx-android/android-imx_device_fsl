@@ -31,7 +31,12 @@ PRODUCT_PACKAGES += \
 # -------@block_camera-------
 # Add Car related HAL
 PRODUCT_PACKAGES += \
-    android.hardware.automotive.vehicle@V1-imx-service
+    android.hardware.automotive.vehicle@V1-imx-service \
+    android.hardware.broadcastradio@2.0-service
+
+# broadcast radio feature
+PRODUCT_COPY_FILES += \
+    frameworks/native/data/etc/android.hardware.broadcastradio.xml:system/etc/permissions/android.hardware.broadcastradio.xml
 
 # -------@block_miscellaneous-------
 PRODUCT_COPY_FILES += \
