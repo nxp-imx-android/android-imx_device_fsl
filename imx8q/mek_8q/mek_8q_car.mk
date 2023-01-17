@@ -31,9 +31,7 @@ PRODUCT_PACKAGES += \
 # -------@block_camera-------
 # Add Car related HAL
 PRODUCT_PACKAGES += \
-    android.hardware.automotive.vehicle@V1-imx-service \
-    android.automotive.sv.service@1.0-impl \
-    sv_app
+    android.hardware.automotive.vehicle@V1-imx-service
 
 # -------@block_miscellaneous-------
 PRODUCT_COPY_FILES += \

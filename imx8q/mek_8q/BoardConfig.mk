@@ -268,8 +268,7 @@ BOARD_SEPOLICY_DIRS += \
      $(IMX_DEVICE_PATH)/sepolicy_car \
      device/generic/car/common/sepolicy \
      vendor/nxp-opensource/imx/evs/sepolicy \
-     vendor/nxp-opensource/imx/vehicle/sepolicy \
-     packages/services/Car/cpp/surround_view/sepolicy
+     vendor/nxp-opensource/imx/vehicle/sepolicy
 endif
 
 # -------@block_camera-------
