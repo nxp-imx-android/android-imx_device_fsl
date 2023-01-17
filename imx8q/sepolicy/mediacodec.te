@@ -13,9 +13,10 @@ allow mediacodec video_device:fifo_file rw_file_perms;
 allow mediacodec system_file:dir r_dir_perms;
 allow mediacodec sysfs_soc:dir { read open search };
 allow mediacodec sysfs_soc:file { open read getattr };
-allow mediacodec dmabuf_heap_device:chr_file { ioctl read write open };
 get_prop(mediacodec, vendor_public_default_prop)
 allow mediacodec dmabuf_heap_device:chr_file { open ioctl map read write };
 allow mediacodec dmabuf_heap_device:dir { read open search };
+allow mediacodec dmabuf_system_heap_device:chr_file { open ioctl map read write };
+allow mediacodec dmabuf_system_heap_device:dir { read open search };
 allow mediacodec opencl_g2d-bin_file:dir create_dir_perms;
 allow mediacodec opencl_g2d-bin_file:file create_file_perms;

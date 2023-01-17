@@ -10,6 +10,6 @@ allow hal_drm_widevine_aidl vndbinder_device:chr_file { open read write ioctl ma
 allow hal_drm_widevine_aidl { appdomain -isolated_app }:fd use;
 allow hal_drm_widevine_aidl mediacodec:fd use;
 allow hal_drm_widevine_aidl hal_allocator_server:fd use;
-allow hal_drm_widevine_aidl dmabuf_heap_device:chr_file {read open ioctl write};
+allow hal_drm_widevine_aidl dmabuf_system_heap_device:chr_file {read open ioctl write};
 
 allow hal_drm_widevine_aidl hal_drm_service:service_manager {add};
