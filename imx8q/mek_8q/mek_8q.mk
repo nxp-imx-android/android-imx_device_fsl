@@ -61,7 +61,9 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
 PRODUCT_PACKAGES += \
     android.hardware.power-service.imx
 
-TARGET_VENDOR_PROP := $(LOCAL_PATH)/product.prop
+ifneq ($(PRODUCT_IMX_CAR),true)
+    TARGET_VENDOR_PROP := $(LOCAL_PATH)/product_mek_8q.prop
+endif
 
 # Thermal HAL
 PRODUCT_PACKAGES += \
