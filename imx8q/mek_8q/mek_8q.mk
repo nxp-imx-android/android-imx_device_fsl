@@ -105,16 +105,15 @@ PRODUCT_COPY_FILES += \
 endif
 
 ifeq ($(PRODUCT_IMX_CAR),true)
+  ifeq ($(IMX8Q_USES_GKI),true)
+PRODUCT_COPY_FILES += \
+    $(IMX_DEVICE_PATH)/early.init_car_gki.cfg:$(TARGET_COPY_OUT_VENDOR)/etc/early.init.cfg \
+    $(IMX_DEVICE_PATH)/setup.main.gki.cfg:$(TARGET_COPY_OUT_VENDOR)/etc/setup.main.cfg
+  else
 PRODUCT_COPY_FILES += \
     $(IMX_DEVICE_PATH)/early.init_car.cfg:$(TARGET_COPY_OUT_VENDOR)/etc/early.init.cfg \
     $(IMX_DEVICE_PATH)/setup.main.cfg:$(TARGET_COPY_OUT_VENDOR)/etc/setup.main.cfg
-ifeq ($(PRODUCT_IMX_CAR_M4),true)
-PRODUCT_COPY_FILES += \
-    $(IMX_DEVICE_PATH)/setup.core.cfg:$(TARGET_COPY_OUT_VENDOR)/etc/setup.core.cfg
-else
-PRODUCT_COPY_FILES += \
-    $(IMX_DEVICE_PATH)/setup.core.car2.cfg:$(TARGET_COPY_OUT_VENDOR)/etc/setup.core.cfg
-endif #PRODUCT_IMX_CAR_M4
+  endif
 else
 PRODUCT_COPY_FILES += \
     $(IMX_DEVICE_PATH)/early.init.cfg:$(TARGET_COPY_OUT_VENDOR)/etc/early.init.cfg
