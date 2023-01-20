@@ -32,7 +32,8 @@ PRODUCT_PACKAGES += \
 # Add Car related HAL
 PRODUCT_PACKAGES += \
     android.hardware.automotive.vehicle@V1-imx-service \
-    android.hardware.broadcastradio@2.0-service
+    android.hardware.broadcastradio@2.0-service \
+    android.hardware.gnss-service.example
 
 # broadcast radio feature
 PRODUCT_COPY_FILES += \

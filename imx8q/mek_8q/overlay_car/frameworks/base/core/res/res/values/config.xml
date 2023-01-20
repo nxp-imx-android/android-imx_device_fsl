@@ -45,7 +45,4 @@
 
     <!-- show global actions menu when long press power button -->
     <integer name="config_longPressOnPowerBehavior">1</integer>
-
-    <!-- Disable GNSS time update service. -->
-    <bool name="config_enableGnssTimeUpdateService">false</bool>
 </resources>
