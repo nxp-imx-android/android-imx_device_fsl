@@ -8,6 +8,7 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/generic.mk)
 ifeq ($(PRODUCT_IMX_CAR),true)
 $(call inherit-product, packages/services/Car/car_product/build/car.mk)
+$(call inherit-product, packages/services/Car/cpp/telemetry/cartelemetryd/products/telemetry.mk)
 endif
 ifneq ($(TARGET_PRODUCT),mek_8q_car)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/updatable_apex.mk)

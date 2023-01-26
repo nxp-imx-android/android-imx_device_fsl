@@ -263,7 +263,6 @@ BOARD_SEPOLICY_DIRS := \
 
 ifeq ($(PRODUCT_IMX_CAR),true)
 BOARD_SEPOLICY_DIRS += \
-     packages/services/Car/car_product/sepolicy \
      $(CONFIG_REPO_PATH)/imx8q/sepolicy_car \
      $(IMX_DEVICE_PATH)/sepolicy_car \
      device/generic/car/common/sepolicy \
