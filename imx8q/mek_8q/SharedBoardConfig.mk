@@ -171,7 +171,6 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/media/platform/nxp/imx-jpeg/mxc-jpeg-encdec.ko \
     $(KERNEL_OUT)/drivers/media/platform/imx8/mxc-mipi-csi2_yav.ko \
     $(KERNEL_OUT)/drivers/media/platform/amphion/amphion-vpu.ko \
-    $(KERNEL_OUT)/drivers/power/supply/dummy_battery.ko \
     $(KERNEL_OUT)/drivers/watchdog/imx_sc_wdt.ko \
     $(KERNEL_OUT)/drivers/cpufreq/cpufreq-dt.ko \
     $(KERNEL_OUT)/drivers/cpufreq/imx-cpufreq-dt.ko \
