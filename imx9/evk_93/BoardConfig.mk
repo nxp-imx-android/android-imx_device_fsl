@@ -109,6 +109,12 @@ BOARD_VENDOR_KERNEL_MODULES += \
     $(TARGET_OUT_INTERMEDIATES)/MXMWIFI_OBJ/mlan.ko \
     $(TARGET_OUT_INTERMEDIATES)/MXMWIFI_OBJ/moal.ko
 
+# NXP camera driver module
+BOARD_VENDOR_KERNEL_MODULES += \
+    $(KERNEL_OUT)/drivers/staging/media/imx/imx8-media-dev.ko \
+    $(KERNEL_OUT)/drivers/firmware/imx/el_enclave.ko \
+    $(KERNEL_OUT)/drivers/nvmem/nvmem-imx-ocotp-fsb-s400.ko
+
 # -------@block_bluetooth-------
 # NXP 8987 bluetooth
 BOARD_HAVE_BLUETOOTH_NXP := true
