@@ -134,3 +134,4 @@
 /dev/vsi_daemon_ctrl                          u:object_r:vsi_daemon_ctrl_device:s0
 
 /dev/dmabuf_imx                              u:object_r:ion_device:s0
+/dev/dma_heap/secure                         u:object_r:dmabuf_system_secure_heap_device:s0
