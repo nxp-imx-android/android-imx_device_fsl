@@ -37,7 +37,8 @@ PRODUCT_PACKAGES += \
 
 # broadcast radio feature
 PRODUCT_COPY_FILES += \
-    frameworks/native/data/etc/android.hardware.broadcastradio.xml:system/etc/permissions/android.hardware.broadcastradio.xml
+    frameworks/native/data/etc/android.hardware.broadcastradio.xml:system/etc/permissions/android.hardware.broadcastradio.xml \
+    frameworks/native/data/etc/android.hardware.location.gps.xml:system/etc/permissions/android.hardware.location.gps.xml
 
 # -------@block_miscellaneous-------
 PRODUCT_COPY_FILES += \
