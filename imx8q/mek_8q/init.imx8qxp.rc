@@ -29,6 +29,9 @@ on early-boot
     # Set RenderEngine Backend
     setprop debug.renderengine.backend gles
 
+    # Set RenderEngine Backend
+    setprop debug.renderengine.backend gles
+
     # Set NN reject model by weights md5
     setprop vendor.MODEL_BLOCK_LEVEL 1
 
