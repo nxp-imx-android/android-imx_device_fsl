@@ -42,9 +42,6 @@ on early-boot
     # Set RenderEngine Backend
     setprop debug.renderengine.backend gles
 
-    # Set RenderEngine Backend
-    setprop debug.renderengine.backend gles
-
     # Set light sensor sysfs path
     setprop ro.hardware.lightsensor "/sys/class/i2c-dev/i2c-2/device/2-0044/"
 
