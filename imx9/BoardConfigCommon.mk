@@ -83,7 +83,7 @@ KERNEL_OUT ?= $(OUT_DIR)/target/product/$(PRODUCT_DEVICE)/obj/KERNEL_OBJ
 
 TARGET_BOARD_KERNEL_HEADERS := $(CONFIG_REPO_PATH)/common/kernel-headers
 
-TARGET_IMX_KERNEL ?= false
+TARGET_IMX_KERNEL ?= true
 ifeq ($(TARGET_IMX_KERNEL),false)
 BOARD_PREBUILT_BOOTIMAGE := vendor/nxp/fsl-proprietary/gki/boot.img
 TARGET_NO_KERNEL := true
