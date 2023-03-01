@@ -269,20 +269,16 @@ else
 BOARD_AVB_ROLLBACK_INDEX := 0
 endif
 
-ifneq ($(PRODUCT_IMX_CAR),true)
 ifneq ($(AVB_BOOT_RBINDEX),)
 BOARD_AVB_BOOT_ROLLBACK_INDEX := $(AVB_BOOT_RBINDEX)
 else
 BOARD_AVB_BOOT_ROLLBACK_INDEX := 0
 endif
-endif
 
-ifneq ($(PRODUCT_IMX_CAR),true)
 ifneq ($(AVB_INIT_BOOT_RBINDEX),)
 BOARD_AVB_INIT_BOOT_ROLLBACK_INDEX := $(AVB_INIT_BOOT_RBINDEX)
 else
 BOARD_AVB_INIT_BOOT_ROLLBACK_INDEX := 0
-endif
 endif
 
 $(call  inherit-product-if-exists, vendor/nxp-private/security/nxp_security.mk)
