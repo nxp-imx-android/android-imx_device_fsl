@@ -1,7 +1,7 @@
 # -------@block_kernel_bootimg-------
 KERNEL_NAME := Image.lz4
 TARGET_KERNEL_ARCH := arm64
-IMX8MN_USES_GKI := false
+IMX8MN_USES_GKI := true
 
 # NXP 8987 wifi driver module
 BOARD_VENDOR_KERNEL_MODULES += \
@@ -38,6 +38,7 @@ BOARD_VENDOR_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/media/platform/mxc/capture/mxc_mipi_csi.ko \
     $(KERNEL_OUT)/drivers/media/platform/mxc/capture/ov5640_camera_mipi_v2.ko \
     $(KERNEL_OUT)/sound/soc/fsl/imx-pcm-dma.ko \
+    $(KERNEL_OUT)/sound/soc/fsl/snd-soc-fsl-utils.ko \
     $(KERNEL_OUT)/sound/soc/fsl/snd-soc-fsl-micfil.ko \
     $(KERNEL_OUT)/sound/soc/fsl/snd-soc-fsl-asrc.ko \
     $(KERNEL_OUT)/sound/soc/fsl/snd-soc-fsl-easrc.ko \
@@ -62,6 +63,7 @@ endif
 # CONFIG_ZSMALLOC: zsmalloc.ko
 # CONFIG_CLK_IMX8MM: clk-imx8mm.ko
 # CONFIG_IMX8M_PM_DOMAINS: imx8m_pm_domains.ko, this driver still not upstream
+# CONFIG_IMX_GPCV2_PM_DOMAINS: gpcv2.ko, gpcv2-imx.ko
 # CONFIG_PINCTRL_IMX8MM: pinctrl-imx8mm.ko
 # CONFIG_SERIAL_IMX: imx.ko
 # CONFIG_IMX2_WDT: imx2_wdt.ko
@@ -74,8 +76,8 @@ endif
 # CONFIG_DMABUF_IMX: dma-buf-imx.ko
 # depend on clk module: reset-dispmix.ko, it will been select as m if clk build as m.
 # CONFIG_KEYBOARD_SNVS_PWRKEY: snvs_pwrkey.ko, snvs power key driver
-# CONFIG_IMX_LCDIF_CORE: imx-lcdif-core.ko
-# CONFIG_DRM_IMX: imxdrm.ko imx-lcdif-crtc.ko
+# CONFIG_IMX8MM_LCDIF_CORE: imx8mm-lcdif-core.ko
+# CONFIG_DRM_IMX: imxdrm.ko imx8mm-lcdif-crtc.ko
 # CONFIG_DRM_SEC_MIPI_DSIM: sec-dsim.ko
 # CONFIG_DRM_IMX_SEC_DSIM: sec_mipi_dsim-imx.ko
 # CONFIG_DRM_I2C_ADV7511: adv7511.ko
@@ -95,7 +97,10 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/soc/imx/soc-imx8m.ko \
     $(KERNEL_OUT)/drivers/clk/imx/mxc-clk.ko \
     $(KERNEL_OUT)/drivers/clk/imx/clk-imx8mn.ko \
+    $(KERNEL_OUT)/drivers/soc/imx/imx8m-blk-ctrl.ko \
     $(KERNEL_OUT)/drivers/soc/imx/imx8m_pm_domains.ko \
+    $(KERNEL_OUT)/drivers/soc/imx/gpcv2.ko \
+    $(KERNEL_OUT)/drivers/soc/imx/gpcv2-imx.ko \
     $(KERNEL_OUT)/drivers/clocksource/timer-imx-sysctr.ko \
     $(KERNEL_OUT)/drivers/soc/imx/busfreq-imx8mq.ko \
     $(KERNEL_OUT)/drivers/pinctrl/freescale/pinctrl-imx.ko \
@@ -132,11 +137,12 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/input/touchscreen/goodix_ts.ko \
     $(KERNEL_OUT)/drivers/input/touchscreen/synaptics_dsx/synaptics_dsx_i2c.ko \
     $(KERNEL_OUT)/drivers/reset/reset-dispmix.ko \
-    $(KERNEL_OUT)/drivers/gpu/imx/lcdif/imx-lcdif-core.ko \
+    $(KERNEL_OUT)/drivers/gpu/imx/lcdif/imx8mm-lcdif-core.ko \
+    $(KERNEL_OUT)/drivers/gpu/drm/drm_dma_helper.ko \
     $(KERNEL_OUT)/drivers/gpu/drm/bridge/adv7511/adv7511.ko \
     $(KERNEL_OUT)/drivers/gpu/drm/bridge/sec-dsim.ko \
     $(KERNEL_OUT)/drivers/gpu/drm/imx/imxdrm.ko \
-    $(KERNEL_OUT)/drivers/gpu/drm/imx/lcdif/imx-lcdif-crtc.ko \
+    $(KERNEL_OUT)/drivers/gpu/drm/imx/lcdif/imx8mm-lcdif-crtc.ko \
     $(KERNEL_OUT)/drivers/gpu/drm/panel/panel-raydium-rm67191.ko \
     $(KERNEL_OUT)/drivers/gpu/drm/imx/sec_mipi_dsim-imx.ko \
     $(KERNEL_OUT)/drivers/usb/chipidea/usbmisc_imx.ko \
@@ -161,7 +167,9 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/trusty/trusty-log.ko \
     $(KERNEL_OUT)/drivers/trusty/trusty-virtio.ko \
     $(KERNEL_OUT)/drivers/staging/media/imx/imx8-media-dev.ko \
+    $(KERNEL_OUT)/net/rfkill/rfkill.ko \
     $(KERNEL_OUT)/net/wireless/cfg80211.ko \
+    $(KERNEL_OUT)/lib/crypto/libarc4.ko \
     $(KERNEL_OUT)/net/mac80211/mac80211.ko
 else
 BOARD_VENDOR_RAMDISK_KERNEL_MODULES += \

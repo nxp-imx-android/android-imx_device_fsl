@@ -1,7 +1,7 @@
 # -------@block_kernel_bootimg-------
 KERNEL_NAME := Image.lz4
 TARGET_KERNEL_ARCH := arm64
-IMX8MP_USES_GKI := false
+IMX8MP_USES_GKI := true
 
 #NXP 8997 wifi driver module
 BOARD_VENDOR_KERNEL_MODULES += \
@@ -34,6 +34,7 @@ BOARD_VENDOR_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/mxc/gpu-viv/galcore.ko \
     $(KERNEL_OUT)/drivers/thermal/imx8mm_thermal.ko \
     $(KERNEL_OUT)/sound/soc/fsl/imx-pcm-dma.ko \
+    $(KERNEL_OUT)/sound/soc/fsl/snd-soc-fsl-utils.ko \
     $(KERNEL_OUT)/sound/soc/fsl/snd-soc-fsl-micfil.ko \
     $(KERNEL_OUT)/sound/soc/fsl/snd-soc-fsl-aud2htx.ko \
     $(KERNEL_OUT)/sound/soc/fsl/snd-soc-fsl-asrc.ko \
@@ -64,9 +65,9 @@ BOARD_VENDOR_KERNEL_MODULES += \
     $(KERNEL_OUT)/sound/soc/fsl/imx-audio-rpmsg.ko \
     $(KERNEL_OUT)/sound/soc/codecs/snd-soc-rpmsg-wm8960.ko \
     $(KERNEL_OUT)/sound/soc/codecs/snd-soc-rpmsg-wm8960-i2c.ko \
-    $(KERNEL_OUT)/sound/soc/fsl/snd-soc-imx-pcm512x-rpmsg.ko \
     $(KERNEL_OUT)/sound/soc/fsl/snd-soc-imx-rpmsg.ko \
     $(KERNEL_OUT)/drivers/firmware/imx/imx-dsp.ko \
+    $(KERNEL_OUT)/sound/soc/sof/snd-sof-utils.ko \
     $(KERNEL_OUT)/sound/soc/sof/snd-sof.ko \
     $(KERNEL_OUT)/sound/soc/sof/snd-sof-of.ko \
     $(KERNEL_OUT)/sound/soc/sof/xtensa/snd-sof-xtensa-dsp.ko \
@@ -91,6 +92,7 @@ endif
 # CONFIG_ZSMALLOC: zsmalloc.ko
 # CONFIG_CLK_IMX8MP: clk-imx8mp.ko, clk-audiomix.ko, clk-gate-shared.ko, clk-hdmimix.ko
 # CONFIG_IMX8M_PM_DOMAINS: imx8m_pm_domains.ko
+# CONFIG_IMX_GPCV2_PM_DOMAINS: gpcv2.ko, gpcv2-imx.ko
 # CONFIG_PINCTRL_IMX: pinctrl-imx.ko
 # CONFIG_PINCTRL_IMX8MP: pinctrl-imx8mp.ko
 # CONFIG_SERIAL_IMX: imx.ko
@@ -103,13 +105,12 @@ endif
 # CONFIG_MMC_SDHCI_ESDHC_IMX: sdhci-esdhc-imx.ko, cqhci.ko
 # CONFIG_DMABUF_HEAPS_SYSTEM: system_heap.ko
 # CONFIG_DMABUF_HEAPS_CMA: cma_heap.ko
-# CONFIG_DMABUF_HEAPS_SECURE: secure_heap.ko
 # CONFIG_DMABUF_IMX: dma-buf-imx.ko
 # CONFIG_MFD_IMX_AUDIOMIX: imx-audiomix.ko
 # CONFIG_PHY_FSL_IMX8MP_LVDS: phy-fsl-imx8mp-lvds.ko
 # CONFIG_PHY_SAMSUNG_HDMI_PHY: phy-fsl-samsung-hdmi.ko
 # CONFIG_MXC_GPU_VIV: galcore.ko
-# CONFIG_IMX_LCDIF_CORE: imx-lcdif-core.ko
+# CONFIG_IMX8MM_LCDIF_CORE: imx8mm-lcdif-core.ko
 # CONFIG_DRM_I2C_ADV7511: adv7511.ko
 # CONFIG_DRM_IMX_CDNS_MHDP: cdns_mhdp_drmcore.ko cdns_mhdp_imx.ko
 # CONFIG_DRM_IMX8MP_LDB: imx8mp-ldb.ko
@@ -117,14 +118,14 @@ endif
 # CONFIG_DRM_ITE_IT6263: it6263.ko
 # CONFIG_DRM_IMX_SEC_DSIM: sec-dsim.ko sec_mipi_dsim-imx.ko
 # CONFIG_DRM_IMX_HDMI: dw-hdmi.ko dw_hdmi-imx.ko imx8mp-hdmi-pavi.ko
-# CONFIG_DRM_IMX: imxdrm.ko, imx-lcdif-crtc.ko
+# CONFIG_DRM_IMX: imxdrm.ko, imx8mm-lcdif-crtc.ko
 # CONFIG_IMX_LCDIFV3_CORE: imx-lcdifv3-core.ko imx-lcdifv3-crtc.ko
 # CONFIG_USB_DWC3: dwc3-haps.ko dwc3-imx8mp.ko dwc3-of-simple.ko dwc3-qcom.ko dwc3.ko
 # CONFIG_DRM_PANEL_SIMPLE: panel-simple.ko
 # CONFIG_TYPEC_SWITCH_GPIO: gpio-switch.ko
 # CONFIG_TYPEC_TCPCI: tcpci.ko
 # CONFIG_PHY_FSL_IMX8MQ_USB: phy-fsl-imx8mq-usb.ko
-# CONFIG_PHY_FSL_IMX_PCIE: phy-fsl-imx8-pcie.ko
+# CONFIG_PHY_FSL_IMX8M_PCIE: phy-fsl-imx8m-pcie.ko
 # CONFIG_USB_XHCI_HCD: xhci-hcd.ko xhci-pci.ko xhci-plat-hcd.ko, usb host driver
 # CONFIG_KEYBOARD_SNVS_PWRKEY: snvs_pwrkey.ko, snvs power key driver
 # CONFIG_RESET_IMX7: reset-imx7.ko
@@ -147,11 +148,14 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES +=     \
     $(KERNEL_OUT)/mm/zsmalloc.ko \
     $(KERNEL_OUT)/drivers/block/zram/zram.ko \
     $(KERNEL_OUT)/drivers/soc/imx/soc-imx8m.ko \
-    $(KERNEL_OUT)/drivers/soc/imx/mu/mx8_mu.ko \
     $(KERNEL_OUT)/drivers/clk/imx/mxc-clk.ko \
     $(KERNEL_OUT)/drivers/clk/imx/clk-imx8mp.ko \
     $(KERNEL_OUT)/drivers/clk/imx/clk-blk-ctrl.ko \
+    $(KERNEL_OUT)/drivers/soc/imx/imx8m-blk-ctrl.ko \
+    $(KERNEL_OUT)/drivers/soc/imx/imx8mp-blk-ctrl.ko \
     $(KERNEL_OUT)/drivers/soc/imx/imx8m_pm_domains.ko \
+    $(KERNEL_OUT)/drivers/soc/imx/gpcv2.ko \
+    $(KERNEL_OUT)/drivers/soc/imx/gpcv2-imx.ko \
     $(KERNEL_OUT)/drivers/clocksource/timer-imx-sysctr.ko \
     $(KERNEL_OUT)/drivers/soc/imx/busfreq-imx8mq.ko \
     $(KERNEL_OUT)/drivers/irqchip/irq-imx-irqsteer.ko \
@@ -169,18 +173,18 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES +=     \
     $(KERNEL_OUT)/drivers/mmc/host/sdhci-esdhc-imx.ko \
     $(KERNEL_OUT)/drivers/dma-buf/heaps/system_heap.ko \
     $(KERNEL_OUT)/drivers/dma-buf/heaps/cma_heap.ko \
-    $(KERNEL_OUT)/drivers/dma-buf/heaps/secure_heap.ko \
     $(KERNEL_OUT)/drivers/dma-buf/heaps/dsp_heap.ko \
     $(KERNEL_OUT)/drivers/dma-buf/dma-buf-imx.ko \
     $(KERNEL_OUT)/drivers/reset/reset-imx7.ko \
     $(KERNEL_OUT)/drivers/phy/freescale/phy-fsl-imx8mp-lvds.ko \
     $(KERNEL_OUT)/drivers/phy/freescale/phy-fsl-samsung-hdmi.ko \
     $(KERNEL_OUT)/drivers/phy/freescale/phy-fsl-imx8mq-usb.ko \
-    $(KERNEL_OUT)/drivers/phy/freescale/phy-fsl-imx8-pcie.ko \
+    $(KERNEL_OUT)/drivers/phy/freescale/phy-fsl-imx8m-pcie.ko \
     $(KERNEL_OUT)/drivers/input/keyboard/snvs_pwrkey.ko \
     $(KERNEL_OUT)/drivers/input/touchscreen/goodix_ts.ko \
     $(KERNEL_OUT)/drivers/input/touchscreen/synaptics_dsx/synaptics_dsx_i2c.ko \
-    $(KERNEL_OUT)/drivers/gpu/imx/lcdif/imx-lcdif-core.ko \
+    $(KERNEL_OUT)/drivers/gpu/imx/lcdif/imx8mm-lcdif-core.ko \
+    $(KERNEL_OUT)/drivers/gpu/drm/display/drm_display_helper.ko \
     $(KERNEL_OUT)/drivers/gpu/drm/bridge/adv7511/adv7511.ko \
     $(KERNEL_OUT)/drivers/gpu/drm/bridge/cadence/cdns_mhdp_drmcore.ko \
     $(KERNEL_OUT)/drivers/gpu/drm/bridge/fsl-imx-ldb.ko \
@@ -191,13 +195,13 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES +=     \
     $(KERNEL_OUT)/drivers/gpu/drm/imx/dw_hdmi-imx.ko \
     $(KERNEL_OUT)/drivers/gpu/drm/imx/imx8mp-hdmi-pavi.ko \
     $(KERNEL_OUT)/drivers/gpu/drm/imx/imx8mp-ldb.ko \
+    $(KERNEL_OUT)/drivers/gpu/drm/drm_dma_helper.ko \
     $(KERNEL_OUT)/drivers/gpu/drm/imx/imxdrm.ko \
-    $(KERNEL_OUT)/drivers/gpu/drm/imx/lcdif/imx-lcdif-crtc.ko \
+    $(KERNEL_OUT)/drivers/gpu/drm/imx/lcdif/imx8mm-lcdif-crtc.ko \
     $(KERNEL_OUT)/drivers/gpu/drm/imx/lcdifv3/imx-lcdifv3-crtc.ko \
     $(KERNEL_OUT)/drivers/gpu/imx/lcdifv3/imx-lcdifv3-core.ko \
     $(KERNEL_OUT)/drivers/gpu/drm/imx/sec_mipi_dsim-imx.ko \
     $(KERNEL_OUT)/drivers/gpu/drm/panel/panel-raydium-rm67191.ko \
-    $(KERNEL_OUT)/drivers/gpu/drm/drm_dp_aux_bus.ko \
     $(KERNEL_OUT)/drivers/gpu/drm/panel/panel-simple.ko \
     $(KERNEL_OUT)/drivers/usb/dwc3/dwc3-imx8mp.ko \
     $(KERNEL_OUT)/drivers/usb/typec/mux/gpio-switch.ko \
@@ -227,7 +231,9 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES +=     \
     $(TARGET_OUT_INTERMEDIATES)/VVCAM_OBJ/vvcam-dwe.ko \
     $(TARGET_OUT_INTERMEDIATES)/VVCAM_OBJ/vvcam-isp.ko \
     $(TARGET_OUT_INTERMEDIATES)/VVCAM_OBJ/vvcam-video.ko \
+    $(KERNEL_OUT)/net/rfkill/rfkill.ko \
     $(KERNEL_OUT)/net/wireless/cfg80211.ko \
+    $(KERNEL_OUT)/lib/crypto/libarc4.ko \
     $(KERNEL_OUT)/net/mac80211/mac80211.ko
 else
 BOARD_VENDOR_RAMDISK_KERNEL_MODULES +=     \
