@@ -62,7 +62,8 @@ endif
 endif
 
 BOARD_VENDOR_RAMDISK_KERNEL_MODULES += \
-    $(KERNEL_OUT)/drivers/staging/media/imx/imx8-media-dev.ko
+    $(KERNEL_OUT)/drivers/staging/media/imx/imx8-media-dev.ko \
+    $(KERNEL_OUT)/drivers/remoteproc/imx_dsp_rproc.ko
 
 # -------@block_security-------
 #Enable this to include trusty support
