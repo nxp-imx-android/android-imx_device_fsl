@@ -151,6 +151,11 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES +=     \
     $(KERNEL_OUT)/drivers/clk/imx/mxc-clk.ko \
     $(KERNEL_OUT)/drivers/clk/imx/clk-imx8mp.ko \
     $(KERNEL_OUT)/drivers/clk/imx/clk-blk-ctrl.ko \
+    $(KERNEL_OUT)/drivers/trusty/trusty-core.ko \
+    $(KERNEL_OUT)/drivers/trusty/trusty-irq.ko \
+    $(KERNEL_OUT)/drivers/trusty/trusty-log.ko \
+    $(KERNEL_OUT)/drivers/trusty/trusty-virtio.ko \
+    $(KERNEL_OUT)/drivers/trusty/trusty-ipc.ko \
     $(KERNEL_OUT)/drivers/soc/imx/imx8m-blk-ctrl.ko \
     $(KERNEL_OUT)/drivers/soc/imx/imx8mp-blk-ctrl.ko \
     $(KERNEL_OUT)/drivers/soc/imx/imx8m_pm_domains.ko \
@@ -220,11 +225,6 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES +=     \
     $(KERNEL_OUT)/drivers/staging/media/imx/imx8-isi-mem2mem.ko \
     $(KERNEL_OUT)/drivers/staging/media/imx/imx8-mipi-csi2-sam.ko \
     $(KERNEL_OUT)/drivers/dma/imx-sdma.ko \
-    $(KERNEL_OUT)/drivers/trusty/trusty-core.ko \
-    $(KERNEL_OUT)/drivers/trusty/trusty-irq.ko \
-    $(KERNEL_OUT)/drivers/trusty/trusty-log.ko \
-    $(KERNEL_OUT)/drivers/trusty/trusty-virtio.ko \
-    $(KERNEL_OUT)/drivers/trusty/trusty-ipc.ko \
     $(TARGET_OUT_INTERMEDIATES)/VVCAM_OBJ/basler-camera-driver-vvcam.ko \
     $(TARGET_OUT_INTERMEDIATES)/VVCAM_OBJ/os08a20.ko \
     $(KERNEL_OUT)/drivers/staging/media/imx/imx8-media-dev.ko \
