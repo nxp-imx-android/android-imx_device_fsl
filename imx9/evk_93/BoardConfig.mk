@@ -104,10 +104,9 @@ BOARD_WPA_SUPPLICANT_PRIVATE_LIB        := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
 # NXP 8987 wifi support dual interface
 WIFI_HIDL_FEATURE_DUAL_INTERFACE := true
 
-# NXP 8987 wifi driver module
+# NXP wifi previous pwrseq_simple start
 BOARD_VENDOR_KERNEL_MODULES += \
-    $(TARGET_OUT_INTERMEDIATES)/MXMWIFI_OBJ/mlan.ko \
-    $(TARGET_OUT_INTERMEDIATES)/MXMWIFI_OBJ/moal.ko
+    $(KERNEL_OUT)/drivers/mmc/core/pwrseq_simple.ko
 
 # NXP camera driver module
 BOARD_VENDOR_KERNEL_MODULES += \
@@ -116,6 +115,11 @@ BOARD_VENDOR_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/firmware/imx/el_enclave.ko \
     $(KERNEL_OUT)/drivers/nvmem/nvmem-imx-ocotp-fsb-s400.ko \
     $(KERNEL_OUT)/drivers/soc/imx/soc-imx9.ko
+
+# NXP 8987 wifi driver module
+BOARD_VENDOR_KERNEL_MODULES += \
+    $(TARGET_OUT_INTERMEDIATES)/MXMWIFI_OBJ/mlan.ko \
+    $(TARGET_OUT_INTERMEDIATES)/MXMWIFI_OBJ/moal.ko
 
 # -------@block_bluetooth-------
 # NXP 8987 bluetooth
@@ -141,7 +145,7 @@ BOARD_BOOTCONFIG += androidboot.lcd_density=240
 
 # wifi config
 BOARD_BOOTCONFIG += androidboot.wificountrycode=CN
-BOARD_KERNEL_CMDLINE += moal.mod_para=wifi_mod_para_sd416.conf
+BOARD_KERNEL_CMDLINE += moal.mod_para=wifi_mod_para_sd612.conf
 
 # low memory device build config
 ifeq ($(LOW_MEMORY),true)
