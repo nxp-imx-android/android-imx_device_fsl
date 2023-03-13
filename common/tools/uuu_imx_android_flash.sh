@@ -49,6 +49,8 @@ options:
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                            │   imx8qm       │  dual trusty-dual mek-uuu trusty-secure-unlock trusty secure-unlock md hdmi xen                      │
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
+                           │   imx93        │  evk-uuu                                                                                             │
+                           ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                            │   imx7ulp      │  evk-uuu                                                                                             │
                            └────────────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────┘
 
@@ -72,6 +74,8 @@ options:
                            │   imx8qm       │  hdmi mipi-panel mipi-panel-rm67191 md xen esai sof                                                  │
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                            │   imx8ulp      │  hdmi epdc 9x9 9x9-hdmi sof lpa                                                                      │
+                           ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
+                           │   imx93        │                                                                                                      │
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                            │   imx7ulp      │  evk-mipi evk mipi                                                                                   │
                            └────────────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────┘
@@ -416,6 +420,7 @@ imx8ulp_uboot_feature=(dual trusty-dual evk-uuu trusty-secure-unlock-dual 9x9-ev
 imx8qxp_uboot_feature=(dual trusty-dual mek-uuu trusty-secure-unlock-dual secure-unlock c0 c0-dual trusty-c0-dual mek-c0-uuu)
 imx8qm_uboot_feature=(dual trusty-dual mek-uuu trusty-secure-unlock-dual secure-unlock md hdmi xen)
 imx7ulp_uboot_feature=(evk-uuu)
+imx93_uboot_feature=(dual evk-uuu)
 
 imx8mm_dtb_feature=(ddr4 m4 mipi-panel mipi-panel-rm67191)
 imx8mn_dtb_feature=(mipi-panel mipi-panel-rm67191 rpmsg ddr4 ddr4-mipi-panel ddr4-mipi-panel-rm67191 ddr4-rpmsg)
@@ -424,6 +429,7 @@ imx8mp_dtb_feature=(rpmsg lvds-panel lvds mipi-panel mipi-panel-rm67191 basler p
 imx8qxp_dtb_feature=(sof)
 imx8qm_dtb_feature=(hdmi hdmi-rx mipi-panel mipi-panel-rm67191 md xen esai sof)
 imx8ulp_dtb_feature=(hdmi epdc 9x9 9x9-hdmi sof lpa)
+imx93_dtb_feature=()
 imx7ulp_dtb_feature=(evk-mipi evk mipi)
 
 tmp_files_before_uuu=()
@@ -617,6 +623,11 @@ case ${soc_name%%-*} in
             uboot_env_start=0x2000; uboot_env_len=0x8;
             emmc_num=0; sd_num=2;
             board=evk ;;
+    imx93)
+            vid=0x1fc9; pid=0x0152; chip=MX93;
+            uboot_env_start=0x2000; uboot_env_len=0x8;
+            emmc_num=0; sd_num=1;
+            board=evk ;;
     imx7ulp)
             vid=0x1fc9; pid=0x0126; chip=MX7ULP;
             uboot_env_start=0x700; uboot_env_len=0x10;
@@ -699,7 +710,7 @@ if [ -n "${dtb_feature}" ]; then
 fi
 
 # set sdp command name based on soc_name
-if [[ ${soc_name#imx8q} != ${soc_name} ]] || [[ ${soc_name} == "imx8mn" ]] || [[ ${soc_name} == "imx8mp" ]] || [[ ${soc_name} == "imx8ulp" ]]; then
+if [[ ${soc_name#imx8q} != ${soc_name} ]] || [[ ${soc_name} == "imx8mn" ]] || [[ ${soc_name} == "imx8mp" ]] || [[ ${soc_name} == "imx8ulp" ]] || [[ ${soc_name} == "imx93" ]]; then
     sdp="SDPS"
 fi
 

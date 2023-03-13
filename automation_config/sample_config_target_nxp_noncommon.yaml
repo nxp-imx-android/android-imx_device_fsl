@@ -1,15 +1,15 @@
 reference_product:
-  name: evk_8mm
-  device: evk_8mm
-  soc_type: IMX8MM
-  AndroidProducts_root: device/nxp/imx8m
-
-target_product:
   name: evk_8ulp
   device: evk_8ulp
   soc_type: IMX8ULP
-  repo_path: device/nxp
   AndroidProducts_root: device/nxp/imx8ulp
+
+target_product:
+  name: evk_93
+  device: evk_93
+  soc_type: IMX93
+  repo_path: device/nxp
+  AndroidProducts_root: device/nxp/imx9
   manufacturer: nxp
 
 modules:
@@ -19,8 +19,8 @@ modules:
   camera: y
   common_config: y
   display: y
-  ethernet: n
-  gpu: y
+  ethernet: y
+  gpu: n
   infrastructure: y
   input: y
   isp: n
@@ -28,11 +28,11 @@ modules:
   memory: y
   miscellaneous: y
   multimedia_codec: y
-  neural_network: n
+  neural_network: y
   power: y
   profile: y
   security: y
-  sensor: n
+  sensor: y
   sepolicy: y
   storage: y
   treble: y

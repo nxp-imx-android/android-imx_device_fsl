@@ -119,6 +119,11 @@ $(UBOOTENVSH): | $(UBOOT_OUT)
 	else \
 		echo 'export ROLLBACK_INDEX_IN_FIT=' > $@; \
 		echo 'export ROLLBACK_INDEX_IN_CONTAINER=' >> $@; \
+	fi; \
+	if [ "$(USE_TEE_COMPRESS)" = "true" ]; then \
+		echo 'export TEE_COMPRESS_ENABLE=$(USE_TEE_COMPRESS)' >> $@; \
+	else \
+		echo 'export TEE_COMPRESS_ENABLE=' >> $@; \
 	fi
 
 $(UBOOT_BIN): $(UBOOTENVSH) | $(UBOOT_COLLECTION) $(UBOOT_OUT)
@@ -139,10 +144,6 @@ $(UBOOT_BIN): $(UBOOTENVSH) | $(UBOOT_COLLECTION) $(UBOOT_OUT)
 		    echo "===================Finish building `echo $$ubootplat` ==================="; \
 		else \
 			install -D $(UBOOT_OUT)/u-boot$(TARGET_DTB_POSTFIX).$(TARGET_BOOTLOADER_POSTFIX) $(UBOOT_COLLECTION)/u-boot-$$UBOOT_PLATFORM.imx; \
-		fi; \
-		if [ "$(PRODUCT_IMX_DRM)" = "true" ]; then \
-		    echo "build post process with tee" ; \
-		    $(call build_uboot_w_tee,  $(TARGET_BOOTLOADER_POSTFIX), $$UBOOT_PLATFORM) \
 		fi; \
 		install -D $(UBOOT_COLLECTION)/u-boot-$$UBOOT_PLATFORM.imx $(UBOOT_BIN); \
 	done

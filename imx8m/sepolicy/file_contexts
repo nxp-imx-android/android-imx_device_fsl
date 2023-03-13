@@ -7,6 +7,8 @@
 /dev/mxc_hifi4                  u:object_r:audio_device:s0
 /dev/rpmsg0                     u:object_r:audio_device:s0
 /dev/rpmsg1                     u:object_r:audio_device:s0
+/dev/dma_heap/reserved          u:object_r:dmabuf_system_heap_device:s0
+/dev/dma_heap/reserved-uncached          u:object_r:dmabuf_system_heap_device:s0
 /dev/dma_heap/dsp               u:object_r:dmabuf_heap_device:s0
 /dev/galcore                    u:object_r:gpu_device:s0
 /dev/imxdpu                     u:object_r:gpu_device:s0

@@ -172,9 +172,11 @@ def modify_android_product_common_file():
                 if re.match(r'\s*[^#]*PRODUCT_MAKEFILES\s*[:|]*=\s*\\', line):
                     written_lines.append(line)
                     mkfiles_line = True
+                    continue
                 if re.match(r'\s*[^#]*COMMON_LUNCH_CHOICES\s*[:|]*=\s*\\', line):
                     written_lines.append(line)
                     lunch_choices_line = True
+                    continue
 
                 if mkfiles_line == True and re.match(r'^\s*[^#]*\$\(LOCAL_DIR\)/.*' + reference_product['name'] + '.mk', line):
                     append_line = line.replace(reference_product['name'] + ".mk", target_product['name'] + '.mk').replace(reference_product['device'], target_product['device'])
@@ -189,14 +191,20 @@ def modify_android_product_common_file():
                     """make sure there is no back slash at the last line when assign value to PRODUCT_MAKEFILES and COMMON_LUNCH_CHOICES"""
                     if mkfiles_line == True:
                         append_line = written_lines.pop()
-                        append_line = re.match(r'(.*' + target_product['name'] + '.mk'+ ')(\s*\\\s*\n)', append_line).group(1) + '\n'
+                        try:
+                            append_line = re.match(r'(.*' + target_product['name'] + '.mk'+ ')(\s*\\\s*\n)', append_line).group(1) + '\n'
+                        except AttributeError:
+                            append_line = append_line
                         written_lines.append(append_line)
+                        mkfiles_line = False
                     if lunch_choices_line == True:
                         append_line = written_lines.pop()
-                        append_line = re.match(r'(.*' + target_product['name'] + '\-(user|userdebug|eng)'+ ')(\s*\\\s*\n)', append_line).group(1) + '\n'
+                        try:
+                            append_line = re.match(r'(.*' + target_product['name'] + '\-(user|userdebug|eng)'+ ')(\s*\\\s*\n)', append_line).group(1) + '\n'
+                        except AttributeError:
+                            append_line = append_line
                         written_lines.append(append_line)
-                    mkfiles_line = False
-                    lunch_choices_line = False
+                        lunch_choices_line = False
 
             android_product_mkfile_fd.seek(0)
             android_product_mkfile_fd.writelines(written_lines)

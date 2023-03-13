@@ -123,11 +123,7 @@ BOARD_USE_SENSOR_FUSION := true
 # -------@block_kernel_bootimg-------
 BOARD_KERNEL_BASE := 0x40400000
 
-ifeq ($(PRODUCT_IMX_DRM),true)
-CMASIZE=736M
-else
 CMASIZE=1280M
-endif
 
 # NXP default config
 BOARD_KERNEL_CMDLINE := init=/init firmware_class.path=/vendor/firmware loop.max_part=7 bootconfig
@@ -192,11 +188,6 @@ ALL_DEFAULT_INSTALLED_MODULES += $(BOARD_VENDOR_KERNEL_MODULES)
 BOARD_SEPOLICY_DIRS := \
        $(CONFIG_REPO_PATH)/imx8m/sepolicy \
        $(IMX_DEVICE_PATH)/sepolicy
-
-ifeq ($(PRODUCT_IMX_DRM),true)
-BOARD_SEPOLICY_DIRS += \
-       $(IMX_DEVICE_PATH)/sepolicy_drm
-endif
 
 ifeq ($(IMX8MQ_USES_GKI),true)
     BOARD_KERNEL_CMDLINE += cpuidle.off=1

@@ -143,11 +143,7 @@ BOARD_BOOTCONFIG += androidboot.lcd_density=240 androidboot.primary_display=imx-
 
 # wifi config
 BOARD_BOOTCONFIG += androidboot.wificountrycode=CN
-ifeq ($(POWERSAVE),true)
-    BOARD_KERNEL_CMDLINE +=  moal.mod_para=wifi_mod_para_powersave.conf pci=nomsi
-else
-    BOARD_KERNEL_CMDLINE +=  moal.mod_para=wifi_mod_para.conf pci=nomsi
-endif
+BOARD_KERNEL_CMDLINE +=  moal.mod_para=wifi_mod_para.conf pci=nomsi
 
 # low memory device build config
 ifeq ($(LOW_MEMORY),true)
