@@ -72,8 +72,6 @@ PRODUCT_IMX_TRUSTY := true
 
 ifeq ($(IMX8ULP_USES_GKI),true)
 BOARD_VENDOR_RAMDISK_KERNEL_MODULES += \
-    $(KERNEL_OUT)/mm/zsmalloc.ko \
-    $(KERNEL_OUT)/drivers/block/zram/zram.ko \
     $(KERNEL_OUT)/drivers/hwmon/hwmon.ko \
     $(KERNEL_OUT)/drivers/hwmon/scmi-hwmon.ko \
     $(KERNEL_OUT)/drivers/firmware/arm_scmi/scmi_pm_domain.ko \
@@ -138,8 +136,6 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/staging/media/imx/imx8-capture.ko \
     $(KERNEL_OUT)/drivers/staging/media/imx/imx8-mipi-csi2.ko \
     $(KERNEL_OUT)/drivers/staging/media/imx/imx8-media-dev.ko \
-    $(KERNEL_OUT)/net/wireless/cfg80211.ko \
-    $(KERNEL_OUT)/net/mac80211/mac80211.ko \
     $(KERNEL_OUT)/drivers/trusty/trusty-core.ko \
     $(KERNEL_OUT)/drivers/trusty/trusty-irq.ko \
     $(KERNEL_OUT)/drivers/trusty/trusty-log.ko \
