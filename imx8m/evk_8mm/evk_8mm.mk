@@ -301,6 +301,7 @@ PRODUCT_PACKAGES += \
     libOpenCL \
     libg2d-viv \
     libgpuhelper \
+    libSPIRV_viv \
 
 
 # -------@block_wifi-------
