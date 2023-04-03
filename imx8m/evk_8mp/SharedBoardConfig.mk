@@ -65,6 +65,7 @@ BOARD_VENDOR_KERNEL_MODULES += \
     $(KERNEL_OUT)/sound/soc/fsl/imx-audio-rpmsg.ko \
     $(KERNEL_OUT)/sound/soc/codecs/snd-soc-rpmsg-wm8960.ko \
     $(KERNEL_OUT)/sound/soc/codecs/snd-soc-rpmsg-wm8960-i2c.ko \
+    $(KERNEL_OUT)/sound/soc/fsl/snd-soc-imx-pcm512x-rpmsg.ko \
     $(KERNEL_OUT)/sound/soc/fsl/snd-soc-imx-rpmsg.ko \
     $(KERNEL_OUT)/drivers/firmware/imx/imx-dsp.ko \
     $(KERNEL_OUT)/sound/soc/sof/snd-sof-utils.ko \
