@@ -57,7 +57,7 @@ PRODUCT_COPY_FILES += \
 
 # -------@block_app-------
 #Enable this to choose 32 bit user space build
-IMX8_BUILD_32BIT_ROOTFS := false
+IMX8_BUILD_32BIT_ROOTFS ?= false
 
 PRODUCT_COPY_FILES += \
     $(IMX_DEVICE_PATH)/app_whitelist.xml:system/etc/sysconfig/app_whitelist.xml \

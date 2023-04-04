@@ -75,7 +75,7 @@ endif
 
 # -------@block_app-------
 #Enable this to choose 32 bit user space build
-IMX8_BUILD_32BIT_ROOTFS := false
+IMX8_BUILD_32BIT_ROOTFS ?= false
 
 ifneq ($(PRODUCT_IMX_CAR),true)
 # Set permission for GMS packages

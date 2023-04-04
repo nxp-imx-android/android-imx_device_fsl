@@ -60,7 +60,7 @@ PRODUCT_COPY_FILES += \
 # -------@block_app-------
 
 #Enable this to choose 32 bit user space build
-IMX8_BUILD_32BIT_ROOTFS := false
+IMX8_BUILD_32BIT_ROOTFS ?= false
 
 # Set permission for GMS packages
 PRODUCT_COPY_FILES += \
