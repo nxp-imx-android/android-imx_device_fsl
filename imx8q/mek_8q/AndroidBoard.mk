@@ -8,6 +8,9 @@ include $(FSL_PROPRIETARY_PATH)/fsl-proprietary/media-profile/media-profile.mk
 ifneq ($(BOARD_OTA_BOOTLOADERIMAGE),)
   INSTALLED_RADIOIMAGE_TARGET += $(PRODUCT_OUT)/bootloader.img
   BOARD_PACK_RADIOIMAGES += bootloader.img
+  ifeq ($(PRODUCT_IMX_DUAL_BOOTLOADER),true)
+    $(shell cp -fp $(BOARD_OTA_BOOTLOADERIMAGE) $(PRODUCT_OUT)/bootloader.img)
+  endif
 endif
 
 -include $(IMX_MEDIA_CODEC_XML_PATH)/mediacodec-profile/mediacodec-profile.mk
