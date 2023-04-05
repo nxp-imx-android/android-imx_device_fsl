@@ -27,6 +27,7 @@ PRODUCT_COMPATIBLE_PROPERTY_OVERRIDE := true
 
 PRODUCT_VENDOR_PROPERTIES += ro.soc.manufacturer=nxp
 PRODUCT_VENDOR_PROPERTIES += ro.soc.model=IMX8MP
+PRODUCT_VENDOR_PROPERTIES += ro.crypto.metadata_init_delete_all_keys.enabled=true
 # -------@block_treble-------
 PRODUCT_FULL_TREBLE_OVERRIDE := true
 
