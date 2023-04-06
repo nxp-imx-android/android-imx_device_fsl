@@ -331,7 +331,6 @@ function flash_android
     product_partition="product"${slot}
     vbmeta_partition="vbmeta"${slot}
     dtbo_partition="dtbo"${slot}
-    super_partition="super"
     vendor_boot_partition="vendor_boot"${slot}
     init_boot_partition="init_boot"${slot}
     gdisk -l ${node} 2>/dev/null | grep -q "dtbo" && support_dtbo=1
@@ -340,37 +339,63 @@ function flash_android
     gdisk -l ${node} 2>/dev/null | grep -q "init_boot" && support_init_boot=1
     gdisk -l ${node} 2>/dev/null | grep -q "system_ext" && has_system_ext_partition=1
 
+    super_partition="super"
+
     if [ ${support_dual_bootloader} -eq 1 ]; then
         bootloader_file=spl-${soc_name}${uboot_feature}.bin
         uboot_proper_file=bootloader-${soc_name}${uboot_feature}.img
-        bootloader_partition="bootloader"${slot}
-        flash_partition ${bootloader_partition} || exit 1
     else
         bootloader_file=u-boot-${soc_name}${uboot_feature}.imx
     fi
 
-    if [ "${support_dtbo}" -eq "1" ] ; then
-        flash_partition ${dtbo_partition} || exit 1
+    if [ "${support_dualslot}" -eq "1" ]; then
+        for slot_iter in ${slot:-_a _b}
+        do
+            boot_partition="boot"${slot}
+            recovery_partition="recovery"${slot}
+            system_partition="system"${slot}
+            system_ext_partition="system_ext"${slot}
+            vendor_partition="vendor"${slot}
+            product_partition="product"${slot}
+            vbmeta_partition="vbmeta"${slot}
+            dtbo_partition="dtbo"${slot}
+            vendor_boot_partition="vendor_boot"${slot}
+            init_boot_partition="init_boot"${slot}
+
+            if [ ${support_dual_bootloader} -eq 1 ]; then
+                bootloader_partition="bootloader"${slot_iter}
+                flash_partition ${bootloader_partition} || exit 1
+            fi
+
+            flash_partition ${boot_partition}  || exit 1
+            flash_partition ${recovery_partition}  || exit 1
+
+            if [ ${support_dynamic_partition} -eq 0 ]; then
+                flash_partition ${system_partition} || exit 1
+                if [ ${has_system_ext_partition} -eq 1 ]; then
+                    flash_partition ${system_ext_partition} || exit 1
+                fi
+                flash_partition ${vendor_partition} || exit 1
+                flash_partition ${product_partition} || exit 1
+            fi
+
+            flash_partition ${vbmeta_partition} || exit 1
+
+            if [ "${support_dtbo}" -eq "1" ] ; then
+                flash_partition ${dtbo_partition} || exit 1
+            fi
+            if [ "${support_vendor_boot}" -eq "1" ] ; then
+                flash_partition ${vendor_boot_partition} || exit 1
+            fi
+            if [ "${support_init_boot}" -eq "1" ] ; then
+                flash_partition ${init_boot_partition} || exit 1
+            fi
+        done
     fi
-    if [ "${support_vendor_boot}" -eq "1" ] ; then
-        flash_partition ${vendor_boot_partition} || exit 1
-    fi
-    if [ "${support_init_boot}" -eq "1" ] ; then
-        flash_partition ${init_boot_partition} || exit 1
-    fi
-    flash_partition ${boot_partition}  || exit 1
-    flash_partition ${recovery_partition}  || exit 1
-    if [ ${support_dynamic_partition} -eq 0 ]; then
-        flash_partition ${system_partition} || exit 1
-        if [ ${has_system_ext_partition} -eq 1 ]; then
-            flash_partition ${system_ext_partition} || exit 1
-        fi
-        flash_partition ${vendor_partition} || exit 1
-        flash_partition ${product_partition} || exit 1
-    else
+
+    if [ ${support_dynamic_partition} -eq 1 ]; then
         flash_partition ${super_partition} || exit 1
     fi
-    flash_partition ${vbmeta_partition} || exit 1
     echo "erase_partition: uboot : ${node}"
     echo "flash_partition: ${bootloader_file} ---> ${node}"
     first_partition_offset=`gdisk -l ${node} | grep ' 1 ' | awk '{print $2}'`
