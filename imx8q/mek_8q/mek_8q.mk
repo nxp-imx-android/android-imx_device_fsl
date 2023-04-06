@@ -3,6 +3,9 @@ CONFIG_REPO_PATH := device/nxp
 CURRENT_FILE_PATH :=  $(lastword $(MAKEFILE_LIST))
 IMX_DEVICE_PATH := $(strip $(patsubst %/, %, $(dir $(CURRENT_FILE_PATH))))
 
+#Enable this to choose 32 bit user space build
+IMX8_BUILD_32BIT_ROOTFS ?= false
+
 # configs shared between uboot, kernel and Android rootfs
 include $(IMX_DEVICE_PATH)/SharedBoardConfig.mk
 
@@ -74,9 +77,6 @@ endif
 endif
 
 # -------@block_app-------
-#Enable this to choose 32 bit user space build
-IMX8_BUILD_32BIT_ROOTFS ?= false
-
 ifneq ($(PRODUCT_IMX_CAR),true)
 # Set permission for GMS packages
 PRODUCT_COPY_FILES += \

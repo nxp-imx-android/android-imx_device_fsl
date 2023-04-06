@@ -5,6 +5,8 @@ CURRENT_FILE_PATH :=  $(lastword $(MAKEFILE_LIST))
 IMX_DEVICE_PATH := $(strip $(patsubst %/, %, $(dir $(CURRENT_FILE_PATH))))
 
 PRODUCT_ENFORCE_ARTIFACT_PATH_REQUIREMENTS := true
+#Enable this to choose 32 bit user space build
+IMX8_BUILD_32BIT_ROOTFS ?= false
 
 # configs shared between uboot, kernel and Android rootfs
 include $(IMX_DEVICE_PATH)/SharedBoardConfig.mk
@@ -61,9 +63,6 @@ PRODUCT_COPY_FILES += \
     $(IMX_DEVICE_PATH)/task_profiles.json:$(TARGET_COPY_OUT_VENDOR)/etc/task_profiles.json
 
 # -------@block_app-------
-
-#Enable this to choose 32 bit user space build
-IMX8_BUILD_32BIT_ROOTFS ?= false
 
 # Set permission for GMS packages
 PRODUCT_COPY_FILES += \
