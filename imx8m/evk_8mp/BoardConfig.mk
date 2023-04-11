@@ -202,6 +202,28 @@ ifeq ($(TARGET_USE_DYNAMIC_PARTITIONS),true)
     #Used to support powersave and mcu image
     TARGET_BOARD_DTS_CONFIG += imx8mp-powersave-non-rpmsg:imx8mp-evk-powersave-non-rpmsg.dtb
     endif
+    # Default dual os08a20 on revb4
+    TARGET_BOARD_DTS_CONFIG += imx8mp-revb4:imx8mp-evk-revb4-dual-os08a20.dtb
+    # os08a20 + ov5640 on revb4
+    TARGET_BOARD_DTS_CONFIG += imx8mp-os08a20-ov5640-revb4:imx8mp-evk-revb4-os08a20-ov5640.dtb
+    # Only os08a20 on revb4
+    TARGET_BOARD_DTS_CONFIG += imx8mp-os08a20-revb4:imx8mp-evk-revb4-os08a20.dtb
+    # Dual basler on revb4
+    TARGET_BOARD_DTS_CONFIG += imx8mp-dual-basler-revb4:imx8mp-evk-revb4-dual-basler.dtb
+    # basler + ov5640 on revb4
+    TARGET_BOARD_DTS_CONFIG += imx8mp-basler-ov5640-revb4:imx8mp-evk-revb4-basler-ov5640.dtb
+    # Only basler on revb4
+    TARGET_BOARD_DTS_CONFIG += imx8mp-basler-revb4:imx8mp-evk-revb4-basler.dtb
+    # Only ov5640 on revb4
+    TARGET_BOARD_DTS_CONFIG += imx8mp-ov5640-revb4:imx8mp-evk-revb4.dtb
+    # Support LVDS interface on revb4
+    TARGET_BOARD_DTS_CONFIG += imx8mp-lvds-revb4:imx8mp-evk-revb4-it6263-lvds-dual-channel.dtb
+    # Support LVDS panel on revb4
+    TARGET_BOARD_DTS_CONFIG += imx8mp-lvds-panel-revb4:imx8mp-evk-revb4-jdi-wuxga-lvds-panel.dtb
+    # Support rm67199 MIPI panel on revb4
+    TARGET_BOARD_DTS_CONFIG += imx8mp-mipi-panel-revb4:imx8mp-evk-revb4-rm67199.dtb
+    # Support rm67191 MIPI panel on revb4
+    TARGET_BOARD_DTS_CONFIG += imx8mp-mipi-panel-rm67191-revb4:imx8mp-evk-revb4-rm67191.dtb
   endif
 else # no dynamic parition feature
   ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
