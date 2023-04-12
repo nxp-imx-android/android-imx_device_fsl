@@ -127,6 +127,7 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/usb/cdns3/cdns3-imx.ko \
     $(KERNEL_OUT)/drivers/usb/cdns3/cdns3.ko \
     $(KERNEL_OUT)/drivers/dma-buf/heaps/system_heap.ko \
+    $(KERNEL_OUT)/drivers/dma-buf/heaps/dsp_heap.ko \
     $(KERNEL_OUT)/drivers/dma-buf/heaps/cma_heap.ko \
     $(KERNEL_OUT)/drivers/dma-buf/dma-buf-imx.ko \
     $(KERNEL_OUT)/drivers/dma/mxs-dma.ko \
@@ -200,7 +201,6 @@ BOARD_VENDOR_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/mtd/nand/raw/gpmi-nand/gpmi-nand.ko \
     $(KERNEL_OUT)/drivers/perf/fsl_imx8_ddr_perf.ko \
     $(KERNEL_OUT)/drivers/iio/adc/imx8qxp-adc.ko \
-    $(KERNEL_OUT)/drivers/net/can/dev/can-dev.ko \
     $(KERNEL_OUT)/drivers/net/can/flexcan/flexcan.ko \
     $(KERNEL_OUT)/drivers/watchdog/imx_sc_wdt.ko \
     $(KERNEL_OUT)/drivers/rtc/rtc-imx-sc.ko \
