@@ -116,6 +116,7 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/mmc/host/cqhci.ko \
     $(KERNEL_OUT)/drivers/mmc/host/sdhci-esdhc-imx.ko \
     $(KERNEL_OUT)/lib/stmp_device.ko \
+    $(KERNEL_OUT)/drivers/remoteproc/imx_rproc.ko
     $(KERNEL_OUT)/drivers/usb/typec/mux/gpio-switch.ko \
     $(KERNEL_OUT)/drivers/usb/phy/phy-mxs-usb.ko \
     $(KERNEL_OUT)/drivers/usb/chipidea/usbmisc_imx.ko \
@@ -190,7 +191,6 @@ BOARD_VENDOR_KERNEL_MODULES += \
     $(KERNEL_OUT)/sound/soc/generic/snd-soc-simple-card-utils.ko \
     $(KERNEL_OUT)/sound/soc/generic/snd-soc-simple-card.ko \
     $(KERNEL_OUT)/drivers/remoteproc/imx_dsp_rproc.ko \
-    $(KERNEL_OUT)/drivers/remoteproc/imx_rproc.ko \
     $(KERNEL_OUT)/drivers/phy/freescale/phy-fsl-imx8q-pcie.ko \
     $(KERNEL_OUT)/drivers/pci/controller/dwc/pci-imx6.ko \
     $(KERNEL_OUT)/drivers/net/phy/at803x.ko \
