@@ -147,12 +147,17 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/gpu/drm/bridge/fsl-imx-ldb.ko \
     $(KERNEL_OUT)/drivers/gpu/drm/imx/imx8qxp-ldb.ko \
     $(KERNEL_OUT)/drivers/gpu/drm/imx/imx8qm-ldb.ko \
+    $(KERNEL_OUT)/drivers/gpu/drm/display/drm_display_helper.ko \
+    $(KERNEL_OUT)/drivers/gpu/drm/bridge/cadence/cdns_mhdp_drmcore.ko \
+    $(KERNEL_OUT)/drivers/gpu/drm/imx/mhdp/cdns_mhdp_imx.ko \
     $(KERNEL_OUT)/drivers/gpu/drm/bridge/it6263.ko \
     $(KERNEL_OUT)/drivers/phy/freescale/phy-fsl-imx8-mipi-dphy.ko \
     $(KERNEL_OUT)/drivers/mux/mux-core.ko \
     $(KERNEL_OUT)/drivers/mux/mux-mmio.ko \
     $(KERNEL_OUT)/drivers/gpu/drm/bridge/nwl-dsi.ko \
     $(KERNEL_OUT)/drivers/gpu/drm/bridge/adv7511/adv7511.ko \
+    $(KERNEL_OUT)/drivers/gpu/drm/panel/panel-simple.ko \
+    $(KERNEL_OUT)/drivers/gpu/drm/panel/panel-raydium-rm67191.ko \
     $(KERNEL_OUT)/drivers/media/v4l2-core/v4l2-async.ko \
     $(KERNEL_OUT)/drivers/media/v4l2-core/v4l2-fwnode.ko \
     $(KERNEL_OUT)/drivers/media/i2c/ov5640.ko \
@@ -190,6 +195,10 @@ BOARD_VENDOR_KERNEL_MODULES += \
     $(KERNEL_OUT)/sound/soc/fsl/snd-soc-imx-audmix.ko \
     $(KERNEL_OUT)/sound/soc/generic/snd-soc-simple-card-utils.ko \
     $(KERNEL_OUT)/sound/soc/generic/snd-soc-simple-card.ko \
+    $(KERNEL_OUT)/sound/soc/codecs/snd-soc-hdmi-codec.ko \
+    $(KERNEL_OUT)/sound/soc/fsl/snd-soc-imx-hdmi.ko \
+    $(KERNEL_OUT)/sound/soc/fsl/snd-soc-fsl-spdif.ko \
+    $(KERNEL_OUT)/sound/soc/fsl/snd-soc-imx-spdif.ko \
     $(KERNEL_OUT)/drivers/remoteproc/imx_dsp_rproc.ko \
     $(KERNEL_OUT)/drivers/phy/freescale/phy-fsl-imx8q-pcie.ko \
     $(KERNEL_OUT)/drivers/pci/controller/dwc/pci-imx6.ko \
