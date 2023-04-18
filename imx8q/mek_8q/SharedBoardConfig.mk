@@ -116,7 +116,7 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/mmc/host/cqhci.ko \
     $(KERNEL_OUT)/drivers/mmc/host/sdhci-esdhc-imx.ko \
     $(KERNEL_OUT)/lib/stmp_device.ko \
-    $(KERNEL_OUT)/drivers/remoteproc/imx_rproc.ko
+    $(KERNEL_OUT)/drivers/remoteproc/imx_rproc.ko \
     $(KERNEL_OUT)/drivers/usb/typec/mux/gpio-switch.ko \
     $(KERNEL_OUT)/drivers/usb/phy/phy-mxs-usb.ko \
     $(KERNEL_OUT)/drivers/usb/chipidea/usbmisc_imx.ko \
