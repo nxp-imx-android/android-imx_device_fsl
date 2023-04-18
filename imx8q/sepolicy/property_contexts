@@ -8,7 +8,6 @@ vendor.display.state                u:object_r:vendor_public_default_prop:s0
 ro.boot.vendor.sysrq                u:object_r:vendor_public_default_prop:s0
 vendor.all.early_init.ready         u:object_r:vendor_public_default_prop:s0
 vendor.all.car                      u:object_r:vendor_public_default_prop:s0
-vendor.all.setup_core.ready         u:object_r:vendor_public_default_prop:s0
 vendor.all.setup_main.ready         u:object_r:vendor_public_default_prop:s0
 vendor.all.zygote_auto.ready        u:object_r:vendor_public_default_prop:s0
 vendor.sys.hwc.disable              u:object_r:vendor_public_default_prop:s0

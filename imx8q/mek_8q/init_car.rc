@@ -108,9 +108,6 @@ on boot
     # Trigger start evs_driver service
     start evs_driver
 
-on property:vendor.all.setup_core.ready=1 && property:ro.product.system.device=mek_8q
-    start boot_completed_main_sh
-
 service wpa_supplicant /vendor/bin/hw/wpa_supplicant \
     -O/data/vendor/wifi/wpa/sockets -puse_p2p_group_interface=1 \
     -g@android:wpa_wlan0
@@ -142,13 +139,6 @@ service bugreport /system/bin/dumpstate -d -p -z
     keycodes 114 115 116
 
 service early_init_sh /vendor/bin/init.insmod.sh /vendor/etc/early.init.cfg vendor.all.early_init.ready
-    class main
-    user root
-    group root system
-    disabled
-    oneshot
-
-service boot_completed_core_sh /vendor/bin/init.insmod.sh /vendor/etc/setup.core.cfg vendor.all.setup_core.ready
     class main
     user root
     group root system
