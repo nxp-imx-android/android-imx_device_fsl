@@ -147,7 +147,7 @@ BOARD_BOOTCONFIG += androidboot.fbTileSupport=enable
 BOARD_KERNEL_CMDLINE += cma=928M@0x960M-0xfc0M transparent_hugepage=never
 
 # display config
-BOARD_BOOTCONFIG += androidboot.lcd_density=240 androidboot.primary_display=imx-drm
+BOARD_BOOTCONFIG += androidboot.lcd_density=200 androidboot.primary_display=imx-drm
 
 # wifi config
 BOARD_BOOTCONFIG += androidboot.wificountrycode=CN
