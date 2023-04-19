@@ -393,6 +393,8 @@ struct v4l2_pix_format {
 #define V4L2_PIX_FMT_H264_SLICE v4l2_fourcc('S', '2', '6', '4')
 #define V4L2_PIX_FMT_HEVC_SLICE v4l2_fourcc('S', '2', '6', '5')
 #define V4L2_PIX_FMT_SPK v4l2_fourcc('S', 'P', 'K', '0')
+#define V4L2_PIX_FMT_RV30 v4l2_fourcc('R', 'V', '3', '0')
+#define V4L2_PIX_FMT_RV40 v4l2_fourcc('R', 'V', '4', '0')
 #define V4L2_PIX_FMT_CPIA1 v4l2_fourcc('C', 'P', 'I', 'A')
 #define V4L2_PIX_FMT_WNVA v4l2_fourcc('W', 'N', 'V', 'A')
 #define V4L2_PIX_FMT_SN9C10X v4l2_fourcc('S', '9', '1', '0')
