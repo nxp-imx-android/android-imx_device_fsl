@@ -186,6 +186,7 @@ ifeq ($(TARGET_USE_DYNAMIC_PARTITIONS),true)
     TARGET_BOARD_DTS_CONFIG += imx8mp-rpmsg:imx8mp-evk-hifiberry-dacpp-m-rpmsg.dtb
     else
     TARGET_BOARD_DTS_CONFIG += imx8mp-rpmsg:imx8mp-evk-rpmsg.dtb
+    TARGET_BOARD_DTS_CONFIG += imx8mp-rpmsg-revb4:imx8mp-evk-revb4-rpmsg.dtb
     endif
     # Support LVDS interface
     TARGET_BOARD_DTS_CONFIG += imx8mp-lvds:imx8mp-evk-it6263-lvds-dual-channel.dtb
@@ -197,11 +198,15 @@ ifeq ($(TARGET_USE_DYNAMIC_PARTITIONS),true)
     TARGET_BOARD_DTS_CONFIG += imx8mp-mipi-panel-rm67191:imx8mp-evk-rm67191.dtb
     # Support sof
     TARGET_BOARD_DTS_CONFIG += imx8mp-sof:imx8mp-evk-sof-wm8960.dtb
+    # Support sof on revb4
+    TARGET_BOARD_DTS_CONFIG += imx8mp-sof-revb4:imx8mp-evk-revb4-sof-wm8962.dtb
     ifeq ($(POWERSAVE),true)
     #Used to support powersave
     TARGET_BOARD_DTS_CONFIG += imx8mp-powersave:imx8mp-evk-powersave.dtb
+    TARGET_BOARD_DTS_CONFIG += imx8mp-powersave-revb4:imx8mp-evk-revb4-powersave.dtb
     #Used to support powersave and mcu image
     TARGET_BOARD_DTS_CONFIG += imx8mp-powersave-non-rpmsg:imx8mp-evk-powersave-non-rpmsg.dtb
+    TARGET_BOARD_DTS_CONFIG += imx8mp-powersave-non-rpmsg-revb4:imx8mp-evk-revb4-powersave-non-rpmsg.dtb
     endif
     # Default dual os08a20 on revb4
     TARGET_BOARD_DTS_CONFIG += imx8mp-revb4:imx8mp-evk-revb4-dual-os08a20.dtb
