@@ -26,10 +26,6 @@
                         <context context="voice_command"/>
                         <context context="call_ring"/>
                         <context context="call"/>
-                    </device>
-                </group>
-                <group>
-                    <device address="bus1_system_sound_out">
                         <context context="alarm"/>
                         <context context="notification"/>
                         <context context="system_sound"/>
