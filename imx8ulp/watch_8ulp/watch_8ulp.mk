@@ -242,7 +242,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 #DRM Clearkey 1.4 L3 support
 PRODUCT_PACKAGES += \
-    android.hardware.drm@1.4-service.clearkey
+    android.hardware.drm-service.clearkey
 
 # -------@block_audio-------
 
