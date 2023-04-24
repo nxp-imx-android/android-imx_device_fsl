@@ -1,5 +1,5 @@
 {
-  "driver_name": "imx-audio-micfi",
+  "driver_name": "micfil-audio",
   "supported_in_devices": ["builtin_mic"],
 
   "init_ctl": [
