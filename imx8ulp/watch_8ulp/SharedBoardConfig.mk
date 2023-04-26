@@ -3,7 +3,7 @@
 KERNEL_NAME := Image.lz4
 TARGET_KERNEL_ARCH := arm64
 
-IMX8ULP_USES_GKI := false
+IMX8ULP_USES_GKI := true
 
 # -------@block_memory-------
 #Enable this to config 1GB ddr on evk_imx8ulp
@@ -122,11 +122,12 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/input/touchscreen/goodix_ts.ko \
     $(KERNEL_OUT)/drivers/input/touchscreen/elants_i2c.ko\
     $(KERNEL_OUT)/drivers/phy/freescale/phy-fsl-imx8-mipi-dphy.ko \
+    $(KERNEL_OUT)/drivers/gpu/drm/drm_dma_helper.ko \
     $(KERNEL_OUT)/drivers/gpu/drm/bridge/nwl-dsi.ko \
     $(KERNEL_OUT)/drivers/gpu/drm/bridge/it6161.ko \
     $(KERNEL_OUT)/drivers/gpu/drm/imx/dcnano/imx-dcnano-drm.ko \
     $(KERNEL_OUT)/drivers/gpu/drm/panel/panel-rocktech-hx8394f.ko \
-    $(KERNEL_OUT)/drivers/gpu/drm/panel/panel-usmp-rm67162.ko \
+    $(KERNEL_OUT)/drivers/gpu/drm/panel/panel-nxp-rm67162.ko \
     $(KERNEL_OUT)/drivers/media/v4l2-core/v4l2-async.ko \
     $(KERNEL_OUT)/drivers/media/v4l2-core/v4l2-fwnode.ko \
     $(KERNEL_OUT)/drivers/media/i2c/ov5640.ko \
@@ -196,6 +197,7 @@ BOARD_VENDOR_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/video/fbdev/mxc/mxc_edid.ko \
     $(KERNEL_OUT)/sound/soc/codecs/snd-soc-bt-sco.ko \
     $(KERNEL_OUT)/sound/soc/fsl/imx-pcm-dma.ko \
+    $(KERNEL_OUT)/sound/soc/fsl/snd-soc-fsl-utils.ko \
     $(KERNEL_OUT)/sound/soc/fsl/snd-soc-fsl-spdif.ko \
     $(KERNEL_OUT)/sound/soc/fsl/snd-soc-imx-spdif.ko \
     $(KERNEL_OUT)/sound/soc/generic/snd-soc-simple-card-utils.ko \
@@ -208,6 +210,13 @@ BOARD_VENDOR_KERNEL_MODULES += \
     $(KERNEL_OUT)/sound/soc/codecs/snd-soc-rpmsg-wm8960.ko \
     $(KERNEL_OUT)/sound/soc/codecs/snd-soc-rpmsg-wm8960-i2c.ko \
     $(KERNEL_OUT)/drivers/remoteproc/imx_dsp_rproc.ko \
+    $(KERNEL_OUT)/drivers/firmware/imx/imx-dsp.ko \
+    $(KERNEL_OUT)/sound/soc/sof/snd-sof-utils.ko \
+    $(KERNEL_OUT)/sound/soc/sof/snd-sof.ko \
+    $(KERNEL_OUT)/sound/soc/sof/snd-sof-of.ko \
+    $(KERNEL_OUT)/sound/soc/sof/xtensa/snd-sof-xtensa-dsp.ko \
+    $(KERNEL_OUT)/sound/soc/sof/imx/imx-common.ko \
+    $(KERNEL_OUT)/sound/soc/sof/imx/snd-sof-imx8ulp.ko \
     $(KERNEL_OUT)/drivers/input/keyboard/rpmsg-keys.ko \
     $(KERNEL_OUT)/drivers/iio/buffer/kfifo_buf.ko \
     $(KERNEL_OUT)/drivers/iio/imu/st_lsm6dsx/st_lsm6dsx.ko \
