@@ -368,16 +368,16 @@ PRODUCT_COPY_FILES += \
 PRODUCT_SOONG_NAMESPACES += hardware/google/camera
 PRODUCT_SOONG_NAMESPACES += vendor/nxp-opensource/imx/camera
 
+ifneq ($(PRODUCT_IMX_CAR),true)
 # external camera feature demo
 PRODUCT_PACKAGES += \
-     Camera2Basic
-
-PRODUCT_PACKAGES += \
+    Camera2Basic \
     MultiCamera
-
+else
 PRODUCT_PACKAGES += \
-        imx_evs_app \
-        imx_evs_app_default_resources
+    imx_evs_app \
+    imx_evs_app_default_resources
+endif
 
 # -------@block_display-------
 PRODUCT_AAPT_CONFIG += xlarge large tvdpi hdpi xhdpi xxhdpi
