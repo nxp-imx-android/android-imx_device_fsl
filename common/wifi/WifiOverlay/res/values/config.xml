@@ -40,4 +40,8 @@
 
     <!-- True if the firmware supports ap MAC randomization -->
     <bool name="config_wifi_ap_mac_randomization_supported">true</bool>
+
+    <!-- Indicates that WPA3 is supported -->
+    <bool translatable="false" name="config_wifi_softap_sae_supported">true</bool>
+
 </resources>
