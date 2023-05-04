@@ -157,7 +157,7 @@ function uuu_load_uboot
     if [[ ${target_dev} = "emmc" ]]; then
         echo FB: ucmd mmc dev ${target_num} 0 >> /tmp/uuu.lst${randome_part}
     fi
-    echo FB: ucmd mmc erase ${uboot_env_start} ${uboot_env_len} >> /tmp/uuu.lst${randome_part}
+    echo FB: ucmd eraseenv >> /tmp/uuu.lst${randome_part}
 
     if [[ ${target_dev} = "emmc" ]]; then
         echo FB: ucmd mmc partconf ${target_num} 1 1 1 >> /tmp/uuu.lst${randome_part}
@@ -389,8 +389,6 @@ target_dev="emmc"
 RED='\033[0;31m'
 STD='\033[0;0m'
 sdp="SDP"
-uboot_env_start=0
-uboot_env_len=0
 board=""
 imx7ulp_evk_m4_sf_start=0
 imx7ulp_evk_m4_sf_length=256
@@ -591,72 +589,58 @@ clean_tmp_files "0"
 case ${soc_name%%-*} in
     imx8qm)
             vid=0x1fc9; pid=0x0129; chip=MX8QM;
-            uboot_env_start=0x2000; uboot_env_len=0x10;
             emmc_num=0; sd_num=1;
             board=mek ;;
     imx8qxp)
             vid=0x1fc9; pid=0x012f; chip=MX8QXP;
-            uboot_env_start=0x2000; uboot_env_len=0x10;
             emmc_num=0; sd_num=1;
             board=mek ;;
     imx8mq)
             vid=0x1fc9; pid=0x012b; chip=MX8MQ;
-            uboot_env_start=0x2000; uboot_env_len=0x8;
             emmc_num=0; sd_num=1;
             if [ -z "$board" ]; then
                 board=evk;
             fi ;;
     imx8mm)
             vid=0x1fc9; pid=0x0134; chip=MX8MM;
-            uboot_env_start=0x2000; uboot_env_len=0x8;
             emmc_num=2; sd_num=1;
             board=evk ;;
     imx8mn)
             vid=0x1fc9; pid=0x0134; chip=MX8MN;
-            uboot_env_start=0x2000; uboot_env_len=0x8;
             emmc_num=2; sd_num=1;
             board=evk ;;
     imx8mp)
             vid=0x1fc9; pid=0x0146; chip=MX8MP;
-            uboot_env_start=0x2000; uboot_env_len=0x8;
             emmc_num=2; sd_num=1;
             board=evk ;;
     imx8ulp)
             vid=0x1fc9; pid=0x014a; chip=MX8ULP;
-            uboot_env_start=0x2000; uboot_env_len=0x8;
             emmc_num=0; sd_num=2;
             board=evk ;;
     imx93)
             vid=0x1fc9; pid=0x0152; chip=MX93;
-            uboot_env_start=0x2000; uboot_env_len=0x8;
             emmc_num=0; sd_num=1;
             board=evk ;;
     imx7ulp)
             vid=0x1fc9; pid=0x0126; chip=MX7ULP;
-            uboot_env_start=0x700; uboot_env_len=0x10;
             sd_num=0;
             board=evk ;;
     imx7d)
             vid=0x15a2; pid=0x0076; chip=MX7D;
-            uboot_env_start=0x700; uboot_env_len=0x10;
             sd_num=0;
             board=sabresd ;;
     imx6sx)
             vid=0x15a2; pid=0x0071; chip=MX6SX;
-            uboot_env_start=0x700; uboot_env_len=0x10;
             sd_num=2;
             board=sabresd ;;
     imx6dl)
             vid=0x15a2; pid=0x0061; chip=MX6D;
-            uboot_env_start=0x700; uboot_env_len=0x10;
             emmc_num=2; sd_num=1 ;;
     imx6q)
             vid=0x15a2; pid=0x0054; chip=MX6Q;
-            uboot_env_start=0x700; uboot_env_len=0x10;
             emmc_num=2; sd_num=1 ;;
     imx6qp)
             vid=0x15a2; pid=0x0054; chip=MX6Q;
-            uboot_env_start=0x700; uboot_env_len=0x10;
             emmc_num=2; sd_num=1 ;;
     *)
 
