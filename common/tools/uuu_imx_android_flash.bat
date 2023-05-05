@@ -56,6 +56,8 @@ set image_directory=
 
 set target_dev=emmc
 set sdp=SDP
+set /A uboot_env_start=0
+set /A uboot_env_len=0
 set board=
 set imx7ulp_evk_m4_sf_start_byte=0
 set imx7ulp_evk_m4_sf_length_byte=0x20000
@@ -234,18 +236,21 @@ del %tmp_dir%partition-table_3.txt
 :: get device and board specific parameter, for now, this step can't make sure the soc_name is definitely correct
 if not [%soc_name:imx8qm=%] == [%soc_name%] (
     set vid=0x1fc9& set pid=0x0129& set chip=MX8QM
+    set uboot_env_start=0x3800& set uboot_env_len=0x10
     set emmc_num=0& set sd_num=1
     set board=mek
     goto :device_info_end
 )
 if not [%soc_name:imx8qxp=%] == [%soc_name%] (
     set vid=0x1fc9& set pid=0x012f& set chip=MX8QXP
+    set uboot_env_start=0x3800& set uboot_env_len=0x10
     set emmc_num=0& set sd_num=1
     set board=mek
     goto :device_info_end
 )
 if not [%soc_name:imx8mq=%] == [%soc_name%] (
     set vid=0x1fc9& set pid=0x012b& set chip=MX8MQ
+    set uboot_env_start=0x3800& set uboot_env_len=0x20
     set emmc_num=0& set sd_num=1
     if [%board%] == [] (
         set board=evk
@@ -254,36 +259,42 @@ if not [%soc_name:imx8mq=%] == [%soc_name%] (
 )
 if not [%soc_name:imx8mm=%] == [%soc_name%] (
     set vid=0x1fc9& set pid=00x0134& set chip=MX8MM
+    set uboot_env_start=0x3800& set uboot_env_len=0x20
     set emmc_num=2& set sd_num=1
     set board=evk
     goto :device_info_end
 )
 if not [%soc_name:imx8mn=%] == [%soc_name%] (
     set vid=0x1fc9& set pid=00x013e& set chip=MX8MN
+    set uboot_env_start=0x3800& set uboot_env_len=0x20
     set emmc_num=2& set sd_num=1
     set board=evk
     goto :device_info_end
 )
 if not [%soc_name:imx8mp=%] == [%soc_name%] (
     set vid=0x1fc9& set pid=00x0146& set chip=MX8MP
+    set uboot_env_start=0x3800& set uboot_env_len=0x20
     set emmc_num=2& set sd_num=1
     set board=evk
     goto :device_info_end
 )
 if not [%soc_name:imx8ulp=%] == [%soc_name%] (
     set vid=0x1fc9& set pid=00x014a& set chip=MX8ULP
+    set uboot_env_start=0x3800& set uboot_env_len=0x10
     set emmc_num=0& set sd_num=2
     set board=evk
     goto :device_info_end
 )
 if not [%soc_name:imx93=%] == [%soc_name%] (
     set vid=0x1fc9& set pid=00x0152& set chip=MX93
+    set uboot_env_start=0x3800& set uboot_env_len=0x20
     set emmc_num=0& set sd_num=1
     set board=evk
     goto :device_info_end
 )
 if not [%soc_name:imx7ulp=%] == [%soc_name%] (
     set vid=0x1fc9& set pid=0x0126& set chip=MX7ULP
+    set uboot_env_start=0x700& set uboot_env_len=0x10
     set sd_num=0
     set board=evk
     if [%target_dev%] == [emmc] (
@@ -293,6 +304,7 @@ if not [%soc_name:imx7ulp=%] == [%soc_name%] (
 )
 if not [%soc_name:imx7d=%] == [%soc_name%] (
     set vid=0x15a2& set pid=0x0076& set chip=MX7D
+    set uboot_env_start=0x700& set uboot_env_len=0x10
     set sd_num=0
     set board=sabresd
     if [%target_dev%] == [emmc] (
@@ -302,6 +314,7 @@ if not [%soc_name:imx7d=%] == [%soc_name%] (
 )
 if not [%soc_name:imx6sx=%] == [%soc_name%] (
     set vid=0x15a2& set pid=0x0071& set chip=MX6SX
+    set uboot_env_start=0x700& set uboot_env_len=0x10
     set sd_num=2
     set board=sabresd
     if [%target_dev%] == [emmc] (
@@ -311,6 +324,7 @@ if not [%soc_name:imx6sx=%] == [%soc_name%] (
 )
 if not [%soc_name:imx6dl=%] == [%soc_name%] (
     set vid=0x15a2& set pid=0x0061& set chip=MX6DL
+    set uboot_env_start=0x700& set uboot_env_len=0x10
     set emmc_num=2& set sd_num=1
     call :board_info_test
     if [%target_dev%] == [emmc] (
@@ -320,6 +334,7 @@ if not [%soc_name:imx6dl=%] == [%soc_name%] (
 )
 if not [%soc_name:imx6q=%] == [%soc_name%] (
     set vid=0x15a2& set pid=0x0054& set chip=MX6Q
+    set uboot_env_start=0x700& set uboot_env_len=0x10
     set emmc_num=2& set sd_num=1
     call :board_info_test
     if [%target_dev%] == [emmc] (
@@ -692,7 +707,7 @@ echo FB: ucmd mmc dev %target_num% >> %tmp_dir%uuu.lst
 if [%target_dev%] == [emmc] (
     echo FB: ucmd mmc dev %target_num% 0 >> %tmp_dir%uuu.lst
 )
-echo FB: ucmd eraseenv >> %tmp_dir%uuu.lst
+echo FB: ucmd mmc erase %uboot_env_start% %uboot_env_len% >> %tmp_dir%uuu.lst
 if [%target_dev%] == [emmc] (
     echo FB: ucmd mmc partconf %target_num% 1 1 1 >> %tmp_dir%uuu.lst
 )
