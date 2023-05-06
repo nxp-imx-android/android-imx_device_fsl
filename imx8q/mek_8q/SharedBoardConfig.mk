@@ -112,6 +112,10 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/iio/gyro/fxas21002c_i2c.ko \
     $(KERNEL_OUT)/drivers/iio/imu/fxos8700_core.ko \
     $(KERNEL_OUT)/drivers/iio/imu/fxos8700_i2c.ko \
+    $(KERNEL_OUT)/drivers/iio/industrialio-configfs.ko \
+    $(KERNEL_OUT)/drivers/iio/industrialio-sw-trigger.ko \
+    $(KERNEL_OUT)/drivers/iio/trigger/iio-trig-hrtimer.ko \
+    $(KERNEL_OUT)/drivers/iio/trigger/iio-trig-sysfs.ko \
     $(KERNEL_OUT)/drivers/soc/imx/busfreq-imx8mq.ko \
     $(KERNEL_OUT)/drivers/mmc/host/cqhci.ko \
     $(KERNEL_OUT)/drivers/mmc/host/sdhci-esdhc-imx.ko \
