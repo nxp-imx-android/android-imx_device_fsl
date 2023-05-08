@@ -114,6 +114,12 @@ KERNEL_OUT ?= $(OUT_DIR)/target/product/$(PRODUCT_DEVICE)/obj/KERNEL_OBJ
 
 TARGET_BOARD_KERNEL_HEADERS := $(CONFIG_REPO_PATH)/common/kernel-headers
 
+TARGET_IMX_KERNEL ?= false
+ifeq ($(TARGET_IMX_KERNEL),false)
+BOARD_PREBUILT_BOOTIMAGE := vendor/nxp/fsl-proprietary/gki/boot_8q.img
+TARGET_NO_KERNEL := true
+endif
+
 # -------@block_app-------
 # Enable dex-preoptimization to speed up first boot sequence
 ifeq ($(HOST_OS),linux)
@@ -168,7 +174,7 @@ TARGET_COPY_OUT_VENDOR_DLKM := vendor_dlkm
 BOARD_USES_SYSTEM_DLKMIMAGE := true
 BOARD_SYSTEM_DLKMIMAGE_FILE_SYSTEM_TYPE := erofs
 TARGET_COPY_OUT_SYSTEM_DLKM := system_dlkm
-BOARD_SYSTEM_DLKM_SRC := vendor/nxp/fsl-proprietary/gki/system_dlkm_staging
+BOARD_SYSTEM_DLKM_SRC := vendor/nxp/fsl-proprietary/gki/system_dlkm_staging_8q
 
 BOARD_FLASH_BLOCK_SIZE := 4096
 
