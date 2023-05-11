@@ -128,10 +128,11 @@ function whether_in_array
 
 function uuu_load_uboot
 {
-
-    while [ -f /tmp/uuu.lst${randome_part} ]; do
-        randome_part=$RANDOM
-    done
+    if [ ${dryrun} -eq 0 ]; then
+        while [ -f /tmp/uuu.lst${randome_part} ]; do
+            randome_part=$RANDOM
+        done
+    fi
 
     echo uuu_version 1.4.182 > /tmp/uuu.lst${randome_part}
     tmp_files_in_uuu+=(uuu.lst${randome_part})
@@ -446,7 +447,7 @@ daemon_mode=0
 dryrun=0
 result_value=0
 usb_paths=""
-randome_part=0
+randome_part=
 
 # We want to detect illegal feature input to some extent. Here it's based on SoC names. Since an SoC may be on a
 # board running different set of images(android and automative for a example), so misuse the features of one set of
@@ -580,11 +581,12 @@ else
     fi
 fi
 
-
-randome_part=$RANDOM
-while [ -f /tmp/partition-table_1.txt${randome_part} ]; do
+if [ ${dryrun} -eq 0 ]; then
     randome_part=$RANDOM
-done
+    while [ -f /tmp/partition-table_1.txt${randome_part} ]; do
+        randome_part=$RANDOM
+    done
+fi
 
 # dump the partition table image file into text file and check whether some partition names are in it
 hexdump -C -v "${image_directory}"${partition_file} > /tmp/partition-table_1.txt${randome_part}
