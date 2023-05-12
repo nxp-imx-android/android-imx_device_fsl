@@ -167,7 +167,7 @@ PRODUCT_PACKAGES += \
 # Confirmation UI
 ifeq ($(PRODUCT_IMX_TRUSTY),true)
 PRODUCT_PACKAGES += \
-    android.hardware.confirmationui@1.0-service.trusty
+    android.hardware.confirmationui-service.trusty
 endif
 
 #DRM Clearkey aidl version 1 support
