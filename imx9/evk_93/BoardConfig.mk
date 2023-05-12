@@ -115,7 +115,6 @@ BOARD_VENDOR_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/staging/media/imx/imx8-media-dev.ko \
     $(KERNEL_OUT)/drivers/firmware/imx/el_enclave.ko \
     $(KERNEL_OUT)/drivers/nvmem/nvmem-imx-ocotp-fsb-s400.ko \
-    $(KERNEL_OUT)/drivers/soc/imx/soc-imx8m.ko
 
 # NXP 8987 wifi driver module
 BOARD_VENDOR_KERNEL_MODULES += \
