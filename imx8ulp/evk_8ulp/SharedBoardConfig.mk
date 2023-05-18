@@ -89,6 +89,7 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/i2c/busses/i2c-imx-lpi2c.ko \
     $(KERNEL_OUT)/drivers/i2c/busses/i2c-rpmsg-imx.ko \
     $(KERNEL_OUT)/drivers/i2c/busses/i2c-flexio.ko \
+    $(KERNEL_OUT)/drivers/gpu/drm/imx/display-imx-rpmsg.ko \
     $(KERNEL_OUT)/drivers/i2c/i2c-dev.ko \
     $(KERNEL_OUT)/drivers/gpio/gpio-pca953x.ko \
     $(KERNEL_OUT)/drivers/gpio/gpio-vf610.ko \
