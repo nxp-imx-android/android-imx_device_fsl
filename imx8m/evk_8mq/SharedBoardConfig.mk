@@ -34,6 +34,10 @@ BOARD_VENDOR_KERNEL_MODULES += \
 
 ifeq ($(IMX8MQ_USES_GKI),true)
 BOARD_VENDOR_KERNEL_MODULES += \
+    $(KERNEL_OUT)/mm/zsmalloc.ko \
+    $(KERNEL_OUT)/drivers/block/zram/zram.ko \
+    $(KERNEL_OUT)/net/wireless/cfg80211.ko \
+    $(KERNEL_OUT)/net/mac80211/mac80211.ko \
     $(KERNEL_OUT)/drivers/mxc/gpu-viv/galcore.ko \
     $(KERNEL_OUT)/drivers/thermal/qoriq_thermal.ko \
     $(KERNEL_OUT)/drivers/media/platform/imx8/mxc-mipi-csi2_yav.ko \
