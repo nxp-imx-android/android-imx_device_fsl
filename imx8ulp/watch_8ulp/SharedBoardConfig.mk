@@ -187,6 +187,10 @@ endif
 # CONFIG_FEC: fec.ko
 ifeq ($(IMX8ULP_USES_GKI),true)
 BOARD_VENDOR_KERNEL_MODULES += \
+    $(KERNEL_OUT)/mm/zsmalloc.ko \
+    $(KERNEL_OUT)/drivers/block/zram/zram.ko \
+    $(KERNEL_OUT)/net/wireless/cfg80211.ko \
+    $(KERNEL_OUT)/net/mac80211/mac80211.ko \
     $(KERNEL_OUT)/drivers/mxc/gpu-viv/galcore.ko \
     $(KERNEL_OUT)/drivers/mfd/fp9931-core.ko \
     $(KERNEL_OUT)/drivers/regulator/fp9931-regulator.ko \
