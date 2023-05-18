@@ -49,6 +49,7 @@ set init_boot_partition=init_boot
 set mcu_os_partition=mcu_os
 set super_partition=super
 set /A flash_mcu=0
+set /A flash_mcu_only=0
 set /A statisc=0
 set /A erase=0
 set /A has_system_ext_partition=0
@@ -87,7 +88,7 @@ set usb_paths=
 set imx8mm_uboot_feature=dual trusty-dual 4g-evk-uuu 4g ddr4-evk-uuu ddr4 evk-uuu trusty-secure-unlock-dual
 set imx8mn_uboot_feature=dual trusty-dual evk-uuu trusty-secure-unlock-dual ddr4-evk-uuu ddr4
 set imx8mp_uboot_feature=dual trusty-dual evk-uuu trusty-secure-unlock-dual powersave trusty-powersave-dual
-set imx8ulp_uboot_feature=dual trusty-dual evk-uuu trusty-secure-unlock-dual 9x9-evk-uuu 9x9 trusty-9x9-dual trusty-lpa-dual
+set imx8ulp_uboot_feature=dual trusty-dual trusty-dualboot-dual evk-uuu trusty-secure-unlock-dual 9x9-evk-uuu 9x9 trusty-9x9-dual trusty-lpa-dual
 set imx8mq_uboot_feature=dual trusty-dual evk-uuu trusty-secure-unlock-dual
 set imx8qxp_uboot_feature=dual trusty-dual mek-uuu trusty-secure-unlock-dual secure-unlock c0 c0-dual trusty-c0-dual mek-c0-uuu
 set imx8qm_uboot_feature=dual trusty-dual mek-uuu trusty-secure-unlock-dual secure-unlock md hdmi xen
@@ -100,7 +101,7 @@ set imx8mp_dtb_feature=rpmsg lvds-panel lvds mipi-panel mipi-panel-rm67191 basle
 set imx8mq_dtb_feature=dual mipi-panel mipi-panel-rm67191 mipi
 set imx8qxp_dtb_feature=sof
 set imx8qm_dtb_feature=hdmi hdmi-rx mipi-panel mipi-panel-rm67191 md xen esai sof
-set imx8ulp_dtb_feature=hdmi epdc 9x9 9x9-hdmi sof lpa
+set imx8ulp_dtb_feature=hdmi epdc 9x9 9x9-hdmi sof lpa lpd
 set imx93_dtb_feature=
 set imx7ulp_dtb_feature=evk-mipi evk mipi
 
@@ -125,6 +126,7 @@ if %1 == -d set dtb_feature=%2& shift & shift & goto :parse_loop
 if %1 == -a set slot=_a& shift & goto :parse_loop
 if %1 == -b set slot=_b& shift & goto :parse_loop
 if %1 == -m set /A flash_mcu=1 & shift & goto :parse_loop
+if %1 == -mo set /A flash_mcu_only=1 & shift & goto :parse_loop
 if %1 == -e set /A erase=1 & shift & goto :parse_loop
 if %1 == -D set image_directory=%2& shift & shift & goto :parse_loop
 if %1 == -t set target_dev=%2&shift &shift & goto :parse_loop
@@ -575,7 +577,7 @@ echo                           ©¦   imx8mn       ©¦  dual trusty-dual evk-uuu tr
 echo                           ©À©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©à©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©È
 echo                           ©¦   imx8mp       ©¦  dual trusty-dual evk-uuu trusty-secure-unlock-dual powersave trusty-powersave-dual                  ©¦
 echo                           ©À©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©à©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©È
-echo                           ©¦   imx8ulp      ©¦  dual trusty-dual evk-uuu trusty-secure-unlock-dual 9x9-evk-uuu 9x9 trusty-9x9-dual trusty-lpa-dual  ©¦
+echo                           ©¦   imx8ulp      ©¦  dual trusty-dual trusty-dualboot-dual evk-uuu trusty-secure-unlock-dual 9x9-evk-uuu 9x9 trusty-9x9-dual trusty-lpa-dual  ©¦
 echo                           ©À©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©à©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©È
 echo                           ©¦   imx8mq       ©¦  dual trusty-dual evk-uuu trusty-secure-unlock-dual                                                  ©¦
 echo                           ©À©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©à©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©È
@@ -611,7 +613,7 @@ echo                           ©¦   imx8qxp      ©¦  sof                        
 echo                           ©À©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©à©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©È
 echo                           ©¦   imx8qm       ©¦  hdmi mipi-panel mipi-panel-rm67191 md xen esai sof                                                  ©¦
 echo                           ©À©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©à©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©È
-echo                           ©¦   imx8ulp      ©¦  hdmi epdc 9x9 9x9-hdmi sof lpa                                                                      ©¦
+echo                           ©¦   imx8ulp      ©¦  hdmi epdc 9x9 9x9-hdmi sof lpa lpd                                                                  ©¦
 echo                           ©À©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©à©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©È
 echo                           ©¦   imx93        ©¦                                                                                                      ©¦
 echo                           ©À©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©à©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©È
@@ -719,6 +721,12 @@ if %intervene% == 1 (
     set /A error_level=1 && goto :exit
 )
 
+if %flash_mcu_only% == 1 (
+    call :flash_mcu_sf
+    echo FB: done >> %tmp_dir%uuu.lst
+    uuu %usb_paths% %tmp_dir%uuu.lst
+    set /A error_level=1 && goto :exit
+)
 goto :eof
 
 :flash_partition
@@ -840,6 +848,41 @@ set init_boot_partition=init_boot%1
 if %support_dual_bootloader% == 1 set dual_bootloader_partition=bootloader%1
 goto :eof
 
+:flash_mcu_sf
+::since imx7ulp use uboot for uuu from BSP team, there is no hardcoded mcu_os partition. If m4 need to be flashed, flash it here.
+if [%soc_name%] == [imx7ulp] (
+    :: download m4 image to sdram
+    if exist %tmp_dir%%soc_name%_m4_demo.img.link (
+        del %tmp_dir%%soc_name%_m4_demo.img.link
+    )
+    cmd /c mklink %tmp_dir%%soc_name%_m4_demo.img.link %image_directory%%soc_name%_m4_demo.img > nul
+    echo generate lines to flash %soc_name%_m4_demo.img to the partition of m4_os
+    echo FB: ucmd setenv fastboot_buffer %imx7ulp_stage_base_addr% >> %tmp_dir%uuu.lst
+    echo FB: download -f %soc_name%_m4_demo.img.link >> %tmp_dir%uuu.lst
+    echo FB: ucmd sf probe >> %tmp_dir%uuu.lst
+    echo FB[-t 30000]: ucmd sf erase %imx7ulp_evk_m4_sf_start_byte% %imx7ulp_evk_m4_sf_length_byte% >> %tmp_dir%uuu.lst
+    echo FB[-t 30000]: ucmd sf write %imx7ulp_stage_base_addr% %imx7ulp_evk_m4_sf_start_byte% %imx7ulp_evk_m4_sf_length_byte% >> %tmp_dir%uuu.lst
+)
+if [%soc_name%] == [imx8ulp] (
+    :: download m4 image to dram
+    if exist %tmp_dir%%soc_name%_mcu_demo_sf.img.link (
+        del %tmp_dir%%soc_name%_mcu_demo_sf.img.link
+    )
+    cmd /c mklink %tmp_dir%%soc_name%_mcu_demo_sf.img.link %image_directory%%soc_name%_mcu_demo_sf.img > nul
+    echo generate lines to flash %soc_name%_mcu_demo_sf.img to the external serial flash
+    echo FB: ucmd setenv fastboot_buffer \${loadaddr} >> %tmp_dir%uuu.lst
+    echo FB: download -f %soc_name%_mcu_demo_sf.img.link >> %tmp_dir%uuu.lst
+
+    echo FB: ucmd sf probe 0:0 >> %tmp_dir%uuu.lst
+    echo FB: ucmd setenv erase_unit 1000 >> %tmp_dir%uuu.lst
+    echo FB: ucmd setexpr erase_size \${fastboot_bytes} + \${erase_unit} >> %tmp_dir%uuu.lst
+    echo FB: ucmd setexpr erase_size \${erase_size} / \${erase_unit} >> %tmp_dir%uuu.lst
+    echo FB: ucmd setexpr erase_size \${erase_size} \* \${erase_unit} >> %tmp_dir%uuu.lst
+    echo FB[-t 100000]: ucmd sf erase 0 \${erase_size} >> %tmp_dir%uuu.lst
+    echo FB[-t 40000]: ucmd sf write \${fastboot_buffer} 0 \${fastboot_bytes} >> %tmp_dir%uuu.lst
+)
+goto :eof
+
 :flash_android
 
 :: if dual bootloader is supported, the name of the bootloader flashed to the board need to be updated
@@ -882,22 +925,16 @@ if %support_dualslot% == 0 (
 )
 
 ::since imx7ulp use uboot for uuu from BSP team, there is no hardcoded mcu_os partition. If m4 need to be flashed, flash it here.
-if [%soc_name%] == [imx7ulp] (
-    if [%flash_m4%] == [1] (
-        :: download m4 image to sdram
-        if exist %tmp_dir%%soc_name%_m4_demo.img.link (
-            del %tmp_dir%%soc_name%_m4_demo.img.link
-        )
-        cmd /c mklink %tmp_dir%%soc_name%_m4_demo.img.link %image_directory%%soc_name%_m4_demo.img > nul
-        echo generate lines to flash %soc_name%_m4_demo.img to the partition of m4_os
-        echo FB: ucmd setenv fastboot_buffer %imx7ulp_stage_base_addr% >> %tmp_dir%uuu.lst
-        echo FB: download -f %soc_name%_m4_demo.img.link >> %tmp_dir%uuu.lst
-        echo FB: ucmd sf probe >> %tmp_dir%uuu.lst
-        echo FB[-t 30000]: ucmd sf erase %imx7ulp_evk_m4_sf_start_byte% %imx7ulp_evk_m4_sf_length_byte% >> %tmp_dir%uuu.lst
-        echo FB[-t 30000]: ucmd sf write %imx7ulp_stage_base_addr% %imx7ulp_evk_m4_sf_start_byte% %imx7ulp_evk_m4_sf_length_byte% >> %tmp_dir%uuu.lst
+if [%flash_mcu%] == [1] (
+    if [%soc_name%] == [imx7ulp] (
+        call :flash_mcu_sf
     )
-) else (
-    if %flash_mcu% == 1 call :flash_partition %mcu_os_partition%
+    if [%soc_name%] == [imx8ulp] (
+        call :flash_mcu_sf
+    )
+    if not [%soc_name%] == [imx7ulp] if not [%soc_name%] == [imx8ulp] (
+        call :flash_partition %mcu_os_partition%
+    )
 )
 
 if [%slot%] == [] (

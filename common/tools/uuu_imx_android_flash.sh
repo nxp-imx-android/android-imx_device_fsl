@@ -42,7 +42,7 @@ options:
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                            │   imx8mp       │  dual trusty-dual evk-uuu trusty-secure-unlock-dual powersave trusty-powersave-dual                  │
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
-                           │   imx8ulp      │  dual trusty-dual evk-uuu trusty-secure-unlock-dual 9x9-evk-uuu 9x9 trusty-9x9-dual trusty-lpa-dual  │
+                           │   imx8ulp      │  dual trusty-dual trusty-dualboot-dual evk-uuu trusty-secure-unlock-dual 9x9-evk-uuu 9x9 trusty-9x9-dual trusty-lpa-dual  │
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                            │   imx8qxp      │  dual trusty-dual mek-uuu trusty-secure-unlock-dual secure-unlock c0 c0-dual                         │
                            │                │  trusty-c0-dual mek-c0-uuu                                                                           │
@@ -76,7 +76,7 @@ options:
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                            │   imx8qm       │  hdmi mipi-panel mipi-panel-rm67191 md xen esai sof                                                  │
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
-                           │   imx8ulp      │  hdmi epdc 9x9 9x9-hdmi sof lpa                                                                      │
+                           │   imx8ulp      │  hdmi epdc 9x9 9x9-hdmi sof lpa lpd                                                                  │
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                            │   imx93        │                                                                                                      │
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
@@ -167,6 +167,48 @@ function uuu_load_uboot
         echo FB: done >> /tmp/uuu.lst${randome_part}
         uuu ${usb_paths} /tmp/uuu.lst${randome_part}
         exit 0
+    fi
+
+    if [[ ${flash_mcu_only} -eq 1 ]]; then
+        flash_mcu_sf
+        echo FB: done >> /tmp/uuu.lst${randome_part}
+        uuu ${usb_paths} /tmp/uuu.lst${randome_part}
+        exit 0
+    fi
+}
+
+function flash_mcu_sf
+{
+    # since imx7ulp use uboot for uuu from BSP team,there is no hardcoded mcu_os partition. If m4 need to be flashed, flash it here.
+    if [[ ${soc_name} == imx7ulp ]]; then
+        # download m4 image to dram
+        ln -sf "${sym_link_directory}"${soc_name}_m4_demo.img /tmp/${soc_name}_m4_demo.img${randome_part}
+        tmp_files_in_uuu+=(${soc_name}_m4_demo.img${randome_part})
+        echo -e generate lines to flash ${RED}${soc_name}_m4_demo.img${STD} to the partition of ${RED}m4_os${STD}
+        echo FB: ucmd setenv fastboot_buffer ${imx7ulp_stage_base_addr} >> /tmp/uuu.lst${randome_part}
+        echo FB: download -f ${soc_name}_m4_demo.img${randome_part} >> /tmp/uuu.lst${randome_part}
+
+        echo FB: ucmd sf probe >> /tmp/uuu.lst${randome_part}
+        echo FB[-t 30000]: ucmd sf erase `echo "obase=16;$((${imx7ulp_evk_m4_sf_start}*${imx7ulp_evk_sf_blksz}))" | bc` \
+                `echo "obase=16;$((${imx7ulp_evk_m4_sf_length}*${imx7ulp_evk_sf_blksz}))" | bc` >> /tmp/uuu.lst${randome_part}
+
+        echo FB[-t 30000]: ucmd sf write ${imx7ulp_stage_base_addr} `echo "obase=16;$((${imx7ulp_evk_m4_sf_start}*${imx7ulp_evk_sf_blksz}))" | bc` \
+                `echo "obase=16;$((${imx7ulp_evk_m4_sf_length}*${imx7ulp_evk_sf_blksz}))" | bc` >> /tmp/uuu.lst${randome_part}
+    elif [[ ${soc_name} == imx8ulp ]]; then
+        # download m4 image to dram
+        ln -sf "${sym_link_directory}"${soc_name}_mcu_demo_sf.img /tmp/${soc_name}_mcu_demo_sf.img${randome_part}
+        tmp_files_in_uuu+=(${soc_name}_mcu_demo_sf.img${randome_part})
+        echo -e generate lines to flash ${RED}${soc_name}_mcu_demo_sf.img${STD} to the external serial flash
+        echo FB: ucmd setenv fastboot_buffer \${loadaddr} >> /tmp/uuu.lst${randome_part}
+        echo FB: download -f ${soc_name}_mcu_demo_sf.img${randome_part} >> /tmp/uuu.lst${randome_part}
+
+        echo FB: ucmd sf probe 0:0 >> /tmp/uuu.lst${randome_part}
+        echo FB: ucmd setenv erase_unit 1000 >> /tmp/uuu.lst${randome_part}
+        echo FB: ucmd setexpr erase_size \${fastboot_bytes} + \${erase_unit} >> /tmp/uuu.lst${randome_part}
+        echo FB: ucmd setexpr erase_size \${erase_size} / \${erase_unit} >> /tmp/uuu.lst${randome_part}
+        echo FB: ucmd setexpr erase_size \${erase_size} \* \${erase_unit} >> /tmp/uuu.lst${randome_part}
+        echo FB[-t 100000]: ucmd sf erase 0 \${erase_size} >> /tmp/uuu.lst${randome_part}
+        echo FB[-t 40000]: ucmd sf write \${fastboot_buffer} 0 \${fastboot_bytes} >> /tmp/uuu.lst${randome_part}
     fi
 }
 
@@ -295,23 +337,10 @@ function flash_android
         slot=""
     fi
 
-    # since imx7ulp use uboot for uuu from BSP team,there is no hardcoded mcu_os partition. If m4 need to be flashed, flash it here.
-    if [[ ${soc_name} == imx7ulp ]] && [[ ${flash_mcu} -eq 1 ]]; then
-        # download m4 image to dram
-        ln -sf "${sym_link_directory}"${soc_name}_m4_demo.img /tmp/${soc_name}_m4_demo.img${randome_part}
-        tmp_files_in_uuu+=(${soc_name}_m4_demo.img${randome_part})
-        echo -e generate lines to flash ${RED}${soc_name}_m4_demo.img${STD} to the partition of ${RED}m4_os${STD}
-        echo FB: ucmd setenv fastboot_buffer ${imx7ulp_stage_base_addr} >> /tmp/uuu.lst${randome_part}
-        echo FB: download -f ${soc_name}_m4_demo.img${randome_part} >> /tmp/uuu.lst${randome_part}
-
-        echo FB: ucmd sf probe >> /tmp/uuu.lst${randome_part}
-        echo FB[-t 30000]: ucmd sf erase `echo "obase=16;$((${imx7ulp_evk_m4_sf_start}*${imx7ulp_evk_sf_blksz}))" | bc` \
-                `echo "obase=16;$((${imx7ulp_evk_m4_sf_length}*${imx7ulp_evk_sf_blksz}))" | bc` >> /tmp/uuu.lst${randome_part}
-
-        echo FB[-t 30000]: ucmd sf write ${imx7ulp_stage_base_addr} `echo "obase=16;$((${imx7ulp_evk_m4_sf_start}*${imx7ulp_evk_sf_blksz}))" | bc` \
-                `echo "obase=16;$((${imx7ulp_evk_m4_sf_length}*${imx7ulp_evk_sf_blksz}))" | bc` >> /tmp/uuu.lst${randome_part}
-    else
-        if [[ ${flash_mcu} -eq 1 ]]; then
+    if [[ ${flash_mcu} -eq 1 ]]; then
+        if [[ ${soc_name} == imx7ulp ]] || [[ ${soc_name} == imx8ulp ]]; then
+            flash_mcu_sf
+        else
             flash_partition ${mcu_os_partition}
         fi
     fi
@@ -383,6 +412,7 @@ mcu_os_partition="mcu_os"
 super_partition="super"
 
 flash_mcu=0
+flash_mcu_only=0
 erase=0
 image_directory=""
 target_dev="emmc"
@@ -419,7 +449,7 @@ imx8mm_uboot_feature=(dual trusty-dual 4g-evk-uuu 4g ddr4-evk-uuu ddr4 evk-uuu t
 imx8mn_uboot_feature=(dual trusty-dual evk-uuu trusty-secure-unlock-dual ddr4-evk-uuu ddr4)
 imx8mq_uboot_feature=(dual trusty-dual evk-uuu trusty-secure-unlock-dual)
 imx8mp_uboot_feature=(dual trusty-dual evk-uuu trusty-secure-unlock-dual powersave trusty-powersave-dual)
-imx8ulp_uboot_feature=(dual trusty-dual evk-uuu trusty-secure-unlock-dual 9x9-evk-uuu 9x9 trusty-9x9-dual trusty-lpa-dual)
+imx8ulp_uboot_feature=(dual trusty-dual trusty-dualboot-dual evk-uuu trusty-secure-unlock-dual 9x9-evk-uuu 9x9 trusty-9x9-dual trusty-lpa-dual)
 imx8qxp_uboot_feature=(dual trusty-dual mek-uuu trusty-secure-unlock-dual secure-unlock c0 c0-dual trusty-c0-dual mek-c0-uuu)
 imx8qm_uboot_feature=(dual trusty-dual mek-uuu trusty-secure-unlock-dual secure-unlock md hdmi xen)
 imx7ulp_uboot_feature=(evk-uuu)
@@ -431,7 +461,7 @@ imx8mq_dtb_feature=(dual mipi-panel mipi-panel-rm67191 mipi)
 imx8mp_dtb_feature=(rpmsg lvds-panel lvds mipi-panel mipi-panel-rm67191 basler powersave powersave-non-rpmsg basler-ov5640 ov5640 sof dual-basler os08a20-ov5640 os08a20 revb4 rpmsg-revb4 lvds-panel-revb4 lvds-revb4 mipi-panel-revb4 mipi-panel-rm67191-revb4 basler-revb4 powersave-revb4 powersave-non-rpmsg-revb4 basler-ov5640-revb4 ov5640-revb4 sof-revb4 dual-basler-revb4 os08a20-ov5640-revb4 os08a20-revb4)
 imx8qxp_dtb_feature=(sof)
 imx8qm_dtb_feature=(hdmi hdmi-rx mipi-panel mipi-panel-rm67191 md xen esai sof)
-imx8ulp_dtb_feature=(hdmi epdc 9x9 9x9-hdmi sof lpa)
+imx8ulp_dtb_feature=(hdmi epdc 9x9 9x9-hdmi sof lpa lpd)
 imx93_dtb_feature=()
 imx7ulp_dtb_feature=(evk-mipi evk mipi)
 
@@ -457,6 +487,7 @@ while [ $# -gt 0 ]; do
         -a) slot="_a" ;;
         -b) slot="_b" ;;
         -m) flash_mcu=1 ;;
+        -mo) flash_mcu_only=1 ;;
         -e) erase=1 ;;
         -D) image_directory=$2; shift;;
         -t) target_dev=$2; shift;;
