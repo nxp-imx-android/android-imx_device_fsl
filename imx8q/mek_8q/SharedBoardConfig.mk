@@ -93,6 +93,7 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/trusty/trusty-ipc.ko \
     $(KERNEL_OUT)/drivers/iommu/arm/arm-smmu/arm_smmu.ko \
     $(KERNEL_OUT)/drivers/cpufreq/cpufreq-dt.ko \
+    $(KERNEL_OUT)/drivers/cpufreq/cpufreq-dt-platdev.ko \
     $(KERNEL_OUT)/drivers/tty/serial/fsl_lpuart.ko \
     $(KERNEL_OUT)/drivers/reset/gpio-reset.ko \
     $(KERNEL_OUT)/drivers/gpio/gpio-max732x.ko \
