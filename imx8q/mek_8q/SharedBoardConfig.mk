@@ -49,6 +49,7 @@ ifeq ($(PRODUCT_IMX_CAR),true)
 # zsmalloc + irq steer
 BOARD_VENDOR_RAMDISK_KERNEL_MODULES += \
     $(KERNEL_OUT)/mm/zsmalloc.ko \
+    $(KERNEL_OUT)/drivers/block/zram/zram.ko \
     $(KERNEL_OUT)/drivers/irqchip/irq-imx-irqsteer.ko
 
 # PHys (hdmi, mipi, lvs)
