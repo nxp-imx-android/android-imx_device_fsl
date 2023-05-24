@@ -336,12 +336,18 @@ PRODUCT_COPY_FILES += \
 
 # Bluetooth HAL
 PRODUCT_PACKAGES += \
-    android.hardware.bluetooth@1.0-impl \
-    android.hardware.bluetooth@1.0-service
+    android.hardware.bluetooth@1.1-impl \
+    android.hardware.bluetooth@1.1-service
 
 # NXP 8987 Bluetooth vendor config
 PRODUCT_PACKAGES += \
     bt_vendor.conf
+
+# Bluetooth LE Audio
+PRODUCT_PRODUCT_PROPERTIES += \
+    ro.bluetooth.leaudio_offload.supported=false \
+    persist.bluetooth.leaudio_offload.disabled=false \
+    ro.bluetooth.leaudio_switcher.supported=true
 
 # -------@block_usb-------
 

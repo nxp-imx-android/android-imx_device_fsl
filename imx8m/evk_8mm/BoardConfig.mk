@@ -177,6 +177,8 @@ ifeq ($(TARGET_USE_DYNAMIC_PARTITIONS),true)
     TARGET_BOARD_DTS_CONFIG += imx8mm-mipi-panel-rm67191:imx8mm-evk-rm67191.dtb
     # imx8mm with MIPI-HDMI display, NXP wifi and m4 image to support LPA
     TARGET_BOARD_DTS_CONFIG += imx8mm-m4:imx8mm-evk-rpmsg.dtb
+    # imx8mm with IW612 module
+    TARGET_BOARD_DTS_CONFIG += imx8mm-iw612:imx8mm-evk-iw612.dtb
   endif
 else
   ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
