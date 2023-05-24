@@ -182,6 +182,8 @@ ifeq ($(TARGET_USE_DYNAMIC_PARTITIONS),true)
     TARGET_BOARD_DTS_CONFIG += imx8mm-m4:imx8mm-evk-rpmsg.dtb
     # imx8mm with 8mic module
     TARGET_BOARD_DTS_CONFIG += imx8mm-8mic:imx8mm-evk-8mic-revE.dtb
+    # imx8mm with IW612 module
+    TARGET_BOARD_DTS_CONFIG += imx8mm-iw612:imx8mm-evk-iw612.dtb
   endif
 else
   ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
