@@ -81,6 +81,11 @@ build_imx_uboot()
 		cp ${BOARD_MKIMAGE_PATH}/flash.bin ${UBOOT_COLLECTION}/`echo $2 | cut -d '-' -f1`_mcu_demo_sf.img
 		make -C ${IMX_MKIMAGE_PATH}/imx-mkimage/ clean
 		make -C ${IMX_MKIMAGE_PATH}/imx-mkimage/ SOC=${MKIMAGE_SOC} REV=A2 flash_dualboot || exit 1
+	elif [ `echo $2 | rev |cut -d '-' -f2 | rev` = "lpa" ]; then
+		make -C ${IMX_MKIMAGE_PATH}/imx-mkimage/ SOC=${MKIMAGE_SOC} REV=A2 flash_dualboot_m33 || exit 1
+		cp ${BOARD_MKIMAGE_PATH}/flash.bin ${UBOOT_COLLECTION}/`echo $2 | cut -d '-' -f1`_mcu_demo_lpa.img
+		make -C ${IMX_MKIMAGE_PATH}/imx-mkimage/ clean
+		make -C ${IMX_MKIMAGE_PATH}/imx-mkimage/ SOC=${MKIMAGE_SOC} REV=A2 flash_dualboot || exit 1
 	else
 		make -C ${IMX_MKIMAGE_PATH}/imx-mkimage/ SOC=${MKIMAGE_SOC} REV=A2 flash_singleboot_m33 || exit 1
 	fi
