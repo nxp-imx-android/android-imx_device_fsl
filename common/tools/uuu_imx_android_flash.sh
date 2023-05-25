@@ -197,11 +197,16 @@ function flash_mcu_sf
                 `echo "obase=16;$((${imx7ulp_evk_m4_sf_length}*${imx7ulp_evk_sf_blksz}))" | bc` >> /tmp/uuu.lst${randome_part}
     elif [[ ${soc_name} == imx8ulp ]]; then
         # download m4 image to dram
-        ln -sf "${sym_link_directory}"${soc_name}_mcu_demo_sf.img /tmp/${soc_name}_mcu_demo_sf.img${randome_part}
-        tmp_files_in_uuu+=(${soc_name}_mcu_demo_sf.img${randome_part})
-        echo -e generate lines to flash ${RED}${soc_name}_mcu_demo_sf.img${STD} to the external serial flash
+        if [[ "${uboot_feature}" = *"lpa"* ]]; then
+            mcu_demo="lpa"
+        else
+            mcu_demo="sf"
+        fi
+        ln -sf "${sym_link_directory}"${soc_name}_mcu_demo_${mcu_demo}.img /tmp/${soc_name}_mcu_demo_${mcu_demo}.img${randome_part}
+        tmp_files_in_uuu+=(${soc_name}_mcu_demo_${mcu_demo}.img${randome_part})
+        echo -e generate lines to flash ${RED}${soc_name}_mcu_demo_${mcu_demo}.img${STD} to the external serial flash
         echo FB: ucmd setenv fastboot_buffer \${loadaddr} >> /tmp/uuu.lst${randome_part}
-        echo FB: download -f ${soc_name}_mcu_demo_sf.img${randome_part} >> /tmp/uuu.lst${randome_part}
+        echo FB: download -f ${soc_name}_mcu_demo_${mcu_demo}.img${randome_part} >> /tmp/uuu.lst${randome_part}
 
         echo FB: ucmd sf probe 0:0 >> /tmp/uuu.lst${randome_part}
         echo FB: ucmd setenv erase_unit 1000 >> /tmp/uuu.lst${randome_part}

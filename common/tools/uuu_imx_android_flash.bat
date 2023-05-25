@@ -865,13 +865,18 @@ if [%soc_name%] == [imx7ulp] (
 )
 if [%soc_name%] == [imx8ulp] (
     :: download m4 image to dram
-    if exist %tmp_dir%%soc_name%_mcu_demo_sf.img.link (
-        del %tmp_dir%%soc_name%_mcu_demo_sf.img.link
+    if not [%uboot_feature_test:lpa=%] == [%uboot_feature_test%] (
+        set mcu_demo=lpa
+    ) else (
+        set mcu_demo=sf
     )
-    cmd /c mklink %tmp_dir%%soc_name%_mcu_demo_sf.img.link %image_directory%%soc_name%_mcu_demo_sf.img > nul
-    echo generate lines to flash %soc_name%_mcu_demo_sf.img to the external serial flash
+    if exist %tmp_dir%%soc_name%_mcu_demo_%mcu_demo%.img.link (
+        del %tmp_dir%%soc_name%_mcu_demo_%mcu_demo%.img.link
+    )
+    cmd /c mklink %tmp_dir%%soc_name%_mcu_demo_%mcu_demo%.img.link %image_directory%%soc_name%_mcu_demo_%mcu_demo%.img > nul
+    echo generate lines to flash %soc_name%_mcu_demo_%mcu_demo%.img to the external serial flash
     echo FB: ucmd setenv fastboot_buffer \${loadaddr} >> %tmp_dir%uuu.lst
-    echo FB: download -f %soc_name%_mcu_demo_sf.img.link >> %tmp_dir%uuu.lst
+    echo FB: download -f %soc_name%_mcu_demo_%mcu_demo%.img.link >> %tmp_dir%uuu.lst
 
     echo FB: ucmd sf probe 0:0 >> %tmp_dir%uuu.lst
     echo FB: ucmd setenv erase_unit 1000 >> %tmp_dir%uuu.lst
