@@ -49,7 +49,7 @@ options:
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                            │   imx8qm       │  dual trusty-dual mek-uuu trusty-secure-unlock-dual secure-unlock md hdmi xen                        │
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
-                           │   imx93        │  evk-uuu                                                                                             │
+                           │   imx93        │  dual trusty-dual evk-uuu                                                                            │
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                            │   imx7ulp      │  evk-uuu                                                                                             │
                            └────────────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────┘
@@ -454,7 +454,7 @@ imx8ulp_uboot_feature=(dual trusty-dual trusty-dualboot-dual evk-uuu trusty-secu
 imx8qxp_uboot_feature=(dual trusty-dual mek-uuu trusty-secure-unlock-dual secure-unlock c0 c0-dual trusty-c0-dual mek-c0-uuu)
 imx8qm_uboot_feature=(dual trusty-dual mek-uuu trusty-secure-unlock-dual secure-unlock md hdmi xen)
 imx7ulp_uboot_feature=(evk-uuu)
-imx93_uboot_feature=(dual evk-uuu)
+imx93_uboot_feature=(dual trusty-dual evk-uuu)
 
 imx8mm_dtb_feature=(ddr4 m4 mipi-panel mipi-panel-rm67191)
 imx8mn_dtb_feature=(mipi-panel mipi-panel-rm67191 rpmsg ddr4 ddr4-mipi-panel ddr4-mipi-panel-rm67191 ddr4-rpmsg)
