@@ -875,16 +875,16 @@ if [%soc_name%] == [imx8ulp] (
     )
     cmd /c mklink %tmp_dir%%soc_name%_mcu_demo_%mcu_demo%.img.link %image_directory%%soc_name%_mcu_demo_%mcu_demo%.img > nul
     echo generate lines to flash %soc_name%_mcu_demo_%mcu_demo%.img to the external serial flash
-    echo FB: ucmd setenv fastboot_buffer \${loadaddr} >> %tmp_dir%uuu.lst
+    echo FB: ucmd setenv fastboot_buffer ${loadaddr} >> %tmp_dir%uuu.lst
     echo FB: download -f %soc_name%_mcu_demo_%mcu_demo%.img.link >> %tmp_dir%uuu.lst
 
     echo FB: ucmd sf probe 0:0 >> %tmp_dir%uuu.lst
     echo FB: ucmd setenv erase_unit 1000 >> %tmp_dir%uuu.lst
-    echo FB: ucmd setexpr erase_size \${fastboot_bytes} + \${erase_unit} >> %tmp_dir%uuu.lst
-    echo FB: ucmd setexpr erase_size \${erase_size} / \${erase_unit} >> %tmp_dir%uuu.lst
-    echo FB: ucmd setexpr erase_size \${erase_size} \* \${erase_unit} >> %tmp_dir%uuu.lst
-    echo FB[-t 100000]: ucmd sf erase 0 \${erase_size} >> %tmp_dir%uuu.lst
-    echo FB[-t 40000]: ucmd sf write \${fastboot_buffer} 0 \${fastboot_bytes} >> %tmp_dir%uuu.lst
+    echo FB: ucmd setexpr erase_size ${fastboot_bytes} + ${erase_unit} >> %tmp_dir%uuu.lst
+    echo FB: ucmd setexpr erase_size ${erase_size} / ${erase_unit} >> %tmp_dir%uuu.lst
+    echo FB: ucmd setexpr erase_size ${erase_size} * ${erase_unit} >> %tmp_dir%uuu.lst
+    echo FB[-t 100000]: ucmd sf erase 0 ${erase_size} >> %tmp_dir%uuu.lst
+    echo FB[-t 40000]: ucmd sf write ${fastboot_buffer} 0 ${fastboot_bytes} >> %tmp_dir%uuu.lst
 )
 goto :eof
 
