@@ -294,6 +294,9 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.renderscript@1.0-impl
 
+PRODUCT_PACKAGES += \
+    libg2d-opencl
+
 # -------@block_gpu-------
 
 PRODUCT_PACKAGES += \
@@ -313,6 +316,10 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_VENDOR_PROPERTIES += \
     ro.hardware.egl = VIVANTE
+
+# GPU openCL g2d
+PRODUCT_COPY_FILES += \
+    $(IMX_PATH)/imx/opencl-2d/cl_g2d.cl:$(TARGET_COPY_OUT_VENDOR)/etc/cl_g2d.cl
 
 # -------@block_wifi-------
 
