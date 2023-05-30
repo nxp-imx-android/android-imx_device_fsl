@@ -125,6 +125,11 @@ $(UBOOTENVSH): | $(UBOOT_OUT)
 	else \
 		echo 'export TEE_COMPRESS_ENABLE=' >> $@; \
 	fi
+	if [ "$(BUILD_ENCRYPTED_BOOT)" = "true" ]; then \
+		dd if=/dev/zero of=${IMX_MKIMAGE_PATH}/imx-mkimage/iMX8M/dek_blob_fit_dummy.bin bs=96 count=1 && sync; \
+	else \
+		rm -f ${IMX_MKIMAGE_PATH}/imx-mkimage/iMX8M/dek_blob_fit_dummy.bin; \
+	fi
 
 $(UBOOT_BIN): $(UBOOTENVSH) | $(UBOOT_COLLECTION) $(UBOOT_OUT)
 	$(hide) echo "Building $(UBOOT_ARCH) $(UBOOT_VERSION) U-Boot ..."
