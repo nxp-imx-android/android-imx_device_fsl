@@ -285,6 +285,11 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.renderscript@1.0-impl
 
+# 2d test
+ifneq (,$(filter userdebug eng, $(TARGET_BUILD_VARIANT)))
+PRODUCT_PACKAGES += 2d-test
+endif
+
 PRODUCT_PACKAGES += \
     libg2d-opencl
 
