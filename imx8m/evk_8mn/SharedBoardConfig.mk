@@ -60,6 +60,7 @@ BOARD_VENDOR_KERNEL_MODULES += \
     $(KERNEL_OUT)/sound/soc/fsl/snd-soc-imx-card.ko \
     $(KERNEL_OUT)/drivers/rtc/rtc-snvs.ko \
     $(KERNEL_OUT)/drivers/net/phy/at803x.ko \
+    $(KERNEL_OUT)/drivers/net/phy/realtek.ko \
     $(KERNEL_OUT)/drivers/net/ethernet/freescale/fec.ko
 endif
 
