@@ -166,7 +166,7 @@ PRODUCT_PACKAGES += \
 
 # new gatekeeper HAL
 PRODUCT_PACKAGES += \
-    android.hardware.gatekeeper@1.0-service.software-imx
+    android.hardware.gatekeeper-service-imx
 
 # Confirmation UI
 ifeq ($(PRODUCT_IMX_TRUSTY),true)
@@ -178,7 +178,7 @@ endif
 
 ifeq ($(PRODUCT_IMX_TRUSTY),true)
 PRODUCT_PACKAGES += \
-    android.hardware.gatekeeper@1.0-service.trusty \
+    android.hardware.gatekeeper-service.trusty \
     storageproxyd
 endif
 

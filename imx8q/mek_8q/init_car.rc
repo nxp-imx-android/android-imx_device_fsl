@@ -158,7 +158,7 @@ on late-fs && property:vendor.storageproxyd=trusty
 
 on late-fs
     # Start keymaster/gatekeeper service
-    start vendor.gatekeeper-1-0-${ro.boot.keystore}
+    start vendor.gatekeeper-${ro.boot.keystore}
     start vendor.keymint-${ro.boot.keystore}
     start servicemanager
     start surfaceflinger

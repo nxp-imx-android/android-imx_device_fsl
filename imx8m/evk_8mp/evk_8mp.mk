@@ -179,7 +179,7 @@ endif
 
 # new gatekeeper HAL
 PRODUCT_PACKAGES += \
-    android.hardware.gatekeeper@1.0-service.software-imx
+    android.hardware.gatekeeper-service-imx
 
 # Add oem unlocking option in settings.
 PRODUCT_PROPERTY_OVERRIDES += ro.frp.pst=/dev/block/by-name/presistdata
@@ -193,7 +193,7 @@ endif
 # Add Trusty OS backed gatekeeper and secure storage proxy
 ifeq ($(PRODUCT_IMX_TRUSTY),true)
 PRODUCT_PACKAGES += \
-    android.hardware.gatekeeper@1.0-service.trusty \
+    android.hardware.gatekeeper-service.trusty \
     storageproxyd
 endif
 

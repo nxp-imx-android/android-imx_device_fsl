@@ -23,10 +23,9 @@
        <transport>hwbinder</transport>
        <fqname>@2.4::ICameraProvider/external/0</fqname>
     </hal>
-    <hal format="hidl">
+    <hal format="aidl">
         <name>android.hardware.gatekeeper</name>
-        <transport>hwbinder</transport>
-        <version>1.0</version>
+        <version>1</version>
         <interface>
             <name>IGatekeeper</name>
             <instance>default</instance>
