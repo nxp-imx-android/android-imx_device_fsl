@@ -10,7 +10,7 @@ BOARD_VENDOR_KERNEL_MODULES += \
     $(TARGET_OUT_INTERMEDIATES)/MXMWIFI_OBJ/moal.ko
 
 # CONFIG_SND_SOC_WM8524: snd-soc-wm8524.ko, wm8524 audio codec
-# CONFIG_IMX_LCDIF_CORE: imx-lcdif-core.ko
+# CONFIG_IMX8MM_LCDIF_CORE: imx8mm-lcdif-core.ko
 # CONFIG_PHY_FSL_IMX8MQ_USB: phy-fsl-imx8mq-usb.ko
 # CONFIG_USB_DWC3_IMX8MP: dwc3-imx8mp.ko
 # CONFIG_TYPEC_SWITCH_GPIO: gpio-switch.ko
@@ -34,6 +34,10 @@ BOARD_VENDOR_KERNEL_MODULES += \
 
 ifeq ($(IMX8MQ_USES_GKI),true)
 BOARD_VENDOR_KERNEL_MODULES += \
+    $(KERNEL_OUT)/mm/zsmalloc.ko \
+    $(KERNEL_OUT)/drivers/block/zram/zram.ko \
+    $(KERNEL_OUT)/net/wireless/cfg80211.ko \
+    $(KERNEL_OUT)/net/mac80211/mac80211.ko \
     $(KERNEL_OUT)/drivers/mxc/gpu-viv/galcore.ko \
     $(KERNEL_OUT)/drivers/thermal/qoriq_thermal.ko \
     $(KERNEL_OUT)/drivers/media/platform/imx8/mxc-mipi-csi2_yav.ko \
@@ -42,6 +46,7 @@ BOARD_VENDOR_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/media/platform/mxc/capture/ov5640_camera_mipi_v2.ko \
     $(KERNEL_OUT)/sound/soc/fsl/imx-pcm-dma.ko \
     $(KERNEL_OUT)/sound/soc/fsl/snd-soc-fsl-aud2htx.ko \
+    $(KERNEL_OUT)/sound/soc/fsl/snd-soc-fsl-utils.ko \
     $(KERNEL_OUT)/sound/soc/fsl/snd-soc-fsl-sai.ko \
     $(KERNEL_OUT)/sound/soc/codecs/snd-soc-hdmi-codec.ko \
     $(KERNEL_OUT)/sound/soc/fsl/snd-soc-imx-hdmi.ko \
@@ -62,7 +67,7 @@ BOARD_VENDOR_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/net/ethernet/freescale/fec.ko
 endif
 
-# CONFIG_TOUCHSCREEN_GOODIX: goodix.ko, rm67199 mipi-panel touch driver module
+# CONFIG_TOUCHSCREEN_GOODIX: goodix_ts.ko, rm67199 mipi-panel touch driver module
 # CONFIG_TOUCHSCREEN_SYNAPTICS_DSX_I2C: synaptics_dsx_i2c.ko, rm67191 mipi-panel touch driver module
 # CONFIG_ZRAM: zram.ko compressed ram using LZ coding.
 # CONFIG_ZSMALLOC: zsmalloc.ko
@@ -89,10 +94,10 @@ endif
 # CONFIG_RESET_IMX7: reset-imx7.ko
 # CONFIG_PHY_FSL_IMX8MQ_USB: phy-fsl-imx8mq-usb.ko
 # CONFIG_KEYBOARD_SNVS_PWRKEY: snvs_pwrkey.ko, snvs power key driver
-# CONFIG_IMX_LCDIF_CORE: imx-lcdif-core.ko
+# CONFIG_IMX8MM_LCDIF_CORE: imx8mm-lcdif-core.ko
 # CONFIG_DRM_I2C_ADV7511: adv7511.ko
 # CONFIG_DRM_IMX_CDNS_MHDP: cdns_mhdp_drmcore.ko cdns_mhdp_imx.ko
-# CONFIG_DRM_IMX: imxdrm.ko, imx-lcdif-crtc.ko
+# CONFIG_DRM_IMX: imxdrm.ko imx8mm-lcdif-crtc.ko
 # CONFIG_USB_DWC3: dwc3-imx8mp.ko
 # CONFIG_TYPEC_SWITCH_GPIO: gpio-switch.ko
 # CONFIG_VIDEO_IMX_CAPTURE: imx8-media-dev.ko, imx8-isi-capture.ko, imx8-isi-hw.ko, imx8-isi-mem2mem.ko, imx8-mipi-csi2-sam.ko, imx isi and mipi driver
@@ -101,11 +106,9 @@ endif
 
 ifeq ($(IMX8MQ_USES_GKI),true)
 BOARD_VENDOR_RAMDISK_KERNEL_MODULES += \
-    $(KERNEL_OUT)/mm/zsmalloc.ko \
-    $(KERNEL_OUT)/drivers/block/zram/zram.ko \
-    $(KERNEL_OUT)/drivers/soc/imx/soc-imx8m.ko \
     $(KERNEL_OUT)/drivers/clk/imx/mxc-clk.ko \
     $(KERNEL_OUT)/drivers/clk/imx/clk-imx8mq.ko \
+    $(KERNEL_OUT)/drivers/soc/imx/soc-imx8m.ko \
     $(KERNEL_OUT)/drivers/soc/imx/gpcv2.ko \
     $(KERNEL_OUT)/drivers/soc/imx/gpcv2-imx.ko \
     $(KERNEL_OUT)/drivers/clocksource/timer-imx-sysctr.ko \
@@ -142,23 +145,24 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/mailbox/imx-mailbox.ko \
     $(KERNEL_OUT)/drivers/dma-buf/heaps/system_heap.ko \
     $(KERNEL_OUT)/drivers/dma-buf/heaps/cma_heap.ko \
-    $(KERNEL_OUT)/drivers/dma-buf/heaps/secure_heap.ko \
     $(KERNEL_OUT)/drivers/dma-buf/dma-buf-imx.ko \
     $(KERNEL_OUT)/drivers/reset/gpio-reset.ko \
     $(KERNEL_OUT)/drivers/reset/reset-imx7.ko \
     $(KERNEL_OUT)/drivers/phy/freescale/phy-fsl-imx8-mipi-dphy.ko \
     $(KERNEL_OUT)/drivers/phy/freescale/phy-fsl-imx8mq-usb.ko \
     $(KERNEL_OUT)/drivers/input/keyboard/snvs_pwrkey.ko \
-    $(KERNEL_OUT)/drivers/input/touchscreen/goodix.ko \
+    $(KERNEL_OUT)/drivers/input/touchscreen/goodix_ts.ko \
     $(KERNEL_OUT)/drivers/input/touchscreen/synaptics_dsx/synaptics_dsx_i2c.ko \
     $(KERNEL_OUT)/drivers/gpu/drm/panel/panel-raydium-rm67191.ko \
     $(KERNEL_OUT)/drivers/gpu/drm/imx/dcss/imx-dcss.ko \
-    $(KERNEL_OUT)/drivers/gpu/imx/lcdif/imx-lcdif-core.ko \
+    $(KERNEL_OUT)/drivers/gpu/imx/lcdif/imx8mm-lcdif-core.ko \
+    $(KERNEL_OUT)/drivers/gpu/drm/drm_dma_helper.ko \
+    $(KERNEL_OUT)/drivers/gpu/drm/display/drm_display_helper.ko \
     $(KERNEL_OUT)/drivers/gpu/drm/bridge/adv7511/adv7511.ko \
     $(KERNEL_OUT)/drivers/gpu/drm/bridge/cadence/cdns_mhdp_drmcore.ko \
     $(KERNEL_OUT)/drivers/gpu/drm/imx/mhdp/cdns_mhdp_imx.ko \
     $(KERNEL_OUT)/drivers/gpu/drm/imx/imxdrm.ko \
-    $(KERNEL_OUT)/drivers/gpu/drm/imx/lcdif/imx-lcdif-crtc.ko \
+    $(KERNEL_OUT)/drivers/gpu/drm/imx/lcdif/imx8mm-lcdif-crtc.ko \
     $(KERNEL_OUT)/drivers/gpu/drm/mxsfb/mxsfb.ko \
     $(KERNEL_OUT)/drivers/gpu/drm/bridge/nwl-dsi.ko \
     $(KERNEL_OUT)/drivers/mux/mux-mmio.ko \
@@ -174,12 +178,10 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/staging/media/imx/imx8-isi-mem2mem.ko \
     $(KERNEL_OUT)/drivers/staging/media/imx/imx8-mipi-csi2-sam.ko \
     $(KERNEL_OUT)/drivers/staging/media/imx/imx8-media-dev.ko \
-    $(KERNEL_OUT)/drivers/dma/imx-sdma.ko \
-    $(KERNEL_OUT)/net/wireless/cfg80211.ko \
-    $(KERNEL_OUT)/net/mac80211/mac80211.ko
+    $(KERNEL_OUT)/drivers/dma/imx-sdma.ko
 else
 BOARD_VENDOR_RAMDISK_KERNEL_MODULES += \
-    $(KERNEL_OUT)/drivers/input/touchscreen/goodix.ko \
+    $(KERNEL_OUT)/drivers/input/touchscreen/goodix_ts.ko \
     $(KERNEL_OUT)/drivers/input/touchscreen/synaptics_dsx/synaptics_dsx_i2c.ko
 endif
 

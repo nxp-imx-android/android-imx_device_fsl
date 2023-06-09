@@ -5,7 +5,7 @@
 
   "hal_version": "3",
   "cam_blit_copy": "DPU",
-  "cam_blit_csc": "GPU_3D",
+  "cam_blit_csc": "DPU",
   "hw_jpeg_enc": "mxc-jpeg-enc",
 
   "camera_metadata": [

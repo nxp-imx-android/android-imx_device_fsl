@@ -145,13 +145,6 @@ service early_init_sh /vendor/bin/init.insmod.sh /vendor/etc/early.init.cfg vend
     disabled
     oneshot
 
-service boot_completed_main_sh /vendor/bin/init.insmod.sh /vendor/etc/setup.main.cfg vendor.all.setup_main.ready
-    class main
-    user root
-    group root system
-    disabled
-    oneshot
-
 on fs
 # mount ext4 partitions
     mount_all /vendor/etc/fstab.nxp --early

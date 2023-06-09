@@ -69,20 +69,20 @@ set /A flag=1
 set imx8mm_uboot_feature=dual trusty-dual 4g-evk-uuu 4g ddr4-evk-uuu ddr4 evk-uuu trusty-secure-unlock-dual
 set imx8mn_uboot_feature=dual trusty-dual evk-uuu trusty-secure-unlock-dual ddr4-evk-uuu ddr4
 set imx8mp_uboot_feature=dual trusty-dual evk-uuu trusty-secure-unlock-dual powersave trusty-powersave-dual
-set imx8ulp_uboot_feature=dual trusty-dual evk-uuu trusty-secure-unlock-dual 9x9-evk-uuu 9x9 trusty-9x9-dual trusty-lpa-dual
+set imx8ulp_uboot_feature=dual trusty-dual trusty-dualboot-dual evk-uuu trusty-secure-unlock-dual 9x9-evk-uuu 9x9 trusty-9x9-dual trusty-lpa-dual
 set imx8mq_uboot_feature=dual trusty-dual evk-uuu trusty-secure-unlock-dual
 set imx8qxp_uboot_feature=dual trusty-dual mek-uuu trusty-secure-unlock-dual secure-unlock c0 c0-dual trusty-c0-dual mek-c0-uuu
 set imx8qm_uboot_feature=dual trusty-dual mek-uuu trusty-secure-unlock-dual secure-unlock md hdmi xen
-set imx93_uboot_feature=dual evk-uuu
+set imx93_uboot_feature=dual trusty-dual evk-uuu
 set imx7ulp_uboot_feature=evk-uuu
 
 set imx8mm_dtb_feature=ddr4 m4 mipi-panel mipi-panel-rm67191
 set imx8mn_dtb_feature=mipi-panel mipi-panel-rm67191 rpmsg ddr4 ddr4-mipi-panel ddr4-mipi-panel-rm67191 ddr4-rpmsg
-set imx8mp_dtb_feature=rpmsg lvds-panel lvds mipi-panel mipi-panel-rm67191 basler powersave powersave-non-rpmsg basler-ov5640 ov5640 dual-basler os08a20-ov5640 os08a20 sof
+set imx8mp_dtb_feature=rpmsg lvds-panel lvds mipi-panel mipi-panel-rm67191 basler powersave powersave-non-rpmsg basler-ov5640 ov5640 dual-basler os08a20-ov5640 os08a20 sof revb4 rpmsg-revb4 lvds-panel-revb4 lvds-revb4 mipi-panel-revb4 mipi-panel-rm67191-revb4 basler-revb4 powersave-revb4 powersave-non-rpmsg-revb4 basler-ov5640-revb4 ov5640-revb4 sof-revb4 dual-basler-revb4 os08a20-ov5640-revb4 os08a20-revb4
 set imx8mq_dtb_feature=dual mipi-panel mipi-panel-rm67191 mipi
 set imx8qxp_dtb_feature=sof
 set imx8qm_dtb_feature=hdmi hdmi-rx mipi-panel mipi-panel-rm67191 md xen esai sof
-set imx8ulp_dtb_feature=hdmi epdc 9x9 9x9-hdmi sof lpa
+set imx8ulp_dtb_feature=hdmi epdc 9x9 9x9-hdmi sof lpa lpd
 set imx93_dtb_feature=
 set imx7ulp_dtb_feature=evk-mipi evk mipi
 
@@ -260,22 +260,23 @@ echo                        Below table lists the legal value supported now base
 echo                           +-------------+----------------------------------------------------------------------------------------------------+
 echo                           ^|   soc_name  ^|  legal parameter after "-u"                                                                        ^|
 echo                           +-------------+----------------------------------------------------------------------------------------------------+
-echo                           ^|   imx8mm    ^|  dual trusty-dual 4g-evk-uuu 4g ddr4-evk-uuu ddr4 evk-uuu trusty-4g trusty-secure-unlock trusty    ^|
+echo                           ^|   imx8mm    ^|  dual trusty-dual 4g-evk-uuu 4g ddr4-evk-uuu ddr4 evk-uuu trusty-secure-unlock-dual                ^|
 echo                           +-------------+----------------------------------------------------------------------------------------------------+
-echo                           ^|   imx8mn    ^|  dual trusty-dual evk-uuu trusty-secure-unlock trusty ddr4-evk-uuu ddr4                            ^|
+echo                           ^|   imx8mn    ^|  dual trusty-dual evk-uuu trusty-secure-unlock-dual ddr4-evk-uuu ddr4                              ^|
 echo                           +-------------+----------------------------------------------------------------------------------------------------+
-echo                           ^|   imx8mp    ^|  dual trusty-dual evk-uuu trusty-secure-unlock trusty powersave trusty-powersave                   ^|
+echo                           ^|   imx8mp    ^|  dual trusty-dual evk-uuu trusty-secure-unlock-dual powersave trusty-powersave-dual                ^|
 echo                           +-------------+----------------------------------------------------------------------------------------------------+
-echo                           ^|   imx8ulp   ^|  dual trusty-dual evk-uuu trusty-secure-unlock-dual 9x9-evk-uuu 9x9 trusty-9x9-dual trusty-lpa-dual^|
+echo                           ^|   imx8ulp   ^|  dual trusty-dual trusty-dualboot-dual evk-uuu trusty-secure-unlock-dual 9x9-evk-uuu 9x9           ^|
+echo                           ^|             ^|  trusty-9x9-dual trusty-lpa-dual                                                                   ^|
 echo                           +-------------+----------------------------------------------------------------------------------------------------+
-echo                           ^|   imx8mq    ^|  dual trusty-dual evk-uuu trusty-secure-unlock trusty                                              ^|
+echo                           ^|   imx8mq    ^|  dual trusty-dual evk-uuu trusty-secure-unlock-dual                                                ^|
 echo                           +-------------+----------------------------------------------------------------------------------------------------+
 echo                           ^|   imx8qxp   ^|  dual trusty-dual mek-uuu trusty-secure-unlock trusty secure-unlock c0 c0-dual trusty-c0           ^|
 echo                           ^|             ^|  trusty-c0-dual mek-c0-uuu                                                                         ^|
 echo                           +-------------+----------------------------------------------------------------------------------------------------+
 echo                           ^|   imx8qm    ^|  dual trusty-dual mek-uuu trusty-secure-unlock trusty secure-unlock md hdmi xen                    ^|
 echo                           +-------------+----------------------------------------------------------------------------------------------------+
-echo                           ^|   imx93     ^|  evk-uuu                                                                                           ^|
+echo                           ^|   imx93     ^|  dual trusty-dual evk-uuu                                                                          ^|
 echo                           +-------------+----------------------------------------------------------------------------------------------------+
 echo                           ^|   imx7ulp   ^|  evk-uuu                                                                                           ^|
 echo                           +-------------+----------------------------------------------------------------------------------------------------+
@@ -290,16 +291,19 @@ echo                           ^|   imx8mm    ^|  ddr4 m4 mipi-panel mipi-panel-
 echo                           +-------------+----------------------------------------------------------------------------------------------------+
 echo                           ^|   imx8mn    ^|  mipi-panel mipi-panel-rm67191 rpmsg ddr4 ddr4-mipi-panel ddr4-mipi-panel-rm67191 ddr4-rpmsg       ^|
 echo                           +-------------+----------------------------------------------------------------------------------------------------+
-echo                           ^|   imx8mp    ^|  rpmsg lvds-panel lvds mipi-panel basler powersave powersave-non-rpmsg                             ^|
-echo                           ^|             ^|  basler-ov5640 ov5640 dual-os08a20 os08a20-ov5640 os08a20 sof                                      ^|
-echo                           +-------------+----------------------------------------------------------------------------------------------------+
-echo                           ^|   imx8mq    ^|  dual mipi-panel mipi-panel-rm67191 mipi                                                           ^|
+echo                           ^|   imx8mp    ^|  rpmsg lvds-panel lvds mipi-panel mipi-panel-rm67191 basler powersave powersave-non-rpmsg          ^|
+echo                           ^|             ^|  basler-ov5640 ov5640 dual-basler os08a20-ov5640 os08a20 sof revb4 rpmsg-revb4 lvds-panel-revb4    ^|
+echo                           ^|             ^| lvds-revb4 mipi-panel-revb4 mipi-panel-rm67191-revb4 basler-revb4 powersave-revb4                  ^|
+echo                           ^|             ^| powersave-non-rpmsg-revb4 basler-ov5640-revb4 ov5640.img-revb4 sof-revb4 dual-basler-revb4         ^|
+echo                           ^|             ^| os08a20-ov5640-revb4 os08a20-revb4                                                                 ^|
 echo                           +-------------+----------------------------------------------------------------------------------------------------+
 echo                           ^|   imx8qxp   ^|  sof                                                                                               ^|
 echo                           +-------------+----------------------------------------------------------------------------------------------------+
 echo                           ^|   imx8qm    ^|  hdmi mipi-panel mipi-panel-rm67191 md xen esai sof                                                ^|
 echo                           +-------------+----------------------------------------------------------------------------------------------------+
-echo                           ^|   imx8ulp   ^|  hdmi epdc 9x9 9x9-hdmi sof lpa                                                                    ^|
+echo                           ^|   imx8ulp   ^|  hdmi epdc 9x9 9x9-hdmi sof lpa lpd                                                                ^|
+echo                           +-------------+----------------------------------------------------------------------------------------------------+
+echo                           ^|   imx8ulp   ^|  hdmi epdc 9x9 9x9-hdmi sof lpa lpd                                                                ^|
 echo                           +-------------+----------------------------------------------------------------------------------------------------+
 echo                           ^|   imx93     ^|                                                                                                    ^|
 echo                           +-------------+----------------------------------------------------------------------------------------------------+

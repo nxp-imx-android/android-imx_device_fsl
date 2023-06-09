@@ -84,6 +84,7 @@ BOARD_AVB_SYSTEM_EXT_ADD_HASHTREE_FOOTER_ARGS += --hash_algorithm sha256
 BOARD_AVB_PRODUCT_ADD_HASHTREE_FOOTER_ARGS += --hash_algorithm sha256
 BOARD_AVB_VENDOR_ADD_HASHTREE_FOOTER_ARGS += --hash_algorithm sha256
 BOARD_AVB_VENDOR_DLKM_ADD_HASHTREE_FOOTER_ARGS += --hash_algorithm sha256
+BOARD_AVB_SYSTEM_DLKM_ADD_HASHTREE_FOOTER_ARGS += --hash_algorithm sha256
 
 # -------@block_treble-------
 # Vendor Interface manifest and compatibility
@@ -164,6 +165,9 @@ ifeq ($(TARGET_USE_DYNAMIC_PARTITIONS),true)
     TARGET_BOARD_DTS_CONFIG += imx8ulp-sof:imx8ulp-evk-sof-btsco.dtb
     # Support lpa
     TARGET_BOARD_DTS_CONFIG += imx8ulp-lpa:imx8ulp-evk-lpa.dtb
+    # Support lpd
+    TARGET_BOARD_DTS_CONFIG += imx8ulp-lpd:imx8ulp-evk-lpd.dtb
+    #TARGET_BOARD_DTS_CONFIG += imx8ulp-lpd:imx8ulp-evk-g1120b0mipi.dtb
   endif
 else
   ifeq ($(IMX_NO_PRODUCT_PARTITION),true)

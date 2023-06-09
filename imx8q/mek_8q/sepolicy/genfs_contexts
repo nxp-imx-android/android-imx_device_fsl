@@ -5,3 +5,8 @@ genfscon sysfs /devices/platform/bus@5a000000/5a800000.i2c/i2c-2/2-0051/extcon u
 genfscon sysfs /devices/platform/bus@5b000000/5b010000.mmc/mmc_host/mmc0/mmc0:0001/block/mmcblk0 u:object_r:sysfs_block_devices:s0
 genfscon sysfs /devices/platform/bus@5b000000/5b020000.mmc/mmc_host/mmc1/mmc1:aaaa/block/mmcblk1 u:object_r:sysfs_block_devices:s0
 genfscon sysfs /devices/platform/bus@56220000/56228000.dsi_host/56228000.dsi_host.0/backlight u:object_r:sysfs_leds:s0
+
+genfscon sysfs /devices/platform/system-controller/system-controller:keys/wakeup u:object_r:sysfs_wakeup:s0
+genfscon sysfs /devices/platform/system-controller/system-controller:rtc/wakeup u:object_r:sysfs_wakeup:s0
+genfscon sysfs /devices/platform/bus@5f000000/5f010000.pcie/pci0000:00/0000:00:00.0/0000:01:00.1/wakeup u:object_r:sysfs_wakeup:s0
+genfscon sysfs /devices/platform/system-controller/system-controller:rtc/rtc/rtc0/alarmtimer.0.auto/wakeup u:object_r:sysfs_wakeup:s0

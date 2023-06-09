@@ -13,6 +13,7 @@
 /dev/graphics/fb0         0660   system     graphics
 /dev/watchdog             0660   system     root
 /dev/trusty-ipc-dev0      0660   system     drmrpc
+/dev/trusty-log0          0660   system     system
 /dev/mmcblk0rpmb    0600   system     system
 /dev/block/pmem0          0660 system system
 /dev/dma_heap/reserved    0666   system     system

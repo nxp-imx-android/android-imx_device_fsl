@@ -84,6 +84,7 @@ BOARD_AVB_SYSTEM_EXT_ADD_HASHTREE_FOOTER_ARGS += --hash_algorithm sha256
 BOARD_AVB_PRODUCT_ADD_HASHTREE_FOOTER_ARGS += --hash_algorithm sha256
 BOARD_AVB_VENDOR_ADD_HASHTREE_FOOTER_ARGS += --hash_algorithm sha256
 BOARD_AVB_VENDOR_DLKM_ADD_HASHTREE_FOOTER_ARGS += --hash_algorithm sha256
+BOARD_AVB_SYSTEM_DLKM_ADD_HASHTREE_FOOTER_ARGS += --hash_algorithm sha256
 
 # -------@block_treble-------
 # Vendor Interface manifest and compatibility
@@ -103,6 +104,17 @@ BOARD_WPA_SUPPLICANT_PRIVATE_LIB        := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
 
 # NXP 8987 wifi support dual interface
 WIFI_HIDL_FEATURE_DUAL_INTERFACE := true
+
+# NXP wifi previous pwrseq_simple start
+BOARD_VENDOR_KERNEL_MODULES += \
+    $(KERNEL_OUT)/drivers/mmc/core/pwrseq_simple.ko
+
+# NXP camera driver module
+BOARD_VENDOR_KERNEL_MODULES += \
+    $(KERNEL_OUT)/sound/soc/codecs/snd-soc-wm8962.ko \
+    $(KERNEL_OUT)/drivers/staging/media/imx/imx8-media-dev.ko \
+    $(KERNEL_OUT)/drivers/firmware/imx/el_enclave.ko \
+    $(KERNEL_OUT)/drivers/nvmem/nvmem-imx-ocotp-fsb-s400.ko \
 
 # NXP 8987 wifi driver module
 BOARD_VENDOR_KERNEL_MODULES += \

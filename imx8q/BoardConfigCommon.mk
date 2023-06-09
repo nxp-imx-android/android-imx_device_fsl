@@ -114,6 +114,12 @@ KERNEL_OUT ?= $(OUT_DIR)/target/product/$(PRODUCT_DEVICE)/obj/KERNEL_OBJ
 
 TARGET_BOARD_KERNEL_HEADERS := $(CONFIG_REPO_PATH)/common/kernel-headers
 
+TARGET_IMX_KERNEL ?= false
+ifeq ($(TARGET_IMX_KERNEL),false)
+BOARD_PREBUILT_BOOTIMAGE := vendor/nxp/fsl-proprietary/gki/boot_8q.img
+TARGET_NO_KERNEL := true
+endif
+
 # -------@block_app-------
 # Enable dex-preoptimization to speed up first boot sequence
 ifeq ($(HOST_OS),linux)
@@ -127,12 +133,12 @@ endif
 # -------@block_storage-------
 AB_OTA_UPDATER := true
 ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
-AB_OTA_PARTITIONS += dtbo boot system system_ext vendor vendor_dlkm vbmeta
+AB_OTA_PARTITIONS += dtbo boot system system_dlkm system_ext vendor vendor_dlkm vbmeta
 else
 ifeq ($(TARGET_USE_VENDOR_BOOT),true)
-AB_OTA_PARTITIONS += dtbo boot init_boot vendor_boot system system_ext vendor vendor_dlkm vbmeta product
+AB_OTA_PARTITIONS += dtbo boot init_boot vendor_boot system system_dlkm system_ext vendor vendor_dlkm vbmeta product
 else
-AB_OTA_PARTITIONS += dtbo boot system system_ext vendor vendor_dlkm vbmeta product
+AB_OTA_PARTITIONS += dtbo boot system system_dlkm system_ext vendor vendor_dlkm vbmeta product
 endif
 endif
 
@@ -164,6 +170,15 @@ BOARD_USES_VENDOR_DLKMIMAGE := true
 BOARD_VENDOR_DLKMIMAGE_FILE_SYSTEM_TYPE := erofs
 TARGET_COPY_OUT_VENDOR_DLKM := vendor_dlkm
 
+# Build a separate system_dlkm partition
+BOARD_USES_SYSTEM_DLKMIMAGE := true
+BOARD_SYSTEM_DLKMIMAGE_FILE_SYSTEM_TYPE := erofs
+TARGET_COPY_OUT_SYSTEM_DLKM := system_dlkm
+ifeq ($(PRODUCT_IMX_CAR),)
+BOARD_SYSTEM_DLKM_SRC := vendor/nxp/fsl-proprietary/gki/system_dlkm_staging_8q
+endif
+
+
 BOARD_FLASH_BLOCK_SIZE := 4096
 
 ifeq ($(TARGET_USE_DYNAMIC_PARTITIONS),true)
@@ -171,9 +186,9 @@ ifeq ($(TARGET_USE_DYNAMIC_PARTITIONS),true)
   BOARD_SUPER_PARTITION_SIZE := 4294967296
   BOARD_NXP_DYNAMIC_PARTITIONS_SIZE := 4284481536
   ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
-    BOARD_NXP_DYNAMIC_PARTITIONS_PARTITION_LIST := system system_ext vendor vendor_dlkm
+    BOARD_NXP_DYNAMIC_PARTITIONS_PARTITION_LIST := system system_dlkm system_ext vendor vendor_dlkm
   else
-    BOARD_NXP_DYNAMIC_PARTITIONS_PARTITION_LIST := system system_ext vendor vendor_dlkm product
+    BOARD_NXP_DYNAMIC_PARTITIONS_PARTITION_LIST := system system_dlkm system_ext vendor vendor_dlkm product
 
   endif
 else

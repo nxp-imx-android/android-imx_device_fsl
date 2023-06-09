@@ -42,7 +42,7 @@ options:
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                            │   imx8mp       │  dual trusty-dual evk-uuu trusty-secure-unlock-dual powersave trusty-powersave-dual                  │
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
-                           │   imx8ulp      │  dual trusty-dual evk-uuu trusty-secure-unlock-dual 9x9-evk-uuu 9x9 trusty-9x9-dual trusty-lpa-dual  │
+                           │   imx8ulp      │  dual trusty-dual trusty-dualboot-dual evk-uuu trusty-secure-unlock-dual 9x9-evk-uuu 9x9 trusty-9x9-dual trusty-lpa-dual  │
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                            │   imx8qxp      │  dual trusty-dual mek-uuu trusty-secure-unlock trusty secure-unlock c0 c0-dual trusty-c0             │
                            │                │  trusty-c0-dual mek-c0-uuu                                                                           │
@@ -50,6 +50,8 @@ options:
                            │   imx8qm       │  dual trusty-dual mek-uuu trusty-secure-unlock trusty secure-unlock md hdmi xen                      │
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                            │   imx93        │  evk-uuu                                                                                             │
+                           ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
+                           │   imx93        │  dual trusty-dual evk-uuu                                                                            │
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                            │   imx7ulp      │  evk-uuu                                                                                             │
                            └────────────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────┘
@@ -68,12 +70,17 @@ options:
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                            │   imx8mp       │  rpmsg lvds-panel lvds mipi-panel mipi-panel-rm67191 basler powersave powersave-non-rpmsg            │
                            │                │  basler-ov5640 ov5640.img sof dual-basler os08a20-ov5640 os08a20                                     │
+                           │                │  revb4 rpmsg-revb4 lvds-panel-revb4 lvds-revb4 mipi-panel-revb4 mipi-panel-rm67191-revb4 basler-revb4│
+                           │                │  powersave-revb4 powersave-non-rpmsg-revb4 basler-ov5640-revb4 ov5640.img-revb4 sof-revb4            │
+                           │                │  dual-basler-revb4 os08a20-ov5640-revb4 os08a20-revb4                                                │
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                            │   imx8qxp      │  sof                                                                                                 │
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                            │   imx8qm       │  hdmi mipi-panel mipi-panel-rm67191 md xen esai sof                                                  │
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
-                           │   imx8ulp      │  hdmi epdc 9x9 9x9-hdmi sof lpa                                                                      │
+                           │   imx8ulp      │  hdmi epdc 9x9 9x9-hdmi sof lpa lpd                                                                  │
+                           ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
+                           │   imx93        │                                                                                                      │
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                            │   imx93        │                                                                                                      │
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
@@ -124,15 +131,16 @@ function whether_in_array
 
 function uuu_load_uboot
 {
-
-    while [ -f /tmp/uuu.lst${randome_part} ]; do
-        randome_part=$RANDOM
-    done
+    if [ ${dryrun} -eq 0 ]; then
+        while [ -f /tmp/uuu.lst${randome_part} ]; do
+            randome_part=$RANDOM
+        done
+    fi
 
     echo uuu_version 1.4.182 > /tmp/uuu.lst${randome_part}
     tmp_files_in_uuu+=(uuu.lst${randome_part})
 
-    ln -sf ${sym_link_directory}${bootloader_used_by_uuu} /tmp/${bootloader_used_by_uuu}${randome_part}
+    ln -sf "${sym_link_directory}"${bootloader_used_by_uuu} /tmp/${bootloader_used_by_uuu}${randome_part}
     echo ${sdp}: boot -f ${bootloader_used_by_uuu}${randome_part} >> /tmp/uuu.lst${randome_part}
     tmp_files_in_uuu+=(${bootloader_used_by_uuu}${randome_part})
     # for uboot by uuu which enabled SPL
@@ -164,6 +172,53 @@ function uuu_load_uboot
         echo FB: done >> /tmp/uuu.lst${randome_part}
         uuu ${usb_paths} /tmp/uuu.lst${randome_part}
         exit 0
+    fi
+
+    if [[ ${flash_mcu_only} -eq 1 ]]; then
+        flash_mcu_sf
+        echo FB: done >> /tmp/uuu.lst${randome_part}
+        uuu ${usb_paths} /tmp/uuu.lst${randome_part}
+        exit 0
+    fi
+}
+
+function flash_mcu_sf
+{
+    # since imx7ulp use uboot for uuu from BSP team,there is no hardcoded mcu_os partition. If m4 need to be flashed, flash it here.
+    if [[ ${soc_name} == imx7ulp ]]; then
+        # download m4 image to dram
+        ln -sf "${sym_link_directory}"${soc_name}_m4_demo.img /tmp/${soc_name}_m4_demo.img${randome_part}
+        tmp_files_in_uuu+=(${soc_name}_m4_demo.img${randome_part})
+        echo -e generate lines to flash ${RED}${soc_name}_m4_demo.img${STD} to the partition of ${RED}m4_os${STD}
+        echo FB: ucmd setenv fastboot_buffer ${imx7ulp_stage_base_addr} >> /tmp/uuu.lst${randome_part}
+        echo FB: download -f ${soc_name}_m4_demo.img${randome_part} >> /tmp/uuu.lst${randome_part}
+
+        echo FB: ucmd sf probe >> /tmp/uuu.lst${randome_part}
+        echo FB[-t 30000]: ucmd sf erase `echo "obase=16;$((${imx7ulp_evk_m4_sf_start}*${imx7ulp_evk_sf_blksz}))" | bc` \
+                `echo "obase=16;$((${imx7ulp_evk_m4_sf_length}*${imx7ulp_evk_sf_blksz}))" | bc` >> /tmp/uuu.lst${randome_part}
+
+        echo FB[-t 30000]: ucmd sf write ${imx7ulp_stage_base_addr} `echo "obase=16;$((${imx7ulp_evk_m4_sf_start}*${imx7ulp_evk_sf_blksz}))" | bc` \
+                `echo "obase=16;$((${imx7ulp_evk_m4_sf_length}*${imx7ulp_evk_sf_blksz}))" | bc` >> /tmp/uuu.lst${randome_part}
+    elif [[ ${soc_name} == imx8ulp ]]; then
+        # download m4 image to dram
+        if [[ "${uboot_feature}" = *"lpa"* ]]; then
+            mcu_demo="lpa"
+        else
+            mcu_demo="sf"
+        fi
+        ln -sf "${sym_link_directory}"${soc_name}_mcu_demo_${mcu_demo}.img /tmp/${soc_name}_mcu_demo_${mcu_demo}.img${randome_part}
+        tmp_files_in_uuu+=(${soc_name}_mcu_demo_${mcu_demo}.img${randome_part})
+        echo -e generate lines to flash ${RED}${soc_name}_mcu_demo_${mcu_demo}.img${STD} to the external serial flash
+        echo FB: ucmd setenv fastboot_buffer \${loadaddr} >> /tmp/uuu.lst${randome_part}
+        echo FB: download -f ${soc_name}_mcu_demo_${mcu_demo}.img${randome_part} >> /tmp/uuu.lst${randome_part}
+
+        echo FB: ucmd sf probe 0:0 >> /tmp/uuu.lst${randome_part}
+        echo FB: ucmd setenv erase_unit 1000 >> /tmp/uuu.lst${randome_part}
+        echo FB: ucmd setexpr erase_size \${fastboot_bytes} + \${erase_unit} >> /tmp/uuu.lst${randome_part}
+        echo FB: ucmd setexpr erase_size \${erase_size} / \${erase_unit} >> /tmp/uuu.lst${randome_part}
+        echo FB: ucmd setexpr erase_size \${erase_size} \* \${erase_unit} >> /tmp/uuu.lst${randome_part}
+        echo FB[-t 100000]: ucmd sf erase 0 \${erase_size} >> /tmp/uuu.lst${randome_part}
+        echo FB[-t 40000]: ucmd sf write \${fastboot_buffer} 0 \${fastboot_bytes} >> /tmp/uuu.lst${randome_part}
     fi
 }
 
@@ -201,7 +256,7 @@ function flash_partition
     fi
 
     echo -e generate lines to flash ${RED}${img_name}${STD} to the partition of ${RED}${1}${STD}
-    ln -sf ${sym_link_directory}${img_name} /tmp/${img_name}${randome_part}
+    ln -sf "${sym_link_directory}"${img_name} /tmp/${img_name}${randome_part}
     tmp_files_in_uuu+=(${img_name}${randome_part})
     echo FB[-t 600000]: flash ${1} ${img_name}${randome_part} >> /tmp/uuu.lst${randome_part}
 }
@@ -292,23 +347,10 @@ function flash_android
         slot=""
     fi
 
-    # since imx7ulp use uboot for uuu from BSP team,there is no hardcoded mcu_os partition. If m4 need to be flashed, flash it here.
-    if [[ ${soc_name} == imx7ulp ]] && [[ ${flash_mcu} -eq 1 ]]; then
-        # download m4 image to dram
-        ln -sf ${sym_link_directory}${soc_name}_m4_demo.img /tmp/${soc_name}_m4_demo.img${randome_part}
-        tmp_files_in_uuu+=(${soc_name}_m4_demo.img${randome_part})
-        echo -e generate lines to flash ${RED}${soc_name}_m4_demo.img${STD} to the partition of ${RED}m4_os${STD}
-        echo FB: ucmd setenv fastboot_buffer ${imx7ulp_stage_base_addr} >> /tmp/uuu.lst${randome_part}
-        echo FB: download -f ${soc_name}_m4_demo.img${randome_part} >> /tmp/uuu.lst${randome_part}
-
-        echo FB: ucmd sf probe >> /tmp/uuu.lst${randome_part}
-        echo FB[-t 30000]: ucmd sf erase `echo "obase=16;$((${imx7ulp_evk_m4_sf_start}*${imx7ulp_evk_sf_blksz}))" | bc` \
-                `echo "obase=16;$((${imx7ulp_evk_m4_sf_length}*${imx7ulp_evk_sf_blksz}))" | bc` >> /tmp/uuu.lst${randome_part}
-
-        echo FB[-t 30000]: ucmd sf write ${imx7ulp_stage_base_addr} `echo "obase=16;$((${imx7ulp_evk_m4_sf_start}*${imx7ulp_evk_sf_blksz}))" | bc` \
-                `echo "obase=16;$((${imx7ulp_evk_m4_sf_length}*${imx7ulp_evk_sf_blksz}))" | bc` >> /tmp/uuu.lst${randome_part}
-    else
-        if [[ ${flash_mcu} -eq 1 ]]; then
+    if [[ ${flash_mcu} -eq 1 ]]; then
+        if [[ ${soc_name} == imx7ulp ]] || [[ ${soc_name} == imx8ulp ]]; then
+            flash_mcu_sf
+        else
             flash_partition ${mcu_os_partition}
         fi
     fi
@@ -380,6 +422,7 @@ mcu_os_partition="mcu_os"
 super_partition="super"
 
 flash_mcu=0
+flash_mcu_only=0
 erase=0
 image_directory=""
 target_dev="emmc"
@@ -407,7 +450,7 @@ daemon_mode=0
 dryrun=0
 result_value=0
 usb_paths=""
-randome_part=0
+randome_part=
 
 # We want to detect illegal feature input to some extent. Here it's based on SoC names. Since an SoC may be on a
 # board running different set of images(android and automotive for a example), so misuse the features of one set of
@@ -416,19 +459,19 @@ imx8mm_uboot_feature=(dual trusty-dual 4g-evk-uuu 4g ddr4-evk-uuu ddr4 evk-uuu t
 imx8mn_uboot_feature=(dual trusty-dual evk-uuu trusty-secure-unlock-dual ddr4-evk-uuu ddr4)
 imx8mq_uboot_feature=(dual trusty-dual evk-uuu trusty-secure-unlock-dual)
 imx8mp_uboot_feature=(dual trusty-dual evk-uuu trusty-secure-unlock-dual powersave trusty-powersave-dual)
-imx8ulp_uboot_feature=(dual trusty-dual evk-uuu trusty-secure-unlock-dual 9x9-evk-uuu 9x9 trusty-9x9-dual trusty-lpa-dual)
+imx8ulp_uboot_feature=(dual trusty-dual trusty-dualboot-dual evk-uuu trusty-secure-unlock-dual 9x9-evk-uuu 9x9 trusty-9x9-dual trusty-lpa-dual)
 imx8qxp_uboot_feature=(dual trusty-dual mek-uuu trusty-secure-unlock-dual secure-unlock c0 c0-dual trusty-c0-dual mek-c0-uuu)
 imx8qm_uboot_feature=(dual trusty-dual mek-uuu trusty-secure-unlock-dual secure-unlock md hdmi xen)
 imx7ulp_uboot_feature=(evk-uuu)
-imx93_uboot_feature=(dual evk-uuu)
+imx93_uboot_feature=(dual trusty-dual evk-uuu)
 
 imx8mm_dtb_feature=(ddr4 m4 mipi-panel mipi-panel-rm67191)
 imx8mn_dtb_feature=(mipi-panel mipi-panel-rm67191 rpmsg ddr4 ddr4-mipi-panel ddr4-mipi-panel-rm67191 ddr4-rpmsg)
 imx8mq_dtb_feature=(dual mipi-panel mipi-panel-rm67191 mipi)
-imx8mp_dtb_feature=(rpmsg lvds-panel lvds mipi-panel mipi-panel-rm67191 basler powersave powersave-non-rpmsg basler-ov5640 ov5640 sof dual-basler os08a20-ov5640 os08a20)
+imx8mp_dtb_feature=(rpmsg lvds-panel lvds mipi-panel mipi-panel-rm67191 basler powersave powersave-non-rpmsg basler-ov5640 ov5640 sof dual-basler os08a20-ov5640 os08a20 revb4 rpmsg-revb4 lvds-panel-revb4 lvds-revb4 mipi-panel-revb4 mipi-panel-rm67191-revb4 basler-revb4 powersave-revb4 powersave-non-rpmsg-revb4 basler-ov5640-revb4 ov5640-revb4 sof-revb4 dual-basler-revb4 os08a20-ov5640-revb4 os08a20-revb4)
 imx8qxp_dtb_feature=(sof)
 imx8qm_dtb_feature=(hdmi hdmi-rx mipi-panel mipi-panel-rm67191 md xen esai sof)
-imx8ulp_dtb_feature=(hdmi epdc 9x9 9x9-hdmi sof lpa)
+imx8ulp_dtb_feature=(hdmi epdc 9x9 9x9-hdmi sof lpa lpd)
 imx93_dtb_feature=()
 imx7ulp_dtb_feature=(evk-mipi evk mipi)
 
@@ -454,6 +497,7 @@ while [ $# -gt 0 ]; do
         -a) slot="_a" ;;
         -b) slot="_b" ;;
         -m) flash_mcu=1 ;;
+        -mo) flash_mcu_only=1 ;;
         -e) erase=1 ;;
         -D) image_directory=$2; shift;;
         -t) target_dev=$2; shift;;
@@ -499,13 +543,13 @@ if [[ "${image_directory}" == "" ]] || [[ "${image_directory}" == "./" ]]; then
     sym_link_directory=`pwd`;
     sym_link_directory="${sym_link_directory%/}/";
 # for conditions that absolute path is specified
-elif [[ "${image_directory#/}" != "${image_directory}" ]] || [[ "${image_directory#~}" != "${image_directory}" ]]; then
-    sym_link_directory=${image_directory};
+elif [[ "${image_directory#/}" != "${image_directory}" ]]; then
+    sym_link_directory="${image_directory}";
 # for other relative path specified
 else
     sym_link_directory=`pwd`;
     sym_link_directory="${sym_link_directory%/}/";
-    sym_link_directory=${sym_link_directory}${image_directory}
+    sym_link_directory="${sym_link_directory}""${image_directory}"
 fi
 
 # if absolute path is used
@@ -540,14 +584,15 @@ else
     fi
 fi
 
-
-randome_part=$RANDOM
-while [ -f /tmp/partition-table_1.txt${randome_part} ]; do
+if [ ${dryrun} -eq 0 ]; then
     randome_part=$RANDOM
-done
+    while [ -f /tmp/partition-table_1.txt${randome_part} ]; do
+        randome_part=$RANDOM
+    done
+fi
 
 # dump the partition table image file into text file and check whether some partition names are in it
-hexdump -C -v ${image_directory}${partition_file} > /tmp/partition-table_1.txt${randome_part}
+hexdump -C -v "${image_directory}"${partition_file} > /tmp/partition-table_1.txt${randome_part}
 tmp_files_before_uuu+=(partition-table_1.txt${randome_part})
 # get the 2nd to 17th colunmns, it's hex value in text mode for partition table file
 awk '{for(i=2;i<=17;i++) printf $i" "; print ""}' /tmp/partition-table_1.txt${randome_part} > /tmp/partition-table_2.txt${randome_part}
@@ -588,44 +633,44 @@ clean_tmp_files "0"
 case ${soc_name%%-*} in
     imx8qm)
             vid=0x1fc9; pid=0x0129; chip=MX8QM;
-            uboot_env_start=0x2000; uboot_env_len=0x10;
+            uboot_env_start=0x3800; uboot_env_len=0x10;
             emmc_num=0; sd_num=1;
             board=mek ;;
     imx8qxp)
             vid=0x1fc9; pid=0x012f; chip=MX8QXP;
-            uboot_env_start=0x2000; uboot_env_len=0x10;
+            uboot_env_start=0x3800; uboot_env_len=0x10;
             emmc_num=0; sd_num=1;
             board=mek ;;
     imx8mq)
             vid=0x1fc9; pid=0x012b; chip=MX8MQ;
-            uboot_env_start=0x2000; uboot_env_len=0x8;
+            uboot_env_start=0x3800; uboot_env_len=0x20;
             emmc_num=0; sd_num=1;
             if [ -z "$board" ]; then
                 board=evk;
             fi ;;
     imx8mm)
             vid=0x1fc9; pid=0x0134; chip=MX8MM;
-            uboot_env_start=0x2000; uboot_env_len=0x8;
+            uboot_env_start=0x3800; uboot_env_len=0x20;
             emmc_num=2; sd_num=1;
             board=evk ;;
     imx8mn)
             vid=0x1fc9; pid=0x0134; chip=MX8MN;
-            uboot_env_start=0x2000; uboot_env_len=0x8;
+            uboot_env_start=0x3800; uboot_env_len=0x20;
             emmc_num=2; sd_num=1;
             board=evk ;;
     imx8mp)
             vid=0x1fc9; pid=0x0146; chip=MX8MP;
-            uboot_env_start=0x2000; uboot_env_len=0x8;
+            uboot_env_start=0x3800; uboot_env_len=0x20;
             emmc_num=2; sd_num=1;
             board=evk ;;
     imx8ulp)
             vid=0x1fc9; pid=0x014a; chip=MX8ULP;
-            uboot_env_start=0x2000; uboot_env_len=0x8;
+            uboot_env_start=0x3800; uboot_env_len=0x10;
             emmc_num=0; sd_num=2;
             board=evk ;;
     imx93)
             vid=0x1fc9; pid=0x0152; chip=MX93;
-            uboot_env_start=0x2000; uboot_env_len=0x8;
+            uboot_env_start=0x3800; uboot_env_len=0x20;
             emmc_num=0; sd_num=1;
             board=evk ;;
     imx7ulp)
@@ -765,21 +810,21 @@ if [[ "${yocto_image}" != "" ]]; then
 
     # replace uboot from yocto team with the one from android team
     echo -e generate lines to flash ${RED}u-boot-imx8qm-xen-dom0.imx${STD} to the partition of ${RED}bootloader0${STD} on SD card
-    ln -sf ${sym_link_directory}u-boot-imx8qm-xen-dom0.imx /tmp/u-boot-imx8qm-xen-dom0.imx${randome_part}
+    ln -sf "${sym_link_directory}"u-boot-imx8qm-xen-dom0.imx /tmp/u-boot-imx8qm-xen-dom0.imx${randome_part}
     echo FB: flash bootloader0 u-boot-imx8qm-xen-dom0.imx${randome_part} >> /tmp/uuu.lst${randome_part}
 
-    xen_uboot_size_dec=`wc -c ${image_directory}spl-${soc_name}-${dtb_feature}.bin | cut -d ' ' -f1`
+    xen_uboot_size_dec=`wc -c "${image_directory}"spl-${soc_name}-${dtb_feature}.bin | cut -d ' ' -f1`
     xen_uboot_size_hex=`echo "obase=16;${xen_uboot_size_dec}" | bc`
     # write the xen spl from android team to FAT on SD card
     echo -e generate lines to write ${RED}spl-${soc_name}-${dtb_feature}.bin${STD} to ${RED}FAT${STD}
-    ln -sf ${sym_link_directory}spl-${soc_name}-${dtb_feature}.bin /tmp/spl-${soc_name}-${dtb_feature}.bin${randome_part}
+    ln -sf "${sym_link_directory}"spl-${soc_name}-${dtb_feature}.bin /tmp/spl-${soc_name}-${dtb_feature}.bin${randome_part}
     echo FB: ucmd setenv fastboot_buffer ${imx8qm_stage_base_addr} >> /tmp/uuu.lst${randome_part}
     echo FB: download -f spl-${soc_name}-${dtb_feature}.bin${randome_part} >> /tmp/uuu.lst${randome_part}
     echo FB: ucmd fatwrite mmc ${sd_num} ${imx8qm_stage_base_addr} spl-${soc_name}-${dtb_feature}.bin${randome_part} 0x${xen_uboot_size_hex} >> /tmp/uuu.lst${randome_part}
-    xen_firmware_size_dec=`wc -c ${image_directory}xen | cut -d ' ' -f1`
+    xen_firmware_size_dec=`wc -c "${image_directory}"xen | cut -d ' ' -f1`
     xen_firmware_size_hex=`echo "obase=16;${xen_firmware_size_dec}" | bc`
     echo -e generate lines to replace the ${RED}xen firmware${STD} on ${RED}FAT${STD}$
-    ln -sf  ${sym_link_directory}xen /tmp/xen${randome_part}
+    ln -sf  "${sym_link_directory}"xen /tmp/xen${randome_part}
     echo FB: ucmd setenv fastboot_buffer ${imx8qm_stage_base_addr} >> /tmp/uuu.lst${randome_part}
     echo FB: download -f xen${randome_part} >> /tmp/uuu.lst${randome_part}
     echo FB: ucmd fatwrite mmc ${sd_num} ${imx8qm_stage_base_addr} xen${randome_part} 0x${xen_firmware_size_hex} >> /tmp/uuu.lst${randome_part}

@@ -95,6 +95,7 @@ BOARD_AVB_SYSTEM_EXT_ADD_HASHTREE_FOOTER_ARGS += --hash_algorithm sha256
 BOARD_AVB_PRODUCT_ADD_HASHTREE_FOOTER_ARGS += --hash_algorithm sha256
 BOARD_AVB_VENDOR_ADD_HASHTREE_FOOTER_ARGS += --hash_algorithm sha256
 BOARD_AVB_VENDOR_DLKM_ADD_HASHTREE_FOOTER_ARGS += --hash_algorithm sha256
+BOARD_AVB_SYSTEM_DLKM_ADD_HASHTREE_FOOTER_ARGS += --hash_algorithm sha256
 
 # -------@block_treble-------
 # Vendor Interface Manifest
@@ -222,7 +223,8 @@ else
       # imx8qm standard android; MIPI-HDMI display
       TARGET_BOARD_DTS_CONFIG := imx8qm:imx8qm-mek-ov5640.dtb
       # imx8qm standard android; MIPI panel display
-      TARGET_BOARD_DTS_CONFIG += imx8qm-mipi-panel:imx8qm-mek-dsi-rm67191.dtb
+      TARGET_BOARD_DTS_CONFIG += imx8qm-mipi-panel:imx8qm-mek-dsi-rm67199.dtb
+      TARGET_BOARD_DTS_CONFIG += imx8qm-mipi-panel-rm67191:imx8qm-mek-dsi-rm67191.dtb
       # imx8qm standard android; HDMI display
       TARGET_BOARD_DTS_CONFIG += imx8qm-hdmi:imx8qm-mek-hdmi.dtb
       # imx8qm standard android; HDMI and HDMI RX
@@ -234,6 +236,9 @@ else
       # imx8qxp standard android; MIPI-HDMI display
       TARGET_BOARD_DTS_CONFIG += imx8qxp:imx8qxp-mek-ov5640-rpmsg.dtb
       TARGET_BOARD_DTS_CONFIG += imx8dx:imx8dx-mek-ov5640.dtb
+      # imx8qxp standard android; MIPI panel display
+      TARGET_BOARD_DTS_CONFIG += imx8qxp-mipi-panel:imx8qxp-mek-dsi-rm67199-rpmsg.dtb
+      TARGET_BOARD_DTS_CONFIG += imx8qxp-mipi-panel-rm67191:imx8qxp-mek-dsi-rm67191-rpmsg.dtb
       # imx8qxp standard android; LVDS panel display
       TARGET_BOARD_DTS_CONFIG += imx8qxp-lvds0-panel:imx8qxp-mek-jdi-wuxga-lvds0-panel-rpmsg.dtb
       # imx8qm support SOF

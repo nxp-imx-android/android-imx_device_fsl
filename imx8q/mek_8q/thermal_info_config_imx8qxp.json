@@ -5,7 +5,7 @@
     ],
     "Sensors":[
         {
-            "Name":"cpu-thermal0",
+            "Name":"cpu0-thermal",
             "Type":"CPU",
             "HotThreshold":[
                 "NAN",
