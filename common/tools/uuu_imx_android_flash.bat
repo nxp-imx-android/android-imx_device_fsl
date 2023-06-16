@@ -129,20 +129,22 @@ if %1 == -u set uboot_feature=-%2& shift & shift & goto :parse_loop
 if %1 == -d set dtb_feature=%2& shift & shift & goto :parse_loop
 if %1 == -a set slot=_a& shift & goto :parse_loop
 if %1 == -b set slot=_b& shift & goto :parse_loop
-if %1 == -m set /A flash_mcu=1
+if %1 == -m (
+    set /A flash_mcu=1
     set next_parameter=%2
     if not [%2] == [] (
         setlocal enabledelayedexpansion
         call :whether_in_array next_parameter all_cmd_options
         if !flag! neq 0 (
             endlocal
-            set mcu_feature=%next_parameter%
+            set mcu_feature=%2
             shift
         ) else (
             endlocal
         )
     )
     shift & goto :parse_loop
+)
 if %1 == -mo set /A flash_mcu_only=1 & shift & goto :parse_loop
 if %1 == -e set /A erase=1 & shift & goto :parse_loop
 if %1 == -D set image_directory=%2& shift & shift & goto :parse_loop
