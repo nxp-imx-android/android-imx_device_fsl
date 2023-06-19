@@ -419,6 +419,7 @@ dtbo_partition="dtbo"
 vendor_boot_partition="vendor_boot"
 init_boot_partition="init_boot"
 mcu_os_partition="mcu_os"
+mcu_feature=""
 super_partition="super"
 
 flash_mcu=0
@@ -477,7 +478,7 @@ imx7ulp_dtb_feature=(evk-mipi evk mipi)
 
 tmp_files_before_uuu=()
 tmp_files_in_uuu=()
-
+all_cmd_options=(-h -f -c -u -d -a -b -m -mo -e -D -t -y -p -i -daemon -dryrun -usb)
 
 echo -e This script is validated with ${RED}uuu 1.4.182${STD} version, it is recommended to align with this version.
 
@@ -496,7 +497,16 @@ while [ $# -gt 0 ]; do
         -d) dtb_feature=$2; shift;;
         -a) slot="_a" ;;
         -b) slot="_b" ;;
-        -m) flash_mcu=1 ;;
+        -m) flash_mcu=1
+            if [ "$2" != "" ]; then
+                next_parameter=$2
+                whether_in_array next_parameter all_cmd_options
+                if [ ${result_value} != 0 ]; then
+                    mcu_feature=${next_parameter}
+                    shift
+                fi
+            fi
+            ;;
         -mo) flash_mcu_only=1 ;;
         -e) erase=1 ;;
         -D) image_directory=$2; shift;;

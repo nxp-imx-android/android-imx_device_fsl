@@ -290,6 +290,14 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.renderscript@1.0-impl
 
+# 2d test
+ifneq (,$(filter userdebug eng, $(TARGET_BUILD_VARIANT)))
+PRODUCT_PACKAGES += 2d-test
+endif
+
+PRODUCT_PACKAGES += \
+    libg2d-opencl
+
 # -------@block_gpu-------
 
 PRODUCT_PACKAGES += \
@@ -324,6 +332,10 @@ PRODUCT_PACKAGES += \
     libNNArchPerf \
     libarchmodelSw
 
+# GPU openCL g2d
+PRODUCT_COPY_FILES += \
+    $(IMX_PATH)/imx/opencl-2d/cl_g2d.cl:$(TARGET_COPY_OUT_VENDOR)/etc/cl_g2d.cl
+
 # -------@block_wifi-------
 
 #LPDDR4 board, NXP wifi supplicant overlay
@@ -350,8 +362,8 @@ PRODUCT_COPY_FILES += \
 
 # Wifi regulatory
 PRODUCT_COPY_FILES += \
-    external/wireless-regdb/regulatory.db:$(TARGET_COPY_OUT_VENDOR_RAMDISK)/lib/firmware/regulatory.db \
-    external/wireless-regdb/regulatory.db.p7s:$(TARGET_COPY_OUT_VENDOR_RAMDISK)/lib/firmware/regulatory.db.p7s
+    external/wireless-regdb/regulatory.db:$(TARGET_COPY_OUT_VENDOR)/firmware/regulatory.db \
+    external/wireless-regdb/regulatory.db.p7s:$(TARGET_COPY_OUT_VENDOR)/firmware/regulatory.db.p7s
 
 # EPDC firmware
 PRODUCT_COPY_FILES += \

@@ -23,3 +23,4 @@ allow init-insmod-sh debugfs_bootreceiver_tracing:dir { search };
 allow init-insmod-sh system_dlkm_file:dir r_dir_perms;
 allow init-insmod-sh system_dlkm_file:file r_file_perms;
 allow init-insmod-sh system_dlkm_file:system module_load;
+allow init-insmod-sh self:key write;
