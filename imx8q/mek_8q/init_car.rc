@@ -76,6 +76,8 @@ on early-boot
     setprop wifi.interface wlan0
     setprop wifi.direct.interface p2p0
     setprop wifi.concurrent.interface wlan1
+    setprop ro.vendor.wifi.sap.interface wlan1
+    setprop ro.vendor.wifi.sap.concurrent.iface wlan3
 
     # Set tracefs permission to 755
     chmod 0755 /sys/kernel/debug/tracing

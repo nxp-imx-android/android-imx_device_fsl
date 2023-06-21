@@ -3,3 +3,6 @@ set_prop(hal_wifi_default, vendor_wifi_version);
 allow hal_wifi_default proc:file { getattr open read write };
 allow hal_wifi_default vendor_data_file:dir { create_file_perms rw_file_perms add_name };
 allow hal_wifi_default vendor_data_file:file { create open write read append getattr };
+#AP + AP support
+## Allow to set up bridged interface
+allowxperm hal_wifi_default self:udp_socket ioctl { SIOCBRADDBR SIOCBRDELBR SIOCBRADDIF SIOCBRDELIF};

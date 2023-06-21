@@ -118,7 +118,10 @@ BOARD_HOSTAPD_DRIVER         := NL80211
 BOARD_HOSTAPD_PRIVATE_LIB               := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
 BOARD_WPA_SUPPLICANT_PRIVATE_LIB        := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
 
+# Enables to use two concurrent interfaces
 WIFI_HIDL_FEATURE_DUAL_INTERFACE := true
+# Enables following multi-interface concurrency:  STA+AP+AP, STA+AP, AP+AP, STA, AP
+WIFI_HAL_INTERFACE_COMBINATIONS := {{{STA}, 1}, {{AP_BRIDGED, AP}, 1}}, {{{AP_BRIDGED}, 1}}, {{{AP}, 1}}, {{{STA}, 1}}
 
 # -------@block_bluetooth-------
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(IMX_DEVICE_PATH)/bluetooth

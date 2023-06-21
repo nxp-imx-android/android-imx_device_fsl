@@ -32,6 +32,10 @@
     <!-- Enable 802.11ac for Wifi hotspot (SAP) -->
     <bool translatable="false" name="config_wifi_softap_ieee80211ac_supported">true</bool>
 
+    <!-- Currently disabled, other possible 802.11 speeds, not tested, could have similar problems with some wifi features as 802.11ac had (wider bandwidth on interfaces that do not support it)-->
+    <bool translatable="false" name="config_wifiSoftapIeee80211axSupported">false</bool>
+    <bool translatable="false" name="config_wifiSoftapIeee80211beSupported">false</bool>
+
     <!-- True if the firmware supports connected MAC randomization -->
     <bool name="config_wifi_connected_mac_randomization_supported">true</bool>
 
@@ -43,5 +47,36 @@
 
     <!-- Indicates that WPA3 is supported -->
     <bool translatable="false" name="config_wifi_softap_sae_supported">true</bool>
+
+    <!-- Indicates that SoftAP is supported in 2,4GHz band -->
+    <bool translatable="false" name="config_wifiSoftap24ghzSupported">true</bool>
+    <bool translatable="false" name="config_wifiSoftap2gChannelList">true</bool>
+
+    <!-- Indicates that SoftAP is supported in 5GHz band -->
+    <bool translatable="false" name="config_wifiSoftap5ghzSupported">true</bool>
+    <bool translatable="false" name="config_wifiSoftap5gChannelList">true</bool>
+
+    <!-- Disabled, currently not supported -->
+    <!-- Indicates that SoftAP is supported in 6GHz band -->
+    <bool translatable="false" name="config_wifiSoftap6ghzSupported">false</bool>
+    <bool translatable="false" name="config_wifiSoftap6gChannelList">false</bool>
+
+    <!-- Disabled, currently not supported -->
+    <!-- Indicates that SoftAP is supported in 60GHz band -->
+    <bool translatable="false" name="config_wifiSoftap60ghzSupported">false</bool>
+    <bool translatable="false" name="config_wifiSoftap60gChannelList">false</bool>
+
+    <!-- Indicates that Wi-Fi driver supports ACS -->
+    <bool translatable="false" name="config_wifiSoftapAcsIncludeDfs">true</bool>
+
+    <!-- Indicates that dynamic country code update in AP mode is supported on this device -->
+    <bool translatable="false" name="config_wifiSoftApDynamicCountryCodeUpdateSupported">true</bool>
+
+    <!-- Indicates that bridged AP concurrency mode is supported on this device (AP+AP)-->
+    <!-- Currently not used, use this config onlz if you want AP+AP concurrency enabled but STA+AP+AP concurrency disabled at the same time -->
+    <!-- <bool translatable="false" name="config_wifiBridgedSoftApSupported">true</bool>-->
+
+    <!-- Indicates that STA + bridged AP concurrency mode is supported on this device (STA+AP+AP)-->
+    <bool translatable="false" name="config_wifiStaWithBridgedSoftApConcurrencySupported">true</bool>
 
 </resources>
