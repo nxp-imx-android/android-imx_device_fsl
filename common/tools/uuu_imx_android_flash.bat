@@ -82,6 +82,7 @@ if not [%tmp_dir%] == [] (
 )
 set /A shared_uuu_uboot=0
 set usb_paths=
+set mcu_demo=
 
 
 :: We want to detect illegal feature input to some extent. Here it's based on SoC names. Since an SoC may be on a
@@ -883,18 +884,20 @@ if [%soc_name%] == [imx7ulp] (
 )
 if [%soc_name%] == [imx8ulp] (
     :: download m4 image to dram
+    setlocal enabledelayedexpansion
     if not [%uboot_feature_test:lpa=%] == [%uboot_feature_test%] (
         set mcu_demo=lpa
     ) else (
         set mcu_demo=sf
     )
-    if exist %tmp_dir%%soc_name%_mcu_demo_%mcu_demo%.img.link (
-        del %tmp_dir%%soc_name%_mcu_demo_%mcu_demo%.img.link
+    if exist %tmp_dir%%soc_name%_mcu_demo_!mcu_demo!.img.link (
+        del %tmp_dir%%soc_name%_mcu_demo_!mcu_demo!.img.link
     )
-    cmd /c mklink %tmp_dir%%soc_name%_mcu_demo_%mcu_demo%.img.link %image_directory%%soc_name%_mcu_demo_%mcu_demo%.img > nul
-    echo generate lines to flash %soc_name%_mcu_demo_%mcu_demo%.img to the external serial flash
+    cmd /c mklink %tmp_dir%%soc_name%_mcu_demo_!mcu_demo!.img.link %image_directory%%soc_name%_mcu_demo_!mcu_demo!.img > nul
+    echo generate lines to flash %soc_name%_mcu_demo_!mcu_demo!.img to the external serial flash
     echo FB: ucmd setenv fastboot_buffer ${loadaddr} >> %tmp_dir%uuu.lst
-    echo FB: download -f %soc_name%_mcu_demo_%mcu_demo%.img.link >> %tmp_dir%uuu.lst
+    echo FB: download -f %soc_name%_mcu_demo_!mcu_demo!.img.link >> %tmp_dir%uuu.lst
+    endlocal
 
     echo FB: ucmd sf probe 0:0 >> %tmp_dir%uuu.lst
     echo FB: ucmd setenv erase_unit 1000 >> %tmp_dir%uuu.lst
