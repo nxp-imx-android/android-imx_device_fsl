@@ -82,6 +82,7 @@ if not [%tmp_dir%] == [] (
 )
 set /A shared_uuu_uboot=0
 set usb_paths=
+set mcu_demo=
 
 
 :: We want to detect illegal feature input to some extent. Here it's based on SoC names. Since an SoC may be on a
@@ -129,20 +130,22 @@ if %1 == -u set uboot_feature=-%2& shift & shift & goto :parse_loop
 if %1 == -d set dtb_feature=%2& shift & shift & goto :parse_loop
 if %1 == -a set slot=_a& shift & goto :parse_loop
 if %1 == -b set slot=_b& shift & goto :parse_loop
-if %1 == -m set /A flash_mcu=1
+if %1 == -m (
+    set /A flash_mcu=1
     set next_parameter=%2
     if not [%2] == [] (
         setlocal enabledelayedexpansion
         call :whether_in_array next_parameter all_cmd_options
         if !flag! neq 0 (
             endlocal
-            set mcu_feature=%next_parameter%
+            set mcu_feature=%2
             shift
         ) else (
             endlocal
         )
     )
     shift & goto :parse_loop
+)
 if %1 == -mo set /A flash_mcu_only=1 & shift & goto :parse_loop
 if %1 == -e set /A erase=1 & shift & goto :parse_loop
 if %1 == -D set image_directory=%2& shift & shift & goto :parse_loop
@@ -884,18 +887,20 @@ if [%soc_name%] == [imx7ulp] (
 )
 if [%soc_name%] == [imx8ulp] (
     :: download m4 image to dram
+    setlocal enabledelayedexpansion
     if not [%uboot_feature_test:lpa=%] == [%uboot_feature_test%] (
         set mcu_demo=lpa
     ) else (
         set mcu_demo=sf
     )
-    if exist %tmp_dir%%soc_name%_mcu_demo_%mcu_demo%.img.link (
-        del %tmp_dir%%soc_name%_mcu_demo_%mcu_demo%.img.link
+    if exist %tmp_dir%%soc_name%_mcu_demo_!mcu_demo!.img.link (
+        del %tmp_dir%%soc_name%_mcu_demo_!mcu_demo!.img.link
     )
-    cmd /c mklink %tmp_dir%%soc_name%_mcu_demo_%mcu_demo%.img.link %image_directory%%soc_name%_mcu_demo_%mcu_demo%.img > nul
-    echo generate lines to flash %soc_name%_mcu_demo_%mcu_demo%.img to the external serial flash
+    cmd /c mklink %tmp_dir%%soc_name%_mcu_demo_!mcu_demo!.img.link %image_directory%%soc_name%_mcu_demo_!mcu_demo!.img > nul
+    echo generate lines to flash %soc_name%_mcu_demo_!mcu_demo!.img to the external serial flash
     echo FB: ucmd setenv fastboot_buffer ${loadaddr} >> %tmp_dir%uuu.lst
-    echo FB: download -f %soc_name%_mcu_demo_%mcu_demo%.img.link >> %tmp_dir%uuu.lst
+    echo FB: download -f %soc_name%_mcu_demo_!mcu_demo!.img.link >> %tmp_dir%uuu.lst
+    endlocal
 
     echo FB: ucmd sf probe 0:0 >> %tmp_dir%uuu.lst
     echo FB: ucmd setenv erase_unit 1000 >> %tmp_dir%uuu.lst
