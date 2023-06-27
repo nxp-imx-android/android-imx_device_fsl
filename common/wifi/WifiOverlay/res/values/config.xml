@@ -32,8 +32,16 @@
     <!-- Enable 802.11ac for Wifi hotspot (SAP) -->
     <bool translatable="false" name="config_wifi_softap_ieee80211ac_supported">true</bool>
 
+    <!-- Enable 802.11AX for softap, does work only for 5GHz, fails to start AP on 2,4Ghz (sets he_oper_chwidth=1, which selects 80Mhz channel width, that is not available for 2,4GHz by default) -->
+    <!-- Current solution is modification of hostapd hidl that sets he_oper_chwidth=0 for 2,4Ghz, and keeps he_oper_chwidth=1 for 5GHz -->
+    <!-- Wifi driver supports IEEE80211AX for softap -->
+    <bool translatable="false" name="config_wifiSoftapIeee80211axSupported">true</bool>
+    <!-- Wifi driver supports IEEE80211AX single user beamformer for softap -->
+    <bool translatable="false" name="config_wifiSoftapHeSuBeamformerSupported">true</bool>
+    <!-- Wifi driver supports IEEE80211AX single user beamformee for softap -->
+    <bool translatable="false" name="config_wifiSoftapHeSuBeamformeeSupported">true</bool>
+
     <!-- Currently disabled, other possible 802.11 speeds, not tested, could have similar problems with some wifi features as 802.11ac had (wider bandwidth on interfaces that do not support it)-->
-    <bool translatable="false" name="config_wifiSoftapIeee80211axSupported">false</bool>
     <bool translatable="false" name="config_wifiSoftapIeee80211beSupported">false</bool>
 
     <!-- True if the firmware supports connected MAC randomization -->
@@ -66,7 +74,7 @@
     <bool translatable="false" name="config_wifiSoftap60ghzSupported">false</bool>
     <bool translatable="false" name="config_wifiSoftap60gChannelList">false</bool>
 
-    <!-- Indicates that Wi-Fi driver supports ACS -->
+    <!-- Indicates that Wi-Fi driver supports ACS (Automatic channel selection) -->
     <bool translatable="false" name="config_wifiSoftapAcsIncludeDfs">true</bool>
 
     <!-- Indicates that dynamic country code update in AP mode is supported on this device -->

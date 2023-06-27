@@ -123,6 +123,9 @@ WIFI_HIDL_FEATURE_DUAL_INTERFACE := true
 # Enables following multi-interface concurrency:  STA+AP+AP, STA+AP, AP+AP, STA, AP
 WIFI_HAL_INTERFACE_COMBINATIONS := {{{STA}, 1}, {{AP_BRIDGED, AP}, 1}}, {{{AP_BRIDGED}, 1}}, {{{AP}, 1}}, {{{STA}, 1}}
 
+#Enable hostapd 802.11ax support
+WIFI_FEATURE_HOSTAPD_11AX := true
+
 # -------@block_bluetooth-------
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(IMX_DEVICE_PATH)/bluetooth
 
