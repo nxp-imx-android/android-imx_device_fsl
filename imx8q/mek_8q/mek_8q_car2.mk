@@ -11,6 +11,10 @@ TARGET_USE_VENDOR_BOOT ?= true
 # Android Auto without M4 EVS uses dynamic partition
 TARGET_USE_DYNAMIC_PARTITIONS ?= true
 
+# -------@block_camera-------
+# Android Auto with Camera2 enablement
+ENABLE_CAMERA_SERVICE ?= true
+
 # -------@block_infrastructure-------
 include $(IMX_DEVICE_PATH)/mek_8q_car.mk
 
