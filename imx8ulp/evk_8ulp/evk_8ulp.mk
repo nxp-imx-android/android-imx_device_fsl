@@ -375,8 +375,8 @@ PRODUCT_PACKAGES += \
 
 # Usb HAL
 PRODUCT_PACKAGES += \
-    android.hardware.usb@1.3-service.imx \
-    android.hardware.usb.gadget@1.2-service.imx
+    android.hardware.usb-service.imx \
+    android.hardware.usb.gadget-service.imx
 
 PRODUCT_COPY_FILES += \
     $(IMX_DEVICE_PATH)/init.usb.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.nxp.usb.rc
