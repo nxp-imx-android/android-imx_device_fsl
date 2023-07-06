@@ -1,3 +1,3 @@
 # -------@release build info-------
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.vendor.build_id=android-13.0.0_2.0.0-rc2
+    ro.vendor.build_id=android-13.0.0_2.0.0-rc3
