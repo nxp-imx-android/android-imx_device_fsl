@@ -143,6 +143,7 @@ PRODUCT_PACKAGES += \
     opencl_process.cl \
     lib_imx_c2_opencl_filter \
     lib_imx_c2_isi_filter \
+    lib_imx_c2_opencl_pre_filter \
     libc2filterplugin \
     lib_c2_imx_store \
     lib_c2_imx_audio_dec_common \
