@@ -154,6 +154,8 @@ PRODUCT_PACKAGES += \
     lib_c2_imx_ra_dec \
     lib_c2_imx_wma_dec \
     c2_component_register \
+    c2_component_register_8qm \
+    c2_component_register_8qxp \
     c2_component_register_ms \
     c2_component_register_wmv9 \
     c2_component_register_rv \
