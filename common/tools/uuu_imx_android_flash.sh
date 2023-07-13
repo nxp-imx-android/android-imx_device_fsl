@@ -111,14 +111,14 @@ EOF
 # make sure the first parameter is not empty
 function whether_in_array
 {
-    local potential_element=`eval echo \$\{${1}\}`
+    local potential_element=`eval echo +\$\{${1}\}`
     local array=(`eval echo \$\{${2}\[\*\]\}`)
     local array_length=${#array[*]}
     local last_element=${array[${array_length}-1]}
 
     for arg in ${array[*]}
     do
-        if [ "${arg}" = "${potential_element}" ]; then
+        if [ "+${arg}" = "${potential_element}" ]; then
             result_value=0
             return 0
         fi
