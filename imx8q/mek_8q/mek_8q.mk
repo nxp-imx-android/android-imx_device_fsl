@@ -450,6 +450,9 @@ PRODUCT_PACKAGES += \
         libNNArchPerf \
         libarchmodelSw
 
+PRODUCT_VENDOR_PROPERTIES += \
+    ro.hardware.egl = VIVANTE
+
 # GPU openCL g2d
 PRODUCT_COPY_FILES += \
     $(IMX_PATH)/imx/opencl-2d/cl_g2d.cl:$(TARGET_COPY_OUT_VENDOR)/etc/cl_g2d.cl

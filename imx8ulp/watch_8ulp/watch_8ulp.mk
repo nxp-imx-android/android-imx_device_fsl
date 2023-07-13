@@ -327,6 +327,9 @@ PRODUCT_PACKAGES += \
     libNNArchPerf \
     libarchmodelSw
 
+PRODUCT_VENDOR_PROPERTIES += \
+    ro.hardware.egl = VIVANTE
+
 # -------@block_wifi-------
 
 #LPDDR4 board, NXP wifi supplicant overlay

@@ -302,6 +302,8 @@ PRODUCT_PACKAGES += \
     libgpuhelper \
     libSPIRV_viv \
 
+PRODUCT_VENDOR_PROPERTIES += \
+    ro.hardware.egl = VIVANTE
 
 # -------@block_wifi-------
 
