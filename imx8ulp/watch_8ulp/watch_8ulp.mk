@@ -209,7 +209,7 @@ PRODUCT_PROPERTY_OVERRIDES += ro.frp.pst=/dev/block/by-name/presistdata
 ifeq ($(PRODUCT_IMX_TRUSTY),true)
 #Oemlock HAL 1.0 support
 PRODUCT_PACKAGES += \
-    android.hardware.oemlock@1.0-service.imx
+    android.hardware.oemlock-service.imx
 endif
 
 # Specify rollback index for boot and vbmeta partition

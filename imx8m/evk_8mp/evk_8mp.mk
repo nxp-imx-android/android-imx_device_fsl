@@ -185,9 +185,9 @@ PRODUCT_PACKAGES += \
 PRODUCT_PROPERTY_OVERRIDES += ro.frp.pst=/dev/block/by-name/presistdata
 
 ifeq ($(PRODUCT_IMX_TRUSTY),true)
-#Oemlock HAL 1.0 support
+#Oemlock HAL support
 PRODUCT_PACKAGES += \
-    android.hardware.oemlock@1.0-service.imx
+    android.hardware.oemlock-service.imx
 endif
 
 # Add Trusty OS backed gatekeeper and secure storage proxy
