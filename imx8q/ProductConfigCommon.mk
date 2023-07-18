@@ -228,11 +228,15 @@ PRODUCT_PACKAGES += \
     lib_profiler \
     libimxcamerahwl_impl
 
+# external camera, AIDL
 PRODUCT_PACKAGES += \
-    android.hardware.camera.provider@2.4-external-service \
-    android.hardware.camera.provider@2.4-impl \
-    camera.device@1.0-impl \
-    camera.device@3.2-impl
+    android.hardware.camera.provider-V1-external-service \
+    android.hardware.camera.metadata-V1-ndk.so \
+    android.hardware.graphics.allocator-V1-ndk.so \
+    android.hardware.camera.device-V1-ndk.so \
+    android.hardware.camera.provider-V1-ndk.so \
+    android.hardware.camera.provider-V1-external-impl.so \
+    camera.device-external-imx-impl.so
 endif
 
 ifeq ($(PRODUCT_IMX_CAR),true)
