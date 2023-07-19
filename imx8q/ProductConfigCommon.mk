@@ -139,8 +139,8 @@ PRODUCT_PACKAGES += \
     lib_imx_c2_process_isi_pre \
     lib_imx_c2_process_g2d_post \
     lib_imx_c2_g2d_filter \
-    lib_imx_opencl_process \
-    opencl_process.cl \
+    lib_imx_opencl_converter \
+    ocl_converter.cl \
     lib_imx_c2_opencl_filter \
     lib_imx_c2_isi_filter \
     lib_imx_c2_opencl_pre_filter \
