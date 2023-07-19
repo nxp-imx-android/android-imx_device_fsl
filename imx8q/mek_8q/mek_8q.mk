@@ -473,6 +473,7 @@ PRODUCT_COPY_FILES += \
 # -------@block_vpu-------
 # VPU files
 PRODUCT_COPY_FILES += \
+	$(LINUX_FIRMWARE_IMX_PATH)/linux-firmware-imx/firmware/vpu/vpu_fw_imx8_dec.bin.signed:vendor/firmware/vpu/vpu_fw_imx8_dec.bin.signed \
 	$(LINUX_FIRMWARE_IMX_PATH)/linux-firmware-imx/firmware/vpu/vpu_fw_imx8_dec.bin:vendor/firmware/vpu/vpu_fw_imx8_dec.bin \
 	$(LINUX_FIRMWARE_IMX_PATH)/linux-firmware-imx/firmware/vpu/vpu_fw_imx8_enc.bin:vendor/firmware/vpu/vpu_fw_imx8_enc.bin
 
