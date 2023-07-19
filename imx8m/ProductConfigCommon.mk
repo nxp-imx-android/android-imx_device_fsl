@@ -147,9 +147,8 @@ PRODUCT_COPY_FILES += \
 
 # A/B OTA
 PRODUCT_PACKAGES += \
-    android.hardware.boot@1.2-impl \
-    android.hardware.boot@1.2-impl.recovery \
-    android.hardware.boot@1.2-service \
+    android.hardware.boot-service.default \
+    android.hardware.boot-service.default_recovery \
     update_engine \
     update_engine_client \
     update_engine_sideload \
