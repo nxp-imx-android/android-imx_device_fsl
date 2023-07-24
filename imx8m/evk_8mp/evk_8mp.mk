@@ -293,6 +293,9 @@ PRODUCT_PACKAGES += \
     media_profiles_8mp-ov5640.xml \
     media_profiles_8mp-ispsensor-ov5640.xml
 
+# Add WebCam option in settings
+PRODUCT_VENDOR_PROPERTIES += ro.usb.uvc.enabled=true
+
 # -------@block_display-------
 
 PRODUCT_AAPT_CONFIG += xlarge large tvdpi hdpi xhdpi xxhdpi
