@@ -103,6 +103,8 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/video/backlight/pwm_bl.ko \
     $(KERNEL_OUT)/drivers/i2c/busses/i2c-rpmsg-imx.ko \
     $(KERNEL_OUT)/drivers/i2c/busses/i2c-imx-lpi2c.ko \
+    $(KERNEL_OUT)/drivers/i2c/i2c-mux.ko \
+    $(KERNEL_OUT)/drivers/i2c/muxes/i2c-mux-gpio.ko \
     $(KERNEL_OUT)/drivers/spi/spi-fsl-lpspi.ko \
     $(KERNEL_OUT)/drivers/spi/spi-nxp-fspi.ko \
     $(KERNEL_OUT)/drivers/iio/buffer/kfifo_buf.ko \
