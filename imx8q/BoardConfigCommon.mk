@@ -116,7 +116,11 @@ TARGET_BOARD_KERNEL_HEADERS := $(CONFIG_REPO_PATH)/common/kernel-headers
 
 TARGET_IMX_KERNEL ?= false
 ifeq ($(TARGET_IMX_KERNEL),false)
+  ifeq ($(PRODUCT_IMX_CAR),true)
+BOARD_PREBUILT_BOOTIMAGE := vendor/nxp/fsl-proprietary/gki/boot_8q_car.img
+  else
 BOARD_PREBUILT_BOOTIMAGE := vendor/nxp/fsl-proprietary/gki/boot_8q.img
+  endif
 TARGET_NO_KERNEL := true
 endif
 
@@ -174,10 +178,11 @@ TARGET_COPY_OUT_VENDOR_DLKM := vendor_dlkm
 BOARD_USES_SYSTEM_DLKMIMAGE := true
 BOARD_SYSTEM_DLKMIMAGE_FILE_SYSTEM_TYPE := erofs
 TARGET_COPY_OUT_SYSTEM_DLKM := system_dlkm
-ifeq ($(PRODUCT_IMX_CAR),)
-BOARD_SYSTEM_DLKM_SRC := vendor/nxp/fsl-proprietary/gki/system_dlkm_staging_8q
+ifeq ($(PRODUCT_IMX_CAR),true)
+  BOARD_SYSTEM_DLKM_SRC := vendor/nxp/fsl-proprietary/gki/system_dlkm_staging_8q_car
+else
+  BOARD_SYSTEM_DLKM_SRC := vendor/nxp/fsl-proprietary/gki/system_dlkm_staging_8q
 endif
-
 
 BOARD_FLASH_BLOCK_SIZE := 4096
 

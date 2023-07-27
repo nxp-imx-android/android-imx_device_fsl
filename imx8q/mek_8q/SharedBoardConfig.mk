@@ -26,13 +26,10 @@ else
 endif
 TARGET_KERNEL_ARCH := arm64
 
-# NXP 8997 mxmdriver wifi driver module
+# NXP 9098 mxmdriver wifi driver module
 BOARD_VENDOR_KERNEL_MODULES += \
     $(TARGET_OUT_INTERMEDIATES)/MXMWIFI_OBJ/mlan.ko \
-    $(TARGET_OUT_INTERMEDIATES)/MXMWIFI_OBJ/moal.ko \
-    $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/net/llc/llc.ko \
-    $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/net/802/stp.ko \
-    $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/net/bridge/bridge.ko
+    $(TARGET_OUT_INTERMEDIATES)/MXMWIFI_OBJ/moal.ko
 
 # Support SOF modules
 BOARD_VENDOR_KERNEL_MODULES += \
@@ -81,18 +78,6 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/i2c/busses/i2c-imx-lpi2c.ko \
     $(KERNEL_OUT)/drivers/spi/spi-fsl-lpspi.ko \
     $(KERNEL_OUT)/drivers/spi/spi-nxp-fspi.ko \
-    $(KERNEL_OUT)/drivers/iio/buffer/kfifo_buf.ko \
-    $(KERNEL_OUT)/drivers/iio/buffer/industrialio-triggered-buffer.ko \
-    $(KERNEL_OUT)/drivers/iio/light/isl29018.ko \
-    $(KERNEL_OUT)/drivers/iio/pressure/mpl3115.ko \
-    $(KERNEL_OUT)/drivers/iio/gyro/fxas21002c_core.ko \
-    $(KERNEL_OUT)/drivers/iio/gyro/fxas21002c_i2c.ko \
-    $(KERNEL_OUT)/drivers/iio/imu/fxos8700_core.ko \
-    $(KERNEL_OUT)/drivers/iio/imu/fxos8700_i2c.ko \
-    $(KERNEL_OUT)/drivers/iio/industrialio-configfs.ko \
-    $(KERNEL_OUT)/drivers/iio/industrialio-sw-trigger.ko \
-    $(KERNEL_OUT)/drivers/iio/trigger/iio-trig-hrtimer.ko \
-    $(KERNEL_OUT)/drivers/iio/trigger/iio-trig-sysfs.ko \
     $(KERNEL_OUT)/drivers/soc/imx/busfreq-imx8mq.ko \
     $(KERNEL_OUT)/drivers/mmc/host/cqhci.ko \
     $(KERNEL_OUT)/drivers/mmc/host/sdhci-esdhc-imx.ko \

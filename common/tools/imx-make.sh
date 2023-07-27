@@ -192,6 +192,7 @@ if [ ${build_android_flag} -eq 1 ] || [ ${build_whole_android_flag} -eq 1 ]; the
     if [ -n "${build_bootimage}" ] || [ ${build_whole_android_flag} -eq 1 ]; then
         if [ ${TARGET_PRODUCT} = "evk_8mp" ] || [ ${TARGET_PRODUCT} = "evk_8mn" ] \
         || [ ${TARGET_PRODUCT} = "evk_8ulp" ] || [ ${TARGET_PRODUCT} = "mek_8q" ] \
+        || [ ${TARGET_PRODUCT} = "mek_8q_car" ] || [ ${TARGET_PRODUCT} = "mek_8q_car2" ] \
         || [ ${TARGET_PRODUCT} = "evk_8mm" ] || [ ${TARGET_PRODUCT} = "evk_8mq" ]; then
             if [ ${sign_gki} -eq 1 ]; then
                 mv ${OUT}/boot.img ${OUT}/boot-imx.img
