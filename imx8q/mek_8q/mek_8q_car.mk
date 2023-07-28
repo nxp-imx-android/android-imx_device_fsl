@@ -29,6 +29,8 @@ PRODUCT_PACKAGES += \
     privapp_permissions_google_auto
 
 # -------@block_camera-------
+# Android Auto with Camera2 enablement
+ENABLE_CAMERA_SERVICE ?= true
 # Add Car related HAL
 PRODUCT_PACKAGES += \
     android.hardware.automotive.vehicle@V1-imx-service \
