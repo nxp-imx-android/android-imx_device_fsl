@@ -139,6 +139,10 @@ PRODUCT_PACKAGES += \
     lib_imx_c2_process_isi_pre \
     lib_imx_c2_process_g2d_post \
     lib_imx_c2_g2d_filter \
+    lib_imx_opencl_converter \
+    ocl_converter.cl \
+    lib_imx_c2_opencl_filter \
+    lib_imx_c2_opencl_pre_filter \
     lib_imx_c2_isi_filter \
     libc2filterplugin \
     lib_c2_imx_store \
@@ -150,6 +154,8 @@ PRODUCT_PACKAGES += \
     lib_c2_imx_ra_dec \
     lib_c2_imx_wma_dec \
     c2_component_register \
+    c2_component_register_8qm \
+    c2_component_register_8qxp \
     c2_component_register_ms \
     c2_component_register_wmv9 \
     c2_component_register_rv \
