@@ -36,6 +36,8 @@ BOARD_VENDOR_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/media/platform/mxc/capture/mxc_mipi_csi.ko \
     $(KERNEL_OUT)/drivers/media/v4l2-core/v4l2-async.ko \
     $(KERNEL_OUT)/drivers/media/platform/mxc/capture/ov5640_camera_mipi_v2.ko \
+    $(KERNEL_OUT)/drivers/leds/leds-gpio.ko \
+    $(KERNEL_OUT)/drivers/leds/leds-pca995x.ko \
     $(KERNEL_OUT)/drivers/gpio/gpio-pca953x.ko \
     $(KERNEL_OUT)/sound/soc/fsl/imx-pcm-dma.ko \
     $(KERNEL_OUT)/sound/soc/fsl/snd-soc-fsl-utils.ko \
