@@ -59,9 +59,9 @@ options:
                            ┌────────────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────┐
                            │   soc_name     │  legal parameter after "-d"                                                                          │
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
-                           │   imx8mm       │  ddr4 m4 mipi-panel mipi-panel-rm67191                                                               │
+                           │   imx8mm       │  ddr4 m4 mipi-panel mipi-panel-rm67191 8mic                                                          │
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
-                           │   imx8mn       │  mipi-panel mipi-panel-rm67191 rpmsg ddr4 ddr4-mipi-panel ddr4-mipi-panel-rm67191 ddr4-rpmsg         │
+                           │   imx8mn       │  mipi-panel mipi-panel-rm67191 rpmsg ddr4 ddr4-mipi-panel ddr4-mipi-panel-rm67191 ddr4-rpmsg 8mic    │
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                            │   imx8mq       │  wevk dual mipi-panel mipi-panel-rm67191 mipi                                                        │
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
@@ -363,8 +363,8 @@ imx8qm_uboot_feature=(dual trusty-dual mek-uuu trusty-secure-unlock-dual secure-
 imx7ulp_uboot_feature=(evk-uuu)
 imx93_uboot_feature=(dual trusty-dual evk-uuu)
 
-imx8mm_dtb_feature=(ddr4 m4 mipi-panel mipi-panel-rm67191)
-imx8mn_dtb_feature=(mipi-panel mipi-panel-rm67191 rpmsg ddr4 ddr4-mipi-panel ddr4-mipi-panel-rm67191 ddr4-rpmsg)
+imx8mm_dtb_feature=(ddr4 m4 mipi-panel mipi-panel-rm67191 8mic)
+imx8mn_dtb_feature=(mipi-panel mipi-panel-rm67191 rpmsg ddr4 ddr4-mipi-panel ddr4-mipi-panel-rm67191 ddr4-rpmsg 8mic)
 imx8mq_dtb_feature=(wevk dual mipi-panel mipi-panel-rm67191 mipi)
 imx8mp_dtb_feature=(rpmsg lvds-panel lvds mipi-panel mipi-panel-rm67191 basler powersave powersave-non-rpmsg basler-ov5640 ov5640 sof dual-basler os08a20-ov5640 os08a20 revb4 rpmsg-revb4 lvds-panel-revb4 lvds-revb4 mipi-panel-revb4 mipi-panel-rm67191-revb4 basler-revb4 powersave-revb4 powersave-non-rpmsg-revb4 basler-ov5640-revb4 ov5640-revb4 sof-revb4 dual-basler-revb4 os08a20-ov5640-revb4 os08a20-revb4)
 imx8qxp_dtb_feature=(sof)
