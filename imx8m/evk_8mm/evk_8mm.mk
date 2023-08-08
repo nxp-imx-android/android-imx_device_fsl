@@ -388,6 +388,9 @@ PRODUCT_PACKAGES += \
     lib_imx_c2_process_dummy_post \
     lib_imx_c2_process_g2d_pre \
     lib_imx_c2_g2d_pre_filter \
+    lib_imx_c2_unia_pre_filter \
+    lib_imx_c2_filter_device_factory \
+    lib_imx_c2_filter_device_g2d \
     libc2filterplugin \
     c2_component_register \
     c2_component_register_ms \

@@ -144,6 +144,12 @@ PRODUCT_PACKAGES += \
     lib_imx_c2_opencl_filter \
     lib_imx_c2_opencl_pre_filter \
     lib_imx_c2_isi_filter \
+    lib_imx_c2_unia_post_filter \
+    lib_imx_c2_unia_pre_filter \
+    lib_imx_c2_filter_device_opencl \
+    lib_imx_c2_filter_device_isi \
+    lib_imx_c2_filter_device_g2d \
+    lib_imx_c2_filter_device_factory \
     libc2filterplugin \
     lib_c2_imx_store \
     lib_c2_imx_audio_dec_common \
