@@ -568,10 +568,8 @@ endif
 ifeq ($(PRODUCT_IMX_CAR_M4),true)
 PRODUCT_COPY_FILES += \
     $(IMX_DEVICE_PATH)/init_car_m4.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.car_additional.rc
-else
-PRODUCT_COPY_FILES += \
-    $(IMX_DEVICE_PATH)/init_car_no_m4.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.car_additional.rc
-endif #PRODUCT_IMX_CAR_M4
+endif
+
 else
 PRODUCT_COPY_FILES += \
     $(IMX_DEVICE_PATH)/init.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.nxp.rc \
