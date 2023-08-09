@@ -89,6 +89,8 @@
 # secure os storage
 /vendor/bin/storageproxyd   u:object_r:tee_exec:s0
 /vendor/bin/trusty_apploader u:object_r:tee_exec:s0
+/vendor/bin/hw/imx_dek_extractor u:object_r:tee_exec:s0
+/postinstall/bin/imx_dek_inserter u:object_r:system_file:s0
 
 /vendor/bin/init\.insmod\.sh                u:object_r:init-insmod-sh_exec:s0
 /vendor/etc/early\.init\.cfg                  u:object_r:init-insmod-sh_exec:s0

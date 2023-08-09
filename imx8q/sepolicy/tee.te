@@ -15,3 +15,6 @@ allow tee vendor_file:file { read open map };
 allow tee metadata_file:dir { search };
 allow tee gsi_metadata_file:dir { search };
 allow tee dmabuf_system_heap_device:chr_file { open read ioctl };
+
+allow tee dek_extractor_service:service_manager { add };
+allow tee servicemanager:binder { call transfer };

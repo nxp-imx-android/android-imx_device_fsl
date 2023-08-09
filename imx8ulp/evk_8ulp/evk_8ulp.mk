@@ -150,6 +150,10 @@ ifneq ($(filter TRUE true 1,$(IMX_OTA_POSTINSTALL)),)
 
   PRODUCT_COPY_FILES += \
     $(OUT_DIR)/target/product/$(firstword $(PRODUCT_DEVICE))/obj/UBOOT_COLLECTION/spl-imx8ulp-trusty-9x9-dual.bin:$(TARGET_COPY_OUT_VENDOR)/etc/bootloader0.img
+  ifeq ($(BUILD_ENCRYPTED_BOOT),true)
+    PRODUCT_COPY_FILES += \
+      $(OUT_DIR)/target/product/$(firstword $(PRODUCT_DEVICE))/obj/UBOOT_COLLECTION/bootloader-imx8ulp-trusty-9x9-dual.img:$(TARGET_COPY_OUT_VENDOR)/etc/bootloader_ab.img
+  endif
   # Comment above line and uncomment next line to support OTA on evk_8ulp 15x15 board
   # PRODUCT_COPY_FILES += \
     $(OUT_DIR)/target/product/$(firstword $(PRODUCT_DEVICE))/obj/UBOOT_COLLECTION/spl-imx8ulp-trusty-dual.bin:$(TARGET_COPY_OUT_VENDOR)/etc/bootloader0.img
@@ -200,7 +204,9 @@ endif
 ifeq ($(PRODUCT_IMX_TRUSTY),true)
 PRODUCT_PACKAGES += \
     android.hardware.gatekeeper-service.trusty \
-    storageproxyd
+    storageproxyd \
+    imx_dek_extractor \
+    imx_dek_inserter
 endif
 
 # Add oem unlocking option in settings.

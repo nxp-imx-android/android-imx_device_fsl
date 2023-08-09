@@ -240,7 +240,9 @@ PRODUCT_IMX_TRUSTY := true
 
 # -------@block_storage-------
 ifneq ($(TARGET_PRODUCT),mek_8q_car2)
-  AB_OTA_PARTITIONS += bootloader
+  ifneq ($(BUILD_ENCRYPTED_BOOT),true)
+    AB_OTA_PARTITIONS += bootloader
+  endif
 
   ifeq ($(PRODUCT_IMX_CAR),true)
     BOARD_OTA_BOOTLOADERIMAGE := bootloader-imx8qm.img
@@ -254,7 +256,7 @@ ifneq ($(TARGET_PRODUCT),mek_8q_car2)
     ifeq ($(OTA_TARGET),8qxp)
       BOARD_OTA_BOOTLOADERIMAGE := bootloader-imx8qxp-trusty-dual.img
     else ifeq ($(OTA_TARGET),8qxp-c0)
-      BOARD_OTA_BOOTLOADERIMAGE := bootloader-imx8qxp-c0-trusty-dual.img
+      BOARD_OTA_BOOTLOADERIMAGE := bootloader-imx8qxp-trusty-c0-dual.img
     endif
   endif
 endif

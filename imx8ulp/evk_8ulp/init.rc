@@ -20,6 +20,8 @@ on early-init
     # Use ro.boot.lcd_density to override ro.sf.lcd_density
     setprop ro.sf.lcd_density ${ro.boot.lcd_density}
 
+    setprop vendor.encrypted_boot_ota ${ro.boot.encrypted_boot_ota}
+
 # Skip charger_not_need trigger for charger mode
 on early-init && property:ro.boot.mode=charger
     setprop vendor.skip.charger_not_need 1
@@ -215,3 +217,12 @@ service confirmationui_ta_load /vendor/bin/trusty_apploader /vendor/firmware/tee
 on property:sys.boot_completed=1 && property:vendor.storageproxyd=trusty && property:vendor.skip.charger_not_need=0
     start confirmationui_ta_load
     start vendor.secureime-default
+
+service imx_dek_extractor /vendor/bin/hw/imx_dek_extractor
+    user system
+    group system
+    disabled
+    oneshot
+
+on property:sys.boot_completed=1 && property:vendor.encrypted_boot_ota=true
+    start imx_dek_extractor
