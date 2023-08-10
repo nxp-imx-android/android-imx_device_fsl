@@ -265,7 +265,7 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
 # Gralloc HAL
 PRODUCT_PACKAGES += \
     android.hardware.graphics.mapper@4.0-impl.imx \
-    android.hardware.graphics.allocator@4.0-service.imx
+    android.hardware.graphics.allocator-service.imx
 
 # RenderScript HAL
 PRODUCT_PACKAGES += \

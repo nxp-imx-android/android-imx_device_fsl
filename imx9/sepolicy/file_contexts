@@ -126,8 +126,8 @@
 
 /vendor/bin/hw/android\.hardware\.camera\.provider@2\.7-service-google       u:object_r:hal_camera_default_exec:s0
 
-# allocator 4.0
-/(vendor|system/vendor)/bin/hw/android\.hardware\.graphics\.allocator@4\.0-service.imx   u:object_r:hal_graphics_allocator_default_exec:s0
+# allocator AIDL version
+/(vendor|system/vendor)/bin/hw/android\.hardware\.graphics\.allocator-service\.imx   u:object_r:hal_graphics_allocator_default_exec:s0
 
 # memtrack
 /(vendor|system/vendor)/bin/hw/android\.hardware\.memtrack-service\.imx       u:object_r:hal_memtrack_default_exec:s0
