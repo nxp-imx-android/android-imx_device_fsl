@@ -259,6 +259,14 @@ PRODUCT_PACKAGES += \
     android.hardware.oemlock-service.imx
 endif
 
+# Copy firmware encrypt key and public verify key
+ifeq ($(PRODUCT_IMX_TRUSTY),true)
+PRODUCT_COPY_FILES += \
+    $(CONFIG_REPO_PATH)/common/security/firmware_encrypt_key.bin:firmware_test_keys/firmware_encrypt_key.bin  \
+    $(CONFIG_REPO_PATH)/common/security/firmware_public_key.der:firmware_test_keys/firmware_public_key.der
+endif
+
+
 # Add oem unlocking option in settings.
 PRODUCT_PROPERTY_OVERRIDES += ro.frp.pst=/dev/block/by-name/presistdata
 
