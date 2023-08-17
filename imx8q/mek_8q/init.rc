@@ -62,6 +62,12 @@ on init && property:vendor.skip.charger_not_need=0
     write /dev/cpuctl/rt/cpu.uclamp.latency_sensitive 1
     write /dev/cpuctl/background/cpu.uclamp.max 50
 
+service vpu_firmware_load /vendor/bin/firmware_loader /vendor/firmware/vpu/vpu_fw_imx8_dec.bin.signed
+    user root
+    group root system
+    disabled
+    oneshot
+
 on late-fs && property:vendor.storageproxyd=trusty && property:vendor.skip.charger_not_need=0
     start storageproxyd
     start vendor.oemlock-1-0
@@ -76,6 +82,7 @@ on late-fs && property:vendor.skip.charger_not_need=0
     exec_start wait_for_keymaster
 
     mount_all /vendor/etc/fstab.nxp --late
+    start vpu_firmware_load
 
 on early-boot && property:vendor.skip.charger_not_need=0
     setprop vendor.sys.hwc.disable     0
