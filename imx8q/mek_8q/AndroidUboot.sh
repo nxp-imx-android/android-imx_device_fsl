@@ -173,7 +173,11 @@ build_imx_uboot()
 		if [ `echo $2 | cut -d '-' -f1` = "imx8qm" ] && [ "$2" != "imx8qm-xen-dom0" ] && [ "${IMX8QM_A72_BOOT}" = "true" ]; then
 			cp ${FSL_PROPRIETARY_PATH}/fsl-proprietary/uboot-firmware/imx8q_car/tee-imx$SCFW_PLATFORM-a72.bin ${IMX_MKIMAGE_PATH}/imx-mkimage/$MKIMAGE_PLATFORM/tee.bin
 		else
-			cp ${FSL_PROPRIETARY_PATH}/fsl-proprietary/uboot-firmware/imx8q_car/tee-imx$SCFW_PLATFORM.bin ${IMX_MKIMAGE_PATH}/imx-mkimage/$MKIMAGE_PLATFORM/tee.bin
+			if [ -f "${IMX_WIDEVINE_PATH}/mek_8qm/tee-imx8qm.bin" ] && [ `echo $2 | cut -d '-' -f1` = "imx8qm" ]; then
+				cp ${IMX_WIDEVINE_PATH}/mek_8qm/tee-imx8qm.bin ${IMX_MKIMAGE_PATH}/imx-mkimage/$MKIMAGE_PLATFORM/tee.bin
+			else
+				cp ${FSL_PROPRIETARY_PATH}/fsl-proprietary/uboot-firmware/imx8q_car/tee-imx$SCFW_PLATFORM.bin ${IMX_MKIMAGE_PATH}/imx-mkimage/$MKIMAGE_PLATFORM/tee.bin
+			fi
 		fi
 	else
 		if [ -f ${IMX_MKIMAGE_PATH}/imx-mkimage/$MKIMAGE_PLATFORM/tee.bin ]; then

@@ -30,3 +30,4 @@ IMX_MKIMAGE_PATH := vendor/nxp-opensource
 IMX_PATH := vendor/nxp-opensource
 FSL_IMX_DEMO_PATH := vendor/nxp-opensource
 LIBDRM_IMX := vendor/nxp-opensource
+IMX_WIDEVINE_PATH := vendor/nxp-private/widevine
