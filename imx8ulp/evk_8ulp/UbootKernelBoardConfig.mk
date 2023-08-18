@@ -9,6 +9,7 @@ TARGET_BOOTLOADER_CONFIG += imx8ulp-trusty-lpa-dual:imx8ulp_evk_android_trusty_d
 TARGET_BOOTLOADER_CONFIG += imx8ulp-trusty-dualboot-dual:imx8ulp_evk_android_trusty_dual_defconfig
 TARGET_BOOTLOADER_CONFIG += imx8ulp-evk-uuu:imx8ulp_evk_android_uuu_defconfig
 TARGET_BOOTLOADER_CONFIG += imx8ulp-9x9:imx8ulp_9x9_evk_android_defconfig
+TARGET_BOOTLOADER_CONFIG += imx8ulp-9x9-dual:imx8ulp_9x9_evk_android_dual_defconfig
 TARGET_BOOTLOADER_CONFIG += imx8ulp-trusty-9x9-dual:imx8ulp_9x9_evk_android_trusty_dual_defconfig
 TARGET_BOOTLOADER_CONFIG += imx8ulp-9x9-evk-uuu:imx8ulp_9x9_evk_android_uuu_defconfig
 

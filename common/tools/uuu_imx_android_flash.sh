@@ -42,7 +42,7 @@ options:
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                            │   imx8mp       │  dual trusty-dual evk-uuu trusty-secure-unlock-dual powersave trusty-powersave-dual                  │
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
-                           │   imx8ulp      │  dual trusty-dual trusty-dualboot-dual evk-uuu trusty-secure-unlock-dual 9x9-evk-uuu 9x9 trusty-9x9-dual trusty-lpa-dual  │
+                           │   imx8ulp      │  dual trusty-dual trusty-dualboot-dual evk-uuu trusty-secure-unlock-dual 9x9-evk-uuu 9x9 9x9-dual trusty-9x9-dual trusty-lpa-dual  │
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                            │   imx8qxp      │  dual trusty-dual mek-uuu trusty-secure-unlock-dual secure-unlock c0 c0-dual                         │
                            │                │  trusty-c0-dual mek-c0-uuu                                                                           │
@@ -456,7 +456,7 @@ imx8mm_uboot_feature=(dual trusty-dual 4g-evk-uuu 4g ddr4-evk-uuu ddr4 evk-uuu t
 imx8mn_uboot_feature=(dual trusty-dual evk-uuu trusty-secure-unlock-dual ddr4-evk-uuu ddr4)
 imx8mq_uboot_feature=(dual trusty-dual evk-uuu trusty-secure-unlock-dual)
 imx8mp_uboot_feature=(dual trusty-dual evk-uuu trusty-secure-unlock-dual powersave trusty-powersave-dual)
-imx8ulp_uboot_feature=(dual trusty-dual trusty-dualboot-dual evk-uuu trusty-secure-unlock-dual 9x9-evk-uuu 9x9 trusty-9x9-dual trusty-lpa-dual)
+imx8ulp_uboot_feature=(dual trusty-dual trusty-dualboot-dual evk-uuu trusty-secure-unlock-dual 9x9-evk-uuu 9x9 9x9-dual trusty-9x9-dual trusty-lpa-dual)
 imx8qxp_uboot_feature=(dual trusty-dual mek-uuu trusty-secure-unlock-dual secure-unlock c0 c0-dual trusty-c0-dual mek-c0-uuu)
 imx8qm_uboot_feature=(dual trusty-dual mek-uuu trusty-secure-unlock-dual secure-unlock md hdmi xen)
 imx7ulp_uboot_feature=(evk-uuu)
