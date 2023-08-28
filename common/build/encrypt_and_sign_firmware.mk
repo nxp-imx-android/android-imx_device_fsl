@@ -10,6 +10,7 @@ UNSIGNED_APP :=
 FIRMWARE_BINARY_SIGNED :=
 FIRMWARE_SIGN_KEY_ID :=
 FIRMWARE_SIGN_KEY_FILE :=
+FSL_RESTRICTED_CODEC_PATH := vendor/nxp-private/fsl-restricted-codec/fsl_real_dec
 
 ifeq ($(strip $(PACKAGE_FIRMWARE_TOOL)),)
 PACKAGE_FIRMWARE_TOOL := device/nxp/common/tools/package_tool
@@ -24,6 +25,12 @@ $(FIRMWARE_MANIFEST):
 .PHONY: manifest
 manifest: $(FIRMWARE_MANIFEST)
 
+ifeq (,$(wildcard $(FSL_RESTRICTED_CODEC_PATH)))
+$(info "use linux-imx-firmware")
+else
+$(info "use restricted-codec firmware")
+$(shell cp vendor/nxp-private/fsl-restricted-codec/fsl_real_dec/vpu_fw_imx8_dec.bin vendor/nxp/linux-firmware-imx/firmware/vpu/vpu_fw_imx8_dec.bin)
+endif
 
 FIRMWARE_BINARY := vendor/nxp/linux-firmware-imx/firmware/vpu/vpu_fw_imx8_dec.bin
 FIRMWARE_BINARY_INTITAL := $(patsubst %.bin,%.bin.initial,$(FIRMWARE_BINARY))
