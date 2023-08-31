@@ -221,6 +221,10 @@ PRODUCT_PACKAGES += \
     android.hardware.health-service.example_recovery \
     charger_res_images_vendor
 
+PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
+    apexd.config.dm_create.timeout=60000 \
+    apexd.config.loop_wait.attempts=99
+
 # -------@block_ethernet-------
 ifneq ($(PRODUCT_IMX_CAR),true)
 #PRODUCT_PACKAGES += \
