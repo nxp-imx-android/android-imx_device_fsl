@@ -141,10 +141,6 @@ PRODUCT_COPY_FILES += \
     $(CONFIG_REPO_PATH)/common/tools/uuu_imx_android_flash.bat:uuu_imx_android_flash.bat \
     $(CONFIG_REPO_PATH)/common/tools/uuu_imx_android_flash.sh:uuu_imx_android_flash.sh
 
-
-PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
-    apexd.config.dm_create.timeout=6000
-
 # -------@block_security-------
 
 # Include keystore attestation keys and certificates.
