@@ -149,7 +149,7 @@ ifneq ($(filter TRUE true 1,$(IMX_OTA_POSTINSTALL)),)
     POSTINSTALL_OPTIONAL_vendor=false
 
   PRODUCT_COPY_FILES += \
-    $(OUT_DIR)/target/product/$(firstword $(PRODUCT_DEVICE))/obj/UBOOT_COLLECTION/spl-imx8ulp-trusty-dual.bin:$(TARGET_COPY_OUT_VENDOR)/etc/bootloader0.img
+    $(OUT_DIR)/target/product/$(firstword $(PRODUCT_DEVICE))/obj/UBOOT_COLLECTION/spl-imx8ulp-trusty-9x9-dual.bin:$(TARGET_COPY_OUT_VENDOR)/etc/bootloader0.img
 endif
 
 # fastboot_imx_flashall scripts, imx-sdcard-partition script uuu_imx_android_flash scripts
