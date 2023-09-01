@@ -374,6 +374,8 @@ PRODUCT_PACKAGES += \
     libtinycompress \
     cplay
 
+PRODUCT_VENDOR_PROPERTIES += ro.config.ringtone=Ring_Synth_04.ogg
+
 # -------@block_wifi-------
 # wifi
 PRODUCT_PACKAGES += \
