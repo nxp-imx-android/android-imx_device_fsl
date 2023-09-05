@@ -244,4 +244,6 @@ endif
 
 # -------@block_storage-------
 # the bootloader image used in dual-bootloader OTA
-BOARD_OTA_BOOTLOADERIMAGE := bootloader-imx8ulp-trusty-dual.img
+BOARD_OTA_BOOTLOADERIMAGE := bootloader-imx8ulp-trusty-9x9-dual.img
+# Comment above line and uncomment next line to support OTA on evk_8ulp 15x15 board
+# BOARD_OTA_BOOTLOADERIMAGE := bootloader-imx8ulp-trusty-dual.img
