@@ -12,7 +12,7 @@ on early-init
     setprop vendor.all.car false
 
 on early-init
-    start early_init_sh
+    exec_start early_init_sh
 
     # Due keymaster start very early so set prop here
     # Also gatekeeper share same role for keymaster
