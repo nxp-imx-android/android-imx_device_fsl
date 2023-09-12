@@ -38,7 +38,8 @@ options:
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                            │   imx8mn       │  dual trusty-dual evk-uuu trusty-secure-unlock-dual ddr4-evk-uuu ddr4                                │
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
-                           │   imx8mq       │  dual trusty-dual evk-uuu trusty-secure-unlock-dual                                                  │
+                           │   imx8mq       │  dual trusty-dual evk-uuu trusty-secure-unlock-dual wevk wevk-dual trusty-wevk-dual                  │
+			   │                │  wevk-uuu trusty-secure-unlock-wevk-dual                                                             │
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
                            │   imx8mp       │  dual trusty-dual evk-uuu trusty-secure-unlock-dual powersave trusty-powersave-dual                  │
                            ├────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────┤
@@ -454,7 +455,7 @@ randome_part=
 # images when flash another set of images can not be detect early with this scenario.
 imx8mm_uboot_feature=(dual trusty-dual 4g-evk-uuu 4g ddr4-evk-uuu ddr4 evk-uuu trusty-secure-unlock-dual)
 imx8mn_uboot_feature=(dual trusty-dual evk-uuu trusty-secure-unlock-dual ddr4-evk-uuu ddr4)
-imx8mq_uboot_feature=(dual trusty-dual evk-uuu trusty-secure-unlock-dual)
+imx8mq_uboot_feature=(dual trusty-dual evk-uuu trusty-secure-unlock-dual wevk wevk-dual trusty-wevk-dual wevk-uuu trusty-secure-unlock-wevk-dual)
 imx8mp_uboot_feature=(dual trusty-dual evk-uuu trusty-secure-unlock-dual powersave trusty-powersave-dual)
 imx8ulp_uboot_feature=(dual trusty-dual trusty-dualboot-dual evk-uuu trusty-secure-unlock-dual 9x9-evk-uuu 9x9 9x9-dual trusty-9x9-dual trusty-lpa-dual)
 imx8qxp_uboot_feature=(dual trusty-dual mek-uuu trusty-secure-unlock-dual secure-unlock c0 c0-dual trusty-c0-dual mek-c0-uuu)
@@ -775,6 +776,12 @@ if [ "${soc_name}" = imx8mm ] || [ "${soc_name}" = imx8mn ]; then
         bootloader_used_by_uuu=u-boot-${soc_name}-ddr4-${board}-uuu.imx
     elif [[ "${uboot_feature}" = *"4g"* ]]; then
         bootloader_used_by_uuu=u-boot-${soc_name}-4g-${board}-uuu.imx
+    fi
+fi
+
+if [ "${soc_name}" = imx8mq ]; then
+    if [[ "${uboot_feature}" = *"wevk"* ]]; then
+        bootloader_used_by_uuu=u-boot-${soc_name}-wevk-uuu.imx
     fi
 fi
 
