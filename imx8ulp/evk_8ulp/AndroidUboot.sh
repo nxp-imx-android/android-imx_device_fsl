@@ -46,7 +46,7 @@ build_imx_uboot()
 		cp ${FSL_PROPRIETARY_PATH}/fsl-proprietary/mcu-sdk/imx8ulp/imx8ulp_mcu_demo.img ${BOARD_MKIMAGE_PATH}/m33_image.bin
 	fi
 		cp ${FSL_PROPRIETARY_PATH}/fsl-proprietary/uboot-firmware/imx8ulp/upower.bin ${BOARD_MKIMAGE_PATH}/upower.bin
-		cp ${FSL_PROPRIETARY_PATH}/sentinel/mx8ulpa2-ahab-container.img ${BOARD_MKIMAGE_PATH}
+		cp ${FSL_PROPRIETARY_PATH}/ele/mx8ulpa2-ahab-container.img ${BOARD_MKIMAGE_PATH}
 	cp ${UBOOT_OUT}/u-boot.$1 ${BOARD_MKIMAGE_PATH}
 	cp ${UBOOT_OUT}/spl/u-boot-spl.bin ${BOARD_MKIMAGE_PATH}
 	cp ${UBOOT_OUT}/tools/mkimage ${BOARD_MKIMAGE_PATH}/mkimage_uboot

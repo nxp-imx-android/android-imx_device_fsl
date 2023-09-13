@@ -38,7 +38,7 @@ build_m4_image()
 build_imx_uboot()
 {
 	echo Building i.MX U-Boot with firmware
-	cp ${FSL_PROPRIETARY_PATH}/sentinel/mx93a1-ahab-container.img ${BOARD_MKIMAGE_PATH}
+	cp ${FSL_PROPRIETARY_PATH}/ele/mx93a1-ahab-container.img ${BOARD_MKIMAGE_PATH}
 	cp ${UBOOT_OUT}/u-boot.$1 ${BOARD_MKIMAGE_PATH}
 	cp ${UBOOT_OUT}/spl/u-boot-spl.bin ${BOARD_MKIMAGE_PATH}
 	cp ${UBOOT_OUT}/tools/mkimage ${BOARD_MKIMAGE_PATH}/mkimage_uboot
