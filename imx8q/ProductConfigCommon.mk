@@ -135,15 +135,8 @@ PRODUCT_PACKAGES += \
     lib_imx_c2_v4l2_dev \
     lib_imx_c2_v4l2_dec \
     lib_imx_c2_v4l2_enc \
-    lib_imx_c2_process \
-    lib_imx_c2_process_isi_pre \
-    lib_imx_c2_process_g2d_post \
-    lib_imx_c2_g2d_filter \
     lib_imx_opencl_converter \
     ocl_converter.cl \
-    lib_imx_c2_opencl_filter \
-    lib_imx_c2_opencl_pre_filter \
-    lib_imx_c2_isi_filter \
     lib_imx_c2_unia_post_filter \
     lib_imx_c2_unia_pre_filter \
     lib_imx_c2_filter_device_opencl \

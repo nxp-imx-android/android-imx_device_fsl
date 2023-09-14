@@ -392,9 +392,6 @@ PRODUCT_PACKAGES += \
     lib_vpu_wrapper \
     lib_imx_c2_videodec_common \
     lib_imx_c2_videodec \
-    lib_imx_c2_vpuwrapper_dec \
-    lib_imx_c2_process \
-    lib_imx_c2_process_dummy_post \
     c2_component_register \
     c2_component_register_ms \
     c2_component_register_wmv9 \
