@@ -246,6 +246,14 @@ PRODUCT_PACKAGES += \
     android.hardware.oemlock@1.0-service.imx
 endif
 
+# Copy firmware encrypt key and public verify key
+ifeq ($(PRODUCT_IMX_TRUSTY),true)
+PRODUCT_COPY_FILES += \
+    $(CONFIG_REPO_PATH)/common/security/firmware_encrypt_key.bin:firmware_test_keys/firmware_encrypt_key.bin  \
+    $(CONFIG_REPO_PATH)/common/security/firmware_public_key.der:firmware_test_keys/firmware_public_key.der
+endif
+
+
 # Add oem unlocking option in settings.
 PRODUCT_PROPERTY_OVERRIDES += ro.frp.pst=/dev/block/by-name/presistdata
 
@@ -282,7 +290,10 @@ PRODUCT_PACKAGES += \
     android.hardware.drm-service.widevine \
     android.hardware.drm-service.clearkey \
     libwvdrmcryptoplugin \
-    libwvaidl
+    libwvaidl \
+    liboemcrypto
+
+$(call inherit-product-if-exists, vendor/nxp-private/widevine/nxp_widevine_tee_8qm.mk)
 
 # -------@block_audio-------
 # To support multiple pcm device on cs42888, need delete below two lines:
@@ -410,7 +421,8 @@ ifeq ($(PRODUCT_IMX_CAR),true)
 endif
 
 PRODUCT_COPY_FILES += \
-    vendor/nxp/linux-firmware-imx/firmware/hdmi/cadence/hdmitxfw.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/hdmitxfw.bin
+    vendor/nxp/linux-firmware-imx/firmware/hdmi/cadence/hdmitxfw.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/hdmitxfw.bin \
+    vendor/nxp/linux-firmware-imx/firmware/hdmi/cadence/hdmirxfw.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/hdmirxfw.bin
 
 PRODUCT_COPY_FILES += \
     $(IMX_DEVICE_PATH)/input-port-associations.xml:$(TARGET_COPY_OUT_VENDOR)/etc/input-port-associations.xml
@@ -463,6 +475,7 @@ PRODUCT_COPY_FILES += \
 # -------@block_vpu-------
 # VPU files
 PRODUCT_COPY_FILES += \
+	$(LINUX_FIRMWARE_IMX_PATH)/linux-firmware-imx/firmware/vpu/vpu_fw_imx8_dec.bin.signed:vendor/firmware/vpu/vpu_fw_imx8_dec.bin.signed \
 	$(LINUX_FIRMWARE_IMX_PATH)/linux-firmware-imx/firmware/vpu/vpu_fw_imx8_dec.bin:vendor/firmware/vpu/vpu_fw_imx8_dec.bin \
 	$(LINUX_FIRMWARE_IMX_PATH)/linux-firmware-imx/firmware/vpu/vpu_fw_imx8_enc.bin:vendor/firmware/vpu/vpu_fw_imx8_enc.bin
 

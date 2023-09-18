@@ -163,6 +163,8 @@ ifeq ($(TARGET_USE_DYNAMIC_PARTITIONS),true)
     TARGET_BOARD_DTS_CONFIG += imx8mn-mipi-panel-rm67191:imx8mn-evk-rm67191.dtb
     # imx8mn with MIPI-HDMI display and wifi and M7 image
     TARGET_BOARD_DTS_CONFIG += imx8mn-rpmsg:imx8mn-evk-rpmsg.dtb
+    # imx8mn with 8mic module
+    TARGET_BOARD_DTS_CONFIG += imx8mn-8mic:imx8mn-evk-8mic-revE.dtb
   endif
 else
   ifeq ($(IMX_NO_PRODUCT_PARTITION),true)

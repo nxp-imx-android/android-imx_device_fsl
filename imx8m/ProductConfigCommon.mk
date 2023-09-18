@@ -175,6 +175,11 @@ PRODUCT_PACKAGES += \
     android.hardware.health-service.example \
     android.hardware.health-service.example_recovery \
     charger_res_images_vendor
+
+PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
+    apexd.config.dm_create.timeout=60000 \
+    apexd.config.loop_wait.attempts=99
+
 # -------@block_ethernet-------
 
 #PRODUCT_PACKAGES += \
@@ -310,6 +315,8 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     libtinycompress \
     cplay
+
+PRODUCT_VENDOR_PROPERTIES += ro.config.ringtone=Ring_Synth_04.ogg
 
 # compress offload audio playback support
 PRODUCT_PACKAGES += \

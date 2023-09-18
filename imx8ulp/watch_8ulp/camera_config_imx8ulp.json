@@ -26,13 +26,8 @@
       "MinFrameDuration": "33333333",
       "MaxFrameDuration": "300000000",
       "MinFrameDurationBlob5M": "700000000",
-      "OmitFrame": [
-        {
-            "width": "2592",
-            "height": "1944",
-            "omit_num": "2"
-        }
-      ]
+      "MaxWidth": "1920",
+      "MaxHeight": "1080"
     }
   ]
 }

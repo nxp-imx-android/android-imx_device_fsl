@@ -146,6 +146,14 @@ product_path=${product_makefile%/*}
 soc_path=${product_path%/*}
 nxp_git_path=${soc_path%/*}
 
+if [ -n "${build_kernel_modules}" ]; then
+    if [ ${TARGET_PRODUCT} = "mek_8q" ] || [ ${TARGET_PRODUCT} = "mek_8q_car" ] || \
+           [ ${TARGET_PRODUCT} = "mek_8q_car2" ]; then
+        make -f ${nxp_git_path}/common/build/encrypt_and_sign_firmware.mk manifest build encrypt sign clean< /dev/null || exit
+    fi
+fi
+
+
 # if uboot is to be compiled, remove the UBOOT_COLLECTION directory
 if [ -n "${build_bootloader}" ]; then
     rm -rf ${OUT}/obj/UBOOT_COLLECTION

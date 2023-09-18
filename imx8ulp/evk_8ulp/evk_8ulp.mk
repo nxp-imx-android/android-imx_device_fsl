@@ -149,6 +149,9 @@ ifneq ($(filter TRUE true 1,$(IMX_OTA_POSTINSTALL)),)
     POSTINSTALL_OPTIONAL_vendor=false
 
   PRODUCT_COPY_FILES += \
+    $(OUT_DIR)/target/product/$(firstword $(PRODUCT_DEVICE))/obj/UBOOT_COLLECTION/spl-imx8ulp-trusty-9x9-dual.bin:$(TARGET_COPY_OUT_VENDOR)/etc/bootloader0.img
+  # Comment above line and uncomment next line to support OTA on evk_8ulp 15x15 board
+  # PRODUCT_COPY_FILES += \
     $(OUT_DIR)/target/product/$(firstword $(PRODUCT_DEVICE))/obj/UBOOT_COLLECTION/spl-imx8ulp-trusty-dual.bin:$(TARGET_COPY_OUT_VENDOR)/etc/bootloader0.img
 endif
 
@@ -399,25 +402,10 @@ PRODUCT_COPY_FILES += \
 
 
 PRODUCT_PACKAGES += \
-    libg1 \
-    libhantro \
-    libcodec \
-    libhantro_h1 \
-    libcodec_enc \
     DirectAudioPlayer
 
-# imx c2 codec binary
+# imx c2 codec register
 PRODUCT_PACKAGES += \
-    lib_vpu_wrapper \
-    lib_imx_c2_videodec \
-    lib_imx_c2_vpuwrapper_dec \
-    lib_imx_c2_videodec_common \
-    lib_imx_c2_videoenc_common \
-    lib_imx_c2_vpuwrapper_enc \
-    lib_imx_c2_videoenc \
-    lib_imx_c2_process \
-    lib_imx_c2_process_dummy_post \
-    lib_imx_c2_process_g2d_pre \
     c2_component_register \
     c2_component_register_ms \
     c2_component_register_ra

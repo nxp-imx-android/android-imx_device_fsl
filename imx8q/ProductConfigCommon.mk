@@ -138,7 +138,11 @@ PRODUCT_PACKAGES += \
     lib_imx_c2_process_isi_pre \
     lib_imx_c2_process_g2d_post \
     lib_imx_c2_g2d_filter \
+    lib_imx_opencl_converter \
+    ocl_converter.cl \
+    lib_imx_c2_opencl_filter \
     lib_imx_c2_isi_filter \
+    lib_imx_c2_opencl_pre_filter \
     libc2filterplugin \
     lib_c2_imx_store \
     lib_c2_imx_audio_dec_common \
@@ -149,6 +153,8 @@ PRODUCT_PACKAGES += \
     lib_c2_imx_ra_dec \
     lib_c2_imx_wma_dec \
     c2_component_register \
+    c2_component_register_8qm \
+    c2_component_register_8qxp \
     c2_component_register_ms \
     c2_component_register_wmv9 \
     c2_component_register_rv \
@@ -212,6 +218,10 @@ PRODUCT_PACKAGES += \
     android.hardware.health-service.example \
     android.hardware.health-service.example_recovery \
     charger_res_images_vendor
+
+PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
+    apexd.config.dm_create.timeout=60000 \
+    apexd.config.loop_wait.attempts=99
 
 # -------@block_ethernet-------
 ifneq ($(PRODUCT_IMX_CAR),true)
@@ -354,6 +364,10 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     libtinycompress \
     cplay
+
+ifneq ($(PRODUCT_IMX_CAR),true)
+PRODUCT_VENDOR_PROPERTIES += ro.config.ringtone=Ring_Synth_04.ogg
+endif
 
 # -------@block_wifi-------
 # wifi

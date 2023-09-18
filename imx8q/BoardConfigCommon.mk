@@ -77,7 +77,7 @@ BOARD_SOC_TYPE := IMX8Q
 SOONG_CONFIG_IMXPLUGIN_PRODUCT_MANUFACTURER = nxp
 
 # -------@block_security-------
-ENABLE_CFI=false
+ENABLE_CFI=true
 
 # -------@block_kernel_bootimg-------
 TARGET_NO_BOOTLOADER := true

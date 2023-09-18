@@ -176,6 +176,11 @@ PRODUCT_PACKAGES += \
     android.hardware.health-service.example \
     android.hardware.health-service.example_recovery \
     charger_res_images_vendor
+
+PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
+    apexd.config.dm_create.timeout=60000 \
+    apexd.config.loop_wait.attempts=99
+
 # -------@block_ethernet-------
 
 #PRODUCT_PACKAGES += \
@@ -304,6 +309,8 @@ PRODUCT_COPY_FILES += \
     frameworks/av/services/audiopolicy/config/a2dp_in_audio_policy_configuration_7_0.xml:$(TARGET_COPY_OUT_VENDOR)/etc/a2dp_in_audio_policy_configuration_7_0.xml \
     frameworks/av/services/audiopolicy/config/bluetooth_audio_policy_configuration_7_0.xml:$(TARGET_COPY_OUT_VENDOR)/etc/bluetooth_audio_policy_configuration_7_0.xml \
     frameworks/av/services/audiopolicy/config/usb_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/usb_audio_policy_configuration.xml
+
+PRODUCT_VENDOR_PROPERTIES += ro.config.ringtone=Ring_Synth_04.ogg
 
 # -------@block_wifi-------
 PRODUCT_PACKAGES += \

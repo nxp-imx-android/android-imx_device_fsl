@@ -54,7 +54,9 @@ else
   endif
 endif
 
-BOARD_PREBUILT_DTBOIMAGE := $(OUT_DIR)/target/product/$(PRODUCT_DEVICE)/dtbo-imx8ulp.img
+BOARD_PREBUILT_DTBOIMAGE := $(OUT_DIR)/target/product/$(PRODUCT_DEVICE)/dtbo-imx8ulp-9x9.img
+# Comment above line and uncomment next line to support OTA on evk_8ulp 15x15 board
+# BOARD_PREBUILT_DTBOIMAGE := $(OUT_DIR)/target/product/$(PRODUCT_DEVICE)/dtbo-imx8ulp.img
 
 BOARD_USES_METADATA_PARTITION := true
 BOARD_ROOT_EXTRA_FOLDERS += metadata
@@ -62,7 +64,7 @@ BOARD_ROOT_EXTRA_FOLDERS += metadata
 AB_OTA_PARTITIONS += bootloader
 
 # -------@block_security-------
-ENABLE_CFI=false
+ENABLE_CFI=true
 
 BOARD_AVB_ENABLE := true
 BOARD_AVB_ALGORITHM := SHA256_RSA4096

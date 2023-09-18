@@ -6,10 +6,13 @@ on early-init
     mount debugfs none /sys/kernel/debug/ mode=0755
 
     mount overlay overlay /vendor/etc ro lowerdir=/vendor/vendor_overlay_soc/${ro.boot.soc_type}/vendor/etc:/vendor/etc,override_creds=off
+
+    mount overlay overlay /vendor/lib64 ro lowerdir=/system/lib64/vendor_widevine_overlay_soc/${ro.boot.soc_type}/vendor/lib64:/vendor/lib64,override_creds=off
+    mount overlay overlay /vendor/firmware/tee ro lowerdir=/vendor/vendor_widevine_overlay_soc/${ro.boot.soc_type}/vendor/firmware/tee:/vendor/firmware/tee,override_creds=off
     setprop vendor.all.car false
 
 on early-init
-    start early_init_sh
+    exec_start early_init_sh
 
     # Due keymaster start very early so set prop here
     # Also gatekeeper share same role for keymaster
@@ -59,6 +62,12 @@ on init && property:vendor.skip.charger_not_need=0
     write /dev/cpuctl/rt/cpu.uclamp.latency_sensitive 1
     write /dev/cpuctl/background/cpu.uclamp.max 50
 
+service vpu_firmware_load /vendor/bin/firmware_loader /vendor/firmware/vpu/vpu_fw_imx8_dec.bin.signed
+    user root
+    group root system
+    disabled
+    oneshot
+
 on late-fs && property:vendor.storageproxyd=trusty && property:vendor.skip.charger_not_need=0
     start storageproxyd
     start vendor.oemlock-1-0
@@ -73,6 +82,7 @@ on late-fs && property:vendor.skip.charger_not_need=0
     exec_start wait_for_keymaster
 
     mount_all /vendor/etc/fstab.nxp --late
+    start vpu_firmware_load
 
 on early-boot && property:vendor.skip.charger_not_need=0
     setprop vendor.sys.hwc.disable     0
