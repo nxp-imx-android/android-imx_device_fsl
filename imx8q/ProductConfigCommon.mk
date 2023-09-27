@@ -1,11 +1,15 @@
 include $(CONFIG_REPO_PATH)/common/build/build_info.mk
 # -------@block_infrastructure-------
 ifneq ($(IMX8_BUILD_32BIT_ROOTFS),true)
+ifneq ($(filter TRUE true 1,$(IMX8_BUILD_64BIT_ROOTFS)),)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit_only.mk)
+else
 ifeq ($(PRODUCT_IMX_CAR),true)
 $(call inherit-product, $(IMX_DEVICE_PATH)/core_64_bit_car.mk)
 else
 $(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
 endif # PRODUCT_IMX_CAR
+endif
 endif # IMX8_BUILD_32BIT_ROOTFS
 
 $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
@@ -32,7 +36,11 @@ PRODUCT_MANUFACTURER := nxp
 # related to the definition and load of library modules
 TARGET_BOARD_PLATFORM := imx
 
+ifneq ($(filter TRUE true 1,$(IMX8_BUILD_64BIT_ROOTFS)),)
 PRODUCT_SHIPPING_API_LEVEL := 34
+else
+PRODUCT_SHIPPING_API_LEVEL := 33
+endif
 
 # -------@block_app-------
 PRODUCT_PROPERTY_OVERRIDES += \

@@ -100,6 +100,12 @@ BOARD_AVB_SYSTEM_DLKM_ADD_HASHTREE_FOOTER_ARGS += --hash_algorithm sha256
 # -------@block_treble-------
 # Vendor Interface manifest and compatibility
 DEVICE_MANIFEST_FILE := $(IMX_DEVICE_PATH)/manifest.xml
+
+# beginning from api level 34, vts requires 64bit-only
+ifeq ($(filter TRUE true 1,$(IMX8_BUILD_64BIT_ROOTFS)),)
+DEVICE_MANIFEST_FILE += $(IMX_DEVICE_PATH)/manifest_api_33_specific.xml
+endif
+
 DEVICE_MATRIX_FILE := $(IMX_DEVICE_PATH)/compatibility_matrix.xml
 DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE := $(IMX_DEVICE_PATH)/device_framework_matrix.xml
 
