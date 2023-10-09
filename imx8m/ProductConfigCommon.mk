@@ -132,7 +132,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
     debug.stagefright.ccodec=4  \
     debug.stagefright.omx_default_rank=0x200 \
     debug.stagefright.c2-poolmask=0x70000 \
-    debug.stagefright.ccodec_delayed_params=true
+    debug.stagefright.ccodec_delayed_params=true \
+    debug.stagefright.c2inputsurface=-1
 
 -include $(FSL_RESTRICTED_CODEC_PATH)/fsl-restricted-codec/fsl_real_dec/fsl_real_dec.mk
 -include $(FSL_RESTRICTED_CODEC_PATH)/fsl-restricted-codec/fsl_ms_codec/fsl_ms_codec.mk
