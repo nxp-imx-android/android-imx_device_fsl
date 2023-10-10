@@ -28,11 +28,7 @@ PRODUCT_MANUFACTURER := nxp
 # related to the definition and load of library modules
 TARGET_BOARD_PLATFORM := imx
 
-ifneq ($(filter TRUE true 1,$(IMX8_BUILD_64BIT_ROOTFS)),)
 PRODUCT_SHIPPING_API_LEVEL := 34
-else
-PRODUCT_SHIPPING_API_LEVEL := 33
-endif
 
 # -------@block_app-------
 
