@@ -53,7 +53,7 @@ TARGET_VENDOR_PROP := $(LOCAL_PATH)/product.prop
 
 # Thermal HAL
 PRODUCT_PACKAGES += \
-    android.hardware.thermal@2.0-service.imx
+    android.hardware.thermal-service.imx
 
 PRODUCT_COPY_FILES += \
     $(IMX_DEVICE_PATH)/thermal_info_config_imx8ulp.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/thermal_info_config_imx8ulp.json

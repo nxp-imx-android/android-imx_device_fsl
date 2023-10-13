@@ -58,7 +58,7 @@ TARGET_VENDOR_PROP := $(LOCAL_PATH)/product.prop
 
 # Thermal HAL
 PRODUCT_PACKAGES += \
-    android.hardware.thermal@2.0-service.imx
+    android.hardware.thermal-service.imx
 
 ifneq ($(PRODUCT_IMX_CAR),true)
 PRODUCT_COPY_FILES += \
