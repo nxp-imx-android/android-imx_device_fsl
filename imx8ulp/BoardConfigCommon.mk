@@ -145,7 +145,7 @@ TARGET_COPY_OUT_VENDOR_DLKM := vendor_dlkm
 BOARD_USES_SYSTEM_DLKMIMAGE := true
 BOARD_SYSTEM_DLKMIMAGE_FILE_SYSTEM_TYPE := erofs
 TARGET_COPY_OUT_SYSTEM_DLKM := system_dlkm
-BOARD_SYSTEM_DLKM_SRC := vendor/nxp/fsl-proprietary/gki/system_dlkm_staging
+BOARD_SYSTEM_KERNEL_MODULES += $(shell find vendor/nxp/fsl-proprietary/gki/system_dlkm_staging -name "*.ko")
 
 BOARD_FLASH_BLOCK_SIZE := 4096
 
