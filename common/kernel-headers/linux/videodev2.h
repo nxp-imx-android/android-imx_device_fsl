@@ -290,7 +290,9 @@ struct v4l2_pix_format {
 #define V4L2_PIX_FMT_YUVX32 v4l2_fourcc('Y', 'U', 'V', 'X')
 #define V4L2_PIX_FMT_M420 v4l2_fourcc('M', '4', '2', '0')
 #define V4L2_PIX_FMT_YUV48_12 v4l2_fourcc('Y', '3', '1', '2')
+#define V4L2_PIX_FMT_Y210 v4l2_fourcc('Y', '2', '1', '0')
 #define V4L2_PIX_FMT_Y212 v4l2_fourcc('Y', '2', '1', '2')
+#define V4L2_PIX_FMT_Y216 v4l2_fourcc('Y', '2', '1', '6')
 #define V4L2_PIX_FMT_NV12 v4l2_fourcc('N', 'V', '1', '2')
 #define V4L2_PIX_FMT_NV21 v4l2_fourcc('N', 'V', '2', '1')
 #define V4L2_PIX_FMT_NV16 v4l2_fourcc('N', 'V', '1', '6')
@@ -671,7 +673,7 @@ struct v4l2_framebuffer {
 #define V4L2_FBUF_FLAG_SRC_CHROMAKEY 0x0040
 struct v4l2_clip {
   struct v4l2_rect c;
-  struct v4l2_clip __user * next;
+  struct v4l2_clip  * next;
 };
 struct v4l2_window {
   struct v4l2_rect w;
@@ -679,7 +681,7 @@ struct v4l2_window {
   __u32 chromakey;
   struct v4l2_clip * clips;
   __u32 clipcount;
-  void __user * bitmap;
+  void  * bitmap;
   __u8 global_alpha;
 };
 struct v4l2_captureparm {
@@ -916,30 +918,30 @@ struct v4l2_ext_control {
   union {
     __s32 value;
     __s64 value64;
-    char __user * string;
-    __u8 __user * p_u8;
-    __u16 __user * p_u16;
-    __u32 __user * p_u32;
-    struct v4l2_area __user * p_area;
-    struct v4l2_ctrl_h264_sps __user * p_h264_sps;
+    char  * string;
+    __u8  * p_u8;
+    __u16  * p_u16;
+    __u32  * p_u32;
+    struct v4l2_area  * p_area;
+    struct v4l2_ctrl_h264_sps  * p_h264_sps;
     struct v4l2_ctrl_h264_pps * p_h264_pps;
-    struct v4l2_ctrl_h264_scaling_matrix __user * p_h264_scaling_matrix;
-    struct v4l2_ctrl_h264_pred_weights __user * p_h264_pred_weights;
-    struct v4l2_ctrl_h264_slice_params __user * p_h264_slice_params;
-    struct v4l2_ctrl_h264_decode_params __user * p_h264_decode_params;
-    struct v4l2_ctrl_fwht_params __user * p_fwht_params;
-    struct v4l2_ctrl_vp8_frame __user * p_vp8_frame;
-    struct v4l2_ctrl_mpeg2_sequence __user * p_mpeg2_sequence;
-    struct v4l2_ctrl_mpeg2_picture __user * p_mpeg2_picture;
-    struct v4l2_ctrl_mpeg2_quantisation __user * p_mpeg2_quantisation;
-    struct v4l2_ctrl_vp9_compressed_hdr __user * p_vp9_compressed_hdr_probs;
-    struct v4l2_ctrl_vp9_frame __user * p_vp9_frame;
-    struct v4l2_ctrl_hevc_sps __user * p_hevc_sps;
-    struct v4l2_ctrl_hevc_pps __user * p_hevc_pps;
-    struct v4l2_ctrl_hevc_slice_params __user * p_hevc_slice_params;
-    struct v4l2_ctrl_hevc_scaling_matrix __user * p_hevc_scaling_matrix;
-    struct v4l2_ctrl_hevc_decode_params __user * p_hevc_decode_params;
-    void __user * ptr;
+    struct v4l2_ctrl_h264_scaling_matrix  * p_h264_scaling_matrix;
+    struct v4l2_ctrl_h264_pred_weights  * p_h264_pred_weights;
+    struct v4l2_ctrl_h264_slice_params  * p_h264_slice_params;
+    struct v4l2_ctrl_h264_decode_params  * p_h264_decode_params;
+    struct v4l2_ctrl_fwht_params  * p_fwht_params;
+    struct v4l2_ctrl_vp8_frame  * p_vp8_frame;
+    struct v4l2_ctrl_mpeg2_sequence  * p_mpeg2_sequence;
+    struct v4l2_ctrl_mpeg2_picture  * p_mpeg2_picture;
+    struct v4l2_ctrl_mpeg2_quantisation  * p_mpeg2_quantisation;
+    struct v4l2_ctrl_vp9_compressed_hdr  * p_vp9_compressed_hdr_probs;
+    struct v4l2_ctrl_vp9_frame  * p_vp9_frame;
+    struct v4l2_ctrl_hevc_sps  * p_hevc_sps;
+    struct v4l2_ctrl_hevc_pps  * p_hevc_pps;
+    struct v4l2_ctrl_hevc_slice_params  * p_hevc_slice_params;
+    struct v4l2_ctrl_hevc_scaling_matrix  * p_hevc_scaling_matrix;
+    struct v4l2_ctrl_hevc_decode_params  * p_hevc_decode_params;
+    void  * ptr;
   };
 } __attribute__((packed));
 struct v4l2_ext_controls {
