@@ -3,7 +3,7 @@
 KERNEL_NAME := Image.lz4
 TARGET_KERNEL_ARCH := arm64
 
-IMX8ULP_USES_GKI := true
+LOADABLE_KERNEL_MODULE ?= true
 
 # -------@block_memory-------
 #Enable this to config 1GB ddr on evk_imx8ulp
@@ -72,7 +72,7 @@ PRODUCT_IMX_TRUSTY := true
 # CONFIG_CFG80211: cfg80211.ko
 # CONFIG_MAC80211: mac80211.ko
 
-ifeq ($(IMX8ULP_USES_GKI),true)
+ifeq ($(LOADABLE_KERNEL_MODULE),true)
 BOARD_VENDOR_RAMDISK_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/hwmon/hwmon.ko \
     $(KERNEL_OUT)/drivers/hwmon/scmi-hwmon.ko \
@@ -188,7 +188,7 @@ endif
 # CONFIG_MTD_SPI_NOR: spi-nor.ko
 # CONFIG_MICREL_PHY: micrel.ko
 # CONFIG_FEC: fec.ko
-ifeq ($(IMX8ULP_USES_GKI),true)
+ifeq ($(LOADABLE_KERNEL_MODULE),true)
 BOARD_VENDOR_KERNEL_MODULES += \
     $(KERNEL_OUT)/mm/zsmalloc.ko \
     $(KERNEL_OUT)/drivers/block/zram/zram.ko \

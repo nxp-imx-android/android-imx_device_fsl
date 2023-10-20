@@ -15,7 +15,7 @@ endif
 TARGET_BOOTLOADER_CONFIG += imx8mn-ddr4-evk-uuu:imx8mn_ddr4_evk_android_uuu_defconfig
 TARGET_BOOTLOADER_CONFIG += imx8mn-evk-uuu:imx8mn_evk_android_uuu_defconfig
 
-ifeq ($(IMX8MN_USES_GKI),true)
+ifeq ($(LOADABLE_KERNEL_MODULE),true)
 TARGET_KERNEL_DEFCONFIG := gki_defconfig
 TARGET_KERNEL_GKI_DEFCONF := imx8mn_gki.fragment
 else

@@ -74,7 +74,7 @@ TARGET_USE_VENDOR_BOOT ?= true
 # Allow LZ4 compression
 BOARD_RAMDISK_USE_LZ4 := true
 
-ifeq ($(IMX8MP_USES_GKI),true)
+ifeq ($(LOADABLE_KERNEL_MODULE),true)
   BOARD_USES_GENERIC_KERNEL_IMAGE := true
   $(call inherit-product, $(SRC_TARGET_DIR)/product/generic_ramdisk.mk)
 endif

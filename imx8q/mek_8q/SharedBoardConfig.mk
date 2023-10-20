@@ -64,10 +64,10 @@ endif
 endif
 
 ifeq ($(PRODUCT_IMX_CAR),)
-  IMX8Q_USES_GKI_DEFCONFIG := true
+  LOADABLE_KERNEL_MODULE ?= true
 endif
 
-ifeq ($(IMX8Q_USES_GKI_DEFCONFIG),true)
+ifeq ($(LOADABLE_KERNEL_MODULE),true)
 BOARD_VENDOR_RAMDISK_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/mailbox/imx-mailbox.ko \
     $(KERNEL_OUT)/drivers/firmware/imx/imx-scu-firmware.ko \

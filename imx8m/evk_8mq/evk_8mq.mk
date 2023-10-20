@@ -68,10 +68,8 @@ TARGET_USE_VENDOR_BOOT ?= true
 # Allow LZ4 compression
 BOARD_RAMDISK_USE_LZ4 := true
 
-ifeq ($(IMX8MQ_USES_GKI),true)
-  BOARD_USES_GENERIC_KERNEL_IMAGE := true
-  $(call inherit-product, $(SRC_TARGET_DIR)/product/generic_ramdisk.mk)
-endif
+BOARD_USES_GENERIC_KERNEL_IMAGE := true
+$(call inherit-product, $(SRC_TARGET_DIR)/product/generic_ramdisk.mk)
 
 # We load the fstab from device tree so this is not needed, but since no kernel modules are installed to vendor
 # boot ramdisk so far, we need this step to generate the vendor-ramdisk folder or build process would fail. This

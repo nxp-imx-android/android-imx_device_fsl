@@ -2,7 +2,7 @@
 
 KERNEL_NAME := Image.lz4
 TARGET_KERNEL_ARCH := arm64
-IMX8MQ_USES_GKI := true
+LOADABLE_KERNEL_MODULE ?= true
 
 #NXP 8997 wifi driver module
 BOARD_VENDOR_KERNEL_MODULES += \
@@ -32,7 +32,7 @@ BOARD_VENDOR_KERNEL_MODULES += \
 # CONFIG_AT803X_PHY: ethernet phy driver at803x.ko
 # CONFIG_FEC: fec.ko which depend on pps_core.ko and ptp.ko
 
-ifeq ($(IMX8MQ_USES_GKI),true)
+ifeq ($(LOADABLE_KERNEL_MODULE),true)
 BOARD_VENDOR_KERNEL_MODULES += \
     $(KERNEL_OUT)/mm/zsmalloc.ko \
     $(KERNEL_OUT)/drivers/block/zram/zram.ko \
@@ -104,7 +104,7 @@ endif
 # CONFIG_CFG80211: cfg80211.ko, cfg80211 - wireless configuration API
 # CONFIG_MAC80211: mac80211.ko, Generic IEEE 802.11 Networking Stack
 
-ifeq ($(IMX8MQ_USES_GKI),true)
+ifeq ($(LOADABLE_KERNEL_MODULE),true)
 BOARD_VENDOR_RAMDISK_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/clk/imx/mxc-clk.ko \
     $(KERNEL_OUT)/drivers/clk/imx/clk-imx8mq.ko \

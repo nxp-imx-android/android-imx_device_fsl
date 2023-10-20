@@ -14,7 +14,7 @@ TARGET_BOOTLOADER_CONFIG += imx8ulp-trusty-9x9-dual:imx8ulp_9x9_evk_android_trus
 TARGET_BOOTLOADER_CONFIG += imx8ulp-9x9-evk-uuu:imx8ulp_9x9_evk_android_uuu_defconfig
 
 # imx8ulp kernel defconfig
-ifeq ($(IMX8ULP_USES_GKI),true)
+ifeq ($(LOADABLE_KERNEL_MODULE),true)
 TARGET_KERNEL_DEFCONFIG := gki_defconfig
 TARGET_KERNEL_GKI_DEFCONF:= imx8ulp_gki.fragment
 else

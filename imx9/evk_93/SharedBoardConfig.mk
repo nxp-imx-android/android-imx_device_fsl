@@ -3,7 +3,7 @@
 KERNEL_NAME := Image.lz4
 TARGET_KERNEL_ARCH := arm64
 
-IMX93_USES_GKI := false
+LOADABLE_KERNEL_MODULE ?= false
 
 # -------@block_memory-------
 #Enable this to config low memory
