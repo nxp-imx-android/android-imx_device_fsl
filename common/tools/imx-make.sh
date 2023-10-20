@@ -80,7 +80,7 @@ build_vendordlkmimage=""
 parallel_option=""
 clean_build=0
 skip_config_or_clean=0
-sign_gki=1
+enable_gki=${ENABLE_GKI:-1}
 
 # process of the arguments
 args=( "$@" )
@@ -198,7 +198,7 @@ if [ ${build_android_flag} -eq 1 ] || [ ${build_whole_android_flag} -eq 1 ]; the
         if [ ${TARGET_PRODUCT} = "evk_8mp" ] || [ ${TARGET_PRODUCT} = "evk_8mn" ] \
         || [ ${TARGET_PRODUCT} = "evk_8ulp" ] || [ ${TARGET_PRODUCT} = "mek_8q" ] \
         || [ ${TARGET_PRODUCT} = "evk_8mm" ] || [ ${TARGET_PRODUCT} = "evk_8mq" ]; then
-            if [ ${sign_gki} -eq 1 ]; then
+            if [ ${enable_gki} -eq 1 ]; then
                 mv ${OUT}/boot.img ${OUT}/boot-imx.img
                 make bootimage
             fi
