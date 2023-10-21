@@ -31,16 +31,6 @@ BOARD_VENDOR_KERNEL_MODULES += \
     $(TARGET_OUT_INTERMEDIATES)/MXMWIFI_OBJ/mlan.ko \
     $(TARGET_OUT_INTERMEDIATES)/MXMWIFI_OBJ/moal.ko
 
-# Support SOF modules
-BOARD_VENDOR_KERNEL_MODULES += \
-    $(KERNEL_OUT)/drivers/firmware/imx/imx-dsp.ko \
-    $(KERNEL_OUT)/sound/soc/sof/snd-sof-utils.ko \
-    $(KERNEL_OUT)/sound/soc/sof/snd-sof.ko \
-    $(KERNEL_OUT)/sound/soc/sof/snd-sof-of.ko \
-    $(KERNEL_OUT)/sound/soc/sof/xtensa/snd-sof-xtensa-dsp.ko \
-    $(KERNEL_OUT)/sound/soc/sof/imx/imx-common.ko \
-    $(KERNEL_OUT)/sound/soc/sof/imx/snd-sof-imx8.ko
-
 ifeq ($(PRODUCT_IMX_CAR),true)
 BOARD_VENDOR_KERNEL_MODULES += \
                             $(KERNEL_OUT)/drivers/usb/chipidea/ci_hdrc.ko \
@@ -178,6 +168,13 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/staging/media/imx/imx8-media-dev.ko
 
 BOARD_VENDOR_KERNEL_MODULES += \
+    $(KERNEL_OUT)/drivers/firmware/imx/imx-dsp.ko \
+    $(KERNEL_OUT)/sound/soc/sof/snd-sof-utils.ko \
+    $(KERNEL_OUT)/sound/soc/sof/snd-sof.ko \
+    $(KERNEL_OUT)/sound/soc/sof/snd-sof-of.ko \
+    $(KERNEL_OUT)/sound/soc/sof/xtensa/snd-sof-xtensa-dsp.ko \
+    $(KERNEL_OUT)/sound/soc/sof/imx/imx-common.ko \
+    $(KERNEL_OUT)/sound/soc/sof/imx/snd-sof-imx8.ko \
     $(KERNEL_OUT)/mm/zsmalloc.ko \
     $(KERNEL_OUT)/drivers/block/zram/zram.ko \
     $(KERNEL_OUT)/net/wireless/cfg80211.ko \
