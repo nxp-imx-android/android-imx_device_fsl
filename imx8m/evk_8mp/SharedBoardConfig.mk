@@ -33,9 +33,7 @@ ifeq ($(IMX8MP_USES_GKI),true)
 BOARD_VENDOR_KERNEL_MODULES += \
     $(KERNEL_OUT)/mm/zsmalloc.ko \
     $(KERNEL_OUT)/drivers/block/zram/zram.ko \
-    $(KERNEL_OUT)/net/rfkill/rfkill.ko \
     $(KERNEL_OUT)/net/wireless/cfg80211.ko \
-    $(KERNEL_OUT)/lib/crypto/libarc4.ko \
     $(KERNEL_OUT)/net/mac80211/mac80211.ko \
     $(KERNEL_OUT)/drivers/mxc/gpu-viv/galcore.ko \
     $(KERNEL_OUT)/drivers/thermal/imx8mm_thermal.ko \
