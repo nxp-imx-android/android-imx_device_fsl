@@ -21,7 +21,8 @@ PRODUCT_PACKAGE_OVERLAYS := $(IMX_DEVICE_PATH)/overlay_car $(PRODUCT_PACKAGE_OVE
 
 # -------@block_app-------
 PRODUCT_COPY_FILES += \
-    $(IMX_DEVICE_PATH)/privapp-permissions-imx.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/privapp-permissions-imx.xml
+    $(IMX_DEVICE_PATH)/privapp-permissions-imx.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/privapp-permissions-imx.xml \
+    $(CONFIG_REPO_PATH)/imx8q/default-permissions/default-permissions-com.android.car.dialer.xml:$(TARGET_COPY_OUT_VENDOR)/etc/default-permissions/prebuilt_default-permissions-com.android.car.dialer.xml
 
 # Add Google prebuilt services
 PRODUCT_PACKAGES += \
