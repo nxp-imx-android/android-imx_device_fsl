@@ -89,6 +89,9 @@ endif
 otapackage: signapk
 target-files-package: signapk
 
+otapackage: gen_update_config
+target-files-package: gen_update_config
+
 ifeq ($(TARGET_USE_VENDOR_BOOT), true)
 INSTALLED_DTBIMAGE_TARGET := $(PRODUCT_OUT)/dtb.img
 $(INSTALLED_DTBIMAGE_TARGET): $(KERNEL_BIN) $(TARGET_DTB)
