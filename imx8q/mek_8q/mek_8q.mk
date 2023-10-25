@@ -56,6 +56,19 @@ PRODUCT_PACKAGES += \
 
 TARGET_VENDOR_PROP := $(LOCAL_PATH)/product.prop
 
+# HDMI CEC AIDL HAL
+PRODUCT_PACKAGES += \
+    android.hardware.tv.hdmi.cec-service.imx \
+    android.hardware.tv.hdmi.connection-service.imx \
+    hdmi_cec_nxp
+
+# Setup HDMI CEC as Playback Device
+PRODUCT_PROPERTY_OVERRIDES += ro.hdmi.device_type=4 \
+    persist.sys.hdmi.keep_awake=false
+
+PRODUCT_COPY_FILES += \
+    frameworks/native/data/etc/android.hardware.hdmi.cec.xml:system/etc/permissions/android.hardware.hdmi.cec.xml
+
 # Thermal HAL
 PRODUCT_PACKAGES += \
     android.hardware.thermal-service.imx
