@@ -154,7 +154,7 @@ ifeq ($(TARGET_USE_DYNAMIC_PARTITIONS),true)
   ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
     TARGET_BOARD_DTS_CONFIG ?= imx8mq:imx8mq-evk-no-product.dtb
   else
-    ifeq ($(IMX8MQ_USES_GKI),true)
+    ifeq ($(LOADABLE_KERNEL_MODULE),true)
       # imx8mq gki with HDMI display
       TARGET_BOARD_DTS_CONFIG ?= imx8mq:imx8mq-evk-pcie1-m2-gki.dtb
       # imx8mq gki with HDMI display on WEVK board
@@ -197,6 +197,6 @@ BOARD_SEPOLICY_DIRS := \
        $(CONFIG_REPO_PATH)/imx8m/sepolicy \
        $(IMX_DEVICE_PATH)/sepolicy
 
-ifeq ($(IMX8MQ_USES_GKI),true)
+ifeq ($(LOADABLE_KERNEL_MODULE),true)
     BOARD_KERNEL_CMDLINE += cpuidle.off=1
 endif
