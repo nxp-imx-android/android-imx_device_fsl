@@ -197,6 +197,9 @@ BOARD_SEPOLICY_DIRS := \
        $(CONFIG_REPO_PATH)/imx8m/sepolicy \
        $(IMX_DEVICE_PATH)/sepolicy
 
-ifeq ($(LOADABLE_KERNEL_MODULE),true)
-    BOARD_KERNEL_CMDLINE += cpuidle.off=1
-endif
+# As arm-trusted-firmware has the following patch:
+# MA-20469 Enable suspend/resume when GPC interrupt-controller is disabled in the kernel
+# In order to support suspend/resume on imx8mq board, this patch remove the
+# change of ERR11171 when IMX_ANDROID_BUILD=true. This results in the failure of
+# cpuidle on imx8mq, therefore Android disables cpuidle on evk_8mq.
+BOARD_KERNEL_CMDLINE += cpuidle.off=1
