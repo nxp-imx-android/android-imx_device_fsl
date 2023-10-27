@@ -27,7 +27,7 @@ else
 	exit 1
 fi
 
-MKIMAGE_SOC=iMX9
+MKIMAGE_SOC=iMX93
 BOARD_MKIMAGE_PATH=${IMX_MKIMAGE_PATH}/imx-mkimage/${MKIMAGE_SOC}
 
 build_m4_image()
@@ -42,8 +42,8 @@ build_imx_uboot()
 	cp ${UBOOT_OUT}/u-boot.$1 ${BOARD_MKIMAGE_PATH}
 	cp ${UBOOT_OUT}/spl/u-boot-spl.bin ${BOARD_MKIMAGE_PATH}
 	cp ${UBOOT_OUT}/tools/mkimage ${BOARD_MKIMAGE_PATH}/mkimage_uboot
-	cp ${FSL_PROPRIETARY_PATH}/linux-firmware-imx/firmware/ddr/synopsys/lpddr4_imem_* ${IMX_MKIMAGE_PATH}/imx-mkimage/iMX9/
-	cp ${FSL_PROPRIETARY_PATH}/linux-firmware-imx/firmware/ddr/synopsys/lpddr4_dmem_* ${IMX_MKIMAGE_PATH}/imx-mkimage/iMX9/
+	cp ${FSL_PROPRIETARY_PATH}/linux-firmware-imx/firmware/ddr/synopsys/lpddr4_imem_* ${IMX_MKIMAGE_PATH}/imx-mkimage/iMX93/
+	cp ${FSL_PROPRIETARY_PATH}/linux-firmware-imx/firmware/ddr/synopsys/lpddr4_dmem_* ${IMX_MKIMAGE_PATH}/imx-mkimage/iMX93/
 
 	# build ATF based on whether tee is involved
 	make -C ${IMX_PATH}/arm-trusted-firmware/ PLAT=`echo $2 | cut -d '-' -f1` clean
