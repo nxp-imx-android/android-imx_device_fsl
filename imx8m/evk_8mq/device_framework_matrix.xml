@@ -16,7 +16,7 @@
         </interface>
     </hal>
     <hal format="aidl" optional="true">
-        <name>android.hardware.imx_dek_extractor</name>
+        <name>nxp.hardware.imx_dek_extractor</name>
         <version>1</version>
         <interface>
             <name>IDek_Extractor</name>
