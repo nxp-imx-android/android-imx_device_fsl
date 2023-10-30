@@ -13,3 +13,5 @@ allow hal_neuralnetworks_imx hal_graphics_allocator_default:fd { use };
 allow hal_neuralnetworks_imx ion_device:chr_file { open read ioctl };
 
 get_prop(hal_neuralnetworks_imx, vendor_public_default_prop)
+allow hal_neuralnetworks_imx hal_graphics_allocator_default:binder { call };
+allow hal_neuralnetworks_imx default_prop:file { getattr map };

@@ -421,9 +421,9 @@ endif
 #
 # Neural Network HAL and lib
 #PRODUCT_PACKAGES += \
-#    libovxlib \
-#    libnnrt \
-#    android.hardware.neuralnetworks@1.3-service-vsi-npu-server
+#    libtim-vx \
+#    libVsiSupportLibrary \
+#    android.hardware.neuralnetworks-shell-service-imx
 #
 # Tensorflow lite camera demo
 #PRODUCT_PACKAGES += \
