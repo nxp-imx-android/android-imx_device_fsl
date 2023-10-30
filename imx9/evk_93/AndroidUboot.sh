@@ -27,9 +27,6 @@ else
 	exit 1
 fi
 
-MKIMAGE_SOC=iMX93
-BOARD_MKIMAGE_PATH=${IMX_MKIMAGE_PATH}/imx-mkimage/${MKIMAGE_SOC}
-
 build_m4_image()
 {
 	:
@@ -38,12 +35,19 @@ build_m4_image()
 build_imx_uboot()
 {
 	echo Building i.MX U-Boot with firmware
+	if [ -d "${IMX_MKIMAGE_PATH}/imx-mkimage/iMX93" ]; then
+		MKIMAGE_SOC=iMX93
+	else
+		MKIMAGE_SOC=iMX9
+	fi
+	BOARD_MKIMAGE_PATH=${IMX_MKIMAGE_PATH}/imx-mkimage/${MKIMAGE_SOC}
+
 	cp ${FSL_PROPRIETARY_PATH}/ele/mx93a1-ahab-container.img ${BOARD_MKIMAGE_PATH}
 	cp ${UBOOT_OUT}/u-boot.$1 ${BOARD_MKIMAGE_PATH}
 	cp ${UBOOT_OUT}/spl/u-boot-spl.bin ${BOARD_MKIMAGE_PATH}
 	cp ${UBOOT_OUT}/tools/mkimage ${BOARD_MKIMAGE_PATH}/mkimage_uboot
-	cp ${FSL_PROPRIETARY_PATH}/linux-firmware-imx/firmware/ddr/synopsys/lpddr4_imem_* ${IMX_MKIMAGE_PATH}/imx-mkimage/iMX93/
-	cp ${FSL_PROPRIETARY_PATH}/linux-firmware-imx/firmware/ddr/synopsys/lpddr4_dmem_* ${IMX_MKIMAGE_PATH}/imx-mkimage/iMX93/
+	cp ${FSL_PROPRIETARY_PATH}/linux-firmware-imx/firmware/ddr/synopsys/lpddr4_imem_* ${IMX_MKIMAGE_PATH}/imx-mkimage/${MKIMAGE_SOC}/
+	cp ${FSL_PROPRIETARY_PATH}/linux-firmware-imx/firmware/ddr/synopsys/lpddr4_dmem_* ${IMX_MKIMAGE_PATH}/imx-mkimage/${MKIMAGE_SOC}/
 
 	# build ATF based on whether tee is involved
 	make -C ${IMX_PATH}/arm-trusted-firmware/ PLAT=`echo $2 | cut -d '-' -f1` clean
@@ -65,7 +69,7 @@ build_imx_uboot()
 	# codebase, so mkimage_imx8 will be generated under Android codebase top dir.
 	pwd_backup=${PWD}
 	PWD=${PWD}/${IMX_MKIMAGE_PATH}/imx-mkimage/
-	make -C ${IMX_MKIMAGE_PATH}/imx-mkimage/ SOC=${MKIMAGE_SOC} REV=A1 flash_singleboot || exit 1
+	make -C ${IMX_MKIMAGE_PATH}/imx-mkimage/ SOC=iMX93 REV=A1 flash_singleboot || exit 1
 	PWD=${pwd_backup}
 
 	if [ `echo $2 | rev | cut -d '-' -f1 | rev` != "dual" ]; then
