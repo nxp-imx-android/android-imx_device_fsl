@@ -331,13 +331,16 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 #DRM Widevine 1.4 L3 support
 PRODUCT_PACKAGES += \
-    android.hardware.drm-service.widevine \
     android.hardware.drm-service.clearkey \
     libwvdrmcryptoplugin \
     libwvaidl \
     liboemcrypto
 
+TARGET_BUILD_WIDEVINE :=
+TARGET_BUILD_WIDEVINE_USE_PREBUILT := true
+
 $(call inherit-product-if-exists, vendor/nxp-private/widevine/nxp_widevine_tee_8qm.mk)
+$(call inherit-product-if-exists, vendor/nxp-private/widevine/apex/device.mk)
 
 # -------@block_audio-------
 # To support multiple pcm device on cs42888, need delete below two lines:

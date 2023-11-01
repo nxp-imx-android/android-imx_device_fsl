@@ -247,3 +247,6 @@ ALL_DEFAULT_INSTALLED_MODULES += $(BOARD_VENDOR_KERNEL_MODULES)
 BOARD_SEPOLICY_DIRS := \
        $(CONFIG_REPO_PATH)/imx8m/sepolicy \
        $(IMX_DEVICE_PATH)/sepolicy
+
+BOARD_BOOTCONFIG += \
+       androidboot.vendor.apex.com.google.android.widevine=com.google.android.widevine
