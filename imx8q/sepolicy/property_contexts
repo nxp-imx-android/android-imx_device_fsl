@@ -13,8 +13,8 @@ vendor.all.setup_main.ready         u:object_r:vendor_public_default_prop:s0
 vendor.all.zygote_auto.ready        u:object_r:vendor_public_default_prop:s0
 vendor.all.system_server.ready      u:object_r:vendor_public_default_prop:s0
 vendor.all.system_server.start      u:object_r:vendor_public_default_prop:s0
-vendor.sys.hwc.disable              u:object_r:vendor_public_default_prop:s0
-vendor.2d.composition               u:object_r:vendor_public_default_prop:s0
+vendor.hwc.disable.overlay          u:object_r:vendor_public_default_prop:s0
+vendor.hwc.prefer.2d-composition    u:object_r:vendor_public_default_prop:s0
 vendor.2d.ocl.enable                u:object_r:vendor_public_default_prop:s0
 vendor.imx.default-g2d              u:object_r:vendor_public_default_prop:s0
 vendor.hw.backlight.dev             u:object_r:vendor_public_default_prop:s0
@@ -195,7 +195,6 @@ vendor.bluetooth.rfkill_initialized        u:object_r:vendor_public_default_prop
 ro.boot.gui_resolution                     u:object_r:vendor_public_default_prop:s0
 ro.boot.primary_display                    u:object_r:vendor_public_default_prop:s0
 vendor.hwc.drm.device                      u:object_r:vendor_public_default_prop:s0
-vendor.hwc.enable.overlay                  u:object_r:vendor_public_default_prop:s0
 ro.boot.displaymode                        u:object_r:vendor_public_default_prop:s0
 ro.hardware.lightsensor                    u:object_r:vendor_public_default_prop:s0
 vendor.ro.lightsensor.threshold            u:object_r:vendor_public_default_prop:s0

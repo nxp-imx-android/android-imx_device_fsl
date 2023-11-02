@@ -85,8 +85,8 @@ on late-fs && property:vendor.skip.charger_not_need=0
     start vpu_firmware_load
 
 on early-boot && property:vendor.skip.charger_not_need=0
-    setprop vendor.sys.hwc.disable     0
-    setprop vendor.2d.composition 0
+    setprop vendor.hwc.disable.overlay         1
+    setprop vendor.hwc.prefer.2d-composition   0
     setprop vendor.hwc.stretch.filter  1
 
     # Default g2d [dpu|pxp|viv] lib to be used

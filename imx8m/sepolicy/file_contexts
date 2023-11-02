@@ -103,6 +103,8 @@
 /vendor/bin/hw/android\.hardware\.oemlock-service\.imx      u:object_r:hal_oemlock_impl_exec:s0
 /vendor/bin/hw/android\.hardware\.confirmationui-service\.trusty     u:object_r:hal_confirmationui_impl_exec:s0
 
+/vendor/bin/hw/android\.hardware\.graphics\.composer3-service\.imx  u:object_r:hal_graphics_composer_default_exec:s0
+
 # partitions of boot device
 /dev/block/by-name/vendor_boot_[ab]          u:object_r:boot_block_device:s0
 /dev/block/by-name/dtbo_[ab]                 u:object_r:dtbo_block_device:s0
