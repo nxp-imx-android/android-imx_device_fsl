@@ -19,6 +19,10 @@
 /dev/dri/card2                  u:object_r:graphics_device:s0
 /dev/dri/controlD64             u:object_r:graphics_device:s0
 /dev/dri/controlD65             u:object_r:graphics_device:s0
+/dev/graphics                   u:object_r:gpu_device:s0
+/dev/graphics/fb0               u:object_r:graphics_device:s0
+/dev/graphics/fb1               u:object_r:graphics_device:s0
+/dev/graphics/fb2               u:object_r:graphics_device:s0
 /dev/dri/renderD128             u:object_r:gpu_device:s0
 /dev/dri/renderD129             u:object_r:gpu_device:s0
 /vendor/bin/hw/android\.hardware\.usb-service\.imx                 u:object_r:hal_usb_impl_exec:s0
