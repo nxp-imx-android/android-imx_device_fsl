@@ -253,10 +253,6 @@ PRODUCT_PACKAGES += \
     camera.device-external-imx-impl.so
 endif
 
-# Foreground service DeviceAsCamera
-PRODUCT_PACKAGES += \
-    DeviceAsWebcam
-
 ifeq ($(PRODUCT_IMX_CAR),true)
 PRODUCT_PACKAGES += \
     android.hardware.automotive.evs@1.1-EvsEnumeratorHw

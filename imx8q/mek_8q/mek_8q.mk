@@ -402,9 +402,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_SOONG_NAMESPACES += hardware/google/camera
 PRODUCT_SOONG_NAMESPACES += vendor/nxp-opensource/imx/camera
 
-# Add WebCam option in settings
-PRODUCT_VENDOR_PROPERTIES += ro.usb.uvc.enabled=true
-
 # external camera feature demo
 PRODUCT_PACKAGES += \
      Camera2Basic

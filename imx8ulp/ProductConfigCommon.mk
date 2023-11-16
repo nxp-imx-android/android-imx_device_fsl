@@ -218,10 +218,6 @@ endif
 PRODUCT_PACKAGES += \
      Camera2Basic
 
-# Foreground service DeviceAsCamera
-PRODUCT_PACKAGES += \
-    DeviceAsWebcam
-
 # -------@block_display-------
 ifneq ($(PRODUCT_IMX_CAR),true)
 PRODUCT_PACKAGES += \

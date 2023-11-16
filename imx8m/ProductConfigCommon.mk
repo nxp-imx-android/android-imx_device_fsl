@@ -214,11 +214,6 @@ PRODUCT_PACKAGES += \
 # external camera feature demo
 PRODUCT_PACKAGES += \
      Camera2Basic
-
-# Foreground service DeviceAsCamera
-PRODUCT_PACKAGES += \
-    DeviceAsWebcam
-
 endif
 endif
 
