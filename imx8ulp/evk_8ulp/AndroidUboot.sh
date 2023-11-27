@@ -75,8 +75,7 @@ build_imx_uboot()
 	# codebase, so mkimage_imx8 will be generated under Android codebase top dir.
 	pwd_backup=${PWD}
 	PWD=${PWD}/${IMX_MKIMAGE_PATH}/imx-mkimage/
-	if [ `echo $2 | rev | cut -d '-' -f2 | rev` = "dualboot" ] || \
-		[ `echo $2 | rev |cut -d '-' -f2 | rev` = "lpa" ]; then
+	if [ `echo $2 | rev | cut -d '-' -f2 | rev` = "dualboot" ]; then
 		make -C ${IMX_MKIMAGE_PATH}/imx-mkimage/ SOC=${MKIMAGE_SOC} REV=A2 flash_dualboot_m33 || exit 1
 		cp ${BOARD_MKIMAGE_PATH}/flash.bin ${UBOOT_COLLECTION}/`echo $2 | cut -d '-' -f1`_mcu_demo_sf.img
 		make -C ${IMX_MKIMAGE_PATH}/imx-mkimage/ clean
