@@ -29,6 +29,9 @@ on early-boot
     # Set NN reject model by weights md5
     setprop vendor.MODEL_BLOCK_LEVEL 1
 
+    # Disable backpressure gpu composition
+    setprop debug.sf.enable_gl_backpressure false
+
     # Set light sensor sysfs path
     setprop ro.hardware.lightsensor "/sys/class/i2c-dev/i2c-15/device/15-0044/"
 
