@@ -100,10 +100,9 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/soc/imx/soc-imx8m.ko \
     $(KERNEL_OUT)/drivers/clk/imx/mxc-clk.ko \
     $(KERNEL_OUT)/drivers/clk/imx/clk-imx8mn.ko \
-    $(KERNEL_OUT)/drivers/soc/imx/imx8m-blk-ctrl.ko \
-    $(KERNEL_OUT)/drivers/soc/imx/imx8m_pm_domains.ko \
     $(KERNEL_OUT)/drivers/soc/imx/gpcv2.ko \
     $(KERNEL_OUT)/drivers/soc/imx/gpcv2-imx.ko \
+    $(KERNEL_OUT)/drivers/soc/imx/imx8m-blk-ctrl.ko \
     $(KERNEL_OUT)/drivers/clocksource/timer-imx-sysctr.ko \
     $(KERNEL_OUT)/drivers/soc/imx/busfreq-imx8mq.ko \
     $(KERNEL_OUT)/drivers/pinctrl/freescale/pinctrl-imx.ko \
