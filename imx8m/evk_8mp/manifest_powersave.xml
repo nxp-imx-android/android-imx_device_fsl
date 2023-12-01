@@ -62,15 +62,6 @@
             <instance>default</instance>
         </interface>
     </hal>
-    <hal format="hidl">
-        <name>nxp.hardware.display</name>
-            <transport>hwbinder</transport>
-        <version>1.0</version>
-        <interface>
-            <name>IDisplay</name>
-            <instance>default</instance>
-        </interface>
-    </hal>
     <hal format="aidl">
        <name>android.hardware.security.keymint</name>
        <version>3</version>

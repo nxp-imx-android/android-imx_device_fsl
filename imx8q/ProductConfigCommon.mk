@@ -279,14 +279,6 @@ PRODUCT_PACKAGES += \
     MultiDisplaySecondaryHomeTestLauncher
 endif
 
-PRODUCT_HOST_PACKAGES += \
-    nxp.hardware.display@1.0
-
-# HAL
-PRODUCT_PACKAGES += \
-    gralloc.imx \
-    hwcomposer.imx
-
 PRODUCT_PACKAGES += \
     libdrm_android \
     libdisplayutils \

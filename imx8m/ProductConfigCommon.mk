@@ -227,18 +227,10 @@ endif
 PRODUCT_PACKAGES += \
     libedid
 
-# HAL
-PRODUCT_PACKAGES += \
-    gralloc.imx \
-    hwcomposer.imx
-
 PRODUCT_PACKAGES += \
     libdrm_android \
     libdisplayutils \
     libfsldisplay
-
-PRODUCT_HOST_PACKAGES += \
-    nxp.hardware.display@1.0
 
 PRODUCT_SOONG_NAMESPACES += external/mesa3d
 
