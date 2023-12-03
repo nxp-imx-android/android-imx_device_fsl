@@ -217,3 +217,4 @@ ro.vendor.build_id                     u:object_r:vendor_public_default_prop:s0
 
 # extend feature for secure ui
 ro.boot.androidui.overlay              u:object_r:vendor_public_default_prop:s0
+vendor.androidui.overlay               u:object_r:vendor_public_default_prop:s0
