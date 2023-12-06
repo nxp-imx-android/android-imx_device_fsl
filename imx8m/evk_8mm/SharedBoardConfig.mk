@@ -121,7 +121,6 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES +=     \
     $(KERNEL_OUT)/drivers/watchdog/imx2_wdt.ko \
     $(KERNEL_OUT)/drivers/regulator/pca9450-regulator.ko \
     $(KERNEL_OUT)/drivers/gpio/gpio-mxc.ko \
-    $(KERNEL_OUT)/drivers/thermal/device_cooling.ko \
     $(KERNEL_OUT)/drivers/perf/fsl_imx8_ddr_perf.ko \
     $(KERNEL_OUT)/drivers/cpufreq/cpufreq-dt.ko \
     $(KERNEL_OUT)/drivers/cpufreq/imx-cpufreq-dt.ko \

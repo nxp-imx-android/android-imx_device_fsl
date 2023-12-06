@@ -114,7 +114,6 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/leds/leds-gpio.ko \
     $(KERNEL_OUT)/drivers/leds/leds-pca995x.ko \
     $(KERNEL_OUT)/drivers/gpio/gpio-pca953x.ko \
-    $(KERNEL_OUT)/drivers/thermal/device_cooling.ko \
     $(KERNEL_OUT)/drivers/perf/fsl_imx8_ddr_perf.ko \
     $(KERNEL_OUT)/drivers/cpufreq/cpufreq-dt.ko \
     $(KERNEL_OUT)/drivers/cpufreq/imx-cpufreq-dt.ko \
