@@ -585,6 +585,7 @@ endif
 # -------@block_neural_network-------
 # Neural Network HAL and Lib
 PRODUCT_PACKAGES += \
+    libovxlib \
     libtim-vx \
     libVsiSupportLibrary \
     android.hardware.neuralnetworks-shell-service-imx
