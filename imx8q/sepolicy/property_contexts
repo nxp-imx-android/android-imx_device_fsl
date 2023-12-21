@@ -13,6 +13,7 @@ vendor.all.setup_main.ready         u:object_r:vendor_public_default_prop:s0
 vendor.all.zygote_auto.ready        u:object_r:vendor_public_default_prop:s0
 vendor.all.system_server.ready      u:object_r:vendor_public_default_prop:s0
 vendor.all.system_server.start      u:object_r:vendor_public_default_prop:s0
+vendor.sys.hwc.disable              u:object_r:vendor_public_default_prop:s0
 vendor.hwc.disable.overlay          u:object_r:vendor_public_default_prop:s0
 vendor.hwc.prefer.2d-composition    u:object_r:vendor_public_default_prop:s0
 vendor.2d.ocl.enable                u:object_r:vendor_public_default_prop:s0
