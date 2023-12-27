@@ -120,6 +120,12 @@ on early-boot && property:vendor.skip.charger_not_need=0
     chown system system /sys/class/backlight/56228000.dsi_host.0/brightness
     chmod 0660 /sys/class/backlight/56228000.dsi_host.0/brightness
 
+    # Backup backlight device
+    setprop vendor.hw.backlight_backup.dev "lvds_backlight@1"
+    # Chmod/chown FSL specific sys entry
+    chown system system /sys/class/backlight/lvds_backlight@1/brightness
+    chmod 0660 /sys/class/backlight/lvds_backlight@1/brightness
+
     # Set light sensor threshold lux value
     setprop vendor.ro.lightsensor.threshold  20
 
