@@ -23,11 +23,15 @@
 
 # android.system.suspend@1.0-service
 /sys/devices/platform/soc@0/30000000.bus/30370000.snvs/30370000.snvs:snvs-powerkey/wakeup                                                         u:object_r:sysfs_wakeup:s0
+/sys/devices/platform/soc@0/30000000.bus/30370000.snvs/30370000.snvs:snvs-powerkey/wakeup/wakeup[0-9]*(/.*)?                                      u:object_r:sysfs_wakeup:s0
 /sys/devices/platform/soc@0/30000000.bus/30370000.snvs/30370000.snvs:snvs-rtc-lp/wakeup                                                           u:object_r:sysfs_wakeup:s0
+/sys/devices/platform/soc@0/30000000.bus/30370000.snvs/30370000.snvs:snvs-rtc-lp/wakeup/wakeup[0-9]*(/.*)?                                        u:object_r:sysfs_wakeup:s0
 /sys/devices/platform/soc@0/30000000.bus/30370000.snvs/30370000.snvs:snvs-rtc-lp/rtc/rtc0/alarmtimer.[0-9].auto/wakeup                            u:object_r:sysfs_wakeup:s0
+/sys/devices/platform/soc@0/30000000.bus/30370000.snvs/30370000.snvs:snvs-rtc-lp/rtc/rtc0/alarmtimer.[0-9].auto/wakeup/wakeup[0-9]*(/.*)?         u:object_r:sysfs_wakeup:s0
 /sys/devices/virtual/power_supply/battery/wakeup[0-9]*(/.*)?                                                                                      u:object_r:sysfs_wakeup:s0
 /sys/devices/virtual/power_supply/usb/wakeup[0-9]*(/.*)?                                                                                          u:object_r:sysfs_wakeup:s0
 /sys/devices/virtual/wakeup/wakeup[0-9]*(/.*)?                                                                                                    u:object_r:sysfs_wakeup:s0
 /sys/devices/platform/soc@0/30800000.bus/30a20000.i2c/i2c-0/0-0050/power_supply/tcpm-source-psy-0-0050/wakeup[0-9]*(/.*)?                         u:object_r:sysfs_wakeup:s0
 /sys/devices/platform/soc@0/30800000.bus/30be0000.ethernet/net/eth0/wakeup[0-9]*(/.*)?                                                            u:object_r:sysfs_wakeup:s0
 /sys/devices/platform/soc@0/33c00000.pcie/pci0001:00/0001:00:00.0/0001:01:00.[0-9]*(/.*)?/wakeup                                                  u:object_r:sysfs_wakeup:s0
+/sys/devices/platform/soc@0/33c00000.pcie/pci0001:00/0001:00:00.0/0001:01:00.[0-9]*(/.*)?/wakeup/wakeup[0-9]*(/.*)?                               u:object_r:sysfs_wakeup:s0
