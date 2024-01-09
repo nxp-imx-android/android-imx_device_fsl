@@ -58,8 +58,4 @@ ifeq ($(PRODUCT_IMX_CAR_M4),false)
 PRODUCT_PROPERTY_OVERRIDES += \
     vendor.vehicle.register=1 \
     vendor.evs.video.ready=1
-else
-#no bootanimation since it is handled in m4 image
-PRODUCT_PROPERTY_OVERRIDES += \
-    debug.sf.nobootanimation=1
 endif # PRODUCT_IMX_CAR_M4
